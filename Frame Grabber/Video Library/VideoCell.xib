@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="VideoCell" customModule="Frame_Grabber" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vx2-ge-Zww">
+                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                </imageView>
+                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yC-zg-INW" userLabel="Selection View">
+                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0D7-Ki-xnD" customClass="VideoCellGradientView" customModule="Frame_Grabber" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="80" width="100" height="20"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="WPX-85-daU"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="JrY-Xy-zzI"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="WRp-lZ-oLR">
+                    <rect key="frame" x="4" y="80" width="16" height="16"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:02" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-uX-oLc">
+                    <rect key="frame" x="67" y="82" width="29" height="16"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Kka-uX-oLc" secondAttribute="trailing" constant="4" id="2O2-7T-lOd"/>
+                <constraint firstItem="0D7-Ki-xnD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="3CY-pq-T72"/>
+                <constraint firstItem="0D7-Ki-xnD" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="EQO-f1-MxI"/>
+                <constraint firstItem="Vx2-ge-Zww" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="H8h-dW-a5l"/>
+                <constraint firstItem="Vx2-ge-Zww" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="IQz-gX-qKP"/>
+                <constraint firstItem="5yC-zg-INW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="K3D-R4-Cer"/>
+                <constraint firstItem="5yC-zg-INW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Ont-LE-ffA"/>
+                <constraint firstItem="5yC-zg-INW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="V12-mh-BkE"/>
+                <constraint firstItem="0D7-Ki-xnD" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="acY-Uz-ctp"/>
+                <constraint firstItem="Kka-uX-oLc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WRp-lZ-oLR" secondAttribute="trailing" constant="8" id="bMq-4t-aFO"/>
+                <constraint firstItem="WRp-lZ-oLR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="4" id="jxO-BG-ja9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Kka-uX-oLc" secondAttribute="bottom" constant="2" id="kPw-Jo-NDQ"/>
+                <constraint firstItem="Vx2-ge-Zww" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="lgU-7H-lmy"/>
+                <constraint firstItem="5yC-zg-INW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="nvv-nw-TWw"/>
+                <constraint firstItem="Vx2-ge-Zww" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="olz-iP-E57"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="WRp-lZ-oLR" secondAttribute="bottom" constant="4" id="wYH-IP-Sfw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="durationLabel" destination="Kka-uX-oLc" id="2fP-A6-Dzb"/>
+                <outlet property="favoritedImageView" destination="WRp-lZ-oLR" id="QYC-oL-ax2"/>
+                <outlet property="imageView" destination="Vx2-ge-Zww" id="mW3-pi-xUz"/>
+                <outlet property="selectionView" destination="5yC-zg-INW" id="AqA-dh-jnN"/>
+            </connections>
+            <point key="canvasLocation" x="-336" y="-208"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="heart" width="16" height="16"/>
+    </resources>
+</document>

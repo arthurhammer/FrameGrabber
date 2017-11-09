@@ -45,11 +45,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Frame Grabber" id="YVF-mI-NwU">
-                        <barButtonItem key="leftBarButtonItem" image="settings" id="sdG-NZ-rZU">
-                            <connections>
-                                <segue destination="bJg-IN-lbj" kind="show" id="TOX-41-BP0"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="gear" id="sdG-NZ-rZU"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -75,6 +71,57 @@
             </objects>
             <point key="canvasLocation" x="140" y="381"/>
         </scene>
+        <!--Photos Access View Controller-->
+        <scene sceneID="lZG-50-2uN">
+            <objects>
+                <viewController storyboardIdentifier="PhotosAccessViewController" id="axY-S1-c0P" customClass="PhotosAccessViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bh7-CZ-j6f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frame Grabber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-sl-kdv">
+                                <rect key="frame" x="89" y="101" width="197" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="2" height="0.0"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Save video frames as photos." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpm-LN-Nau">
+                                <rect key="frame" x="75" y="149" width="225" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiR-sk-5a1">
+                                <rect key="frame" x="142" y="513" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Allow Access"/>
+                                <connections>
+                                    <action selector="allowAccess" destination="axY-S1-c0P" eventType="touchUpInside" id="iCP-YJ-9GX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To access your videos, allow Frame Grabber to access your Photo Library." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Da8-nN-4bq">
+                                <rect key="frame" x="16" y="455" width="359" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="N7d-s2-zKU"/>
+                    </view>
+                    <connections>
+                        <outlet property="allowAccessButton" destination="IiR-sk-5a1" id="ma1-7Y-Gxk"/>
+                        <outlet property="view" destination="bh7-CZ-j6f" id="9GX-W8-zzt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tzy-dX-PwB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="956" y="-349"/>
+        </scene>
         <!--Video Library View Controller-->
         <scene sceneID="VUp-D9-yHz">
             <objects>
@@ -97,55 +144,30 @@
                         </connections>
                     </collectionView>
                     <connections>
-                        <outlet property="backgroundView" destination="mdK-Dw-gfC" id="32c-Dv-s1i"/>
+                        <outlet property="backgroundView" destination="mdK-Dw-gfC" id="0cm-uU-JMJ"/>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="mdK-Dw-gfC" customClass="VideoLibraryBackgroundView" customModule="Frame_Grabber" customModuleProvider="target">
+                <view contentMode="scaleToFill" id="mdK-Dw-gfC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="132"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="y3B-9b-hYZ">
-                            <rect key="frame" x="97" y="37.5" width="182.5" height="57.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Videos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-yI-LSI">
-                                    <rect key="frame" x="33.5" y="0.0" width="115.5" height="31.5"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take a video to get started" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFG-js-MJL">
-                                    <rect key="frame" x="0.0" y="39.5" width="182.5" height="18"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5I-ae-i3x">
+                            <rect key="frame" x="124" y="53" width="120" height="27"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <state key="normal" title="No Videos">
+                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="y3B-9b-hYZ" firstAttribute="centerX" secondItem="mdK-Dw-gfC" secondAttribute="centerX" id="7eq-pW-BfT"/>
-                        <constraint firstItem="y3B-9b-hYZ" firstAttribute="centerY" secondItem="mdK-Dw-gfC" secondAttribute="centerY" id="dDx-3f-QHI"/>
-                    </constraints>
                     <viewLayoutGuide key="safeArea" id="6BE-aJ-Rmx"/>
-                    <connections>
-                        <outlet property="messageLabel" destination="fFG-js-MJL" id="Tee-ra-hRi"/>
-                        <outlet property="titleLabel" destination="qtf-yI-LSI" id="hj2-8o-Ioa"/>
-                    </connections>
                 </view>
             </objects>
             <point key="canvasLocation" x="1790" y="729"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="cUf-jc-hJa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="bJg-IN-lbj" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aJ6-Yx-Jfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1633" y="-140"/>
         </scene>
         <!--Video View Controller-->
         <scene sceneID="qXF-b0-AVm">
@@ -349,9 +371,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gear" width="25" height="25"/>
         <image name="next" width="25" height="25"/>
         <image name="prev" width="25" height="25"/>
-        <image name="settings" width="25" height="25"/>
         <image name="share" width="25" height="25"/>
     </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
