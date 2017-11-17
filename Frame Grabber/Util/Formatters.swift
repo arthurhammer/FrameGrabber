@@ -16,7 +16,7 @@ class VideoDurationFormatter {
     }
 }
 
-class VideoTimeFormatter {
+class VideoCurrentTimeFormatter {
     
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -28,5 +28,20 @@ class VideoTimeFormatter {
     func string(from time: CMTime) -> String {
         let date = Date(timeIntervalSince1970: time.seconds)
         return formatter.string(from: date)
+    }
+}
+
+class VideoDimensionFormatter {
+    func string(from dimension: VideoDimension) -> String? {
+        guard dimension.isValidVideoDimension else { return nil }
+        return "\(Int(dimension.width)) 𝖷 \(Int(dimension.height))"
+    }
+}
+
+typealias VideoDimension = CGSize
+
+extension VideoDimension {
+    var isValidVideoDimension: Bool {
+        return width > 0 && height > 0
     }
 }

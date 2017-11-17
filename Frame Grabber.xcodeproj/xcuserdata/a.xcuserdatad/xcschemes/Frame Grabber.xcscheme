@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "001AA1741FB4977100A00BB9"
+               BlueprintIdentifier = "009C65621FBF32A600DB25A6"
                BuildableName = "Frame Grabber.app"
                BlueprintName = "Frame Grabber"
                ReferencedContainer = "container:Frame Grabber.xcodeproj">
@@ -43,7 +43,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "001AA1741FB4977100A00BB9"
+            BlueprintIdentifier = "009C65621FBF32A600DB25A6"
             BuildableName = "Frame Grabber.app"
             BlueprintName = "Frame Grabber"
             ReferencedContainer = "container:Frame Grabber.xcodeproj">
@@ -67,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "001AA1741FB4977100A00BB9"
+            BlueprintIdentifier = "009C65621FBF32A600DB25A6"
             BuildableName = "Frame Grabber.app"
             BlueprintName = "Frame Grabber"
             ReferencedContainer = "container:Frame Grabber.xcodeproj">
@@ -86,7 +86,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "001AA1741FB4977100A00BB9"
+            BlueprintIdentifier = "009C65621FBF32A600DB25A6"
             BuildableName = "Frame Grabber.app"
             BlueprintName = "Frame Grabber"
             ReferencedContainer = "container:Frame Grabber.xcodeproj">

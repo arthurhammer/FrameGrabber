@@ -7,10 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        UINavigationBar.appearance().barTintColor = .mainBackgroundColor
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().shadowImage = UIImage()
-
+        configureViews()
         return true
     }
 
@@ -34,5 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    private func configureViews() {
+        UINavigationBar.appearance().barTintColor = .mainBackground
+        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().shadowImage = UIImage()
+
+        UIToolbar.appearance().barTintColor = .mainBackground
+        UIToolbar.appearance().tintColor = .white
     }
 }

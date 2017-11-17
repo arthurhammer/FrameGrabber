@@ -4,13 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Frame Grabber Action Extension.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
 		<key>Frame Grabber.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
@@ -28,6 +25,11 @@
 			<true/>
 		</dict>
 		<key>0057C5C81FBE0BC6008B7E08</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>009C65621FBF32A600DB25A6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
