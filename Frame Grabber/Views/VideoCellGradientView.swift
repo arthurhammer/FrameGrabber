@@ -2,21 +2,17 @@ import UIKit
 
 class VideoCellGradientView: UIView {
 
-    private lazy var gradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.black.withAlphaComponent(0).cgColor,
-                           UIColor.black.withAlphaComponent(0.7).cgColor]
-        layer.addSublayer(gradient)
-        return gradient
-    }()
+    override static var layerClass: AnyClass {
+        return CAGradientLayer.self
+    }
+
+    var gradientLayer: CAGradientLayer {
+        return layer as! CAGradientLayer
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .clear
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradient.frame = bounds
+        gradientLayer.colors = [UIColor.black.withAlphaComponent(0).cgColor,
+                                UIColor.black.withAlphaComponent(0.7).cgColor]
     }
 }

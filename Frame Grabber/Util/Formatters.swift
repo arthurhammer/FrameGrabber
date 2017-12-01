@@ -16,32 +16,49 @@ class VideoDurationFormatter {
     }
 }
 
-class VideoCurrentTimeFormatter {
+class VideoTimeFormatter {
     
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
-        formatter.setLocalizedDateFormatFromTemplate("mm:ss.SS")  // TODO: Hours
         return formatter
     }()
 
-    func string(from time: CMTime) -> String {
+    // TODO: Hours
+    func string(fromCurrentTime time: CMTime, includeMilliseconds: Bool = true) -> String {
+        let format = includeMilliseconds ? "mm:ss.SS" : "mm:ss"
+        return string(from: time, localizedFormatTemplate: format)
+    }
+
+    func string(fromRemainingTime time: CMTime) -> String {
+        return string(from: time, localizedFormatTemplate: "mm:ss")
+    }
+
+    func string(from time: CMTime, localizedFormatTemplate: String) -> String {
+        guard time.isReallyReallyValid else { return "--:--" }
+
         let date = Date(timeIntervalSince1970: time.seconds)
+        formatter.setLocalizedDateFormatFromTemplate(localizedFormatTemplate)
         return formatter.string(from: date)
     }
 }
 
 class VideoDimensionFormatter {
-    func string(from dimension: VideoDimension) -> String? {
-        guard dimension.isValidVideoDimension else { return nil }
-        return "\(Int(dimension.width)) 𝖷 \(Int(dimension.height))"
+    func string(from size: CGSize) -> String? {
+        guard size.isValidVideoDimension else { return nil }
+        return "\(Int(size.width)) 𝖷 \(Int(size.height))"
     }
 }
 
-typealias VideoDimension = CGSize
-
-extension VideoDimension {
+private extension CGSize {
     var isValidVideoDimension: Bool {
         return width > 0 && height > 0
+    }
+}
+
+// ???
+private extension CMTime {
+    var isReallyReallyValid: Bool {
+        return isValid && isNumeric && !isNegativeInfinity && !isPositiveInfinity && !isIndefinite
     }
 }

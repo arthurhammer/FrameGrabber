@@ -1,25 +1,49 @@
 import AVKit
 
+extension AVPlayer {
+
+    var isPlaying: Bool {
+        return rate != 0
+    }
+
+    func playOrPause() {
+        rate = isPlaying ? 0 : 1
+    }
+
+    /// True if the current item supports stepping forward and backward.
+    /// Status changes with the current item.
+    /// Returns `false` prior to an item being ready to play.
+    var canStep: Bool {
+        guard let item = currentItem, item.status == .readyToPlay else { return false }
+        return item.canStepBackward && item.canStepForward
+    }
+
+    func stepForward() {
+        step(by: 1)
+    }
+
+    func stepBackward() {
+        step(by: -1)
+    }
+
+    func step(by count: Int) {
+        pause()
+        currentItem?.step(byCount: count)
+    }
+}
+
 extension CMTime {
     static let zero = kCMTimeZero
 
-    init(interval: TimeInterval, preferredTimeScale: CMTimeScale = CMTimeScale(NSEC_PER_SEC)) {
-        self.init(seconds: interval, preferredTimescale: preferredTimeScale)
+    init(seconds: Double, preferredTimeScale: CMTimeScale = CMTimeScale(NSEC_PER_SEC)) {
+        self.init(seconds: seconds, preferredTimescale: preferredTimeScale)
     }
 }
 
 extension AVAssetImageGenerator {
 
+    /// Note: When the method returns `requestedTimeToleranceAfter`/`requestedTimeToleranceBefore` will be `kCMTimeZero`.
     func copyCGImage(atExactTime time: CMTime, handler: (Error?, CGImage?) -> ()) {
-        // Save/restore state
-        let oldToleranceBefore = requestedTimeToleranceBefore
-        let oldToleranceAfter = requestedTimeToleranceAfter
-
-        let restoreState = { 
-            self.requestedTimeToleranceBefore = oldToleranceBefore
-            self.requestedTimeToleranceAfter = oldToleranceAfter
-        }
-
         requestedTimeToleranceBefore = .zero
         requestedTimeToleranceAfter = .zero
 
@@ -28,12 +52,10 @@ extension AVAssetImageGenerator {
         do {
             image = try copyCGImage(at: time, actualTime: nil)
         } catch let error {
-            restoreState()
             handler(error, nil)
             return
         }
 
-        restoreState()
         handler(nil, image)
     }
 }

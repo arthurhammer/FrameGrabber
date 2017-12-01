@@ -92,7 +92,7 @@ extension VideoLibraryCollectionViewDataSource: UICollectionViewDataSource, UICo
 
 extension VideoLibraryCollectionViewDataSource: CollectionViewPhotoLibraryChangeUpdaterDelegate {
 
-    func didApplyPhotoLibraryChanges(_ changes: PHFetchResultChangeDetails<PHAsset>) {
+    func changeUpdater(_ updater: CollectionViewPhotoLibraryChangeUpdater, didApplyPhotoLibraryChanges changes: PHFetchResultChangeDetails<PHAsset>) {
         // Assets changed, stop caching.
         // Caching resumes on next prefetch or images are generated directly.
         imageManager.stopCachingImagesForAllAssets()

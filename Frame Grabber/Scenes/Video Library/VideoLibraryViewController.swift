@@ -21,8 +21,9 @@ class VideoLibraryViewController: UICollectionViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? VideoPlayerViewController,
-            let asset = sender as? PHAsset {
+        if let controller = segue.destination as? PlayerViewController,
+            let indexPath = collectionView?.indexPathsForSelectedItems?.first,
+            let asset = dataSource?.asset(at: indexPath ) {
 
             controller.video = Video(asset: asset)
         }
@@ -33,16 +34,12 @@ class VideoLibraryViewController: UICollectionViewController {
     private let statusViewController = VideoLibraryStatusViewController()
     private var dataSource: VideoLibraryCollectionViewDataSource?
     private lazy var layout = Layout(viewWidth: self.view.frame.size.width)
+    private lazy var durationFormatter = VideoDurationFormatter()
 }
 
 // MARK: - UICollectionViewDelegate
 
 extension VideoLibraryViewController {
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let dataSource = dataSource else { return }
-        performSegue(withIdentifier: Identifier.videoPlayerSegue, sender: dataSource.asset(at: indexPath))
-    }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoCell else { return }
@@ -74,7 +71,6 @@ extension VideoLibraryViewController: VideoLibraryStatusViewControllerDelegate {
 private extension VideoLibraryViewController {
 
     func configureViews() {
-        registerCell()
         collectionView?.delegate = self
         collectionView?.backgroundColor = .mainBackground
         collectionView?.collectionViewLayout = layout.collectionViewLayout
@@ -102,11 +98,6 @@ private extension VideoLibraryViewController {
         updateStatusViewController()
     }
 
-    func registerCell() {
-        let cellNib = UINib(nibName: Identifier.cell, bundle: nil)
-        collectionView?.register(cellNib, forCellWithReuseIdentifier: Identifier.cell)
-    }
-
     func cell(for asset: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: Identifier.cell, for: indexPath) as? VideoCell else {
             fatalError("Wrong cell identifier or type.")
@@ -118,7 +109,7 @@ private extension VideoLibraryViewController {
 
     func configure(cell: VideoCell, for asset: PHAsset) {
         cell.assetIdentifier = asset.localIdentifier
-        cell.durationLabel.text = VideoDurationFormatter().string(from: asset.duration)
+        cell.durationLabel.text = durationFormatter.string(from: asset.duration)
         cell.favoritedImageView.isHidden = !asset.isFavorite
 
         cell.imageRequest = dataSource?.thumbnail(for: asset) { image, _ in
@@ -131,7 +122,7 @@ private extension VideoLibraryViewController {
 
 private struct Identifier {
     static let cell = VideoCell.className
-    static let videoPlayerSegue = VideoPlayerViewController.className
+    static let videoPlayerSegue = PlayerViewController.className
 }
 
 private struct Layout {

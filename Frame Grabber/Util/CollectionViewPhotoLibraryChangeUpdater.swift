@@ -2,16 +2,17 @@ import UIKit
 import Photos
 
 protocol CollectionViewPhotoLibraryChangeUpdaterDelegate: class {
-    func willApplyPhotoLibraryChanges(_ changes: PHFetchResultChangeDetails<PHAsset>)
-    func didApplyPhotoLibraryChanges(_ changes: PHFetchResultChangeDetails<PHAsset>)
+    func changeUpdater(_ updater: CollectionViewPhotoLibraryChangeUpdater, willApplyPhotoLibraryChanges changes: PHFetchResultChangeDetails<PHAsset>)
+    func changeUpdater(_ updater: CollectionViewPhotoLibraryChangeUpdater, didApplyPhotoLibraryChanges changes: PHFetchResultChangeDetails<PHAsset>)
 }
 
 extension CollectionViewPhotoLibraryChangeUpdaterDelegate {
-    func willApplyPhotoLibraryChanges(_ changes: PHFetchResultChangeDetails<PHAsset>) {}
-    func didApplyPhotoLibraryChanges(_ changes: PHFetchResultChangeDetails<PHAsset>) {}
+    func changeUpdater(_ updater: CollectionViewPhotoLibraryChangeUpdater, willApplyPhotoLibraryChanges changes: PHFetchResultChangeDetails<PHAsset>) {}
+    func changeUpdater(_ updater: CollectionViewPhotoLibraryChangeUpdater, didApplyPhotoLibraryChanges changes: PHFetchResultChangeDetails<PHAsset>) {}
 }
 
 /// Observes Photo Library changes from a `PHFetchResult` and applies them to a collection view.
+/// Supports a single section only.
 class CollectionViewPhotoLibraryChangeUpdater {
 
     weak var delegate: CollectionViewPhotoLibraryChangeUpdaterDelegate?
@@ -20,19 +21,21 @@ class CollectionViewPhotoLibraryChangeUpdater {
         return observer.fetchResult
     }
 
-    private let observer: PHFetchResultChangeObserver<PHAsset>
-    private weak var collectionView: UICollectionView?
-
     init(collectionView: UICollectionView, fetchResult: PHFetchResult<PHAsset>) {
         self.collectionView = collectionView
         self.observer = PHFetchResultChangeObserver(fetchResult: fetchResult)
 
-        self.observer.changeHandler = { [weak self] _, details in
-            self?.delegate?.willApplyPhotoLibraryChanges(details)
-            self?.performBatchUpdates(for: details)
-            self?.delegate?.didApplyPhotoLibraryChanges(details)
+        self.observer.changeHandler = { [unowned self] _, details in
+            self.delegate?.changeUpdater(self, willApplyPhotoLibraryChanges: details)
+            self.performBatchUpdates(for: details)
+            self.delegate?.changeUpdater(self, didApplyPhotoLibraryChanges: details)
         }
     }
+
+    // MARK: - Private
+
+    private let observer: PHFetchResultChangeObserver<PHAsset>
+    private weak var collectionView: UICollectionView?
 
     private func performBatchUpdates(for changes: PHFetchResultChangeDetails<PHAsset>) {
         guard changes.hasIncrementalChanges else {
@@ -59,5 +62,12 @@ class CollectionViewPhotoLibraryChangeUpdater {
                                               to: IndexPath(item: toIndex, section: 0))
             }
         })
+    }
+}
+
+private extension IndexSet {
+    /// An array of `IndexPath`s from an `IndexSet` with sections set to 0.
+    var indexPaths: [IndexPath] {
+        return map { IndexPath(item: $0, section: 0) }
     }
 }

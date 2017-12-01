@@ -24,6 +24,7 @@ class Video {
 
     private(set) var status: VideoStatus = .notLoaded {
         didSet {
+            var finished = false
 
             switch (oldValue, status) {
 
@@ -34,22 +35,29 @@ class Video {
             // Canceled, failed, finished: Clean up request
             case (.loading, .notLoaded), (.loading, .failed), (.loading, .loaded):
                 performCancelPlayerItem()
+                finished = true
 
             // Invalid transition
             default:
                 status = oldValue
             }
 
-            // In case of invalid transitions (e.g. requested loading while already loaded) send the current status for info
+            // Send status even when nothing changed
             updateHandler?(self, status)
+
+            if finished {
+                updateHandler = nil
+            }
         }
     }
 
-    init(asset: PHAsset) {
+    init(asset: PHAsset, requestOptions: PHVideoRequestOptions = .video()) {
         self.asset = asset
+        self.requestOptions = requestOptions
     }
 
     /// The previous update handler is discarded and all new status changes are reported to the provided one.
+    /// The video discards the handler when loading stops for any reason.
     func loadPlayerItem(updateHandler: @escaping UpdateHandler) {
         self.updateHandler = updateHandler
         status = .loading
@@ -61,6 +69,7 @@ class Video {
 
     private var updateHandler: UpdateHandler?
     private var playerItemRequest: PlayerItemRequest?
+    private let requestOptions: PHVideoRequestOptions
 }
 
 // MARK: - Private

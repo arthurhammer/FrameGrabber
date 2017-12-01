@@ -11,30 +11,25 @@ class VideoCell: UICollectionViewCell {
     var imageRequest: ImageRequest?
 
     override var isSelected: Bool {
-        didSet {
-            updateViews()
-        }
+        didSet { updateViews() }
     }
 
     override var isHighlighted: Bool {
-        didSet {
-            updateViews()
-        }
+        didSet { updateViews() }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        backgroundColor = .darkGray  // When no thumbnail set
+        backgroundColor = .darkGray  // When thumbnail missing
+        selectionView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
 
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-
-        selectionView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
-        selectionView.alpha = 0
-
         favoritedImageView.tintColor = .white
         favoritedImageView.isHidden = true
+
+        updateViews()
     }
 
     override func prepareForReuse() {

@@ -31,8 +31,6 @@ class StatusView: UIView {
     }
 
     private func configureViews() {
-        backgroundColor = .clear
-
         titleLabel.textColor = .white
         messageLabel.textColor = .white
 

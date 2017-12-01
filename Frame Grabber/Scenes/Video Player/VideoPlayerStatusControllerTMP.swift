@@ -21,7 +21,7 @@ class VideoPlayerStatusControllerTMP: UIViewController {
     }
 
     private func configureViews() {
-        view.backgroundColor = .videoPlayerBackground // TODO
+        view.backgroundColor = .mainBackground // TODO
 
         previewImageView.contentMode = .scaleAspectFit
         previewImageView.image = previewImage  // Image might have been set before `viewDidLoad`

@@ -34,11 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func configureViews() {
-        UINavigationBar.appearance().barTintColor = .mainBackground
-        UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().shadowImage = UIImage()
-
-        UIToolbar.appearance().barTintColor = .mainBackground
-        UIToolbar.appearance().tintColor = .white
     }
 }

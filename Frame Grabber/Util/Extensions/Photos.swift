@@ -28,27 +28,9 @@ extension PHPhotoLibrary {
     }
 }
 
-extension PHPhotoLibraryChangeObserver {
-
-    func startObservingPhotoLibrary() {
-        PHPhotoLibrary.shared().register(self)
-    }
-
-    func stopObservingPhotoLibrary() {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
-    }
-}
-
-
 extension PHFetchResult  {
     @objc var isEmpty: Bool {
         return count == 0
-    }
-}
-
-extension PHAsset {
-    var pixelSize: CGSize {
-        return CGSize(width: pixelWidth, height: pixelHeight)
     }
 }
 

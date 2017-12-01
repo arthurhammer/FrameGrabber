@@ -10,11 +10,11 @@ class PHFetchResultChangeObserver<T>: NSObject, PHPhotoLibraryChangeObserver whe
     init(fetchResult: PHFetchResult<T>) {
         self.fetchResult = fetchResult
         super.init()
-        startObservingPhotoLibrary()
+        PHPhotoLibrary.shared().register(self)
     }
 
     deinit {
-        stopObservingPhotoLibrary()
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
 
     func photoLibraryDidChange(_ change: PHChange) {
