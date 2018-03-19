@@ -56,7 +56,9 @@ class PlayerSeeker {
         nextSeek = info
 
         if !isSeeking {
-            pause()
+            if player.rate > 0 {
+                player.pause()
+            }
             startNextSeek()
         }
     }
