@@ -6,7 +6,7 @@ class CollectionViewGridLayout: UICollectionViewFlowLayout {
     let minimumItemsPerRow: Int
     let itemSpacing: CGFloat
 
-    init(preferredItemWidth: CGFloat = 100, minimumItemsPerRow: Int = 3, itemSpacing: CGFloat = 1) {
+    init(preferredItemWidth: CGFloat = 100, minimumItemsPerRow: Int = 3, itemSpacing: CGFloat = 2) {
         self.preferredItemWidth = preferredItemWidth
         self.minimumItemsPerRow = minimumItemsPerRow
         self.itemSpacing = itemSpacing

@@ -38,8 +38,8 @@ class PlayerOverlayView: UIView {
 private extension UIView {
     func applyDefaultOverlayShadow() {
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.6
-        layer.shadowRadius = 5
-        layer.shadowOffset = .zero
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 4
+        layer.shadowOffset = CGSize(width: 0, height: 2)
     }
 }
