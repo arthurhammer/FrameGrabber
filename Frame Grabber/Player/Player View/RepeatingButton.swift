@@ -16,6 +16,18 @@ class RepeatingButton: UIButton {
         configureViews()
     }
 
+    override var isEnabled: Bool {
+        didSet {
+            if !isEnabled { cancelTimer() }
+        }
+    }
+
+    override var isUserInteractionEnabled: Bool {
+        didSet {
+            if !isUserInteractionEnabled { cancelTimer() }
+        }
+    }
+
     deinit {
         cancelTimer()
     }
