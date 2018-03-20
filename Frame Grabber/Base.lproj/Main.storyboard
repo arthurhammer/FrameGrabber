@@ -196,9 +196,6 @@
                                                                     <constraint firstAttribute="width" constant="32" id="ia1-dU-7FI"/>
                                                                 </constraints>
                                                                 <state key="normal" image="prev"/>
-                                                                <connections>
-                                                                    <action selector="stepBackward" destination="1Cw-ag-d47" eventType="touchUpInside" id="WwZ-Uk-F0b"/>
-                                                                </connections>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QDE-Bl-tW9" userLabel="Play Button">
                                                                 <rect key="frame" x="134.66666666666666" y="0.0" width="74.333333333333343" height="32"/>
@@ -226,9 +223,6 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                                 <rect key="frame" x="311.33333333333331" y="0.33333333333337301" width="31.666666666666686" height="31.666666666666671"/>
                                                                 <state key="normal" image="next"/>
-                                                                <connections>
-                                                                    <action selector="stepForward" destination="1Cw-ag-d47" eventType="touchUpInside" id="ZjD-xd-1WV"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>

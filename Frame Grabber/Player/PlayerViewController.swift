@@ -56,12 +56,12 @@ private extension PlayerViewController {
         playbackController?.playOrPause()
     }
 
-    @IBAction func stepBackward() {
+    func stepBackward() {
         guard !isScrubbing else { return }
         playbackController?.stepBackward()
     }
 
-    @IBAction func stepForward() {
+    func stepForward() {
         guard !isScrubbing else { return }
         playbackController?.stepForward()
     }
