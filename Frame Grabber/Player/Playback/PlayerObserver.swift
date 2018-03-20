@@ -10,6 +10,7 @@ protocol PlayerObserverDelegate: class {
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus)
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime)
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdatePresentationSize size: CGSize)
 }
 
 extension PlayerObserverDelegate {
@@ -22,6 +23,7 @@ extension PlayerObserverDelegate {
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {}
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {}
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdatePresentationSize size: CGSize) {}
 }
 
 class PlayerObserver {
@@ -91,6 +93,11 @@ private extension PlayerObserver {
         add(player.observe(\.currentItem?.duration, options: kvoOptions) { [weak self] player, _ in
             guard let item = player.currentItem else { return }
             self?.delegate?.currentPlayerItem(item, didUpdateDuration: item.duration)
+        })
+
+        add(player.observe(\.currentItem?.presentationSize, options: kvoOptions) { [weak self] player, _ in
+            guard let item = player.currentItem else { return }
+            self?.delegate?.currentPlayerItem(item, didUpdatePresentationSize: item.presentationSize)
         })
     }
 

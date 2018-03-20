@@ -156,14 +156,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-p1-yCF" customClass="PlayerTitleView" customModule="Frame_Grabber" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="89.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="109.33333333333333"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6ou-O6-Dgw">
-                                                <rect key="frame" x="131.33333333333334" y="52" width="113.33333333333334" height="21.666666666666671"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6ou-O6-Dgw">
+                                                <rect key="frame" x="131.33333333333334" y="52" width="113.33333333333334" height="41.333333333333343"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Frame" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP2-FO-hcM">
                                                         <rect key="frame" x="0.0" y="0.0" width="113.33333333333333" height="21.666666666666668"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1920 ✕ 1080" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qH-Qo-DrV">
+                                                        <rect key="frame" x="17.333333333333314" y="25.666666666666675" width="78.666666666666671" height="15.666666666666668"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -177,6 +183,7 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="1SB-SY-HSZ"/>
                                         <connections>
+                                            <outlet property="detailTitleLabel" destination="9qH-Qo-DrV" id="mpB-q9-InT"/>
                                             <outlet property="titleLabel" destination="bP2-FO-hcM" id="0Uw-9W-3wX"/>
                                         </connections>
                                     </view>

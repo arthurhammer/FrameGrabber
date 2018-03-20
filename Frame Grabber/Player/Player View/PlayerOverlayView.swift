@@ -21,6 +21,7 @@ class PlayerOverlayView: UIView {
         controlsView.colors = UIColor.playerOverlayControlsGradient
 
         let shadowViews: [UIView] = [titleView.titleLabel,
+                                     titleView.detailTitleLabel,
                                      controlsView.closeButton,
                                      controlsView.timeSlider,
                                      controlsView.timeLabel,

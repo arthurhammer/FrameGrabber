@@ -19,6 +19,7 @@ class PlayerViewController: UIViewController {
     private var playbackController: PlaybackController?
     private var imageGenerator: AVAssetImageGenerator?
     private lazy var timeFormatter = VideoTimeFormatter()
+    private lazy var dimensionFormatter = VideoDimensionFormatter()
 
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
     @IBOutlet private var overlayView: PlayerOverlayView!
@@ -128,6 +129,10 @@ extension PlayerViewController: PlaybackControllerDelegate {
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {
         updateSlider(withDuration: duration)
     }
+
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdatePresentationSize size: CGSize) {
+        updateDimensionsLabel(withSize: size)
+    }
 }
 
 // MARK: - Private
@@ -147,6 +152,7 @@ private extension PlayerViewController {
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateViews(withTime: .zero)
+        updateDimensionsLabel(withSize: .zero)
         updateViewsForPlayer()
     }
 
@@ -178,6 +184,16 @@ private extension PlayerViewController {
 
     func updatePlayButton(withStatus status: AVPlayerTimeControlStatus) {
         overlayView.controlsView.playButton.setTimeControlStatus(status)
+    }
+
+    func updateDimensionsLabel(withSize size: CGSize) {
+        // Prefer player item size if available, might be different from Photos asset size
+        let playerItemSize = size
+        let phAssetSize = CGSize(width: videoLoader.asset.pixelWidth, height: videoLoader.asset.pixelHeight)
+        let size = (playerItemSize == .zero) ? phAssetSize : playerItemSize
+
+        let dimensions = dimensionFormatter.string(from: size)
+        overlayView.titleView.detailTitleLabel.text = dimensions
     }
 
     func updateViews(withTime time: CMTime) {
