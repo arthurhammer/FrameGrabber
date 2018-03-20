@@ -4,23 +4,30 @@ extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         let title = NSLocalizedString("Couldn't load video from iCloud.", comment: "")
-        let okTitle = NSLocalizedString("OK", comment: "")
-
-        let controller = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let ok = UIAlertAction(title: okTitle, style: .default, handler: okHandler)
-        controller.addAction(ok)
-
-        return controller
+        return genericController(withTitle: title, okHandler: okHandler)
     }
 
     static func playbackFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         let title = NSLocalizedString("Item couldn't be played.", comment: "")
-        let okTitle = NSLocalizedString("OK", comment: "")
+        return genericController(withTitle: title, okHandler: okHandler)
+    }
 
-        let controller = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let ok = UIAlertAction(title: okTitle, style: .default, handler: okHandler)
-        controller.addAction(ok)
+    static func imageGenerationFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let title = NSLocalizedString("Sorry, couldn't grab image.", comment: "")
+        return genericController(withTitle: title, okHandler: okHandler)
+    }
 
+    static func genericController(withTitle title: String?, message: String? = nil, preferredStyle: UIAlertControllerStyle = .alert, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let controller = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        controller.addAction(.ok(handler: okHandler))
         return controller
+    }
+}
+
+extension UIAlertAction {
+
+    static func ok(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
+        let title = NSLocalizedString("OK", comment: "")
+        return UIAlertAction(title: title, style: .default, handler: handler)
     }
 }

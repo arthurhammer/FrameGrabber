@@ -7,14 +7,15 @@ struct SeekInfo {
 }
 
 /// Implements "smooth seeking" as described in QA1820.
-/// - Note: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html)
+/// - Note: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html),
+///         see also: [AV Foundation Release Notes for iOS 5](https://developer.apple.com/library/content/releasenotes/AudioVideo/RN-AVFoundation/index.html#//apple_ref/doc/uid/TP40010717-CH1-DontLinkElementID_6).
 class PlayerSeeker {
 
     private let player: AVPlayer
 
     /// True if the seeker is performing a seek.
     /// - Note: Seeks started on the receiver's player directly (`player.seek`) are not
-    ///   included.
+    ///   included. Avoid doing so.
     var isSeeking: Bool {
         return currentSeek != nil
     }
@@ -42,15 +43,15 @@ class PlayerSeeker {
     /// are started when invoked in succession (such as from a `UISlider`). When the
     /// current seek finishes, the latest of the enqueued ones is started.
     ///
-    /// To start a seek immediately, cancel pending seeks explicitly.
+    /// To start a seek immediately cancel pending seeks explicitly prior to calling this.
     ///
     /// - Note: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html)
-    func seek(to time: CMTime, toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
+    func smoothlySeek(to time: CMTime, toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
         let info = SeekInfo(time: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
-        seek(with: info)
+        smoothlySeek(with: info)
     }
 
-    func seek(with info: SeekInfo) {
+    func smoothlySeek(with info: SeekInfo) {
         guard info.time != player.currentTime() else { return }
 
         nextSeek = info
@@ -69,39 +70,26 @@ class PlayerSeeker {
         currentSeek = next
         nextSeek = nil
 
-        player.seek(with: next) { [weak self] finished in
+        player.seek(with: currentSeek!) { [weak self] finished in
             self?.didFinishCurrentSeek(wasCancelled: !finished)
         }
     }
 
     private func didFinishCurrentSeek(wasCancelled: Bool) {
         currentSeek = nil
+
         let continueSeeking = !wasCancelled && (nextSeek != nil)
 
         if continueSeeking {
             startNextSeek()
         } else {
-            didFinishAllSeeks(wasCancelled: wasCancelled)
+            didFinishAllSeeks()
         }
     }
 
-    private func didFinishAllSeeks(wasCancelled: Bool) {
+    private func didFinishAllSeeks() {
         currentSeek = nil
         nextSeek = nil
-    }
-
-    /// Utility.
-    /// Cancels pending seeks and starts a new seek to the final seek time with the given
-    /// tolerance. This can be used in certain situations to finish seeking faster, e.g.
-    /// by using higher tolerances than the pending seeks and/or by replacing two pending
-    /// seeks (current and next) with a single final seek.
-    func seekToFinalTime(withToleranceBefore toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
-        guard let finalSeekTime = finalSeekTime else { return }
-
-        cancelPendingSeeks()
-
-        let info = SeekInfo(time: finalSeekTime, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
-        seek(with: info)
     }
 }
 

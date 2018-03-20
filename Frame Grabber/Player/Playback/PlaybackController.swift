@@ -59,7 +59,7 @@ class PlaybackController {
 
     func play() {
         guard !isPlaying else { return }
-        syncPlayerAndSeekTimeForPlayingIfNeeded()
+        seeker.syncPlayerWithSeekTimeForPlayingIfNeeded()
         player.play()
     }
 
@@ -80,32 +80,7 @@ class PlaybackController {
 
     func step(byCount count: Int) {
         pause()
-        syncPlayerAndSeekTimeForSteppingIfNeeded(isSteppingForward: count > 0)
+        seeker.syncPlayerWithSeekTimeForSteppingIfNeeded(isSteppingForward: count > 0)
         currentItem?.step(byCount: count)
-    }
-
-    // MARK: Seek Time Syncing
-
-    private func syncPlayerAndSeekTimeForPlayingIfNeeded() {
-        guard isSeeking else { return }
-
-        // Minimize the time to start playing by finishing seeking earlier with a higher
-        // tolerance. This is mostly relevant for streamed iCloud items.
-        seeker.seekToFinalTime(withToleranceBefore: .positiveInfinity, toleranceAfter: .positiveInfinity)
-    }
-
-    private func syncPlayerAndSeekTimeForSteppingIfNeeded(isSteppingForward: Bool) {
-        guard isSeeking else { return }
-
-        // By default, stepping while seeking cancels seeking and steps from the current
-        // player time. Instead, we want to step from the seek time. By replacing the current
-        // seek with one with higher tolerance we (most likely) get the new seek to finish
-        // before stepping begins. This is mostly relevant for streamed iCloud items.
-
-        if isSteppingForward {
-            seeker.seekToFinalTime(withToleranceBefore: .zero, toleranceAfter: .positiveInfinity)
-        } else {
-            seeker.seekToFinalTime(withToleranceBefore: .positiveInfinity, toleranceAfter: .zero)
-        }
     }
 }

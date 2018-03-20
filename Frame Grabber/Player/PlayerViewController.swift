@@ -17,6 +17,7 @@ class PlayerViewController: UIViewController {
     }
 
     private var playbackController: PlaybackController?
+    private var imageGenerator: AVAssetImageGenerator?
     private lazy var timeFormatter = VideoTimeFormatter()
 
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
@@ -28,6 +29,10 @@ class PlayerViewController: UIViewController {
 
     private var isSeeking: Bool {
         return playbackController?.isSeeking ?? false
+    }
+
+    private var isGeneratingImage: Bool {
+        return imageGenerator != nil
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -46,6 +51,7 @@ class PlayerViewController: UIViewController {
 private extension PlayerViewController {
 
     @IBAction func done() {
+        imageGenerator?.cancelAllCGImageGeneration()
         playbackController?.pause()
         dismiss(animated: true)
         delegate?.playerViewControllerDone()
@@ -67,30 +73,23 @@ private extension PlayerViewController {
     }
 
     @IBAction func shareCurrentFrame() {
-        guard !isScrubbing else { return }
+        guard !isScrubbing,
+            let item = playbackController?.currentItem else { return }
+
         playbackController?.pause()
-        print("Not implemented")
+        playbackController?.seeker.syncPlayerWithSeekTimeForImageExportIfNeeded()
+
+        generateImageAndShare(from: item.asset, at: item.currentTime())
     }
 
     @IBAction func scrub(_ sender: UISlider) {
-        playbackController?.seeker.seek(to: sender.time)
-        // When scrubbing, display slider time instead of player time for a smoother
-        // experience.
+        playbackController?.seeker.smoothlySeek(to: sender.time)
+        // When scrubbing, display slider time instead of player time.
         updateViews(withTime: sender.time)
     }
 
     @IBAction func didFinishScrubbing(_ sender: UISlider) {
-        syncPlayerAndSliderTimeIfNeeded()
-    }
-
-    func syncPlayerAndSliderTimeIfNeeded() {
-        let twoSeeksRemaining = playbackController?.seeker.nextSeek != nil
-
-        // Minimize the time to finish seeking by replacing the two pending seeks with a
-        // single final seek. This can speed up seeking for streamed iCloud items.
-        if twoSeeksRemaining {
-            playbackController?.seeker.seekToFinalTime()
-        }
+        playbackController?.seeker.syncPlayerWithSeekTimeForFinishScrubbingIfNeeded()
     }
 }
 
@@ -145,11 +144,9 @@ private extension PlayerViewController {
         }
 
         // Initial states
-        setPlayerControlsEnabled(false)
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateViews(withTime: .zero)
-
         updateViewsForPlayer()
     }
 
@@ -161,14 +158,17 @@ private extension PlayerViewController {
         return !playbackController.isReadyToPlay
             || playbackController.player.reasonForWaitingToPlay == .noItemToPlay
             || playbackController.player.reasonForWaitingToPlay == .toMinimizeStalls
+            || isGeneratingImage
     }
 
-    func setPlayerControlsEnabled(_ enabled: Bool) {
+    func updatePlayerControlsEnabled() {
+        let isReadyToPlay = playbackController?.isReadyToPlay == true
+        let enabled = isReadyToPlay && !isGeneratingImage
         overlayView.controlsView.setPlayerControlsEnabled(enabled)
     }
 
     func updateViewsForPlayer() {
-        setPlayerControlsEnabled(playbackController?.isReadyToPlay == true)
+        updatePlayerControlsEnabled()
         updateActivityIndicator()
     }
 
@@ -229,6 +229,42 @@ private extension PlayerViewController {
         playbackController?.play()
     }
 
+    // MARK: Image Generation
+
+    func generateImageAndShare(from asset: AVAsset, at time: CMTime) {
+        imageGenerator?.cancelAllCGImageGeneration()
+        imageGenerator = AVAssetImageGenerator(asset: asset)
+
+        updateActivityIndicator()
+        updatePlayerControlsEnabled()
+
+        imageGenerator?.generateImage(at: time) { [weak self] _, cgImage, _, status, error in
+            DispatchQueue.main.async {
+                self?.imageGenerator = nil
+                self?.handleImageGenerationResult(with: cgImage, status: status, error: error)
+            }
+        }
+    }
+
+    func handleImageGenerationResult(with cgImage: CGImage?, status: AVAssetImageGeneratorResult, error: Error?) {
+        updateActivityIndicator()
+        updatePlayerControlsEnabled()
+
+        switch (status, cgImage) {
+        case (.cancelled, _):
+            break
+        case (.failed, _), (.succeeded, nil):
+            showImageGenerationFailedAlert()
+        case (.succeeded, let cgImage?):
+            shareImage(UIImage(cgImage: cgImage))
+        }
+    }
+
+    func shareImage(_ image: UIImage) {
+        let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(shareController, animated: true)
+    }
+
     // MARK: Alerts
 
     func showVideoLoadingFailedAlertAndDismiss() {
@@ -244,6 +280,11 @@ private extension PlayerViewController {
             self?.done()
         }
 
+        present(alertController, animated: true)
+    }
+
+    func showImageGenerationFailedAlert() {
+        let alertController = UIAlertController.imageGenerationFailed()
         present(alertController, animated: true)
     }
 }

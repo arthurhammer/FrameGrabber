@@ -12,21 +12,19 @@ extension CMTime {
 
 extension AVAssetImageGenerator {
 
-    /// - Note: After the method returns, `requestedTimeToleranceAfter`
-    /// and `requestedTimeToleranceBefore` will be `kCMTimeZero`.
-    func copyCGImage(atExactTime time: CMTime, completion: (Error?, CGImage?) -> ()) {
-        requestedTimeToleranceBefore = .zero
-        requestedTimeToleranceAfter = .zero
+    /// Asynchronously generates an image.
+    /// - Note: This method changes the receiver's `requestedTimeToleranceAfter` and
+    /// `requestedTimeToleranceBefore` properties.
+    func generateImage(at time: CMTime,
+                       toleranceBefore: CMTime = .zero,
+                       toleranceAfter: CMTime = .zero,
+                       completionHandler: @escaping AVAssetImageGeneratorCompletionHandler) {
 
-        let image: CGImage?
+        let times = [NSValue(time: time)]
 
-        do {
-            image = try copyCGImage(at: time, actualTime: nil)
-        } catch let error {
-            completion(error, nil)
-            return
-        }
+        requestedTimeToleranceBefore = toleranceBefore
+        requestedTimeToleranceAfter = toleranceAfter
 
-        completion(nil, image)
+        generateCGImagesAsynchronously(forTimes: times, completionHandler: completionHandler)
     }
 }

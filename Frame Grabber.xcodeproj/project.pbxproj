@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001A6C4D206152E900B91F3A /* PlayerSeeker+Syncing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C4C206152E900B91F3A /* PlayerSeeker+Syncing.swift */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		001A6C4B20600E1A00B91F3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		001A6C4C206152E900B91F3A /* PlayerSeeker+Syncing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerSeeker+Syncing.swift"; sourceTree = "<group>"; };
 		001AA1781FB4977100A00BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		001AA17D1FB4977100A00BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		001AA17F1FB4977100A00BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				00B264551FD090B300A6C3C3 /* PlaybackController.swift */,
 				00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */,
 				00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */,
+				001A6C4C206152E900B91F3A /* PlayerSeeker+Syncing.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				00C098D51FC1A7C2000B05FE /* Photos+Authorization.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoLoader.swift in Sources */,
 				0072089B1FBF87B20046F389 /* VideosCollectionViewDataSource.swift in Sources */,
+				001A6C4D206152E900B91F3A /* PlayerSeeker+Syncing.swift in Sources */,
 				00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				00BAFCA2205E994D00BCEE69 /* UIView+Animation.swift in Sources */,
