@@ -3,6 +3,12 @@ import AVKit
 
 protocol ZoomingPlayerViewDelegate: class {
     func playerViewDidZoom(_ playerView: ZoomingPlayerView)
+    func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool)
+}
+
+extension ZoomingPlayerViewDelegate {
+    func playerViewDidZoom(_ playerView: ZoomingPlayerView) {}
+    func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {}
 }
 
 /// A view that manages zooming for an `AVPlayerLayer`.
@@ -19,6 +25,8 @@ class ZoomingPlayerView: UIView {
         }
     }
 
+    let playerView = PlayerView()
+
     /// The current size and position of the video image as displayed within the player
     /// view's bounds. If the video is zoomed in, the rect may exceed the player view's
     /// bounds.
@@ -27,9 +35,9 @@ class ZoomingPlayerView: UIView {
     }
 
     private let scrollView = UIScrollView()
-    private let playerView = PlayerView()
-    private var playerItemSizeObserver: NSKeyValueObservation?
     private var unzoomedContentSize: CGSize?  // Zooming scales the content size
+    private var playerItemSizeObserver: NSKeyValueObservation?
+    private var layerReadyObserver: NSKeyValueObservation?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,8 +92,16 @@ private extension ZoomingPlayerView {
         scrollView.addSubview(playerView)
         addSubview(scrollView)
 
+        observeLayerReady()
         configureGestures()
         updatePlayerViewSize()
+    }
+
+    func observeLayerReady() {
+        layerReadyObserver = playerView.playerLayer.observe(\.isReadyForDisplay, options: .initial) { [weak self] layer, _ in
+            guard let this = self else { return }
+            this.delegate?.playerView(this, didUpdateReadyForDisplay: layer.isReadyForDisplay)
+        }
     }
 
     func observePlayerItemSize() {
