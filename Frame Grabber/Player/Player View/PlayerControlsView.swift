@@ -4,7 +4,6 @@ class PlayerControlsView: GradientView {
 
     @IBOutlet var timeSlider: PlayerSlider!
     @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var closeButton: UIButton!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!

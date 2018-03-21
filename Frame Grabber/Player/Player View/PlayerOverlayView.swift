@@ -22,7 +22,7 @@ class PlayerOverlayView: UIView {
 
         let shadowViews: [UIView] = [titleView.titleLabel,
                                      titleView.detailTitleLabel,
-                                     controlsView.closeButton,
+                                     titleView.closeButton,
                                      controlsView.timeSlider,
                                      controlsView.timeLabel,
                                      controlsView.playButton,
