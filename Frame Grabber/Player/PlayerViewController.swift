@@ -147,6 +147,7 @@ private extension PlayerViewController {
 
     func configureViews() {
         zoomingPlayerView.delegate = self
+        configureGestures()
 
         overlayView.controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
@@ -162,6 +163,28 @@ private extension PlayerViewController {
         updateViews(withTime: .zero)
         updateDimensionsLabel(withSize: .zero)
         updateViewsForPlayer()
+    }
+
+    func configureGestures() {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown))
+        swipeRecognizer.direction = .down
+        zoomingPlayerView.addGestureRecognizer(swipeRecognizer)
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        // zooming view installs its own double tap recognizer
+        tapRecognizer.require(toFail: zoomingPlayerView.doubleTapToZoomRecognizer)
+        tapRecognizer.require(toFail: swipeRecognizer)
+        zoomingPlayerView.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc func handleTap(sender: UIGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        overlayView.toggleHidden(animated: true)
+    }
+
+    @objc func handleSwipeDown(sender: UIGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        done()
     }
 
     // MARK: Sync Player UI

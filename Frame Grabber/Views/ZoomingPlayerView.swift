@@ -34,6 +34,9 @@ class ZoomingPlayerView: UIView {
         return playerView.convert(playerView.bounds, to: self)
     }
 
+    /// Can be used to setup dependencies with other recognizers.
+    fileprivate(set) lazy var doubleTapToZoomRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+
     private let scrollView = UIScrollView()
     private var unzoomedContentSize: CGSize?  // Zooming scales the content size
     private var playerItemSizeObserver: NSKeyValueObservation?
@@ -51,7 +54,9 @@ class ZoomingPlayerView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        updatePlayerViewSize()
+        // Reset scroll view setup on rotation (etc.)
+        updatePlayerViewSize(keepingZoomIfPossible: false)
+        scrollView.centerContentView()
     }
 }
 
@@ -94,7 +99,7 @@ private extension ZoomingPlayerView {
 
         observeLayerReady()
         configureGestures()
-        updatePlayerViewSize()
+        updatePlayerViewSize(keepingZoomIfPossible: false)
     }
 
     func observeLayerReady() {
@@ -106,11 +111,11 @@ private extension ZoomingPlayerView {
 
     func observePlayerItemSize() {
         playerItemSizeObserver = player?.observe(\.currentItem?.presentationSize, options: .initial) { [weak self]  _, _ in
-            self?.updatePlayerViewSize()
+            self?.updatePlayerViewSize(keepingZoomIfPossible: true)
         }
     }
 
-    func updatePlayerViewSize() {
+    func updatePlayerViewSize(keepingZoomIfPossible: Bool) {
         // Fill scroll view if player item is not ready
         // (item can be `nil` or its size can be zero when it's not ready to play yet)
         let videoSize = player?.currentItem?.presentationSize ?? .zero
@@ -118,7 +123,9 @@ private extension ZoomingPlayerView {
 
         // Remain zoomed in if the player item changed but has the same size
         // (this is to avoid zooming out when looping the same video)
-        guard newContentSize != unzoomedContentSize else { return }
+        if keepingZoomIfPossible && (newContentSize == unzoomedContentSize) {
+            return
+        }
 
         unzoomedContentSize = newContentSize
         playerView.bounds.size = newContentSize
@@ -129,9 +136,8 @@ private extension ZoomingPlayerView {
     }
 
     func configureGestures() {
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-        doubleTapRecognizer.numberOfTapsRequired = 2
-        playerView.addGestureRecognizer(doubleTapRecognizer)
+        doubleTapToZoomRecognizer.numberOfTapsRequired = 2
+        playerView.addGestureRecognizer(doubleTapToZoomRecognizer)
     }
 
     @objc func handleDoubleTap(_ tap: UITapGestureRecognizer) {
