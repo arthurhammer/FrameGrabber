@@ -31,3 +31,14 @@ class PlayerControlsView: GradientView {
         shareButton.backgroundColor = .accent
     }
 }
+
+
+// MARK: - Play Button
+
+import AVKit
+
+extension UIButton {
+    func setTimeControlStatus(_ status: AVPlayerTimeControlStatus) {
+        setImage((status == .paused) ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause"), for: .normal)
+    }
+}

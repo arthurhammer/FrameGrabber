@@ -6,6 +6,8 @@ class VideoLoader {
     let asset: PHAsset
 
     private let imageManager: PHImageManager
+    private var imageGenerator: AVAssetImageGenerator?
+
     private(set) var imageRequest: ImageRequest?
     private(set) var playerItemRequest: PlayerItemRequest?
 
@@ -28,8 +30,26 @@ class VideoLoader {
         playerItemRequest = PlayerItemRequest(imageManager: imageManager, video: asset, options: options, resultHandler: resultHandler)
     }
 
+    /// Pending frame requests are canceled
+    func frame(for avAsset: AVAsset, at time: CMTime, resultHandler: @escaping AVAssetImageGeneratorCompletionHandler) {
+        cancelFrameGeneration()
+        imageGenerator = AVAssetImageGenerator(asset: avAsset)
+
+        imageGenerator?.generateImage(at: time) { [weak self] requestedTime, cgImage, actualTime, status, error in
+            DispatchQueue.main.async {
+                self?.imageGenerator = nil
+                resultHandler(requestedTime, cgImage, actualTime, status, error)
+            }
+        }
+    }
+
+    func cancelFrameGeneration() {
+        imageGenerator?.cancelAllCGImageGeneration()
+    }
+
     func cancelAllRequests() {
         imageRequest = nil
         playerItemRequest = nil
+        cancelFrameGeneration()
     }
 }

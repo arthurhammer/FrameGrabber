@@ -9,15 +9,9 @@ class PlayerViewController: UIViewController {
 
     weak var delegate: PlayerViewControllerDelegate?
 
-    var videoLoader: VideoLoader! {
-        didSet {
-            guard isViewLoaded else { return }
-            loadVideo()
-        }
-    }
+    var videoLoader: VideoLoader!
 
     private var playbackController: PlaybackController?
-    private var imageGenerator: AVAssetImageGenerator?
     private lazy var timeFormatter = VideoTimeFormatter()
     private lazy var dimensionFormatter = VideoDimensionFormatter()
 
@@ -33,8 +27,11 @@ class PlayerViewController: UIViewController {
         return playbackController?.isSeeking ?? false
     }
 
-    private var isGeneratingImage: Bool {
-        return imageGenerator != nil
+    private var isGeneratingFrame = false {
+        didSet {
+            updateActivityIndicator()
+            updatePlayerControlsEnabled()
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -54,7 +51,6 @@ private extension PlayerViewController {
 
     @IBAction func done() {
         videoLoader.cancelAllRequests()
-        imageGenerator?.cancelAllCGImageGeneration()
         playbackController?.pause()
         dismiss(animated: true)
         delegate?.playerViewControllerDone()
@@ -82,7 +78,7 @@ private extension PlayerViewController {
         playbackController?.pause()
         playbackController?.seeker.syncPlayerWithSeekTimeForImageExportIfNeeded()
 
-        generateImageAndShare(from: item.asset, at: item.currentTime())
+        generateFrameAndShare(from: item.asset, at: item.currentTime())
     }
 
     @IBAction func scrub(_ sender: UISlider) {
@@ -170,19 +166,21 @@ private extension PlayerViewController {
 
     // MARK: Sync Player UI
 
-    var shouldShowActivityIndicator: Bool {
+    var shouldDisableControls: Bool {
         guard let playbackController = playbackController else { return true }
 
         return !playbackController.isReadyToPlay
-            || playbackController.player.reasonForWaitingToPlay == .noItemToPlay
-            || playbackController.player.reasonForWaitingToPlay == .toMinimizeStalls
-            || isGeneratingImage
+            || isGeneratingFrame
+    }
+
+    var shouldShowActivityIndicator: Bool {
+        return shouldDisableControls
+            || playbackController?.player.reasonForWaitingToPlay == .noItemToPlay
+            || playbackController?.player.reasonForWaitingToPlay == .toMinimizeStalls
     }
 
     func updatePlayerControlsEnabled() {
-        let isReadyToPlay = playbackController?.isReadyToPlay == true
-        let enabled = isReadyToPlay && !isGeneratingImage
-        overlayView.controlsView.setPlayerControlsEnabled(enabled)
+        overlayView.controlsView.setPlayerControlsEnabled(!shouldDisableControls)
     }
 
     func updateViewsForPlayer() {
@@ -282,32 +280,20 @@ private extension PlayerViewController {
 
     // MARK: Image Generation
 
-    func generateImageAndShare(from asset: AVAsset, at time: CMTime) {
-        imageGenerator?.cancelAllCGImageGeneration()
-        imageGenerator = AVAssetImageGenerator(asset: asset)
+    func generateFrameAndShare(from asset: AVAsset, at time: CMTime) {
+        isGeneratingFrame = true
 
-        updateActivityIndicator()
-        updatePlayerControlsEnabled()
+        videoLoader.frame(for: asset, at: time) { [weak self] _, cgImage, _, status, error in
+            self?.isGeneratingFrame = false
 
-        imageGenerator?.generateImage(at: time) { [weak self] _, cgImage, _, status, error in
-            DispatchQueue.main.async {
-                self?.imageGenerator = nil
-                self?.handleImageGenerationResult(with: cgImage, status: status, error: error)
+            switch (status, cgImage) {
+            case (.cancelled, _):
+                break
+            case (.failed, _), (.succeeded, nil):
+                self?.showImageGenerationFailedAlert()
+            case (.succeeded, let cgImage?):
+                self?.shareImage(UIImage(cgImage: cgImage))
             }
-        }
-    }
-
-    func handleImageGenerationResult(with cgImage: CGImage?, status: AVAssetImageGeneratorResult, error: Error?) {
-        updateActivityIndicator()
-        updatePlayerControlsEnabled()
-
-        switch (status, cgImage) {
-        case (.cancelled, _):
-            break
-        case (.failed, _), (.succeeded, nil):
-            showImageGenerationFailedAlert()
-        case (.succeeded, let cgImage?):
-            shareImage(UIImage(cgImage: cgImage))
         }
     }
 
@@ -337,11 +323,5 @@ private extension PlayerViewController {
     func showImageGenerationFailedAlert() {
         let alertController = UIAlertController.imageGenerationFailed()
         present(alertController, animated: true)
-    }
-}
-
-private extension UIButton {
-    func setTimeControlStatus(_ status: AVPlayerTimeControlStatus) {
-        setImage((status == .paused) ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause"), for: .normal)
     }
 }
