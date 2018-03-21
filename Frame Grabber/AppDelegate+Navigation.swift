@@ -9,13 +9,15 @@ extension AppDelegate {
         if PhotoLibraryAuthorizationController.needsAuthorization {
             showPhotoLibraryAuthorizationController()
         } else {
-            showVideoLibraryController()
+            showVideosController()
         }
     }
 
-    private func showVideoLibraryController() {
+    private func showVideosController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        window?.rootViewController = storyboard.instantiateViewController(withIdentifier: photoLibraryStoryboardId)
+        let controller = storyboard.instantiateViewController(withIdentifier: photoLibraryStoryboardId)
+
+        setRootViewController(controller, animated: true)
     }
 
     private func showPhotoLibraryAuthorizationController() {
@@ -25,9 +27,21 @@ extension AppDelegate {
         guard let authorizationController = controller as? PhotoLibraryAuthorizationController else { fatalError("Wrong controller id or type") }
 
         authorizationController.didAuthorizeHandler = { [weak self] in
-            self?.showVideoLibraryController()
+            self?.showVideosController()
         }
 
-        window?.rootViewController = authorizationController
+        setRootViewController(authorizationController, animated: true)
+    }
+}
+
+private extension AppDelegate {
+    func setRootViewController(_ viewController: UIViewController, animated: Bool) {
+        let set: (Bool) -> () = { _ in self.window?.rootViewController = viewController }
+
+        if animated, let rootView = window?.rootViewController?.view {
+            UIView.transition(from: rootView, to: viewController.view, duration: 0.35, options: .transitionCrossDissolve, completion: set)
+        } else {
+            set(true)
+        }
     }
 }
