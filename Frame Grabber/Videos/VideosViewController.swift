@@ -13,9 +13,14 @@ class VideosViewController: UICollectionViewController {
         configureDataSource()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        layout.updateItemSize()
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        layout.updateItemSize(forBoundingSize: size)
+
+        coordinator.animate(alongsideTransition: { _ in
+            self.collectionView?.layoutIfNeeded()
+        }, completion: nil)
+
+        super.viewWillTransition(to: size, with: coordinator)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,11 +71,10 @@ private extension VideosViewController {
         collectionView?.delegate = self
         collectionView?.backgroundColor = .mainBackground
         collectionView?.collectionViewLayout = layout
-        layout.updateItemSize()
+        layout.updateItemSize(forBoundingSize: collectionView!.bounds.size)
     }
 
     func configureDataSource() {
-        // Layout needs to be configured before data source for valid thumbnail size
         let thumbnailSize = layout.itemSize.scaledToScreen
 
         dataSource = VideosCollectionViewDataSource(collectionView: collectionView!, thumbnailSize: thumbnailSize) { [unowned self] indexPath, asset in
