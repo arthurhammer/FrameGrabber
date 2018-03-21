@@ -152,6 +152,29 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8St-aq-4oR" customClass="ZoomingPlayerView" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j77-MA-S24" customClass="PlayerLoadingView" customModule="Frame_Grabber" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hNT-4m-8Wu">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                    </imageView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IwZ-xU-AKu">
+                                        <rect key="frame" x="169" y="388" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="IwZ-xU-AKu" firstAttribute="centerX" secondItem="j77-MA-S24" secondAttribute="centerX" id="2uw-sj-fch"/>
+                                    <constraint firstItem="IwZ-xU-AKu" firstAttribute="centerY" secondItem="j77-MA-S24" secondAttribute="centerY" id="Q0y-RR-nl7"/>
+                                    <constraint firstAttribute="trailing" secondItem="hNT-4m-8Wu" secondAttribute="trailing" id="TMn-Iu-lap"/>
+                                    <constraint firstItem="hNT-4m-8Wu" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" id="Wtf-rQ-BFS"/>
+                                    <constraint firstItem="hNT-4m-8Wu" firstAttribute="top" secondItem="j77-MA-S24" secondAttribute="top" id="bj2-sD-5px"/>
+                                    <constraint firstAttribute="bottom" secondItem="hNT-4m-8Wu" secondAttribute="bottom" id="n1D-BC-V6k"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="IwZ-xU-AKu" id="ubI-Cs-X3t"/>
+                                    <outlet property="previewImageView" destination="hNT-4m-8Wu" id="LvG-Xn-rFO"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ir5-XH-e4O" customClass="PlayerOverlayView" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
@@ -281,7 +304,6 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                         <connections>
-                                            <outlet property="activityIndicator" destination="IwZ-xU-AKu" id="L8t-VF-dgp"/>
                                             <outlet property="closeButton" destination="F6I-Pz-r0P" id="G88-wV-FUj"/>
                                             <outlet property="nextButton" destination="NnX-Na-6YA" id="9ZS-3S-Vcz"/>
                                             <outlet property="playButton" destination="1k1-G4-5en" id="QhG-6q-C2t"/>
@@ -291,18 +313,13 @@
                                             <outlet property="timeSlider" destination="1JW-Ds-rNX" id="c6a-HA-8ZM"/>
                                         </connections>
                                     </view>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IwZ-xU-AKu">
-                                        <rect key="frame" x="169" y="388" width="37" height="37"/>
-                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fRQ-p1-yCF" secondAttribute="trailing" id="1yi-3h-KHb"/>
-                                    <constraint firstItem="IwZ-xU-AKu" firstAttribute="centerX" secondItem="ir5-XH-e4O" secondAttribute="centerX" id="3h9-6t-kfz"/>
                                     <constraint firstItem="fRQ-p1-yCF" firstAttribute="top" secondItem="ir5-XH-e4O" secondAttribute="top" id="4Kr-OI-I0F"/>
                                     <constraint firstItem="fRQ-p1-yCF" firstAttribute="leading" secondItem="ir5-XH-e4O" secondAttribute="leading" id="8LY-KK-26X"/>
                                     <constraint firstItem="fRQ-p1-yCF" firstAttribute="top" secondItem="ir5-XH-e4O" secondAttribute="top" id="D35-px-Rig"/>
                                     <constraint firstAttribute="bottom" secondItem="GAW-h9-8hv" secondAttribute="bottom" id="a3h-nG-Foo"/>
-                                    <constraint firstItem="IwZ-xU-AKu" firstAttribute="centerY" secondItem="ir5-XH-e4O" secondAttribute="centerY" id="hPB-lz-W6i"/>
                                     <constraint firstAttribute="trailing" secondItem="GAW-h9-8hv" secondAttribute="trailing" id="i9a-OM-u1K"/>
                                     <constraint firstItem="GAW-h9-8hv" firstAttribute="leading" secondItem="ir5-XH-e4O" secondAttribute="leading" id="qdb-l0-hof"/>
                                 </constraints>
@@ -322,16 +339,21 @@
                             <constraint firstItem="Gqo-8u-LRL" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="KwB-y6-FLG"/>
                             <constraint firstAttribute="bottom" secondItem="Gqo-8u-LRL" secondAttribute="bottom" id="Kyg-OA-bZx"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="Mmt-iF-qiO"/>
+                            <constraint firstItem="j77-MA-S24" firstAttribute="leading" secondItem="8St-aq-4oR" secondAttribute="leading" id="YI4-1X-q3s"/>
+                            <constraint firstItem="j77-MA-S24" firstAttribute="top" secondItem="8St-aq-4oR" secondAttribute="top" id="bfB-Ec-fpA"/>
                             <constraint firstItem="ir5-XH-e4O" firstAttribute="top" secondItem="mzG-VC-6dc" secondAttribute="top" id="gwE-Xy-g08"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="bottom" secondItem="mzG-VC-6dc" secondAttribute="bottom" id="jCT-Lg-vcR"/>
                             <constraint firstItem="ir5-XH-e4O" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="kie-KE-JOH"/>
                             <constraint firstAttribute="trailing" secondItem="ir5-XH-e4O" secondAttribute="trailing" id="lVE-29-RWT"/>
+                            <constraint firstItem="j77-MA-S24" firstAttribute="bottom" secondItem="8St-aq-4oR" secondAttribute="bottom" id="lxy-bT-raT"/>
+                            <constraint firstItem="j77-MA-S24" firstAttribute="trailing" secondItem="8St-aq-4oR" secondAttribute="trailing" id="qDc-Ik-ODd"/>
                             <constraint firstAttribute="trailing" secondItem="Gqo-8u-LRL" secondAttribute="trailing" id="s3z-NH-pSg"/>
                             <constraint firstItem="Gqo-8u-LRL" firstAttribute="top" secondItem="mzG-VC-6dc" secondAttribute="top" id="tTW-f7-cEH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
                     </view>
                     <connections>
+                        <outlet property="loadingView" destination="j77-MA-S24" id="z8p-cQ-aYI"/>
                         <outlet property="overlayView" destination="ir5-XH-e4O" id="QA8-0V-C3t"/>
                         <outlet property="view" destination="mzG-VC-6dc" id="9z2-of-GuI"/>
                         <outlet property="zoomingPlayerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
@@ -339,7 +361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buo-a7-9ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2062" y="366"/>
+            <point key="canvasLocation" x="2061.5999999999999" y="365.76354679802955"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		001A6C4D206152E900B91F3A /* PlayerSeeker+Syncing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C4C206152E900B91F3A /* PlayerSeeker+Syncing.swift */; };
+		001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		001A6C4B20600E1A00B91F3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		001A6C4C206152E900B91F3A /* PlayerSeeker+Syncing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerSeeker+Syncing.swift"; sourceTree = "<group>"; };
+		001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerLoadingView.swift; sourceTree = "<group>"; };
 		001AA1781FB4977100A00BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		001AA17D1FB4977100A00BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		001AA17F1FB4977100A00BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */,
+				001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */,
 				0057C5D91FBEF494008B7E08 /* PlayerOverlayView.swift */,
 				00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */,
 			);
@@ -330,6 +333,7 @@
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
 				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* UIKit.swift in Sources */,
+				001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotosRequests.swift in Sources */,

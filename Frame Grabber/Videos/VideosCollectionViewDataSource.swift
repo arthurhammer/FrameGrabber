@@ -47,7 +47,7 @@ class VideosCollectionViewDataSource: NSObject {
         return fetchResult.objects(at: indexSet)
     }
 
-    func thumbnail(for asset: PHAsset, resultHandler: @escaping (UIImage?, [AnyHashable: Any]?) -> ()) -> ImageRequest {
+    func thumbnail(for asset: PHAsset, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest {
         return ImageRequest(imageManager: imageManager,
                             asset: asset,
                             targetSize: thumbnailSize,

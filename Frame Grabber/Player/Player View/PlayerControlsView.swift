@@ -9,7 +9,6 @@ class PlayerControlsView: GradientView {
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

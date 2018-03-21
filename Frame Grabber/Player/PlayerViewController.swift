@@ -12,7 +12,7 @@ class PlayerViewController: UIViewController {
     var videoLoader: VideoLoader! {
         didSet {
             guard isViewLoaded else { return }
-            loadPlayerItem()
+            loadVideo()
         }
     }
 
@@ -22,6 +22,7 @@ class PlayerViewController: UIViewController {
     private lazy var dimensionFormatter = VideoDimensionFormatter()
 
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
+    @IBOutlet private var loadingView: PlayerLoadingView!
     @IBOutlet private var overlayView: PlayerOverlayView!
 
     private var isScrubbing: Bool {
@@ -43,7 +44,7 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        loadPlayerItem()
+        loadVideo()
     }
 }
 
@@ -52,6 +53,7 @@ class PlayerViewController: UIViewController {
 private extension PlayerViewController {
 
     @IBAction func done() {
+        videoLoader.cancelAllRequests()
         imageGenerator?.cancelAllCGImageGeneration()
         playbackController?.pause()
         dismiss(animated: true)
@@ -135,11 +137,21 @@ extension PlayerViewController: PlaybackControllerDelegate {
     }
 }
 
+// MARK: - ZoomingPlayerViewDelegate
+
+extension PlayerViewController: ZoomingPlayerViewDelegate {
+    func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {
+        updatePreviewImage()
+    }
+}
+
 // MARK: - Private
 
 private extension PlayerViewController {
 
     func configureViews() {
+        zoomingPlayerView.delegate = self
+
         overlayView.controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
         }
@@ -175,11 +187,25 @@ private extension PlayerViewController {
 
     func updateViewsForPlayer() {
         updatePlayerControlsEnabled()
+        updatePreviewImage()
         updateActivityIndicator()
     }
 
+    func updatePreviewImage() {
+        let readyToPlay = playbackController?.isReadyToPlay == true
+        let readyToDisplay = zoomingPlayerView.playerView.playerLayer.isReadyForDisplay
+        let hasPreview = loadingView.previewImageView.image != nil
+
+        loadingView.previewImageView.isHidden = !hasPreview || (readyToPlay && readyToDisplay)
+
+        // Preview not needed anymore in case still loading
+        if readyToPlay && readyToDisplay {
+            videoLoader.imageRequest?.cancel()
+        }
+    }
+
     func updateActivityIndicator() {
-        overlayView.controlsView.activityIndicator.isShowingAndAnimating = shouldShowActivityIndicator
+        loadingView.activityIndicator.isShowingAndAnimating = shouldShowActivityIndicator
     }
 
     func updatePlayButton(withStatus status: AVPlayerTimeControlStatus) {
@@ -221,17 +247,26 @@ private extension PlayerViewController {
 
     // MARK: Video Loading
 
+    func loadVideo() {
+        loadPreviewImage()
+        loadPlayerItem()
+    }
+
+    func loadPreviewImage() {
+        let size = loadingView.previewImageView.bounds.size.scaledToScreen
+
+        videoLoader.image(withSize: size, contentMode: .aspectFit) { [weak self] image, _ in
+            guard let image = image else { return }
+            self?.loadingView.previewImageView.image = image
+            self?.updatePreviewImage()
+        }
+    }
+
     func loadPlayerItem() {
-        videoLoader.loadPlayerItem { [weak self] status in
-            switch status {
-
-            case .notLoaded, .loading:
-                break
-
-            case .failed(_):
+        videoLoader.playerItem { [weak self] playerItem, info in
+            if info.error != nil {
                 self?.showVideoLoadingFailedAlertAndDismiss()
-
-            case .loaded(let playerItem):
+            } else if !info.isCancelled, let playerItem = playerItem {
                 self?.configurePlayer(with: playerItem)
             }
         }
