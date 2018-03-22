@@ -9,7 +9,7 @@ class PlayerSlider: ScrubbingSlider {
     }
 
     private func configureViews() {
-        let thumbSize = CGSize(width: 4, height: 26)
+        let thumbSize = CGSize(width: 18, height: 18)
         let thumbCornerRadius = thumbSize.width / 2
         let trackHeight: CGFloat = 6
         let trackCornerRadius = trackHeight / 2

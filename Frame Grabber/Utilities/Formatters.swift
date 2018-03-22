@@ -24,7 +24,6 @@ class VideoTimeFormatter {
         return formatter
     }()
 
-    // TODO: Hours
     func string(fromCurrentTime time: CMTime, includeMilliseconds: Bool = false) -> String {
         let format = includeMilliseconds ? "mm:ss.SS" : "mm:ss"
         return string(from: time, localizedFormatTemplate: format)

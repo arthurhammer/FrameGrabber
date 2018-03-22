@@ -2,7 +2,7 @@ import UIKit
 
 class VideoCell: UICollectionViewCell {
 
-    var assetIdentifier: String?
+    var videoIdentifier: String?
     var imageRequest: ImageRequest?
 
     @IBOutlet var imageView: UIImageView!

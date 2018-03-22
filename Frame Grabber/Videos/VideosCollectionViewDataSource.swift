@@ -1,97 +1,112 @@
 import UIKit
 import Photos
 
-class VideosCollectionViewDataSource: NSObject {
+struct ImageConfig {
+    var size: CGSize = .zero
+    var mode: PHImageContentMode = .aspectFill
+    var options: PHImageRequestOptions? = .default()
+}
+
+class VideosCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
     typealias CellProvider = (IndexPath, PHAsset) -> (UICollectionViewCell)
+    typealias ChangeHandler = (PHFetchResultChangeDetails<PHAsset>) -> ()
 
-    var fetchResult: PHFetchResult<PHAsset> {
-        return collectionViewUpdater.fetchResult
+    private(set) var videos: PHFetchResult<PHAsset>
+    var videosChangedHandler: ChangeHandler?
+
+    var imageConfig: ImageConfig {
+        didSet { imageManager.stopCachingImagesForAllAssets() }
     }
 
-    private let cellProvider: CellProvider
-    private let collectionViewUpdater: PhotoLibraryCollectionViewUpdater
+    private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
-    private let thumbnailSize: CGSize
+    private let cellProvider: CellProvider
 
-    init(collectionView: UICollectionView,
-         fetchResult: PHFetchResult<PHAsset> = PHAsset.fetchVideos(),
-         thumbnailSize: CGSize,
+    init(videos: PHFetchResult<PHAsset> = PHAsset.fetchVideos(),
+         photoLibrary: PHPhotoLibrary = .shared(),
          imageManager: PHCachingImageManager = .init(),
+         imageConfig: ImageConfig = .init(),
          cellProvider: @escaping CellProvider) {
 
-        self.thumbnailSize = thumbnailSize
+        self.videos = videos
+        self.photoLibrary = photoLibrary
         self.imageManager = imageManager
+        self.imageConfig = imageConfig
         self.cellProvider = cellProvider
-        self.collectionViewUpdater = PhotoLibraryCollectionViewUpdater(fetchResult: fetchResult, collectionView: collectionView)
 
         super.init()
 
-        self.collectionViewUpdater.delegate = self
-
-        collectionView.isPrefetchingEnabled = true
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
+        photoLibrary.register(self)
     }
 
-    var isEmpty: Bool {
-        return fetchResult.count == 0
+    deinit {
+        photoLibrary.unregisterChangeObserver(self)
     }
 
-    func asset(at indexPath: IndexPath) -> PHAsset {
-        return fetchResult.object(at: indexPath.item)
+    func video(at indexPath: IndexPath) -> PHAsset {
+        return videos.object(at: indexPath.item)
     }
 
-    func assets(at indexPaths: [IndexPath]) -> [PHAsset] {
+    func videos(at indexPaths: [IndexPath]) -> [PHAsset] {
         let indexSet = IndexSet(indexPaths.map { $0.item })
-        return fetchResult.objects(at: indexSet)
+        return videos.objects(at: indexSet)
     }
 
-    func thumbnail(for asset: PHAsset, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest {
+    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest {
         return ImageRequest(imageManager: imageManager,
-                            asset: asset,
-                            targetSize: thumbnailSize,
-                            contentMode: .aspectFill,
-                            options: .default(),
+                            asset: video,
+                            targetSize: imageConfig.size,
+                            contentMode: imageConfig.mode,
+                            options: imageConfig.options,
                             resultHandler: resultHandler)
     }
-
 }
 
-// MARK: - UICollectionViewDataSource, UICollectionViewDataSourcePrefetching
+extension VideosCollectionViewDataSource {
 
-extension VideosCollectionViewDataSource: UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
+    // MARK: UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResult.count
+        return videos.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return cellProvider(indexPath, asset(at: indexPath))
+        return cellProvider(indexPath, video(at: indexPath))
     }
 
+    // MARK: UICollectionViewDataSourcePrefetching
+
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        imageManager.startCachingImages(for: assets(at: indexPaths),
-                                        targetSize: thumbnailSize,
-                                        contentMode: .aspectFill,
-                                        options: .default())
+        imageManager.startCachingImages(for: videos(at: indexPaths),
+                                        targetSize: imageConfig.size,
+                                        contentMode: imageConfig.mode,
+                                        options: imageConfig.options)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        imageManager.stopCachingImages(for: assets(at: indexPaths),
-                                       targetSize: thumbnailSize,
-                                       contentMode: .aspectFill,
-                                       options: .default())
+        imageManager.stopCachingImages(for: videos(at: indexPaths),
+                                       targetSize: imageConfig.size,
+                                       contentMode: imageConfig.mode,
+                                       options: imageConfig.options)
     }
 }
 
-// MARK: - CollectionViewPhotoLibraryChangeUpdaterDelegate
+// MARK: - PHPhotoLibraryChangeObserver
 
-extension VideosCollectionViewDataSource: PhotoLibraryCollectionViewUpdaterDelegate {
+extension VideosCollectionViewDataSource {
 
-    func changeUpdater(_ updater: PhotoLibraryCollectionViewUpdater, didApplyPhotoLibraryChanges changes: PHFetchResultChangeDetails<PHAsset>) {
-        // Assets changed, stop caching.
-        // Caching resumes on next prefetch or images are generated directly.
+    func photoLibraryDidChange(_ change: PHChange) {
+        DispatchQueue.main.async { [weak self] in
+            guard let this = self,
+                let details = change.changeDetails(for: this.videos) else { return }
+            this.handlePhotoLibraryChange(for: details)
+        }
+    }
+
+    private func handlePhotoLibraryChange(for details: PHFetchResultChangeDetails<PHAsset>) {
+        videos = details.fetchResultAfterChanges
         imageManager.stopCachingImagesForAllAssets()
+        videosChangedHandler?(details)
     }
 }

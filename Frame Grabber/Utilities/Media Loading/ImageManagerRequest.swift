@@ -72,7 +72,6 @@ class AVAssetRequest: ImageManagerRequest {
 
         let options = options ?? PHVideoRequestOptions()
 
-        // TODO: error, stop, info (does error -> same as in requestavasset?)
         if let progressHandler = progressHandler {
             options.progressHandler = { progress, error, stop, info in
                 progressHandler(progress)
@@ -91,6 +90,7 @@ class AVAssetRequest: ImageManagerRequest {
 // MARK: - Info
 
 extension ImageManagerRequest.Info {
+
     init(info: [AnyHashable: Any]?) {
         self.init(info: info ?? [:])
     }

@@ -38,6 +38,15 @@ class PlayerViewController: UIViewController {
         return .lightContent
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
+        // Control center can interfere with repeating buttons
+        return .bottom
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
@@ -163,6 +172,9 @@ private extension PlayerViewController {
         updateViews(withTime: .zero)
         updateDimensionsLabel(withSize: .zero)
         updateViewsForPlayer()
+
+        overlayView.controlsView.nextButton.tintColor = .timeSliderMinimumTrackTint
+        overlayView.controlsView.previousButton.tintColor = .timeSliderMinimumTrackTint
     }
 
     func configureGestures() {
@@ -251,13 +263,14 @@ private extension PlayerViewController {
     func updateTimeLabel(withTime time: CMTime) {
         let showMilliseconds = playbackController?.isPlaying == false
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-        overlayView.controlsView.timeLabel.text = formattedTime
+
+        overlayView.titleView.titleLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .bold)
+        overlayView.titleView.titleLabel.text = formattedTime
     }
 
     func updateSlider(withTime time: CMTime) {
-        if !isScrubbing && !isSeeking {
-            overlayView.controlsView.timeSlider.time = time
-        }
+        guard !isScrubbing && !isSeeking else { return }
+        overlayView.controlsView.timeSlider.time = time
     }
 
     func updateSlider(withDuration duration: CMTime) {
@@ -284,7 +297,7 @@ private extension PlayerViewController {
     }
 
     func loadPlayerItem() {
-        videoLoader.playerItem { [weak self] playerItem, info in
+        videoLoader.streamingPlayerItem { [weak self] playerItem, info in
             if info.error != nil {
                 self?.showVideoLoadingFailedAlertAndDismiss()
             } else if !info.isCancelled, let playerItem = playerItem {
