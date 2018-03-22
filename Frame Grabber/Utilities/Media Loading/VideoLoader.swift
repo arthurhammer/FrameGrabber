@@ -8,8 +8,9 @@ class VideoLoader {
     private let imageManager: PHImageManager
     private var imageGenerator: AVAssetImageGenerator?
 
-    private(set) var imageRequest: ImageRequest?
-    private(set) var playerItemRequest: PlayerItemRequest?
+    private(set) var imageRequest: ImageManagerRequest?
+    private(set) var streamingPlayerItemRequest: ImageManagerRequest?
+    private(set) var downloadingPlayerItemRequest: ImageManagerRequest?
 
     init(asset: PHAsset, imageManager: PHImageManager = .default()) {
         self.asset = asset
@@ -20,17 +21,27 @@ class VideoLoader {
         cancelAllRequests()
     }
 
-    /// Pending image requests are canceled
+    /// Pending image requests are canceled.
     func image(withSize size: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions? = .default(), resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
         imageRequest = ImageRequest(imageManager: imageManager, asset: asset, targetSize: size, contentMode: contentMode, options: options, resultHandler: resultHandler)
     }
 
-    /// Pending player item requests are canceled
-    func playerItem(withOptions options: PHVideoRequestOptions? = .default(), resultHandler: @escaping (AVPlayerItem?, ImageManagerRequest.Info) -> ()) {
-        playerItemRequest = PlayerItemRequest(imageManager: imageManager, video: asset, options: options, resultHandler: resultHandler)
+    /// Pending streaming player item requests are canceled.
+    /// If locally available, the item is served directly, otherwise streamed from iCloud.
+    func streamingPlayerItem(withOptions options: PHVideoRequestOptions? = .default(), resultHandler: @escaping (AVPlayerItem?, ImageManagerRequest.Info) -> ()) {
+        streamingPlayerItemRequest = PlayerItemRequest(imageManager: imageManager, video: asset, options: options, resultHandler: resultHandler)
     }
 
-    /// Pending frame requests are canceled
+    /// Pending download player item requests are canceled.
+    /// If locally available, the item is served directly, otherwise downloaded from iCloud.
+    func downloadingPlayerItem(withOptions options: PHVideoRequestOptions? = .default(), progressHandler: @escaping (Double) -> (), resultHandler: @escaping (AVPlayerItem?, ImageManagerRequest.Info) -> ()) {
+        downloadingPlayerItemRequest = AVAssetRequest(imageManager: imageManager, video: asset, options: options, progressHandler: progressHandler) { asset, _, info in
+            let playerItem = asset.flatMap(AVPlayerItem.init)
+            resultHandler(playerItem, info)
+        }
+    }
+
+    /// Pending frame requests are canceled.
     func frame(for avAsset: AVAsset, at time: CMTime, resultHandler: @escaping AVAssetImageGeneratorCompletionHandler) {
         cancelFrameGeneration()
         imageGenerator = AVAssetImageGenerator(asset: avAsset)
@@ -48,8 +59,9 @@ class VideoLoader {
     }
 
     func cancelAllRequests() {
-        imageRequest = nil
-        playerItemRequest = nil
         cancelFrameGeneration()
+        imageRequest = nil
+        streamingPlayerItemRequest = nil
+        downloadingPlayerItemRequest = nil
     }
 }

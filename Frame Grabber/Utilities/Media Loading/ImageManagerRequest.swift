@@ -66,7 +66,8 @@ class AVAssetRequest: ImageManagerRequest {
     var avAsset: AVAsset?
 
     /// The handler is called asynchronously on the main thread.
-    /// If a progress handler is provided, it overrides the one in `options`.
+    /// If a progress handler is provided, it overrides the one in `options`. It is called
+    /// on the main thread.
     init(imageManager: PHImageManager, video: PHAsset, options: PHVideoRequestOptions?, progressHandler: ((Double) -> ())? = nil, resultHandler: @escaping (AVAsset?, AVAudioMix?, Info) -> ()) {
         super.init(imageManager: imageManager)
 
@@ -74,7 +75,9 @@ class AVAssetRequest: ImageManagerRequest {
 
         if let progressHandler = progressHandler {
             options.progressHandler = { progress, error, stop, info in
-                progressHandler(progress)
+                DispatchQueue.main.async {
+                    progressHandler(progress)
+                }
             }
         }
 
