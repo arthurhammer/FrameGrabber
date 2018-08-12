@@ -15,6 +15,7 @@ class PlayerViewController: UIViewController {
     private lazy var timeFormatter = VideoTimeFormatter()
     private lazy var dimensionFormatter = VideoDimensionFormatter()
 
+    @IBOutlet private var blurryImageView: BlurryImageView!
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
     @IBOutlet private var loadingView: PlayerLoadingView!
     @IBOutlet private var overlayView: PlayerOverlayView!
@@ -158,6 +159,8 @@ private extension PlayerViewController {
         zoomingPlayerView.delegate = self
         configureGestures()
 
+        blurryImageView.contentMode = .scaleAspectFill
+
         overlayView.controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
         }
@@ -292,6 +295,8 @@ private extension PlayerViewController {
         videoLoader.image(withSize: size, contentMode: .aspectFit) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.previewImageView.image = image
+            // reuse same image as background (ignoring different size/content mode as it's blurred)
+            self?.blurryImageView.imageView.image = image
             self?.updatePreviewImage()
         }
     }

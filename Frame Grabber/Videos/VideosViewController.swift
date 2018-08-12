@@ -39,7 +39,6 @@ class VideosViewController: UICollectionViewController {
 
         let selectedAsset = dataSource.video(at: selectedIndexPath)
 
-        destination.modalPresentationCapturesStatusBarAppearance = true
         destination.delegate = self
         destination.videoLoader = VideoLoader(asset: selectedAsset)
 
