@@ -234,10 +234,10 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" customClass="PlayerControlsView" customModule="Frame_Grabber" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="666.33333333333337" width="375" height="145.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="656.33333333333337" width="375" height="155.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls">
-                                                <rect key="frame" x="12" y="16" width="351" height="83.666666666666671"/>
+                                                <rect key="frame" x="12" y="16" width="351" height="93.666666666666671"/>
                                                 <subviews>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
                                                         <rect key="frame" x="0.0" y="0.0" width="351" height="0.0"/>
@@ -247,27 +247,25 @@
                                                         <size key="shadowOffset" width="0.0" height="0.0"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="UAd-LF-y1A">
-                                                        <rect key="frame" x="0.0" y="0.0" width="351" height="31.666666666666668"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="351" height="41.666666666666664"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="32" height="31.666666666666668"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="42" height="41.666666666666664"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="eHg-xr-V48" secondAttribute="height" multiplier="1:1" id="Rpf-eW-IbN"/>
-                                                                    <constraint firstAttribute="width" constant="32" id="ia1-dU-7FI"/>
+                                                                    <constraint firstAttribute="width" constant="42" id="ia1-dU-7FI"/>
                                                                 </constraints>
                                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="prev"/>
                                                             </button>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="1JW-Ds-rNX" customClass="PlayerSlider" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="32" y="0.0" width="287" height="32.666666666666671"/>
+                                                                <rect key="frame" x="42" y="0.0" width="267" height="42.666666666666664"/>
                                                                 <connections>
-                                                                    <action selector="didFinishScrubbing:" destination="1Cw-ag-d47" eventType="touchUpInside" id="IZt-ht-fHq"/>
-                                                                    <action selector="didFinishScrubbing:" destination="1Cw-ag-d47" eventType="touchUpOutside" id="ZfT-Mi-UGf"/>
                                                                     <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="DGr-vF-gO2"/>
                                                                 </connections>
                                                             </slider>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="319" y="0.0" width="32" height="31.666666666666668"/>
+                                                                <rect key="frame" x="309" y="0.0" width="42" height="41.666666666666664"/>
                                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="next"/>
                                                             </button>
@@ -278,7 +276,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7vZ-h2-pIt" userLabel="Buttons">
-                                                        <rect key="frame" x="0.0" y="47.666666666666629" width="351" height="36"/>
+                                                        <rect key="frame" x="0.0" y="57.666666666666629" width="351" height="36"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
                                                                 <rect key="frame" x="0.0" y="2" width="32" height="32"/>

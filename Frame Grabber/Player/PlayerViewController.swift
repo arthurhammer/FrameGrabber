@@ -85,8 +85,6 @@ private extension PlayerViewController {
             let item = playbackController?.currentItem else { return }
 
         playbackController?.pause()
-        playbackController?.seeker.syncPlayerWithSeekTimeForImageExportIfNeeded()
-
         generateFrameAndShare(from: item.asset, at: item.currentTime())
     }
 
@@ -94,10 +92,6 @@ private extension PlayerViewController {
         playbackController?.seeker.smoothlySeek(to: sender.time)
         // When scrubbing, display slider time instead of player time.
         updateViews(withTime: sender.time)
-    }
-
-    @IBAction func didFinishScrubbing(_ sender: UISlider) {
-        playbackController?.seeker.syncPlayerWithSeekTimeForFinishScrubbingIfNeeded()
     }
 }
 

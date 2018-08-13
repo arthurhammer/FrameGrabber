@@ -59,7 +59,6 @@ class PlaybackController {
 
     func play() {
         guard !isPlaying else { return }
-        seeker.syncPlayerWithSeekTimeForPlayingIfNeeded()
         player.play()
     }
 
@@ -80,7 +79,6 @@ class PlaybackController {
 
     func step(byCount count: Int) {
         pause()
-        seeker.syncPlayerWithSeekTimeForSteppingIfNeeded(isSteppingForward: count > 0)
         currentItem?.step(byCount: count)
     }
 }
