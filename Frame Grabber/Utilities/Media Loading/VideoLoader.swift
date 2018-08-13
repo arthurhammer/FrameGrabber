@@ -9,7 +9,6 @@ class VideoLoader {
     private var imageGenerator: AVAssetImageGenerator?
 
     private(set) var imageRequest: ImageManagerRequest?
-    private(set) var streamingPlayerItemRequest: ImageManagerRequest?
     private(set) var downloadingPlayerItemRequest: ImageManagerRequest?
 
     init(asset: PHAsset, imageManager: PHImageManager = .default()) {
@@ -24,12 +23,6 @@ class VideoLoader {
     /// Pending image requests are canceled.
     func image(withSize size: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions? = .default(), resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
         imageRequest = ImageRequest(imageManager: imageManager, asset: asset, targetSize: size, contentMode: contentMode, options: options, resultHandler: resultHandler)
-    }
-
-    /// Pending streaming player item requests are canceled.
-    /// If locally available, the item is served directly, otherwise streamed from iCloud.
-    func streamingPlayerItem(withOptions options: PHVideoRequestOptions? = .default(), resultHandler: @escaping (AVPlayerItem?, ImageManagerRequest.Info) -> ()) {
-        streamingPlayerItemRequest = PlayerItemRequest(imageManager: imageManager, video: asset, options: options, resultHandler: resultHandler)
     }
 
     /// Pending download player item requests are canceled.
@@ -61,7 +54,6 @@ class VideoLoader {
     func cancelAllRequests() {
         cancelFrameGeneration()
         imageRequest = nil
-        streamingPlayerItemRequest = nil
         downloadingPlayerItemRequest = nil
     }
 }

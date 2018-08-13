@@ -132,10 +132,6 @@ extension PlayerViewController: PlaybackControllerDelegate {
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {
         updateSlider(withDuration: duration)
     }
-
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdatePresentationSize size: CGSize) {
-        updateDimensionsLabel(withSize: size)
-    }
 }
 
 // MARK: - ZoomingPlayerViewDelegate
@@ -168,7 +164,7 @@ private extension PlayerViewController {
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateViews(withTime: .zero)
-        updateDimensionsLabel(withSize: .zero)
+        updateDimensionsLabel()
         updateViewsForPlayer()
 
         overlayView.controlsView.nextButton.tintColor = .timeSliderMinimumTrackTint
@@ -238,12 +234,8 @@ private extension PlayerViewController {
         overlayView.controlsView.playButton.setTimeControlStatus(status)
     }
 
-    func updateDimensionsLabel(withSize size: CGSize) {
-        // Prefer player item size if available, might be different from Photos asset size
-        let playerItemSize = size
-        let phAssetSize = CGSize(width: videoLoader.asset.pixelWidth, height: videoLoader.asset.pixelHeight)
-        let size = (playerItemSize == .zero) ? phAssetSize : playerItemSize
-
+    func updateDimensionsLabel() {
+        let size = CGSize(width: videoLoader.asset.pixelWidth, height: videoLoader.asset.pixelHeight)
         let dimensions = dimensionFormatter.string(from: size)
         overlayView.titleView.detailTitleLabel.text = dimensions
     }

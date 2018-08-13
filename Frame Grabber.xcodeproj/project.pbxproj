@@ -37,7 +37,6 @@
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
 		00BAFCA0205E938B00BCEE69 /* AVKit+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */; };
 		00BAFCA2205E994D00BCEE69 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */; };
-		00BAFCA4205E99B200BCEE69 /* UIActivityIndicatorView+Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA3205E99B200BCEE69 /* UIActivityIndicatorView+Delay.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */; };
 		00C098D51FC1A7C2000B05FE /* Photos+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* Photos+Authorization.swift */; };
 		00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* AVKit.swift */; };
@@ -82,7 +81,6 @@
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVKit+Debug.swift"; sourceTree = "<group>"; };
 		00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
-		00BAFCA3205E99B200BCEE69 /* UIActivityIndicatorView+Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Delay.swift"; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Navigation.swift"; sourceTree = "<group>"; };
 		00C098D41FC1A7C2000B05FE /* Photos+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photos+Authorization.swift"; sourceTree = "<group>"; };
 		00C098D61FC1A7CB000B05FE /* AVKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVKit.swift; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
-				00BAFCA3205E99B200BCEE69 /* UIActivityIndicatorView+Delay.swift */,
 				007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */,
 				00C098D81FC1A7D3000B05FE /* UIKit.swift */,
 				00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */,
@@ -354,7 +351,6 @@
 				007208971FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift in Sources */,
 				009C657A1FBF338900DB25A6 /* VideosViewController.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
-				00BAFCA4205E99B200BCEE69 /* UIActivityIndicatorView+Delay.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
 				00C098D51FC1A7C2000B05FE /* Photos+Authorization.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoLoader.swift in Sources */,

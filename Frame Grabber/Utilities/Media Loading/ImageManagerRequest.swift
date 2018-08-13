@@ -44,23 +44,6 @@ class ImageRequest: ImageManagerRequest {
     }
 }
 
-class PlayerItemRequest: ImageManagerRequest {
-
-    var playerItem: AVPlayerItem?
-
-    /// The handler is called asynchronously on the main thread
-    init(imageManager: PHImageManager, video: PHAsset, options: PHVideoRequestOptions?, resultHandler: @escaping (AVPlayerItem?, Info) -> ()) {
-        super.init(imageManager: imageManager)
-
-        id = imageManager.requestPlayerItem(forVideo: video, options: options) { [weak self] playerItem, info in
-            DispatchQueue.main.async {
-                self?.playerItem = playerItem
-                resultHandler(playerItem, Info(info: info))
-            }
-        }
-    }
-}
-
 class AVAssetRequest: ImageManagerRequest {
 
     var avAsset: AVAsset?
