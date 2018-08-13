@@ -1,13 +1,7 @@
 import UIKit
 import AVKit
 
-protocol PlayerViewControllerDelegate: class {
-    func playerViewControllerDone()
-}
-
 class PlayerViewController: UIViewController {
-
-    weak var delegate: PlayerViewControllerDelegate?
 
     var videoLoader: VideoLoader!
 
@@ -34,10 +28,6 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -62,7 +52,6 @@ private extension PlayerViewController {
         videoLoader.cancelAllRequests()
         playbackController?.pause()
         dismiss(animated: true)
-        delegate?.playerViewControllerDone()
     }
 
     @IBAction func playOrPause() {

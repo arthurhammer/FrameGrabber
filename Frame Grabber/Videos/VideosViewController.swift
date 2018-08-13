@@ -15,6 +15,7 @@ class VideosViewController: UICollectionViewController {
         super.viewDidLoad()
         configureViews()
         configureDataSource()
+        clearsSelectionOnViewWillAppear = true
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -38,12 +39,7 @@ class VideosViewController: UICollectionViewController {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
         let selectedAsset = dataSource.video(at: selectedIndexPath)
-
-        destination.delegate = self
         destination.videoLoader = VideoLoader(asset: selectedAsset)
-
-        // Don't scroll to top while player is presented (`overCurrentContext`)
-        collectionView?.scrollsToTop = false
     }
 }
 
@@ -55,16 +51,6 @@ extension VideosViewController {
         guard let cell = cell as? VideoCell else { return }
         // Cancel generating thumbnail
         cell.imageRequest = nil
-    }
-}
-
-// MARK: - PlayerViewControllerDelegate
-
-extension VideosViewController: PlayerViewControllerDelegate {
-
-    func playerViewControllerDone() {
-        collectionView?.scrollsToTop = true
-        collectionView?.clearSelection()
     }
 }
 
