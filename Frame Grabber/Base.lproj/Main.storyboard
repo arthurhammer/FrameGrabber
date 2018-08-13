@@ -154,21 +154,41 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hNT-4m-8Wu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                     </imageView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IwZ-xU-AKu">
-                                        <rect key="frame" x="169" y="388" width="37" height="37"/>
-                                    </activityIndicatorView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e1b-6l-rn9">
+                                        <rect key="frame" x="12" y="386.66666666666669" width="351" height="39.333333333333314"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading from iCloud…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGN-ie-szR">
+                                                <rect key="frame" x="0.0" y="0.0" width="351" height="19.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <progressView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="5BC-Up-7x5">
+                                                <rect key="frame" x="0.0" y="31.333333333333314" width="351" height="8"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="8" id="oXD-k2-Wh1"/>
+                                                </constraints>
+                                            </progressView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="oGN-ie-szR" firstAttribute="width" secondItem="5BC-Up-7x5" secondAttribute="width" id="SNu-IM-Lme"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="IwZ-xU-AKu" firstAttribute="centerX" secondItem="j77-MA-S24" secondAttribute="centerX" id="2uw-sj-fch"/>
-                                    <constraint firstItem="IwZ-xU-AKu" firstAttribute="centerY" secondItem="j77-MA-S24" secondAttribute="centerY" id="Q0y-RR-nl7"/>
+                                    <constraint firstItem="e1b-6l-rn9" firstAttribute="centerY" secondItem="j77-MA-S24" secondAttribute="centerY" id="2oq-3l-akG"/>
+                                    <constraint firstItem="e1b-6l-rn9" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" constant="12" id="RcN-nC-WIP"/>
                                     <constraint firstAttribute="trailing" secondItem="hNT-4m-8Wu" secondAttribute="trailing" id="TMn-Iu-lap"/>
                                     <constraint firstItem="hNT-4m-8Wu" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" id="Wtf-rQ-BFS"/>
                                     <constraint firstItem="hNT-4m-8Wu" firstAttribute="top" secondItem="j77-MA-S24" secondAttribute="top" id="bj2-sD-5px"/>
+                                    <constraint firstAttribute="trailing" secondItem="e1b-6l-rn9" secondAttribute="trailing" constant="12" id="mcF-Hm-53d"/>
                                     <constraint firstAttribute="bottom" secondItem="hNT-4m-8Wu" secondAttribute="bottom" id="n1D-BC-V6k"/>
+                                    <constraint firstItem="e1b-6l-rn9" firstAttribute="centerX" secondItem="j77-MA-S24" secondAttribute="centerX" id="qwY-Sc-h1K"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="activityIndicator" destination="IwZ-xU-AKu" id="ubI-Cs-X3t"/>
                                     <outlet property="previewImageView" destination="hNT-4m-8Wu" id="LvG-Xn-rFO"/>
+                                    <outlet property="progressView" destination="5BC-Up-7x5" id="Xg6-c4-1Q8"/>
+                                    <outlet property="titleLabel" destination="oGN-ie-szR" id="sXm-tS-oem"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ir5-XH-e4O" customClass="PlayerOverlayView" customModule="Frame_Grabber" customModuleProvider="target">
@@ -364,7 +384,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buo-a7-9ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2119" y="366"/>
+            <point key="canvasLocation" x="2065" y="366"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">

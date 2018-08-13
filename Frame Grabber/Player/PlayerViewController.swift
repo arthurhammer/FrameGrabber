@@ -30,7 +30,6 @@ class PlayerViewController: UIViewController {
 
     private var isGeneratingFrame = false {
         didSet {
-            updateActivityIndicator()
             updatePlayerControlsEnabled()
         }
     }
@@ -130,10 +129,6 @@ extension PlayerViewController: PlaybackControllerDelegate {
         updatePlayButton(withStatus: status)
     }
 
-    func player(_ player: AVPlayer, didUpdateReasonForWaitingToPlay status: AVPlayer.WaitingReason?) {
-        updateActivityIndicator()
-    }
-
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {
         updateSlider(withDuration: duration)
     }
@@ -211,12 +206,6 @@ private extension PlayerViewController {
             || isGeneratingFrame
     }
 
-    var shouldShowActivityIndicator: Bool {
-        return shouldDisableControls
-            || playbackController?.player.reasonForWaitingToPlay == .noItemToPlay
-            || playbackController?.player.reasonForWaitingToPlay == .toMinimizeStalls
-    }
-
     func updatePlayerControlsEnabled() {
         overlayView.controlsView.setPlayerControlsEnabled(!shouldDisableControls)
     }
@@ -224,7 +213,6 @@ private extension PlayerViewController {
     func updateViewsForPlayer() {
         updatePlayerControlsEnabled()
         updatePreviewImage()
-        updateActivityIndicator()
     }
 
     func updatePreviewImage() {
@@ -240,8 +228,10 @@ private extension PlayerViewController {
         }
     }
 
-    func updateActivityIndicator() {
-        loadingView.activityIndicator.isShowingAndAnimating = shouldShowActivityIndicator
+    func updateCloudDownloadProgressView(with progress: Float? = nil) {
+        loadingView.progressView.setProgress(progress ?? 0, animated: true)
+        loadingView.progressView.isHidden = progress == nil
+        loadingView.titleLabel.isHidden = progress == nil
     }
 
     func updatePlayButton(withStatus status: AVPlayerTimeControlStatus) {
@@ -302,13 +292,22 @@ private extension PlayerViewController {
     }
 
     func loadPlayerItem() {
-        videoLoader.streamingPlayerItem { [weak self] playerItem, info in
-            if info.error != nil {
-                self?.showVideoLoadingFailedAlertAndDismiss()
-            } else if !info.isCancelled, let playerItem = playerItem {
+        videoLoader.downloadingPlayerItem(progressHandler: { [weak self] progress in
+            self?.updateCloudDownloadProgressView(with: Float(progress))
+
+        }, resultHandler: { [weak self] playerItem, info in
+            self?.updateCloudDownloadProgressView()
+
+            guard !info.isCancelled else { return }
+
+            if let playerItem = playerItem {
                 self?.configurePlayer(with: playerItem)
+            } else {
+                self?.showVideoLoadingFailedAlertAndDismiss()
             }
-        }
+        })
+
+        updateCloudDownloadProgressView()
     }
 
     func configurePlayer(with playerItem: AVPlayerItem) {
