@@ -137,6 +137,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
 // MARK: - ZoomingPlayerViewDelegate
 
 extension PlayerViewController: ZoomingPlayerViewDelegate {
+
     func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {
         updatePreviewImage()
     }
@@ -148,9 +149,6 @@ private extension PlayerViewController {
 
     func configureViews() {
         zoomingPlayerView.delegate = self
-        configureGestures()
-
-        blurryImageView.contentMode = .scaleAspectFill
 
         overlayView.controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
@@ -160,15 +158,13 @@ private extension PlayerViewController {
             self?.stepForward()
         }
 
-        // Initial states
+        configureGestures()
+
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateViews(withTime: .zero)
         updateDimensionsLabel()
         updateViewsForPlayer()
-
-        overlayView.controlsView.nextButton.tintColor = .timeSliderMinimumTrackTint
-        overlayView.controlsView.previousButton.tintColor = .timeSliderMinimumTrackTint
     }
 
     func configureGestures() {
@@ -277,7 +273,7 @@ private extension PlayerViewController {
         videoLoader.image(withSize: size, contentMode: .aspectFit) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.previewImageView.image = image
-            // reuse same image as background (ignoring different size/content mode as it's blurred)
+            // use same image for background (ignoring different size/content mode as it's blurred)
             self?.blurryImageView.imageView.image = image
             self?.updatePreviewImage()
         }

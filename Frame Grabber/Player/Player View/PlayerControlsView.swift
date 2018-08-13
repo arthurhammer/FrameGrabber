@@ -28,6 +28,9 @@ class PlayerControlsView: GradientView {
 
         shareButton.layer.cornerRadius = shareButton.bounds.height/2
         shareButton.backgroundColor = .accent
+
+        nextButton.tintColor = .timeSliderMinimumTrackTint
+        previousButton.tintColor = .timeSliderMinimumTrackTint
     }
 }
 

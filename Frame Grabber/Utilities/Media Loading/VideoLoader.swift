@@ -20,13 +20,15 @@ class VideoLoader {
         cancelAllRequests()
     }
 
-    /// Pending image requests are canceled.
+    /// Pending image requests are cancelled.
+    /// The result handler is called asynchronously on the main thread.
     func image(withSize size: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions? = .default(), resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
         imageRequest = ImageRequest(imageManager: imageManager, asset: asset, targetSize: size, contentMode: contentMode, options: options, resultHandler: resultHandler)
     }
 
-    /// Pending download player item requests are canceled.
+    /// Pending downloading player item requests are cancelled.
     /// If locally available, the item is served directly, otherwise downloaded from iCloud.
+    /// The progress and result handlers are called asynchronously on the main thread.
     func downloadingPlayerItem(withOptions options: PHVideoRequestOptions? = .default(), progressHandler: @escaping (Double) -> (), resultHandler: @escaping (AVPlayerItem?, ImageManagerRequest.Info) -> ()) {
         downloadingPlayerItemRequest = AVAssetRequest(imageManager: imageManager, video: asset, options: options, progressHandler: progressHandler) { asset, _, info in
             let playerItem = asset.flatMap(AVPlayerItem.init)
@@ -35,6 +37,7 @@ class VideoLoader {
     }
 
     /// Pending frame requests are canceled.
+    /// The result handler is called asynchronously on the main thread.
     func frame(for avAsset: AVAsset, at time: CMTime, resultHandler: @escaping AVAssetImageGeneratorCompletionHandler) {
         cancelFrameGeneration()
         imageGenerator = AVAssetImageGenerator(asset: avAsset)
