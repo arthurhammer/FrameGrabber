@@ -15,7 +15,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet private var overlayView: PlayerOverlayView!
 
     private var isScrubbing: Bool {
-        return overlayView.controlsView.timeSlider.isTracking
+        return overlayView.controlsView.timeSlider.isInteracting
     }
 
     private var isSeeking: Bool {
@@ -77,7 +77,7 @@ private extension PlayerViewController {
         generateFrameAndShare(from: item.asset, at: item.currentTime())
     }
 
-    @IBAction func scrub(_ sender: UISlider) {
+    @IBAction func scrub(_ sender: TimeSlider) {
         playbackController?.seeker.smoothlySeek(to: sender.time)
         // When scrubbing, display slider time instead of player time.
         updateViews(withTime: sender.time)

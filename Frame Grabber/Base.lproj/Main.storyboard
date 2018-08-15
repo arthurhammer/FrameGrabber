@@ -258,12 +258,12 @@
                                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="prev"/>
                                                             </button>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="1JW-Ds-rNX" customClass="PlayerSlider" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="42" y="0.0" width="267" height="42.666666666666664"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8v-D6-g4Q" customClass="TimeSlider" customModule="Frame_Grabber" customModuleProvider="target">
+                                                                <rect key="frame" x="44" y="0.0" width="263" height="41.666666666666664"/>
                                                                 <connections>
-                                                                    <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="DGr-vF-gO2"/>
+                                                                    <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="pNM-rt-Ner"/>
                                                                 </connections>
-                                                            </slider>
+                                                            </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                                 <rect key="frame" x="309" y="0.0" width="42" height="41.666666666666664"/>
                                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -330,7 +330,7 @@
                                             <outlet property="previousButton" destination="eHg-xr-V48" id="nph-Q1-Vg8"/>
                                             <outlet property="shareButton" destination="YtA-ho-uQs" id="DPc-ZS-ceW"/>
                                             <outlet property="timeLabel" destination="mXw-rO-aOk" id="ncJ-0r-hQF"/>
-                                            <outlet property="timeSlider" destination="1JW-Ds-rNX" id="c6a-HA-8ZM"/>
+                                            <outlet property="timeSlider" destination="F8v-D6-g4Q" id="D9C-s8-Qra"/>
                                         </connections>
                                     </view>
                                 </subviews>

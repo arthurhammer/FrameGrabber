@@ -2,7 +2,7 @@ import UIKit
 
 class PlayerControlsView: GradientView {
 
-    @IBOutlet var timeSlider: PlayerSlider!
+    @IBOutlet var timeSlider: TimeSlider!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var playButton: UIButton!
@@ -26,11 +26,12 @@ class PlayerControlsView: GradientView {
     private func configureViews() {
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .bold)
 
+        timeSlider.valueIndicatorColor = .timeSliderValueIndicator
+        timeSlider.trackColor = .timeSliderTrack
+        timeSlider.disabledTrackColor = .disabledTimeSliderTrack
+
         shareButton.layer.cornerRadius = shareButton.bounds.height/2
         shareButton.backgroundColor = .accent
-
-        nextButton.tintColor = .timeSliderMinimumTrackTint
-        previousButton.tintColor = .timeSliderMinimumTrackTint
     }
 }
 

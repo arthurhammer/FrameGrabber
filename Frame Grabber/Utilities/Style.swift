@@ -14,9 +14,9 @@ extension UIColor {
 
     // Player
 
-    static let timeSliderThumbTint = UIColor.accent
-    static let timeSliderMinimumTrackTint = UIColor.timeSliderMaximumTrackTint
-    static let timeSliderMaximumTrackTint = UIColor(red: 0.45, green: 0.45, blue: 0.45, alpha: 1.00)
+    static let timeSliderValueIndicator = UIColor.accent
+    static let timeSliderTrack = UIColor(white: 0.65, alpha: 1)
+    static let disabledTimeSliderTrack = UIColor.timeSliderTrack.withAlphaComponent(0.4)
 
     static let playerOverlayNavigationGradient = [UIColor.black.withAlphaComponent(0.4),
                                                   UIColor.black.withAlphaComponent(0)]

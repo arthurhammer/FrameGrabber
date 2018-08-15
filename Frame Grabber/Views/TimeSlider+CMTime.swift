@@ -1,6 +1,6 @@
 import AVKit
 
-extension UISlider {
+extension TimeSlider {
     /// `value` interpreted as `CMTime`.
     var time: CMTime {
         get { return CMTime(seconds: Double(value)) }
