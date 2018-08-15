@@ -40,7 +40,9 @@ class VideoLoader {
     /// The result handler is called asynchronously on the main thread.
     func frame(for avAsset: AVAsset, at time: CMTime, resultHandler: @escaping AVAssetImageGeneratorCompletionHandler) {
         cancelFrameGeneration()
+        
         imageGenerator = AVAssetImageGenerator(asset: avAsset)
+        imageGenerator?.appliesPreferredTrackTransform = true
 
         imageGenerator?.generateImage(at: time) { [weak self] requestedTime, cgImage, actualTime, status, error in
             DispatchQueue.main.async {
