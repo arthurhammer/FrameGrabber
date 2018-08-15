@@ -11,10 +11,9 @@ class PlayerOverlayView: UIView {
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        // Pass touches through non-controls in the overlay (labels, stack views, empty space etc.)
-        guard let hitView = super.hitTest(point, with: event) else { return nil }
-        let shouldViewReceiveTouch = hitView is UIControl
-        return shouldViewReceiveTouch ? hitView : nil
+        // Pass touches through if not in a subview (title, controls).
+        let hitView = super.hitTest(point, with: event)
+        return (hitView != self) ? hitView : nil
     }
 
     private func configureViews() {
