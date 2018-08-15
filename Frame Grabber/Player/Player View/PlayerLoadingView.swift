@@ -1,6 +1,7 @@
 import UIKit
 
 class PlayerLoadingView: UIView {
+
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var previewImageView: UIImageView!
@@ -11,6 +12,8 @@ class PlayerLoadingView: UIView {
     }
 
     private func configureViews() {
+        applyDefaultOverlayShadow()
+
         progressView.progressTintColor = .accent
         progressView.trackTintColor = .white
         progressView.layer.cornerRadius = 4

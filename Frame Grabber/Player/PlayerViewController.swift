@@ -227,9 +227,7 @@ private extension PlayerViewController {
     func updateTimeLabel(withTime time: CMTime) {
         let showMilliseconds = playbackController?.isPlaying == false
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-
-        overlayView.titleView.titleLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .bold)
-        overlayView.titleView.titleLabel.text = formattedTime
+        overlayView.controlsView.timeLabel.text = formattedTime
     }
 
     func updateSlider(withTime time: CMTime) {

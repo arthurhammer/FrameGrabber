@@ -1,7 +1,17 @@
 import UIKit
 
 class PlayerTitleView: GradientView {
+
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var detailTitleLabel: UILabel!
-    @IBOutlet var closeButton: UIButton!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configureViews()
+    }
+
+    private func configureViews() {
+        colors = UIColor.playerOverlayNavigationGradient
+        applyDefaultOverlayShadow()
+    }
 }
