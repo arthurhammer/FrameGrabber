@@ -1,35 +1,30 @@
 import UIKit
 import Photos
 
-struct ImageConfig {
-    var size: CGSize = .zero
-    var mode: PHImageContentMode = .aspectFill
-    var options: PHImageRequestOptions? = .default()
-}
-
 class VideosCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
-    typealias CellProvider = (IndexPath, PHAsset) -> (UICollectionViewCell)
-    typealias ChangeHandler = (PHFetchResultChangeDetails<PHAsset>) -> ()
+    /// nil if deleted.
+    private(set) var album: FetchedAlbum?
 
-    private(set) var videos: PHFetchResult<PHAsset>
-    var videosChangedHandler: ChangeHandler?
+    var albumDeletedHandler: (() -> ())?
+    var albumChangedHandler: (() -> ())?
+    var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>) -> ())?
 
     var imageConfig: ImageConfig {
         didSet { imageManager.stopCachingImagesForAllAssets() }
     }
 
+    private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
     private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
-    private let cellProvider: CellProvider
 
-    init(videos: PHFetchResult<PHAsset> = PHAsset.fetchVideos(),
+    init(album: FetchedAlbum?,
          photoLibrary: PHPhotoLibrary = .shared(),
          imageManager: PHCachingImageManager = .init(),
          imageConfig: ImageConfig = .init(),
-         cellProvider: @escaping CellProvider) {
+         cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)) {
 
-        self.videos = videos
+        self.album = album
         self.photoLibrary = photoLibrary
         self.imageManager = imageManager
         self.imageConfig = imageConfig
@@ -42,15 +37,18 @@ class VideosCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
     deinit {
         photoLibrary.unregisterChangeObserver(self)
+        imageManager.stopCachingImagesForAllAssets()
     }
 
+    /// Precondition: `album != nil`.
     func video(at indexPath: IndexPath) -> PHAsset {
-        return videos.object(at: indexPath.item)
+        return album!.fetchResult.object(at: indexPath.item)
     }
 
+    /// Precondition: `album != nil`.
     func videos(at indexPaths: [IndexPath]) -> [PHAsset] {
         let indexSet = IndexSet(indexPaths.map { $0.item })
-        return videos.objects(at: indexSet)
+        return album!.fetchResult.objects(at: indexSet)
     }
 
     func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest {
@@ -68,7 +66,7 @@ extension VideosCollectionViewDataSource {
     // MARK: UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return album?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -98,15 +96,29 @@ extension VideosCollectionViewDataSource {
 
     func photoLibraryDidChange(_ change: PHChange) {
         DispatchQueue.main.async { [weak self] in
-            guard let this = self,
-                let details = change.changeDetails(for: this.videos) else { return }
-            this.handlePhotoLibraryChange(for: details)
+            self?.updateAlbum(with: change)
         }
     }
 
-    private func handlePhotoLibraryChange(for details: PHFetchResultChangeDetails<PHAsset>) {
-        videos = details.fetchResultAfterChanges
-        imageManager.stopCachingImagesForAllAssets()
-        videosChangedHandler?(details)
+    private func updateAlbum(with change: PHChange) {
+        guard let oldAlbum = album,
+            let changeDetails = change.changeDetails(for: oldAlbum) else { return }
+
+        self.album = changeDetails.albumAfterChanges
+
+        guard !changeDetails.albumWasDeleted else {
+            imageManager.stopCachingImagesForAllAssets()
+            albumDeletedHandler?()
+            return
+        }
+
+        if changeDetails.assetCollectionChanges != nil {
+            albumChangedHandler?()
+        }
+
+        if let videoChange = changeDetails.fetchResultChanges {
+            imageManager.stopCachingImagesForAllAssets()
+            videosChangedHandler?(videoChange)
+        }
     }
 }

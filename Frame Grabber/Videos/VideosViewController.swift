@@ -3,6 +3,12 @@ import Photos
 
 class VideosViewController: UICollectionViewController {
 
+    // Album is nil if deleted.
+    var album: FetchedAlbum? {
+        get { return dataSource?.album }
+        set { configureDataSource(with: newValue) }
+    }
+
     private var dataSource: VideosCollectionViewDataSource!
 
     private lazy var layout = CollectionViewGridLayout()
@@ -14,7 +20,6 @@ class VideosViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        configureDataSource()
         clearsSelectionOnViewWillAppear = true
     }
 
@@ -65,10 +70,20 @@ private extension VideosViewController {
         layout.updateItemSize(forBoundingSize: view.bounds.size)
     }
 
-    func configureDataSource() {
-        dataSource = VideosCollectionViewDataSource(cellProvider: { [unowned self] indexPath, asset in
-            return self.cell(for: asset, at: indexPath)
-        })
+    func configureDataSource(with album: FetchedAlbum?) {
+        dataSource = VideosCollectionViewDataSource(album: album) { [unowned self] in
+            self.cell(for: $1, at: $0)
+        }
+
+        dataSource.albumDeletedHandler = { [weak self] in
+            // On deletion, just show empty screen.
+            self?.updateAlbumData()
+            self?.collectionView?.reloadData()
+        }
+
+        dataSource.albumChangedHandler = { [weak self] in
+            self?.updateAlbumData()
+        }
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
             self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails)
@@ -78,7 +93,12 @@ private extension VideosViewController {
         collectionView?.dataSource = dataSource
         collectionView?.prefetchDataSource = dataSource
 
+        updateAlbumData()
         updateThumbnailSize()
+    }
+
+    func updateAlbumData() {
+        title = dataSource?.album?.title ?? ""  // won't accept nil
     }
 
     func updateThumbnailSize() {
