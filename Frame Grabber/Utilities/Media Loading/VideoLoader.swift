@@ -52,6 +52,12 @@ class VideoLoader {
         }
     }
 
+    /// Adds metadata from the receiver's `PHAsset` (not from the actual video file).
+    func jpgImageDataByAddingAssetMetadata(to image: UIImage, quality: CGFloat) -> Data? {
+        let (_, metadata) = CGImageMetadata.for(creationDate: asset.creationDate, location: asset.location)
+        return image.jpgImageData(withMetadata: metadata, quality: quality)
+    }
+
     func cancelFrameGeneration() {
         imageGenerator?.cancelAllCGImageGeneration()
     }

@@ -42,6 +42,7 @@
 		00C098D91FC1A7D3000B05FE /* UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* UIKit.swift */; };
 		00C098E31FC1C089000B05FE /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
 		00C098EB1FC477E5000B05FE /* ImageManagerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* ImageManagerRequest.swift */; };
+		00E7135A2125E2940052EAF8 /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* ImageMetadata.swift */; };
 		00EAFD98205EB2CE0031F8A2 /* TimeSlider+CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */; };
 		00EAFD9A205ED32B0031F8A2 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */; };
 		00EAFD9C205ED3450031F8A2 /* PlayerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */; };
@@ -87,6 +88,7 @@
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLoader.swift; sourceTree = "<group>"; };
+		00E713592125E2940052EAF8 /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
 		00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSlider+CMTime.swift"; sourceTree = "<group>"; };
 		00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTitleView.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				00C098EA1FC477E5000B05FE /* ImageManagerRequest.swift */,
+				00E713592125E2940052EAF8 /* ImageMetadata.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoLoader.swift */,
 			);
@@ -336,6 +339,7 @@
 				005E2AA320273C5800F731FA /* CollectionViewGridLayout.swift in Sources */,
 				007208971FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift in Sources */,
 				009C657A1FBF338900DB25A6 /* VideosViewController.swift in Sources */,
+				00E7135A2125E2940052EAF8 /* ImageMetadata.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
 				00C098D51FC1A7C2000B05FE /* Photos+Authorization.swift in Sources */,

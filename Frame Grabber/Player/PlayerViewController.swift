@@ -307,7 +307,15 @@ private extension PlayerViewController {
     }
 
     func shareImage(_ image: UIImage) {
-        let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        // Ignore metadata creation errors and share image without metadata.
+        let imageDataWithMetadata = videoLoader.jpgImageDataByAddingAssetMetadata(to: image, quality: 1)
+        let item: Any = imageDataWithMetadata ?? image
+        
+        shareItem(item)
+    }
+
+    func shareItem(_ item: Any) {
+        let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         present(shareController, animated: true)
     }
 
