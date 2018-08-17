@@ -12,7 +12,8 @@ class PlayerLoadingView: UIView {
     }
 
     private func configureViews() {
-        applyDefaultOverlayShadow()
+        titleLabel.applyDefaultOverlayShadow()
+        progressView.applyDefaultOverlayShadow()
 
         progressView.progressTintColor = .accent
         progressView.trackTintColor = .white

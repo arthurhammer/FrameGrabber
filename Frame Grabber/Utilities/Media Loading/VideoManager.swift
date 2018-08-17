@@ -1,7 +1,7 @@
 import AVKit
 import Photos
 
-class VideoLoader {
+class VideoManager {
 
     let asset: PHAsset
 
@@ -20,9 +20,17 @@ class VideoLoader {
         cancelAllRequests()
     }
 
+    func cancelAllRequests() {
+        cancelFrameGeneration()
+        imageRequest = nil
+        downloadingPlayerItemRequest = nil
+    }
+
+    // MARK: Poster Image/Video Generation
+
     /// Pending image requests are cancelled.
     /// The result handler is called asynchronously on the main thread.
-    func image(withSize size: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions? = .default(), resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
+    func posterImage(withSize size: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions? = .default(), resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
         imageRequest = ImageRequest(imageManager: imageManager, asset: asset, targetSize: size, contentMode: contentMode, options: options, resultHandler: resultHandler)
     }
 
@@ -36,35 +44,36 @@ class VideoLoader {
         }
     }
 
+    // MARK: Frame Generation
+
+    var isGeneratingFrame: Bool {
+        return imageGenerator != nil
+    }
+
     /// Pending frame requests are canceled.
     /// The result handler is called asynchronously on the main thread.
-    func frame(for avAsset: AVAsset, at time: CMTime, resultHandler: @escaping AVAssetImageGeneratorCompletionHandler) {
+    func frame(for avAsset: AVAsset, at time: CMTime, completionHandler: @escaping (AVAssetImageGenerator.Status) -> ()) {
         cancelFrameGeneration()
         
         imageGenerator = AVAssetImageGenerator(asset: avAsset)
-        imageGenerator?.appliesPreferredTrackTransform = true
 
-        imageGenerator?.generateImage(at: time) { [weak self] requestedTime, cgImage, actualTime, status, error in
+        imageGenerator?.generateImage(at: time) { [weak self] result in
             DispatchQueue.main.async {
                 self?.imageGenerator = nil
-                resultHandler(requestedTime, cgImage, actualTime, status, error)
+                completionHandler(result)
             }
         }
-    }
-
-    /// Adds metadata from the receiver's `PHAsset` (not from the actual video file).
-    func jpgImageDataByAddingAssetMetadata(to image: UIImage, quality: CGFloat) -> Data? {
-        let (_, metadata) = CGImageMetadata.for(creationDate: asset.creationDate, location: asset.location)
-        return image.jpgImageData(withMetadata: metadata, quality: quality)
     }
 
     func cancelFrameGeneration() {
         imageGenerator?.cancelAllCGImageGeneration()
     }
 
-    func cancelAllRequests() {
-        cancelFrameGeneration()
-        imageRequest = nil
-        downloadingPlayerItemRequest = nil
+    // MARK: Metadata Generation
+
+    /// Adds metadata from the receiver's `PHAsset` (not from the actual video file).
+    func jpgImageDataByAddingAssetMetadata(to image: UIImage, quality: CGFloat) -> Data? {
+        let (_, metadata) = CGImageMetadata.for(creationDate: asset.creationDate, location: asset.location)
+        return image.jpgImageData(withMetadata: metadata, quality: quality)
     }
 }

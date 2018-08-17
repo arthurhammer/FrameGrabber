@@ -1,6 +1,6 @@
 import UIKit
 
-class BlurryImageView: UIView {
+class BlurredImageView: UIView {
 
     var imageView: UIImageView!
     var visualEffectView: UIVisualEffectView!

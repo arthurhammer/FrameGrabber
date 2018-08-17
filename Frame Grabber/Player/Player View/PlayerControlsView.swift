@@ -15,7 +15,7 @@ class PlayerControlsView: GradientView {
         configureViews()
     }
 
-    func setPlayerControlsEnabled(_ enabled: Bool) {
+    func setControlsEnabled(_ enabled: Bool) {
         timeSlider.isEnabled = enabled
         timeLabel.isEnabled = enabled
         shareButton.isEnabled = enabled

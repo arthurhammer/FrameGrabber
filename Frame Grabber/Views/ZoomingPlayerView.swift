@@ -2,12 +2,10 @@ import UIKit
 import AVKit
 
 protocol ZoomingPlayerViewDelegate: class {
-    func playerViewDidZoom(_ playerView: ZoomingPlayerView)
     func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool)
 }
 
 extension ZoomingPlayerViewDelegate {
-    func playerViewDidZoom(_ playerView: ZoomingPlayerView) {}
     func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {}
 }
 
@@ -32,6 +30,10 @@ class ZoomingPlayerView: UIView {
     /// bounds.
     var zoomedVideoRect: CGRect {
         return playerView.convert(playerView.bounds, to: self)
+    }
+
+    var isReadyForDisplay: Bool {
+        return playerView.playerLayer.isReadyForDisplay
     }
 
     /// Can be used to setup dependencies with other recognizers.
@@ -70,11 +72,6 @@ extension ZoomingPlayerView: UIScrollViewDelegate {
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         scrollView.centerContentView()
-        delegate?.playerViewDidZoom(self)
-    }
-
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        delegate?.playerViewDidZoom(self)
     }
 }
 

@@ -141,7 +141,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05q-za-ahp" customClass="BlurryImageView" customModule="Frame_Grabber" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05q-za-ahp" customClass="BlurredImageView" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -250,7 +250,7 @@
                                                                     <action selector="playOrPause" destination="1Cw-ag-d47" eventType="touchUpInside" id="REK-2a-Wzc"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtA-ho-uQs">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtA-ho-uQs">
                                                                 <rect key="frame" x="309" y="0.0" width="42" height="42"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="42" id="Pyr-ig-49w"/>
@@ -369,11 +369,11 @@
                         <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
                     </view>
                     <connections>
-                        <outlet property="blurryImageView" destination="05q-za-ahp" id="ube-Os-1S5"/>
+                        <outlet property="backgroundView" destination="05q-za-ahp" id="ube-Os-1S5"/>
                         <outlet property="loadingView" destination="j77-MA-S24" id="z8p-cQ-aYI"/>
                         <outlet property="overlayView" destination="ir5-XH-e4O" id="QA8-0V-C3t"/>
+                        <outlet property="playerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
                         <outlet property="view" destination="mzG-VC-6dc" id="9z2-of-GuI"/>
-                        <outlet property="zoomingPlayerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buo-a7-9ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>

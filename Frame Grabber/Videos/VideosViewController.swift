@@ -39,7 +39,7 @@ class VideosViewController: UICollectionViewController {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
         let selectedAsset = dataSource.video(at: selectedIndexPath)
-        destination.videoLoader = VideoLoader(asset: selectedAsset)
+        destination.videoLoader = VideoManager(asset: selectedAsset)
     }
 }
 

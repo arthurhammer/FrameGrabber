@@ -3,14 +3,14 @@ import AVKit
 
 class PlayerViewController: UIViewController {
 
-    var videoLoader: VideoLoader!
-
+    var videoLoader: VideoManager!
     private var playbackController: PlaybackController?
+
     private lazy var timeFormatter = VideoTimeFormatter()
     private lazy var dimensionFormatter = VideoDimensionFormatter()
 
-    @IBOutlet private var blurryImageView: BlurryImageView!
-    @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
+    @IBOutlet private var backgroundView: BlurredImageView!
+    @IBOutlet private var playerView: ZoomingPlayerView!
     @IBOutlet private var loadingView: PlayerLoadingView!
     @IBOutlet private var overlayView: PlayerOverlayView!
 
@@ -22,10 +22,8 @@ class PlayerViewController: UIViewController {
         return playbackController?.isSeeking ?? false
     }
 
-    private var isGeneratingFrame = false {
-        didSet {
-            updatePlayerControlsEnabled()
-        }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -131,7 +129,7 @@ extension PlayerViewController: ZoomingPlayerViewDelegate {
 private extension PlayerViewController {
 
     func configureViews() {
-        zoomingPlayerView.delegate = self
+        playerView.delegate = self
 
         overlayView.controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
@@ -153,13 +151,13 @@ private extension PlayerViewController {
     func configureGestures() {
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown))
         swipeRecognizer.direction = .down
-        zoomingPlayerView.addGestureRecognizer(swipeRecognizer)
+        playerView.addGestureRecognizer(swipeRecognizer)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         // zooming view installs its own double tap recognizer
-        tapRecognizer.require(toFail: zoomingPlayerView.doubleTapToZoomRecognizer)
+        tapRecognizer.require(toFail: playerView.doubleTapToZoomRecognizer)
         tapRecognizer.require(toFail: swipeRecognizer)
-        zoomingPlayerView.addGestureRecognizer(tapRecognizer)
+        playerView.addGestureRecognizer(tapRecognizer)
     }
 
     @objc func handleTap(sender: UIGestureRecognizer) {
@@ -178,11 +176,11 @@ private extension PlayerViewController {
         guard let playbackController = playbackController else { return true }
 
         return !playbackController.isReadyToPlay
-            || isGeneratingFrame
+            || videoLoader.isGeneratingFrame
     }
 
     func updatePlayerControlsEnabled() {
-        overlayView.controlsView.setPlayerControlsEnabled(!shouldDisableControls)
+        overlayView.controlsView.setControlsEnabled(!shouldDisableControls)
     }
 
     func updateViewsForPlayer() {
@@ -191,14 +189,12 @@ private extension PlayerViewController {
     }
 
     func updatePreviewImage() {
-        let readyToPlay = playbackController?.isReadyToPlay == true
-        let readyToDisplay = zoomingPlayerView.playerView.playerLayer.isReadyForDisplay
+        let isReady = (playbackController?.isReadyToPlay ?? false) && playerView.isReadyForDisplay
         let hasPreview = loadingView.previewImageView.image != nil
 
-        loadingView.previewImageView.isHidden = !hasPreview || (readyToPlay && readyToDisplay)
+        loadingView.previewImageView.isHidden = !hasPreview || isReady
 
-        // Preview not needed anymore in case still loading
-        if readyToPlay && readyToDisplay {
+        if isReady {
             videoLoader.imageRequest?.cancel()
         }
     }
@@ -251,11 +247,11 @@ private extension PlayerViewController {
     func loadPreviewImage() {
         let size = loadingView.previewImageView.bounds.size.scaledToScreen
 
-        videoLoader.image(withSize: size, contentMode: .aspectFit) { [weak self] image, _ in
+        videoLoader.posterImage(withSize: size, contentMode: .aspectFit) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.previewImageView.image = image
             // use same image for background (ignoring different size/content mode as it's blurred)
-            self?.blurryImageView.imageView.image = image
+            self?.backgroundView.imageView.image = image
             self?.updatePreviewImage()
         }
     }
@@ -282,7 +278,7 @@ private extension PlayerViewController {
     func configurePlayer(with playerItem: AVPlayerItem) {
         playbackController = PlaybackController(playerItem: playerItem)
         playbackController?.delegate = self
-        zoomingPlayerView.player = playbackController?.player
+        playerView.player = playbackController?.player
 
         playbackController?.play()
     }
@@ -290,20 +286,20 @@ private extension PlayerViewController {
     // MARK: Image Generation
 
     func generateFrameAndShare(from asset: AVAsset, at time: CMTime) {
-        isGeneratingFrame = true
+        videoLoader.frame(for: asset, at: time) { [weak self] result in
+            self?.updatePlayerControlsEnabled()
 
-        videoLoader.frame(for: asset, at: time) { [weak self] _, cgImage, _, status, error in
-            self?.isGeneratingFrame = false
-
-            switch (status, cgImage) {
-            case (.cancelled, _):
+            switch (result) {
+            case .cancelled:
                 break
-            case (.failed, _), (.succeeded, nil):
+            case .failed:
                 self?.showImageGenerationFailedAlert()
-            case (.succeeded, let cgImage?):
-                self?.shareImage(UIImage(cgImage: cgImage))
+            case .succeeded(let image, _, _):
+                self?.shareImage(image)
             }
         }
+
+        updatePlayerControlsEnabled()
     }
 
     func shareImage(_ image: UIImage) {
