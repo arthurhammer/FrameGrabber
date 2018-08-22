@@ -5,6 +5,10 @@ class AlbumsViewController: UICollectionViewController {
     var dataSource: AlbumsCollectionViewDataSource!
 
     private let cellId = String(describing: AlbumCell.self)
+    private let headerId = String(describing: AlbumHeader.self)
+
+    private let itemHeight: CGFloat = 90
+    private let headerHeight: CGFloat = 50
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +58,11 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private func configureDataSource() {
-        dataSource = AlbumsCollectionViewDataSource { [unowned self] in
+        dataSource = AlbumsCollectionViewDataSource(sectionHeaderProvider: { [unowned self] in
+            self.sectionHeader(at: $0)
+        }, cellProvider: { [unowned self] in
             self.cell(for: $1, at: $0)
-        }
+        })
 
         dataSource.sectionsChangedHandler = { [weak self] sections in
             self?.collectionView?.reloadSections(sections)
@@ -72,7 +78,6 @@ class AlbumsViewController: UICollectionViewController {
     private func updateLayout(for boundindSize: CGSize) {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
 
-        let itemHeight: CGFloat = 90
         layout.itemSize = CGSize(width: boundindSize.width, height: itemHeight)
         layout.minimumLineSpacing = 0
     }
@@ -108,5 +113,25 @@ class AlbumsViewController: UICollectionViewController {
 
             cell.imageView.image = image
         }
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout / Section Headers
+
+extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard hasHeader(forSection: section) else { return .zero }
+        return CGSize(width: 0, height: headerHeight)
+    }
+
+    private func hasHeader(forSection section: Int) -> Bool {
+        return dataSource.title(forSection: section) != nil
+    }
+
+    private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
+        header.titleLabel.text = dataSource.title(forSection: indexPath.section)
+        return header
     }
 }

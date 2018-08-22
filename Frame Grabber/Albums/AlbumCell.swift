@@ -1,5 +1,9 @@
 import UIKit
 
+class AlbumHeader: UICollectionReusableView {
+    @IBOutlet var titleLabel: UILabel!
+}
+
 class AlbumCell: UICollectionViewCell {
 
     var identifier: String?

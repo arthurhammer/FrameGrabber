@@ -11,17 +11,20 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
     private var sections: [Section] = [.empty, .empty]
     private let albumsDataSource: AlbumsDataSource
-    private let imageManager: PHCachingImageManager
+    private let sectionHeaderProvider: (IndexPath) -> UICollectionReusableView
     private let cellProvider: (IndexPath, Album) -> UICollectionViewCell
+    private let imageManager: PHCachingImageManager
 
     init(albumsDataSource: AlbumsDataSource = .init(),
          imageConfig: ImageConfig = .init(),
          imageManager: PHCachingImageManager = .init(),
+         sectionHeaderProvider: @escaping (IndexPath) -> UICollectionReusableView,
          cellProvider: @escaping (IndexPath, Album) -> UICollectionViewCell) {
 
         self.albumsDataSource = albumsDataSource
         self.imageConfig = imageConfig
         self.imageManager = imageManager
+        self.sectionHeaderProvider = sectionHeaderProvider
         self.cellProvider = cellProvider
 
         super.init()
@@ -64,7 +67,7 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     private func configureSectionChangeHandlers() {
         albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in
             self?.imageManager.stopCachingImagesForAllAssets()
-            self?.sections[0] = Section(title: nil, albums: albums, assetFetchOptions: .smartAlbumVideos())
+            self?.sections[0] = Section(title: NSLocalizedString("Library", comment: ""), albums: albums, assetFetchOptions: .smartAlbumVideos())
             self?.sectionsChangedHandler?([0])
         }
 
@@ -87,6 +90,10 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return cellProvider(indexPath, album(at: indexPath))
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return sectionHeaderProvider(indexPath)
     }
 
     // MARK: UICollectionViewDataSourcePrefetching
