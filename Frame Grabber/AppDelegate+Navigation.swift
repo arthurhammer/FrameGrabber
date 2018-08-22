@@ -1,7 +1,7 @@
 import UIKit
 
-private let photoLibraryStoryboardId = "Main"
 private let authorizationStoryboardId = String(describing: PhotoLibraryAuthorizationController.self)
+private let videosStoryboardId = String(describing: VideosViewController.self)
 
 extension AppDelegate {
 
@@ -15,9 +15,22 @@ extension AppDelegate {
 
     private func showVideosController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: photoLibraryStoryboardId)
 
-        setRootViewController(controller, animated: true)
+        guard let rootNavController = storyboard.instantiateInitialViewController() as? UINavigationController,
+            let initialAlbumController = storyboard.instantiateViewController(withIdentifier: videosStoryboardId) as? VideosViewController else {
+                fatalError("Wrong controller id or type.")
+        }
+
+        // Show "all videos" album on launch (data fetched synchronously).
+        if let initialAlbum = AlbumsDataSource.defaultSmartAlbumTypes.first,
+            let album = FetchedAlbum.fetchSmartAlbums(with: [initialAlbum], assetFetchOptions: .smartAlbumVideos()).first {
+
+            initialAlbumController.album = album
+            initialAlbumController.navigationItem.largeTitleDisplayMode = .always
+            rootNavController.pushViewController(initialAlbumController, animated: false)
+        }
+
+        setRootViewController(rootNavController, animated: false)
     }
 
     private func showPhotoLibraryAuthorizationController() {

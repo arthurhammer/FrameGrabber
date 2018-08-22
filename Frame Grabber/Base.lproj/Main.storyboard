@@ -14,7 +14,7 @@
         <!--Album Title-->
         <scene sceneID="VUp-D9-yHz">
             <objects>
-                <collectionViewController id="z5r-QY-0zg" customClass="VideosViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="VideosViewController" id="z5r-QY-0zg" customClass="VideosViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7In-rZ-jOJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -482,7 +482,7 @@
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">
             <objects>
-                <navigationController storyboardIdentifier="Main" automaticallyAdjustsScrollViewInsets="NO" id="3Aa-pW-rx6" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Aa-pW-rx6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="9SS-7U-qiD">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
