@@ -14,7 +14,7 @@
         <!--Album Title-->
         <scene sceneID="VUp-D9-yHz">
             <objects>
-                <collectionViewController storyboardIdentifier="VideosViewController" id="z5r-QY-0zg" customClass="VideosViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="AlbumViewController" id="z5r-QY-0zg" customClass="AlbumViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7In-rZ-jOJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

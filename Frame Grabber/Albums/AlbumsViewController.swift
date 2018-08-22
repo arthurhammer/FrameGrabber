@@ -28,12 +28,12 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? VideosViewController {
+        if let controller = segue.destination as? AlbumViewController {
             prepareForVideosSegue(with: controller)
         }
     }
 
-    private func prepareForVideosSegue(with destination: VideosViewController) {
+    private func prepareForVideosSegue(with destination: AlbumViewController) {
         guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
 
         // Re-fetch album and contents as selected item can be outdated (i.e. data source

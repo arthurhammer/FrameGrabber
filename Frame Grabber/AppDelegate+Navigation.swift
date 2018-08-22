@@ -1,23 +1,37 @@
 import UIKit
 
 private let authorizationStoryboardId = String(describing: PhotoLibraryAuthorizationController.self)
-private let videosStoryboardId = String(describing: VideosViewController.self)
+private let albumStoryboardId = String(describing: AlbumViewController.self)
 
 extension AppDelegate {
 
-    func showInitialController() {
+    func showInitialScreen() {
         if PhotoLibraryAuthorizationController.needsAuthorization {
-            showPhotoLibraryAuthorizationController()
+            showPhotoLibraryAuthorizationScreen(animated: false)
         } else {
-            showVideosController()
+            showMainScreen(animated: false)
         }
     }
 
-    private func showVideosController() {
+    private func showPhotoLibraryAuthorizationScreen(animated: Bool) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        guard let authorizationController = storyboard.instantiateViewController(withIdentifier: authorizationStoryboardId) as? PhotoLibraryAuthorizationController else {
+            fatalError("Wrong controller id or type")
+        }
+
+        authorizationController.didAuthorizeHandler = { [weak self] in
+            self?.showMainScreen(animated: true)
+        }
+
+        setRootViewController(authorizationController, animated: animated)
+    }
+
+    private func showMainScreen(animated: Bool) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         guard let rootNavController = storyboard.instantiateInitialViewController() as? UINavigationController,
-            let initialAlbumController = storyboard.instantiateViewController(withIdentifier: videosStoryboardId) as? VideosViewController else {
+            let initialAlbumController = storyboard.instantiateViewController(withIdentifier: albumStoryboardId) as? AlbumViewController else {
                 fatalError("Wrong controller id or type.")
         }
 
@@ -30,26 +44,15 @@ extension AppDelegate {
             rootNavController.pushViewController(initialAlbumController, animated: false)
         }
 
-        setRootViewController(rootNavController, animated: false)
-    }
-
-    private func showPhotoLibraryAuthorizationController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
-        let controller = storyboard.instantiateViewController(withIdentifier: authorizationStoryboardId)
-        guard let authorizationController = controller as? PhotoLibraryAuthorizationController else { fatalError("Wrong controller id or type") }
-
-        authorizationController.didAuthorizeHandler = { [weak self] in
-            self?.showVideosController()
-        }
-
-        setRootViewController(authorizationController, animated: true)
+        setRootViewController(rootNavController, animated: animated)
     }
 }
 
 private extension AppDelegate {
     func setRootViewController(_ viewController: UIViewController, animated: Bool) {
-        let set: (Bool) -> () = { _ in self.window?.rootViewController = viewController }
+        let set: (Bool) -> () = { _ in
+            self.window?.rootViewController = viewController
+        }
 
         if animated, let rootView = window?.rootViewController?.view {
             UIView.transition(from: rootView, to: viewController.view, duration: 0.35, options: .transitionCrossDissolve, completion: set)

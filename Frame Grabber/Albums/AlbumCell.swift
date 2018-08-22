@@ -28,10 +28,11 @@ class AlbumCell: UICollectionViewCell {
     }
 
     private func configureViews() {
+        imageView.backgroundColor = .missingThumbnail
         imageView.layer.cornerRadius = 4
         imageView.layer.masksToBounds = true
 
         selectedBackgroundView = UIView()
-        selectedBackgroundView?.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        selectedBackgroundView?.backgroundColor = .missingThumbnail
     }
 }

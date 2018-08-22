@@ -30,8 +30,8 @@ class VideoManager {
 
     /// Pending image requests are cancelled.
     /// The result handler is called asynchronously on the main thread.
-    func posterImage(withSize size: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions? = .default(), resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
-        imageRequest = ImageRequest(imageManager: imageManager, asset: asset, targetSize: size, contentMode: contentMode, options: options, resultHandler: resultHandler)
+    func posterImage(with config: ImageConfig, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
+        imageRequest = ImageRequest(imageManager: imageManager, asset: asset, config: config, resultHandler: resultHandler)
     }
 
     /// Pending downloading player item requests are cancelled.

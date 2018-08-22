@@ -3,7 +3,7 @@ import AVKit
 
 class PlayerViewController: UIViewController {
 
-    var videoLoader: VideoManager!
+    var videoManager: VideoManager!
     private var playbackController: PlaybackController?
 
     private lazy var timeFormatter = VideoTimeFormatter()
@@ -47,7 +47,7 @@ class PlayerViewController: UIViewController {
 private extension PlayerViewController {
 
     @IBAction func done() {
-        videoLoader.cancelAllRequests()
+        videoManager.cancelAllRequests()
         playbackController?.pause()
         dismiss(animated: true)
     }
@@ -176,7 +176,7 @@ private extension PlayerViewController {
         guard let playbackController = playbackController else { return true }
 
         return !playbackController.isReadyToPlay
-            || videoLoader.isGeneratingFrame
+            || videoManager.isGeneratingFrame
     }
 
     func updatePlayerControlsEnabled() {
@@ -195,7 +195,7 @@ private extension PlayerViewController {
         loadingView.previewImageView.isHidden = !hasPreview || isReady
 
         if isReady {
-            videoLoader.imageRequest?.cancel()
+            videoManager.imageRequest?.cancel()
         }
     }
 
@@ -210,7 +210,7 @@ private extension PlayerViewController {
     }
 
     func updateDimensionsLabel() {
-        let size = CGSize(width: videoLoader.asset.pixelWidth, height: videoLoader.asset.pixelHeight)
+        let size = CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
         let dimensions = dimensionFormatter.string(from: size)
         overlayView.titleView.detailTitleLabel.text = dimensions
     }
@@ -246,8 +246,9 @@ private extension PlayerViewController {
 
     func loadPreviewImage() {
         let size = loadingView.previewImageView.bounds.size.scaledToScreen
+        let config = ImageConfig(size: size, mode: .aspectFit, options: .default())
 
-        videoLoader.posterImage(withSize: size, contentMode: .aspectFit) { [weak self] image, _ in
+        videoManager.posterImage(with: config) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.previewImageView.image = image
             // use same image for background (ignoring different size/content mode as it's blurred)
@@ -257,7 +258,7 @@ private extension PlayerViewController {
     }
 
     func loadPlayerItem() {
-        videoLoader.downloadingPlayerItem(progressHandler: { [weak self] progress in
+        videoManager.downloadingPlayerItem(progressHandler: { [weak self] progress in
             self?.updateCloudDownloadProgressView(with: Float(progress))
 
         }, resultHandler: { [weak self] playerItem, info in
@@ -286,7 +287,7 @@ private extension PlayerViewController {
     // MARK: Image Generation
 
     func generateFrameAndShare(from asset: AVAsset, at time: CMTime) {
-        videoLoader.frame(for: asset, at: time) { [weak self] result in
+        videoManager.frame(for: asset, at: time) { [weak self] result in
             self?.updatePlayerControlsEnabled()
 
             switch (result) {
@@ -304,7 +305,7 @@ private extension PlayerViewController {
 
     func shareImage(_ image: UIImage) {
         // Ignore metadata creation errors and share image without metadata.
-        let imageDataWithMetadata = videoLoader.jpgImageDataByAddingAssetMetadata(to: image, quality: 1)
+        let imageDataWithMetadata = videoManager.jpgImageDataByAddingAssetMetadata(to: image, quality: 1)
         let item: Any = imageDataWithMetadata ?? image
         
         shareItem(item)

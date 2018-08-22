@@ -33,6 +33,8 @@ class PlayerControlsView: GradientView {
         timeSlider.valueIndicatorColor = .timeSliderValueIndicator
         timeSlider.trackColor = .timeSliderTrack
         timeSlider.disabledTrackColor = .disabledTimeSliderTrack
+        timeSlider.trackCornerRadius = timeSlider.trackHeight / 2
+        timeSlider.trackEdgeCornerRadius = 4
 
         previousButton.tintColor = .timeSliderTrack
         nextButton.tintColor = .timeSliderTrack

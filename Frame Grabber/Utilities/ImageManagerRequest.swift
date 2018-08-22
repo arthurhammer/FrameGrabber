@@ -32,10 +32,10 @@ class ImageRequest: ImageManagerRequest {
 
     /// The handler is called asynchronously on the main thread.
     /// - Note: The result handler may be called multiple times, depending on `options`.
-    init(imageManager: PHImageManager, asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions?, resultHandler: @escaping (UIImage?, Info) -> ()) {
+    init(imageManager: PHImageManager, asset: PHAsset, config: ImageConfig, resultHandler: @escaping (UIImage?, Info) -> ()) {
         super.init(imageManager: imageManager)
 
-        id = imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: contentMode, options: options) { [weak self] image, info in
+        id = imageManager.requestImage(for: asset, targetSize: config.size, contentMode: config.mode, options: config.options) { [weak self] image, info in
             DispatchQueue.main.async {
                 self?.image = image
                 resultHandler(image, Info(info: info))
@@ -73,7 +73,7 @@ class AVAssetRequest: ImageManagerRequest {
     }
 }
 
-// MARK: - Info
+// MARK: - Util
 
 extension ImageManagerRequest.Info {
 
@@ -100,4 +100,10 @@ extension ImageManagerRequest.Info {
     var requestId: Int? {
         return info[PHImageResultRequestIDKey] as? Int
     }
+}
+
+struct ImageConfig {
+    var size: CGSize = .zero
+    var mode: PHImageContentMode = .aspectFill
+    var options: PHImageRequestOptions? = .default()
 }

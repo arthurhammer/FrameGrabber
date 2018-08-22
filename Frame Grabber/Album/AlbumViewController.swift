@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class VideosViewController: UICollectionViewController {
+class AlbumViewController: UICollectionViewController {
 
     // Album is nil if deleted.
     var album: FetchedAlbum? {
@@ -9,7 +9,7 @@ class VideosViewController: UICollectionViewController {
         set { configureDataSource(with: newValue) }
     }
 
-    private var dataSource: VideosCollectionViewDataSource!
+    private var dataSource: AlbumCollectionViewDataSource!
 
     private lazy var layout = CollectionViewGridLayout()
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -20,11 +20,10 @@ class VideosViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        clearsSelectionOnViewWillAppear = true
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        layout.updateItemSize(forBoundingSize: size)
+        layout.updateItemSize(for: size)
         updateThumbnailSize()
 
         coordinator.animate(alongsideTransition: { _ in
@@ -44,34 +43,35 @@ class VideosViewController: UICollectionViewController {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
         let selectedAsset = dataSource.video(at: selectedIndexPath)
-        destination.videoLoader = VideoManager(asset: selectedAsset)
+        destination.videoManager = VideoManager(asset: selectedAsset)
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension VideosViewController {
+extension AlbumViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoCell else { return }
-        // Cancel generating thumbnail
+        // Cancel generating thumbnail.
         cell.imageRequest = nil
     }
 }
 
 // MARK: - Private
 
-private extension VideosViewController {
+private extension AlbumViewController {
 
     func configureViews() {
-        collectionView?.delegate = self
-        collectionView?.backgroundColor = .mainBackground
+        clearsSelectionOnViewWillAppear = true
+        collectionView?.alwaysBounceVertical = true
+
         collectionView?.collectionViewLayout = layout
-        layout.updateItemSize(forBoundingSize: view.bounds.size)
+        layout.updateItemSize(for: view.bounds.size)
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
-        dataSource = VideosCollectionViewDataSource(album: album) { [unowned self] in
+        dataSource = AlbumCollectionViewDataSource(album: album) { [unowned self] in
             self.cell(for: $1, at: $0)
         }
 
@@ -118,13 +118,12 @@ private extension VideosViewController {
     }
 
     func loadThumbnail(for cell: VideoCell, video: PHAsset) {
-        cell.videoIdentifier = video.localIdentifier
+        cell.identifier = video.localIdentifier
 
         cell.imageRequest = dataSource.thumbnail(for: video) { image, _ in
-            let isCellRecycled = cell.videoIdentifier != video.localIdentifier
+            let isCellRecycled = cell.identifier != video.localIdentifier
 
-            guard let image = image,
-                !isCellRecycled else { return }
+            guard !isCellRecycled, let image = image else { return }
 
             cell.imageView.image = image
         }

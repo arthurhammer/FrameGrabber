@@ -7,9 +7,3 @@ extension CGSize {
         return CGSize(width: width * scale, height: height * scale)
     }
 }
-
-extension UICollectionView {
-    func clearSelection() {
-        selectItem(at: nil, animated: true, scrollPosition: .top)
-    }
-}

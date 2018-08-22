@@ -5,11 +5,11 @@ extension UIColor {
     // Global
 
     static let accent = UIColor(red:0.19, green:0.62, blue:0.89, alpha:1.00)
-    static let mainBackground = UIColor.white
+    static let missingThumbnail = UIColor(white: 0.95, alpha: 1)
 
-    // Video Library
+    // Album
 
-    static let videoLibraryCellGradient = [UIColor.black.withAlphaComponent(0),
+    static let videoCellGradient = [UIColor.black.withAlphaComponent(0),
                                            UIColor.black.withAlphaComponent(0.6)]
 
     // Player

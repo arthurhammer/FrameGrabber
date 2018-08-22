@@ -2,7 +2,7 @@ import UIKit
 
 class VideoCell: UICollectionViewCell {
 
-    var videoIdentifier: String?
+    var identifier: String?
     var imageRequest: ImageRequest?
 
     @IBOutlet var imageView: UIImageView!
@@ -21,10 +21,24 @@ class VideoCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        configureViews()
+    }
 
-        backgroundColor = .darkGray  // When thumbnail missing
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        identifier = nil
+        imageRequest = nil
+        imageView.image = nil
+        durationLabel.text = nil
+        selectionView.isHidden = true
+        favoritedImageView.isHidden = true
+    }
+
+    private func configureViews() {
+        backgroundColor = .missingThumbnail
         selectionView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
-        gradientView.colors = UIColor.videoLibraryCellGradient
+        gradientView.colors = UIColor.videoCellGradient
 
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -32,16 +46,6 @@ class VideoCell: UICollectionViewCell {
         favoritedImageView.isHidden = true
 
         updateViews()
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        imageRequest = nil
-        imageView.image = nil
-        durationLabel.text = nil
-        selectionView.isHidden = true
-        favoritedImageView.isHidden = true
     }
 
     private func updateViews() {

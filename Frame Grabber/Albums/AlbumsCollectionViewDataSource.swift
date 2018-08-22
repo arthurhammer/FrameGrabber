@@ -51,12 +51,7 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest? {
         guard let keyAsset = album.keyAsset else { return nil }
 
-        return ImageRequest(imageManager: imageManager,
-                            asset: keyAsset,
-                            targetSize: imageConfig.size,
-                            contentMode: imageConfig.mode,
-                            options: imageConfig.options,
-                            resultHandler: resultHandler)
+        return ImageRequest(imageManager: imageManager, asset: keyAsset, config: imageConfig, resultHandler: resultHandler)
     }
 
     func fetchUpdate(forAlbumAt indexPath: IndexPath) -> FetchedAlbum? {

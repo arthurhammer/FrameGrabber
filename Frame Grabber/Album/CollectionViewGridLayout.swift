@@ -18,8 +18,8 @@ class CollectionViewGridLayout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func updateItemSize(forBoundingSize size: CGSize) {
-        let fullWidth = size.width
+    func updateItemSize(for boundingSize: CGSize) {
+        let fullWidth = boundingSize.width
         let minimumItemsPerRow = CGFloat(self.minimumItemsPerRow)
 
         let itemsPerRow = max(floor(fullWidth / preferredItemSize), minimumItemsPerRow)

@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class VideosCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
+class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
@@ -52,16 +52,11 @@ class VideosCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     }
 
     func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest {
-        return ImageRequest(imageManager: imageManager,
-                            asset: video,
-                            targetSize: imageConfig.size,
-                            contentMode: imageConfig.mode,
-                            options: imageConfig.options,
-                            resultHandler: resultHandler)
+        return ImageRequest(imageManager: imageManager, asset: video, config: imageConfig, resultHandler: resultHandler)
     }
 }
 
-extension VideosCollectionViewDataSource {
+extension AlbumCollectionViewDataSource {
 
     // MARK: UICollectionViewDataSource
 
@@ -92,7 +87,7 @@ extension VideosCollectionViewDataSource {
 
 // MARK: - PHPhotoLibraryChangeObserver
 
-extension VideosCollectionViewDataSource {
+extension AlbumCollectionViewDataSource {
 
     func photoLibraryDidChange(_ change: PHChange) {
         DispatchQueue.main.async { [weak self] in
