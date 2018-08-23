@@ -10,6 +10,7 @@
 		0015537F2129C8CF00F58CEE /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
 		001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */; };
 		00229DB8212D978A00848CE8 /* FetchedAlbum+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */; };
+		00229DBA212E0B1600848CE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00229DB9212E0B1600848CE8 /* SettingsViewController.swift */; };
 		00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */; };
 		0026620C212C4A6B00786797 /* AlbumsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026620B212C4A6B00786797 /* AlbumsDataSource.swift */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
@@ -23,6 +24,8 @@
 		007208971FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */; };
 		0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */; };
 		008426991FD5CAC300F4119D /* ZoomingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */; };
+		0096E813212F2EF8008395CA /* Bundle+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E812212F2EF8008395CA /* Bundle+Info.swift */; };
+		0096E815212F2FA7008395CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E814212F2FA7008395CA /* Settings.swift */; };
 		009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1781FB4977100A00BB9 /* AppDelegate.swift */; };
 		009C65781FBF337E00DB25A6 /* PlayerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0057C5D91FBEF494008B7E08 /* PlayerOverlayView.swift */; };
 		009C657A1FBF338900DB25A6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1991FB498C700A00BB9 /* AlbumViewController.swift */; };
@@ -69,6 +72,7 @@
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchedAlbum+Change.swift"; sourceTree = "<group>"; };
+		00229DB9212E0B1600848CE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchedAlbum+Fetch.swift"; sourceTree = "<group>"; };
 		0026620B212C4A6B00786797 /* AlbumsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsDataSource.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 		007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+PhotoLibraryChanges.swift"; sourceTree = "<group>"; };
 		0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingPlayerView.swift; sourceTree = "<group>"; };
+		0096E812212F2EF8008395CA /* Bundle+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Info.swift"; sourceTree = "<group>"; };
+		0096E814212F2FA7008395CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		009C65631FBF32A600DB25A6 /* Frame Grabber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A9DF5121273FA000778885 /* AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewController.swift; sourceTree = "<group>"; };
 		00A9DF542127635C00778885 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
@@ -144,11 +150,12 @@
 				00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */,
 				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
-				0026620A212BFCC900786797 /* Model */,
 				00AFE4FA202AEF01005E2AA8 /* Authorization */,
 				00A9DF5321273FA400778885 /* Albums */,
 				0020D2F21FB4F277002379D0 /* Album */,
 				0057C5BB1FBDE2CF008B7E08 /* Player */,
+				00229DBB212E0B1A00848CE8 /* Settings */,
+				0026620A212BFCC900786797 /* Model */,
 				00C098E61FC1C9E0000B05FE /* Views */,
 				0020D2F11FB4ED95002379D0 /* Utilities */,
 				001AA1981FB497E900A00BB9 /* Resources */,
@@ -171,6 +178,7 @@
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				00C098D61FC1A7CB000B05FE /* AVKit.swift */,
 				00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */,
+				0096E812212F2EF8008395CA /* Bundle+Info.swift */,
 				00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
 				00C098EA1FC477E5000B05FE /* ImageManagerRequest.swift */,
@@ -192,6 +200,15 @@
 				005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */,
 			);
 			path = Album;
+			sourceTree = "<group>";
+		};
+		00229DBB212E0B1A00848CE8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0096E814212F2FA7008395CA /* Settings.swift */,
+				00229DB9212E0B1600848CE8 /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		0026620A212BFCC900786797 /* Model */ = {
@@ -349,9 +366,12 @@
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
+				0096E813212F2EF8008395CA /* Bundle+Info.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* CGSize+Scaled.swift in Sources */,
 				001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */,
 				00B02E0221248ED800336F34 /* UIView+OverlayShadow.swift in Sources */,
+				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
+				00229DBA212E0B1600848CE8 /* SettingsViewController.swift in Sources */,
 				00B02DFC212077CD00336F34 /* BlurredImageView.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,

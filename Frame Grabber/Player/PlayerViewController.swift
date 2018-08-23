@@ -4,6 +4,8 @@ import AVKit
 class PlayerViewController: UIViewController {
 
     var videoManager: VideoManager!
+    var settings = UserDefaults.standard
+
     private var playbackController: PlaybackController?
 
     private lazy var timeFormatter = VideoTimeFormatter()
@@ -304,11 +306,14 @@ private extension PlayerViewController {
     }
 
     func shareImage(_ image: UIImage) {
-        // Ignore metadata creation errors and share image without metadata.
-        let imageDataWithMetadata = videoManager.jpgImageDataByAddingAssetMetadata(to: image, quality: 1)
-        let item: Any = imageDataWithMetadata ?? image
-        
-        shareItem(item)
+        // If creation fails, share plain image without metadata.
+        if settings.includeMetadata,
+            let metadataImage = videoManager.jpgImageDataByAddingAssetMetadata(to: image, quality: 1) {
+
+            shareItem(metadataImage)
+        } else {
+            shareItem(image)
+        }
     }
 
     func shareItem(_ item: Any) {
