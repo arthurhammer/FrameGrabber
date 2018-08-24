@@ -2,7 +2,11 @@ import UIKit
 
 class AlbumsViewController: UICollectionViewController {
 
-    var dataSource: AlbumsCollectionViewDataSource!
+    var dataSource = AlbumsDataSource() {
+        didSet { configureDataSource() }
+    }
+
+    private var collectionViewDataSource: AlbumsCollectionViewDataSource!
 
     private let cellId = String(describing: AlbumCell.self)
     private let headerId = String(describing: AlbumHeader.self)
@@ -38,7 +42,7 @@ class AlbumsViewController: UICollectionViewController {
 
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
         // updates are pending in background). Result is nil if album was deleted.
-        destination.album = dataSource.fetchUpdate(forAlbumAt: selection)
+        destination.album = collectionViewDataSource.fetchUpdate(forAlbumAt: selection)
     }
 
     // MARK: - UICollectionViewDelegate
@@ -58,19 +62,21 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private func configureDataSource() {
-        dataSource = AlbumsCollectionViewDataSource(sectionHeaderProvider: { [unowned self] in
+        guard isViewLoaded else { return }
+
+        collectionViewDataSource = AlbumsCollectionViewDataSource(albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] in
             self.sectionHeader(at: $0)
         }, cellProvider: { [unowned self] in
             self.cell(for: $1, at: $0)
         })
 
-        dataSource.sectionsChangedHandler = { [weak self] sections in
+        collectionViewDataSource.sectionsChangedHandler = { [weak self] sections in
             self?.collectionView?.reloadSections(sections)
         }
 
         collectionView?.isPrefetchingEnabled = true
-        collectionView?.dataSource = dataSource
-        collectionView?.prefetchDataSource = dataSource
+        collectionView?.dataSource = collectionViewDataSource
+        collectionView?.prefetchDataSource = collectionViewDataSource
 
         updateThumbnailSize()
     }
@@ -85,7 +91,7 @@ class AlbumsViewController: UICollectionViewController {
     private func updateThumbnailSize() {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
         let height = layout.itemSize.height
-        dataSource.imageConfig.size = CGSize(width: height, height: height).scaledToScreen
+        collectionViewDataSource.imageConfig.size = CGSize(width: height, height: height).scaledToScreen
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,7 +112,7 @@ class AlbumsViewController: UICollectionViewController {
         let albumId = album.assetCollection.localIdentifier
         cell.identifier = albumId
 
-        cell.imageRequest = dataSource.thumbnail(for: album) { image, _ in
+        cell.imageRequest = collectionViewDataSource.thumbnail(for: album) { image, _ in
             let isCellRecycled = cell.identifier != albumId
 
             guard !isCellRecycled, let image = image else { return }
@@ -121,17 +127,18 @@ class AlbumsViewController: UICollectionViewController {
 extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard hasHeader(forSection: section) else { return .zero }
+        guard showsHeader(forSection: section) else { return .zero }
         return CGSize(width: 0, height: headerHeight)
     }
 
-    private func hasHeader(forSection section: Int) -> Bool {
-        return dataSource.title(forSection: section) != nil
+    private func showsHeader(forSection section: Int) -> Bool {
+        let section = collectionViewDataSource.sections[section]
+        return (section.albums.count > 0) && (section.title != nil)
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
-        header.titleLabel.text = dataSource.title(forSection: indexPath.section)
+        header.titleLabel.text = collectionViewDataSource.sections[indexPath.section].title
         return header
     }
 }

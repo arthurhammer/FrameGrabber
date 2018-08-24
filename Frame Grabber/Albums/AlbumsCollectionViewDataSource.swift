@@ -1,6 +1,12 @@
 import UIKit
 import Photos
 
+struct AlbumsSection {
+    let title: String?
+    var albums: [Album]
+    let assetFetchOptions: PHFetchOptions
+}
+
 class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
 
     var sectionsChangedHandler: ((IndexSet) -> ())?
@@ -9,7 +15,8 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         didSet { imageManager.stopCachingImagesForAllAssets() }
     }
 
-    private var sections: [Section] = [.empty, .empty]
+    private(set) var sections = [AlbumsSection]()
+
     private let albumsDataSource: AlbumsDataSource
     private let sectionHeaderProvider: (IndexPath) -> UICollectionReusableView
     private let cellProvider: (IndexPath, Album) -> UICollectionViewCell
@@ -29,16 +36,14 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
         super.init()
 
-        configureSectionChangeHandlers()
+        configureSections()
     }
 
     deinit {
         imageManager.stopCachingImagesForAllAssets()
     }
 
-    func title(forSection section: Int) -> String? {
-        return sections[section].title
-    }
+    // MARK: Data
 
     func album(at indexPath: IndexPath) -> Album {
         return sections[indexPath.section].albums[indexPath.item]
@@ -59,18 +64,25 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         return FetchedAlbum.fetchUpdate(for: album(at: indexPath), assetFetchOptions: assetFetchOptions)
     }
 
-    private func configureSectionChangeHandlers() {
+    private func configureSections() {
+        sections = [
+            AlbumsSection(title: NSLocalizedString("Library", comment: ""), albums: albumsDataSource.smartAlbums, assetFetchOptions: .smartAlbumVideos()),
+            AlbumsSection(title: NSLocalizedString("My Albums", comment: ""), albums: albumsDataSource.userAlbums, assetFetchOptions: .userAlbumVideos())
+        ]
+
         albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in
-            self?.imageManager.stopCachingImagesForAllAssets()
-            self?.sections[0] = Section(title: NSLocalizedString("Library", comment: ""), albums: albums, assetFetchOptions: .smartAlbumVideos())
-            self?.sectionsChangedHandler?([0])
+            self?.updateSection(at: 0, with: albums)
         }
 
         albumsDataSource.userAlbumsChangedHandler = { [weak self] albums in
-            self?.imageManager.stopCachingImagesForAllAssets()
-            self?.sections[1] = Section(title: NSLocalizedString("My Albums", comment: ""), albums: albums, assetFetchOptions: .userAlbumVideos())
-            self?.sectionsChangedHandler?([1])
+            self?.updateSection(at: 1, with: albums)
         }
+    }
+
+    private func updateSection(at index: Int, with albums: [Album]) {
+        imageManager.stopCachingImagesForAllAssets()
+        sections[index].albums = albums
+        sectionsChangedHandler?(IndexSet([index]))
     }
 
     // MARK: UICollectionViewDataSource
@@ -110,12 +122,4 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
                                        contentMode: imageConfig.mode,
                                        options: imageConfig.options)
     }
-}
-
-private struct Section {
-    let title: String?
-    let albums: [Album]
-    let assetFetchOptions: PHFetchOptions
-
-    static var empty = Section(title: nil, albums: [], assetFetchOptions: .init())
 }
