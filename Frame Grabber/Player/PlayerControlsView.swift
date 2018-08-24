@@ -27,7 +27,7 @@ class PlayerControlsView: GradientView {
     private func configureViews() {
         colors = Style.Color.overlayBottomGradient
 
-        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
+        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
 
         timeSlider.trackCornerRadius = timeSlider.trackHeight / 2
         timeSlider.trackEdgeCornerRadius = 4
