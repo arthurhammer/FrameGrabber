@@ -14,10 +14,11 @@ class PlayerViewController: UIViewController {
     @IBOutlet private var backgroundView: BlurredImageView!
     @IBOutlet private var playerView: ZoomingPlayerView!
     @IBOutlet private var loadingView: PlayerLoadingView!
-    @IBOutlet private var overlay: PlayerOverlayView!
+    @IBOutlet private var titleView: PlayerTitleView!
+    @IBOutlet private var controlsView: PlayerControlsView!
 
     private var isScrubbing: Bool {
-        return overlay.controlsView.timeSlider.isInteracting
+        return controlsView.timeSlider.isInteracting
     }
 
     private var isSeeking: Bool {
@@ -32,14 +33,10 @@ class PlayerViewController: UIViewController {
         return true
     }
 
-    override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
-        // Control center can interfere with repeating buttons
-        return .bottom
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+        loadPreviewImage()
         loadVideo()
     }
 }
@@ -61,12 +58,12 @@ private extension PlayerViewController {
 
     func stepBackward() {
         guard !isScrubbing else { return }
-        playbackController?.stepBackward()
+        playbackController?.step(byCount: -1)
     }
 
     func stepForward() {
         guard !isScrubbing else { return }
-        playbackController?.stepForward()
+        playbackController?.step(byCount: 1)
     }
 
     @IBAction func shareCurrentFrame() {
@@ -80,7 +77,8 @@ private extension PlayerViewController {
     @IBAction func scrub(_ sender: TimeSlider) {
         playbackController?.seeker.smoothlySeek(to: sender.time)
         // When scrubbing, display slider time instead of player time.
-        updateViews(withTime: sender.time)
+        updateSlider(withTime: sender.time)
+        updateTimeLabel(withTime: sender.time)
     }
 }
 
@@ -90,22 +88,25 @@ extension PlayerViewController: PlaybackControllerDelegate {
 
     func player(_ player: AVPlayer, didUpdateStatus status: AVPlayerStatus) {
         if status == .failed {
-            showPlaybackFailedAlertAndDismiss()
+            presentAlert(.playbackFailed { _ in self.done() })
         }
 
-        updateViewsForPlayer()
+        updatePlayerControlsEnabled()
+        updatePreviewImage()
     }
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {
         if status == .failed {
-            showPlaybackFailedAlertAndDismiss()
+            presentAlert(.playbackFailed { _ in self.done() })
         }
 
-        updateViewsForPlayer()
+        updatePlayerControlsEnabled()
+        updatePreviewImage()
     }
 
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
-        updateViews(withTime: time)
+        updateSlider(withTime: time)
+        updateTimeLabel(withTime: time)
     }
 
     func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayerTimeControlStatus) {
@@ -133,11 +134,11 @@ private extension PlayerViewController {
     func configureViews() {
         playerView.delegate = self
 
-        overlay.controlsView.previousButton.repeatAction = { [weak self] in
+        controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
         }
 
-        overlay.controlsView.nextButton.repeatAction = { [weak self] in
+        controlsView.nextButton.repeatAction = { [weak self] in
             self?.stepForward()
         }
 
@@ -145,9 +146,11 @@ private extension PlayerViewController {
 
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
-        updateViews(withTime: .zero)
+        updateSlider(withTime: .zero)
+        updateTimeLabel(withTime: .zero)
         updateDimensionsLabel()
-        updateViewsForPlayer()
+        updatePlayerControlsEnabled()
+        updatePreviewImage()
     }
 
     func configureGestures() {
@@ -156,7 +159,6 @@ private extension PlayerViewController {
         playerView.addGestureRecognizer(swipeRecognizer)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        // zooming view installs its own double tap recognizer
         tapRecognizer.require(toFail: playerView.doubleTapToZoomRecognizer)
         tapRecognizer.require(toFail: swipeRecognizer)
         playerView.addGestureRecognizer(tapRecognizer)
@@ -164,7 +166,8 @@ private extension PlayerViewController {
 
     @objc func handleTap(sender: UIGestureRecognizer) {
         guard sender.state == .ended else { return }
-        overlay.toggleHidden(animated: true)
+        titleView.toggleHidden(animated: true)
+        controlsView.toggleHidden(animated: true)
     }
 
     @objc func handleSwipeDown(sender: UIGestureRecognizer) {
@@ -174,108 +177,76 @@ private extension PlayerViewController {
 
     // MARK: Sync Player UI
 
-    var shouldDisableControls: Bool {
-        guard let playbackController = playbackController else { return true }
-
-        return !playbackController.isReadyToPlay
-            || videoManager.isGeneratingFrame
-    }
-
     func updatePlayerControlsEnabled() {
-        overlay.controlsView.setControlsEnabled(!shouldDisableControls)
-    }
+        let enabled = (playbackController?.isReadyToPlay ?? false)
+            && !videoManager.isGeneratingFrame
 
-    func updateViewsForPlayer() {
-        updatePlayerControlsEnabled()
-        updatePreviewImage()
+        controlsView.setControlsEnabled(enabled)
     }
 
     func updatePreviewImage() {
         let isReady = (playbackController?.isReadyToPlay ?? false) && playerView.isReadyForDisplay
-        let hasPreview = loadingView.previewImageView.image != nil
-
-        loadingView.previewImageView.isHidden = !hasPreview || isReady
-
-        if isReady {
-            videoManager.imageRequest?.cancel()
-        }
+        loadingView.imageView.isHidden = isReady
     }
 
-    func updateCloudDownloadProgressView(with progress: Float? = nil) {
-        loadingView.progressView.setProgress(progress ?? 0, animated: true)
-        loadingView.progressView.isHidden = progress == nil
-        loadingView.titleLabel.isHidden = progress == nil
+    func updateLoadingProgress(_ progress: Float?) {
+        loadingView.setProgress(progress, animated: true)
     }
 
     func updatePlayButton(withStatus status: AVPlayerTimeControlStatus) {
-        overlay.controlsView.playButton.setTimeControlStatus(status)
+        controlsView.playButton.setTimeControlStatus(status)
     }
 
     func updateDimensionsLabel() {
-        let size = CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
-        let dimensions = dimensionFormatter.string(from: size)
-        overlay.titleView.detailLabel.text = dimensions
-    }
-
-    func updateViews(withTime time: CMTime) {
-        updateSlider(withTime: time)
-        updateTimeLabel(withTime: time)
+        let asset = videoManager.asset
+        titleView.detailLabel.text = dimensionFormatter.string(fromWidth: asset.pixelWidth, height: asset.pixelHeight)
     }
 
     func updateTimeLabel(withTime time: CMTime) {
         let showMilliseconds = playbackController?.isPlaying == false
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-        overlay.controlsView.timeLabel.text = formattedTime
+        controlsView.timeLabel.text = formattedTime
     }
 
     func updateSlider(withTime time: CMTime) {
         guard !isScrubbing && !isSeeking else { return }
-        overlay.controlsView.timeSlider.time = time
+        controlsView.timeSlider.time = time
     }
 
     func updateSlider(withDuration duration: CMTime) {
-        // Time is `.indefinite` when item is not ready to play
-        let duration = (duration == .indefinite) ? .zero : duration
-        overlay.controlsView.timeSlider.duration = duration
+        controlsView.timeSlider.duration = duration
     }
 
     // MARK: Video Loading
 
-    func loadVideo() {
-        loadPreviewImage()
-        loadPlayerItem()
-    }
-
     func loadPreviewImage() {
-        let size = loadingView.previewImageView.bounds.size.scaledToScreen
+        let size = loadingView.imageView.bounds.size.scaledToScreen
         let config = ImageConfig(size: size, mode: .aspectFit, options: .default())
 
         videoManager.posterImage(with: config) { [weak self] image, _ in
             guard let image = image else { return }
-            self?.loadingView.previewImageView.image = image
+            self?.loadingView.imageView.image = image
             // use same image for background (ignoring different size/content mode as it's blurred)
             self?.backgroundView.imageView.image = image
             self?.updatePreviewImage()
         }
     }
 
-    func loadPlayerItem() {
+    func loadVideo() {
         videoManager.downloadingPlayerItem(progressHandler: { [weak self] progress in
-            self?.updateCloudDownloadProgressView(with: Float(progress))
+            self?.updateLoadingProgress(Float(progress))
 
         }, resultHandler: { [weak self] playerItem, info in
-            self?.updateCloudDownloadProgressView()
+            self?.updateLoadingProgress(nil)
 
             guard !info.isCancelled else { return }
 
             if let playerItem = playerItem {
                 self?.configurePlayer(with: playerItem)
             } else {
-                self?.showVideoLoadingFailedAlertAndDismiss()
+                self?.presentAlert(.videoLoadingFailed { _ in self?.done() })
             }
         })
-
-        updateCloudDownloadProgressView()
     }
 
     func configurePlayer(with playerItem: AVPlayerItem) {
@@ -296,7 +267,7 @@ private extension PlayerViewController {
             case .cancelled:
                 break
             case .failed:
-                self?.showImageGenerationFailedAlert()
+                self?.presentAlert(.imageGenerationFailed())
             case .succeeded(let image, _, _):
                 self?.shareImage(image)
             }
@@ -319,28 +290,5 @@ private extension PlayerViewController {
     func shareItem(_ item: Any) {
         let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         present(shareController, animated: true)
-    }
-
-    // MARK: Alerts
-
-    func showVideoLoadingFailedAlertAndDismiss() {
-        let alertController = UIAlertController.videoLoadingFailed { [weak self] _ in
-            self?.done()
-        }
-
-        present(alertController, animated: true)
-    }
-
-    func showPlaybackFailedAlertAndDismiss() {
-        let alertController = UIAlertController.playbackFailed { [weak self] _ in
-            self?.done()
-        }
-
-        present(alertController, animated: true)
-    }
-
-    func showImageGenerationFailedAlert() {
-        let alertController = UIAlertController.imageGenerationFailed()
-        present(alertController, animated: true)
     }
 }

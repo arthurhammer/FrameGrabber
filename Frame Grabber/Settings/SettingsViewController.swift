@@ -55,7 +55,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 
     private func composeMail() {
         guard MFMailComposeViewController.canSendMail() else {
-            showMailNotAvailableAlert()
+            presentAlert(.mailNotAvailable(contactAddress: contactAddress))
             return
         }
 
@@ -70,11 +70,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         dismiss(animated: true)
-    }
-
-    private func showMailNotAvailableAlert() {
-        let controller = UIAlertController.mailNotAvailable(contactAddress: contactAddress)
-        present(controller, animated: true)
     }
 
     // MARK: View Setup

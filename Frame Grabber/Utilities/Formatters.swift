@@ -39,20 +39,13 @@ class VideoTimeFormatter {
 }
 
 class VideoDimensionFormatter {
-    func string(from size: CGSize) -> String? {
-        guard size.isValidVideoDimension else { return nil }
-
-        return "\(Int(size.width)) ✕ \(Int(size.height))"
+    /// Negative values are normalized.
+    func string(fromWidth width: Int, height: Int, separator: String = "✕") -> String {
+        return "\(abs(width)) \(separator) \(abs(height))"
     }
 }
 
 // MARK: - Util
-
-private extension CGSize {
-    var isValidVideoDimension: Bool {
-        return width > 0 && height > 0
-    }
-}
 
 private extension CMTime {
     var isValidVideoTime: Bool {

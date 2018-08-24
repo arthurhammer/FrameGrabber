@@ -1,7 +1,7 @@
 import Photos
 
 struct FetchedAlbumChangeDetails {
-    /// nil album was deleted.
+    /// nil if album was deleted.
     let albumAfterChanges: FetchedAlbum?
     /// nil if album did not change.
     let assetCollectionChanges: PHObjectChangeDetails<PHAssetCollection>?
@@ -9,12 +9,13 @@ struct FetchedAlbumChangeDetails {
     let fetchResultChanges: PHFetchResultChangeDetails<PHAsset>?
 
     var albumWasDeleted: Bool {
-        return assetCollectionChanges?.objectWasDeleted ?? false
+        return albumAfterChanges == nil
     }
 }
 
 extension PHChange {
 
+    /// nil if nothing changed.
     func changeDetails(for album: FetchedAlbum) -> FetchedAlbumChangeDetails? {
         let albumChanges = changeDetails(for: album.assetCollection)
         let assetChanges = changeDetails(for: album.fetchResult)

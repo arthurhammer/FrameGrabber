@@ -8,8 +8,8 @@ class VideoManager {
     private let imageManager: PHImageManager
     private var imageGenerator: AVAssetImageGenerator?
 
-    private(set) var imageRequest: ImageManagerRequest?
-    private(set) var downloadingPlayerItemRequest: ImageManagerRequest?
+    private(set) var imageRequest: ImageRequest?
+    private(set) var videoRequest: ImageRequest?
 
     init(asset: PHAsset, imageManager: PHImageManager = .default()) {
         self.asset = asset
@@ -23,24 +23,23 @@ class VideoManager {
     func cancelAllRequests() {
         cancelFrameGeneration()
         imageRequest = nil
-        downloadingPlayerItemRequest = nil
+        videoRequest = nil
     }
 
     // MARK: Poster Image/Video Generation
 
-    /// Pending image requests are cancelled.
+    /// Pending requests of this type are cancelled.
     /// The result handler is called asynchronously on the main thread.
-    func posterImage(with config: ImageConfig, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) {
-        imageRequest = ImageRequest(imageManager: imageManager, asset: asset, config: config, resultHandler: resultHandler)
+    func posterImage(with config: ImageConfig, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) {
+        imageRequest = imageManager.requestImage(for: asset, config: config, resultHandler: resultHandler)
     }
 
-    /// Pending downloading player item requests are cancelled.
-    /// If locally available, the item is served directly, otherwise downloaded from iCloud.
-    /// The progress and result handlers are called asynchronously on the main thread.
-    func downloadingPlayerItem(withOptions options: PHVideoRequestOptions? = .default(), progressHandler: @escaping (Double) -> (), resultHandler: @escaping (AVPlayerItem?, ImageManagerRequest.Info) -> ()) {
-        downloadingPlayerItemRequest = AVAssetRequest(imageManager: imageManager, video: asset, options: options, progressHandler: progressHandler) { asset, _, info in
-            let playerItem = asset.flatMap(AVPlayerItem.init)
-            resultHandler(playerItem, info)
+    /// Pending requests of this type are cancelled.
+    /// If available, the item is served directly, otherwise downloaded from iCloud.
+    /// Handlers are called asynchronously on the main thread.
+    func downloadingPlayerItem(withOptions options: PHVideoRequestOptions? = .default(), progressHandler: @escaping (Double) -> (), resultHandler: @escaping (AVPlayerItem?, PHImageManager.Info) -> ()) {
+        videoRequest = imageManager.requestAVAsset(for: asset, options: options, progressHandler: progressHandler) { asset, _, info in
+            resultHandler(asset.flatMap(AVPlayerItem.init), info)
         }
     }
 

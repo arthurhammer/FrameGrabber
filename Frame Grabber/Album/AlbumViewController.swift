@@ -3,7 +3,7 @@ import Photos
 
 class AlbumViewController: UICollectionViewController {
 
-    // Album is nil if deleted.
+    // nil if deleted.
     var album: FetchedAlbum? {
         get { return dataSource?.album }
         set { configureDataSource(with: newValue) }
@@ -53,7 +53,6 @@ extension AlbumViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoCell else { return }
-        // Cancel generating thumbnail.
         cell.imageRequest = nil
     }
 }
@@ -76,7 +75,7 @@ private extension AlbumViewController {
         }
 
         dataSource.albumDeletedHandler = { [weak self] in
-            // On deletion, just show empty screen.
+            // Just show empty screen.
             self?.updateAlbumData()
             self?.collectionView?.reloadData()
         }
@@ -98,7 +97,7 @@ private extension AlbumViewController {
     }
 
     func updateAlbumData() {
-        title = dataSource?.album?.title ?? ""  // won't accept nil
+        title = dataSource?.album?.title ?? ""  // Won't accept nil.
     }
 
     func updateThumbnailSize() {

@@ -28,14 +28,9 @@ extension PlayerObserverDelegate {
 
 class PlayerObserver {
 
-    /// Initial values are sent when the delegate is set
+    /// Initial values are sent when the delegate is set.
     weak var delegate: PlayerObserverDelegate? {
-        didSet {
-            stopObserving()
-            if delegate != nil {
-                startObserving()
-            }
-        }
+        didSet { startObserving() }
     }
 
     let player: AVPlayer

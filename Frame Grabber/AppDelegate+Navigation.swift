@@ -1,9 +1,11 @@
 import UIKit
 
-private let authorizationStoryboardId = String(describing: PhotoLibraryAuthorizationController.self)
-private let albumStoryboardId = String(describing: AlbumViewController.self)
-
 extension AppDelegate {
+
+    private struct StoryboardId {
+        static let authorization = String(describing: PhotoLibraryAuthorizationController.self)
+        static let album = String(describing: AlbumViewController.self)
+    }
 
     func showInitialScreen() {
         if PhotoLibraryAuthorizationController.needsAuthorization {
@@ -16,7 +18,7 @@ extension AppDelegate {
     private func showPhotoLibraryAuthorizationScreen(animated: Bool) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-        guard let authorizationController = storyboard.instantiateViewController(withIdentifier: authorizationStoryboardId) as? PhotoLibraryAuthorizationController else {
+        guard let authorizationController = storyboard.instantiateViewController(withIdentifier: StoryboardId.authorization) as? PhotoLibraryAuthorizationController else {
             fatalError("Wrong controller id or type")
         }
 
@@ -31,7 +33,7 @@ extension AppDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         guard let rootNavController = storyboard.instantiateInitialViewController() as? UINavigationController,
-            let initialAlbumController = storyboard.instantiateViewController(withIdentifier: albumStoryboardId) as? AlbumViewController else {
+            let initialAlbumController = storyboard.instantiateViewController(withIdentifier: StoryboardId.album) as? AlbumViewController else {
                 fatalError("Wrong controller id or type.")
         }
 

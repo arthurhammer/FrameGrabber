@@ -150,7 +150,7 @@ private extension PHFetchResult where ObjectType == PHAssetCollection {
         enumerateObjects { album, _, _ in
             let album = FetchedAlbum.fetchAssets(in: album, options: options)
 
-            if (album.count ?? 0) > 0 {
+            if album.count > 0 {
                 filteredAlbums.append(album)
             }
         }

@@ -49,7 +49,6 @@ class AlbumsViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? AlbumCell else { return }
-        // Cancel generating thumbnail.
         cell.imageRequest = nil
     }
 
@@ -103,7 +102,7 @@ class AlbumsViewController: UICollectionViewController {
     private func configure(cell: AlbumCell, for album: Album) {
         cell.identifier = album.assetCollection.localIdentifier
         cell.titleLabel.text = album.title
-        cell.detailLabel.text = album.count.flatMap { "\($0)" }
+        cell.detailLabel.text = "\(album.count)"
 
         loadThumbnail(for: cell, album: album)
     }

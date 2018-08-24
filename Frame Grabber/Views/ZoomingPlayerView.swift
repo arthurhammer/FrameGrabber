@@ -25,22 +25,14 @@ class ZoomingPlayerView: UIView {
 
     let playerView = PlayerView()
 
-    /// The current size and position of the video image as displayed within the player
-    /// view's bounds. If the video is zoomed in, the rect may exceed the player view's
-    /// bounds.
-    var zoomedVideoRect: CGRect {
-        return playerView.convert(playerView.bounds, to: self)
-    }
-
     var isReadyForDisplay: Bool {
         return playerView.playerLayer.isReadyForDisplay
     }
 
-    /// Can be used to setup dependencies with other recognizers.
     fileprivate(set) lazy var doubleTapToZoomRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
 
     private let scrollView = UIScrollView()
-    private var unzoomedContentSize: CGSize?  // Zooming scales the content size
+    private var unzoomedContentSize: CGSize?  // Zooming scales the content size.
     private var playerItemSizeObserver: NSKeyValueObservation?
     private var layerReadyObserver: NSKeyValueObservation?
 
@@ -56,7 +48,7 @@ class ZoomingPlayerView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        // Reset scroll view setup on rotation (etc.)
+        // Reset scroll view setup on rotation (etc.).
         updatePlayerViewSize(keepingZoomIfPossible: false)
         scrollView.centerContentView()
     }
@@ -113,13 +105,12 @@ private extension ZoomingPlayerView {
     }
 
     func updatePlayerViewSize(keepingZoomIfPossible: Bool) {
-        // Fill scroll view if player item is not ready
-        // (item can be `nil` or its size can be zero when it's not ready to play yet)
+        // Fill scroll view if player item is not ready.
         let videoSize = player?.currentItem?.presentationSize ?? .zero
         let newContentSize = (videoSize != .zero) ? videoSize : scrollView.bounds.size
 
-        // Remain zoomed in if the player item changed but has the same size
-        // (this is to avoid zooming out when looping the same video)
+        // Remain zoomed in if the player item changed but has same size (to avoid zooming
+        // out when looping the same video).
         if keepingZoomIfPossible && (newContentSize == unzoomedContentSize) {
             return
         }
@@ -151,17 +142,16 @@ private extension ZoomingPlayerView {
 
 private extension UIScrollView {
 
-    /// Assuming content view is the only subview
     var contentView: UIView {
         return subviews.first!
     }
 
     func centerContentView() {
-        // Offset in case width or height is smaller than scroll view width or height
+        // Offset in case width or height is smaller than scroll view width or height.
         let offsetX = max(0, bounds.width/2 - contentSize.width/2)
         let offsetY = max(0, bounds.height/2 - contentSize.height/2)
 
-        // (Don't use `frame` directly since the scroll view applies a scale transform)
+        // (Don't use `frame` directly since the scroll view applies a scale transform.)
         contentView.center = CGPoint(x: contentSize.width/2 + offsetX,
                                      y: contentSize.height/2 + offsetY)
     }
@@ -170,12 +160,12 @@ private extension UIScrollView {
         let widthScale = bounds.width / contentSize.width
         let heightScale = bounds.height / contentSize.height
 
-        // Minimum zoom: Aspect fit into the scroll view
+        // Minimum zoom: Aspect fit into the scroll view.
         minimumZoomScale = min(widthScale, heightScale)
-        // Maximum zoom: Aspect fill into the scroll view (at least full content size)
+        // Maximum zoom: Aspect fill into the scroll view (at least full content size).
         maximumZoomScale = max(widthScale, heightScale, 1)
 
-        // Initial zoom: Aspect fit
+        // Initial zoom: Aspect fit.
         zoomScale = minimumZoomScale
     }
 }

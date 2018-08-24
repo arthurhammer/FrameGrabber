@@ -51,8 +51,8 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         return album!.fetchResult.objects(at: indexSet)
     }
 
-    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest {
-        return ImageRequest(imageManager: imageManager, asset: video, config: imageConfig, resultHandler: resultHandler)
+    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest {
+        return imageManager.requestImage(for: video, config: imageConfig, resultHandler: resultHandler)
     }
 }
 
@@ -71,17 +71,11 @@ extension AlbumCollectionViewDataSource {
     // MARK: UICollectionViewDataSourcePrefetching
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        imageManager.startCachingImages(for: videos(at: indexPaths),
-                                        targetSize: imageConfig.size,
-                                        contentMode: imageConfig.mode,
-                                        options: imageConfig.options)
+        imageManager.startCachingImages(for: videos(at: indexPaths), targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        imageManager.stopCachingImages(for: videos(at: indexPaths),
-                                       targetSize: imageConfig.size,
-                                       contentMode: imageConfig.mode,
-                                       options: imageConfig.options)
+        imageManager.stopCachingImages(for: videos(at: indexPaths), targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 }
 

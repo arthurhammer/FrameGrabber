@@ -53,15 +53,15 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         return indexPaths.map(album)
     }
 
-    func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, ImageManagerRequest.Info) -> ()) -> ImageRequest? {
+    func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest? {
         guard let keyAsset = album.keyAsset else { return nil }
 
-        return ImageRequest(imageManager: imageManager, asset: keyAsset, config: imageConfig, resultHandler: resultHandler)
+        return imageManager.requestImage(for: keyAsset, config: imageConfig, resultHandler: resultHandler)
     }
 
     func fetchUpdate(forAlbumAt indexPath: IndexPath) -> FetchedAlbum? {
         let assetFetchOptions = sections[indexPath.section].assetFetchOptions
-        return FetchedAlbum.fetchUpdate(for: album(at: indexPath), assetFetchOptions: assetFetchOptions)
+        return FetchedAlbum.fetchUpdate(for: album(at: indexPath).assetCollection, assetFetchOptions: assetFetchOptions)
     }
 
     private func configureSections() {
@@ -108,18 +108,12 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         let keyAssets = albums(at: indexPaths).compactMap { $0.keyAsset }
 
-        imageManager.startCachingImages(for: keyAssets,
-                                        targetSize: imageConfig.size,
-                                        contentMode: imageConfig.mode,
-                                        options: imageConfig.options)
+        imageManager.startCachingImages(for: keyAssets, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         let keyAssets = albums(at: indexPaths).compactMap { $0.keyAsset }
 
-        imageManager.stopCachingImages(for: keyAssets,
-                                       targetSize: imageConfig.size,
-                                       contentMode: imageConfig.mode,
-                                       options: imageConfig.options)
+        imageManager.stopCachingImages(for: keyAssets, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 }

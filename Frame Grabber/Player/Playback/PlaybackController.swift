@@ -5,7 +5,7 @@ protocol PlaybackControllerDelegate: PlayerObserverDelegate {}
 /// Manages looped playback for a single player item.
 class PlaybackController {
 
-    /// For now, the controller simply forwards the playback observer delegate calls
+    /// For now, the controller forwards player observer calls.
     weak var delegate: PlaybackControllerDelegate? {
         didSet { observer.delegate = delegate }
     }
@@ -30,7 +30,7 @@ class PlaybackController {
     }
 
     /// True if the player is playing or waiting to play.
-    /// Check `player.timeControlStatus` for a more detailed state.
+    /// Check `player.timeControlStatus` for detailed status.
     var isPlaying: Bool {
         return player.rate != 0
     }
@@ -65,16 +65,6 @@ class PlaybackController {
     func pause() {
         guard isPlaying else { return }
         player.pause()
-    }
-
-    // MARK: Stepping
-
-    func stepBackward() {
-        step(byCount: -1)
-    }
-
-    func stepForward() {
-        step(byCount: 1)
     }
 
     func step(byCount count: Int) {

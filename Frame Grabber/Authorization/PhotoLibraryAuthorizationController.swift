@@ -13,11 +13,10 @@ class PhotoLibraryAuthorizationController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
         updateViews()
     }
 
-    @objc func requestAuthorization() {
+    @IBAction private func requestAuthorization() {
         PHPhotoLibrary.requestAuthorization(openingSettingsIfNeeded: true) { status, _ in
             self.updateViews()
 
@@ -26,34 +25,23 @@ class PhotoLibraryAuthorizationController: UIViewController {
             }
         }
     }
-}
 
-private extension PhotoLibraryAuthorizationController {
-
-    func configureViews() {
-        statusView.button.addTarget(self, action: #selector(requestAuthorization), for: .touchUpInside)
+    private func updateViews() {
+        statusView.message = message(for: PHPhotoLibrary.authorizationStatus())
     }
 
-    func updateViews() {
-        let statusMessage = PHPhotoLibrary.authorizationStatus().statusMessage
-        statusView.displayMessage(statusMessage)
-    }
-}
-
-private extension PHAuthorizationStatus {
-
-    var statusMessage: StatusViewMessage? {
-        switch self {
+    private func message(for status: PHAuthorizationStatus) -> StatusView.Message? {
+        switch status {
 
         case .notDetermined:
-            return StatusViewMessage(title: NSLocalizedString("Frame Grabber", comment: ""),
-                                     message: NSLocalizedString("Export frames as images from your videos. Get started by allowing Frame Grabber access to your Photo Library.", comment: ""),
-                                     action: NSLocalizedString("Allow Access", comment: ""))
+            return .init(title: NSLocalizedString("Frame Grabber 👋", comment: ""),
+                         message: NSLocalizedString("Frame Grabber lets you export video frames as images. Get started by allowing access to your Photo Library.", comment: ""),
+                         action: NSLocalizedString("Allow Access", comment: ""))
 
         case .denied, .restricted:
-            return StatusViewMessage(title: NSLocalizedString("Frame Grabber", comment: ""),
-                                     message: NSLocalizedString("Export frames as images from your videos. Get started by allowing Frame Grabber access to your Photo Library.", comment: ""),
-                                     action: NSLocalizedString("Open Settings", comment: ""))
+            return .init(title: NSLocalizedString("Frame Grabber 👋", comment: ""),
+                         message: NSLocalizedString("Frame Grabber lets you export video frames as images. You can allow access to your Photo Library in Settings.", comment: ""),
+                         action: NSLocalizedString("Open Settings", comment: ""))
 
         case .authorized:
             return nil

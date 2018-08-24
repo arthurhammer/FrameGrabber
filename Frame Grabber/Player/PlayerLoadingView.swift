@@ -4,11 +4,18 @@ class PlayerLoadingView: UIView {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
-    @IBOutlet var previewImageView: UIImageView!
+    @IBOutlet var imageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
+    }
+
+    func setProgress(_ progress: Float?, animated: Bool) {
+        let hide = progress == nil
+        progressView.setProgress(progress ?? 0, animated: animated)
+        progressView.isHidden = hide
+        titleLabel.isHidden = hide
     }
 
     private func configureViews() {

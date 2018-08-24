@@ -27,7 +27,6 @@
 		0096E813212F2EF8008395CA /* Bundle+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E812212F2EF8008395CA /* Bundle+Info.swift */; };
 		0096E815212F2FA7008395CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E814212F2FA7008395CA /* Settings.swift */; };
 		009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1781FB4977100A00BB9 /* AppDelegate.swift */; };
-		009C65781FBF337E00DB25A6 /* PlayerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0057C5D91FBEF494008B7E08 /* PlayerOverlayView.swift */; };
 		009C657A1FBF338900DB25A6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1991FB498C700A00BB9 /* AlbumViewController.swift */; };
 		009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */; };
 		009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
@@ -45,17 +44,20 @@
 		00BAFCA0205E938B00BCEE69 /* AVKit+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */; };
 		00BAFCA2205E994D00BCEE69 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */; };
-		00C098D51FC1A7C2000B05FE /* Photos+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* Photos+Authorization.swift */; };
+		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
 		00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* AVKit.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize+Scaled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */; };
 		00C098E31FC1C089000B05FE /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
-		00C098EB1FC477E5000B05FE /* ImageManagerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* ImageManagerRequest.swift */; };
+		00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */; };
 		00E7135A2125E2940052EAF8 /* UIImage+Exif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* UIImage+Exif.swift */; };
 		00EAFD98205EB2CE0031F8A2 /* TimeSlider+CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */; };
 		00EAFD9A205ED32B0031F8A2 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */; };
 		00EAFD9C205ED3450031F8A2 /* PlayerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */; };
 		00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */; };
 		00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */; };
+		00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C254213046CD0030B7EC /* AlbumHeader.swift */; };
+		00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C256213058FE0030B7EC /* FetchedAlbum.swift */; };
+		00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C2582130751D0030B7EC /* ImageConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +79,6 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
-		0057C5D91FBEF494008B7E08 /* PlayerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOverlayView.swift; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewGridLayout.swift; sourceTree = "<group>"; };
 		005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizationController.swift; sourceTree = "<group>"; };
 		006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingButton.swift; sourceTree = "<group>"; };
@@ -97,11 +98,11 @@
 		00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVKit+Debug.swift"; sourceTree = "<group>"; };
 		00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Navigation.swift"; sourceTree = "<group>"; };
-		00C098D41FC1A7C2000B05FE /* Photos+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photos+Authorization.swift"; sourceTree = "<group>"; };
+		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Authorization.swift"; sourceTree = "<group>"; };
 		00C098D61FC1A7CB000B05FE /* AVKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVKit.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scaled.swift"; sourceTree = "<group>"; };
 		00C098E21FC1C089000B05FE /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
-		00C098EA1FC477E5000B05FE /* ImageManagerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerRequest.swift; sourceTree = "<group>"; };
+		00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHImageManager+Requests.swift"; sourceTree = "<group>"; };
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
@@ -111,6 +112,9 @@
 		00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTitleView.swift; sourceTree = "<group>"; };
 		00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSeeker.swift; sourceTree = "<group>"; };
 		00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		00F3C254213046CD0030B7EC /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
+		00F3C256213058FE0030B7EC /* FetchedAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedAlbum.swift; sourceTree = "<group>"; };
+		00F3C2582130751D0030B7EC /* ImageConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,7 +183,8 @@
 				0096E812212F2EF8008395CA /* Bundle+Info.swift */,
 				00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
-				00C098EA1FC477E5000B05FE /* ImageManagerRequest.swift */,
+				00F3C2582130751D0030B7EC /* ImageConfig.swift */,
+				00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
 				007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */,
@@ -203,8 +208,8 @@
 		00229DBB212E0B1A00848CE8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				0096E814212F2FA7008395CA /* Settings.swift */,
 				00229DB9212E0B1600848CE8 /* SettingsViewController.swift */,
+				0096E814212F2FA7008395CA /* Settings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				0015537E2129C8CF00F58CEE /* Album.swift */,
+				00F3C256213058FE0030B7EC /* FetchedAlbum.swift */,
 				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
 				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,
 			);
@@ -224,8 +230,10 @@
 			children = (
 				00328A961FC85D84004648F9 /* PlayerViewController.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoManager.swift */,
+				00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */,
+				001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */,
+				00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */,
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
-				00EAFD9D205ED6800031F8A2 /* Player View */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -237,6 +245,7 @@
 				00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */,
 				0026620B212C4A6B00786797 /* AlbumsDataSource.swift */,
 				00A9DF542127635C00778885 /* AlbumCell.swift */,
+				00F3C254213046CD0030B7EC /* AlbumHeader.swift */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -245,7 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */,
-				00C098D41FC1A7C2000B05FE /* Photos+Authorization.swift */,
+				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */,
 				00C098E21FC1C089000B05FE /* StatusView.swift */,
 			);
 			path = Authorization;
@@ -263,17 +272,6 @@
 				008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		00EAFD9D205ED6800031F8A2 /* Player View */ = {
-			isa = PBXGroup;
-			children = (
-				00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */,
-				001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */,
-				0057C5D91FBEF494008B7E08 /* PlayerOverlayView.swift */,
-				00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */,
-			);
-			path = "Player View";
 			sourceTree = "<group>";
 		};
 		00EAFDA0205FB42E0031F8A2 /* Playback */ = {
@@ -376,11 +374,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				009C65781FBF337E00DB25A6 /* PlayerOverlayView.swift in Sources */,
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
+				00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */,
+				00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle+Info.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* CGSize+Scaled.swift in Sources */,
 				001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */,
@@ -390,12 +389,13 @@
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotosRequests.swift in Sources */,
-				00C098EB1FC477E5000B05FE /* ImageManagerRequest.swift in Sources */,
+				00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */,
 				005E2AA7202773F800F731FA /* PhotoLibraryAuthorizationController.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
+				00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */,
 				00BAFCA0205E938B00BCEE69 /* AVKit+Debug.swift in Sources */,
 				00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */,
 				00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */,
@@ -410,7 +410,7 @@
 				00E7135A2125E2940052EAF8 /* UIImage+Exif.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
-				00C098D51FC1A7C2000B05FE /* Photos+Authorization.swift in Sources */,
+				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoManager.swift in Sources */,
 				0015537F2129C8CF00F58CEE /* Album.swift in Sources */,
 				0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */,
