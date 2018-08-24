@@ -52,10 +52,6 @@ public class TimeSlider: UIControl {
         didSet { updateViews() }
     }
 
-    public var valueIndicatorColor: UIColor = .orange {
-        didSet { updateViews() }
-    }
-
     public var trackHeight: CGFloat = 24 {
         didSet { setNeedsLayout() }
     }
@@ -74,6 +70,10 @@ public class TimeSlider: UIControl {
 
     public var disabledTrackColor: UIColor = UIColor.white.withAlphaComponent(0.2) {
         didSet { updateViews() }
+    }
+
+    override public func tintColorDidChange() {
+        updateViews()
     }
 
     // MARK: Lifecycle
@@ -144,7 +144,7 @@ public class TimeSlider: UIControl {
         progressTrack.backgroundColor = isEnabled ? trackColor : disabledTrackColor
         progressTrack.layer.cornerRadius = trackCornerRadius
 
-        valueIndicator.backgroundColor = valueIndicatorColor
+        valueIndicator.backgroundColor = tintColor
         valueIndicator.layer.cornerRadius = valueIndicatorCornerRadius
     }
 

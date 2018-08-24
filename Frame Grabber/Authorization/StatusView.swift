@@ -33,8 +33,8 @@ class StatusView: UIView {
     }
 
     private func configureViews() {
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .accent
-        button.layer.cornerRadius = 12
+        button.tintColor = .white
+        button.backgroundColor = .mainTint
+        button.layer.cornerRadius = Style.Size.buttonCornerRadius
     }
 }

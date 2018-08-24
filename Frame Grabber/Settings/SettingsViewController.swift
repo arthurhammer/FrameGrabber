@@ -86,13 +86,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     private func configureViews() {
         navigationController?.navigationBar.shadowImage = nil
 
-        contactButton.layer.cornerRadius = 8
-        contactButton.backgroundColor = .accent
-        contactButton.tintColor = .white
-
-        rateButton.layer.cornerRadius = 8
-        rateButton.backgroundColor = .accent
-        rateButton.tintColor = .white
+        [contactButton, rateButton].forEach {
+            $0?.layer.cornerRadius = 8
+            $0?.backgroundColor = .mainTint
+            $0?.tintColor = .white
+        }
 
         metadataSwitch.isOn = settings.includeMetadata
         versionLabel.text = bundle.formattedVersion

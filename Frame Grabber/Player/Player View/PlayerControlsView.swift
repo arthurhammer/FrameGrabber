@@ -25,22 +25,21 @@ class PlayerControlsView: GradientView {
     }
 
     private func configureViews() {
-        colors = UIColor.playerOverlayControlsGradient
-        applyDefaultOverlayShadow()
+        colors = Style.Color.overlayBottomGradient
 
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
 
-        timeSlider.valueIndicatorColor = .timeSliderValueIndicator
-        timeSlider.trackColor = .timeSliderTrack
-        timeSlider.disabledTrackColor = .disabledTimeSliderTrack
         timeSlider.trackCornerRadius = timeSlider.trackHeight / 2
         timeSlider.trackEdgeCornerRadius = 4
+        timeSlider.trackColor = Style.Color.timeSlider
+        timeSlider.disabledTrackColor = Style.Color.disabledTimeSlider
 
-        previousButton.tintColor = .timeSliderTrack
-        nextButton.tintColor = .timeSliderTrack
-
+        previousButton.tintColor = Style.Color.timeSlider
+        nextButton.tintColor = Style.Color.timeSlider
+        shareButton.backgroundColor = .mainTint
         shareButton.layer.cornerRadius = shareButton.bounds.height/2
-        shareButton.backgroundColor = .accent
+
+        applyOverlayShadow()
     }
 }
 

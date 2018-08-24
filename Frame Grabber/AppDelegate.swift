@@ -6,19 +6,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        configureAppearance()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         showInitialScreen()
         window?.makeKeyAndVisible()
 
-        return true
-    }
+        Style.configureAppearance(using: window)
 
-    private func configureAppearance() {
-        UINavigationBar.appearance().barTintColor = .white
-        UINavigationBar.appearance().tintColor = .accent
-        UINavigationBar.appearance().shadowImage = UIImage()
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {}

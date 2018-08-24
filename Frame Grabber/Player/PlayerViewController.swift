@@ -14,10 +14,10 @@ class PlayerViewController: UIViewController {
     @IBOutlet private var backgroundView: BlurredImageView!
     @IBOutlet private var playerView: ZoomingPlayerView!
     @IBOutlet private var loadingView: PlayerLoadingView!
-    @IBOutlet private var overlayView: PlayerOverlayView!
+    @IBOutlet private var overlay: PlayerOverlayView!
 
     private var isScrubbing: Bool {
-        return overlayView.controlsView.timeSlider.isInteracting
+        return overlay.controlsView.timeSlider.isInteracting
     }
 
     private var isSeeking: Bool {
@@ -133,11 +133,11 @@ private extension PlayerViewController {
     func configureViews() {
         playerView.delegate = self
 
-        overlayView.controlsView.previousButton.repeatAction = { [weak self] in
+        overlay.controlsView.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
         }
 
-        overlayView.controlsView.nextButton.repeatAction = { [weak self] in
+        overlay.controlsView.nextButton.repeatAction = { [weak self] in
             self?.stepForward()
         }
 
@@ -164,7 +164,7 @@ private extension PlayerViewController {
 
     @objc func handleTap(sender: UIGestureRecognizer) {
         guard sender.state == .ended else { return }
-        overlayView.toggleHidden(animated: true)
+        overlay.toggleHidden(animated: true)
     }
 
     @objc func handleSwipeDown(sender: UIGestureRecognizer) {
@@ -182,7 +182,7 @@ private extension PlayerViewController {
     }
 
     func updatePlayerControlsEnabled() {
-        overlayView.controlsView.setControlsEnabled(!shouldDisableControls)
+        overlay.controlsView.setControlsEnabled(!shouldDisableControls)
     }
 
     func updateViewsForPlayer() {
@@ -208,13 +208,13 @@ private extension PlayerViewController {
     }
 
     func updatePlayButton(withStatus status: AVPlayerTimeControlStatus) {
-        overlayView.controlsView.playButton.setTimeControlStatus(status)
+        overlay.controlsView.playButton.setTimeControlStatus(status)
     }
 
     func updateDimensionsLabel() {
         let size = CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
         let dimensions = dimensionFormatter.string(from: size)
-        overlayView.titleView.detailTitleLabel.text = dimensions
+        overlay.titleView.detailLabel.text = dimensions
     }
 
     func updateViews(withTime time: CMTime) {
@@ -225,18 +225,18 @@ private extension PlayerViewController {
     func updateTimeLabel(withTime time: CMTime) {
         let showMilliseconds = playbackController?.isPlaying == false
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-        overlayView.controlsView.timeLabel.text = formattedTime
+        overlay.controlsView.timeLabel.text = formattedTime
     }
 
     func updateSlider(withTime time: CMTime) {
         guard !isScrubbing && !isSeeking else { return }
-        overlayView.controlsView.timeSlider.time = time
+        overlay.controlsView.timeSlider.time = time
     }
 
     func updateSlider(withDuration duration: CMTime) {
         // Time is `.indefinite` when item is not ready to play
         let duration = (duration == .indefinite) ? .zero : duration
-        overlayView.controlsView.timeSlider.duration = duration
+        overlay.controlsView.timeSlider.duration = duration
     }
 
     // MARK: Video Loading

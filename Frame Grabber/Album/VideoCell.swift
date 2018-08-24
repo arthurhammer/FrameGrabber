@@ -26,7 +26,6 @@ class VideoCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-
         identifier = nil
         imageRequest = nil
         imageView.image = nil
@@ -36,15 +35,10 @@ class VideoCell: UICollectionViewCell {
     }
 
     private func configureViews() {
-        backgroundColor = .missingThumbnail
+        backgroundColor = Style.Color.missingThumbnail
         selectionView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
-        gradientView.colors = UIColor.videoCellGradient
-
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        favoritedImageView.tintColor = .white
+        gradientView.colors = Style.Color.videoCellGradient
         favoritedImageView.isHidden = true
-
         updateViews()
     }
 
