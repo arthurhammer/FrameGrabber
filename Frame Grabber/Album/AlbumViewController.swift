@@ -11,6 +11,8 @@ class AlbumViewController: UICollectionViewController {
 
     private var dataSource: AlbumCollectionViewDataSource!
 
+    @IBOutlet private var emptyView: UIView!
+
     private lazy var layout = CollectionViewGridLayout()
     private lazy var durationFormatter = VideoDurationFormatter()
     private let cellId = String(describing: VideoCell.self)
@@ -86,6 +88,7 @@ private extension AlbumViewController {
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
             self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails)
+            self?.updateAlbumData()
         }
 
         collectionView?.isPrefetchingEnabled = true
@@ -98,6 +101,7 @@ private extension AlbumViewController {
 
     func updateAlbumData() {
         title = dataSource?.album?.title ?? ""  // Won't accept nil.
+        collectionView?.backgroundView = dataSource.isEmpty ? emptyView : nil
     }
 
     func updateThumbnailSize() {

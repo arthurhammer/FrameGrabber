@@ -6,6 +6,10 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
 
+    var isEmpty: Bool {
+        return (album?.count ?? 0) == 0
+    }
+
     var albumDeletedHandler: (() -> ())?
     var albumChangedHandler: (() -> ())?
     var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>) -> ())?
