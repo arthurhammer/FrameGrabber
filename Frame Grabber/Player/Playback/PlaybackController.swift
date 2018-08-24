@@ -47,6 +47,11 @@ class PlaybackController {
         return player.currentItem
     }
 
+    /// This property can change during playback.
+    var frameRate: Float? {
+        return currentItem?.asset.tracks(withMediaType: .video).first?.nominalFrameRate
+    }
+
     // MARK: Playback
 
     func playOrPause() {

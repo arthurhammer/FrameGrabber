@@ -205,10 +205,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-p1-yCF" customClass="PlayerTitleView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="101.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-zo-9Pk">
-                                        <rect key="frame" x="12" y="32" width="351" height="21.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-zo-9Pk">
+                                        <rect key="frame" x="12" y="32" width="351" height="45.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick Frame" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP2-FO-hcM">
                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="21.5"/>
@@ -216,39 +216,58 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dimensions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qH-Qo-DrV">
-                                                <rect key="frame" x="280.5" y="3" width="70.5" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ydS-rV-dbF">
+                                                <rect key="frame" x="0.0" y="29.5" width="160.5" height="16"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dimensions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgm-2j-cZo">
+                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pu1-a1-Aca">
+                                                        <rect key="frame" x="78" y="0.0" width="6.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frame Rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qH-Qo-DrV">
+                                                        <rect key="frame" x="88.5" y="0.0" width="72" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ddx-zo-9Pk" firstAttribute="leading" secondItem="1SB-SY-HSZ" secondAttribute="leading" constant="12" id="9Ev-aE-1Ad"/>
-                                    <constraint firstAttribute="bottom" secondItem="ddx-zo-9Pk" secondAttribute="bottom" constant="16" id="Znt-tw-Vsy"/>
+                                    <constraint firstAttribute="bottom" secondItem="ddx-zo-9Pk" secondAttribute="bottom" constant="24" id="Znt-tw-Vsy"/>
                                     <constraint firstItem="1SB-SY-HSZ" firstAttribute="trailing" secondItem="ddx-zo-9Pk" secondAttribute="trailing" constant="12" id="fEW-mf-3dV"/>
                                     <constraint firstItem="ddx-zo-9Pk" firstAttribute="top" secondItem="1SB-SY-HSZ" secondAttribute="top" constant="12" id="jOR-ob-oAp"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="1SB-SY-HSZ"/>
                                 <connections>
-                                    <outlet property="detailLabel" destination="9qH-Qo-DrV" id="mpB-q9-InT"/>
+                                    <outlet property="dimensionsLabel" destination="kgm-2j-cZo" id="IPp-Wi-yaH"/>
+                                    <outlet property="frameRateLabel" destination="9qH-Qo-DrV" id="L6F-SS-kA7"/>
+                                    <outlet property="separatorLabel" destination="pu1-a1-Aca" id="e9A-iT-Hyh"/>
                                     <outlet property="titleLabel" destination="bP2-FO-hcM" id="0Uw-9W-3wX"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" customClass="PlayerControlsView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="519" width="375" height="148"/>
+                                <rect key="frame" x="0.0" y="511" width="375" height="156"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls">
-                                        <rect key="frame" x="12" y="16" width="351" height="120"/>
+                                        <rect key="frame" x="12" y="24" width="351" height="120"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="OYY-HX-NbI" userLabel="Slider">
                                                 <rect key="frame" x="0.0" y="0.0" width="351" height="62"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
                                                         <rect key="frame" x="0.0" y="0.0" width="351" height="16"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <size key="shadowOffset" width="0.0" height="0.0"/>
@@ -326,7 +345,7 @@
                                 <constraints>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="12" id="Agc-Fw-vDC"/>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="bottom" secondItem="g9o-LJ-bgy" secondAttribute="bottom" constant="12" id="IGR-kM-In7"/>
-                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="16" id="MuE-Wv-4oR"/>
+                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="24" id="MuE-Wv-4oR"/>
                                     <constraint firstItem="g9o-LJ-bgy" firstAttribute="leading" secondItem="nnt-It-hLc" secondAttribute="leading" constant="12" id="kcW-li-BEn"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
@@ -341,6 +360,7 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="fRQ-p1-yCF" firstAttribute="top" secondItem="mzG-VC-6dc" secondAttribute="top" id="0qg-cd-zmP"/>

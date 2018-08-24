@@ -9,7 +9,6 @@ class PlayerViewController: UIViewController {
     private var playbackController: PlaybackController?
 
     private lazy var timeFormatter = VideoTimeFormatter()
-    private lazy var dimensionFormatter = VideoDimensionFormatter()
 
     @IBOutlet private var backgroundView: BlurredImageView!
     @IBOutlet private var playerView: ZoomingPlayerView!
@@ -116,6 +115,10 @@ extension PlayerViewController: PlaybackControllerDelegate {
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {
         updateSlider(withDuration: duration)
     }
+
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateTracks tracks: [AVPlayerItemTrack]) {
+        updateDetailLabels()
+    }
 }
 
 // MARK: - ZoomingPlayerViewDelegate
@@ -148,7 +151,7 @@ private extension PlayerViewController {
         updateSlider(withDuration: .zero)
         updateSlider(withTime: .zero)
         updateTimeLabel(withTime: .zero)
-        updateDimensionsLabel()
+        updateDetailLabels()
         updatePlayerControlsEnabled()
         updatePreviewImage()
     }
@@ -197,9 +200,14 @@ private extension PlayerViewController {
         controlsView.playButton.setTimeControlStatus(status)
     }
 
-    func updateDimensionsLabel() {
+    func updateDetailLabels() {
         let asset = videoManager.asset
-        titleView.detailLabel.text = dimensionFormatter.string(fromWidth: asset.pixelWidth, height: asset.pixelHeight)
+        let fps = playbackController?.frameRate
+
+        let dimensions = VideoDimensionFormatter().string(fromWidth: asset.pixelWidth, height: asset.pixelHeight)
+        let frameRate = fps.flatMap { FrameRateFormatter().string(from: $0) }
+        // Frame rate usually arrives later. Fade it in.
+        titleView.setDetailLabels(for: dimensions, frameRate: frameRate, animated: true)
     }
 
     func updateTimeLabel(withTime time: CMTime) {
