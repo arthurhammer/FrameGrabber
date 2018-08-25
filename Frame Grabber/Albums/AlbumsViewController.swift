@@ -80,10 +80,9 @@ class AlbumsViewController: UICollectionViewController {
         updateThumbnailSize()
     }
 
-    private func updateLayout(for boundindSize: CGSize) {
+    private func updateLayout(for boundingSize: CGSize) {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
-
-        layout.itemSize = CGSize(width: boundindSize.width, height: itemHeight)
+        layout.itemSize = CGSize(width: boundingSize.width, height: itemHeight)
         layout.minimumLineSpacing = 0
     }
 

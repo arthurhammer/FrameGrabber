@@ -22,7 +22,7 @@ extension UIAlertController {
         let messageFormat = NSLocalizedString("You can reach us at %@", comment: "")
         let message = String(format: messageFormat, arguments: [contactAddress])
 
-        return with(title: title, message: message)
+        return with(title: title, message: message, okHandler: okHandler)
     }
 }
 

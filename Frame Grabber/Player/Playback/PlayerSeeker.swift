@@ -14,7 +14,7 @@ class PlayerSeeker {
     private let player: AVPlayer
 
     /// True if the seeker is performing a seek.
-    /// Does not consider seeks started on the receiver's player.
+    /// Does not consider seeks directly started on the receiver's player.
     var isSeeking: Bool {
         return currentSeek != nil
     }
