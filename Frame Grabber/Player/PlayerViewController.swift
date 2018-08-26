@@ -29,7 +29,11 @@ class PlayerViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        return true
+        return shouldHideStatusBar
+    }
+
+    private var shouldHideStatusBar = false {
+        didSet { setNeedsStatusBarAppearanceUpdate() }
     }
 
     override func viewDidLoad() {
@@ -37,6 +41,11 @@ class PlayerViewController: UIViewController {
         configureViews()
         loadPreviewImage()
         loadVideo()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        shouldHideStatusBar = true
     }
 }
 

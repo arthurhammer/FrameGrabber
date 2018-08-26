@@ -19,9 +19,22 @@ class AlbumViewController: UICollectionViewController {
 
     // MARK: Lifecycle
 
+    override var prefersStatusBarHidden: Bool {
+        return shouldHideStatusBar
+    }
+
+    private var shouldHideStatusBar = false {
+        didSet { setNeedsStatusBarAppearanceUpdate() }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        shouldHideStatusBar = false
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -44,6 +57,7 @@ class AlbumViewController: UICollectionViewController {
     private func prepareForPlayerSegue(with destination: PlayerViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
+        shouldHideStatusBar = true
         let selectedAsset = dataSource.video(at: selectedIndexPath)
         destination.videoManager = VideoManager(asset: selectedAsset)
     }
