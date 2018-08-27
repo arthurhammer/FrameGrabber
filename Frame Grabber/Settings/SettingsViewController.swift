@@ -29,6 +29,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         configureViews()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateHeaderAndFooter()
+    }
+
     // MARK: Actions
 
     @IBAction private func done() {
@@ -93,6 +98,27 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 }
 
 // MARK: - Util
+
+private extension UITableViewController {
+    /// Size footer/header views according to AutoLayout.
+    func updateHeaderAndFooter() {
+        if let newHeight = autoLayoutHeight(for: tableView.tableHeaderView) {
+            tableView.tableHeaderView?.bounds.size.height = newHeight
+            tableView.tableHeaderView = tableView.tableHeaderView
+        }
+
+        if let newHeight = autoLayoutHeight(for: tableView.tableFooterView) {
+            tableView.tableFooterView?.bounds.size.height = newHeight
+            tableView.tableFooterView = tableView.tableFooterView
+        }
+    }
+
+    func autoLayoutHeight(for view: UIView?) -> CGFloat? {
+        guard let view = view else { return nil }
+        let newHeight = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+        return (newHeight != view.bounds.height) ? newHeight : nil
+    }
+}
 
 private extension UIDevice {
     /// Device type, e.g. "iPhone7,2".

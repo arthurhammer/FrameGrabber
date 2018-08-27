@@ -2,7 +2,7 @@
 "5QW-JB-E9S.text" = "0:02";
 
 /* Class = "UIButton"; normalTitle = "Feedback"; ObjectID = "6mr-pf-cGf"; */
-"6mr-pf-cGf.normalTitle" = "Feedback";
+"6mr-pf-cGf.normalTitle" = "Feedback Senden";
 
 /* Class = "UILabel"; text = "<Frame Rate>"; ObjectID = "9qH-Qo-DrV"; */
 "9qH-Qo-DrV.text" = "Frame Rate";
@@ -59,7 +59,7 @@
 "T1c-VB-q52.title" = "Album Title";
 
 /* Class = "UIButton"; normalTitle = "Rate App"; ObjectID = "T6p-Ta-APk"; */
-"T6p-Ta-APk.normalTitle" = "Bewerten";
+"T6p-Ta-APk.normalTitle" = "App Bewerten";
 
 /* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
 "T19-Lc-8RI.text" = "Keine Videos";
