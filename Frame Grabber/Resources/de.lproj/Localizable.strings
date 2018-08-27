@@ -26,7 +26,7 @@
 "authorization.deniedAction" = "Einstellungen Öffnen";
 
 /* Photo Library authorization denied message */
-"authorization.deniedMessage" = "Mit Frame Grabber kannst du Einzelbilder aus deinen Videos exportieren. In den Einstellungen kannst du den Zugriff auf deine Fotomediathek erlauben.";
+"authorization.deniedMessage" = "Mit Frame Grabber kannst du Einzelbilder aus deinen Videos exportieren. Erlaube dafür den Zugriff auf deine Fotomediathek in den Einstellungen.";
 
 /* Photo Library authorization default action */
 "authorization.notDeterminedAction" = "Zugriff Erlauben";

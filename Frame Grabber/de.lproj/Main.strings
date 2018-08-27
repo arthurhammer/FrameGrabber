@@ -14,7 +14,7 @@
 "40q-y2-rgZ.normalTitle" = "Action";
 
 /* Class = "UILabel"; text = "Frame Grabber lets you export video frames as images. "; ObjectID = "aqJ-5q-S7V"; */
-"aqJ-5q-S7V.text" = "Mit Frame Grabber kannst Du Einzelbilder aus deinen Videos exportieren.";
+"aqJ-5q-S7V.text" = "Mit Frame Grabber kannst du Einzelbilder aus deinen Videos exportieren.";
 
 /* Class = "UILabel"; text = "Pick Frame"; ObjectID = "bP2-FO-hcM"; */
 "bP2-FO-hcM.text" = "Bild Auswählen";
