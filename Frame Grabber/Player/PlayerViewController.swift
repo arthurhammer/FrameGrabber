@@ -162,6 +162,7 @@ private extension PlayerViewController {
         updateTimeLabel(withTime: .zero)
         updateDetailLabels()
         updatePlayerControlsEnabled()
+        updateLoadingProgress(with: nil)
         updatePreviewImage()
     }
 
@@ -201,7 +202,7 @@ private extension PlayerViewController {
         loadingView.imageView.isHidden = isReady
     }
 
-    func updateLoadingProgress(_ progress: Float?) {
+    func updateLoadingProgress(with progress: Float?) {
         loadingView.setProgress(progress, animated: true)
     }
 
@@ -251,10 +252,10 @@ private extension PlayerViewController {
 
     func loadVideo() {
         videoManager.downloadingPlayerItem(progressHandler: { [weak self] progress in
-            self?.updateLoadingProgress(Float(progress))
+            self?.updateLoadingProgress(with: Float(progress))
 
         }, resultHandler: { [weak self] playerItem, info in
-            self?.updateLoadingProgress(nil)
+            self?.updateLoadingProgress(with: nil)
 
             guard !info.isCancelled else { return }
 
