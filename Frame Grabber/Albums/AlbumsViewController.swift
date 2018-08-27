@@ -7,6 +7,7 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private var collectionViewDataSource: AlbumsCollectionViewDataSource!
+    private lazy var albumCountFormatter = NumberFormatter()
 
     private let cellId = String(describing: AlbumCell.self)
     private let headerId = String(describing: AlbumHeader.self)
@@ -101,7 +102,7 @@ class AlbumsViewController: UICollectionViewController {
     private func configure(cell: AlbumCell, for album: Album) {
         cell.identifier = album.assetCollection.localIdentifier
         cell.titleLabel.text = album.title
-        cell.detailLabel.text = "\(album.count)"
+        cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
 
         loadThumbnail(for: cell, album: album)
     }

@@ -213,8 +213,8 @@ private extension PlayerViewController {
         let asset = videoManager.asset
         let fps = playbackController?.frameRate
 
-        let dimensions = VideoDimensionFormatter().string(fromWidth: asset.pixelWidth, height: asset.pixelHeight)
-        let frameRate = fps.flatMap { FrameRateFormatter().string(from: $0) }
+        let dimensions = NumberFormatter().string(fromPixelWidth: asset.pixelWidth, height: asset.pixelHeight)
+        let frameRate = fps.flatMap { NumberFormatter.frameRateFormatter().string(from: $0) }
         // Frame rate usually arrives later. Fade it in.
         titleView.setDetailLabels(for: dimensions, frameRate: frameRate, animated: true)
     }

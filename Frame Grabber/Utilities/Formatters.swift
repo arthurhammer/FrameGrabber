@@ -38,27 +38,28 @@ class VideoTimeFormatter {
     }
 }
 
-class VideoDimensionFormatter {
-    /// Negative values are normalized.
-    func string(fromWidth width: Int, height: Int, separator: String = "✕", unit: String? = "px") -> String {
-        let unit = (unit != nil) ? " \(unit!)" : ""
-        return "\(abs(width)) \(separator) \(abs(height))" + unit
-    }
-}
+extension NumberFormatter {
 
-class FrameRateFormatter {
-
-    private lazy var formatter: NumberFormatter = {
+    static func frameRateFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         return formatter
-    }()
+    }
 
-    // should look into localized formatting with units…
-    func string(from frameRate: Float, unit: String? = "fps") -> String? {
-        guard let formatted = formatter.string(from: frameRate as NSNumber) else { return nil }
-        let unit = (unit != nil) ? " \(unit!)" : ""
-        return formatted + unit
+    /// Includes units.
+    func string(from frameRate: Float) -> String? {
+        guard let formattedFps = string(from: frameRate as NSNumber) else { return nil }
+        let format = NSLocalizedString("numberFormatter.frameRate",  value: "%@ fps", comment: "Video frame rate with unit")
+        return String.localizedStringWithFormat(format, formattedFps)
+    }
+
+    /// Includes units.
+    func string(fromPixelWidth width: Int, height: Int) -> String? {
+        guard let w = string(from: abs(width) as NSNumber),
+            let h = string(from: abs(height) as NSNumber) else { return nil }
+
+        let format = NSLocalizedString("numberFormatter.videoDimensions", value: "%@ ✕ %@ px", comment: "Video pixel size with unit")
+        return String.localizedStringWithFormat(format, w, h)
     }
 }
 
