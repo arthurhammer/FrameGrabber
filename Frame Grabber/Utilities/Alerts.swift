@@ -3,25 +3,24 @@ import UIKit
 extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("Couldn't load video from iCloud.", comment: "")
+        let title = NSLocalizedString("alert.iCloud", value: "Couldn't load video from iCloud.", comment: "")
         return with(title: title, okHandler: okHandler)
     }
 
     static func playbackFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("Item couldn't be played.", comment: "")
+        let title = NSLocalizedString("alert.playback", value: "Item couldn't be played.", comment: "")
         return with(title: title, okHandler: okHandler)
     }
 
     static func imageGenerationFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("Sorry, couldn't grab image.", comment: "")
+        let title = NSLocalizedString("alert.imageGeneration", value: "Sorry, couldn't grab image.", comment: "")
         return with(title: title, okHandler: okHandler)
     }
 
     static func mailNotAvailable(contactAddress: String, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("This device can't send emails.", comment: "")
-        let messageFormat = NSLocalizedString("You can reach us at %@", comment: "")
-        let message = String(format: messageFormat, arguments: [contactAddress])
-
+        let title = NSLocalizedString("alert.mail.title", value: "This device can't send emails.", comment: "")
+        let messageFormat = NSLocalizedString("alert.mail.message", value: "You can reach me at %@", comment: "E-mail address")
+        let message = String.localizedStringWithFormat(messageFormat, contactAddress)
         return with(title: title, message: message, okHandler: okHandler)
     }
 }
@@ -36,7 +35,7 @@ extension UIAlertController {
 
 extension UIAlertAction {
     static func ok(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
-        let title = NSLocalizedString("OK", comment: "")
+        let title = NSLocalizedString("alert.ok", value: "OK", comment: "")
         return UIAlertAction(title: title, style: .default, handler: handler)
     }
 }

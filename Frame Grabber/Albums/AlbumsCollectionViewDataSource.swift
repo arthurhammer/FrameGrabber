@@ -66,8 +66,8 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
     private func configureSections() {
         sections = [
-            AlbumsSection(title: NSLocalizedString("Library", comment: ""), albums: albumsDataSource.smartAlbums, assetFetchOptions: .smartAlbumVideos()),
-            AlbumsSection(title: NSLocalizedString("My Albums", comment: ""), albums: albumsDataSource.userAlbums, assetFetchOptions: .userAlbumVideos())
+            AlbumsSection(title: NSLocalizedString("albums.smartAlbumsHeader", value: "Library", comment: "Smart photo albums section header"), albums: albumsDataSource.smartAlbums, assetFetchOptions: .smartAlbumVideos()),
+            AlbumsSection(title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"), albums: albumsDataSource.userAlbums, assetFetchOptions: .userAlbumVideos())
         ]
 
         albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in

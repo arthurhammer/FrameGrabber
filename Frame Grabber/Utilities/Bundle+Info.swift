@@ -15,11 +15,12 @@ extension Bundle {
     }
 
     var formattedVersion: String {
-        let format = NSLocalizedString("%@ %@ (%@)", comment: "")
-        return String(format: format, arguments: [name, version, build])
+        let format = NSLocalizedString("bundle.formattedVersion", value: "%@ %@ (%@)", comment: "<App Name> <Version Number> (<Build Number>)")
+        return String.localizedStringWithFormat(format, name, version, build)
     }
 
     private func info<T>(for key: String) -> T? {
-        return Bundle.main.infoDictionary?[key] as? T
+        return (localizedInfoDictionary?[key] as? T)
+            ?? (infoDictionary?[key] as? T)
     }
 }
