@@ -11,8 +11,6 @@ class AlbumsViewController: UICollectionViewController {
 
     private let cellId = String(describing: AlbumCell.self)
     private let headerId = String(describing: AlbumHeader.self)
-
-    private let itemHeight: CGFloat = 90
     private let headerHeight: CGFloat = 50
 
     override func viewDidLoad() {
@@ -22,14 +20,8 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        updateLayout(for: size)
-        updateThumbnailSize()
-
-        coordinator.animate(alongsideTransition: { _ in
-            self.collectionView?.layoutIfNeeded()
-        }, completion: nil)
-
         super.viewWillTransition(to: size, with: coordinator)
+        updateThumbnailSize()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,7 +50,8 @@ class AlbumsViewController: UICollectionViewController {
     private func configureViews() {
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
-        updateLayout(for: view.bounds.size)
+
+        collectionView?.collectionViewLayout = CollectionViewTableLayout()
     }
 
     private func configureDataSource() {
@@ -81,14 +74,8 @@ class AlbumsViewController: UICollectionViewController {
         updateThumbnailSize()
     }
 
-    private func updateLayout(for boundingSize: CGSize) {
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        layout.itemSize = CGSize(width: boundingSize.width, height: itemHeight)
-        layout.minimumLineSpacing = 0
-    }
-
     private func updateThumbnailSize() {
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard let layout = collectionView?.collectionViewLayout as? CollectionViewTableLayout else { return }
         let height = layout.itemSize.height
         collectionViewDataSource.imageConfig.size = CGSize(width: height, height: height).scaledToScreen
     }
@@ -131,6 +118,7 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     private func showsHeader(forSection section: Int) -> Bool {
+        guard let collectionViewDataSource = collectionViewDataSource else { return false }
         let section = collectionViewDataSource.sections[section]
         return (section.albums.count > 0) && (section.title != nil)
     }

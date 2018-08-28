@@ -13,7 +13,6 @@ class AlbumViewController: UICollectionViewController {
 
     @IBOutlet private var emptyView: UIView!
 
-    private lazy var layout = CollectionViewGridLayout()
     private lazy var durationFormatter = VideoDurationFormatter()
     private let cellId = String(describing: VideoCell.self)
 
@@ -38,14 +37,8 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        layout.updateItemSize(for: size)
-        updateThumbnailSize()
-
-        coordinator.animate(alongsideTransition: { _ in
-            self.collectionView?.layoutIfNeeded()
-        }, completion: nil)
-
         super.viewWillTransition(to: size, with: coordinator)
+        updateThumbnailSize()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,9 +73,7 @@ private extension AlbumViewController {
     func configureViews() {
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
-
-        collectionView?.collectionViewLayout = layout
-        layout.updateItemSize(for: view.bounds.size)
+        collectionView?.collectionViewLayout = CollectionViewGridLayout()
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
@@ -119,6 +110,7 @@ private extension AlbumViewController {
     }
 
     func updateThumbnailSize() {
+        guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
         dataSource.imageConfig.size = layout.itemSize.scaledToScreen
     }
 
