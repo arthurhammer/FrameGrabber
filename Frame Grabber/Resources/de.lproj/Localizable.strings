@@ -1,0 +1,42 @@
+/* Smart photo albums section header */
+"albums.smartAlbumsHeader" = "Mediathek";
+
+/* User photo albums section header */
+"albums.userAlbumsHeader" = "Meine Alben";
+
+/* No comment provided by engineer. */
+"alert.iCloud" = "iCloud-Downloadfehler.";
+
+/* No comment provided by engineer. */
+"alert.imageGeneration" = "Das Bild konnte nicht exportiert werden.";
+
+/* E-mail address */
+"alert.mail.message" = "Du kannst mich via %@ erreichen.";
+
+/* No comment provided by engineer. */
+"alert.mail.title" = "Dieses Gerät kann keine E-Mails versenden.";
+
+/* No comment provided by engineer. */
+"alert.ok" = "OK";
+
+/* No comment provided by engineer. */
+"alert.playback" = "Dieses Objekt kann nicht abgespielt werden.";
+
+/* Photo Library authorization denied action */
+"authorization.deniedAction" = "Einstellungen Öffnen";
+
+/* Photo Library authorization denied message */
+"authorization.deniedMessage" = "Mit Frame Grabber kannst du Einzelbilder aus deinen Videos exportieren. Erlaube dafür den Zugriff auf deine Fotomediathek in den Einstellungen.";
+
+/* Photo Library authorization default action */
+"authorization.notDeterminedAction" = "Zugriff Erlauben";
+
+/* Photo Library authorization default message */
+"authorization.notDeterminedMessage" = "Mit Frame Grabber kannst Du Einzelbilder aus deinen Videos exportieren. Frame Grabber benötigt dafür Zugriff auf deine Fotomediathek.";
+
+/* Photo Library authorization title */
+"authorization.title" = "Frame Grabber 👋";
+
+/* Feedback email subject */
+"settings.emailSubject" = "Frame Grabber: Feedback";
+
