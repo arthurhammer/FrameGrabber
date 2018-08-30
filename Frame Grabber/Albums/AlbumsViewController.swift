@@ -51,7 +51,11 @@ class AlbumsViewController: UICollectionViewController {
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
 
-        collectionView?.collectionViewLayout = CollectionViewTableLayout()
+        let layout = CollectionViewTableLayout()
+        collectionView?.collectionViewLayout = layout
+        // In some cases, safe are content size isn't yet calculated on initialization.
+        // Trigger layout update manually (`invalidate` doesn't work).
+        layout.prepare()
     }
 
     private func configureDataSource() {
