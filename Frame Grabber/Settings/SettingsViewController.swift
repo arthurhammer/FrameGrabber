@@ -8,9 +8,9 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     lazy var bundle = Bundle.main
     lazy var device = UIDevice.current
 
-    var storeURL: URL? = nil
+    var storeURL = URL(string: "itms-apps://itunes.apple.com/app/id1434703541")
     var contactSubject = NSLocalizedString("settings.emailSubject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
-    var contactAddress = "framegrabber@ahammer.me"
+    var contactAddress = "hi@arthurhammer.de"
 
     lazy var contactMessage = """
                               \n\n
