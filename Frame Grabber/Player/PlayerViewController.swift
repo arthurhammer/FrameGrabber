@@ -16,6 +16,8 @@ class PlayerViewController: UIViewController {
     @IBOutlet private var titleView: PlayerTitleView!
     @IBOutlet private var controlsView: PlayerControlsView!
 
+    private var isInitiallyReadyForPlayback = false
+
     private var isScrubbing: Bool {
         return controlsView.timeSlider.isInteracting
     }
@@ -107,7 +109,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
         }
 
         updatePlayerControlsEnabled()
-        updatePreviewImage()
+        updatePlaybackStatus()
     }
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {
@@ -116,7 +118,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
         }
 
         updatePlayerControlsEnabled()
-        updatePreviewImage()
+        updatePlaybackStatus()
     }
 
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
@@ -142,7 +144,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
 extension PlayerViewController: ZoomingPlayerViewDelegate {
 
     func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {
-        updatePreviewImage()
+        updatePlaybackStatus()
     }
 }
 
@@ -197,6 +199,18 @@ private extension PlayerViewController {
 
     // MARK: Sync Player UI
 
+    func updatePlaybackStatus() {
+        let isReadyToPlay = playbackController?.isReadyToPlay ?? false
+        let isReadyToDisplay = playerView.isReadyForDisplay
+
+        // All player, item and view will reset their readiness on loops. Capture when
+        // all have been ready at least once. (Later states not considered.)
+        if isReadyToPlay && isReadyToDisplay {
+            isInitiallyReadyForPlayback = true
+            updatePreviewImage()
+        }
+    }
+
     func updatePlayerControlsEnabled() {
         let enabled = (playbackController?.isReadyToPlay ?? false)
             && !videoManager.isGeneratingFrame
@@ -205,8 +219,7 @@ private extension PlayerViewController {
     }
 
     func updatePreviewImage() {
-        let isReady = (playbackController?.isReadyToPlay ?? false) && playerView.isReadyForDisplay
-        loadingView.imageView.isHidden = isReady
+        loadingView.imageView.isHidden = isInitiallyReadyForPlayback
     }
 
     func updateLoadingProgress(with progress: Float?) {
