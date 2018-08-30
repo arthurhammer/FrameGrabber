@@ -29,11 +29,18 @@ class PlayerViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        return shouldHideStatusBar
+        let verticallyCompact = traitCollection.verticalSizeClass == .compact
+        return verticallyCompact || shouldHideStatusBar
     }
 
+    // For seamless transition from status bar to non status bar view controller, need to
+    // a) keep `prefersStatusBarHidden` false until `viewWillAppear` and b) animate change.
     private var shouldHideStatusBar = false {
-        didSet { setNeedsStatusBarAppearanceUpdate() }
+        didSet {
+            UIView.animate(withDuration: 0.15) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
     }
 
     override func viewDidLoad() {
