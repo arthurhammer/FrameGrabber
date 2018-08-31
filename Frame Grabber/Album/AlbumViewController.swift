@@ -10,6 +10,7 @@ class AlbumViewController: UICollectionViewController {
     }
 
     private var dataSource: AlbumCollectionViewDataSource!
+    private lazy var transitionController = ZoomTransitionController()
 
     @IBOutlet private var emptyView: UIView!
 
@@ -37,6 +38,8 @@ class AlbumViewController: UICollectionViewController {
     private func prepareForPlayerSegue(with destination: PlayerViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
+        transitionController.prepareTransition(forSource: self, destination: destination)
+
         let selectedAsset = dataSource.video(at: selectedIndexPath)
         destination.videoManager = VideoManager(asset: selectedAsset)
     }
@@ -57,7 +60,7 @@ extension AlbumViewController {
 private extension AlbumViewController {
 
     func configureViews() {
-        clearsSelectionOnViewWillAppear = true
+        clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
     }

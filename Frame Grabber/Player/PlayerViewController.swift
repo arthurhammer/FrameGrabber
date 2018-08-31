@@ -330,3 +330,35 @@ private extension PlayerViewController {
         present(shareController, animated: true)
     }
 }
+
+// MARK: - ZoomAnimatorDelegate
+
+extension PlayerViewController: ZoomAnimatable {
+
+    func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
+        playerView.isHidden = true
+        loadingView.isHidden = true
+    }
+
+    func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
+        playerView.isHidden = false
+        loadingView.isHidden = false
+        updatePreviewImage()
+    }
+
+    func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
+        return loadingView.imageView.image
+    }
+
+    func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
+        return loadingView.convert(loadingImageFrame, to: view)
+    }
+
+    /// The aspect fitted size the preview image occupies in the image view.
+    private var loadingImageFrame: CGRect {
+        let imageSize = loadingView.imageView.image?.size
+            ?? CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
+
+        return AVMakeRect(aspectRatio: imageSize, insideRect: loadingView.imageView.frame)
+    }
+}
