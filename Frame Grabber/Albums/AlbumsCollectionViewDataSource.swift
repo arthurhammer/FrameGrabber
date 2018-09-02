@@ -49,10 +49,6 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         return sections[indexPath.section].albums[indexPath.item]
     }
 
-    func albums(at indexPaths: [IndexPath]) -> [Album] {
-        return indexPaths.map(album)
-    }
-
     func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest? {
         guard let keyAsset = album.keyAsset else { return nil }
 
@@ -62,6 +58,14 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     func fetchUpdate(forAlbumAt indexPath: IndexPath) -> FetchedAlbum? {
         let assetFetchOptions = sections[indexPath.section].assetFetchOptions
         return FetchedAlbum.fetchUpdate(for: album(at: indexPath).assetCollection, assetFetchOptions: assetFetchOptions)
+    }
+
+    private func safeAlbums(at indexPaths: [IndexPath]) -> [Album] {
+        let safeIndexPaths = indexPaths
+            .filter { $0.section < sections.count }
+            .filter { $0.item < sections[$0.section].albums.count }
+
+        return safeIndexPaths.map(album)
     }
 
     private func configureSections() {
@@ -106,14 +110,13 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     // MARK: UICollectionViewDataSourcePrefetching
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        let keyAssets = albums(at: indexPaths).compactMap { $0.keyAsset }
-
+        // Index paths might not exist anymore in the model.
+        let keyAssets = safeAlbums(at: indexPaths).compactMap { $0.keyAsset }
         imageManager.startCachingImages(for: keyAssets, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        let keyAssets = albums(at: indexPaths).compactMap { $0.keyAsset }
-
+        let keyAssets = safeAlbums(at: indexPaths).compactMap { $0.keyAsset }
         imageManager.stopCachingImages(for: keyAssets, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 }

@@ -49,14 +49,15 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         return album!.fetchResult.object(at: indexPath.item)
     }
 
-    /// Precondition: `album != nil`.
-    func videos(at indexPaths: [IndexPath]) -> [PHAsset] {
-        let indexSet = IndexSet(indexPaths.map { $0.item })
-        return album!.fetchResult.objects(at: indexSet)
-    }
-
     func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest {
         return imageManager.requestImage(for: video, config: imageConfig, resultHandler: resultHandler)
+    }
+
+    private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
+        guard let fetchResult = album?.fetchResult else { return [] }
+        let indexes = IndexSet(indexPaths.map { $0.item })
+        let safeIndexes = indexes.filteredIndexSet { $0 < fetchResult.count }
+        return fetchResult.objects(at: safeIndexes)
     }
 }
 
@@ -75,11 +76,14 @@ extension AlbumCollectionViewDataSource {
     // MARK: UICollectionViewDataSourcePrefetching
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        imageManager.startCachingImages(for: videos(at: indexPaths), targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
+        // Index paths might not exist anymore in the model.
+        let videos = safeVideos(at: indexPaths)
+        imageManager.startCachingImages(for: videos, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        imageManager.stopCachingImages(for: videos(at: indexPaths), targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
+        let videos = safeVideos(at: indexPaths)
+        imageManager.stopCachingImages(for: videos, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
     }
 }
 
