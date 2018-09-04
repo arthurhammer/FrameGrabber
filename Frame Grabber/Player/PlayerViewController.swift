@@ -364,7 +364,15 @@ extension PlayerViewController: ZoomAnimatable {
     }
 
     func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
-        return loadingView.convert(loadingImageFrame, to: view)
+        let videoFrame = playerView.zoomedVideoFrame
+
+        // If ready animate from video position (possibly zoomed, scrolled), otherwise
+        // from preview image (centered, aspect fitted).
+        if videoFrame != .zero {
+            return playerView.superview?.convert(videoFrame, to: view)
+        } else {
+            return loadingView.convert(loadingImageFrame, to: view)
+        }
     }
 
     /// The aspect fitted size the preview image occupies in the image view.

@@ -29,6 +29,13 @@ class ZoomingPlayerView: UIView {
         return playerView.playerLayer.isReadyForDisplay
     }
 
+    /// The current size and position of the full video image in the receiver. If the
+    /// player is not ready, is `zero`.
+    var zoomedVideoFrame: CGRect {
+        guard playerView.frame.size != .zero else { return .zero }
+        return scrollView.convert(playerView.frame, to: self)
+    }
+
     fileprivate(set) lazy var doubleTapToZoomRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
 
     private let scrollView = UIScrollView()
@@ -109,9 +116,7 @@ private extension ZoomingPlayerView {
     }
 
     func updatePlayerViewSize(keepingZoomIfPossible: Bool) {
-        // Fill scroll view if player item is not ready.
-        let videoSize = player?.currentItem?.presentationSize ?? .zero
-        let newContentSize = (videoSize != .zero) ? videoSize : scrollView.bounds.size
+        let newContentSize = player?.currentItem?.presentationSize ?? .zero
 
         // Remain zoomed in if the player item changed but has same size (to avoid zooming
         // out when looping the same video).
@@ -161,6 +166,11 @@ private extension UIScrollView {
     }
 
     func updateZoomRangeForContentView() {
+        guard (contentSize.width != 0) && (contentSize.height != 0) else {
+            (minimumZoomScale, maximumZoomScale, zoomScale) = (1, 1, 1)
+            return
+        }
+
         let widthScale = bounds.width / contentSize.width
         let heightScale = bounds.height / contentSize.height
 
