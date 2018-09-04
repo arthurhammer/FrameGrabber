@@ -19,6 +19,7 @@ class BlurredImageView: UIView {
         imageView.frame = bounds
         imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         addSubview(imageView)
 
         visualEffectView.frame = bounds
