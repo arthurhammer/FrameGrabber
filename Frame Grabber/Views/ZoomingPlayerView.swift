@@ -33,6 +33,7 @@ class ZoomingPlayerView: UIView {
 
     private let scrollView = UIScrollView()
     private var unzoomedContentSize: CGSize?  // Zooming scales the content size.
+    private var previousSize = CGSize.zero
     private var playerItemSizeObserver: NSKeyValueObservation?
     private var layerReadyObserver: NSKeyValueObservation?
 
@@ -48,9 +49,12 @@ class ZoomingPlayerView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        guard previousSize != bounds.size else { return }
+
         // Reset scroll view setup on rotation (etc.).
         updatePlayerViewSize(keepingZoomIfPossible: false)
         scrollView.centerContentView()
+        previousSize = bounds.size
     }
 }
 
