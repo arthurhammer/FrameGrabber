@@ -35,12 +35,21 @@ class PlayerViewController: UIViewController {
         return verticallyCompact || shouldHideStatusBar
     }
 
-    // For seamless transition from status bar to non status bar view controller, need to
-    // a) keep `prefersStatusBarHidden` false until `viewWillAppear` and b) animate change.
     private var shouldHideStatusBar = false {
-        didSet {
+        didSet { setNeedsStatusBarAppearanceUpdate() }
+    }
+
+    // For seamless transition from status bar to non status bar view controller, need to
+    // a) keep `prefersStatusBarHidden` false until `viewWillAppear`, b) animate change
+    // and c) use the transition coordinator to handle correct layout for GPS/phone bar.
+    private func hideStatusBar() {
+        if let coordinator = transitionCoordinator {
+            coordinator.animate(alongsideTransition: { _ in
+                self.shouldHideStatusBar = true
+            }, completion: nil)
+        } else {
             UIView.animate(withDuration: 0.15) {
-                self.setNeedsStatusBarAppearanceUpdate()
+                self.shouldHideStatusBar = true
             }
         }
     }
@@ -54,7 +63,7 @@ class PlayerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        shouldHideStatusBar = true
+        hideStatusBar()
     }
 }
 
@@ -328,5 +337,49 @@ private extension PlayerViewController {
     func shareItem(_ item: Any) {
         let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         present(shareController, animated: true)
+    }
+}
+
+// MARK: - ZoomAnimatorDelegate
+
+extension PlayerViewController: ZoomAnimatable {
+
+    func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
+        playerView.isHidden = true
+        loadingView.isHidden = true
+        controlsView.isHidden = true  
+        titleView.isHidden = true
+    }
+
+    func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
+        playerView.isHidden = false
+        loadingView.isHidden = false
+        controlsView.setHidden(false, animated: true, duration: 0.3)
+        titleView.setHidden(false, animated: true, duration: 0.3)
+        updatePreviewImage()
+    }
+
+    func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
+        return loadingView.imageView.image
+    }
+
+    func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
+        let videoFrame = playerView.zoomedVideoFrame
+
+        // If ready animate from video position (possibly zoomed, scrolled), otherwise
+        // from preview image (centered, aspect fitted).
+        if videoFrame != .zero {
+            return playerView.superview?.convert(videoFrame, to: view)
+        } else {
+            return loadingView.convert(loadingImageFrame, to: view)
+        }
+    }
+
+    /// The aspect fitted size the preview image occupies in the image view.
+    private var loadingImageFrame: CGRect {
+        let imageSize = loadingView.imageView.image?.size
+            ?? CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
+
+        return AVMakeRect(aspectRatio: imageSize, insideRect: loadingView.imageView.frame)
     }
 }

@@ -109,8 +109,8 @@
                                     <outlet property="durationLabel" destination="5QW-JB-E9S" id="0mi-FM-7Jj"/>
                                     <outlet property="favoritedImageView" destination="tvD-d1-DcJ" id="9Jp-wx-dTO"/>
                                     <outlet property="gradientView" destination="aku-Vb-sC2" id="soG-nh-O26"/>
+                                    <outlet property="highlightView" destination="viB-ng-j6r" id="fxq-XA-2pG"/>
                                     <outlet property="imageView" destination="jRs-Rg-Keq" id="xzW-9s-7m3"/>
-                                    <outlet property="selectionView" destination="viB-ng-j6r" id="fxq-XA-2pG"/>
                                     <segue destination="1Cw-ag-d47" kind="presentation" identifier="PlayerViewController" modalTransitionStyle="crossDissolve" id="wXA-pQ-n5U"/>
                                 </connections>
                             </collectionViewCell>
@@ -783,6 +783,6 @@
         <image name="settings" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TdH-iW-Yfo"/>
+        <segue reference="3Xh-NZ-ljG"/>
     </inferredMetricsTieBreakers>
 </document>
