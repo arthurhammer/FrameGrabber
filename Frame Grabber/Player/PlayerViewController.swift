@@ -35,12 +35,21 @@ class PlayerViewController: UIViewController {
         return verticallyCompact || shouldHideStatusBar
     }
 
-    // For seamless transition from status bar to non status bar view controller, need to
-    // a) keep `prefersStatusBarHidden` false until `viewWillAppear` and b) animate change.
     private var shouldHideStatusBar = false {
-        didSet {
+        didSet { setNeedsStatusBarAppearanceUpdate() }
+    }
+
+    // For seamless transition from status bar to non status bar view controller, need to
+    // a) keep `prefersStatusBarHidden` false until `viewWillAppear`, b) animate change
+    // and c) use the transition coordinator to handle correct layout for GPS/phone bar.
+    private func hideStatusBar() {
+        if let coordinator = transitionCoordinator {
+            coordinator.animate(alongsideTransition: { _ in
+                self.shouldHideStatusBar = true
+            }, completion: nil)
+        } else {
             UIView.animate(withDuration: 0.15) {
-                self.setNeedsStatusBarAppearanceUpdate()
+                self.shouldHideStatusBar = true
             }
         }
     }
@@ -54,7 +63,7 @@ class PlayerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        shouldHideStatusBar = true
+        hideStatusBar()
     }
 }
 
