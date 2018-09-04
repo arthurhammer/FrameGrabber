@@ -347,11 +347,15 @@ extension PlayerViewController: ZoomAnimatable {
     func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
         playerView.isHidden = true
         loadingView.isHidden = true
+        controlsView.isHidden = true  
+        titleView.isHidden = true
     }
 
     func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
         playerView.isHidden = false
         loadingView.isHidden = false
+        controlsView.setHidden(false, animated: true, duration: 0.3)
+        titleView.setHidden(false, animated: true, duration: 0.3)
         updatePreviewImage()
     }
 
