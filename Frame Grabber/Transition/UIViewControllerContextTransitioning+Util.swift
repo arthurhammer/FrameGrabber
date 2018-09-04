@@ -15,10 +15,10 @@ extension UIViewControllerContextTransitioning {
 }
 
 extension UIViewControllerContextTransitioning {
-    func installViewsInContainer(for type: TransitionType) {
 
-        // (toView is nil if already in container, i.e. for dismissals where presenter
-        // remained in view hierarchy.)
+    func installViewsInContainer(for type: TransitionType) {
+        // toView is nil if already in container, i.e. for dismissals where presenter
+        // remained in view hierarchy.
         if let toView = toView {
             toView.frame = finalToFrame ?? .zero
 

@@ -273,7 +273,7 @@ private extension PlayerViewController {
         videoManager.posterImage(with: config) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.imageView.image = image
-            // use same image for background (ignoring different size/content mode as it's blurred)
+            // Use same image for background (ignoring different size/content mode as it's blurred).
             self?.backgroundView.imageView.image = image
             self?.updatePreviewImage()
         }
@@ -340,7 +340,7 @@ private extension PlayerViewController {
     }
 }
 
-// MARK: - ZoomAnimatorDelegate
+// MARK: - ZoomAnimatable
 
 extension PlayerViewController: ZoomAnimatable {
 

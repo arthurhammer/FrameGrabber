@@ -14,7 +14,6 @@ extension AlbumViewController: ZoomAnimatable {
 
     func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
         guard let selectedCell = collectionView?.selectedCell as? VideoCell else { return nil }
-
         return selectedCell.imageView.image
     }
 

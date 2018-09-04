@@ -34,7 +34,7 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
     init(smartAlbumTypes: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes,
          userAlbumsBaseFetchResult: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchUserAlbums(with: .userAlbums()),
-         updateQueue: DispatchQueue = .init(label: "me.ahammer.\(String(describing: AlbumsDataSource.self))", qos: .userInitiated),
+         updateQueue: DispatchQueue = .init(label: "de.arthurhammer.\(String(describing: AlbumsDataSource.self))", qos: .userInitiated),
          photoLibrary: PHPhotoLibrary = .shared()) {
 
         self.userAlbumsBaseFetchResult = userAlbumsBaseFetchResult
