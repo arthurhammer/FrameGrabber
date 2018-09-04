@@ -81,8 +81,11 @@ private extension AlbumViewController {
         }
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
-            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails)
             self?.updateAlbumData()
+
+            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: { 
+                self?.reconfigure(cellAt: $0)
+            })
         }
 
         collectionView?.isPrefetchingEnabled = true
@@ -113,6 +116,12 @@ private extension AlbumViewController {
         cell.durationLabel.text = durationFormatter.string(from: video.duration)
         cell.favoritedImageView.isHidden = !video.isFavorite
         loadThumbnail(for: cell, video: video)
+    }
+
+    func reconfigure(cellAt indexPath: IndexPath) {
+        guard let cell = collectionView?.cellForItem(at: indexPath) as? VideoCell else { return }
+        let video = dataSource.video(at: indexPath)
+        configure(cell: cell, for: video)
     }
 
     func loadThumbnail(for cell: VideoCell, video: PHAsset) {
