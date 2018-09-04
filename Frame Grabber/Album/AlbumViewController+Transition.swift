@@ -20,8 +20,7 @@ extension AlbumViewController: ZoomAnimatable {
 
     func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
         guard let selectedCell = collectionView?.selectedCell else { return nil }
-
-        return collectionView?.cellFrameClippedToSafeFrame(for: selectedCell, in: view)
+        return selectedCell.superview?.convert(selectedCell.frame, to: view) ?? .zero
     }
 
     func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
@@ -85,11 +84,5 @@ private extension UICollectionView {
 
     var safeFrame: CGRect {
         return UIEdgeInsetsInsetRect(frame, adjustedContentInset)
-    }
-
-    func cellFrameClippedToSafeFrame(for cell: UICollectionViewCell, in view: UIView) -> CGRect {
-        let cellFrame = (cell.superview ?? self).convert(cell.frame, to: view)
-        let safeFrame = (superview ?? self).convert(self.safeFrame, to: view)
-        return safeFrame.intersection(cellFrame)
     }
 }
