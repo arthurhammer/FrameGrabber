@@ -16,7 +16,7 @@ class ZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         switch type {
-        case .present: return 0.5
+        case .present: return 0.4
         case .dismiss: return 0.2
         }
     }
@@ -51,7 +51,7 @@ private extension ZoomAnimator {
         context.containerView.addSubview(transitionImageView)
         context.toView?.alpha = 0
 
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
 
             transitionImageView.frame = toImageFrame
             context.toView?.alpha = 1
