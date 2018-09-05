@@ -53,7 +53,7 @@
 		00BAFCA2205E994D00BCEE69 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */; };
 		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
-		00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* AVKit.swift */; };
+		00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* CMTime.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize+Scaled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */; };
 		00C098E31FC1C089000B05FE /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
 		00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */; };
@@ -117,7 +117,7 @@
 		00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Navigation.swift"; sourceTree = "<group>"; };
 		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Authorization.swift"; sourceTree = "<group>"; };
-		00C098D61FC1A7CB000B05FE /* AVKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVKit.swift; sourceTree = "<group>"; };
+		00C098D61FC1A7CB000B05FE /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scaled.swift"; sourceTree = "<group>"; };
 		00C098E21FC1C089000B05FE /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHImageManager+Requests.swift"; sourceTree = "<group>"; };
@@ -199,10 +199,10 @@
 			isa = PBXGroup;
 			children = (
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
-				00C098D61FC1A7CB000B05FE /* AVKit.swift */,
 				00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */,
 				0096E812212F2EF8008395CA /* Bundle+Info.swift */,
 				00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */,
+				00C098D61FC1A7CB000B05FE /* CMTime.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
 				00F3C2582130751D0030B7EC /* ImageConfig.swift */,
 				00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */,
@@ -437,7 +437,7 @@
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
 				00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */,
 				00BAFCA0205E938B00BCEE69 /* AVKit+Debug.swift in Sources */,
-				00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */,
+				00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */,
 				00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */,
 				008426991FD5CAC300F4119D /* ZoomingPlayerView.swift in Sources */,
 				0058E354213D645900BE28DD /* ZoomAnimatable.swift in Sources */,

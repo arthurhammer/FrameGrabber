@@ -6,8 +6,6 @@ class VideoManager {
     let asset: PHAsset
 
     private let imageManager: PHImageManager
-    private var imageGenerator: AVAssetImageGenerator?
-
     private(set) var imageRequest: ImageRequest?
     private(set) var videoRequest: ImageRequest?
 
@@ -21,7 +19,6 @@ class VideoManager {
     }
 
     func cancelAllRequests() {
-        cancelFrameGeneration()
         imageRequest = nil
         videoRequest = nil
     }
@@ -45,27 +42,15 @@ class VideoManager {
 
     // MARK: Frame Generation
 
-    var isGeneratingFrame: Bool {
-        return imageGenerator != nil
-    }
+    /// Generates images synchronously.
+    func currentFrame(for item: AVPlayerItem) -> UIImage? {
+        let generator = AVAssetImageGenerator(asset: item.asset)
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = .zero
+        generator.appliesPreferredTrackTransform = true
 
-    /// Pending frame requests are canceled.
-    /// The result handler is called asynchronously on the main thread.
-    func frame(for avAsset: AVAsset, at time: CMTime, completionHandler: @escaping (AVAssetImageGenerator.Status) -> ()) {
-        cancelFrameGeneration()
-        
-        imageGenerator = AVAssetImageGenerator(asset: avAsset)
-
-        imageGenerator?.generateImage(at: time) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.imageGenerator = nil
-                completionHandler(result)
-            }
-        }
-    }
-
-    func cancelFrameGeneration() {
-        imageGenerator?.cancelAllCGImageGeneration()
+        let cgImage = try? generator.copyCGImage(at: item.currentTime(), actualTime: nil)
+        return cgImage.flatMap(UIImage.init)
     }
 
     // MARK: Metadata Generation

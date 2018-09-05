@@ -93,11 +93,10 @@ private extension PlayerViewController {
     }
 
     @IBAction func shareCurrentFrame() {
-        guard !isScrubbing,
-            let item = playbackController?.currentItem else { return }
+        guard !isScrubbing, let item = playbackController?.currentItem else { return }
 
         playbackController?.pause()
-        generateFrameAndShare(from: item.asset, at: item.currentTime())
+        generateCurrentFrameAndShare(for: item)
     }
 
     @IBAction func scrub(_ sender: TimeSlider) {
@@ -113,20 +112,20 @@ private extension PlayerViewController {
 extension PlayerViewController: PlaybackControllerDelegate {
 
     func player(_ player: AVPlayer, didUpdateStatus status: AVPlayerStatus) {
-        if status == .failed {
+        guard status != .failed  else {
             presentAlert(.playbackFailed { _ in self.done() })
+            return
         }
 
-        updatePlayerControlsEnabled()
         updatePlaybackStatus()
     }
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {
-        if status == .failed {
+        guard status != .failed else {
             presentAlert(.playbackFailed { _ in self.done() })
+            return
         }
 
-        updatePlayerControlsEnabled()
         updatePlaybackStatus()
     }
 
@@ -174,12 +173,12 @@ private extension PlayerViewController {
 
         configureGestures()
 
+        updatePlaybackStatus()
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateSlider(withTime: .zero)
         updateTimeLabel(withTime: .zero)
         updateDetailLabels()
-        updatePlayerControlsEnabled()
         updateLoadingProgress(with: nil)
         updatePreviewImage()
     }
@@ -218,13 +217,8 @@ private extension PlayerViewController {
             isInitiallyReadyForPlayback = true
             updatePreviewImage()
         }
-    }
 
-    func updatePlayerControlsEnabled() {
-        let enabled = (playbackController?.isReadyToPlay ?? false)
-            && !videoManager.isGeneratingFrame
-
-        controlsView.setControlsEnabled(enabled)
+        controlsView.setControlsEnabled(isReadyToPlay)
     }
 
     func updatePreviewImage() {
@@ -306,21 +300,13 @@ private extension PlayerViewController {
 
     // MARK: Image Generation
 
-    func generateFrameAndShare(from asset: AVAsset, at time: CMTime) {
-        videoManager.frame(for: asset, at: time) { [weak self] result in
-            self?.updatePlayerControlsEnabled()
-
-            switch (result) {
-            case .cancelled:
-                break
-            case .failed:
-                self?.presentAlert(.imageGenerationFailed())
-            case .succeeded(let image, _, _):
-                self?.shareImage(image)
-            }
+    func generateCurrentFrameAndShare(for item: AVPlayerItem) {
+        guard let image = videoManager.currentFrame(for: item) else {
+            presentAlert(.imageGenerationFailed())
+            return
         }
 
-        updatePlayerControlsEnabled()
+        shareImage(image)
     }
 
     func shareImage(_ image: UIImage) {
