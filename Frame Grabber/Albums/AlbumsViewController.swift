@@ -68,7 +68,9 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionViewDataSource.sectionsChangedHandler = { [weak self] sections in
-            self?.collectionView?.reloadSections(sections)
+            UIView.performWithoutAnimation {
+                self?.collectionView?.reloadSections(sections)
+            }
         }
 
         collectionView?.isPrefetchingEnabled = true
