@@ -10,6 +10,7 @@ class AlbumViewController: UICollectionViewController {
     }
 
     private var dataSource: AlbumCollectionViewDataSource!
+    private lazy var transitionController = ZoomTransitionController()
 
     @IBOutlet private var emptyView: UIView!
 
@@ -18,22 +19,9 @@ class AlbumViewController: UICollectionViewController {
 
     // MARK: Lifecycle
 
-    override var prefersStatusBarHidden: Bool {
-        return shouldHideStatusBar
-    }
-
-    private var shouldHideStatusBar = false {
-        didSet { setNeedsStatusBarAppearanceUpdate() }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        shouldHideStatusBar = false
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -50,7 +38,8 @@ class AlbumViewController: UICollectionViewController {
     private func prepareForPlayerSegue(with destination: PlayerViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
-        shouldHideStatusBar = true
+        transitionController.prepareTransition(forSource: self, destination: destination)
+
         let selectedAsset = dataSource.video(at: selectedIndexPath)
         destination.videoManager = VideoManager(asset: selectedAsset)
     }
@@ -71,7 +60,7 @@ extension AlbumViewController {
 private extension AlbumViewController {
 
     func configureViews() {
-        clearsSelectionOnViewWillAppear = true
+        clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
     }
@@ -92,8 +81,11 @@ private extension AlbumViewController {
         }
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
-            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails)
             self?.updateAlbumData()
+
+            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: { 
+                self?.reconfigure(cellAt: $0)
+            })
         }
 
         collectionView?.isPrefetchingEnabled = true
@@ -124,6 +116,12 @@ private extension AlbumViewController {
         cell.durationLabel.text = durationFormatter.string(from: video.duration)
         cell.favoritedImageView.isHidden = !video.isFavorite
         loadThumbnail(for: cell, video: video)
+    }
+
+    func reconfigure(cellAt indexPath: IndexPath) {
+        guard let cell = collectionView?.cellForItem(at: indexPath) as? VideoCell else { return }
+        let video = dataSource.video(at: indexPath)
+        configure(cell: cell, for: video)
     }
 
     func loadThumbnail(for cell: VideoCell, video: PHAsset) {

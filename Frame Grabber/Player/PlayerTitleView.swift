@@ -23,6 +23,7 @@ class PlayerTitleView: GradientView {
     }
 
     private func configureViews() {
+        isUserInteractionEnabled = false
         colors = Style.Color.overlayTopGradient
         applyOverlayShadow()
     }

@@ -3,12 +3,10 @@ import Photos
 extension PHImageManager {
 
     /// Releasing the returned object cancels the request.
-    /// The handler is called asynchronously on the main thread.
+    /// The handler is called on the main thread and may be called before this method returns.
     func requestImage(for asset: PHAsset, config: ImageConfig, resultHandler: @escaping (UIImage?, Info) -> ()) -> ImageRequest {
         let id = requestImage(for: asset, targetSize: config.size, contentMode: config.mode, options: config.options) { image, info in
-            DispatchQueue.main.async {
-                resultHandler(image, Info(info))
-            }
+            resultHandler(image, Info(info))
         }
 
         return ImageRequest(manager: self, id: id)

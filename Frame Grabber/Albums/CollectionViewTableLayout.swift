@@ -4,7 +4,7 @@ class CollectionViewTableLayout: UICollectionViewFlowLayout {
 
     let itemHeight: CGFloat
 
-    init(itemHeight: CGFloat = 90, lineSpacing: CGFloat = 0) {
+    init(itemHeight: CGFloat = 80, lineSpacing: CGFloat = 0) {
         self.itemHeight = itemHeight
         super.init()
         self.sectionInsetReference = .fromSafeArea

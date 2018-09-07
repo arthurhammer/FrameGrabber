@@ -20,24 +20,25 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
         }
     }
 
-    // User albums do get change notifications, don't keep the fetch results.
+    // For user albums, static album suffices.
     private(set) var userAlbums = [StaticAlbum]() {
-        didSet {
-            guard userAlbums != oldValue else { return }
-            userAlbumsChangedHandler?(userAlbums)
-        }
+        didSet { userAlbumsChangedHandler?(userAlbums) }
     }
 
-    private var userAlbumsBaseFetchResult: PHFetchResult<PHAssetCollection>
+    private var userAlbumsFetchResult: MappedFetchResult<PHAssetCollection, StaticAlbum>!  {
+        didSet { userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty } }
+    }
+
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary
 
     init(smartAlbumTypes: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes,
-         userAlbumsBaseFetchResult: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchUserAlbums(with: .userAlbums()),
-         updateQueue: DispatchQueue = .init(label: "me.ahammer.\(String(describing: AlbumsDataSource.self))", qos: .userInitiated),
+         smartAlbumAssetFetchOptions: PHFetchOptions = .smartAlbumVideos(),
+         userAlbumFetchOptions: PHFetchOptions = .userAlbums(),
+         userAlbumAssetFetchOptions: PHFetchOptions = .userAlbumVideos(),
+         updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self), qos: .userInitiated),
          photoLibrary: PHPhotoLibrary = .shared()) {
 
-        self.userAlbumsBaseFetchResult = userAlbumsBaseFetchResult
         self.updateQueue = updateQueue
         self.photoLibrary = photoLibrary
 
@@ -45,8 +46,8 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
         photoLibrary.register(self)
 
-        initSmartAlbums(with: smartAlbumTypes)
-        initUserAlbums(with: userAlbumsBaseFetchResult)
+        initSmartAlbums(with: smartAlbumTypes, assetFetchOptions: smartAlbumAssetFetchOptions)
+        initUserAlbums(with: userAlbumFetchOptions, assetFetchOptions: userAlbumAssetFetchOptions)
     }
 
     deinit {
@@ -59,28 +60,25 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
         updateSmartAlbums(with: change)
         updateUserAlbums(with: change)
     }
+}
 
-    // Photos API is rather limited. Filtering albums to not be empty for videos and
-    // getting asset count and key asset for every album requires fetching all albums
-    // *and* their contents on every Photo Library update. This can be very slow.
-
-    // During updates, instance var access is synchronized on main. Current task blocks
-    // until changes are committed so changes are performed in strict sequential order.
-    // Otherwise, subsequent tasks might start with stale data (`smartAlbums`/ `userAlbumsBaseFetchResult`).
+private extension AlbumsDataSource {
 
     // MARK: Updating Smart Albums
 
-    private func initSmartAlbums(with types: [PHAssetCollectionSubtype]) {
+    func initSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions) {
         updateQueue.async { [weak self] in
-            let smartAlbums = FetchedAlbum.fetchSmartAlbums(with: types, assetFetchOptions: .smartAlbumVideos())
+            let smartAlbums = FetchedAlbum.fetchSmartAlbums(with: types, assetFetchOptions: assetFetchOptions)
 
+            // Instance vars synchronized on main. `sync` to block current task until done
+            // so subsequent tasks start with correct data.
             DispatchQueue.main.sync {
                 self?.smartAlbums = smartAlbums
             }
         }
     }
 
-    private func updateSmartAlbums(with change: PHChange) {
+    func updateSmartAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
             guard let this = self else { return }
 
@@ -101,60 +99,34 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
     // MARK: Updating User Albums
 
-    // (Filtering 100 albums takes in the order of 1 second on an iPhone 6. Large photo
-    // libraries could have hundreds to thousands of albums.)
-
-    private func initUserAlbums(with fetchResult: PHFetchResult<PHAssetCollection>) {
+    func initUserAlbums(with albumFetchOptions: PHFetchOptions, assetFetchOptions: PHFetchOptions) {
         updateQueue.async { [weak self] in
-            let userAlbums = fetchResult
-                .filteringEmptyAlbums(for: .userAlbumVideos())
-                .map(StaticAlbum.init)
+            let fetchResult = PHAssetCollection.fetchUserAlbums(with: albumFetchOptions)
+
+            let userAlbums = MappedFetchResult(fetchResult: fetchResult) {
+                StaticAlbum(album: FetchedAlbum.fetchAssets(in: $0, options: assetFetchOptions))
+            }
 
             DispatchQueue.main.sync {
-                self?.userAlbumsBaseFetchResult = fetchResult
-                self?.userAlbums = userAlbums
+                self?.userAlbumsFetchResult = userAlbums
             }
         }
     }
 
-    private func updateUserAlbums(with change: PHChange) {
+    func updateUserAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
             guard let this = self else { return }
 
-            let fetchResult = DispatchQueue.main.sync {
-                this.userAlbumsBaseFetchResult
+            let userAlbums = DispatchQueue.main.sync {
+                this.userAlbumsFetchResult!
             }
 
-            guard let updatedFetchResult = change.changeDetails(for: fetchResult)?.fetchResultAfterChanges else { return }
-
-            let updatedAlbums = updatedFetchResult
-                .filteringEmptyAlbums(for: .userAlbumVideos())
-                .map(StaticAlbum.init)
+            guard let changes = change.changeDetails(for: userAlbums.fetchResult) else { return }
+            let updatedAlbums = applyIncrementalChanges(changes, to: userAlbums)
 
             DispatchQueue.main.sync {
-                self?.userAlbumsBaseFetchResult = updatedFetchResult
-                self?.userAlbums = updatedAlbums
+                self?.userAlbumsFetchResult = updatedAlbums
             }
         }
-    }
-}
-
-// MARK: - Util
-
-private extension PHFetchResult where ObjectType == PHAssetCollection {
-    /// Returns albums containing at least one asset for the given fetch options.
-    /// - Note: This synchronously fetches all collections **and** their assets.
-    func filteringEmptyAlbums(for options: PHFetchOptions) -> [FetchedAlbum] {
-        var filteredAlbums = [FetchedAlbum]()
-
-        enumerateObjects { album, _, _ in
-            let album = FetchedAlbum.fetchAssets(in: album, options: options)
-
-            if album.count > 0 {
-                filteredAlbums.append(album)
-            }
-        }
-
-        return filteredAlbums
     }
 }

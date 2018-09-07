@@ -1,52 +1,39 @@
 import UIKit
 import Photos
 
-/*
- Apple's sample code in `PHPhotoLibraryChangeObserver` can lead to collection view
- internal inconsistency exceptions for various updates. The following adaptions seem to
- remove many exceptions...
- */
-
 extension UICollectionView {
 
-    func applyPhotoLibraryChanges<T>(for changes: PHFetchResultChangeDetails<T>, in section: Int = 0) {
+    /// - Note: https://developer.apple.com/documentation/photokit/phfetchresultchangedetails
+    func applyPhotoLibraryChanges<T>(for changes: PHFetchResultChangeDetails<T>, in section: Int = 0, cellConfigurator: (IndexPath) -> ()) {
         guard changes.hasIncrementalChanges else {
             reloadData()
             return
         }
 
-        let removed = changes.removedIndexes
-        let inserted = changes.insertedIndexes
-        var changed = changes.changedIndexes
-
-        // Overlapping changed with removed indexes is a major source for exceptions.
-        if let removed = removed {
-            changed?.subtract(removed)
-        }
-
-        // According to Apple, updates must be in this order:
-        // delete, insert, reload, move.
+        // First, apply deletions and insertions.
         performBatchUpdates({
-            if let removed = removed, !removed.isEmpty {
+            if let removed = changes.removedIndexes, !removed.isEmpty {
                 deleteItems(at: removed.indexPaths(in: section))
             }
 
-            if let inserted = inserted, !inserted.isEmpty {
+            if let inserted = changes.insertedIndexes, !inserted.isEmpty {
                 insertItems(at: inserted.indexPaths(in: section))
-            }
-
-            if let changed = changed, !changed.isEmpty {
-                reloadItems(at: changed.indexPaths(in: section))
             }
         })
 
-        // Applying moves separately seems to reduce exceptions significantly.
+        // Apply moves separately.
         performBatchUpdates({
             changes.enumerateMoves { from, to in
                 self.moveItem(at: IndexPath(item: from, section: section),
                               to: IndexPath(item: to, section: section))
             }
         })
+
+        // Changes refer to the final state. According to docs, cells should be 
+        // reconfigured instead of reloaded.
+        if let changed = changes.changedIndexes, !changed.isEmpty {
+            changed.indexPaths(in: section).forEach(cellConfigurator)
+        }
     }
 }
 

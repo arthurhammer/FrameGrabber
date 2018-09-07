@@ -26,11 +26,11 @@ class AlbumsViewController: UICollectionViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? AlbumViewController {
-            prepareForVideosSegue(with: controller)
+            prepareForAlbumSegue(with: controller)
         }
     }
 
-    private func prepareForVideosSegue(with destination: AlbumViewController) {
+    private func prepareForAlbumSegue(with destination: AlbumViewController) {
         guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
 
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
@@ -51,7 +51,11 @@ class AlbumsViewController: UICollectionViewController {
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
 
-        collectionView?.collectionViewLayout = CollectionViewTableLayout()
+        let layout = CollectionViewTableLayout()
+        collectionView?.collectionViewLayout = layout
+        // In some cases, safe are content size isn't yet calculated on initialization.
+        // Trigger layout update manually (`invalidate` doesn't work).
+        layout.prepare()
     }
 
     private func configureDataSource() {
@@ -64,7 +68,9 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionViewDataSource.sectionsChangedHandler = { [weak self] sections in
-            self?.collectionView?.reloadSections(sections)
+            UIView.performWithoutAnimation {
+                self?.collectionView?.reloadSections(sections)
+            }
         }
 
         collectionView?.isPrefetchingEnabled = true

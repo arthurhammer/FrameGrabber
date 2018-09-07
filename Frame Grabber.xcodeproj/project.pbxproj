@@ -18,8 +18,13 @@
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* PlayerViewController.swift */; };
 		00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
+		0058E354213D645900BE28DD /* ZoomAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomAnimatable.swift */; };
+		0058E356213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */; };
 		005E2AA320273C5800F731FA /* CollectionViewGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */; };
 		005E2AA7202773F800F731FA /* PhotoLibraryAuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */; };
+		00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
+		00653B43213941A20038CB56 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B42213941A20038CB56 /* ZoomAnimator.swift */; };
+		00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */; };
 		006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */; };
 		007208971FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */; };
 		0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */; };
@@ -48,11 +53,14 @@
 		00BAFCA2205E994D00BCEE69 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */; };
 		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
-		00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* AVKit.swift */; };
+		00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* CMTime.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize+Scaled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */; };
 		00C098E31FC1C089000B05FE /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
 		00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */; };
 		00E7135A2125E2940052EAF8 /* UIImage+Exif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* UIImage+Exif.swift */; };
+		00EA2C662141C7C7002E1266 /* MappedFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */; };
+		00EA2C682142988F002E1266 /* StaticAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C672142988F002E1266 /* StaticAlbum.swift */; };
+		00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */; };
 		00EAFD98205EB2CE0031F8A2 /* TimeSlider+CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */; };
 		00EAFD9A205ED32B0031F8A2 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */; };
 		00EAFD9C205ED3450031F8A2 /* PlayerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */; };
@@ -82,8 +90,13 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
+		0058E353213D645900BE28DD /* ZoomAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimatable.swift; sourceTree = "<group>"; };
+		0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControllerContextTransitioning+Util.swift"; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewGridLayout.swift; sourceTree = "<group>"; };
 		005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizationController.swift; sourceTree = "<group>"; };
+		00653B3F213923460038CB56 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
+		00653B42213941A20038CB56 /* ZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimator.swift; sourceTree = "<group>"; };
+		00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumViewController+Transition.swift"; sourceTree = "<group>"; };
 		006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingButton.swift; sourceTree = "<group>"; };
 		007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+PhotoLibraryChanges.swift"; sourceTree = "<group>"; };
 		0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -107,7 +120,7 @@
 		00BAFCA1205E994D00BCEE69 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* AppDelegate+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Navigation.swift"; sourceTree = "<group>"; };
 		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Authorization.swift"; sourceTree = "<group>"; };
-		00C098D61FC1A7CB000B05FE /* AVKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVKit.swift; sourceTree = "<group>"; };
+		00C098D61FC1A7CB000B05FE /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scaled.swift"; sourceTree = "<group>"; };
 		00C098E21FC1C089000B05FE /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHImageManager+Requests.swift"; sourceTree = "<group>"; };
@@ -115,6 +128,9 @@
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		00E713592125E2940052EAF8 /* UIImage+Exif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Exif.swift"; sourceTree = "<group>"; };
+		00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappedFetchResult.swift; sourceTree = "<group>"; };
+		00EA2C672142988F002E1266 /* StaticAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticAlbum.swift; sourceTree = "<group>"; };
+		00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MappedFetchResult+Change.swift"; sourceTree = "<group>"; };
 		00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSlider+CMTime.swift"; sourceTree = "<group>"; };
 		00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTitleView.swift; sourceTree = "<group>"; };
@@ -167,6 +183,7 @@
 				00229DBB212E0B1A00848CE8 /* Settings */,
 				0026620A212BFCC900786797 /* Model */,
 				00C098E61FC1C9E0000B05FE /* Views */,
+				00653B41213941860038CB56 /* Transition */,
 				0020D2F11FB4ED95002379D0 /* Utilities */,
 				001AA1981FB497E900A00BB9 /* Resources */,
 			);
@@ -188,10 +205,10 @@
 			isa = PBXGroup;
 			children = (
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
-				00C098D61FC1A7CB000B05FE /* AVKit.swift */,
 				00BAFC9F205E938B00BCEE69 /* AVKit+Debug.swift */,
 				0096E812212F2EF8008395CA /* Bundle+Info.swift */,
 				00C098D81FC1A7D3000B05FE /* CGSize+Scaled.swift */,
+				00C098D61FC1A7CB000B05FE /* CMTime.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
 				00F3C2582130751D0030B7EC /* ImageConfig.swift */,
 				00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */,
@@ -208,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				001AA1991FB498C700A00BB9 /* AlbumViewController.swift */,
+				00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */,
 				0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 				005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */,
@@ -228,9 +246,12 @@
 			isa = PBXGroup;
 			children = (
 				0015537E2129C8CF00F58CEE /* Album.swift */,
+				00EA2C672142988F002E1266 /* StaticAlbum.swift */,
 				00F3C256213058FE0030B7EC /* FetchedAlbum.swift */,
 				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
 				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,
+				00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */,
+				00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -246,6 +267,17 @@
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		00653B41213941860038CB56 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				00653B3F213923460038CB56 /* ZoomTransitionController.swift */,
+				00653B42213941A20038CB56 /* ZoomAnimator.swift */,
+				0058E353213D645900BE28DD /* ZoomAnimatable.swift */,
+				0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */,
+			);
+			path = Transition;
 			sourceTree = "<group>";
 		};
 		00A9DF5321273FA400778885 /* Albums */ = {
@@ -390,6 +422,7 @@
 			files = (
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
 				00AA20232136C93100084B08 /* CollectionViewTableLayout.swift in Sources */,
+				00653B43213941A20038CB56 /* ZoomAnimator.swift in Sources */,
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
@@ -405,16 +438,19 @@
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotosRequests.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */,
+				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */,
 				005E2AA7202773F800F731FA /* PhotoLibraryAuthorizationController.swift in Sources */,
+				00EA2C682142988F002E1266 /* StaticAlbum.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
 				00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */,
 				00BAFCA0205E938B00BCEE69 /* AVKit+Debug.swift in Sources */,
-				00C098D71FC1A7CB000B05FE /* AVKit.swift in Sources */,
+				00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */,
 				00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */,
 				008426991FD5CAC300F4119D /* ZoomingPlayerView.swift in Sources */,
+				0058E354213D645900BE28DD /* ZoomAnimatable.swift in Sources */,
 				0026620C212C4A6B00786797 /* AlbumsDataSource.swift in Sources */,
 				00EAFD9A205ED32B0031F8A2 /* PlayerControlsView.swift in Sources */,
 				00EAFD9C205ED3450031F8A2 /* PlayerTitleView.swift in Sources */,
@@ -423,18 +459,22 @@
 				007208971FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift in Sources */,
 				009C657A1FBF338900DB25A6 /* AlbumViewController.swift in Sources */,
 				00E7135A2125E2940052EAF8 /* UIImage+Exif.swift in Sources */,
+				00EA2C662141C7C7002E1266 /* MappedFetchResult.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
 				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */,
+				00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoManager.swift in Sources */,
 				0015537F2129C8CF00F58CEE /* Album.swift in Sources */,
 				0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */,
 				00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
+				0058E356213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift in Sources */,
 				00BAFCA2205E994D00BCEE69 /* UIView+Animation.swift in Sources */,
 				00EAFD98205EB2CE0031F8A2 /* TimeSlider+CMTime.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */,
+				00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */,
 				00229DB8212D978A00848CE8 /* FetchedAlbum+Change.swift in Sources */,
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,
 			);

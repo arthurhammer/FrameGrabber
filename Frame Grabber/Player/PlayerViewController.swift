@@ -16,6 +16,8 @@ class PlayerViewController: UIViewController {
     @IBOutlet private var titleView: PlayerTitleView!
     @IBOutlet private var controlsView: PlayerControlsView!
 
+    private var isInitiallyReadyForPlayback = false
+
     private var isScrubbing: Bool {
         return controlsView.timeSlider.isInteracting
     }
@@ -29,11 +31,27 @@ class PlayerViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        return shouldHideStatusBar
+        let verticallyCompact = traitCollection.verticalSizeClass == .compact
+        return verticallyCompact || shouldHideStatusBar
     }
 
     private var shouldHideStatusBar = false {
         didSet { setNeedsStatusBarAppearanceUpdate() }
+    }
+
+    // For seamless transition from status bar to non status bar view controller, need to
+    // a) keep `prefersStatusBarHidden` false until `viewWillAppear`, b) animate change
+    // and c) use the transition coordinator to handle correct layout for GPS/phone bar.
+    private func hideStatusBar() {
+        if let coordinator = transitionCoordinator {
+            coordinator.animate(alongsideTransition: { _ in
+                self.shouldHideStatusBar = true
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.15) {
+                self.shouldHideStatusBar = true
+            }
+        }
     }
 
     override func viewDidLoad() {
@@ -45,7 +63,7 @@ class PlayerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        shouldHideStatusBar = true
+        hideStatusBar()
     }
 }
 
@@ -75,11 +93,10 @@ private extension PlayerViewController {
     }
 
     @IBAction func shareCurrentFrame() {
-        guard !isScrubbing,
-            let item = playbackController?.currentItem else { return }
+        guard !isScrubbing, let item = playbackController?.currentItem else { return }
 
         playbackController?.pause()
-        generateFrameAndShare(from: item.asset, at: item.currentTime())
+        generateCurrentFrameAndShare(for: item)
     }
 
     @IBAction func scrub(_ sender: TimeSlider) {
@@ -95,21 +112,21 @@ private extension PlayerViewController {
 extension PlayerViewController: PlaybackControllerDelegate {
 
     func player(_ player: AVPlayer, didUpdateStatus status: AVPlayerStatus) {
-        if status == .failed {
+        guard status != .failed  else {
             presentAlert(.playbackFailed { _ in self.done() })
+            return
         }
 
-        updatePlayerControlsEnabled()
-        updatePreviewImage()
+        updatePlaybackStatus()
     }
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {
-        if status == .failed {
+        guard status != .failed else {
             presentAlert(.playbackFailed { _ in self.done() })
+            return
         }
 
-        updatePlayerControlsEnabled()
-        updatePreviewImage()
+        updatePlaybackStatus()
     }
 
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
@@ -135,7 +152,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
 extension PlayerViewController: ZoomingPlayerViewDelegate {
 
     func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {
-        updatePreviewImage()
+        updatePlaybackStatus()
     }
 }
 
@@ -156,12 +173,12 @@ private extension PlayerViewController {
 
         configureGestures()
 
+        updatePlaybackStatus()
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateSlider(withTime: .zero)
         updateTimeLabel(withTime: .zero)
         updateDetailLabels()
-        updatePlayerControlsEnabled()
         updateLoadingProgress(with: nil)
         updatePreviewImage()
     }
@@ -190,16 +207,22 @@ private extension PlayerViewController {
 
     // MARK: Sync Player UI
 
-    func updatePlayerControlsEnabled() {
-        let enabled = (playbackController?.isReadyToPlay ?? false)
-            && !videoManager.isGeneratingFrame
+    func updatePlaybackStatus() {
+        let isReadyToPlay = playbackController?.isReadyToPlay ?? false
+        let isReadyToDisplay = playerView.isReadyForDisplay
 
-        controlsView.setControlsEnabled(enabled)
+        // All player, item and view will reset their readiness on loops. Capture when
+        // all have been ready at least once. (Later states not considered.)
+        if isReadyToPlay && isReadyToDisplay {
+            isInitiallyReadyForPlayback = true
+            updatePreviewImage()
+        }
+
+        controlsView.setControlsEnabled(isReadyToPlay)
     }
 
     func updatePreviewImage() {
-        let isReady = (playbackController?.isReadyToPlay ?? false) && playerView.isReadyForDisplay
-        loadingView.imageView.isHidden = isReady
+        loadingView.imageView.isHidden = isInitiallyReadyForPlayback
     }
 
     func updateLoadingProgress(with progress: Float?) {
@@ -244,7 +267,7 @@ private extension PlayerViewController {
         videoManager.posterImage(with: config) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.imageView.image = image
-            // use same image for background (ignoring different size/content mode as it's blurred)
+            // Use same image for background (ignoring different size/content mode as it's blurred).
             self?.backgroundView.imageView.image = image
             self?.updatePreviewImage()
         }
@@ -277,21 +300,13 @@ private extension PlayerViewController {
 
     // MARK: Image Generation
 
-    func generateFrameAndShare(from asset: AVAsset, at time: CMTime) {
-        videoManager.frame(for: asset, at: time) { [weak self] result in
-            self?.updatePlayerControlsEnabled()
-
-            switch (result) {
-            case .cancelled:
-                break
-            case .failed:
-                self?.presentAlert(.imageGenerationFailed())
-            case .succeeded(let image, _, _):
-                self?.shareImage(image)
-            }
+    func generateCurrentFrameAndShare(for item: AVPlayerItem) {
+        guard let image = videoManager.currentFrame(for: item) else {
+            presentAlert(.imageGenerationFailed())
+            return
         }
 
-        updatePlayerControlsEnabled()
+        shareImage(image)
     }
 
     func shareImage(_ image: UIImage) {
@@ -308,5 +323,49 @@ private extension PlayerViewController {
     func shareItem(_ item: Any) {
         let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         present(shareController, animated: true)
+    }
+}
+
+// MARK: - ZoomAnimatable
+
+extension PlayerViewController: ZoomAnimatable {
+
+    func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
+        playerView.isHidden = true
+        loadingView.isHidden = true
+        controlsView.isHidden = true  
+        titleView.isHidden = true
+    }
+
+    func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
+        playerView.isHidden = false
+        loadingView.isHidden = false
+        controlsView.setHidden(false, animated: true, duration: 0.2)
+        titleView.setHidden(false, animated: true, duration: 0.2)
+        updatePreviewImage()
+    }
+
+    func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
+        return loadingView.imageView.image
+    }
+
+    func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
+        let videoFrame = playerView.zoomedVideoFrame
+
+        // If ready animate from video position (possibly zoomed, scrolled), otherwise
+        // from preview image (centered, aspect fitted).
+        if videoFrame != .zero {
+            return playerView.superview?.convert(videoFrame, to: view)
+        } else {
+            return loadingView.convert(loadingImageFrame, to: view)
+        }
+    }
+
+    /// The aspect fitted size the preview image occupies in the image view.
+    private var loadingImageFrame: CGRect {
+        let imageSize = loadingView.imageView.image?.size
+            ?? CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
+
+        return AVMakeRect(aspectRatio: imageSize, insideRect: loadingView.imageView.frame)
     }
 }
