@@ -59,6 +59,7 @@
 		00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager+Requests.swift */; };
 		00E7135A2125E2940052EAF8 /* UIImage+Exif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* UIImage+Exif.swift */; };
 		00EA2C662141C7C7002E1266 /* MappedFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */; };
+		00EA2C682142988F002E1266 /* StaticAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C672142988F002E1266 /* StaticAlbum.swift */; };
 		00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */; };
 		00EAFD98205EB2CE0031F8A2 /* TimeSlider+CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */; };
 		00EAFD9A205ED32B0031F8A2 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */; };
@@ -128,6 +129,7 @@
 		00C876431FB9D0F400B5D7A3 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		00E713592125E2940052EAF8 /* UIImage+Exif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Exif.swift"; sourceTree = "<group>"; };
 		00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappedFetchResult.swift; sourceTree = "<group>"; };
+		00EA2C672142988F002E1266 /* StaticAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticAlbum.swift; sourceTree = "<group>"; };
 		00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MappedFetchResult+Change.swift"; sourceTree = "<group>"; };
 		00EAFD97205EB2CE0031F8A2 /* TimeSlider+CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeSlider+CMTime.swift"; sourceTree = "<group>"; };
 		00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				0015537E2129C8CF00F58CEE /* Album.swift */,
+				00EA2C672142988F002E1266 /* StaticAlbum.swift */,
 				00F3C256213058FE0030B7EC /* FetchedAlbum.swift */,
 				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
 				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,
@@ -438,6 +441,7 @@
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* AppDelegate+Navigation.swift in Sources */,
 				005E2AA7202773F800F731FA /* PhotoLibraryAuthorizationController.swift in Sources */,
+				00EA2C682142988F002E1266 /* StaticAlbum.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,

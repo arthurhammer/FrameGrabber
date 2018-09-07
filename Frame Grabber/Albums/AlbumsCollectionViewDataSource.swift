@@ -22,7 +22,7 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     private let cellProvider: (IndexPath, Album) -> UICollectionViewCell
     private let imageManager: PHCachingImageManager
 
-    init(albumsDataSource: AlbumsDataSource = .init(),
+    init(albumsDataSource: AlbumsDataSource,
          imageConfig: ImageConfig = .init(),
          imageManager: PHCachingImageManager = .init(),
          sectionHeaderProvider: @escaping (IndexPath) -> UICollectionReusableView,

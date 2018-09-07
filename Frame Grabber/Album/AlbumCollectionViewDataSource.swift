@@ -7,7 +7,7 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     private(set) var album: FetchedAlbum?
 
     var isEmpty: Bool {
-        return (album?.count ?? 0) == 0
+        return album?.isEmpty ?? true
     }
 
     var albumDeletedHandler: (() -> ())?
