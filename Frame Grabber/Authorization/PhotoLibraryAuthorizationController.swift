@@ -1,5 +1,6 @@
 import UIKit
 import Photos
+import SafariServices
 
 class PhotoLibraryAuthorizationController: UIViewController {
 
@@ -24,6 +25,11 @@ class PhotoLibraryAuthorizationController: UIViewController {
                 self.didAuthorizeHandler?()
             }
         }
+    }
+
+    @IBAction private func showPrivacyPolicy() {
+        guard let url = SettingsViewController.privacyPolicyURL else { return }
+        present(SFSafariViewController(url: url), animated: true)
     }
 
     private func updateViews() {

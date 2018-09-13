@@ -1,5 +1,6 @@
 import UIKit
 import MessageUI
+import SafariServices
 
 class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
@@ -8,10 +9,12 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     lazy var bundle = Bundle.main
     lazy var device = UIDevice.current
 
-    var storeURL = URL(string: "itms-apps://itunes.apple.com/app/id1434703541")
-    var contactSubject = NSLocalizedString("settings.emailSubject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
-    var contactAddress = "hi@arthurhammer.de"
+    static var privacyPolicyURL = URL(string: "https://arthurhammer.github.io/FrameGrabber")
+    lazy var storeURL = URL(string: "itms-apps://itunes.apple.com/app/id1434703541?ls=1&mt=8")
+    lazy var sourceCodeURL = URL(string: "https://github.com/arthurhammer/FrameGrabber")
 
+    lazy var contactSubject = NSLocalizedString("settings.emailSubject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
+    lazy var contactAddress = "hi@arthurhammer.de"
     lazy var contactMessage = """
                               \n\n
                               \(bundle.formattedVersion)
@@ -19,8 +22,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
                               \(device.type ?? device.model)
                               """
 
-    @IBOutlet private var contactButton: UIButton!
-    @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var metadataSwitch: UISwitch!
     @IBOutlet private var versionLabel: UILabel!
 
@@ -40,25 +41,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         dismiss(animated: true)
     }
 
-    @IBAction private func contact() {
-        composeMail()
-    }
-
-    @IBAction private func rate() {
-        // Ignore.
-        guard let url = storeURL,
-            app.canOpenURL(url) else { return }
-
-        app.open(url)
-    }
-
     @IBAction private func metadataOptionDidChange(_ sender: UISwitch) {
         settings.includeMetadata = sender.isOn
     }
 
-    // MARK: Contact
-
-    private func composeMail() {
+    private func sendFeedback() {
         guard MFMailComposeViewController.canSendMail() else {
             presentAlert(.mailNotAvailable(contactAddress: contactAddress))
             return
@@ -77,6 +64,42 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         dismiss(animated: true)
     }
 
+    private func rate() {
+        // Ignore.
+        guard let url = storeURL,
+            app.canOpenURL(url) else { return }
+
+        app.open(url)
+    }
+
+    private func showSourceCode() {
+        guard let url = sourceCodeURL else { return }
+        present(SFSafariViewController(url: url), animated: true)
+    }
+
+    private func showPrivacyPolicy() {
+        guard let url = SettingsViewController.privacyPolicyURL else { return }
+        present(SFSafariViewController(url: url), animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let supportSection = 1
+        let sendFeedpackPath = IndexPath(row: 0, section: supportSection)
+        let rateAppPath = IndexPath(row: 1, section: supportSection)
+        let showSourceCodePath = IndexPath(row: 2, section: supportSection)
+        let privacyPolicyPath = IndexPath(row: 3, section: supportSection)
+
+        switch indexPath {
+        case sendFeedpackPath: sendFeedback()
+        case rateAppPath: rate()
+        case showSourceCodePath: showSourceCode()
+        case privacyPolicyPath: showPrivacyPolicy()
+        default: break
+        }
+    }
+
     // MARK: View Setup
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -85,12 +108,6 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 
     private func configureViews() {
         navigationController?.navigationBar.shadowImage = nil
-
-        [contactButton, rateButton].forEach {
-            $0?.layer.cornerRadius = 8
-            $0?.backgroundColor = .mainTint
-            $0?.tintColor = .white
-        }
 
         metadataSwitch.isOn = settings.includeMetadata
         versionLabel.text = bundle.formattedVersion

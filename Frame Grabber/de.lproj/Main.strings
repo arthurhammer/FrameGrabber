@@ -1,9 +1,6 @@
 /* Class = "UILabel"; text = "<Duration>"; ObjectID = "5QW-JB-E9S"; */
 "5QW-JB-E9S.text" = "0:02";
 
-/* Class = "UIButton"; normalTitle = "Feedback"; ObjectID = "6mr-pf-cGf"; */
-"6mr-pf-cGf.normalTitle" = "Feedback Senden";
-
 /* Class = "UILabel"; text = "<Frame Rate>"; ObjectID = "9qH-Qo-DrV"; */
 "9qH-Qo-DrV.text" = "Frame Rate";
 
@@ -16,11 +13,20 @@
 /* Class = "UILabel"; text = "Frame Grabber lets you export video frames as images. "; ObjectID = "aqJ-5q-S7V"; */
 "aqJ-5q-S7V.text" = "Mit Frame Grabber kannst du Einzelbilder aus deinen Videos exportieren.";
 
-/* Class = "UILabel"; text = "Pick Frame"; ObjectID = "bP2-FO-hcM"; */
+/* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "AUQ-0N-u0e"; */
+"AUQ-0N-u0e.headerTitle" = "Support";
+
+/* Class = "UILabel"; text = "Pick a Frame"; ObjectID = "bP2-FO-hcM"; */
 "bP2-FO-hcM.text" = "Bild Auswählen";
+
+/* Class = "UILabel"; text = "Rate the App!"; ObjectID = "c4F-LF-kQ4"; */
+"c4F-LF-kQ4.text" = "App Bewerten!";
 
 /* Class = "UITableViewSection"; footerTitle = "Add Exif metadata like the video's creation date and GPS location to exported frames."; ObjectID = "eGC-ur-nEr"; */
 "eGC-ur-nEr.footerTitle" = "Metadaten wie Erstellungsdatum und Ort des Videos zu den exportierten Bildern hinzufügen.";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "eGC-ur-nEr"; */
+"eGC-ur-nEr.headerTitle" = "Einstellungen";
 
 /* Class = "UILabel"; text = "<App Version>"; ObjectID = "GC4-vL-qNI"; */
 "GC4-vL-qNI.text" = "App Version";
@@ -37,14 +43,17 @@
 /* Class = "UILabel"; text = "<Message>"; ObjectID = "Kkv-2u-tPk"; */
 "Kkv-2u-tPk.text" = "Message";
 
-/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "mPt-FY-I3L"; */
-"mPt-FY-I3L.title" = "Einstellungen";
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "mPt-FY-I3L"; */
+"mPt-FY-I3L.title" = "Info";
 
 /* Class = "UILabel"; text = "<Time>"; ObjectID = "mXw-rO-aOk"; */
 "mXw-rO-aOk.text" = "Time";
 
 /* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
 "nBX-8Q-BwE.title" = "Alben";
+
+/* Class = "UILabel"; text = "Send Feedback"; ObjectID = "O1M-38-g8e"; */
+"O1M-38-g8e.text" = "Feedback Senden";
 
 /* Class = "UILabel"; text = "Downloading from iCloud…"; ObjectID = "oGN-ie-szR"; */
 "oGN-ie-szR.text" = "Von iCloud Laden…";
@@ -55,21 +64,24 @@
 /* Class = "UILabel"; text = "•"; ObjectID = "pu1-a1-Aca"; */
 "pu1-a1-Aca.text" = "•";
 
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "QJM-MM-NoA"; */
+"QJM-MM-NoA.normalTitle" = "Datenschutzerklärung";
+
 /* Class = "UINavigationItem"; title = "<Album>"; ObjectID = "T1c-VB-q52"; */
 "T1c-VB-q52.title" = "Album Title";
 
-/* Class = "UIButton"; normalTitle = "Rate App"; ObjectID = "T6p-Ta-APk"; */
-"T6p-Ta-APk.normalTitle" = "App Bewerten";
-
 /* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
 "T19-Lc-8RI.text" = "Keine Videos";
-
-/* Class = "UIBarButtonItem"; title = " "; ObjectID = "vAZ-vU-ao3"; */
-"vAZ-vU-ao3.title" = "";
 
 /* Class = "UILabel"; text = "Include Metadata"; ObjectID = "VCR-4x-2BT"; */
 "VCR-4x-2BT.text" = "Metadaten Exportieren";
 
 /* Class = "UILabel"; text = "By Arthur Hammer"; ObjectID = "vwd-1u-rgb"; */
 "vwd-1u-rgb.text" = "Von Arthur Hammer";
+
+/* Class = "UILabel"; text = "View Source Code"; ObjectID = "xCn-qB-e0A"; */
+"xCn-qB-e0A.text" = "Source Code Ansehen";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "Z01-Yp-FPm"; */
+"Z01-Yp-FPm.text" = "Datenschutzerklärung";
 
