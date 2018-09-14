@@ -1,4 +1,6 @@
-# Frame Grabber Privacy Policy
+---
+title: Frame Grabber Privacy Policy
+----
 
 September 2018
 
