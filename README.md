@@ -1,6 +1,6 @@
-![Banner](design/banner.png)
+[ ![Banner](design/banner.png) ](https://itunes.apple.com/us/app/frame-grabber/id1434703541?ls=1&mt=8)
 
-[Frame Grabber](https://itunes.apple.com/us/app/frame-grabber/id1434703541?ls=1&mt=8) is a simple iPhone app that lets you extract video frames as images. You can use it to save favorite moments in your videos as still images or share them to social networks.
+[Frame Grabber](https://itunes.apple.com/us/app/frame-grabber/id1434703541?ls=1&mt=8) is a simple iPhone app that lets you extract video frames as images. Save your favorite moments in your videos as still images or share them to social networks.
 
 This is my first iOS app! I made this to learn Swift and iOS development. Thanks for checking it out.
 

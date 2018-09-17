@@ -1,14 +1,12 @@
----
-title: Frame Grabber Privacy Policy
-----
+# Privacy Policy
 
 September 2018
 
 Frame Grabber is an iOS app that lets you extract video frames as still images.
 
-Frame Grabber **does not collect, transmit or share** personal, anonymized, or usage data with the exception for when you contact us by email. When you contact us, you can choose to send along general non-sensitive data about your device so we can more easily diagnose and resolve your request.
+Frame Grabber **does not collect, transmit or share** personal, anonymized or usage data with the exception for when you contact us by email. When you contact us, you can choose to send along general non-sensitive data about your device so we can more easily diagnose and resolve your request.
 
-Read on about Frame Grabber uses data in detail.
+Read on about how Frame Grabber uses data in detail.
 
 ## Types of Data
 
