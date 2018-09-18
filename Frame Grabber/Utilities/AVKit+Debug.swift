@@ -1,6 +1,6 @@
 import AVKit
 
-extension AVPlayerItemStatus: CustomDebugStringConvertible {
+extension AVPlayerItem.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .unknown: return "AVPlayerItemStatus.unknown"
@@ -10,7 +10,7 @@ extension AVPlayerItemStatus: CustomDebugStringConvertible {
     }
 }
 
-extension AVPlayerStatus: CustomDebugStringConvertible {
+extension AVPlayer.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .unknown: return "AVPlayerStatus.unknown"
@@ -20,7 +20,7 @@ extension AVPlayerStatus: CustomDebugStringConvertible {
     }
 }
 
-extension AVPlayerLooperStatus: CustomDebugStringConvertible {
+extension AVPlayerLooper.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .unknown: return "AVPlayerLooperStatus.unknown"
@@ -31,7 +31,7 @@ extension AVPlayerLooperStatus: CustomDebugStringConvertible {
     }
 }
 
-extension AVPlayerTimeControlStatus: CustomDebugStringConvertible {
+extension AVPlayer.TimeControlStatus: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .paused: return "AVPlayerTimeControlStatus.paused"

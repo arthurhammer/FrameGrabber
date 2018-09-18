@@ -56,8 +56,8 @@ class VideoManager {
     // MARK: Metadata Generation
 
     /// Adds metadata from the receiver's `PHAsset` (not from the actual video file).
-    func jpgImageDataByAddingAssetMetadata(to image: UIImage, quality: CGFloat) -> Data? {
+    func jpegData(byAddingAssetMetadataTo image: UIImage, compressionQuality: CGFloat) -> Data? {
         let (_, metadata) = CGImageMetadata.for(creationDate: asset.creationDate, location: asset.location)
-        return image.jpgImageData(withMetadata: metadata, quality: quality)
+        return image.jpegData(withMetadata: metadata, compressionQuality: compressionQuality)
     }
 }

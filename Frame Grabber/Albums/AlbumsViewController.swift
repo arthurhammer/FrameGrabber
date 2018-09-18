@@ -130,7 +130,7 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
         header.titleLabel.text = collectionViewDataSource.sections[indexPath.section].title
         return header
     }

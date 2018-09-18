@@ -9,11 +9,11 @@ extension UIImage {
     /// metadata or `nil` if the creation fails.
     /// Metadata is merged into any existing metadata in the receiver.
     /// - Note: https://developer.apple.com/library/archive/qa/qa1895/_index.html
-    func jpgImageData(withMetadata metadata: CGImageMetadata, quality: CGFloat) -> Data? {
+    func jpegData(withMetadata metadata: CGImageMetadata, compressionQuality: CGFloat) -> Data? {
         let imageOutputData = NSMutableData()
 
         guard
-            let imageSourceData = UIImageJPEGRepresentation(self, quality),
+            let imageSourceData = jpegData(compressionQuality: compressionQuality),
             let imageSource = CGImageSourceCreateWithData(imageSourceData as CFData, nil),
             let uti = CGImageSourceGetType(imageSource),
             let imageDestination = CGImageDestinationCreateWithData(imageOutputData as CFMutableData, uti, 1, nil)

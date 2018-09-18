@@ -89,7 +89,7 @@ public class TimeSlider: UIControl {
     }
 
     override public var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 30)
     }
 
     // Manual layout instead of AutoLayout.
@@ -128,7 +128,7 @@ public class TimeSlider: UIControl {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.bounces = true
-        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
+        scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
 
         scrollView.addSubview(progressTrack)
         addSubview(scrollView)

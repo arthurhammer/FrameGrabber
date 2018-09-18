@@ -52,7 +52,7 @@ private extension UICollectionView {
     }
 
     /// nil for fully visible cells, otherwise `top` or `bottom` whichever is closer.
-    func scrollPosition(for indexPath: IndexPath) -> UICollectionViewScrollPosition? {
+    func scrollPosition(for indexPath: IndexPath) -> UICollectionView.ScrollPosition? {
         // Partially visible cells.
         if let cell = cellForItem(at: indexPath) {
             let cellFrame = convert(cell.frame, to: superview ?? self)
@@ -82,6 +82,6 @@ private extension UICollectionView {
     }
 
     var safeFrame: CGRect {
-        return UIEdgeInsetsInsetRect(frame, adjustedContentInset)
+        return frame.inset(by: adjustedContentInset)
     }
 }

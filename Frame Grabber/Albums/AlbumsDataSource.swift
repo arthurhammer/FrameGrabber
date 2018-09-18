@@ -80,10 +80,10 @@ private extension AlbumsDataSource {
 
     func updateSmartAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
-            guard let this = self else { return }
+            guard let self = self else { return }
 
             let smartAlbums = DispatchQueue.main.sync {
-                this.smartAlbums
+                self.smartAlbums
             }
 
             let updatedAlbums: [FetchedAlbum] = smartAlbums.compactMap {
@@ -92,7 +92,7 @@ private extension AlbumsDataSource {
             }
 
             DispatchQueue.main.sync {
-                self?.smartAlbums = updatedAlbums
+                self.smartAlbums = updatedAlbums
             }
         }
     }
@@ -115,17 +115,17 @@ private extension AlbumsDataSource {
 
     func updateUserAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
-            guard let this = self else { return }
+            guard let self = self else { return }
 
             let userAlbums = DispatchQueue.main.sync {
-                this.userAlbumsFetchResult!
+                self.userAlbumsFetchResult!
             }
 
             guard let changes = change.changeDetails(for: userAlbums.fetchResult) else { return }
             let updatedAlbums = applyIncrementalChanges(changes, to: userAlbums)
 
             DispatchQueue.main.sync {
-                self?.userAlbumsFetchResult = updatedAlbums
+                self.userAlbumsFetchResult = updatedAlbums
             }
         }
     }

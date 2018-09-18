@@ -103,7 +103,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     // MARK: View Setup
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 
     private func configureViews() {
@@ -132,7 +132,7 @@ private extension UITableViewController {
 
     func autoLayoutHeight(for view: UIView?) -> CGFloat? {
         guard let view = view else { return nil }
-        let newHeight = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+        let newHeight = view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
         return (newHeight != view.bounds.height) ? newHeight : nil
     }
 }

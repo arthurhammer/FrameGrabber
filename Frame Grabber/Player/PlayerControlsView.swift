@@ -55,7 +55,7 @@ class PlayerControlsView: GradientView {
 import AVKit
 
 extension UIButton {
-    func setTimeControlStatus(_ status: AVPlayerTimeControlStatus) {
+    func setTimeControlStatus(_ status: AVPlayer.TimeControlStatus) {
         setImage((status == .paused) ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause"), for: .normal)
     }
 }

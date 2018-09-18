@@ -26,7 +26,7 @@ extension UIAlertController {
 }
 
 extension UIAlertController {
-    static func with(title: String?, message: String? = nil, preferredStyle: UIAlertControllerStyle = .alert, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+    static func with(title: String?, message: String? = nil, preferredStyle: UIAlertController.Style = .alert, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         let controller = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         controller.addAction(.ok(handler: okHandler))
         return controller
