@@ -23,7 +23,7 @@ extension UIImage {
 
         let metadataOptions: [CFString: Any] = [
             kCGImageDestinationMetadata: metadata,
-            kCGImageDestinationMergeMetadata: kCFBooleanTrue
+            kCGImageDestinationMergeMetadata: kCFBooleanTrue as Any
         ]
 
         let ok = CGImageDestinationCopyImageSource(imageDestination, imageSource, metadataOptions as CFDictionary, nil)
@@ -60,12 +60,12 @@ extension CGMutableImageMetadata {
 
     @discardableResult
     func setTag(_ tag: Tag) -> Bool {
-        return CGImageMetadataSetValueMatchingImageProperty(self, tag.dictionary, tag.property, tag.value)
+        CGImageMetadataSetValueMatchingImageProperty(self, tag.dictionary, tag.property, tag.value)
     }
 
     @discardableResult
     func setTags(_ tags: [Tag]) -> Bool {
-        return !tags.map(setTag).contains(false)
+        !tags.map(setTag).contains(false)
     }
 
     @discardableResult

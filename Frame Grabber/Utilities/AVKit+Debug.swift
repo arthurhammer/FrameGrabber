@@ -3,9 +3,10 @@ import AVKit
 extension AVPlayerItem.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case .unknown: return "AVPlayerItemStatus.unknown"
-        case .failed: return "AVPlayerItemStatus.failed"
-        case .readyToPlay: return "AVPlayerItemStatus.readyToPlay"
+        case .unknown: return "AVPlayerItem.Status.unknown"
+        case .failed: return "AVPlayerItem.Status.failed"
+        case .readyToPlay: return "AVPlayerItem.Status.readyToPlay"
+        @unknown default: return "Unknown AVPlayerItem.Status"
         }
     }
 }
@@ -13,9 +14,10 @@ extension AVPlayerItem.Status: CustomDebugStringConvertible {
 extension AVPlayer.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case .unknown: return "AVPlayerStatus.unknown"
-        case .failed: return "AVPlayerStatus.failed"
-        case .readyToPlay: return "AVPlayerStatus.readyToPlay"
+        case .unknown: return "AVPlayer.Status.unknown"
+        case .failed: return "AVPlayer.Status.failed"
+        case .readyToPlay: return "AVPlayer.Status.readyToPlay"
+        @unknown default: return "Unknown AVPlayer.Status"
         }
     }
 }
@@ -23,10 +25,11 @@ extension AVPlayer.Status: CustomDebugStringConvertible {
 extension AVPlayerLooper.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case .unknown: return "AVPlayerLooperStatus.unknown"
-        case .cancelled: return "AVPlayerLooperStatus.cancelled"
-        case .failed: return "AVPlayerLooperStatus.failed"
-        case .ready: return "AVPlayerLooperStatus.ready"
+        case .unknown: return "AVPlayerLooper.Status.unknown"
+        case .cancelled: return "AVPlayerLooper.Status.cancelled"
+        case .failed: return "AVPlayerLooper.Status.failed"
+        case .ready: return "AVPlayerLooper.Status.ready"
+        @unknown default: return "Unknown AVPlayerLooper.Status"
         }
     }
 }
@@ -34,9 +37,10 @@ extension AVPlayerLooper.Status: CustomDebugStringConvertible {
 extension AVPlayer.TimeControlStatus: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case .paused: return "AVPlayerTimeControlStatus.paused"
-        case .playing: return "AVPlayerTimeControlStatus.playing"
-        case .waitingToPlayAtSpecifiedRate: return "AVPlayerTimeControlStatus.waitingToPlayAtSpecifiedRate"
+        case .paused: return "AVPlayer.TimeControlStatus.paused"
+        case .playing: return "AVPlayer.TimeControlStatus.playing"
+        case .waitingToPlayAtSpecifiedRate: return "AVPlayer.TimeControlStatus.waitingToPlayAtSpecifiedRate"
+        @unknown default: return "Unknown AVPlayer.TimeControlStatus"
         }
     }
 }

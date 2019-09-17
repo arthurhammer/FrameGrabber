@@ -21,8 +21,7 @@ extension FetchedAlbum {
 
     /// For each type fetches the album and its contents.
     static func fetchSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions? = nil) -> [FetchedAlbum] {
-        return PHAssetCollection
-            .fetchSmartAlbums(with: types)
+        PHAssetCollection.fetchSmartAlbums(with: types)
             .map { fetchAssets(in: $0, options: assetFetchOptions) }
     }
 }

@@ -103,7 +103,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     // MARK: View Setup
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        UITableView.automaticDimension
     }
 
     private func configureViews() {

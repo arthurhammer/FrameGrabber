@@ -13,14 +13,14 @@ protocol Album: PhotosIdentifiable {
 
 extension Album {
     var id: String {
-        return assetCollection.localIdentifier
+        assetCollection.localIdentifier
     }
 
     var title: String? {
-        return assetCollection.localizedTitle
+        assetCollection.localizedTitle
     }
 
     var isEmpty: Bool {
-        return count == 0
+        count == 0
     }
 }

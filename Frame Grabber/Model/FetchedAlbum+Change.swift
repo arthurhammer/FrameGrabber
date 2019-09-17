@@ -9,7 +9,7 @@ struct FetchedAlbumChangeDetails {
     let fetchResultChanges: PHFetchResultChangeDetails<PHAsset>?
 
     var albumWasDeleted: Bool {
-        return albumAfterChanges == nil
+        albumAfterChanges == nil
     }
 }
 

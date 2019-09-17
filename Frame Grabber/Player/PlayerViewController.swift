@@ -19,15 +19,15 @@ class PlayerViewController: UIViewController {
     private var isInitiallyReadyForPlayback = false
 
     private var isScrubbing: Bool {
-        return controlsView.timeSlider.isInteracting
+        controlsView.timeSlider.isInteracting
     }
 
     private var isSeeking: Bool {
-        return playbackController?.isSeeking ?? false
+        playbackController?.isSeeking ?? false
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -346,7 +346,7 @@ extension PlayerViewController: ZoomAnimatable {
     }
 
     func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
-        return loadingView.imageView.image
+        loadingView.imageView.image
     }
 
     func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {

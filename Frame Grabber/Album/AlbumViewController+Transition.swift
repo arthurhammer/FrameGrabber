@@ -37,7 +37,7 @@ extension AlbumViewController: ZoomAnimatable {
 private extension UICollectionView {
 
     var selectedCell: UICollectionViewCell? {
-        return indexPathsForSelectedItems?.first.flatMap(cellForItem)
+        indexPathsForSelectedItems?.first.flatMap(cellForItem)
     }
 
     func clearSelection(animated: Bool = false) {
@@ -82,6 +82,6 @@ private extension UICollectionView {
     }
 
     var safeFrame: CGRect {
-        return frame.inset(by: adjustedContentInset)
+        frame.inset(by: adjustedContentInset)
     }
 }

@@ -11,7 +11,7 @@ extension PHAssetCollection {
     }
 
     static func fetchUserAlbums(with options: PHFetchOptions? = nil) -> PHFetchResult<PHAssetCollection> {
-        return fetchAssetCollections(with: .album, subtype: .albumRegular, options: options)
+        fetchAssetCollections(with: .album, subtype: .albumRegular, options: options)
     }
 }
 

@@ -5,7 +5,7 @@ import SafariServices
 class PhotoLibraryAuthorizationController: UIViewController {
 
     static var needsAuthorization: Bool {
-        return PHPhotoLibrary.authorizationStatus() != .authorized
+        PHPhotoLibrary.authorizationStatus() != .authorized
     }
 
     var didAuthorizeHandler: (() -> ())?
@@ -51,6 +51,9 @@ class PhotoLibraryAuthorizationController: UIViewController {
                          action: NSLocalizedString("authorization.deniedAction", value: "Open Settings", comment: "Photo Library authorization denied action"))
 
         case .authorized:
+            return nil
+
+        @unknown default:
             return nil
         }
     }

@@ -16,12 +16,12 @@ class PlayerSeeker {
     /// True if the seeker is performing a seek.
     /// Does not consider seeks directly started on the receiver's player.
     var isSeeking: Bool {
-        return currentSeek != nil
+        currentSeek != nil
     }
 
     /// The overall time the player is seeking towards.
     var finalSeekTime: CMTime? {
-        return (nextSeek ?? currentSeek)?.time
+        (nextSeek ?? currentSeek)?.time
     }
 
     /// The seek currently in progress.

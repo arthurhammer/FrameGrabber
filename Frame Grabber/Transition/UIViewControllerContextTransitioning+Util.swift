@@ -2,15 +2,15 @@ import UIKit
 
 extension UIViewControllerContextTransitioning {
     var fromView: UIView? {
-        return view(forKey: .from)
+        view(forKey: .from)
     }
 
     var toView: UIView? {
-        return view(forKey: .to)
+        view(forKey: .to)
     }
 
     var finalToFrame: CGRect? {
-        return viewController(forKey: .to).flatMap(finalFrame)
+        viewController(forKey: .to).flatMap(finalFrame)
     }
 }
 
