@@ -3,8 +3,15 @@ import UIKit
 struct Style {
 
     struct Color {
-        static let mainTint = UIColor(red: 0, green:122/255, blue:1, alpha:1.00)
-        static let missingThumbnail = UIColor(white: 0.95, alpha: 1)
+        static let mainTint = UIColor.systemBlue
+
+        static var cellSelection: UIColor {
+            if #available(iOS 13, *) {
+                return .quaternarySystemFill
+            } else {
+                return UIColor(red: 0.90, green: 0.91, blue: 0.92, alpha: 1.00)
+            }
+        }
 
         static let timeSlider = UIColor(white: 0.65, alpha: 1)
         static let disabledTimeSlider = Style.Color.timeSlider.withAlphaComponent(0.4)
@@ -19,15 +26,9 @@ struct Style {
     }
 
     static func configureAppearance(using window: UIWindow?) {
-        // `UIView.appearance().tintColor` makes it hard to overwrite colors later.
         window?.tintColor = Style.Color.mainTint
-        UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().shadowImage = UIImage()
     }
-}
-
-extension UIColor {
-    static let mainTint = Style.Color.mainTint
 }
 
 extension UIView {

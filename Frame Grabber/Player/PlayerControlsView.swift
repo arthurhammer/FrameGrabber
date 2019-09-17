@@ -42,7 +42,7 @@ class PlayerControlsView: GradientView {
 
         previousButton.tintColor = Style.Color.timeSlider
         nextButton.tintColor = Style.Color.timeSlider
-        shareButton.backgroundColor = .mainTint
+        shareButton.backgroundColor =  Style.Color.mainTint
         shareButton.layer.cornerRadius = shareButton.bounds.height/2
 
         applyOverlayShadow()
