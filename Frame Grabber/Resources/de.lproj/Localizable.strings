@@ -1,3 +1,6 @@
+/* Title for missing/deleted/initial placeholder album */
+"album.title.default" = "Videos";
+
 /* Smart photo albums section header */
 "albums.smartAlbumsHeader" = "Mediathek";
 
