@@ -64,6 +64,11 @@ private extension AlbumViewController {
         clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
+
+        if #available(iOS 13, *) {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "ellipsis.circle")
+        }
+
         updateAlbumData()
     }
 

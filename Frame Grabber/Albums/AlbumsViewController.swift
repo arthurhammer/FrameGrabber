@@ -48,6 +48,10 @@ class AlbumsViewController: UICollectionViewController {
     // MARK: - Private
 
     private func configureViews() {
+        if #available(iOS 13, *) {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "ellipsis.circle")
+        }
+
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
 
