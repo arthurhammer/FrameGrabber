@@ -9,7 +9,7 @@ class AlbumViewController: UICollectionViewController {
         set { configureDataSource(with: newValue) }
     }
 
-    private var dataSource: AlbumCollectionViewDataSource!
+    private var dataSource: AlbumCollectionViewDataSource?
     private lazy var transitionController = ZoomTransitionController()
 
     @IBOutlet private var emptyView: UIView!
@@ -40,8 +40,9 @@ class AlbumViewController: UICollectionViewController {
 
         transitionController.prepareTransition(forSource: self, destination: destination)
 
-        let selectedAsset = dataSource.video(at: selectedIndexPath)
-        destination.videoManager = VideoManager(asset: selectedAsset)
+        if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
+            destination.videoManager = VideoManager(asset: selectedAsset)
+        }
     }
 }
 
@@ -63,6 +64,7 @@ private extension AlbumViewController {
         clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
+        updateAlbumData()
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
@@ -70,17 +72,17 @@ private extension AlbumViewController {
             self.cell(for: $1, at: $0)
         }
 
-        dataSource.albumDeletedHandler = { [weak self] in
+        dataSource?.albumDeletedHandler = { [weak self] in
             // Just show empty screen.
             self?.updateAlbumData()
             self?.collectionView?.reloadData()
         }
 
-        dataSource.albumChangedHandler = { [weak self] in
+        dataSource?.albumChangedHandler = { [weak self] in
             self?.updateAlbumData()
         }
 
-        dataSource.videosChangedHandler = { [weak self] changeDetails in
+        dataSource?.videosChangedHandler = { [weak self] changeDetails in
             self?.updateAlbumData()
 
             self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: { 
@@ -97,13 +99,14 @@ private extension AlbumViewController {
     }
 
     func updateAlbumData() {
-        title = dataSource?.album?.title ?? ""  // Won't accept nil.
-        collectionView?.backgroundView = dataSource.isEmpty ? emptyView : nil
+        let defaultTitle = NSLocalizedString("album.title.default", value: "Videos", comment: "Title for missing/deleted/initial placeholder album")
+        title = dataSource?.album?.title ?? defaultTitle
+        collectionView?.backgroundView = (dataSource?.isEmpty ?? true) ? emptyView : nil
     }
 
     func updateThumbnailSize() {
         guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
-        dataSource.imageConfig.size = layout.itemSize.scaledToScreen
+        dataSource?.imageConfig.size = layout.itemSize.scaledToScreen
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,14 +123,15 @@ private extension AlbumViewController {
 
     func reconfigure(cellAt indexPath: IndexPath) {
         guard let cell = collectionView?.cellForItem(at: indexPath) as? VideoCell else { return }
-        let video = dataSource.video(at: indexPath)
-        configure(cell: cell, for: video)
+        if let video = dataSource?.video(at: indexPath) {
+            configure(cell: cell, for: video)
+        }
     }
 
     func loadThumbnail(for cell: VideoCell, video: PHAsset) {
         cell.identifier = video.localIdentifier
 
-        cell.imageRequest = dataSource.thumbnail(for: video) { image, _ in
+        cell.imageRequest = dataSource?.thumbnail(for: video) { image, _ in
             let isCellRecycled = cell.identifier != video.localIdentifier
 
             guard !isCellRecycled, let image = image else { return }

@@ -40,21 +40,17 @@ class PhotoLibraryAuthorizationController: UIViewController {
         let title = NSLocalizedString("authorization.title", value: "Frame Grabber 👋", comment: "Photo Library authorization title")
 
         switch status {
-        case .notDetermined:
-            return .init(title: title,
-                         message: NSLocalizedString("authorization.notDeterminedMessage", value: "Frame Grabber lets you export video frames as images. Get started by allowing access to your Photo Library.", comment: "Photo Library authorization default message"),
-                         action: NSLocalizedString("authorization.notDeterminedAction", value: "Allow Access", comment: "Photo Library authorization default action"))
 
         case .denied, .restricted:
             return .init(title: title,
                          message: NSLocalizedString("authorization.deniedMessage", value: "Frame Grabber lets you export video frames as images. You can allow access to your Photo Library in Settings.", comment: "Photo Library authorization denied message"),
                          action: NSLocalizedString("authorization.deniedAction", value: "Open Settings", comment: "Photo Library authorization denied action"))
 
-        case .authorized:
-            return nil
-
-        @unknown default:
-            return nil
+        // Mostly for `notDetermined` but also as fallback if we land in `authorized` state.
+        default:
+            return .init(title: title,
+                         message: NSLocalizedString("authorization.notDeterminedMessage", value: "Frame Grabber lets you export video frames as images. Get started by allowing access to your Photo Library.", comment: "Photo Library authorization default message"),
+                         action: NSLocalizedString("authorization.notDeterminedAction", value: "Allow Access", comment: "Photo Library authorization default action"))
         }
     }
 }
