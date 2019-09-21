@@ -7,7 +7,7 @@ struct Style {
 
         static var cellSelection: UIColor {
             if #available(iOS 13, *) {
-                return .quaternarySystemFill
+                return .systemGray4
             } else {
                 return UIColor(red: 0.90, green: 0.91, blue: 0.92, alpha: 1.00)
             }
