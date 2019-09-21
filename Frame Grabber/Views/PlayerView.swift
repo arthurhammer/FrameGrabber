@@ -4,15 +4,15 @@ import AVKit
 class PlayerView: UIView {
 
     override static var layerClass: AnyClass {
-        return AVPlayerLayer.self
+        AVPlayerLayer.self
     }
 
     var playerLayer: AVPlayerLayer {
-        return layer as! AVPlayerLayer
+        layer as! AVPlayerLayer
     }
     
     var player: AVPlayer? {
-        get { return playerLayer.player }
+        get { playerLayer.player }
         set { playerLayer.player = newValue }
     }
 }

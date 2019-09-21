@@ -19,15 +19,15 @@ class PlayerViewController: UIViewController {
     private var isInitiallyReadyForPlayback = false
 
     private var isScrubbing: Bool {
-        return controlsView.timeSlider.isInteracting
+        controlsView.timeSlider.isInteracting
     }
 
     private var isSeeking: Bool {
-        return playbackController?.isSeeking ?? false
+        playbackController?.isSeeking ?? false
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -111,7 +111,7 @@ private extension PlayerViewController {
 
 extension PlayerViewController: PlaybackControllerDelegate {
 
-    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayerStatus) {
+    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayer.Status) {
         guard status != .failed  else {
             presentAlert(.playbackFailed { _ in self.done() })
             return
@@ -120,7 +120,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
         updatePlaybackStatus()
     }
 
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItem.Status) {
         guard status != .failed else {
             presentAlert(.playbackFailed { _ in self.done() })
             return
@@ -134,7 +134,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
         updateTimeLabel(withTime: time)
     }
 
-    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayerTimeControlStatus) {
+    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayer.TimeControlStatus) {
         updatePlayButton(withStatus: status)
     }
 
@@ -229,7 +229,7 @@ private extension PlayerViewController {
         loadingView.setProgress(progress, animated: true)
     }
 
-    func updatePlayButton(withStatus status: AVPlayerTimeControlStatus) {
+    func updatePlayButton(withStatus status: AVPlayer.TimeControlStatus) {
         controlsView.playButton.setTimeControlStatus(status)
     }
 
@@ -312,7 +312,7 @@ private extension PlayerViewController {
     func shareImage(_ image: UIImage) {
         // If creation fails, share plain image without metadata.
         if settings.includeMetadata,
-            let metadataImage = videoManager.jpgImageDataByAddingAssetMetadata(to: image, quality: 1) {
+            let metadataImage = videoManager.jpegData(byAddingAssetMetadataTo: image, compressionQuality: 1) {
 
             shareItem(metadataImage)
         } else {
@@ -346,7 +346,7 @@ extension PlayerViewController: ZoomAnimatable {
     }
 
     func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
-        return loadingView.imageView.image
+        loadingView.imageView.image
     }
 
     func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {

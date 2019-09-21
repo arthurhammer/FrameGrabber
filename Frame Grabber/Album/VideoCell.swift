@@ -32,7 +32,6 @@ class VideoCell: UICollectionViewCell {
     }
 
     private func configureViews() {
-        backgroundColor = Style.Color.missingThumbnail
         highlightView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         gradientView.colors = Style.Color.videoCellGradient
         favoritedImageView.isHidden = true

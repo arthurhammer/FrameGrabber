@@ -1,4 +1,5 @@
 import Photos
+import UIKit
 
 extension PHPhotoLibrary {
 
@@ -26,7 +27,7 @@ private extension UIApplication {
 
     /// Open the app's settings in Settings.
     func openSettings(completionHandler: ((Bool) -> ())? = nil) {
-        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString),
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString),
             canOpenURL(settingsUrl) else {
 
                 completionHandler?(false)

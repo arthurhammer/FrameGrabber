@@ -9,11 +9,11 @@ extension UIImage {
     /// metadata or `nil` if the creation fails.
     /// Metadata is merged into any existing metadata in the receiver.
     /// - Note: https://developer.apple.com/library/archive/qa/qa1895/_index.html
-    func jpgImageData(withMetadata metadata: CGImageMetadata, quality: CGFloat) -> Data? {
+    func jpegData(withMetadata metadata: CGImageMetadata, compressionQuality: CGFloat) -> Data? {
         let imageOutputData = NSMutableData()
 
         guard
-            let imageSourceData = UIImageJPEGRepresentation(self, quality),
+            let imageSourceData = jpegData(compressionQuality: compressionQuality),
             let imageSource = CGImageSourceCreateWithData(imageSourceData as CFData, nil),
             let uti = CGImageSourceGetType(imageSource),
             let imageDestination = CGImageDestinationCreateWithData(imageOutputData as CFMutableData, uti, 1, nil)
@@ -23,7 +23,7 @@ extension UIImage {
 
         let metadataOptions: [CFString: Any] = [
             kCGImageDestinationMetadata: metadata,
-            kCGImageDestinationMergeMetadata: kCFBooleanTrue
+            kCGImageDestinationMergeMetadata: kCFBooleanTrue as Any
         ]
 
         let ok = CGImageDestinationCopyImageSource(imageDestination, imageSource, metadataOptions as CFDictionary, nil)
@@ -60,12 +60,12 @@ extension CGMutableImageMetadata {
 
     @discardableResult
     func setTag(_ tag: Tag) -> Bool {
-        return CGImageMetadataSetValueMatchingImageProperty(self, tag.dictionary, tag.property, tag.value)
+        CGImageMetadataSetValueMatchingImageProperty(self, tag.dictionary, tag.property, tag.value)
     }
 
     @discardableResult
     func setTags(_ tags: [Tag]) -> Bool {
-        return !tags.map(setTag).contains(false)
+        !tags.map(setTag).contains(false)
     }
 
     @discardableResult

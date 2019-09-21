@@ -46,7 +46,7 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     // MARK: Data
 
     func album(at indexPath: IndexPath) -> Album {
-        return sections[indexPath.section].albums[indexPath.item]
+        sections[indexPath.section].albums[indexPath.item]
     }
 
     func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest? {
@@ -92,19 +92,19 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     // MARK: UICollectionViewDataSource
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
+        sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections[section].albums.count
+        sections[section].albums.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return cellProvider(indexPath, album(at: indexPath))
+        cellProvider(indexPath, album(at: indexPath))
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return sectionHeaderProvider(indexPath)
+        sectionHeaderProvider(indexPath)
     }
 
     // MARK: UICollectionViewDataSourcePrefetching

@@ -1,4 +1,5 @@
 import Photos
+import UIKit
 
 extension PHImageManager {
 
@@ -63,11 +64,11 @@ extension PHImageManager {
         }
 
         var error: Error? {
-            return info[PHImageErrorKey] as? Error
+            info[PHImageErrorKey] as? Error
         }
 
         var isCancelled: Bool {
-            return (info[PHImageCancelledKey] as? Bool) ?? false
+            (info[PHImageCancelledKey] as? Bool) ?? false
         }
     }
 }

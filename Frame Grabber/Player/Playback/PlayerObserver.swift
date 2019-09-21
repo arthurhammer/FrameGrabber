@@ -1,28 +1,28 @@
 import AVKit
 
 protocol PlayerObserverDelegate: class {
-    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayerStatus)
+    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayer.Status)
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime)
-    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayerTimeControlStatus)
+    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayer.TimeControlStatus)
     func player(_ player: AVPlayer, didUpdateRate rate: Float)
     func player(_ player: AVPlayer, didUpdateReasonForWaitingToPlay status: AVPlayer.WaitingReason?)
     func player(_ player: AVPlayer, didUpdateCurrentPlayerItem item: AVPlayerItem?)
 
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus)
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItem.Status)
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime)
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdatePresentationSize size: CGSize)
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateTracks tracks: [AVPlayerItemTrack])
 }
 
 extension PlayerObserverDelegate {
-    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayerStatus) {}
+    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayer.Status) {}
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {}
-    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayerTimeControlStatus) {}
+    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayer.TimeControlStatus) {}
     func player(_ player: AVPlayer, didUpdateRate rate: Float) {}
     func player(_ player: AVPlayer, didUpdateReasonForWaitingToPlay status: AVPlayer.WaitingReason?) {}
     func player(_ player: AVPlayer, didUpdateCurrentPlayerItem item: AVPlayerItem?) {}
 
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItemStatus) {}
+    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItem.Status) {}
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {}
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdatePresentationSize size: CGSize) {}
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateTracks tracks: [AVPlayerItemTrack]) {}
@@ -58,8 +58,8 @@ private extension PlayerObserver {
         stopObserving()
 
         timeObserver = player.addPeriodicTimeObserver(forInterval: periodicTimeObservationInterval, queue: nil) { [weak self] time in
-            guard let this = self else { return }
-            this.delegate?.player(this.player, didPeriodicUpdateAtTime: time)
+            guard let self = self else { return }
+            self.delegate?.player(self.player, didPeriodicUpdateAtTime: time)
         }
 
         add(player.observe(\.status, options: kvoOptions) { [weak self] player, _ in

@@ -77,7 +77,7 @@ private func applyIncrementalChangesWithMoves<P, M>(_ changes: PHFetchResultChan
 /// An array from a fetch result.
 /// By enumerating the fetch result, its contents will be fetched synchronously.
 func enumerate<P>(fetchResult: PHFetchResult<P>) -> [P] {
-    return enumerate(fetchResult: fetchResult, map: { $0 })
+    enumerate(fetchResult: fetchResult, map: { $0 })
 }
 
 /// An array from a fetch result, mapping the contents.

@@ -6,11 +6,11 @@ protocol FetchedAlbumProtocol: Album {
 
 extension FetchedAlbumProtocol {
     var keyAsset: PHAsset? {
-        return fetchResult.firstObject
+        fetchResult.firstObject
     }
 
     var count: Int {
-        return fetchResult.count
+        fetchResult.count
     }
 }
 

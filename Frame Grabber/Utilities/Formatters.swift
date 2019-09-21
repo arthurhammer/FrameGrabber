@@ -67,6 +67,6 @@ extension NumberFormatter {
 
 private extension CMTime {
     var isValidVideoTime: Bool {
-        return isValid && isNumeric && !isNegativeInfinity && !isPositiveInfinity && !isIndefinite
+        isValid && isNumeric && !isNegativeInfinity && !isPositiveInfinity && !isIndefinite
     }
 }

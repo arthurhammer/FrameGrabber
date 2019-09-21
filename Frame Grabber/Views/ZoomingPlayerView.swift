@@ -16,7 +16,7 @@ class ZoomingPlayerView: UIView {
     weak var delegate: ZoomingPlayerViewDelegate?
 
     var player: AVPlayer? {
-        get { return playerView.player }
+        get { playerView.player }
         set {
             playerView.player = newValue
             observePlayerItemSize()
@@ -26,7 +26,7 @@ class ZoomingPlayerView: UIView {
     let playerView = PlayerView()
 
     var isReadyForDisplay: Bool {
-        return playerView.playerLayer.isReadyForDisplay
+        playerView.playerLayer.isReadyForDisplay
     }
 
     /// The current size and position of the full video image in the receiver. If the
@@ -70,7 +70,7 @@ class ZoomingPlayerView: UIView {
 extension ZoomingPlayerView: UIScrollViewDelegate {
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return playerView
+        playerView
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -89,7 +89,7 @@ private extension ZoomingPlayerView {
         scrollView.scrollsToTop = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
+        scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
 
         scrollView.frame = bounds
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -104,8 +104,8 @@ private extension ZoomingPlayerView {
 
     func observeLayerReady() {
         layerReadyObserver = playerView.playerLayer.observe(\.isReadyForDisplay, options: .initial) { [weak self] layer, _ in
-            guard let this = self else { return }
-            this.delegate?.playerView(this, didUpdateReadyForDisplay: layer.isReadyForDisplay)
+            guard let self = self else { return }
+            self.delegate?.playerView(self, didUpdateReadyForDisplay: layer.isReadyForDisplay)
         }
     }
 
@@ -152,7 +152,7 @@ private extension ZoomingPlayerView {
 private extension UIScrollView {
 
     var contentView: UIView {
-        return subviews.first!
+        subviews.first!
     }
 
     func centerContentView() {

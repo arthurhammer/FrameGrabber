@@ -2,11 +2,11 @@ import UIKit
 
 class AlbumsViewController: UICollectionViewController {
 
-    var dataSource = AlbumsDataSource() {
+    var dataSource: AlbumsDataSource? {
         didSet { configureDataSource() }
     }
 
-    private var collectionViewDataSource: AlbumsCollectionViewDataSource!
+    private var collectionViewDataSource: AlbumsCollectionViewDataSource?
     private lazy var albumCountFormatter = NumberFormatter()
 
     private let cellId = String(describing: AlbumCell.self)
@@ -35,7 +35,7 @@ class AlbumsViewController: UICollectionViewController {
 
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
         // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource.fetchUpdate(forAlbumAt: selection)
+        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection)
     }
 
     // MARK: - UICollectionViewDelegate
@@ -48,6 +48,10 @@ class AlbumsViewController: UICollectionViewController {
     // MARK: - Private
 
     private func configureViews() {
+        if #available(iOS 13, *) {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "ellipsis.circle")
+        }
+
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
 
@@ -61,13 +65,19 @@ class AlbumsViewController: UICollectionViewController {
     private func configureDataSource() {
         guard isViewLoaded else { return }
 
+        guard let dataSource = dataSource else {
+            collectionViewDataSource = nil
+            collectionView.dataSource = nil
+            return
+        }
+
         collectionViewDataSource = AlbumsCollectionViewDataSource(albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] in
             self.sectionHeader(at: $0)
         }, cellProvider: { [unowned self] in
             self.cell(for: $1, at: $0)
         })
 
-        collectionViewDataSource.sectionsChangedHandler = { [weak self] sections in
+        collectionViewDataSource?.sectionsChangedHandler = { [weak self] sections in
             UIView.performWithoutAnimation {
                 self?.collectionView?.reloadSections(sections)
             }
@@ -83,7 +93,7 @@ class AlbumsViewController: UICollectionViewController {
     private func updateThumbnailSize() {
         guard let layout = collectionView?.collectionViewLayout as? CollectionViewTableLayout else { return }
         let height = layout.itemSize.height
-        collectionViewDataSource.imageConfig.size = CGSize(width: height, height: height).scaledToScreen
+        collectionViewDataSource?.imageConfig.size = CGSize(width: height, height: height).scaledToScreen
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,7 +114,7 @@ class AlbumsViewController: UICollectionViewController {
         let albumId = album.assetCollection.localIdentifier
         cell.identifier = albumId
 
-        cell.imageRequest = collectionViewDataSource.thumbnail(for: album) { image, _ in
+        cell.imageRequest = collectionViewDataSource?.thumbnail(for: album) { image, _ in
             let isCellRecycled = cell.identifier != albumId
 
             guard !isCellRecycled, let image = image else { return }
@@ -130,8 +140,8 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
-        header.titleLabel.text = collectionViewDataSource.sections[indexPath.section].title
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
+        header.titleLabel.text = collectionViewDataSource?.sections[indexPath.section].title
         return header
     }
 }

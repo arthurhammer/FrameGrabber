@@ -39,6 +39,6 @@ extension UICollectionView {
 
 extension IndexSet {
     func indexPaths(in section: Int = 0) -> [IndexPath] {
-        return map { IndexPath(item: $0, section: section) }
+        map { IndexPath(item: $0, section: section) }
     }
 }

@@ -7,7 +7,7 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     private(set) var album: FetchedAlbum?
 
     var isEmpty: Bool {
-        return album?.isEmpty ?? true
+        album?.isEmpty ?? true
     }
 
     var albumDeletedHandler: (() -> ())?
@@ -46,11 +46,11 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
 
     /// Precondition: `album != nil`.
     func video(at indexPath: IndexPath) -> PHAsset {
-        return album!.fetchResult.object(at: indexPath.item)
+        album!.fetchResult.object(at: indexPath.item)
     }
 
     func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest {
-        return imageManager.requestImage(for: video, config: imageConfig, resultHandler: resultHandler)
+        imageManager.requestImage(for: video, config: imageConfig, resultHandler: resultHandler)
     }
 
     private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
@@ -66,11 +66,11 @@ extension AlbumCollectionViewDataSource {
     // MARK: UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return album?.count ?? 0
+        album?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return cellProvider(indexPath, video(at: indexPath))
+        cellProvider(indexPath, video(at: indexPath))
     }
 
     // MARK: UICollectionViewDataSourcePrefetching

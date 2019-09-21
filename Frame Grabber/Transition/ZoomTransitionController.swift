@@ -26,6 +26,6 @@ class ZoomTransitionController: NSObject, UIViewControllerTransitioningDelegate 
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomAnimator(type: .dismiss, from: to, to: from)
+        ZoomAnimator(type: .dismiss, from: to, to: from)
     }
 }

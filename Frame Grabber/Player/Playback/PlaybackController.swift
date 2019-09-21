@@ -26,30 +26,30 @@ class PlaybackController {
 
     /// True when both the player and the current item are ready to play.
     var isReadyToPlay: Bool {
-        return (player.status == .readyToPlay) && (currentItem?.status == .readyToPlay)
+        (player.status == .readyToPlay) && (currentItem?.status == .readyToPlay)
     }
 
     /// True if the player is playing or waiting to play.
     /// Check `player.timeControlStatus` for detailed status.
     var isPlaying: Bool {
-        return player.rate != 0
+        player.rate != 0
     }
 
     var isSeeking: Bool {
-        return seeker.isSeeking
+        seeker.isSeeking
     }
 
     var currentTime: CMTime {
-        return player.currentTime()
+        player.currentTime()
     }
 
     var currentItem: AVPlayerItem? {
-        return player.currentItem
+        player.currentItem
     }
 
     /// This property can change during playback.
     var frameRate: Float? {
-        return currentItem?.asset.tracks(withMediaType: .video).first?.nominalFrameRate
+        currentItem?.asset.tracks(withMediaType: .video).first?.nominalFrameRate
     }
 
     // MARK: Playback

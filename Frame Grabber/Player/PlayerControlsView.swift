@@ -42,7 +42,7 @@ class PlayerControlsView: GradientView {
 
         previousButton.tintColor = Style.Color.timeSlider
         nextButton.tintColor = Style.Color.timeSlider
-        shareButton.backgroundColor = .mainTint
+        shareButton.backgroundColor =  Style.Color.mainTint
         shareButton.layer.cornerRadius = shareButton.bounds.height/2
 
         applyOverlayShadow()
@@ -55,7 +55,7 @@ class PlayerControlsView: GradientView {
 import AVKit
 
 extension UIButton {
-    func setTimeControlStatus(_ status: AVPlayerTimeControlStatus) {
+    func setTimeControlStatus(_ status: AVPlayer.TimeControlStatus) {
         setImage((status == .paused) ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause"), for: .normal)
     }
 }
