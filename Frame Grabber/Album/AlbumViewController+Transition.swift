@@ -3,7 +3,7 @@ import UIKit
 extension AlbumViewController: ZoomAnimatable {
 
     func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
-        if animator.type == .dismiss {
+        if animator.type == .backward {
             collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
             // Seems to be necessary once more for offscreen cells.
             collectionView?.layoutIfNeeded()
@@ -26,7 +26,7 @@ extension AlbumViewController: ZoomAnimatable {
         // Also unhide after presentation in case we'll use fallback animation later.
         collectionView?.selectedCell?.isHidden = false
 
-        if animator.type == .dismiss {
+        if animator.type == .backward {
             collectionView?.clearSelection()
         }
     }

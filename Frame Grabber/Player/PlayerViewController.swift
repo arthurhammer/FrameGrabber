@@ -63,7 +63,9 @@ class PlayerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         hideStatusBar()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
 
@@ -74,7 +76,9 @@ private extension PlayerViewController {
     @IBAction func done() {
         videoManager.cancelAllRequests()
         playbackController?.pause()
-        dismiss(animated: true)
+
+        // TODO: A delegate/the coordinator should handle this.
+        navigationController?.popViewController(animated: true)
     }
 
     @IBAction func playOrPause() {

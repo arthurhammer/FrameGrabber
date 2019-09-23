@@ -109,7 +109,7 @@
                                     <outlet property="gradientView" destination="aku-Vb-sC2" id="soG-nh-O26"/>
                                     <outlet property="highlightView" destination="viB-ng-j6r" id="fxq-XA-2pG"/>
                                     <outlet property="imageView" destination="jRs-Rg-Keq" id="xzW-9s-7m3"/>
-                                    <segue destination="1Cw-ag-d47" kind="presentation" identifier="PlayerViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="wXA-pQ-n5U"/>
+                                    <segue destination="1Cw-ag-d47" kind="show" identifier="PlayerViewController" id="wXA-pQ-n5U"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -203,10 +203,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-p1-yCF" customClass="PlayerTitleView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="125.33333333333333"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="169.33333333333334"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-zo-9Pk">
-                                        <rect key="frame" x="12" y="56" width="351" height="45.333333333333343"/>
+                                        <rect key="frame" x="12" y="100" width="351" height="45.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a Frame" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP2-FO-hcM">
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="21.666666666666668"/>
@@ -215,7 +215,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ydS-rV-dbF">
-                                                <rect key="frame" x="0.0" y="29.666666666666675" width="194.66666666666666" height="15.666666666666668"/>
+                                                <rect key="frame" x="0.0" y="29.666666666666661" width="194.66666666666666" height="15.666666666666668"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Dimensions&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgm-2j-cZo">
                                                         <rect key="frame" x="0.0" y="0.0" width="91" height="15.666666666666666"/>
@@ -274,17 +274,17 @@
                                                         <rect key="frame" x="0.0" y="19.666666666666629" width="351" height="42"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="42"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="28" height="42"/>
                                                                 <state key="normal" image="prev"/>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8v-D6-g4Q" customClass="TimeSlider" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="56" y="0.0" width="239" height="42"/>
+                                                                <rect key="frame" x="28" y="0.0" width="295" height="42"/>
                                                                 <connections>
                                                                     <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="pNM-rt-Ner"/>
                                                                 </connections>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                                <rect key="frame" x="295" y="0.0" width="56" height="42"/>
+                                                                <rect key="frame" x="323" y="0.0" width="28" height="42"/>
                                                                 <state key="normal" image="next"/>
                                                             </button>
                                                         </subviews>
@@ -299,14 +299,14 @@
                                                 <rect key="frame" x="0.0" y="77.666666666666629" width="351" height="42"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6I-Pz-r0P">
-                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="42"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="28" height="42"/>
                                                         <state key="normal" image="close"/>
                                                         <connections>
                                                             <action selector="done" destination="1Cw-ag-d47" eventType="touchUpInside" id="Ddk-oy-Pdf"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
-                                                        <rect key="frame" x="147.66666666666666" y="0.0" width="56" height="42"/>
+                                                        <rect key="frame" x="161.66666666666666" y="0.0" width="28" height="42"/>
                                                         <state key="normal" image="pause"/>
                                                         <connections>
                                                             <action selector="playOrPause" destination="1Cw-ag-d47" eventType="touchUpInside" id="REK-2a-Wzc"/>
@@ -383,6 +383,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
                     </view>
+                    <navigationItem key="navigationItem" id="cLY-f1-ifd"/>
                     <connections>
                         <outlet property="backgroundView" destination="05q-za-ahp" id="ube-Os-1S5"/>
                         <outlet property="controlsView" destination="GAW-h9-8hv" id="YKJ-8K-sBN"/>

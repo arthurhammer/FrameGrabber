@@ -24,6 +24,11 @@ class AlbumViewController: UICollectionViewController {
         configureViews()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         updateThumbnailSize()
@@ -38,7 +43,7 @@ class AlbumViewController: UICollectionViewController {
     private func prepareForPlayerSegue(with destination: PlayerViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
-        transitionController.prepareTransition(forSource: self, destination: destination)
+        transitionController.prepareNavigationControllerTransition(for: navigationController)
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
             destination.videoManager = VideoManager(asset: selectedAsset)

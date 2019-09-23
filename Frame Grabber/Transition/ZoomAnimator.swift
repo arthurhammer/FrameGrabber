@@ -16,15 +16,15 @@ class ZoomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         switch type {
-        case .present: return 0.4
-        case .dismiss: return 0.2
+        case .forward: return 0.4
+        case .backward: return 0.2
         }
     }
 
     func animateTransition(using context: UIViewControllerContextTransitioning) {
         switch type {
-        case .present: animatePresentation(using: context)
-        case .dismiss: animateDismissal(using: context)
+        case .forward: animatePresentation(using: context)
+        case .backward: animateDismissal(using: context)
         }
     }
 }
@@ -98,9 +98,9 @@ private extension ZoomAnimator {
 
     // Assumes views are already installed.
     func animateCrossDissolve(using context: UIViewControllerContextTransitioning) {
-        let presented = (type == .present) ? context.toView : context.fromView
-        let fromAlpha: CGFloat = (type == .present) ? 0 : 1
-        let toAlpha: CGFloat = (type == .present) ? 1 : 0
+        let presented = (type == .forward) ? context.toView : context.fromView
+        let fromAlpha: CGFloat = (type == .forward) ? 0 : 1
+        let toAlpha: CGFloat = (type == .forward) ? 1 : 0
 
         presented?.alpha = fromAlpha
 

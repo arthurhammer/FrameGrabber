@@ -22,7 +22,7 @@ extension UIViewControllerContextTransitioning {
         if let toView = toView {
             toView.frame = finalToFrame ?? .zero
 
-            if type == .dismiss, let fromView = fromView {
+            if type == .backward, let fromView = fromView {
                 containerView.insertSubview(toView, belowSubview: fromView)
             } else {
                 containerView.addSubview(toView)

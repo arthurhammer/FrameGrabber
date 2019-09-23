@@ -1,31 +1,54 @@
 import UIKit
 
 enum TransitionType {
-    case present
-    case dismiss
+    /// Typically `presentation` for modal presentation and `push` for navigation
+    /// controller operation.
+    case forward
+    /// Typically `dismissal` for modal presentation and `pop` for navigation
+    /// controller operation.
+    case backward
 }
 
-class ZoomTransitionController: NSObject, UIViewControllerTransitioningDelegate {
+class ZoomTransitionController: NSObject {
 
-    /// Uses source or presenting controller if not set manually pre-transition.
-    weak var from: ZoomAnimatable?
+    private weak var modalFrom: ZoomAnimatable?
+    private weak var modalTo: ZoomAnimatable?
+}
 
-    /// Uses presented controller if not set manually pre-transition.
-    weak var to: ZoomAnimatable?
+// MARK: - Modal Transition
 
-    func prepareTransition(forSource source: UIViewController, destination: UIViewController) {
-        destination.modalPresentationStyle = .fullScreen
+extension ZoomTransitionController: UIViewControllerTransitioningDelegate {
+
+    func prepareModalTransition(forSource source: UIViewController, destination: UIViewController) {
+        destination.modalPresentationStyle = .custom
         destination.transitioningDelegate = self
     }
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        from = from ?? (source as? ZoomAnimatable) ?? (presenting as? ZoomAnimatable)
-        to = to ?? (presented as? ZoomAnimatable)
+        modalFrom = modalFrom ?? (source as? ZoomAnimatable) ?? (presenting as? ZoomAnimatable)
+        modalTo = modalTo ?? (presented as? ZoomAnimatable)
 
-        return ZoomAnimator(type: .present, from: from, to: to)
+        return ZoomAnimator(type: .forward, from: modalFrom, to: modalTo)
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        ZoomAnimator(type: .dismiss, from: to, to: from)
+        ZoomAnimator(type: .backward, from: modalTo, to: modalFrom)
+    }
+}
+
+// MARK: - UINavigationController Transition
+
+extension ZoomTransitionController: UINavigationControllerDelegate {
+
+    func prepareNavigationControllerTransition(for navigationController: UINavigationController?) {
+        navigationController?.delegate = self
+    }
+
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let type = (operation == .push) ? TransitionType.forward : .backward
+        let from = fromVC as? ZoomAnimatable
+        let to = toVC as? ZoomAnimatable
+
+        return ZoomAnimator(type: type, from: from, to: to)
     }
 }
