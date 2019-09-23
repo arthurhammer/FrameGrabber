@@ -91,7 +91,7 @@ extension CGMutableImageMetadata {
             (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLatitude, "\(abs(coordinate.latitude))" as CFString),
             (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLatitudeRef, (coordinate.latitude >= 0 ? "N" : "S") as CFString),
             (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLongitude, "\(abs(coordinate.longitude))" as CFString),
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLongitudeRef, (coordinate.longitude >= 0 ? "E" : "N") as CFString),
+            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLongitudeRef, (coordinate.longitude >= 0 ? "E" : "W") as CFString),
             (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSHPositioningError, "\(location.horizontalAccuracy)" as CFString)
         ])
     }
