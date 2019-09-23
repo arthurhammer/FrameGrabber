@@ -1,0 +1,33 @@
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "6j3-ei-qs1"; */
+"6j3-ei-qs1.title" = "Info";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "BcE-TF-wZJ"; */
+"BcE-TF-wZJ.text" = "Datenschutzerklärung";
+
+/* Class = "UILabel"; text = "Include Metadata"; ObjectID = "bSL-BG-xvu"; */
+"bSL-BG-xvu.text" = "Metadaten Exportieren";
+
+/* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "JfK-t4-yp8"; */
+"JfK-t4-yp8.headerTitle" = "Support";
+
+/* Class = "UILabel"; text = "Rate the App!"; ObjectID = "nFr-N6-19e"; */
+"nFr-N6-19e.text" = "App Bewerten!";
+
+/* Class = "UILabel"; text = "View Source Code"; ObjectID = "O1r-JY-GXz"; */
+"O1r-JY-GXz.text" = "Source Code Ansehen";
+
+/* Class = "UILabel"; text = "Send Feedback"; ObjectID = "uyF-be-z5b"; */
+"uyF-be-z5b.text" = "Feedback Senden";
+
+/* Class = "UITableViewSection"; footerTitle = "Add Exif metadata like the video's creation date and GPS location to exported frames."; ObjectID = "V7S-rg-5I5"; */
+"V7S-rg-5I5.footerTitle" = "Metadaten wie Erstellungsdatum und Ort des Videos zu den exportierten Bildern hinzufügen.";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "V7S-rg-5I5"; */
+"V7S-rg-5I5.headerTitle" = "Einstellungen";
+
+/* Class = "UILabel"; text = "By Arthur Hammer"; ObjectID = "vqu-D9-qKO"; */
+"vqu-D9-qKO.text" = "Von Arthur Hammer";
+
+/* Class = "UILabel"; text = "<App Version>"; ObjectID = "Xhz-It-pDJ"; */
+"Xhz-It-pDJ.text" = "<App Version>";
+

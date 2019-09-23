@@ -33,12 +33,9 @@ class Coordinator {
     }
 
     private func showAuthorization(animated: Bool, completion: @escaping () -> ()) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let id = String(describing: PhotoLibraryAuthorizationController.self)
+        let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
 
-        guard let authorizationController = storyboard.instantiateViewController(withIdentifier: id) as? PhotoLibraryAuthorizationController else {
-            fatalError("Wrong controller id or type")
-        }
+        guard let authorizationController = storyboard.instantiateInitialViewController() as? PhotoLibraryAuthorizationController else { fatalError("Wrong controller type") }
 
         authorizationController.didAuthorizeHandler = { [weak self] in
             self?.rootNavigationController.dismiss(animated: true) 
