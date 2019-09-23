@@ -63,7 +63,9 @@ class PlayerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         hideStatusBar()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
 
@@ -74,7 +76,9 @@ private extension PlayerViewController {
     @IBAction func done() {
         videoManager.cancelAllRequests()
         playbackController?.pause()
-        dismiss(animated: true)
+
+        // TODO: A delegate/the coordinator should handle this.
+        navigationController?.popViewController(animated: true)
     }
 
     @IBAction func playOrPause() {
@@ -239,8 +243,8 @@ private extension PlayerViewController {
 
         let dimensions = NumberFormatter().string(fromPixelWidth: asset.pixelWidth, height: asset.pixelHeight)
         let frameRate = fps.flatMap { NumberFormatter.frameRateFormatter().string(from: $0) }
-        // Frame rate usually arrives later. Fade it in.
-        titleView.setDetailLabels(for: dimensions, frameRate: frameRate, animated: true)
+
+        titleView.setDetailLabels(for: dimensions, frameRate: frameRate)
     }
 
     func updateTimeLabel(withTime time: CMTime) {

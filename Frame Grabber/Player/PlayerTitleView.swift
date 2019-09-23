@@ -12,14 +12,13 @@ class PlayerTitleView: GradientView {
         configureViews()
     }
 
-    func setDetailLabels(for dimensions: String?, frameRate: String?, animated: Bool) {
+    func setDetailLabels(for dimensions: String?, frameRate: String?) {
         dimensionsLabel.text = dimensions
         frameRateLabel.text = frameRate
 
-        let fadeDuration = 0.15
-        dimensionsLabel.setHidden(dimensions == nil, animated: animated, duration: fadeDuration)
-        frameRateLabel.setHidden(frameRate == nil, animated: animated, duration: fadeDuration)
-        separatorLabel.setHidden((dimensions == nil) || (frameRate == nil), animated: animated, duration: fadeDuration)
+        dimensionsLabel.isHidden = dimensions == nil
+        frameRateLabel.isHidden = frameRate == nil
+        separatorLabel.isHidden =  dimensionsLabel.isHidden || frameRateLabel.isHidden
     }
 
     private func configureViews() {
