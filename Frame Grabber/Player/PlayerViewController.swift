@@ -242,7 +242,7 @@ private extension PlayerViewController {
         let fps = playbackController?.frameRate
 
         let dimensions = NumberFormatter().string(fromPixelWidth: asset.pixelWidth, height: asset.pixelHeight)
-        let frameRate = fps.flatMap { NumberFormatter.frameRateFormatter().string(from: $0) }
+        let frameRate = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
 
         titleView.setDetailLabels(for: dimensions, frameRate: frameRate)
     }
@@ -314,17 +314,9 @@ private extension PlayerViewController {
     }
 
     func shareImage(_ image: UIImage) {
-        // If creation fails, share plain image without metadata.
-        if settings.includeMetadata,
-            let metadataImage = videoManager.jpegData(byAddingAssetMetadataTo: image, compressionQuality: 1) {
+        // If encoding fails, share plain image without metadata.
+        let item: Any = videoManager.imageData(byAddingAssetMetadataTo: image) ?? image
 
-            shareItem(metadataImage)
-        } else {
-            shareItem(image)
-        }
-    }
-
-    func shareItem(_ item: Any) {
         let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         present(shareController, animated: true)
     }

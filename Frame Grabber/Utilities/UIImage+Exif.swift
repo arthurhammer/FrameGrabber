@@ -1,103 +1,112 @@
 import UIKit
 import CoreLocation
 
-// MARK: - Creating Images with Metadata
+import AVFoundation
 
-extension UIImage {
+import AVFoundation
+import UIKit
+extension UIDevice {
+    func isHEIFSupported() -> Bool {
+        AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
+    }
+}
 
-    /// Returns a jpg data representation of the receiver containing the given image
-    /// metadata or `nil` if the creation fails.
-    /// Metadata is merged into any existing metadata in the receiver.
-    /// - Note: https://developer.apple.com/library/archive/qa/qa1895/_index.html
-    func jpegData(withMetadata metadata: CGImageMetadata, compressionQuality: CGFloat) -> Data? {
-        let imageOutputData = NSMutableData()
 
-        guard
-            let imageSourceData = jpegData(compressionQuality: compressionQuality),
-            let imageSource = CGImageSourceCreateWithData(imageSourceData as CFData, nil),
-            let uti = CGImageSourceGetType(imageSource),
-            let imageDestination = CGImageDestinationCreateWithData(imageOutputData as CFMutableData, uti, 1, nil)
-        else {
-            return nil
-        }
+// AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
 
-        let metadataOptions: [CFString: Any] = [
-            kCGImageDestinationMetadata: metadata,
-            kCGImageDestinationMergeMetadata: kCFBooleanTrue as Any
-        ]
+// - [ ] File HEVC as bug.
+//    - Do NOT support it. Effore more trouble than worth and will be obsolete soon.
+//    - wait for bug reports
+//    - other apps don't handle it either, even good ones!
 
-        let ok = CGImageDestinationCopyImageSource(imageDestination, imageSource, metadataOptions as CFDictionary, nil)
+// - [ ] Fix settings localization
+// - [ ] Change iCloud alert label to something more generic so HEVC can be included
+// - [ ] Watch HEVC best practices WWDC videos
+// - [ ] Implement HEVC saving based on device capabilities
 
-        return ok ? (imageOutputData as Data) : nil
+// - [ ] ! Cells in settings consistent height
+
+// DYNAMIC TYPE; context actions, ship features!
+
+// DO NOT REFACTOR RIGHT NOW SHIP THIS FEATURE, refactor after. integrate into legacy code. straightforward
+
+// jo just make gray in settings, dont hide (or?)
+
+// Good idea?
+struct MetadataImage {
+    let image: UIImage
+    let properties: ImageProperties
+    let format: ImageFormat
+}
+
+
+
+
+extension CGImage {
+
+    /// Returns a data representation of the receiver in the given format including the
+    /// given image properties. Returns nil if creating the data fails, e.g. if the given
+    /// format is not supported on the device (such as HEIC on iPhone 6S and lower).
+    func data(with format: ImageFormat, properties: ImageProperties?, compressionQuality: Double) -> Data? {
+        var properties = properties ?? ImageProperties()
+        properties[kCGImageDestinationLossyCompressionQuality] = compressionQuality
+        let data = NSMutableData()
+        print(properties)
+
+        guard let destination = CGImageDestinationCreateWithData(data, format.rawValue as CFString, 1, nil) else { return nil }
+
+        CGImageDestinationAddImage(destination, self, properties as CFDictionary)
+        let ok = CGImageDestinationFinalize(destination)
+
+        return ok ? (data as Data) : nil
     }
 }
 
 // MARK: - Creating Metadata
 
-extension CGImageMetadata {
+typealias ImageProperties = [CFString: Any]
 
-    /// Metadata with Exif, TIFF and GPS tags for date and location.
-    /// The returned success flag is `false` if at least one tag failed to be set.
-    static func `for`(creationDate: Date?, location: CLLocation?) -> (ok: Bool, metadata: CGImageMetadata) {
-        let metadata = CGImageMetadataCreateMutable()
+extension CGImage {
 
-        let ok = [
-            creationDate.flatMap(metadata.setExifCreationDate),
-            creationDate.flatMap(metadata.setTIFFCreationDate),
-            location.flatMap(metadata.setGPSLocation)
-        ]
+    static func properties(for creationDate: Date?, location: CLLocation?) -> ImageProperties {
+        var properties = ImageProperties()
 
-        return (!ok.contains(false), metadata)
-    }
-}
+        if let date = creationDate {
+            properties[kCGImagePropertyExifDictionary] = exifDictionary(for: date)
+            properties[kCGImagePropertyTIFFDictionary] = tiffDictionary(for: date)
+        }
 
-// As an alternative to `CGImageMetadataSetValueMatchingImageProperty` see the more
-// complex `CGImageMetadataSetTagWithPath` with `CGImageMetadataTagCreate`.
+        if let location = location {
+            properties[kCGImagePropertyGPSDictionary] = gpsDictionary(for: location)
+        }
 
-extension CGMutableImageMetadata {
-
-    typealias Tag = (dictionary: CFString, property: CFString, value: CFTypeRef)
-
-    @discardableResult
-    func setTag(_ tag: Tag) -> Bool {
-        CGImageMetadataSetValueMatchingImageProperty(self, tag.dictionary, tag.property, tag.value)
+        return properties
     }
 
-    @discardableResult
-    func setTags(_ tags: [Tag]) -> Bool {
-        !tags.map(setTag).contains(false)
+    static func exifDictionary(for creationDate: Date) -> ImageProperties {
+        let exifDateString = DateFormatter.exifDateTimeFormatter().string(from: creationDate)
+        return [kCGImagePropertyExifDateTimeOriginal: exifDateString as CFString]
     }
 
-    @discardableResult
-    func setExifCreationDate(_ date: Date) -> Bool {
-        let dateString = DateFormatter.exifDateTimeFormatter().string(from: date)
-        return setTag((kCGImagePropertyExifDictionary, kCGImagePropertyExifDateTimeOriginal, dateString as CFString))
+    static func tiffDictionary(for creationDate: Date) -> ImageProperties {
+        let exifDateString = DateFormatter.exifDateTimeFormatter().string(from: creationDate)
+        return [kCGImagePropertyTIFFDateTime: exifDateString as CFString]
     }
 
-    @discardableResult
-    func setTIFFCreationDate(_ date: Date) -> Bool {
-        let dateString = DateFormatter.exifDateTimeFormatter().string(from: date)
-        return setTag((kCGImagePropertyTIFFDictionary, kCGImagePropertyTIFFDateTime, dateString as CFString))
-    }
-
-    /// Altitude, course and speed are currently not supported.
-    @discardableResult
-    func setGPSLocation(_ location: CLLocation) -> Bool {
-        let dateString = DateFormatter.GPSTimeStampFormatter().string(from: location.timestamp)
+    static func gpsDictionary(for location: CLLocation) -> ImageProperties {
+        let gpsDateString = DateFormatter.GPSTimeStampFormatter().string(from: location.timestamp)
         let coordinate = location.coordinate
 
-        return setTags([
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSTimeStamp, dateString as CFString),
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLatitude, "\(abs(coordinate.latitude))" as CFString),
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLatitudeRef, (coordinate.latitude >= 0 ? "N" : "S") as CFString),
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLongitude, "\(abs(coordinate.longitude))" as CFString),
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSLongitudeRef, (coordinate.longitude >= 0 ? "E" : "W") as CFString),
-            (kCGImagePropertyGPSDictionary, kCGImagePropertyGPSHPositioningError, "\(location.horizontalAccuracy)" as CFString)
-        ])
+        return [
+            kCGImagePropertyGPSTimeStamp: gpsDateString as CFString,
+            kCGImagePropertyGPSLatitude: abs(coordinate.latitude),  // Note: not CFString
+            kCGImagePropertyGPSLatitudeRef: (coordinate.latitude >= 0 ? "N" : "S") as CFString,
+            kCGImagePropertyGPSLongitude: abs(coordinate.longitude),
+            kCGImagePropertyGPSLongitudeRef: (coordinate.longitude >= 0 ? "E" : "W") as CFString,
+            kCGImagePropertyGPSHPositioningError: location.horizontalAccuracy
+        ]
     }
 }
-
-// MARK: - Util
 
 private extension DateFormatter {
 

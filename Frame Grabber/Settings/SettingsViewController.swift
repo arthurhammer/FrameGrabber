@@ -24,10 +24,16 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 
     @IBOutlet private var metadataSwitch: UISwitch!
     @IBOutlet private var versionLabel: UILabel!
+    @IBOutlet private var imageFormatLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViews()
     }
 
     override func viewDidLayoutSubviews() {
@@ -111,6 +117,14 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
 
         metadataSwitch.isOn = settings.includeMetadata
         versionLabel.text = bundle.formattedVersion
+    }
+
+    private func updateViews() {
+        if let quality = NumberFormatter.percentFormatter().string(from: settings.compressionQuality as NSNumber) {
+            imageFormatLabel.text = "\(settings.imageFormat.displayString) (\(quality))"
+        } else {
+            imageFormatLabel.text = settings.imageFormat.displayString
+        }
     }
 }
 
