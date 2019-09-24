@@ -28,7 +28,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
     }
 
     @IBAction private func showPrivacyPolicy() {
-        guard let url = SettingsViewController.privacyPolicyURL else { return }
+        guard let url = AboutViewController.privacyPolicyURL else { return }
         present(SFSafariViewController(url: url), animated: true)
     }
 

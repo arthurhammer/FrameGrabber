@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsImageFormatViewController: UITableViewController {
+class ImageFormatViewController: UITableViewController {
 
     var settings: UserDefaults = .standard
 
@@ -31,6 +31,10 @@ class SettingsImageFormatViewController: UITableViewController {
             heifCell.accessoryType = .none
             heifCell.textLabel?.textColor = Style.Color.disabledLabel
         }
+    }
+
+    @IBAction private func done() {
+        dismiss(animated: true)
     }
 
     @IBAction func didChangeCompressionQuality() {

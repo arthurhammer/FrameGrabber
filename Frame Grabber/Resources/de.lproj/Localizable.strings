@@ -43,3 +43,6 @@
 /* Feedback email subject */
 "settings.emailSubject" = "Frame Grabber: Feedback";
 
+/* The HEIF image format is not support message. */
+"settings.format.noheif" = "Dieses Gerät unterstützt HEIF nicht.";
+
