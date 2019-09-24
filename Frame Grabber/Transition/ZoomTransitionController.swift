@@ -46,8 +46,9 @@ extension ZoomTransitionController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let type = (operation == .push) ? TransitionType.forward : .backward
-        let from = fromVC as? ZoomAnimatable
-        let to = toVC as? ZoomAnimatable
+
+        guard let from = fromVC as? ZoomAnimatable,
+            let to = toVC as? ZoomAnimatable else { return nil }
 
         return ZoomAnimator(type: type, from: from, to: to)
     }
