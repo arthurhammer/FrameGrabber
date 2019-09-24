@@ -46,8 +46,8 @@
 /* Class = "UILabel"; text = "Format"; ObjectID = "wkm-2o-aBZ"; */
 "wkm-2o-aBZ.text" = "Format";
 
-/* Class = "UILabel"; text = "Compression Quality"; ObjectID = "z6N-u0-JJx"; */
-"z6N-u0-JJx.text" = "Kompressionsqualität";
+/* Class = "UILabel"; text = "Compression Quality"; ObjectID = "PO6-aH-uFG"; */
+"PO6-aH-uFG.text" = "Kompressionsqualität";
 
 /* Class = "UILabel"; text = "Frame Grabber lets you export video frames as images. "; ObjectID = "gyD-ww-Z3w"; */
 "gyD-ww-Z3w.text" = "Frame Grabber exportiert Einzelbilder aus deinen Videos.";

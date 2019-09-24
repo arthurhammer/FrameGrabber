@@ -5,6 +5,7 @@ class ImageFormatViewController: UITableViewController {
     var settings: UserDefaults = .standard
 
     @IBOutlet private var heifCell: UITableViewCell!
+    @IBOutlet private var heifLabel: UILabel!
     @IBOutlet private var jpgCell: UITableViewCell!
     @IBOutlet private var compressionQualitySlider: UISlider!
     @IBOutlet private var compressionQualityLabel: UILabel!
@@ -29,7 +30,7 @@ class ImageFormatViewController: UITableViewController {
 
         if !UserDefaults.isHeifSupported {
             heifCell.accessoryType = .none
-            heifCell.textLabel?.textColor = Style.Color.disabledLabel
+            heifLabel.textColor = Style.Color.disabledLabel
         }
     }
 

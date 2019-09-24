@@ -2,6 +2,8 @@ import UIKit
 import Photos
 import SafariServices
 
+// TODO: Landscape
+
 class PhotoLibraryAuthorizationController: UIViewController {
 
     static var needsAuthorization: Bool {
@@ -11,6 +13,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
     var didAuthorizeHandler: (() -> ())?
 
     @IBOutlet private var statusView: StatusView!
+    @IBOutlet private var privacyButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,11 @@ class PhotoLibraryAuthorizationController: UIViewController {
     }
 
     private func updateViews() {
+        privacyButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        privacyButton.titleLabel?.minimumScaleFactor = 0.8
+        statusView.button.titleLabel?.adjustsFontForContentSizeCategory = true
+        statusView.button.titleLabel?.minimumScaleFactor = 0.8
+        
         statusView.message = message(for: PHPhotoLibrary.authorizationStatus())
     }
 
