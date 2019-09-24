@@ -59,6 +59,8 @@ extension AlbumViewController {
         guard let cell = cell as? VideoCell else { return }
         cell.imageRequest = nil
     }
+
+    
 }
 
 // MARK: - Private
