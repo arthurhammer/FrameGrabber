@@ -11,6 +11,16 @@
 		001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */; };
 		00229DB8212D978A00848CE8 /* FetchedAlbum+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */; };
 		00229DBA212E0B1600848CE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00229DB9212E0B1600848CE8 /* SettingsViewController.swift */; };
+		0023FC8F23390D940046D9F8 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* Settings.storyboard */; };
+		0023FC90233910D30046D9F8 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* Settings.storyboard */; };
+		0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
+		0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
+		0023FC9F233A0E4C0046D9F8 /* ImageFormatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ImageFormatViewController.swift */; };
+		0023FCA0233A17250046D9F8 /* ImageFormatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ImageFormatViewController.swift */; };
+		0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
+		0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
+		0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
+		0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
 		00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */; };
 		0026620C212C4A6B00786797 /* AlbumsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026620B212C4A6B00786797 /* AlbumsDataSource.swift */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
@@ -147,6 +157,13 @@
 		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchedAlbum+Change.swift"; sourceTree = "<group>"; };
 		00229DB9212E0B1600848CE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0023FC8E23390D940046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/Settings.storyboard"; sourceTree = "<group>"; };
+		0023FC92233910DD0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/Settings.strings"; sourceTree = "<group>"; };
+		0023FC98233911B10046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authorization.storyboard; sourceTree = "<group>"; };
+		0023FC9B233911BA0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Authorization.strings; sourceTree = "<group>"; };
+		0023FC9E233A0E4C0046D9F8 /* ImageFormatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormatViewController.swift; sourceTree = "<group>"; };
+		0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
+		0023FCA4233A42150046D9F8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchedAlbum+Fetch.swift"; sourceTree = "<group>"; };
 		0026620B212C4A6B00786797 /* AlbumsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsDataSource.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -309,7 +326,10 @@
 		00229DBB212E0B1A00848CE8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0023FC8D23390D940046D9F8 /* Settings.storyboard */,
 				00229DB9212E0B1600848CE8 /* SettingsViewController.swift */,
+				0023FC9E233A0E4C0046D9F8 /* ImageFormatViewController.swift */,
+				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 			);
 			path = Settings;
@@ -323,6 +343,7 @@
 				00F3C256213058FE0030B7EC /* FetchedAlbum.swift */,
 				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
 				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,
+				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
 				00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */,
 				00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */,
 			);
@@ -369,6 +390,7 @@
 		00AFE4FA202AEF01005E2AA8 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
+				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 				005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */,
 				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */,
 				00C098E21FC1C089000B05FE /* StatusView.swift */,
@@ -487,6 +509,8 @@
 				00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */,
 				00730EE2214FEA5A001A6EA7 /* LaunchScreen.storyboard in Resources */,
 				00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */,
+				0023FC90233910D30046D9F8 /* Settings.storyboard in Resources */,
+				0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */,
 				00730EE4214FEA5A001A6EA7 /* Main.storyboard in Resources */,
 				00730EE5214FEA5A001A6EA7 /* Assets.xcassets in Resources */,
 			);
@@ -499,6 +523,8 @@
 				00AA2021213432B400084B08 /* Localizable.strings in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
+				0023FC8F23390D940046D9F8 /* Settings.storyboard in Resources */,
+				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
 				002F59901FBF3AC400910891 /* Main.storyboard in Resources */,
 				009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */,
 			);
@@ -546,6 +572,7 @@
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* PhotosRequests.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager+Requests.swift in Sources */,
+				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
 				00730EB8214FEA5A001A6EA7 /* ZoomTransitionController.swift in Sources */,
 				00730EB9214FEA5A001A6EA7 /* Coordinator.swift in Sources */,
 				00730EBA214FEA5A001A6EA7 /* PhotoLibraryAuthorizationController.swift in Sources */,
@@ -561,11 +588,13 @@
 				00730EC4214FEA5A001A6EA7 /* ZoomAnimatable.swift in Sources */,
 				00730EC5214FEA5A001A6EA7 /* AlbumsDataSource.swift in Sources */,
 				00730EC6214FEA5A001A6EA7 /* PlayerControlsView.swift in Sources */,
+				0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */,
 				00730EC7214FEA5A001A6EA7 /* PlayerTitleView.swift in Sources */,
 				00730EC8214FEA5A001A6EA7 /* TimeSlider.swift in Sources */,
 				00730EC9214FEA5A001A6EA7 /* CollectionViewGridLayout.swift in Sources */,
 				00730ECA214FEA5A001A6EA7 /* UICollectionView+PhotoLibraryChanges.swift in Sources */,
 				00730ECB214FEA5A001A6EA7 /* AlbumViewController.swift in Sources */,
+				0023FCA0233A17250046D9F8 /* ImageFormatViewController.swift in Sources */,
 				00730ECC214FEA5A001A6EA7 /* UIImage+Exif.swift in Sources */,
 				00730ECD214FEA5A001A6EA7 /* MappedFetchResult.swift in Sources */,
 				00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */,
@@ -610,10 +639,13 @@
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotosRequests.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager+Requests.swift in Sources */,
+				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
+				0023FC9F233A0E4C0046D9F8 /* ImageFormatViewController.swift in Sources */,
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */,
 				005E2AA7202773F800F731FA /* PhotoLibraryAuthorizationController.swift in Sources */,
 				00EA2C682142988F002E1266 /* StaticAlbum.swift in Sources */,
+				0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
@@ -671,6 +703,24 @@
 				00AA201A213426AD00084B08 /* de */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		0023FC8D23390D940046D9F8 /* Settings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0023FC8E23390D940046D9F8 /* Base */,
+				0023FC92233910DD0046D9F8 /* de */,
+			);
+			name = Settings.storyboard;
+			sourceTree = "<group>";
+		};
+		0023FC99233911B10046D9F8 /* Authorization.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0023FC98233911B10046D9F8 /* Base */,
+				0023FC9B233911BA0046D9F8 /* de */,
+			);
+			name = Authorization.storyboard;
 			sourceTree = "<group>";
 		};
 		00AA201C213432B400084B08 /* InfoPlist.strings */ = {

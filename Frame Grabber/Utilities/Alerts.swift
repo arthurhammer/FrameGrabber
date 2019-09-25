@@ -3,7 +3,7 @@ import UIKit
 extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.iCloud", value: "Couldn't load video from iCloud.", comment: "")
+        let title = NSLocalizedString("alert.videoLoad", value: "Couldn't load video.", comment: "")
         return with(title: title, okHandler: okHandler)
     }
 

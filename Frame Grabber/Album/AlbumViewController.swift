@@ -59,6 +59,8 @@ extension AlbumViewController {
         guard let cell = cell as? VideoCell else { return }
         cell.imageRequest = nil
     }
+
+    
 }
 
 // MARK: - Private
@@ -71,7 +73,7 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
 
         if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "ellipsis.circle")
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "gear")
         }
 
         updateAlbumData()

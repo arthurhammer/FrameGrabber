@@ -13,6 +13,14 @@ struct Style {
             }
         }
 
+        static var disabledLabel: UIColor {
+            if #available(iOS 13, *) {
+                return .systemGray
+            } else {
+                return .lightGray
+            }
+        }
+
         static let timeSlider = UIColor(white: 0.65, alpha: 1)
         static let disabledTimeSlider = Style.Color.timeSlider.withAlphaComponent(0.4)
 

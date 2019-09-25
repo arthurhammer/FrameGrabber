@@ -4,6 +4,7 @@ import Photos
 class VideoManager {
 
     let asset: PHAsset
+    let settings: UserDefaults = .standard
 
     private let imageManager: PHImageManager
     private(set) var imageRequest: ImageRequest?
@@ -55,9 +56,16 @@ class VideoManager {
 
     // MARK: Metadata Generation
 
+    /// Data with image format and compression level as specified in the receiver's settings.
     /// Adds metadata from the receiver's `PHAsset` (not from the actual video file).
-    func jpegData(byAddingAssetMetadataTo image: UIImage, compressionQuality: CGFloat) -> Data? {
-        let (_, metadata) = CGImageMetadata.for(creationDate: asset.creationDate, location: asset.location)
-        return image.jpegData(withMetadata: metadata, compressionQuality: compressionQuality)
+    func imageData(byAddingAssetMetadataTo image: UIImage) -> Data? {
+        let format = settings.imageFormat
+        let quality = settings.compressionQuality
+
+        let properties = settings.includeMetadata
+            ? CGImage.properties(for: asset.creationDate, location: asset.location)
+            : nil
+
+        return image.cgImage?.data(with: format, properties: properties, compressionQuality: quality)
     }
 }

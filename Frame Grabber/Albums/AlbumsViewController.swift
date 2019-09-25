@@ -49,7 +49,7 @@ class AlbumsViewController: UICollectionViewController {
 
     private func configureViews() {
         if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "ellipsis.circle")
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "gear")
         }
 
         clearsSelectionOnViewWillAppear = true

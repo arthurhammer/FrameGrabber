@@ -8,7 +8,7 @@
 "albums.userAlbumsHeader" = "Meine Alben";
 
 /* No comment provided by engineer. */
-"alert.iCloud" = "iCloud-Downloadfehler.";
+"alert.videoLoad" = "Video konnte nicht geladen werden.";
 
 /* No comment provided by engineer. */
 "alert.imageGeneration" = "Das Bild konnte nicht exportiert werden.";
@@ -29,17 +29,20 @@
 "authorization.deniedAction" = "Einstellungen Öffnen";
 
 /* Photo Library authorization denied message */
-"authorization.deniedMessage" = "Mit Frame Grabber kannst du Einzelbilder aus deinen Videos exportieren. Erlaube dafür den Zugriff auf deine Fotomediathek in den Einstellungen.";
+"authorization.deniedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos. Erlaube dafür den Zugriff auf deine Videos in den Einstellungen.";
 
 /* Photo Library authorization default action */
 "authorization.notDeterminedAction" = "Zugriff Erlauben";
 
 /* Photo Library authorization default message */
-"authorization.notDeterminedMessage" = "Mit Frame Grabber kannst Du Einzelbilder aus deinen Videos exportieren. Frame Grabber benötigt dafür Zugriff auf deine Fotomediathek.";
+"authorization.notDeterminedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos. Frame Grabber benötigt dafür Zugriff auf deine Videos.";
 
 /* Photo Library authorization title */
 "authorization.title" = "Frame Grabber 👋";
 
 /* Feedback email subject */
 "settings.emailSubject" = "Frame Grabber: Feedback";
+
+/* The HEIF image format is not support message. */
+"settings.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
 

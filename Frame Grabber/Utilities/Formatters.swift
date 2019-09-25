@@ -46,8 +46,14 @@ extension NumberFormatter {
         return formatter
     }
 
+    static func percentFormatter() -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        return formatter
+    }
+
     /// Includes units.
-    func string(from frameRate: Float) -> String? {
+    func string(fromFrameRate frameRate: Float) -> String? {
         guard let formattedFps = string(from: frameRate as NSNumber) else { return nil }
         let format = NSLocalizedString("numberFormatter.frameRate",  value: "%@ fps", comment: "Video frame rate with unit")
         return String.localizedStringWithFormat(format, formattedFps)

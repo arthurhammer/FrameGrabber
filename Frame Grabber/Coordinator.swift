@@ -1,6 +1,6 @@
 import UIKit
 
-class Coordinator {
+class Coordinator: NSObject {
 
     let rootNavigationController: UINavigationController
     let albumsViewController: AlbumsViewController
@@ -12,6 +12,10 @@ class Coordinator {
     init(window: UIWindow?) {
         self.rootNavigationController = window!.rootViewController as! UINavigationController
         self.albumsViewController = rootNavigationController.viewControllers.first as! AlbumsViewController
+
+        super.init()
+
+        configureInteractivePopGesture()
     }
 
     func start() {
@@ -33,12 +37,9 @@ class Coordinator {
     }
 
     private func showAuthorization(animated: Bool, completion: @escaping () -> ()) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let id = String(describing: PhotoLibraryAuthorizationController.self)
+        let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
 
-        guard let authorizationController = storyboard.instantiateViewController(withIdentifier: id) as? PhotoLibraryAuthorizationController else {
-            fatalError("Wrong controller id or type")
-        }
+        guard let authorizationController = storyboard.instantiateInitialViewController() as? PhotoLibraryAuthorizationController else { fatalError("Wrong controller type") }
 
         authorizationController.didAuthorizeHandler = { [weak self] in
             self?.rootNavigationController.dismiss(animated: true) 
@@ -71,5 +72,21 @@ class Coordinator {
     private func fetchInitialAlbum() -> FetchedAlbum? {
         let type = AlbumsDataSource.defaultSmartAlbumTypes.first ?? .smartAlbumVideos
         return FetchedAlbum.fetchSmartAlbums(with: [type], assetFetchOptions: .smartAlbumVideos()).first
+    }
+
+    private func configureInteractivePopGesture() {
+        // On custom navigation transitions (without nav bar), UIKit seems to disable the
+        // interactive pop gesture. Restore it by setting the delegate. But work around
+        // the fact that the recognizer is nil until a second controller has been pushed.
+        rootNavigationController.pushViewController(UIViewController(), animated: false)
+        rootNavigationController.popViewController(animated: false)
+        rootNavigationController.interactivePopGestureRecognizer?.delegate = self
+    }
+}
+
+extension Coordinator: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        !(rootNavigationController.topViewController is PlayerViewController)
     }
 }

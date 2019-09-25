@@ -2,6 +2,8 @@ import UIKit
 import Photos
 import SafariServices
 
+// TODO: Landscape
+
 class PhotoLibraryAuthorizationController: UIViewController {
 
     static var needsAuthorization: Bool {
@@ -11,6 +13,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
     var didAuthorizeHandler: (() -> ())?
 
     @IBOutlet private var statusView: StatusView!
+    @IBOutlet private var privacyButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,29 +31,34 @@ class PhotoLibraryAuthorizationController: UIViewController {
     }
 
     @IBAction private func showPrivacyPolicy() {
-        guard let url = SettingsViewController.privacyPolicyURL else { return }
+        guard let url = AboutViewController.privacyPolicyURL else { return }
         present(SFSafariViewController(url: url), animated: true)
     }
 
     private func updateViews() {
+        privacyButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        privacyButton.titleLabel?.minimumScaleFactor = 0.8
+        statusView.button.titleLabel?.adjustsFontForContentSizeCategory = true
+        statusView.button.titleLabel?.minimumScaleFactor = 0.8
+        
         statusView.message = message(for: PHPhotoLibrary.authorizationStatus())
     }
 
     private func message(for status: PHAuthorizationStatus) -> StatusView.Message? {
-        let title = NSLocalizedString("authorization.title", value: "Frame Grabber 👋", comment: "Photo Library authorization title")
+        let title = NSLocalizedString("authorization.title", value: "Frame Grabber 👋", comment: "Photo library authorization title")
 
         switch status {
 
         case .denied, .restricted:
             return .init(title: title,
-                         message: NSLocalizedString("authorization.deniedMessage", value: "Frame Grabber lets you export video frames as images. You can allow access to your Photo Library in Settings.", comment: "Photo Library authorization denied message"),
-                         action: NSLocalizedString("authorization.deniedAction", value: "Open Settings", comment: "Photo Library authorization denied action"))
+                         message: NSLocalizedString("authorization.deniedMessage", value: "Frame Grabber exports video frames as images. You can allow access to your videos in Settings.", comment: "Photo library authorization denied message"),
+                         action: NSLocalizedString("authorization.deniedAction", value: "Open Settings", comment: "Photo library authorization denied action"))
 
         // Mostly for `notDetermined` but also as fallback if we land in `authorized` state.
         default:
             return .init(title: title,
-                         message: NSLocalizedString("authorization.notDeterminedMessage", value: "Frame Grabber lets you export video frames as images. Get started by allowing access to your Photo Library.", comment: "Photo Library authorization default message"),
-                         action: NSLocalizedString("authorization.notDeterminedAction", value: "Allow Access", comment: "Photo Library authorization default action"))
+                         message: NSLocalizedString("authorization.notDeterminedMessage", value: "Frame Grabber exports video frames as images. Get started by allowing access to your videos.", comment: "Photo library authorization default message"),
+                         action: NSLocalizedString("authorization.notDeterminedAction", value: "Allow Access", comment: "Photo library authorization default action"))
         }
     }
 }
