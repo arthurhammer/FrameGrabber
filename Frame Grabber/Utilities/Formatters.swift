@@ -68,11 +68,3 @@ extension NumberFormatter {
         return String.localizedStringWithFormat(format, w, h)
     }
 }
-
-// MARK: - Util
-
-private extension CMTime {
-    var isValidVideoTime: Bool {
-        isValid && isNumeric && !isNegativeInfinity && !isPositiveInfinity && !isIndefinite
-    }
-}

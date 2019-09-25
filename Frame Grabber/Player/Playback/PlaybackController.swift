@@ -2,7 +2,7 @@ import AVKit
 
 protocol PlaybackControllerDelegate: PlayerObserverDelegate {}
 
-/// Manages looped playback for a single player item.
+/// Manages playback for a single player item.
 class PlaybackController {
 
     /// For now, the controller forwards player observer calls.
@@ -10,34 +10,16 @@ class PlaybackController {
         didSet { observer.delegate = delegate }
     }
 
-    var loops: Bool {
-        looper != nil
-    }
-
     let player: AVPlayer
     let seeker: PlayerSeeker
     private let observer: PlayerObserver
-    private let looper: AVPlayerLooper?
-    private let loopingMinimumDuration: Double = 0.8
 
-    init(playerItem: AVPlayerItem, player: AVQueuePlayer = .init()) {
+    init(playerItem: AVPlayerItem, player: AVPlayer = .init()) {
         self.player = player
+        self.player.replaceCurrentItem(with: playerItem)
+        self.player.actionAtItemEnd = .pause
         self.seeker = PlayerSeeker(player: player)
         self.observer = PlayerObserver(player: player)
-
-        let duration = playerItem.duration
-
-        // TODO: Currently assumes the item's status is `readyToPlay`. If it isn't, will
-        // loop independent of duration (as it's `indefinite` at that point).
-        if duration != .indefinite,
-            duration.seconds > loopingMinimumDuration {
-
-            self.looper = AVPlayerLooper(player: player, templateItem: playerItem)
-        } else {
-            self.looper = nil
-            self.player.replaceCurrentItem(with: playerItem)
-            self.player.actionAtItemEnd = .pause
-        }
     }
 
     // MARK: Status
@@ -99,8 +81,7 @@ class PlaybackController {
 
     private func seekToStartIfNecessary() {
         guard let item = currentItem,
-            !loops,
-            CMTimeCompare(item.currentTime(), item.duration) >= 0 else { return }
+           CMTimeCompare(item.currentTime(), item.duration) >= 0 else { return }
 
        seeker.cancelPendingSeeks()
        currentItem?.seek(to: .zero, completionHandler: nil)
