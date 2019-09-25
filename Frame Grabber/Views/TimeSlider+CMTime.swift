@@ -11,13 +11,15 @@ extension TimeSlider {
     var duration: CMTime {
         get { CMTime(seconds: Double(maximumValue)) }
         set {
+            let duration = newValue.validOrZero.seconds
             minimumValue = 0
-            maximumValue = Float(newValue.seconds)
+            maximumValue = Float(duration)
         }
     }
 
     /// Set `value` interpreted as `CMTime`.
     func setTime(_ time: CMTime, animated: Bool) {
-        setValue(Float(time.seconds), animated: animated)
+        let time = time.validOrZero.seconds
+        setValue(Float(time), animated: animated)
     }
 }
