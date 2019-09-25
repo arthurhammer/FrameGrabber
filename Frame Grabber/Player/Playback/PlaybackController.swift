@@ -10,16 +10,34 @@ class PlaybackController {
         didSet { observer.delegate = delegate }
     }
 
+    var loops: Bool {
+        looper != nil
+    }
+
     let player: AVPlayer
     let seeker: PlayerSeeker
-    private let looper: AVPlayerLooper
     private let observer: PlayerObserver
+    private let looper: AVPlayerLooper?
+    private let loopingMinimumDuration: Double = 0.8
 
     init(playerItem: AVPlayerItem, player: AVQueuePlayer = .init()) {
         self.player = player
-        self.looper = AVPlayerLooper(player: player, templateItem: playerItem)
         self.seeker = PlayerSeeker(player: player)
         self.observer = PlayerObserver(player: player)
+
+        let duration = playerItem.duration
+
+        // TODO: Currently assumes the item's status is `readyToPlay`. If it isn't, will
+        // loop independent of duration (as it's `indefinite` at that point).
+        if duration != .indefinite,
+            duration.seconds > loopingMinimumDuration {
+
+            self.looper = AVPlayerLooper(player: player, templateItem: playerItem)
+        } else {
+            self.looper = nil
+            self.player.replaceCurrentItem(with: playerItem)
+            self.player.actionAtItemEnd = .pause
+        }
     }
 
     // MARK: Status
@@ -64,6 +82,8 @@ class PlaybackController {
 
     func play() {
         guard !isPlaying else { return }
+
+        seekToStartIfNecessary()
         player.play()
     }
 
@@ -75,5 +95,14 @@ class PlaybackController {
     func step(byCount count: Int) {
         pause()
         currentItem?.step(byCount: count)
+    }
+
+    private func seekToStartIfNecessary() {
+        guard let item = currentItem,
+            !loops,
+            CMTimeCompare(item.currentTime(), item.duration) >= 0 else { return }
+
+       seeker.cancelPendingSeeks()
+       currentItem?.seek(to: .zero, completionHandler: nil)
     }
 }
