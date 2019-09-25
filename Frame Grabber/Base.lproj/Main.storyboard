@@ -119,7 +119,7 @@
                             <outlet property="prefetchDataSource" destination="z5r-QY-0zg" id="E2j-7q-Uz8"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="&lt;Album&gt;" largeTitleDisplayMode="never" id="T1c-VB-q52">
+                    <navigationItem key="navigationItem" title="&lt;Album&gt;" id="T1c-VB-q52">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="r6g-Iu-tPw">
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
