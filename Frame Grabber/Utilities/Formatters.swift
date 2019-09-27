@@ -64,7 +64,7 @@ extension NumberFormatter {
         guard let w = string(from: abs(width) as NSNumber),
             let h = string(from: abs(height) as NSNumber) else { return nil }
 
-        let format = NSLocalizedString("numberFormatter.videoDimensions", value: "%@ ✕ %@ px", comment: "Video pixel size with unit")
+        let format = NSLocalizedString("numberFormatter.videoDimensions", value: "%@ × %@ px", comment: "Video pixel size with unit")
         return String.localizedStringWithFormat(format, w, h)
     }
 }
