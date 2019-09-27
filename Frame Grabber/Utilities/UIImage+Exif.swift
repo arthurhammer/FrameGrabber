@@ -1,47 +1,6 @@
 import UIKit
 import CoreLocation
 
-import AVFoundation
-
-import AVFoundation
-import UIKit
-extension UIDevice {
-    func isHEIFSupported() -> Bool {
-        AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
-    }
-}
-
-
-// AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
-
-// - [ ] File HEVC as bug.
-//    - Do NOT support it. Effore more trouble than worth and will be obsolete soon.
-//    - wait for bug reports
-//    - other apps don't handle it either, even good ones!
-
-// - [ ] Fix settings localization
-// - [ ] Change iCloud alert label to something more generic so HEVC can be included
-// - [ ] Watch HEVC best practices WWDC videos
-// - [ ] Implement HEVC saving based on device capabilities
-
-// - [ ] ! Cells in settings consistent height
-
-// DYNAMIC TYPE; context actions, ship features!
-
-// DO NOT REFACTOR RIGHT NOW SHIP THIS FEATURE, refactor after. integrate into legacy code. straightforward
-
-// jo just make gray in settings, dont hide (or?)
-
-// Good idea?
-struct MetadataImage {
-    let image: UIImage
-    let properties: ImageProperties
-    let format: ImageFormat
-}
-
-
-
-
 extension CGImage {
 
     /// Returns a data representation of the receiver in the given format including the
@@ -51,7 +10,6 @@ extension CGImage {
         var properties = properties ?? ImageProperties()
         properties[kCGImageDestinationLossyCompressionQuality] = compressionQuality
         let data = NSMutableData()
-        print(properties)
 
         guard let destination = CGImageDestinationCreateWithData(data, format.rawValue as CFString, 1, nil) else { return nil }
 
