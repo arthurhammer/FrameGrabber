@@ -52,6 +52,11 @@ class PlaybackController {
         currentItem?.asset.tracks(withMediaType: .video).first?.nominalFrameRate
     }
 
+    /// This property can change during playback.
+    var dimensions: CGSize? {
+        currentItem?.asset.tracks(withMediaType: .video).first?.naturalSize
+    }
+
     // MARK: Playback
 
     func playOrPause() {

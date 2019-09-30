@@ -8,9 +8,6 @@
 "albums.userAlbumsHeader" = "Meine Alben";
 
 /* No comment provided by engineer. */
-"alert.videoLoad" = "Video konnte nicht geladen werden.";
-
-/* No comment provided by engineer. */
 "alert.imageGeneration" = "Das Bild konnte nicht exportiert werden.";
 
 /* E-mail address */
@@ -25,19 +22,22 @@
 /* No comment provided by engineer. */
 "alert.playback" = "Dieses Objekt kann nicht abgespielt werden.";
 
-/* Photo Library authorization denied action */
+/* No comment provided by engineer. */
+"alert.videoLoad" = "Video konnte nicht geladen werden.";
+
+/* Photo library authorization denied action */
 "authorization.deniedAction" = "Einstellungen Öffnen";
 
-/* Photo Library authorization denied message */
+/* Photo library authorization denied message */
 "authorization.deniedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos. Erlaube dafür den Zugriff auf deine Videos in den Einstellungen.";
 
-/* Photo Library authorization default action */
+/* Photo library authorization default action */
 "authorization.notDeterminedAction" = "Zugriff Erlauben";
 
-/* Photo Library authorization default message */
+/* Photo library authorization default message */
 "authorization.notDeterminedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos. Frame Grabber benötigt dafür Zugriff auf deine Videos.";
 
-/* Photo Library authorization title */
+/* Photo library authorization title */
 "authorization.title" = "Frame Grabber 👋";
 
 /* Feedback email subject */
@@ -45,4 +45,16 @@
 
 /* The HEIF image format is not support message. */
 "settings.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
+
+/* Image format settings compression quality section header */
+"settings.section.compressionQuality" = "Kompressionsqualität";
+
+/* Title of map item opened in Maps app. */
+"videoDetail.mapTitle" = "Dein Video";
+
+/* Video detail frame export settings section header */
+"videoDetail.section.settings" = "Bild";
+
+/* Video detail video metadata section header */
+"videoDetail.section.video" = "Video";
 

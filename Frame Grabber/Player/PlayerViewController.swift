@@ -67,6 +67,16 @@ class PlayerViewController: UIViewController {
         hideStatusBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? UINavigationController,
+            let controller = destination.topViewController as? VideoDetailViewController {
+
+            playbackController?.pause()
+            controller.photosAsset = videoManager.asset
+            controller.videoAsset = playbackController?.currentItem?.asset
+        }
+    }
 }
 
 // MARK: - Actions
@@ -116,21 +126,22 @@ private extension PlayerViewController {
 extension PlayerViewController: PlaybackControllerDelegate {
 
     func player(_ player: AVPlayer, didUpdateStatus status: AVPlayer.Status) {
-        guard status != .failed  else {
-            presentAlert(.playbackFailed { _ in self.done() })
-            return
-        }
-
+        guard status != .failed  else { return handlePlaybackError() }
         updatePlaybackStatus()
     }
 
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItem.Status) {
-        guard status != .failed else {
-            presentAlert(.playbackFailed { _ in self.done() })
-            return
-        }
-
+        guard status != .failed else { return handlePlaybackError() }
         updatePlaybackStatus()
+    }
+
+    private func handlePlaybackError() {
+        // Dismiss detail view if necessary, show alert, on "OK" dismiss.
+        dismiss(animated: true) {
+            self.presentAlert(.playbackFailed { _ in
+                self.done()
+            })
+        }
     }
 
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
@@ -240,11 +251,12 @@ private extension PlayerViewController {
     func updateDetailLabels() {
         let asset = videoManager.asset
         let fps = playbackController?.frameRate
+        let dimensions = playbackController?.dimensions ?? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
 
-        let dimensions = NumberFormatter().string(fromPixelWidth: asset.pixelWidth, height: asset.pixelHeight)
-        let frameRate = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
+        let formattedDimensions = NumberFormatter().string(fromPixelDimensions: dimensions)
+        let formattedFps = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
 
-        titleView.setDetailLabels(for: dimensions, frameRate: frameRate)
+        titleView.setDetailLabels(for: formattedDimensions, frameRate: formattedFps)
     }
 
     func updateTimeLabel(withTime time: CMTime) {

@@ -6,6 +6,7 @@ class PlayerControlsView: GradientView {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var closeButton: UIButton!
+    @IBOutlet var moreButton: UIButton!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!
@@ -25,6 +26,7 @@ class PlayerControlsView: GradientView {
         timeSlider.isEnabled = enabled
         timeLabel.isEnabled = enabled
         shareButton.isEnabled = enabled
+        moreButton.isEnabled = enabled
         playButton.isEnabled = enabled
         nextButton.isEnabled = enabled
         previousButton.isEnabled = enabled

@@ -73,7 +73,7 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
 
         if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "gear")
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "info.circle")
         }
 
         updateAlbumData()
