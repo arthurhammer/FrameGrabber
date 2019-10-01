@@ -1,4 +1,5 @@
 import AVKit
+import UIKit
 
 protocol PlaybackControllerDelegate: PlayerObserverDelegate {}
 
@@ -12,6 +13,8 @@ class PlaybackController {
 
     let player: AVPlayer
     let seeker: PlayerSeeker
+    let audioSession = AVAudioSession.sharedInstance()
+    let center = NotificationCenter.default
     private let observer: PlayerObserver
 
     init(playerItem: AVPlayerItem, player: AVPlayer = .init()) {
@@ -20,6 +23,8 @@ class PlaybackController {
         self.player.actionAtItemEnd = .pause
         self.seeker = PlayerSeeker(player: player)
         self.observer = PlayerObserver(player: player)
+
+        configureAudioSession()
     }
 
     // MARK: Status
@@ -90,5 +95,19 @@ class PlaybackController {
 
        seeker.cancelPendingSeeks()
        currentItem?.seek(to: .zero, completionHandler: nil)
+    }
+
+    // MARK: - Handling Audio Session
+
+    private func configureAudioSession() {
+        try? audioSession.setCategory(.ambient)
+        center.addObserver(self, selector: #selector(updateAudioSession), name: AVAudioSession.silenceSecondaryAudioHintNotification, object: audioSession)
+        center.addObserver(self, selector: #selector(updateAudioSession), name: UIApplication.willResignActiveNotification, object: nil)
+        center.addObserver(self, selector: #selector(updateAudioSession), name: UIApplication.didBecomeActiveNotification, object: nil)
+        updateAudioSession()
+    }
+
+    @objc private func updateAudioSession() {
+        player.isMuted = audioSession.secondaryAudioShouldBeSilencedHint
     }
 }
