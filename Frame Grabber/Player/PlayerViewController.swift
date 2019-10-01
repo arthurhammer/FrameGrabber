@@ -216,7 +216,12 @@ private extension PlayerViewController {
     }
 
     @objc func handleSwipeDown(sender: UIGestureRecognizer) {
-        guard sender.state == .ended else { return }
+        // Avoid dismissing when panning down Notification/Control Center.
+        let nonInteractiveTopSpacing: CGFloat = 40
+
+        guard sender.state == .ended,
+            sender.location(in: playerView).y >= nonInteractiveTopSpacing else { return }
+
         done()
     }
 
