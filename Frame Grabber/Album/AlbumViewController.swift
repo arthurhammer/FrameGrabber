@@ -58,8 +58,6 @@ extension AlbumViewController {
         guard let cell = cell as? VideoCell else { return }
         cell.imageRequest = nil
     }
-
-    
 }
 
 // MARK: - Private
@@ -70,6 +68,7 @@ private extension AlbumViewController {
         clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
+        collectionView?.collectionViewLayout.prepare()
 
         if #available(iOS 13, *) {
             navigationItem.rightBarButtonItem?.image = UIImage(systemName: "info.circle")
