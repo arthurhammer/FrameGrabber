@@ -12,7 +12,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     let storeURL = URL(string: "itms-apps://itunes.apple.com/app/id1434703541?ls=1&mt=8&action=write-review")
     let sourceCodeURL = URL(string: "https://github.com/arthurhammer/FrameGrabber")
 
-    let contactSubject = NSLocalizedString("settings.emailSubject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
+    let contactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
     let contactAddress = "hi@arthurhammer.de"
     lazy var contactMessage = """
                            \n\n

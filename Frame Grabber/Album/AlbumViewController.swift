@@ -15,7 +15,6 @@ class AlbumViewController: UICollectionViewController {
     @IBOutlet private var emptyView: UIView!
 
     private lazy var durationFormatter = VideoDurationFormatter()
-    private let cellId = String(describing: VideoCell.self)
 
     // MARK: Lifecycle
 
@@ -122,7 +121,7 @@ private extension AlbumViewController {
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
+        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: VideoCell.name, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
         configure(cell: cell, for: video)
         return cell
     }

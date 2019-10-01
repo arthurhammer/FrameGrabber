@@ -69,7 +69,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yXB-gs-kiv" secondAttribute="bottom" id="gVn-Qr-Kcd"/>
-                                                <constraint firstItem="yXB-gs-kiv" firstAttribute="leading" secondItem="RE9-nX-Hkm" secondAttribute="leadingMargin" id="lqu-d2-FeD"/>
+                                                <constraint firstItem="yXB-gs-kiv" firstAttribute="leading" secondItem="RE9-nX-Hkm" secondAttribute="leading" constant="20" id="lqu-d2-FeD"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yXB-gs-kiv" secondAttribute="trailing" id="seb-6P-Oql"/>
                                                 <constraint firstItem="yXB-gs-kiv" firstAttribute="top" secondItem="RE9-nX-Hkm" secondAttribute="topMargin" id="uJc-f3-8q2"/>
                                             </constraints>
@@ -311,7 +311,7 @@
             </objects>
             <point key="canvasLocation" x="2990" y="-1159"/>
         </scene>
-        <!--Format-->
+        <!--Image Format-->
         <scene sceneID="I8b-Xy-zBm">
             <objects>
                 <tableViewController id="fKK-CY-nBn" customClass="ImageFormatViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
@@ -429,7 +429,7 @@
                             <outlet property="delegate" destination="fKK-CY-nBn" id="y1s-S2-fV2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Format" id="wmB-Os-3eg">
+                    <navigationItem key="navigationItem" title="Image Format" id="wmB-Os-3eg">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="ZjI-8w-9bj">
                             <connections>
                                 <action selector="done" destination="fKK-CY-nBn" id="ha7-Ps-9nC"/>

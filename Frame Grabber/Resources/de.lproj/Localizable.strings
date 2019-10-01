@@ -41,20 +41,20 @@
 "authorization.title" = "Frame Grabber 👋";
 
 /* Feedback email subject */
-"settings.emailSubject" = "Frame Grabber: Feedback";
+"about.email.subject" = "Frame Grabber: Feedback";
 
 /* The HEIF image format is not support message. */
-"settings.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
+"more.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
 
 /* Image format settings compression quality section header */
-"settings.section.compressionQuality" = "Kompressionsqualität";
+"more.section.compressionQuality" = "Kompressionsqualität";
 
 /* Title of map item opened in Maps app. */
-"videoDetail.mapTitle" = "Dein Video";
+"more.mapTitle" = "Dein Video";
 
 /* Video detail frame export settings section header */
-"videoDetail.section.settings" = "Bild";
+"more.section.options" = "Bildoptionen";
 
 /* Video detail video metadata section header */
-"videoDetail.section.video" = "Video";
+"more.section.video" = "Video";
 

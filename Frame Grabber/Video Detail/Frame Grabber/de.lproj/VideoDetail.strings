@@ -34,8 +34,8 @@
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "QKS-Vc-EVl"; */
 "QKS-Vc-EVl.text" = "<Detail>";
 
-/* Class = "UINavigationItem"; title = "Format"; ObjectID = "wmB-Os-3eg"; */
-"wmB-Os-3eg.title" = "Format";
+/* Class = "UINavigationItem"; title = "Image Format"; ObjectID = "wmB-Os-3eg"; */
+"wmB-Os-3eg.title" = "Bildformat";
 
 /* Class = "UILabel"; text = "HEIF"; ObjectID = "Wrh-C2-4X7"; */
 "Wrh-C2-4X7.text" = "HEIF";

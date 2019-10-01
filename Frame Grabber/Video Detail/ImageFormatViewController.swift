@@ -61,7 +61,7 @@ class ImageFormatViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard section == 0 else { return nil }
-        let message = NSLocalizedString("settings.format.noheif", value: "The HEIF format is not available on this device.", comment: "The HEIF image format is not support message.")
+        let message = NSLocalizedString("more.format.noheif", value: "The HEIF format is not available on this device.", comment: "The HEIF image format is not support message.")
         return UserDefaults.isHeifSupported ? nil : message
     }
 
@@ -98,7 +98,7 @@ extension ImageFormatViewController.Section {
     var title: String? {
         switch self {
         case .format: return nil
-        case .compressionQuality: return NSLocalizedString("settings.section.compressionQuality", value: "Compression Quality", comment: "Image format settings compression quality section header")
+        case .compressionQuality: return NSLocalizedString("more.section.compressionQuality", value: "Compression Quality", comment: "Image format settings compression quality section header")
         }
     }
 }

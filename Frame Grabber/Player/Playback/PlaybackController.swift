@@ -93,8 +93,8 @@ class PlaybackController {
         guard let item = currentItem,
            CMTimeCompare(item.currentTime(), item.duration) >= 0 else { return }
 
-       seeker.cancelPendingSeeks()
-       currentItem?.seek(to: .zero, completionHandler: nil)
+        seeker.cancelPendingSeeks()
+        seeker.smoothlySeek(to: .zero)
     }
 
     // MARK: - Handling Audio Session

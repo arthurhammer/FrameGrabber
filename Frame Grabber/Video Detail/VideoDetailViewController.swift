@@ -6,7 +6,7 @@ import MapKit
 class VideoDetailViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
-        case settings
+        case options
         case video
         case location
     }
@@ -56,7 +56,7 @@ class VideoDetailViewController: UITableViewController {
     func openLocationInMaps() {
         guard let location = photosAsset?.location else { return }
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
-        item.name = NSLocalizedString("videoDetail.mapTitle", value: "Your Video", comment: "Title of map item opened in Maps app.")
+        item.name = NSLocalizedString("more.mapTitle", value: "Your Video", comment: "Title of map item opened in Maps app.")
         item.openInMaps(launchOptions: nil)
     }
 
@@ -85,6 +85,12 @@ class VideoDetailViewController: UITableViewController {
 
     private func configureViews() {
         tableView.register(VideoDetailSectionHeader.nib, forHeaderFooterViewReuseIdentifier: VideoDetailSectionHeader.name)
+
+        if #available(iOS 13, *) {
+            tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+            tableView.backgroundColor = .clear
+        }
+
         updateViews()
     }
 
@@ -108,7 +114,7 @@ class VideoDetailViewController: UITableViewController {
     private func updateAssetMetadata() {
         let video = videoAsset?.tracks(withMediaType: .video).first
         let frameRate = video?.nominalFrameRate
-        let dimensions = video?.naturalSize ?? photosAsset.flatMap { CGSize(width: $0.pixelWidth, height: $0.pixelHeight) }
+        let dimensions = video?.naturalSize ?? photosAsset?.dimensions
         let date = photosAsset?.creationDate
 
         let frameRateFormatter = NumberFormatter.frameRateFormatter()
@@ -156,8 +162,8 @@ class VideoDetailViewController: UITableViewController {
 extension VideoDetailViewController.Section {
     var title: String? {
         switch self {
-        case .settings: return NSLocalizedString("videoDetail.section.settings", value: "Frame Settings", comment: "Video detail frame export settings section header")
-        case .video: return NSLocalizedString("videoDetail.section.video", value: "Video", comment: "Video detail video metadata section header")
+        case .options: return NSLocalizedString("more.section.options", value: "Frame Options", comment: "Video detail frame export settings section header")
+        case .video: return NSLocalizedString("more.section.video", value: "Video", comment: "Video detail video metadata section header")
         case .location: return nil
         }
     }

@@ -54,8 +54,7 @@ class Coordinator: NSObject {
     }
 
     private func pushAlbumViewController(animated: Bool) {
-        let id = String(describing: AlbumViewController.self)
-        guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: id) as? AlbumViewController else {
+        guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else {
             fatalError("Wrong controller id or type")
         }
         albumViewController.navigationItem.largeTitleDisplayMode = .always

@@ -256,7 +256,7 @@ private extension PlayerViewController {
     func updateDetailLabels() {
         let asset = videoManager.asset
         let fps = playbackController?.frameRate
-        let dimensions = playbackController?.dimensions ?? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+        let dimensions = playbackController?.dimensions ?? asset.dimensions
 
         let formattedDimensions = NumberFormatter().string(fromPixelDimensions: dimensions)
         let formattedFps = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
@@ -377,7 +377,7 @@ extension PlayerViewController: ZoomAnimatable {
     /// The aspect fitted size the preview image occupies in the image view.
     private var loadingImageFrame: CGRect {
         let imageSize = loadingView.imageView.image?.size
-            ?? CGSize(width: videoManager.asset.pixelWidth, height: videoManager.asset.pixelHeight)
+            ?? videoManager.asset.dimensions
 
         return AVMakeRect(aspectRatio: imageSize, insideRect: loadingView.imageView.frame)
     }

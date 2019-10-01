@@ -203,13 +203,13 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-p1-yCF" customClass="PlayerTitleView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="119.66666666666667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="121.66666666666667"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="s2R-n2-oXm">
-                                        <rect key="frame" x="12" y="56" width="351" height="39.666666666666657"/>
+                                        <rect key="frame" x="12" y="56" width="351" height="41.666666666666657"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-zo-9Pk">
-                                                <rect key="frame" x="0.0" y="0.0" width="351" height="39.666666666666664"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-zo-9Pk">
+                                                <rect key="frame" x="0.0" y="0.0" width="351" height="41.666666666666664"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a Frame" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP2-FO-hcM">
                                                         <rect key="frame" x="0.0" y="0.0" width="119.33333333333333" height="24"/>
@@ -218,7 +218,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ydS-rV-dbF">
-                                                        <rect key="frame" x="0.0" y="24" width="194.66666666666666" height="15.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="26.000000000000004" width="194.66666666666666" height="15.666666666666668"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Dimensions&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgm-2j-cZo">
                                                                 <rect key="frame" x="0.0" y="0.0" width="91" height="15.666666666666666"/>
@@ -317,7 +317,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18" scale="large" weight="black"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="T9q-3e-n8f" kind="presentation" id="7lL-uI-IY2"/>
+                                                            <segue destination="T9q-3e-n8f" kind="presentation" id="mbN-mK-rwG"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
@@ -378,7 +378,7 @@
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="fRQ-p1-yCF" firstAttribute="top" secondItem="mzG-VC-6dc" secondAttribute="top" id="0qg-cd-zmP"/>
@@ -572,6 +572,6 @@
         <image name="settings" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iPV-yR-eo7"/>
+        <segue reference="yrf-sk-izP"/>
     </inferredMetricsTieBreakers>
 </document>

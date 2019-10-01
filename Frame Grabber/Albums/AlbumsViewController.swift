@@ -8,9 +8,6 @@ class AlbumsViewController: UICollectionViewController {
 
     private var collectionViewDataSource: AlbumsCollectionViewDataSource?
     private lazy var albumCountFormatter = NumberFormatter()
-
-    private let cellId = String(describing: AlbumCell.self)
-    private let headerId = String(describing: AlbumHeader.self)
     private let headerHeight: CGFloat = 50
 
     override func viewDidLoad() {
@@ -97,7 +94,7 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type.") }
+        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: AlbumCell.name, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type.") }
         configure(cell: cell, for: album)
         return cell
     }
@@ -140,7 +137,7 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.name, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
         header.titleLabel.text = collectionViewDataSource?.sections[indexPath.section].title
         return header
     }
