@@ -48,6 +48,28 @@ class AlbumViewController: UICollectionViewController {
             destination.videoManager = VideoManager(asset: selectedAsset)
         }
     }
+
+    @available(iOS 13.0, *)
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let video = dataSource?.video(at: indexPath) else { return nil }
+
+        return .menu(for: video, toggleFavoriteAction: { [weak self] _ in
+            self?.dataSource?.toggleFavorite(for: video)
+        }, deleteAction: { [weak self] _ in
+            self?.dataSource?.delete(video)
+        })
+    }
+
+    @available(iOS 13.0, *)
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        guard let video = configuration.identifier as? PHAsset,
+            let indexPath = dataSource?.indexPath(of: video) else { return }
+
+        animator.addAnimations {
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.performSegue(withIdentifier: PlayerViewController.name, sender: nil)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate

@@ -53,6 +53,23 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         imageManager.requestImage(for: video, config: imageConfig, resultHandler: resultHandler)
     }
 
+    func indexPath(of video: PHAsset) -> IndexPath? {
+        guard let index = album?.fetchResult.index(of: video) else { return nil }
+        return IndexPath(item: index, section: 0)
+    }
+
+    func toggleFavorite(for video: PHAsset) {
+        photoLibrary.performChanges({
+            PHAssetChangeRequest(for: video).isFavorite = !video.isFavorite
+        }, completionHandler: nil)
+    }
+
+    func delete(_ video: PHAsset) {
+        photoLibrary.performChanges({
+            PHAssetChangeRequest.deleteAssets([video] as NSArray)
+        }, completionHandler: nil)
+    }
+
     private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
         guard let fetchResult = album?.fetchResult else { return [] }
         let indexes = IndexSet(indexPaths.map { $0.item })

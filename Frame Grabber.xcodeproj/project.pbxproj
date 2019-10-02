@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00024F6D23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
 		00024F6E23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
+		00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
+		00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
 		0015537F2129C8CF00F58CEE /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
 		001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */; };
 		00229DB8212D978A00848CE8 /* FetchedAlbum+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */; };
@@ -159,6 +161,7 @@
 
 /* Begin PBXFileReference section */
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
+		00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumContextMenuActions.swift; sourceTree = "<group>"; };
 		0015537E2129C8CF00F58CEE /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		001A6C4B20600E1A00B91F3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerLoadingView.swift; sourceTree = "<group>"; };
@@ -338,6 +341,7 @@
 				001AA1991FB498C700A00BB9 /* AlbumViewController.swift */,
 				00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */,
 				0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */,
+				00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 				005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */,
 			);
@@ -608,6 +612,7 @@
 				00730EA8214FEA5A001A6EA7 /* ZoomAnimator.swift in Sources */,
 				00730EA9214FEA5A001A6EA7 /* FetchedAlbum+Fetch.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
+				00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
 				00730EAB214FEA5A001A6EA7 /* StatusView.swift in Sources */,
 				00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumHeader.swift in Sources */,
@@ -680,6 +685,7 @@
 				00653B43213941A20038CB56 /* ZoomAnimator.swift in Sources */,
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
+				00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
 				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
 				00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */,
