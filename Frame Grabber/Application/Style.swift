@@ -21,6 +21,14 @@ struct Style {
             }
         }
 
+        static var progressViewAccent: UIColor {
+            if #available(iOS 13, *) {
+                return .label
+            } else {
+                return .black
+            }
+        }
+
         static let timeSlider = UIColor(white: 0.65, alpha: 1)
         static let disabledTimeSlider = Style.Color.timeSlider.withAlphaComponent(0.4)
 

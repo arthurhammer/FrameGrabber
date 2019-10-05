@@ -1,4 +1,4 @@
-import AVKit
+import AVFoundation
 
 extension AVPlayerItem.Status: CustomDebugStringConvertible {
     public var debugDescription: String {

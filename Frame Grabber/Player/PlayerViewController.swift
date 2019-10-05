@@ -6,8 +6,9 @@ class PlayerViewController: UIViewController {
     var videoManager: VideoManager!
     var settings = UserDefaults.standard
 
+    private var selectedFramesController: SelectedFramesViewController?
     private var playbackController: PlaybackController?
-
+    private var frameExporter: FrameExporter?
     private lazy var timeFormatter = VideoTimeFormatter()
 
     @IBOutlet private var backgroundView: BlurredImageView!
@@ -20,10 +21,6 @@ class PlayerViewController: UIViewController {
 
     private var isScrubbing: Bool {
         controlsView.timeSlider.isInteracting
-    }
-
-    private var isSeeking: Bool {
-        playbackController?.isSeeking ?? false
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -74,7 +71,11 @@ class PlayerViewController: UIViewController {
 
             playbackController?.pause()
             controller.photosAsset = videoManager.asset
-            controller.videoAsset = playbackController?.currentItem?.asset
+            controller.videoAsset = playbackController?.video
+        } else if let destination = segue.destination as? SelectedFramesViewController {
+            selectedFramesController = destination
+            selectedFramesController?.delegate = self
+            selectedFramesController?.dataSource = (playbackController?.video).flatMap(SelectedFramesDataSource.init)
         }
     }
 }
@@ -94,30 +95,54 @@ private extension PlayerViewController {
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
         playbackController?.playOrPause()
+        selectedFramesController?.clearSelection()
     }
 
     func stepBackward() {
         guard !isScrubbing else { return }
         playbackController?.step(byCount: -1)
+        selectedFramesController?.clearSelection()
     }
 
     func stepForward() {
         guard !isScrubbing else { return }
         playbackController?.step(byCount: 1)
+        selectedFramesController?.clearSelection()
     }
 
-    @IBAction func shareCurrentFrame() {
-        guard !isScrubbing, let item = playbackController?.currentItem else { return }
+    @IBAction func addFrame() {
+        guard !isScrubbing,
+            // When the user spams the add button, older devices can run out of memory as
+            // images are being requested more quickly than being generated. Limit to one.
+            selectedFramesController?.isGeneratingFrames == false,
+            let time = playbackController?.currentTime else { return }
 
-        playbackController?.pause()
-        generateCurrentFrameAndShare(for: item)
+        selectedFramesController?.insertFrame(for: time) { [weak self] result in
+            guard self?.playbackController?.isPlaying == false else { return }
+            self?.selectedFramesController?.selectFrame(at: result.index)
+            self?.playbackController?.directlySeek(to: result.frame.definingTime)
+        }
+    }
+
+    @IBAction func shareFrames() {
+        guard !isScrubbing,
+            let playbackController = playbackController,
+            let video = playbackController.video else { return }
+
+        playbackController.pause()
+
+        if let times = selectedFramesController?.frames,
+            !times.isEmpty {
+
+            generateFramesAndShare(for: video, at: times)
+        } else {
+            generateFramesAndShare(for: video, at: [playbackController.currentTime])
+        }
     }
 
     @IBAction func scrub(_ sender: TimeSlider) {
-        playbackController?.seeker.smoothlySeek(to: sender.time)
-        // When scrubbing, display slider time instead of player time.
-        updateSlider(withTime: sender.time)
-        updateTimeLabel(withTime: sender.time)
+        playbackController?.smoothlySeek(to: sender.time)
+        selectedFramesController?.clearSelection()
     }
 }
 
@@ -254,9 +279,8 @@ private extension PlayerViewController {
     }
 
     func updateDetailLabels() {
-        let asset = videoManager.asset
-        let fps = playbackController?.frameRate
-        let dimensions = playbackController?.dimensions ?? asset.dimensions
+        let fps = playbackController?.video?.frameRate
+        let dimensions = playbackController?.video?.dimensions ?? videoManager.asset.dimensions
 
         let formattedDimensions = NumberFormatter().string(fromPixelDimensions: dimensions)
         let formattedFps = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
@@ -271,7 +295,7 @@ private extension PlayerViewController {
     }
 
     func updateSlider(withTime time: CMTime) {
-        guard !isScrubbing && !isSeeking else { return }
+        guard !isScrubbing else { return }
         controlsView.timeSlider.time = time
     }
 
@@ -312,6 +336,8 @@ private extension PlayerViewController {
     }
 
     func configurePlayer(with playerItem: AVPlayerItem) {
+        selectedFramesController?.dataSource = SelectedFramesDataSource(video: playerItem.asset)
+
         playbackController = PlaybackController(playerItem: playerItem)
         playbackController?.delegate = self
         playerView.player = playbackController?.player
@@ -321,21 +347,66 @@ private extension PlayerViewController {
 
     // MARK: Image Generation
 
-    func generateCurrentFrameAndShare(for item: AVPlayerItem) {
-        guard let image = videoManager.currentFrame(for: item) else {
+    // TODO: Coordinate alerts: playback can fail while metadata view or export is showing.
+    // TODO: Extract export UI task as class (presents, glue code, manages state, cleans up, ...)
+    func generateFramesAndShare(for video: AVAsset, at times: [CMTime]) {
+        guard frameExporter == nil else { return }
+
+        // TODO: Move into VideoManager
+        let metadata = settings.includeMetadata ? CGImage.metadata(for: videoManager.asset.creationDate, location: videoManager.asset.location) : nil
+        let encoding = ImageEncoding(format: settings.imageFormat, compressionQuality: settings.compressionQuality, metadata: metadata)
+        let request = FrameExporter.Request(times: times, encoding: encoding, directory: nil)
+
+        let progressController = ProgressViewController.instantiateFromStoryboard()
+        frameExporter = FrameExporter(video: video)
+
+        let progress = frameExporter?.generateAndExportFrames(with: request) { [weak self] result in
+            // Delay for usability.
+            // TODO: put delay somewhere else
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                progressController.dismiss(animated: false) {
+                    self?.handleFrameGenerationResult(result)
+                }
+            }
+        }
+
+        progressController.progress = progress
+        present(progressController, animated: true)
+    }
+
+    func handleFrameGenerationResult(_ result: FrameExporter.Result) {
+        let completeFrameExport = { [weak self] in
+            self?.frameExporter?.deleteFrames(for: result)
+            self?.frameExporter = nil
+        }
+
+        guard !result.anyCancelled else {
+            completeFrameExport()
+            return
+        }
+
+        guard !result.anyFailed else {
+            completeFrameExport()
             presentAlert(.imageGenerationFailed())
             return
         }
 
-        shareImage(image)
-    }
+        let shareController = UIActivityViewController(activityItems: result.urls, applicationActivities: nil)
 
-    func shareImage(_ image: UIImage) {
-        // If encoding fails, share plain image without metadata.
-        let item: Any = videoManager.imageData(byAddingAssetMetadataTo: image) ?? image
+        shareController.completionWithItemsHandler = { _, _, _, _ in
+           completeFrameExport()
+        }
 
-        let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         present(shareController, animated: true)
+    }
+}
+
+// MARK: - SelectedFramesViewControllerDelegate
+
+extension PlayerViewController: SelectedFramesViewControllerDelegate {
+
+    func controller(_ controller: SelectedFramesViewController, didSelectFrameAt time: CMTime) {
+        playbackController?.directlySeek(to: time)
     }
 }
 

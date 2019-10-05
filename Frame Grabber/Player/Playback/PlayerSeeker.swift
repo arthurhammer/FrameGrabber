@@ -42,7 +42,7 @@ class PlayerSeeker {
     /// are started when invoked in succession (such as from a `UISlider`). When the
     /// current seek finishes, the latest of the enqueued ones is started.
     ///
-    /// To start a seek immediately cancel pending seeks explicitly prior to calling this.
+    /// To start a seek immediately, use `directlySeek`.
     ///
     /// - Note: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html)
     func smoothlySeek(to time: CMTime, toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
@@ -61,6 +61,14 @@ class PlayerSeeker {
             }
             startNextSeek()
         }
+    }
+
+    func directlySeek(to time: CMTime, toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
+        cancelPendingSeeks()
+        if player.rate > 0 {
+            player.pause()
+        }
+        player.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
     }
 
     private func startNextSeek() {

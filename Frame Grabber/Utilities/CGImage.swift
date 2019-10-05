@@ -1,33 +1,35 @@
-import UIKit
+import ImageIO
 import CoreLocation
 
 extension CGImage {
 
+    typealias Metadata = [CFString: Any]
+
     /// Returns a data representation of the receiver in the given format including the
     /// given image properties. Returns nil if creating the data fails, e.g. if the given
     /// format is not supported on the device (such as HEIC on iPhone 6S and lower).
-    func data(with format: ImageFormat, properties: ImageProperties?, compressionQuality: Double) -> Data? {
-        var properties = properties ?? ImageProperties()
-        properties[kCGImageDestinationLossyCompressionQuality] = compressionQuality
+    func data(with encoding: ImageEncoding) -> Data? {
         let data = NSMutableData()
+        let uti = encoding.format.uti as CFString
+        var properties = encoding.metadata ?? Metadata()
+        properties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
 
-        guard let destination = CGImageDestinationCreateWithData(data, format.rawValue as CFString, 1, nil) else { return nil }
+        guard let destination = CGImageDestinationCreateWithData(data, uti, 1, nil) else { return nil }
 
         CGImageDestinationAddImage(destination, self, properties as CFDictionary)
-        let ok = CGImageDestinationFinalize(destination)
 
-        return ok ? (data as Data) : nil
+        guard CGImageDestinationFinalize(destination) else { return nil }
+
+        return data as Data
     }
 }
 
 // MARK: - Creating Metadata
 
-typealias ImageProperties = [CFString: Any]
-
 extension CGImage {
 
-    static func properties(for creationDate: Date?, location: CLLocation?) -> ImageProperties {
-        var properties = ImageProperties()
+    static func metadata(for creationDate: Date?, location: CLLocation?) -> Metadata {
+        var properties = Metadata()
 
         if let date = creationDate {
             properties[kCGImagePropertyExifDictionary] = exifDictionary(for: date)
@@ -41,17 +43,17 @@ extension CGImage {
         return properties
     }
 
-    static func exifDictionary(for creationDate: Date) -> ImageProperties {
+    static func exifDictionary(for creationDate: Date) -> Metadata {
         let exifDateString = DateFormatter.exifDateTimeFormatter().string(from: creationDate)
         return [kCGImagePropertyExifDateTimeOriginal: exifDateString as CFString]
     }
 
-    static func tiffDictionary(for creationDate: Date) -> ImageProperties {
+    static func tiffDictionary(for creationDate: Date) -> Metadata {
         let exifDateString = DateFormatter.exifDateTimeFormatter().string(from: creationDate)
         return [kCGImagePropertyTIFFDateTime: exifDateString as CFString]
     }
 
-    static func gpsDictionary(for location: CLLocation) -> ImageProperties {
+    static func gpsDictionary(for location: CLLocation) -> Metadata {
         let gpsDateString = DateFormatter.GPSTimeStampFormatter().string(from: location.timestamp)
         let coordinate = location.coordinate
 

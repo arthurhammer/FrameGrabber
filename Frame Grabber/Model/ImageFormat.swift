@@ -1,15 +1,22 @@
-enum ImageFormat: String {
-    case heif = "public.heic"  // Note: public.heic not heif
-    case jpg = "public.jpeg"
+enum ImageFormat: String, Hashable, Codable {
+    case heif
+    case jpg
 }
 
-extension ImageFormat: Equatable, Codable { }
-
 extension ImageFormat {
-    var displayString: String {
+
+    var uti: String {
         switch self {
-        case .heif: return "HEIF"
-        case .jpg: return "JPG"
+        case .heif: return "public.heic" // Note: heic, not heif!
+        case .jpg: return "public.jpeg"
         }
+    }
+
+    var fileExtension: String {
+        rawValue
+    }
+
+    var displayString: String {
+        rawValue.uppercased()
     }
 }

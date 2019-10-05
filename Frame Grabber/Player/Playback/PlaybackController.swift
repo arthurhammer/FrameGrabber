@@ -1,4 +1,4 @@
-import AVKit
+import AVFoundation
 import UIKit
 
 protocol PlaybackControllerDelegate: PlayerObserverDelegate {}
@@ -12,17 +12,19 @@ class PlaybackController {
     }
 
     let player: AVPlayer
-    let seeker: PlayerSeeker
-    let audioSession = AVAudioSession.sharedInstance()
-    let center = NotificationCenter.default
-    private let observer: PlayerObserver
 
-    init(playerItem: AVPlayerItem, player: AVPlayer = .init()) {
+    private lazy var seeker = PlayerSeeker(player: player)
+    private let observer: PlayerObserver
+    private let audioSession: AVAudioSession
+    private let center: NotificationCenter
+
+    init(playerItem: AVPlayerItem, player: AVPlayer = .init(), audioSession: AVAudioSession = .sharedInstance(), center: NotificationCenter = .default) {
         self.player = player
         self.player.replaceCurrentItem(with: playerItem)
         self.player.actionAtItemEnd = .pause
-        self.seeker = PlayerSeeker(player: player)
         self.observer = PlayerObserver(player: player)
+        self.audioSession = audioSession
+        self.center = center
 
         configureAudioSession()
     }
@@ -52,14 +54,8 @@ class PlaybackController {
         player.currentItem
     }
 
-    /// This property can change during playback.
-    var frameRate: Float? {
-        currentItem?.asset.tracks(withMediaType: .video).first?.nominalFrameRate
-    }
-
-    /// This property can change during playback.
-    var dimensions: CGSize? {
-        currentItem?.asset.tracks(withMediaType: .video).first?.naturalSize
+    var video: AVAsset? {
+        currentItem?.asset
     }
 
     // MARK: Playback
@@ -89,12 +85,21 @@ class PlaybackController {
         currentItem?.step(byCount: count)
     }
 
+    // MARK: - Seeking
+
+    func smoothlySeek(to time: CMTime) {
+        seeker.smoothlySeek(to: time)
+    }
+
+    func directlySeek(to time: CMTime) {
+        seeker.directlySeek(to: time)
+    }
+
     private func seekToStartIfNecessary() {
         guard let item = currentItem,
-           CMTimeCompare(item.currentTime(), item.duration) >= 0 else { return }
+           item.currentTime() >= item.duration else { return }
 
-        seeker.cancelPendingSeeks()
-        seeker.smoothlySeek(to: .zero)
+        directlySeek(to: .zero)
     }
 
     // MARK: - Handling Audio Session
