@@ -3,16 +3,16 @@ import UIKit
 class CollectionViewGridLayout: UICollectionViewFlowLayout {
 
     let preferredItemSize: CGFloat
+    let preferredSpacing: CGFloat
     let minimumItemsPerRow: Int
 
-    init(preferredItemSize: CGFloat = 100, minimumItemsPerRow: Int = 3, itemSpacing: CGFloat = 1) {
+    init(preferredItemSize: CGFloat = 120, minimumItemsPerRow: Int = 3, preferredSpacing: CGFloat = 1) {
         self.preferredItemSize = preferredItemSize
+        self.preferredSpacing = preferredSpacing
         self.minimumItemsPerRow = minimumItemsPerRow
 
         super.init()
 
-        self.minimumLineSpacing = itemSpacing
-        self.minimumInteritemSpacing = itemSpacing
         self.sectionInsetReference = .fromSafeArea
     }
 
@@ -30,12 +30,15 @@ class CollectionViewGridLayout: UICollectionViewFlowLayout {
         let width = boundingSize.width
 
         let itemsPerRow = max(floor(width / preferredItemSize), CGFloat(minimumItemsPerRow))
-        let itemWidth = floor((width - (itemsPerRow - 1) * minimumInteritemSpacing) / itemsPerRow)
+        let itemWidth = floor((width - (itemsPerRow - 1) * preferredSpacing) / itemsPerRow)
 
         let newSize = CGSize(width: max(0, itemWidth), height: max(0, itemWidth))
+        let newSpacing = (width - (itemsPerRow) * itemWidth) / (itemsPerRow - 1)
 
         if newSize != itemSize {
             itemSize = newSize
+            minimumLineSpacing = newSpacing
+            minimumInteritemSpacing = newSpacing
         }
     }
 }
