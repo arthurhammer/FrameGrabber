@@ -54,10 +54,6 @@ class PlaybackController {
         player.currentItem
     }
 
-    var video: AVAsset? {
-        currentItem?.asset
-    }
-
     // MARK: Playback
 
     func playOrPause() {

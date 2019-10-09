@@ -3,12 +3,10 @@ import AVKit
 
 class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
 
-    var videoManager: VideoManager!
-    var settings = UserDefaults.standard
+    var videoController: VideoController!
 
     private var selectedFramesController: SelectedFramesViewController?
     private var playbackController: PlaybackController?
-    private var frameExporter: FrameExporter?
     private lazy var timeFormatter = VideoTimeFormatter()
 
     @IBOutlet private var backgroundView: BlurredImageView!
@@ -47,12 +45,12 @@ class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
             let controller = destination.topViewController as? VideoDetailViewController {
 
             playbackController?.pause()
-            controller.photosAsset = videoManager.asset
-            controller.videoAsset = playbackController?.video
+            controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
+
         } else if let destination = segue.destination as? SelectedFramesViewController {
             selectedFramesController = destination
             selectedFramesController?.delegate = self
-            selectedFramesController?.dataSource = (playbackController?.video).flatMap(SelectedFramesDataSource.init)
+            selectedFramesController?.dataSource = videoController.video.flatMap(SelectedFramesDataSource.init)
         }
     }
 }
@@ -62,7 +60,7 @@ class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
 private extension PlayerViewController {
 
     @IBAction func done() {
-        videoManager.cancelAllRequests()
+        videoController.cancelAllRequests()
         playbackController?.pause()
 
         // TODO: A delegate/the coordinator should handle this.
@@ -102,18 +100,16 @@ private extension PlayerViewController {
     }
 
     @IBAction func shareFrames() {
-        guard !isScrubbing,
-            let playbackController = playbackController,
-            let video = playbackController.video else { return }
+        guard !isScrubbing else { return }
 
-        playbackController.pause()
+        playbackController?.pause()
 
         if let times = selectedFramesController?.frames,
             !times.isEmpty {
 
-            generateFramesAndShare(for: video, at: times)
-        } else {
-            generateFramesAndShare(for: video, at: [playbackController.currentTime])
+            generateFramesAndShare(for: times)
+        } else if let playbackController = playbackController {
+            generateFramesAndShare(for: [playbackController.currentTime])
         }
     }
 
@@ -256,10 +252,8 @@ private extension PlayerViewController {
     }
 
     func updateDetailLabels() {
-        let fps = playbackController?.video?.frameRate
-        let dimensions = playbackController?.video?.dimensions ?? videoManager.asset.dimensions
-
-        let formattedDimensions = NumberFormatter().string(fromPixelDimensions: dimensions)
+        let fps = videoController?.video?.frameRate
+        let formattedDimensions = NumberFormatter().string(fromPixelDimensions: videoController.dimensions)
         let formattedFps = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
 
         titleView.setDetailLabels(for: formattedDimensions, frameRate: formattedFps)
@@ -285,7 +279,7 @@ private extension PlayerViewController {
     func loadPreviewImage() {
         let size = loadingView.imageView.bounds.size.scaledToScreen
 
-        videoManager.posterImage(with: size) { [weak self] image, _ in
+        videoController.loadPreviewImage(with: size) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.imageView.image = image
             // Use same image for background (ignoring different size/content mode as it's blurred).
@@ -295,26 +289,28 @@ private extension PlayerViewController {
     }
 
     func loadVideo() {
-        videoManager.downloadingPlayerItem(progressHandler: { [weak self] progress in
+        videoController.loadVideo(progressHandler: { [weak self] progress in
+
             self?.updateLoadingProgress(with: Float(progress))
 
-        }, resultHandler: { [weak self] playerItem, info in
+        }, completionHandler: { [weak self] video, info in
+
             self?.updateLoadingProgress(with: nil)
 
             guard !info.isCancelled else { return }
 
-            if let playerItem = playerItem {
-                self?.configurePlayer(with: playerItem)
+            if let video = video {
+                self?.configurePlayer(with: video)
             } else {
                 self?.presentAlert(.videoLoadingFailed { _ in self?.done() })
             }
         })
     }
 
-    func configurePlayer(with playerItem: AVPlayerItem) {
-        selectedFramesController?.dataSource = SelectedFramesDataSource(video: playerItem.asset)
+    func configurePlayer(with video: AVAsset) {
+        selectedFramesController?.dataSource = SelectedFramesDataSource(video: video)
 
-        playbackController = PlaybackController(playerItem: playerItem)
+        playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
         playbackController?.delegate = self
         playerView.player = playbackController?.player
 
@@ -325,26 +321,17 @@ private extension PlayerViewController {
 
     // TODO: Coordinate alerts: playback can fail while metadata view or export is showing.
     // TODO: Extract export UI task as class (presents, glue code, manages state, cleans up, ...)
-    func generateFramesAndShare(for video: AVAsset, at times: [CMTime]) {
-        guard frameExporter == nil else { return }
 
-        // TODO: Move into VideoManager
-        let metadata = settings.includeMetadata ? CGImage.metadata(for: videoManager.asset.creationDate, location: videoManager.asset.location) : nil
-        let encoding = ImageEncoding(format: settings.imageFormat, compressionQuality: settings.compressionQuality, metadata: metadata)
-        let request = FrameExporter.Request(times: times, encoding: encoding, directory: nil)
-
+    func generateFramesAndShare(for times: [CMTime]) {
         let progressController = ProgressViewController.instantiateFromStoryboard()
-        frameExporter = FrameExporter(video: video)
 
-        let progress = frameExporter?.generateAndExportFrames(with: request) { [weak self] result in
-            // Delay for usability.
-            // TODO: put delay somewhere else
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                progressController.dismiss(animated: false) {
-                    self?.handleFrameGenerationResult(result)
-                }
+        let progress = videoController.generateAndExportFrames(for: times) { [weak self] result in
+            progressController.dismiss(animated: false) {
+                self?.handleFrameGenerationResult(result)
             }
         }
+
+        guard progress != nil else { return }
 
         progressController.progress = progress
         present(progressController, animated: true)
@@ -352,18 +339,14 @@ private extension PlayerViewController {
 
     func handleFrameGenerationResult(_ result: FrameExporter.Result) {
         let completeFrameExport = { [weak self] in
-            self?.frameExporter?.deleteFrames(for: result)
-            self?.frameExporter = nil
+            self?.videoController.deleteFrames(for: result)
         }
 
-        guard !result.anyCancelled else {
+        guard !result.anyCancelled, !result.anyFailed else {
             completeFrameExport()
-            return
-        }
-
-        guard !result.anyFailed else {
-            completeFrameExport()
-            presentAlert(.imageGenerationFailed())
+            if result.anyFailed {
+                presentAlert(.imageGenerationFailed())
+            }
             return
         }
 
@@ -424,7 +407,7 @@ extension PlayerViewController: ZoomAnimatable {
     /// The aspect fitted size the preview image occupies in the image view.
     private var loadingImageFrame: CGRect {
         let imageSize = loadingView.imageView.image?.size
-            ?? videoManager.asset.dimensions
+            ?? videoController.asset.dimensions
 
         return AVMakeRect(aspectRatio: imageSize, insideRect: loadingView.imageView.frame)
     }

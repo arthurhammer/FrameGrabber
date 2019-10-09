@@ -93,7 +93,7 @@
 		00730ECF214FEA5A001A6EA7 /* RepeatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */; };
 		00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
 		00730ED1214FEA5A001A6EA7 /* MappedFetchResult+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */; };
-		00730ED2214FEA5A001A6EA7 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoManager.swift */; };
+		00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoController.swift */; };
 		00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
 		00730ED4214FEA5A001A6EA7 /* AlbumCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */; };
 		00730ED5214FEA5A001A6EA7 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
@@ -126,7 +126,7 @@
 		009C657A1FBF338900DB25A6 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1991FB498C700A00BB9 /* AlbumViewController.swift */; };
 		009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */; };
 		009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
-		009C65851FBF339E00DB25A6 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoManager.swift */; };
+		009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoController.swift */; };
 		009C65871FBF33A300DB25A6 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763D1FB60DB600B5D7A3 /* Style.swift */; };
 		009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020D2ED1FB4E512002379D0 /* Formatters.swift */; };
 		009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17F1FB4977100A00BB9 /* Assets.xcassets */; };
@@ -253,7 +253,7 @@
 		00C098EA1FC477E5000B05FE /* PHImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManager.swift; sourceTree = "<group>"; };
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		00C876431FB9D0F400B5D7A3 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		00C876431FB9D0F400B5D7A3 /* VideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		00CB8123234CE05400354E03 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = "Frame Grabber/Application/NavigationController.swift"; sourceTree = SOURCE_ROOT; };
 		00D9E83223424A07009E7AFA /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		00D9E83623426301009E7AFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/VideoDetail.storyboard"; sourceTree = "<group>"; };
@@ -420,8 +420,8 @@
 			isa = PBXGroup;
 			children = (
 				00328A961FC85D84004648F9 /* PlayerViewController.swift */,
+				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				00E792EB234A146D000E2A03 /* ProgressViewController.swift */,
-				00C876431FB9D0F400B5D7A3 /* VideoManager.swift */,
 				00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */,
 				001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */,
 				00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */,
@@ -721,7 +721,7 @@
 				00D9E83423424A07009E7AFA /* UIFont.swift in Sources */,
 				00730ED1214FEA5A001A6EA7 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */,
-				00730ED2214FEA5A001A6EA7 /* VideoManager.swift in Sources */,
+				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
 				009E1864233DD40B008100D5 /* VideoDetailViewController.swift in Sources */,
 				00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */,
 				00730ED4214FEA5A001A6EA7 /* AlbumCollectionViewDataSource.swift in Sources */,
@@ -804,7 +804,7 @@
 				00D9E83323424A07009E7AFA /* UIFont.swift in Sources */,
 				00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */,
-				009C65851FBF339E00DB25A6 /* VideoManager.swift in Sources */,
+				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
 				009E1863233DD403008100D5 /* VideoDetailViewController.swift in Sources */,
 				0015537F2129C8CF00F58CEE /* Album.swift in Sources */,
 				0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */,

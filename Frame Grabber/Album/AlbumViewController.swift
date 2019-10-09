@@ -44,7 +44,7 @@ class AlbumViewController: UICollectionViewController, NavigationBarHiddenPrefer
         transitionController.prepareNavigationControllerTransition(for: navigationController)
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
-            destination.videoManager = VideoManager(asset: selectedAsset)
+            destination.videoController = VideoController(asset: selectedAsset)
         }
     }
 

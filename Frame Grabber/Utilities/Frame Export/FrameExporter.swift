@@ -50,19 +50,29 @@ class FrameExporter {
     /// Generates frames and exports them to disk with the given request configuration.
     /// Handlers are called on an arbitrary queue.
     ///
+    /// The request can fail if frame generation itself fails, images fail to encode, no
+    /// temporary directory could be created or writing files to disk fails for any reason.
+    ///
+    /// - Parameter completionHandler: Is called once with a status for each requested
+    ///   frame. When the request is cancelled or fails, not all statuses need to report
+    ///   `cancelled` or `failed` as previous frames might have been exported successfully
+    ///   already. It is the caller's responsibility to handle and/or clean up such files.
     /// - Returns: A progress object that reports the number of processed frames and the
     ///   fraction of completeness. The progress object supports cancelling the task.
-    @discardableResult func generateAndExportFrames(with request: Request, completionHandler: @escaping (Result) -> ()) -> Progress? {
-        guard let directory = directory(for: request, errorHandler: completionHandler) else { return nil }
+    @discardableResult func generateAndExportFrames(with request: Request, completionHandler: @escaping (Result) -> ()) -> Progress {
+        let progress = Progress()
+        progress.cancellationHandler = { [weak self] in self?.cancel() }
+        progress.totalUnitCount = Int64(request.times.count)
+        progress.update(withCompletedUnits: 0)
+
+        guard let directory = directory(for: request, errorHandler: completionHandler) else {
+            completionHandler(.init(repeating: .failed(nil), count: request.times.count))
+            return progress
+        }
 
         // Since tasks are strictly sequential, modifying the array from different threads is safe.
         var results = Result()
         let chunks = request.times.chunked(into: chunkSize)
-        let progress = Progress()
-
-        progress.cancellationHandler = { [weak self] in self?.cancel() }
-        progress.totalUnitCount = Int64(request.times.count)
-        progress.update(withCompletedUnits: 0)
 
         chunks.enumerated().forEach { chunkIndex, times in
             let chunk = Request(times: times, encoding: request.encoding, directory: directory)

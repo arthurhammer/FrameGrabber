@@ -11,11 +11,7 @@ class VideoDetailViewController: UITableViewController {
         case location
     }
 
-    var photosAsset: PHAsset? {
-        didSet { updateViews() }
-    }
-    
-    var videoAsset: AVAsset? {
+    var videoController: VideoController? {
         didSet { updateViews() }
     }
 
@@ -54,7 +50,7 @@ class VideoDetailViewController: UITableViewController {
     }
 
     func openLocationInMaps() {
-        guard let location = photosAsset?.location else { return }
+        guard let location = videoController?.location else { return }
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
         item.name = NSLocalizedString("more.mapTitle", value: "Your Video", comment: "Title of map item opened in Maps app.")
         item.openInMaps(launchOptions: nil)
@@ -62,7 +58,7 @@ class VideoDetailViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         let sections = Section.allCases.count
-        return (photosAsset?.location == nil) ? (sections-1) : sections
+        return (videoController?.location == nil) ? (sections-1) : sections
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -112,18 +108,13 @@ class VideoDetailViewController: UITableViewController {
     }
 
     private func updateAssetMetadata() {
-        let video = videoAsset?.tracks(withMediaType: .video).first
-        let frameRate = video?.nominalFrameRate
-        let dimensions = video?.naturalSize ?? photosAsset?.dimensions
-        let date = photosAsset?.creationDate
-
         let frameRateFormatter = NumberFormatter.frameRateFormatter()
         let dimensionsFormatter = NumberFormatter()
         let dateFormatter = DateFormatter.default()
 
-        frameRateLabel.text = frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? notAvailablePlaceholder
-        dimensionsLabel.text = dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
-        dateCreatedLabel.text = date.flatMap(dateFormatter.string) ?? notAvailablePlaceholder
+        frameRateLabel.text = videoController?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? notAvailablePlaceholder
+        dimensionsLabel.text = (videoController?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
+        dateCreatedLabel.text = videoController?.creationDate.flatMap(dateFormatter.string) ?? notAvailablePlaceholder
 
         updateLocation()
     }
@@ -134,7 +125,7 @@ class VideoDetailViewController: UITableViewController {
         tableView.reloadData()  // Show/hide location cells.
         mapView.isUserInteractionEnabled = false
 
-        guard let location = photosAsset?.location else {
+        guard let location = videoController?.location else {
             locationLabel.text = notAvailablePlaceholder
             return
         }
