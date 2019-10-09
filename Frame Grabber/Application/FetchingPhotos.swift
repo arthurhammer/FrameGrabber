@@ -45,21 +45,3 @@ extension NSPredicate {
         self.init(format: "mediaType == %d", mediaType.rawValue)
     }
 }
-
-extension PHImageRequestOptions {
-    static func `default`() -> PHImageRequestOptions {
-        let options = PHImageRequestOptions()
-        options.isNetworkAccessAllowed = true
-        options.deliveryMode = .opportunistic
-        return options
-    }
-}
-
-extension PHVideoRequestOptions {
-    static func `default`() -> PHVideoRequestOptions {
-        let options = PHVideoRequestOptions()
-        options.isNetworkAccessAllowed = true
-        options.deliveryMode = .highQualityFormat
-        return options
-    }
-}

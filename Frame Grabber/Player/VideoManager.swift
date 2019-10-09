@@ -6,8 +6,8 @@ class VideoManager {
     let asset: PHAsset
 
     private let imageManager: PHImageManager
-    private(set) var imageRequest: ImageRequest?
-    private(set) var videoRequest: ImageRequest?
+    private(set) var imageRequest: PHImageManager.Request?
+    private(set) var videoRequest: PHImageManager.Request?
 
     init(asset: PHAsset, imageManager: PHImageManager = .default()) {
         self.asset = asset
@@ -27,8 +27,9 @@ class VideoManager {
 
     /// Pending requests of this type are cancelled.
     /// The result handler is called asynchronously on the main thread.
-    func posterImage(with config: ImageConfig, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) {
-        imageRequest = imageManager.requestImage(for: asset, config: config, resultHandler: resultHandler)
+    func posterImage(with size: CGSize, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) {
+        let options = PHImageManager.ImageOptions(size: size, mode: .aspectFit, requestOptions: .default())
+        imageRequest = imageManager.requestImage(for: asset, options: options, resultHandler: resultHandler)
     }
 
     /// Pending requests of this type are cancelled.

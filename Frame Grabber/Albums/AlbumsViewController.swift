@@ -89,7 +89,7 @@ class AlbumsViewController: UICollectionViewController {
     private func updateThumbnailSize() {
         guard let layout = collectionView?.collectionViewLayout as? CollectionViewTableLayout else { return }
         let height = layout.itemSize.height
-        collectionViewDataSource?.imageConfig.size = CGSize(width: height, height: height).scaledToScreen
+        collectionViewDataSource?.imageOptions.size = CGSize(width: height, height: height).scaledToScreen
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {

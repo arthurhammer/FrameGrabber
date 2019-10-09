@@ -137,7 +137,7 @@ private extension AlbumViewController {
 
     func updateThumbnailSize() {
         guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
-        dataSource?.imageConfig.size = layout.itemSize.scaledToScreen
+        dataSource?.imageOptions.size = layout.itemSize.scaledToScreen
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {

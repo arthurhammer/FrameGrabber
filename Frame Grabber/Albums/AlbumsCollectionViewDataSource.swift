@@ -11,7 +11,7 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
     var sectionsChangedHandler: ((IndexSet) -> ())?
 
-    var imageConfig: ImageConfig {
+    var imageOptions: PHImageManager.ImageOptions {
         didSet { imageManager.stopCachingImagesForAllAssets() }
     }
 
@@ -23,13 +23,13 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     private let imageManager: PHCachingImageManager
 
     init(albumsDataSource: AlbumsDataSource,
-         imageConfig: ImageConfig = .init(),
+         imageConfig: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
          imageManager: PHCachingImageManager = .init(),
          sectionHeaderProvider: @escaping (IndexPath) -> UICollectionReusableView,
          cellProvider: @escaping (IndexPath, Album) -> UICollectionViewCell) {
 
         self.albumsDataSource = albumsDataSource
-        self.imageConfig = imageConfig
+        self.imageOptions = imageConfig
         self.imageManager = imageManager
         self.sectionHeaderProvider = sectionHeaderProvider
         self.cellProvider = cellProvider
@@ -49,10 +49,10 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         sections[indexPath.section].albums[indexPath.item]
     }
 
-    func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest? {
+    func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> PHImageManager.Request? {
         guard let keyAsset = album.keyAsset else { return nil }
 
-        return imageManager.requestImage(for: keyAsset, config: imageConfig, resultHandler: resultHandler)
+        return imageManager.requestImage(for: keyAsset, options: imageOptions, resultHandler: resultHandler)
     }
 
     func fetchUpdate(forAlbumAt indexPath: IndexPath) -> FetchedAlbum? {
@@ -112,11 +112,11 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         // Index paths might not exist anymore in the model.
         let keyAssets = safeAlbums(at: indexPaths).compactMap { $0.keyAsset }
-        imageManager.startCachingImages(for: keyAssets, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
+        imageManager.startCachingImages(for: keyAssets, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         let keyAssets = safeAlbums(at: indexPaths).compactMap { $0.keyAsset }
-        imageManager.stopCachingImages(for: keyAssets, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
+        imageManager.stopCachingImages(for: keyAssets, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
     }
 }

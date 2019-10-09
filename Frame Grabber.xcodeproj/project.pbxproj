@@ -66,7 +66,7 @@
 		00730EB3214FEA5A001A6EA7 /* BlurredImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B02DFB212077CD00336F34 /* BlurredImageView.swift */; };
 		00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */; };
 		00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
-		00730EB6214FEA5A001A6EA7 /* PhotosRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */; };
+		00730EB6214FEA5A001A6EA7 /* FetchingPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */; };
 		00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
 		00730EB8214FEA5A001A6EA7 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
 		00730EB9214FEA5A001A6EA7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
@@ -75,7 +75,6 @@
 		00730EBC214FEA5A001A6EA7 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF542127635C00778885 /* AlbumCell.swift */; };
 		00730EBD214FEA5A001A6EA7 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* PlayerViewController.swift */; };
 		00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1781FB4977100A00BB9 /* AppDelegate.swift */; };
-		00730EBF214FEA5A001A6EA7 /* ImageConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C2582130751D0030B7EC /* ImageConfig.swift */; };
 		00730EC0214FEA5A001A6EA7 /* AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFC9F205E938B00BCEE69 /* AVFoundation.swift */; };
 		00730EC1214FEA5A001A6EA7 /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* CMTime.swift */; };
 		00730EC2214FEA5A001A6EA7 /* AlbumsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */; };
@@ -138,7 +137,7 @@
 		00AA201E213432B400084B08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
 		00AA2021213432B400084B08 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201F213432B400084B08 /* Localizable.strings */; };
 		00AA20232136C93100084B08 /* CollectionViewTableLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA20222136C93100084B08 /* CollectionViewTableLayout.swift */; };
-		00AFE4F42027A03F005E2AA8 /* PhotosRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */; };
+		00AFE4F42027A03F005E2AA8 /* FetchingPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */; };
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B02DFC212077CD00336F34 /* BlurredImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B02DFB212077CD00336F34 /* BlurredImageView.swift */; };
 		00B02E0021231ED500336F34 /* TimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B02DFF21231ED500336F34 /* TimeSlider.swift */; };
@@ -178,7 +177,6 @@
 		00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */; };
 		00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C254213046CD0030B7EC /* AlbumHeader.swift */; };
 		00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C256213058FE0030B7EC /* FetchedAlbum.swift */; };
-		00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C2582130751D0030B7EC /* ImageConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -240,7 +238,7 @@
 		00AA201D213432B400084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		00AA2020213432B400084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		00AA20222136C93100084B08 /* CollectionViewTableLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableLayout.swift; sourceTree = "<group>"; };
-		00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRequests.swift; sourceTree = "<group>"; };
+		00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingPhotos.swift; sourceTree = "<group>"; };
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B02DFB212077CD00336F34 /* BlurredImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageView.swift; sourceTree = "<group>"; };
 		00B02DFF21231ED500336F34 /* TimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlider.swift; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 		00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00F3C254213046CD0030B7EC /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
 		00F3C256213058FE0030B7EC /* FetchedAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedAlbum.swift; sourceTree = "<group>"; };
-		00F3C2582130751D0030B7EC /* ImageConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,7 +358,6 @@
 				00C098D61FC1A7CB000B05FE /* CMTime.swift */,
 				0086A6B12344CD7100989646 /* FileManager.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
-				00F3C2582130751D0030B7EC /* ImageConfig.swift */,
 				00EDF98123422B5A00FA0F48 /* NSObject.swift */,
 				00024F6C23447EDF00937941 /* PHAsset.swift */,
 				00C098EA1FC477E5000B05FE /* PHImageManager.swift */,
@@ -503,7 +499,7 @@
 				00CB8123234CE05400354E03 /* NavigationController.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
-				00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */,
+				00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
 			);
 			path = Application;
@@ -688,7 +684,7 @@
 				00730EB3214FEA5A001A6EA7 /* BlurredImageView.swift in Sources */,
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
-				00730EB6214FEA5A001A6EA7 /* PhotosRequests.swift in Sources */,
+				00730EB6214FEA5A001A6EA7 /* FetchingPhotos.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
 				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
 				00730EB8214FEA5A001A6EA7 /* ZoomTransitionController.swift in Sources */,
@@ -700,7 +696,6 @@
 				00730EBC214FEA5A001A6EA7 /* AlbumCell.swift in Sources */,
 				00730EBD214FEA5A001A6EA7 /* PlayerViewController.swift in Sources */,
 				00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */,
-				00730EBF214FEA5A001A6EA7 /* ImageConfig.swift in Sources */,
 				00CB8125234CE05800354E03 /* NavigationController.swift in Sources */,
 				00730EC0214FEA5A001A6EA7 /* AVFoundation.swift in Sources */,
 				00730EC1214FEA5A001A6EA7 /* CMTime.swift in Sources */,
@@ -771,7 +766,7 @@
 				00B02DFC212077CD00336F34 /* BlurredImageView.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
-				00AFE4F42027A03F005E2AA8 /* PhotosRequests.swift in Sources */,
+				00AFE4F42027A03F005E2AA8 /* FetchingPhotos.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
 				0023FC9F233A0E4C0046D9F8 /* ImageFormatViewController.swift in Sources */,
@@ -786,7 +781,6 @@
 				00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */,
 				00CB8124234CE05400354E03 /* NavigationController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
-				00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */,
 				00BAFCA0205E938B00BCEE69 /* AVFoundation.swift in Sources */,
 				00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */,
 				00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */,

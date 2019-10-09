@@ -284,9 +284,8 @@ private extension PlayerViewController {
 
     func loadPreviewImage() {
         let size = loadingView.imageView.bounds.size.scaledToScreen
-        let config = ImageConfig(size: size, mode: .aspectFit, options: .default())
 
-        videoManager.posterImage(with: config) { [weak self] image, _ in
+        videoManager.posterImage(with: size) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.imageView.image = image
             // Use same image for background (ignoring different size/content mode as it's blurred).
