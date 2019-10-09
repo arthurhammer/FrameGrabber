@@ -1,6 +1,9 @@
 /* Feedback email subject */
 "about.email.subject" = "Frame Grabber: Feedback";
 
+/* Version label prefix including colon. */
+"about.version" = "Version: %@";
+
 /* Delete video context action menu */
 "album.menu.delete" = "Löschen";
 
@@ -27,6 +30,9 @@
 
 /* E-mail address */
 "alert.mail.message" = "Du kannst mich via %@ erreichen.";
+
+/* No comment provided by engineer. */
+"alert.mail.title" = "Dieses Gerät kann keine E-Mails senden";
 
 /* No comment provided by engineer. */
 "alert.ok" = "OK";
@@ -78,4 +84,3 @@
 
 /* Video detail video metadata section header */
 "more.section.video" = "Video";
-

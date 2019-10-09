@@ -1,38 +1,11 @@
-/* Class = "UILabel"; text = "<Duration>"; ObjectID = "5QW-JB-E9S"; */
-"5QW-JB-E9S.text" = "0:02";
-
-/* Class = "UILabel"; text = "<Frame Rate>"; ObjectID = "9qH-Qo-DrV"; */
-"9qH-Qo-DrV.text" = "Frame Rate";
-
-/* Class = "UILabel"; text = "<Album>"; ObjectID = "38t-yA-GI0"; */
-"38t-yA-GI0.text" = "Album Title";
-
 /* Class = "UILabel"; text = "Select Frames"; ObjectID = "bP2-FO-hcM"; */
 "bP2-FO-hcM.text" = "Bilder Auswählen";
-
-/* Class = "UILabel"; text = "<Count>"; ObjectID = "GSj-h4-xGe"; */
-"GSj-h4-xGe.text" = "Album Count";
-
-/* Class = "UILabel"; text = "<Dimensions>"; ObjectID = "kgm-2j-cZo"; */
-"kgm-2j-cZo.text" = "Dimensions";
-
-/* Class = "UILabel"; text = "<Time>"; ObjectID = "mXw-rO-aOk"; */
-"mXw-rO-aOk.text" = "Time";
 
 /* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
 "nBX-8Q-BwE.title" = "Alben";
 
 /* Class = "UILabel"; text = "Downloading from iCloud…"; ObjectID = "oGN-ie-szR"; */
 "oGN-ie-szR.text" = "Von iCloud Laden…";
-
-/* Class = "UILabel"; text = "<Section>"; ObjectID = "Oz3-Tk-orO"; */
-"Oz3-Tk-orO.text" = "Section Title";
-
-/* Class = "UILabel"; text = "•"; ObjectID = "pu1-a1-Aca"; */
-"pu1-a1-Aca.text" = "•";
-
-/* Class = "UINavigationItem"; title = "<Album>"; ObjectID = "T1c-VB-q52"; */
-"T1c-VB-q52.title" = "Album Title";
 
 /* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
 "T19-Lc-8RI.text" = "Keine Videos";

@@ -74,7 +74,6 @@ class VideoDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let title = Section(section)?.title else { return nil }
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: VideoDetailSectionHeader.name) as? VideoDetailSectionHeader else { fatalError("Wrong view id or type.") }
-        view.isGroupedInset = true
         view.titleLabel.text = title
         return view
     }

@@ -16,7 +16,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     let contactAddress = "hi@arthurhammer.de"
     lazy var contactMessage = """
                            \n\n
-                           \(bundle.formattedVersion)
+                           \(bundle.longFormattedVersion)
                            \(device.systemName) \(device.systemVersion)
                            \(device.type ?? device.model)
                            """
@@ -25,7 +25,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        versionLabel.text = bundle.formattedVersion
+        configureViews()
     }
 
     override func viewDidLayoutSubviews() {
@@ -49,7 +49,14 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         default: break
         }
     }
+
+    private func configureViews() {
+        let format = NSLocalizedString("about.version", value: "Version: %@", comment: "Version label prefix including colon.")
+        versionLabel.text = String.localizedStringWithFormat(format, bundle.shortFormattedVersion)
+    }
 }
+
+// MARK: - Actions
 
 extension AboutViewController {
 
@@ -93,6 +100,8 @@ extension AboutViewController {
         present(SFSafariViewController(url: url), animated: true)
     }
 }
+
+// MARK: - Util
 
 private extension UIDevice {
     /// Device type, e.g. "iPhone7,2".

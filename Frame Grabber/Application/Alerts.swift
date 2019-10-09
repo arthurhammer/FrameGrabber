@@ -6,7 +6,7 @@ extension UIAlertController {
         //TODO: keys in localized. LOCALIZED
         // dots and uppercase
         let title = NSLocalizedString("alert.video-load.title", value: "Unable to Load Video", comment: "")
-        let message = NSLocalizedString("alert.video-load.message", value: "You might not be connected to a network or the video format might not be supported.", comment: "")
+        let message = NSLocalizedString("alert.video-load.message", value: "Please check your network settings and make sure the video format is supported on this device.", comment: "")
         return with(title: title, message: message, okHandler: okHandler)
     }
 
@@ -18,8 +18,8 @@ extension UIAlertController {
 
     static func imageGenerationFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         // TODO: key
-        let title = NSLocalizedString("alert.image-generation.title", value: "Unable to Generate Frames", comment: "")
-        let message = NSLocalizedString("alert.image-generation.message", value: "There was an error while exporting images.", comment: "")
+        let title = NSLocalizedString("alert.image-generation.title", value: "Unable to Export Frames", comment: "")
+        let message = NSLocalizedString("alert.image-generation.message", value: "There was an error while generating images.", comment: "")
         return with(title: title, message: message, okHandler: okHandler)
     }
 

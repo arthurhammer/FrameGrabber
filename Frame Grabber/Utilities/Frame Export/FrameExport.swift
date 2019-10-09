@@ -1,42 +1,32 @@
 import AVFoundation
 
-/// Generates full-size video frames and saves them to disk.
 class FrameExport: Operation {
 
-    enum Result {
-        case cancelled
-        case failed(Error?)
-        case succeeded(URL)
-    }
+    typealias Request = FrameExporter.Request
+    typealias Result = FrameExporter.Result
 
-    let request: FrameExporter.Request
+    let request: Request
     let frameStartIndex: Int
     let generator: AVAssetImageGenerator
-    let progressHandler: (Int) -> ()
-    let completionHandler: ([Result]) -> ()
+    let frameProcessedHandler: (Int, Result) -> ()
 
-    /// Handlers are called on an arbitrary queue.
-    ///
     /// - Parameter frameStartIndex: If the task represents a chunk of a larger task, the
     ///   index describes the index of generated frames relative to the larger task. The
     ///   value is also used to generate file names for exported images.
-    /// - Parameter progressHandler: Called with the index (offset by `startIndex`) of
-    ///   the currently processed image.
-    /// - Parameter completionHandler: Called when all images have been processed.
-    init(request: FrameExporter.Request,
+    /// - Parameter frameProcessedHandler: Called on an arbitrary queue.
+    init(generator: AVAssetImageGenerator,
+         request: FrameExporter.Request,
          frameStartIndex: Int = 0,
-         generator: AVAssetImageGenerator,
-         qos: QualityOfService = .userInitiated,
-         progressHandler: @escaping (Int) -> (),
-         completionHandler: @escaping ([Result]) -> ()) {
+         frameProcessedHandler: @escaping (Int, Result) -> ()) {
 
+        self.generator = generator
         self.request = request
         self.frameStartIndex = frameStartIndex
-        self.generator = generator
-        self.completionHandler = completionHandler
-        self.progressHandler = progressHandler
+        self.frameProcessedHandler = frameProcessedHandler
+
         super.init()
-        self.qualityOfService = qos
+
+        self.qualityOfService = .userInitiated
     }
 
     override func cancel() {
@@ -46,7 +36,6 @@ class FrameExport: Operation {
 
     override func main() {
         guard !isCancelled else {
-            completionHandler(.init(repeating: .cancelled, count: request.times.count))
             return
         }
 
@@ -55,38 +44,35 @@ class FrameExport: Operation {
         let block = DispatchGroup()
         block.enter()
 
-        // Since frame generation is strictly sequential, modifying the array from
-        // different threads is safe.
-        var results = [Result]()
+        // Can be safely modified from the generator's callbacks' threads as they are
+        // strictly sequential.
         let times = request.times.map(NSValue.init)
-        var index = frameStartIndex
+        var countProcessed = 0
 
         generator.generateCGImagesAsynchronously(forTimes: times) { [weak self] requestedTime, image, actualTime, status, error in
             guard let self = self else { return }
 
-            // When the operation is cancelled, subsequent invocations might report
-            // `succeeded` as images might already have been generated while the current
-            // one is slowly being written to disk. Discard those images manually.
-            let status = self.isCancelled ? .cancelled : status
+            let frameIndex = self.frameStartIndex + countProcessed
 
-            switch (status, image) {
+            // When the operation is cancelled, subsequent AVAssetImageGenerator callbacks
+            // might report `succeeded` as images might already have been generated while
+            // the current one is slowly being written to disk. Consider them cancelled too.
+            switch (self.isCancelled, status, image) {
 
-            case (.cancelled, _):
-                results.append(.cancelled)
+            case (true, _, _), (_, .cancelled, _):
+                self.frameProcessedHandler(frameIndex, .cancelled)
 
-            case (.succeeded, let image?):
-                let fileUrl = self.write(image, for: self.request, index: index)
-                results.append(fileUrl)
+            case (_, .succeeded, let image?):
+                let writeResult = self.write(image, for: self.request, index: frameIndex)
+                self.frameProcessedHandler(frameIndex, writeResult)
 
             default:
-                results.append(.failed(error))
+                self.frameProcessedHandler(frameIndex, .failed(error))
             }
 
-            self.progressHandler(index)
-            index += 1
+            countProcessed += 1
 
-            if results.count == times.count {
-                self.completionHandler(results)
+            if countProcessed == times.count {
                 block.leave()
             }
         }
@@ -94,14 +80,14 @@ class FrameExport: Operation {
         block.wait()
     }
 
-    private func write(_ image: CGImage, for request: FrameExporter.Request, index: Int) -> Result {
+    private func write(_ image: CGImage, for request: Request, index: Int) -> Result {
         guard let directory = request.directory,
             let encodedImage = image.data(with: request.encoding) else { return .failed(nil) }
 
         do {
             let fileUrl = url(forFrameAt: index, in: directory, format: request.encoding.format)
             try encodedImage.write(to: fileUrl)
-            return .succeeded(fileUrl)
+            return .succeeded([fileUrl])
         } catch let error {
             return .failed(error)
         }

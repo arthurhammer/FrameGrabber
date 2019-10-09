@@ -1,10 +1,5 @@
 import UIKit
 
-// For now only progress until I need sth else.
-// - [ ] Easy presentation
-// - [ ] dynamic type: labels (+ corner radius)
-// - [ ] write down for later: add checkmark icon/done label to progress vc
-
 class ProgressViewController: UIViewController {
 
     static func instantiateFromStoryboard() -> ProgressViewController {
@@ -12,10 +7,18 @@ class ProgressViewController: UIViewController {
         return controller
     }
 
-    /// The progress object the controller configures its views with. When the cancel
-    /// button is pressed, the progress is cancelled.
-    var progress: Progress? {
-        didSet { configureProgress() }
+    var didCancel: (() -> ())?
+
+    var titleText: String?  {
+        didSet { updateViews() }
+    }
+
+    var detailText: String? {
+        didSet { updateViews() }
+    }
+
+    var progress: Float = 0  {
+        didSet { updateViews() }
     }
 
     @IBOutlet var containerView: UIView!
@@ -51,12 +54,12 @@ class ProgressViewController: UIViewController {
     }
 
     @IBAction func cancel() {
-        progress?.cancel()
+        didCancel?()
     }
 
     private func configureViews() {
         let accent = Style.Color.progressViewAccent
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
 
         containerView.layer.cornerRadius = 12
         containerView.clipsToBounds = true
@@ -68,37 +71,38 @@ class ProgressViewController: UIViewController {
         progressBar.layer.cornerRadius = 4
         progressBar.clipsToBounds = true
 
-        cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = accent.cgColor
         cancelButton.setTitleColor(accent, for: .normal)
         cancelButton.layer.cornerRadius = cancelButton.bounds.height/2
         cancelButton.clipsToBounds = true
 
-        configureProgress()
+        updateViews()
     }
 
-    private func configureProgress() {
-        observers = []
+    private func updateViews() {
+        guard isViewLoaded else { return }
 
-        guard isViewLoaded,
-            let progress = progress else { return }
+        titleLabel.text = titleText
+        detailLabel.text = detailText
+        progressBar.setProgress(progress, animated: progress != 1)
+    }
+}
 
-        progressBar.observedProgress = progress
-
-        observeProgress(for: \.localizedDescription) { [weak self] in
-            self?.titleLabel.text = $0.localizedDescription
-        }
-
-        observeProgress(for: \.localizedAdditionalDescription) { [weak self] in
-            self?.detailLabel.text = $0.localizedAdditionalDescription
-        }
+extension ProgressViewController {
+    static func frameExport(cancelHandler: @escaping () -> ()) -> ProgressViewController {
+        let controller = instantiateFromStoryboard()
+        controller.titleText = NSLocalizedString("frame-export.title", value: "Exporting Frames", comment: "Frame export activity title")
+        controller.didCancel = cancelHandler
+        controller.setProgress(count: 0, of: 0)
+        return controller
     }
 
-    private func observeProgress<Value>(for keyPath: KeyPath<Progress, Value>, update: @escaping (Progress) -> ()) {
-        observers.append(progress?.observe(keyPath, options: .initial) { progress, _ in
-            DispatchQueue.main.async {
-                update(progress)
-            }
-        })
+    func setProgress(count: Int, of: Int) {
+        progress = Float(count) / Float(of)
+        if progress >= 1 {
+            detailText = NSLocalizedString("frame-export.subtitle.completed", value: "Done", comment: "Frame export activity subtitle when activity is completed.")
+        } else {
+            let format = NSLocalizedString("frame-export.subtitle.progress", value: "%@ of %@", comment: "Frame export activitiy subtitle when activity is not completed, i.e. number of completed of total frames.")
+            detailText = String.localizedStringWithFormat(format, count as NSNumber, of as NSNumber)
+        }
     }
 }

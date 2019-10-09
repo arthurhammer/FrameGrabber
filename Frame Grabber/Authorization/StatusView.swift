@@ -25,6 +25,8 @@ class StatusView: UIView {
         button.tintColor = .white
         button.backgroundColor = Style.Color.mainTint
         button.layer.cornerRadius = Style.Size.buttonCornerRadius
+
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, weight: .semibold)
     }
 
     private func updateViews() {

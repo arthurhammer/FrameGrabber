@@ -10,6 +10,9 @@ class VideoDetailSectionHeader: UITableViewHeaderFooterView {
         didSet { updateViews() }
     }
 
+    // When using custom headers, the default margin doesn't seem to be respected.
+    let groupedInsetCustomHeaderMargin: CGFloat = 8
+
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
 
@@ -23,7 +26,7 @@ class VideoDetailSectionHeader: UITableViewHeaderFooterView {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .headline, size: 18, weight: .semibold)
 
         if #available(iOS 13, *), isGroupedInset {
-            leadingConstraint.constant = isGroupedInset ? 8 : 0
+            leadingConstraint.constant = isGroupedInset ? groupedInsetCustomHeaderMargin : 0
         } else {
             leadingConstraint.constant = 0
         }

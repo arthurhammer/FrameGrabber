@@ -69,7 +69,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yXB-gs-kiv" secondAttribute="bottom" id="gVn-Qr-Kcd"/>
-                                                <constraint firstItem="yXB-gs-kiv" firstAttribute="leading" secondItem="RE9-nX-Hkm" secondAttribute="leading" constant="20" id="lqu-d2-FeD"/>
+                                                <constraint firstItem="yXB-gs-kiv" firstAttribute="leading" secondItem="RE9-nX-Hkm" secondAttribute="leadingMargin" id="lqu-d2-FeD"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yXB-gs-kiv" secondAttribute="trailing" id="seb-6P-Oql"/>
                                                 <constraint firstItem="yXB-gs-kiv" firstAttribute="top" secondItem="RE9-nX-Hkm" secondAttribute="topMargin" id="uJc-f3-8q2"/>
                                             </constraints>

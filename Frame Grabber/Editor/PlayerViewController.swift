@@ -319,43 +319,43 @@ private extension PlayerViewController {
 
     // MARK: Image Generation
 
-    // TODO: Coordinate alerts: playback can fail while metadata view or export is showing.
-    // TODO: Extract export UI task as class (presents, glue code, manages state, cleans up, ...)
 
     func generateFramesAndShare(for times: [CMTime]) {
-        let progressController = ProgressViewController.instantiateFromStoryboard()
+        let progressController = ProgressViewController.frameExport(cancelHandler: { [weak self] in
+            self?.videoController.cancelFrameExport()
+        })
+        progressController.setProgress(count: 0, of: times.count)
 
-        let progress = videoController.generateAndExportFrames(for: times) { [weak self] result in
-            progressController.dismiss(animated: false) {
-                self?.handleFrameGenerationResult(result)
+        videoController.generateAndExportFrames(for: times, progressHandler: { completed, total in
+            progressController.setProgress(count: completed, of: total)
+        }, completionHandler: { [weak self] result in
+            // Small delay so it's easier for user to see finished state.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                progressController.dismiss(animated: false) {
+                    self?.handleFrameGenerationResult(result)
+                }
             }
-        }
+        })
 
-        guard progress != nil else { return }
-
-        progressController.progress = progress
         present(progressController, animated: true)
     }
 
     func handleFrameGenerationResult(_ result: FrameExporter.Result) {
-        let completeFrameExport = { [weak self] in
-            self?.videoController.deleteFrames(for: result)
+        switch result {
+        case .failed:
+            presentAlert(.imageGenerationFailed())
+        case .cancelled:
+            break
+        case .succeeded(let urls):
+            share(urls: urls)
         }
+    }
 
-        guard !result.anyCancelled, !result.anyFailed else {
-            completeFrameExport()
-            if result.anyFailed {
-                presentAlert(.imageGenerationFailed())
-            }
-            return
+    func share(urls: [URL]) {
+        let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+        shareController.completionWithItemsHandler = { [weak self] _, _, _, _ in
+            self?.videoController.deleteFrames(for: urls)
         }
-
-        let shareController = UIActivityViewController(activityItems: result.urls, applicationActivities: nil)
-
-        shareController.completionWithItemsHandler = { _, _, _, _ in
-           completeFrameExport()
-        }
-
         present(shareController, animated: true)
     }
 }

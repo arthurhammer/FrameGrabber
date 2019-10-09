@@ -11,9 +11,16 @@ extension CGSize {
 
 extension CGSize {
 
+    /// A rect scaled such that it maintains the receiver's aspect ratio inside another
+    /// rect.
+    func aspectFitting(_ boundingRect: CGRect) -> CGRect {
+        AVMakeRect(aspectRatio: self, insideRect: boundingRect)
+    }
+
+    /// The receiver's aspect ratio scaled such that it is fully enclosed by the given
+    /// size.
     func aspectFitting(_ boundingSize: CGSize) -> CGSize {
-         let rect = CGRect(origin: .zero, size: boundingSize)
-         return AVMakeRect(aspectRatio: self, insideRect: rect).size
+        aspectFitting(CGRect(origin: .zero, size: boundingSize)).size
      }
 
     /// The receiver's aspect ratio scaled such that it minimally fills the given size.

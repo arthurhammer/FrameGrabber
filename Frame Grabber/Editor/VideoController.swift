@@ -3,23 +3,21 @@ import Photos
 
 class VideoController {
 
-    let settings: UserDefaults
     let asset: PHAsset
     private(set) var video: AVAsset?
     private(set) var previewImage: UIImage?
+    let settings: UserDefaults
 
     private var frameExporter: FrameExporter?
     private let imageManager: PHImageManager
-    private let fileManager: FileManager
     private(set) var videoRequest: PHImageManager.Request?
     private(set) var imageRequest: PHImageManager.Request?
 
-    init(asset: PHAsset, video: AVAsset? = nil, settings: UserDefaults = .standard, imageManager: PHImageManager = .default(), fileManager: FileManager = .default) {
+    init(asset: PHAsset, video: AVAsset? = nil, settings: UserDefaults = .standard, imageManager: PHImageManager = .default()) {
         self.asset = asset
         self.video = video
         self.settings = settings
         self.imageManager = imageManager
-        self.fileManager = fileManager
     }
 
     /// The video's actual dimensions if it is loaded, otherwise the Photo asset's dimensions.
@@ -40,7 +38,7 @@ class VideoController {
     }
 
     func cancelAllRequests() {
-        cancelFrameGeneration()
+        cancelFrameExport()
         imageRequest = nil
         videoRequest = nil
     }
@@ -57,11 +55,11 @@ class VideoController {
         }
     }
 
-
     /// If a video loading request is in progress, it is cancelled.
     /// The handler is called on the main thread.
     func loadPreviewImage(with size: CGSize, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) {
         let options = PHImageManager.ImageOptions(size: size, mode: .aspectFit, requestOptions: .default())
+
         imageRequest = imageManager.requestImage(for: asset, options: options) { [weak self] image, info in
             if let image = image {
                 self?.previewImage =  image
@@ -70,45 +68,47 @@ class VideoController {
         }
     }
 
-    // MARK: Frame Generation
+    // MARK: Frame Generation/Export
 
     /// If a frame generation request is in progress, it is cancelled.
-    /// In addition to the normal frame export failure modes, the request fails if no
-    /// video has been loaded yet. In that case no progress object is returned.
-    /// The handler is called on the main thread.
-    func generateAndExportFrames(for times: [CMTime], completionHandler: @escaping (FrameExporter.Result) -> ()) -> Progress? {
+    /// Handlers are called on the main thread.
+    func generateAndExportFrames(for times: [CMTime], progressHandler: @escaping (Int, Int) -> (), completionHandler: @escaping (FrameExporter.Result) -> ()) {
         guard let video = video else {
-            completionHandler(.init(repeating: .failed(nil), count: times.count))
-            return nil
+            DispatchQueue.main.async {
+                completionHandler(.failed(nil))
+            }
+            return
         }
 
-
-        let request = frameRequest(for: times)
-        frameExporter = FrameExporter(video: video)
-
-        return frameExporter?.generateAndExportFrames(with: request) { [weak self] result in
+        frameExporter = FrameExporter(request: exportRequest(for: video, times: times), progressHandler: { completed, total in
+            DispatchQueue.main.async {
+                progressHandler(completed, total)
+            }
+        }, completionHandler: { [weak self] result in
             DispatchQueue.main.async {
                 self?.frameExporter = nil
                 completionHandler(result)
             }
-        }
+        })
+
+        frameExporter?.start()
     }
 
-    func cancelFrameGeneration() {
+    func cancelFrameExport() {
         frameExporter?.cancel()
     }
 
-    func deleteFrames(for exportResult: FrameExporter.Result) {
-        try? exportResult.urls.forEach(fileManager.removeItem)
+    func deleteFrames(for urls: [URL], with fileManager: FileManager = .default) {
+        try? urls.forEach(fileManager.removeItem)
     }
 
-    private func frameRequest(for times: [CMTime]) -> FrameExporter.Request {
+    private func exportRequest(for video: AVAsset, times: [CMTime]) -> FrameExporter.Request {
         let metadata = settings.includeMetadata
             ? CGImage.metadata(for: asset.creationDate, location: asset.location)
             : nil
 
         let encoding = ImageEncoding(format: settings.imageFormat, compressionQuality: settings.compressionQuality, metadata: metadata)
 
-        return FrameExporter.Request(times: times, encoding: encoding, directory: nil)
+        return .init(video: video, times: times, encoding: encoding, directory: nil)
     }
 }

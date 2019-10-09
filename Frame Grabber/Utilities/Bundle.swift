@@ -14,9 +14,14 @@ extension Bundle {
         info(for: "CFBundleVersion") ?? ""
     }
 
-    var formattedVersion: String {
-        let format = NSLocalizedString("bundle.formattedVersion", value: "%@ %@ (%@)", comment: "<App Name> <Version Number> (<Build Number>)")
-        return String.localizedStringWithFormat(format, name, version, build)
+    /// Name, version and build.
+    var longFormattedVersion: String {
+        "\(name) \(version) (\(build))"
+    }
+
+    /// Version and build.
+    var shortFormattedVersion: String {
+        "\(version) (\(build))"
     }
 
     private func info<T>(for key: String) -> T? {
