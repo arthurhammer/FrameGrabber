@@ -84,9 +84,10 @@ extension DateFormatter {
 
 import CoreLocation
 import Contacts
+import UIKit
 
 /// A formatter that formats locations by reverse geocoding them to addresses and caches
-/// the result.
+/// the result. The cache is auto-cleared on memory warning notifications.
 class CachingGeocodingLocationFormatter {
 
     /// An instance that can be used for a shared location cache.
@@ -102,13 +103,21 @@ class CachingGeocodingLocationFormatter {
 
     private lazy var cache = [CLLocation: CNPostalAddress]()
 
+    init(center: NotificationCenter = .default) {
+        center.addObserver(self, selector: #selector(clearCache), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+    }
+
     deinit {
         geocoder.cancelGeocode()
     }
 
+    @objc func clearCache() {
+        cache = [:]
+    }
+
     /// If a geocode is in progress, it will be cancelled.
-    /// The completion handler is called twice if no address is immediately available,
-    /// once with a formatted geocoordinate and once with the final address if successfull.
+    /// The completion handler can be called twice if no address is immediately available,
+    /// once with a formatted geocoordinate and once with the final address if successful.
     func string(from location: CLLocation, completion: @escaping (String?) -> ()) {
         if let cached = cache[location] {
             completion(string(from: cached))
