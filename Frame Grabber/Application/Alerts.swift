@@ -3,22 +3,28 @@ import UIKit
 extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.videoLoad", value: "Couldn't load video.", comment: "")
-        return with(title: title, okHandler: okHandler)
+        //TODO: keys in localized. LOCALIZED
+        // dots and uppercase
+        let title = NSLocalizedString("alert.video-load.title", value: "Unable to Load Video", comment: "")
+        let message = NSLocalizedString("alert.video-load.message", value: "You might not be connected to a network or the video format might not be supported.", comment: "")
+        return with(title: title, message: message, okHandler: okHandler)
     }
 
     static func playbackFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.playback", value: "Item couldn't be played.", comment: "")
-        return with(title: title, okHandler: okHandler)
+        let title = NSLocalizedString("alert.playback.title", value: "Cannot Play Video", comment: "")
+        let message = NSLocalizedString("alert.playback.message", value: "There was an error during playback.", comment: "")
+        return with(title: title, message: message, okHandler: okHandler)
     }
 
     static func imageGenerationFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.imageGeneration", value: "Sorry, couldn't grab image.", comment: "")
-        return with(title: title, okHandler: okHandler)
+        // TODO: key
+        let title = NSLocalizedString("alert.image-generation.title", value: "Unable to Generate Frames", comment: "")
+        let message = NSLocalizedString("alert.image-generation.message", value: "There was an error while exporting images.", comment: "")
+        return with(title: title, message: message, okHandler: okHandler)
     }
 
     static func mailNotAvailable(contactAddress: String, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.mail.title", value: "This device can't send emails.", comment: "")
+        let title = NSLocalizedString("alert.mail.title", value: "This Device Can't Send Emails", comment: "")
         let messageFormat = NSLocalizedString("alert.mail.message", value: "You can reach me at %@", comment: "E-mail address")
         let message = String.localizedStringWithFormat(messageFormat, contactAddress)
         return with(title: title, message: message, okHandler: okHandler)

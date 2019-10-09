@@ -151,6 +151,8 @@
 		00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize.swift */; };
 		00C098E31FC1C089000B05FE /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
 		00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
+		00CB8124234CE05400354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
+		00CB8125234CE05800354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00D9E83323424A07009E7AFA /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9E83223424A07009E7AFA /* UIFont.swift */; };
 		00D9E83423424A07009E7AFA /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9E83223424A07009E7AFA /* UIFont.swift */; };
 		00D9E83723426301009E7AFA /* VideoDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D9E83523426301009E7AFA /* VideoDetail.storyboard */; };
@@ -254,6 +256,7 @@
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		00CB8123234CE05400354E03 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = "Frame Grabber/Application/NavigationController.swift"; sourceTree = SOURCE_ROOT; };
 		00D9E83223424A07009E7AFA /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		00D9E83623426301009E7AFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/VideoDetail.storyboard"; sourceTree = "<group>"; };
 		00D9E83A2342639C009E7AFA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/VideoDetail.strings"; sourceTree = "<group>"; };
@@ -497,6 +500,7 @@
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 				001AA1781FB4977100A00BB9 /* AppDelegate.swift */,
 				00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */,
+				00CB8123234CE05400354E03 /* NavigationController.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotosRequests.swift */,
@@ -697,6 +701,7 @@
 				00730EBD214FEA5A001A6EA7 /* PlayerViewController.swift in Sources */,
 				00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */,
 				00730EBF214FEA5A001A6EA7 /* ImageConfig.swift in Sources */,
+				00CB8125234CE05800354E03 /* NavigationController.swift in Sources */,
 				00730EC0214FEA5A001A6EA7 /* AVFoundation.swift in Sources */,
 				00730EC1214FEA5A001A6EA7 /* CMTime.swift in Sources */,
 				00730EC2214FEA5A001A6EA7 /* AlbumsCollectionViewDataSource.swift in Sources */,
@@ -779,6 +784,7 @@
 				0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */,
+				00CB8124234CE05400354E03 /* NavigationController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
 				00F3C2592130751D0030B7EC /* ImageConfig.swift in Sources */,
 				00BAFCA0205E938B00BCEE69 /* AVFoundation.swift in Sources */,

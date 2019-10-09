@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class AlbumViewController: UICollectionViewController {
+class AlbumViewController: UICollectionViewController, NavigationBarHiddenPreferring {
 
     // nil if deleted.
     var album: FetchedAlbum? {
@@ -18,14 +18,13 @@ class AlbumViewController: UICollectionViewController {
 
     // MARK: Lifecycle
 
+    var prefersNavigationBarHidden: Bool {
+        false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

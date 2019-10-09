@@ -7,8 +7,8 @@
 /* Class = "UILabel"; text = "<Album>"; ObjectID = "38t-yA-GI0"; */
 "38t-yA-GI0.text" = "Album Title";
 
-/* Class = "UILabel"; text = "Pick a Frame"; ObjectID = "bP2-FO-hcM"; */
-"bP2-FO-hcM.text" = "Bild Auswählen";
+/* Class = "UILabel"; text = "Select Frames"; ObjectID = "bP2-FO-hcM"; */
+"bP2-FO-hcM.text" = "Bilder Auswählen";
 
 /* Class = "UILabel"; text = "<Count>"; ObjectID = "GSj-h4-xGe"; */
 "GSj-h4-xGe.text" = "Album Count";
@@ -36,4 +36,7 @@
 
 /* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
 "T19-Lc-8RI.text" = "Keine Videos";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "xcu-91-QuW"; */
+"xcu-91-QuW.normalTitle" = "Abbrechen";
 

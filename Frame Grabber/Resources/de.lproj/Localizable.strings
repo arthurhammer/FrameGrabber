@@ -1,3 +1,15 @@
+/* Feedback email subject */
+"about.email.subject" = "Frame Grabber: Feedback";
+
+/* Delete video context action menu */
+"album.menu.delete" = "Löschen";
+
+/* Favorite video context action menu */
+"album.menu.favorite" = "Favorit";
+
+/* Unfavorite video context action menu */
+"album.menu.unfavorite" = "Kein Favorit";
+
 /* Title for missing/deleted/initial placeholder album */
 "album.title.default" = "Videos";
 
@@ -8,22 +20,28 @@
 "albums.userAlbumsHeader" = "Meine Alben";
 
 /* No comment provided by engineer. */
-"alert.imageGeneration" = "Das Bild konnte nicht exportiert werden.";
+"alert.image-generation.message" = "Beim Generieren der Bilder ist ein Fehler aufgetreten.";
+
+/* No comment provided by engineer. */
+"alert.image-generation.title" = "Export nicht möglich";
 
 /* E-mail address */
 "alert.mail.message" = "Du kannst mich via %@ erreichen.";
 
 /* No comment provided by engineer. */
-"alert.mail.title" = "Dieses Gerät kann keine E-Mails versenden.";
-
-/* No comment provided by engineer. */
 "alert.ok" = "OK";
 
 /* No comment provided by engineer. */
-"alert.playback" = "Dieses Objekt kann nicht abgespielt werden.";
+"alert.playback.message" = "Es ist ein Fehler aufgetreten.";
 
 /* No comment provided by engineer. */
-"alert.videoLoad" = "Video konnte nicht geladen werden.";
+"alert.playback.title" = "Video kann nicht abgespielt werden";
+
+/* No comment provided by engineer. */
+"alert.video-load.message" = "Es ist kein Netzwerk vorhanden oder das Videoformat wird nicht unterstützt.";
+
+/* No comment provided by engineer. */
+"alert.video-load.title" = "Download nicht möglich";
 
 /* Photo library authorization denied action */
 "authorization.deniedAction" = "Einstellungen Öffnen";
@@ -40,17 +58,20 @@
 /* Photo library authorization title */
 "authorization.title" = "Frame Grabber 👋";
 
-/* Feedback email subject */
-"about.email.subject" = "Frame Grabber: Feedback";
+/* Frame export activitiy subtitle, i.e. number of completed of total frames. */
+"frame-export.subtitle" = "%1$@ von %2$@";
+
+/* Frame export activity title */
+"frame-export.title" = "Bilder exportieren";
 
 /* The HEIF image format is not support message. */
 "more.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
 
-/* Image format settings compression quality section header */
-"more.section.compressionQuality" = "Kompressionsqualität";
-
 /* Title of map item opened in Maps app. */
 "more.mapTitle" = "Dein Video";
+
+/* Image format settings compression quality section header */
+"more.section.compressionQuality" = "Kompressionsqualität";
 
 /* Video detail frame export settings section header */
 "more.section.options" = "Bildoptionen";

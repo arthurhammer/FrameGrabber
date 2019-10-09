@@ -1,7 +1,7 @@
 import UIKit
 import AVKit
 
-class PlayerViewController: UIViewController {
+class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
 
     var videoManager: VideoManager!
     var settings = UserDefaults.standard
@@ -28,27 +28,11 @@ class PlayerViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        let verticallyCompact = traitCollection.verticalSizeClass == .compact
-        return verticallyCompact || shouldHideStatusBar
+        true
     }
 
-    private var shouldHideStatusBar = false {
-        didSet { setNeedsStatusBarAppearanceUpdate() }
-    }
-
-    // For seamless transition from status bar to non status bar view controller, need to
-    // a) keep `prefersStatusBarHidden` false until `viewWillAppear`, b) animate change
-    // and c) use the transition coordinator to handle correct layout for GPS/phone bar.
-    private func hideStatusBar() {
-        if let coordinator = transitionCoordinator {
-            coordinator.animate(alongsideTransition: { _ in
-                self.shouldHideStatusBar = true
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.15) {
-                self.shouldHideStatusBar = true
-            }
-        }
+    var prefersNavigationBarHidden: Bool {
+        true
     }
 
     override func viewDidLoad() {
@@ -56,13 +40,6 @@ class PlayerViewController: UIViewController {
         configureViews()
         loadPreviewImage()
         loadVideo()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        hideStatusBar()
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
