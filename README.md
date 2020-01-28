@@ -14,7 +14,7 @@ Feedback welcome. 👍
 - Precision frame by frame stepping.
 - Zooming for details.
 - Includes metadata such as creation date and location in exported frames.
-- HEIC-support.
+- Choose export format and compression quality.
 - Free and ad-free.
 
 ## Building the App
