@@ -10,6 +10,7 @@ class VideoDurationFormatter {
     }()
 
     func string(from timeInterval: TimeInterval) -> String? {
+        let timeInterval = timeInterval.rounded()
         let hasHour = timeInterval >= 3600
         formatter.allowedUnits = hasHour ? [.hour, .minute, .second] : [.minute, .second]
         return formatter.string(from: timeInterval)
