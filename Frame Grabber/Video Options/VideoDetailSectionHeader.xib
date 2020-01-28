@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,14 +14,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kus-a4-Pci">
-                    <rect key="frame" x="20" y="8" width="423" height="43"/>
+                    <rect key="frame" x="20" y="8" width="395" height="43"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Kus-a4-Pci" secondAttribute="trailingMargin" id="2vc-aE-xfb"/>
+                <constraint firstItem="Kus-a4-Pci" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="2vc-aE-xfb"/>
                 <constraint firstAttribute="bottom" secondItem="Kus-a4-Pci" secondAttribute="bottom" constant="8" id="9P2-Pq-qr9"/>
                 <constraint firstItem="Kus-a4-Pci" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="Kq2-ha-Trm"/>
                 <constraint firstItem="Kus-a4-Pci" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="XRr-sm-lfu"/>

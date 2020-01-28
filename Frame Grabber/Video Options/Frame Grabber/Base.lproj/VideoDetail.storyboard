@@ -395,14 +395,14 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hDu-C5-o1b">
                                                     <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                                     <subviews>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.94999998807907104" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jz7-C6-5Ml">
-                                                            <rect key="frame" x="-2" y="0.0" width="274.5" height="22.5"/>
+                                                        <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.94999998807907104" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jz7-C6-5Ml">
+                                                            <rect key="frame" x="-2" y="0.0" width="278.5" height="22.5"/>
                                                             <connections>
                                                                 <action selector="didChangeCompressionQuality" destination="fKK-CY-nBn" eventType="valueChanged" id="MDo-c1-G6v"/>
                                                             </connections>
                                                         </slider>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="&lt;0.95&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzj-e4-l06">
-                                                            <rect key="frame" x="278.5" y="0.0" width="55.5" height="21.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;0.95&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzj-e4-l06">
+                                                            <rect key="frame" x="282.5" y="0.0" width="51.5" height="21.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -410,6 +410,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="24" id="c6J-pC-OM3"/>
+                                                        <constraint firstItem="Jz7-C6-5Ml" firstAttribute="width" relation="greaterThanOrEqual" secondItem="hDu-C5-o1b" secondAttribute="width" multiplier="0.75" id="e4I-Ea-tze"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
