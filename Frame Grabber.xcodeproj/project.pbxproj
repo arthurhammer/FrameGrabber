@@ -11,8 +11,6 @@
 		00024F6E23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
 		00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
 		00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
-		00024F732344AD0900937941 /* SelectedFramesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F722344AD0900937941 /* SelectedFramesDataSource.swift */; };
-		00024F742344AD1700937941 /* SelectedFramesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F722344AD0900937941 /* SelectedFramesDataSource.swift */; };
 		00024F762344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		0015537F2129C8CF00F58CEE /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
@@ -35,10 +33,6 @@
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* PlayerViewController.swift */; };
 		00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
-		004D71CE2347B4110059BDEC /* SelectedFramesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004D71CD2347B4110059BDEC /* SelectedFramesViewController.swift */; };
-		004D71CF2347B4110059BDEC /* SelectedFramesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004D71CD2347B4110059BDEC /* SelectedFramesViewController.swift */; };
-		004D71D12347B42B0059BDEC /* FrameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004D71D02347B42B0059BDEC /* FrameCell.swift */; };
-		004D71D22347B42B0059BDEC /* FrameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004D71D02347B42B0059BDEC /* FrameCell.swift */; };
 		0058E354213D645900BE28DD /* ZoomAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomAnimatable.swift */; };
 		0058E356213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */; };
 		005E2AA320273C5800F731FA /* CollectionViewGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */; };
@@ -118,8 +112,6 @@
 		008A48D823479D7300CEAA26 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008A48D623479D7300CEAA26 /* ImageEncoding.swift */; };
 		0096E813212F2EF8008395CA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E812212F2EF8008395CA /* Bundle.swift */; };
 		0096E815212F2FA7008395CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E814212F2FA7008395CA /* Settings.swift */; };
-		009BEA40234E11C700C284FA /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA3F234E11C700C284FA /* ProgressViewController.swift */; };
-		009BEA41234E11C700C284FA /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA3F234E11C700C284FA /* ProgressViewController.swift */; };
 		009BEA43234E152E00C284FA /* FrameExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA42234E152E00C284FA /* FrameExporter.swift */; };
 		009BEA44234E152E00C284FA /* FrameExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA42234E152E00C284FA /* FrameExporter.swift */; };
 		009BEA46234E17E900C284FA /* FrameExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA45234E17E900C284FA /* FrameExport.swift */; };
@@ -184,7 +176,6 @@
 /* Begin PBXFileReference section */
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
 		00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumContextMenuActions.swift; sourceTree = "<group>"; };
-		00024F722344AD0900937941 /* SelectedFramesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedFramesDataSource.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		0015537E2129C8CF00F58CEE /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		001A6C4B20600E1A00B91F3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -210,8 +201,6 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
-		004D71CD2347B4110059BDEC /* SelectedFramesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedFramesViewController.swift; sourceTree = "<group>"; };
-		004D71D02347B42B0059BDEC /* FrameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameCell.swift; sourceTree = "<group>"; };
 		0058E353213D645900BE28DD /* ZoomAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimatable.swift; sourceTree = "<group>"; };
 		0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControllerContextTransitioning+Util.swift"; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewGridLayout.swift; sourceTree = "<group>"; };
@@ -229,7 +218,6 @@
 		008A48D623479D7300CEAA26 /* ImageEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoding.swift; sourceTree = "<group>"; };
 		0096E812212F2EF8008395CA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		0096E814212F2FA7008395CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		009BEA3F234E11C700C284FA /* ProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
 		009BEA42234E152E00C284FA /* FrameExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExporter.swift; sourceTree = "<group>"; };
 		009BEA45234E17E900C284FA /* FrameExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExport.swift; sourceTree = "<group>"; };
 		009BEA48234E243D00C284FA /* dprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dprint.swift; sourceTree = "<group>"; };
@@ -424,11 +412,9 @@
 			children = (
 				00328A961FC85D84004648F9 /* PlayerViewController.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
-				009BEA3F234E11C700C284FA /* ProgressViewController.swift */,
 				00EAFD99205ED32B0031F8A2 /* PlayerControlsView.swift */,
 				001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */,
 				00EAFD9B205ED3450031F8A2 /* PlayerTitleView.swift */,
-				0086A6B72345139C00989646 /* Selected Frames */,
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Editor;
@@ -443,16 +429,6 @@
 				0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */,
 			);
 			path = Transition;
-			sourceTree = "<group>";
-		};
-		0086A6B72345139C00989646 /* Selected Frames */ = {
-			isa = PBXGroup;
-			children = (
-				004D71CD2347B4110059BDEC /* SelectedFramesViewController.swift */,
-				00024F722344AD0900937941 /* SelectedFramesDataSource.swift */,
-				004D71D02347B42B0059BDEC /* FrameCell.swift */,
-			);
-			path = "Selected Frames";
 			sourceTree = "<group>";
 		};
 		00A9DF5321273FA400778885 /* Albums */ = {
@@ -669,12 +645,9 @@
 			files = (
 				00730EA6214FEA5A001A6EA7 /* VideoCell.swift in Sources */,
 				00730EA7214FEA5A001A6EA7 /* CollectionViewTableLayout.swift in Sources */,
-				009BEA41234E11C700C284FA /* ProgressViewController.swift in Sources */,
 				00730EA8214FEA5A001A6EA7 /* ZoomAnimator.swift in Sources */,
 				00730EA9214FEA5A001A6EA7 /* FetchedAlbum+Fetch.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
-				00024F742344AD1700937941 /* SelectedFramesDataSource.swift in Sources */,
-				004D71CF2347B4110059BDEC /* SelectedFramesViewController.swift in Sources */,
 				00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
 				00730EAB214FEA5A001A6EA7 /* StatusView.swift in Sources */,
 				00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */,
@@ -742,7 +715,6 @@
 				00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */,
 				009BEA44234E152E00C284FA /* FrameExporter.swift in Sources */,
 				00024F772344C06F00937941 /* AVAsset.swift in Sources */,
-				004D71D22347B42B0059BDEC /* FrameCell.swift in Sources */,
 				009BEA4A234E243D00C284FA /* dprint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -753,12 +725,10 @@
 			files = (
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
 				00AA20232136C93100084B08 /* CollectionViewTableLayout.swift in Sources */,
-				009BEA40234E11C700C284FA /* ProgressViewController.swift in Sources */,
 				00653B43213941A20038CB56 /* ZoomAnimator.swift in Sources */,
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
-				004D71CE2347B4110059BDEC /* SelectedFramesViewController.swift in Sources */,
 				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
 				00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */,
@@ -797,7 +767,6 @@
 				00EAFD9C205ED3450031F8A2 /* PlayerTitleView.swift in Sources */,
 				00B02E0021231ED500336F34 /* TimeSlider.swift in Sources */,
 				005E2AA320273C5800F731FA /* CollectionViewGridLayout.swift in Sources */,
-				00024F732344AD0900937941 /* SelectedFramesDataSource.swift in Sources */,
 				007208971FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift in Sources */,
 				009C657A1FBF338900DB25A6 /* AlbumViewController.swift in Sources */,
 				00E7135A2125E2940052EAF8 /* CGImage.swift in Sources */,
@@ -826,7 +795,6 @@
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,
 				009BEA43234E152E00C284FA /* FrameExporter.swift in Sources */,
 				00024F762344C06F00937941 /* AVAsset.swift in Sources */,
-				004D71D12347B42B0059BDEC /* FrameCell.swift in Sources */,
 				009BEA49234E243D00C284FA /* dprint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1021,7 +989,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info-Dev.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1040,7 +1008,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info-Dev.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1059,7 +1027,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.arthurhammer.framegrabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1078,7 +1046,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.arthurhammer.framegrabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";

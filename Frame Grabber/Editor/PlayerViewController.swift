@@ -5,7 +5,6 @@ class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
 
     var videoController: VideoController!
 
-    private var selectedFramesController: SelectedFramesViewController?
     private var playbackController: PlaybackController?
     private lazy var timeFormatter = VideoTimeFormatter()
 
@@ -46,11 +45,6 @@ class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
 
             playbackController?.pause()
             controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
-
-        } else if let destination = segue.destination as? SelectedFramesViewController {
-            selectedFramesController = destination
-            selectedFramesController?.delegate = self
-            selectedFramesController?.dataSource = videoController.video.flatMap(SelectedFramesDataSource.init)
         }
     }
 }
@@ -70,52 +64,28 @@ private extension PlayerViewController {
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
         playbackController?.playOrPause()
-        selectedFramesController?.clearSelection()
     }
 
     func stepBackward() {
         guard !isScrubbing else { return }
         playbackController?.step(byCount: -1)
-        selectedFramesController?.clearSelection()
     }
 
     func stepForward() {
         guard !isScrubbing else { return }
         playbackController?.step(byCount: 1)
-        selectedFramesController?.clearSelection()
-    }
-
-    @IBAction func addFrame() {
-        guard !isScrubbing,
-            // When the user spams the add button, older devices can run out of memory as
-            // images are being requested more quickly than being generated. Limit to one.
-            selectedFramesController?.isGeneratingFrames == false,
-            let time = playbackController?.currentTime else { return }
-
-        selectedFramesController?.insertFrame(for: time) { [weak self] result in
-            guard self?.playbackController?.isPlaying == false else { return }
-            self?.selectedFramesController?.selectFrame(at: result.index)
-            self?.playbackController?.directlySeek(to: result.frame.definingTime)
-        }
     }
 
     @IBAction func shareFrames() {
-        guard !isScrubbing else { return }
+        guard !isScrubbing,
+            let playbackController = playbackController else { return }
 
-        playbackController?.pause()
-
-        if let times = selectedFramesController?.frames,
-            !times.isEmpty {
-
-            generateFramesAndShare(for: times)
-        } else if let playbackController = playbackController {
-            generateFramesAndShare(for: [playbackController.currentTime])
-        }
+        playbackController.pause()
+        generateFramesAndShare(for: [playbackController.currentTime])
     }
 
     @IBAction func scrub(_ sender: TimeSlider) {
         playbackController?.smoothlySeek(to: sender.time)
-        selectedFramesController?.clearSelection()
     }
 }
 
@@ -308,8 +278,6 @@ private extension PlayerViewController {
     }
 
     func configurePlayer(with video: AVAsset) {
-        selectedFramesController?.dataSource = SelectedFramesDataSource(video: video)
-
         playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
         playbackController?.delegate = self
         playerView.player = playbackController?.player
@@ -319,25 +287,13 @@ private extension PlayerViewController {
 
     // MARK: Image Generation
 
-
     func generateFramesAndShare(for times: [CMTime]) {
-        let progressController = ProgressViewController.frameExport(cancelHandler: { [weak self] in
-            self?.videoController.cancelFrameExport()
-        })
-        progressController.setProgress(count: 0, of: times.count)
+        view.isUserInteractionEnabled = false
 
-        videoController.generateAndExportFrames(for: times, progressHandler: { completed, total in
-            progressController.setProgress(count: completed, of: total)
-        }, completionHandler: { [weak self] result in
-            // Small delay so it's easier for user to see finished state.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                progressController.dismiss(animated: false) {
-                    self?.handleFrameGenerationResult(result)
-                }
-            }
+        videoController.generateAndExportFrames(for: times, progressHandler: { completed, total in }, completionHandler: { [weak self] result in
+            self?.view.isUserInteractionEnabled = true
+            self?.handleFrameGenerationResult(result)
         })
-
-        present(progressController, animated: true)
     }
 
     func handleFrameGenerationResult(_ result: FrameExporter.Result) {
@@ -357,15 +313,6 @@ private extension PlayerViewController {
             self?.videoController.deleteFrames(for: urls)
         }
         present(shareController, animated: true)
-    }
-}
-
-// MARK: - SelectedFramesViewControllerDelegate
-
-extension PlayerViewController: SelectedFramesViewControllerDelegate {
-
-    func controller(_ controller: SelectedFramesViewController, didSelectFrameAt time: CMTime) {
-        playbackController?.directlySeek(to: time)
     }
 }
 

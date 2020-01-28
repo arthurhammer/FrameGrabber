@@ -84,9 +84,8 @@ class VideoController {
             DispatchQueue.main.async {
                 progressHandler(completed, total)
             }
-        }, completionHandler: { [weak self] result in
+        }, completionHandler: { result in
             DispatchQueue.main.async {
-                self?.frameExporter = nil
                 completionHandler(result)
             }
         })

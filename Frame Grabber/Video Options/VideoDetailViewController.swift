@@ -152,7 +152,7 @@ class VideoDetailViewController: UITableViewController {
 extension VideoDetailViewController.Section {
     var title: String? {
         switch self {
-        case .options: return NSLocalizedString("more.section.options", value: "Frame Options", comment: "Video detail frame export settings section header")
+        case .options: return NSLocalizedString("more.section.options", value: "Export", comment: "Video detail frame export settings section header")
         case .video: return NSLocalizedString("more.section.video", value: "Video", comment: "Video detail video metadata section header")
         case .location: return nil
         }

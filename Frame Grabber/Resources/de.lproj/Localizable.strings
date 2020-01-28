@@ -64,12 +64,6 @@
 /* Photo library authorization title */
 "authorization.title" = "Frame Grabber 👋";
 
-/* Frame export activitiy subtitle, i.e. number of completed of total frames. */
-"frame-export.subtitle" = "%1$@ von %2$@";
-
-/* Frame export activity title */
-"frame-export.title" = "Bilder exportieren";
-
 /* The HEIF image format is not support message. */
 "more.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
 
@@ -80,7 +74,8 @@
 "more.section.compressionQuality" = "Kompressionsqualität";
 
 /* Video detail frame export settings section header */
-"more.section.options" = "Bildoptionen";
+"more.section.options" = "Export";
 
 /* Video detail video metadata section header */
 "more.section.video" = "Video";
+
