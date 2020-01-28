@@ -1,0 +1,12 @@
+/* Class = "UILabel"; text = "Pick a Frame"; ObjectID = "bP2-FO-hcM"; */
+"bP2-FO-hcM.text" = "Bild Auswählen";
+
+/* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
+"nBX-8Q-BwE.title" = "Alben";
+
+/* Class = "UILabel"; text = "Downloading from iCloud…"; ObjectID = "oGN-ie-szR"; */
+"oGN-ie-szR.text" = "Von iCloud Laden…";
+
+/* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
+"T19-Lc-8RI.text" = "Keine Videos";
+

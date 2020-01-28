@@ -1,9 +1,10 @@
 import UIKit
+import Photos
 
 class AlbumCell: UICollectionViewCell {
 
     var identifier: String?
-    var imageRequest: ImageRequest?
+    var imageRequest: PHImageManager.Request?
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!

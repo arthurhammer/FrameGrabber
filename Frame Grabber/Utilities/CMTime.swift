@@ -1,4 +1,4 @@
-import AVKit
+import CoreMedia
 
 extension CMTime {
     init(seconds: Double, preferredTimeScale: CMTimeScale = CMTimeScale(NSEC_PER_SEC)) {

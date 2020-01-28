@@ -1,0 +1,20 @@
+/* Class = "UILabel"; text = "View Source Code"; ObjectID = "87B-UZ-DeT"; */
+"87B-UZ-DeT.text" = "Source Code Ansehen";
+
+/* Class = "UILabel"; text = "By Arthur Hammer ♥︎"; ObjectID = "aGX-4N-Bcc"; */
+"aGX-4N-Bcc.text" = "Von Arthur Hammer ♥︎";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "Caq-ca-pPp"; */
+"Caq-ca-pPp.text" = "Datenschutzerklärung";
+
+/* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "gKu-gc-lE0"; */
+"gKu-gc-lE0.title" = "Frame Grabber";
+
+/* Class = "UILabel"; text = "Rate on the App Store!"; ObjectID = "LcX-5g-hZa"; */
+"LcX-5g-hZa.text" = "Im App Store Bewerten!";
+
+/* Class = "UILabel"; text = "Send Feedback"; ObjectID = "odN-ky-B2u"; */
+"odN-ky-B2u.text" = "Feedback Senden";
+
+/* Class = "UILabel"; text = "Frame Grabber lets you export video frames as images. "; ObjectID = "gyD-ww-Z3w"; */
+"gyD-ww-Z3w.text" = "Frame Grabber exportiert Einzelbilder aus deinen Videos.";

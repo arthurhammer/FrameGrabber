@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class AlbumViewController: UICollectionViewController {
+class AlbumViewController: UICollectionViewController, NavigationBarHiddenPreferring {
 
     // nil if deleted.
     var album: FetchedAlbum? {
@@ -15,18 +15,16 @@ class AlbumViewController: UICollectionViewController {
     @IBOutlet private var emptyView: UIView!
 
     private lazy var durationFormatter = VideoDurationFormatter()
-    private let cellId = String(describing: VideoCell.self)
 
     // MARK: Lifecycle
+
+    var prefersNavigationBarHidden: Bool {
+        false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -46,7 +44,29 @@ class AlbumViewController: UICollectionViewController {
         transitionController.prepareNavigationControllerTransition(for: navigationController)
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
-            destination.videoManager = VideoManager(asset: selectedAsset)
+            destination.videoController = VideoController(asset: selectedAsset)
+        }
+    }
+
+    @available(iOS 13.0, *)
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let video = dataSource?.video(at: indexPath) else { return nil }
+
+        return .menu(for: video, toggleFavoriteAction: { [weak self] _ in
+            self?.dataSource?.toggleFavorite(for: video)
+        }, deleteAction: { [weak self] _ in
+            self?.dataSource?.delete(video)
+        })
+    }
+
+    @available(iOS 13.0, *)
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        guard let video = configuration.identifier as? PHAsset,
+            let indexPath = dataSource?.indexPath(of: video) else { return }
+
+        animator.addAnimations {
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.performSegue(withIdentifier: PlayerViewController.name, sender: nil)
         }
     }
 }
@@ -59,8 +79,6 @@ extension AlbumViewController {
         guard let cell = cell as? VideoCell else { return }
         cell.imageRequest = nil
     }
-
-    
 }
 
 // MARK: - Private
@@ -71,9 +89,10 @@ private extension AlbumViewController {
         clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
+        collectionView?.collectionViewLayout.prepare()
 
         if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "gear")
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "info.circle")
         }
 
         updateAlbumData()
@@ -118,11 +137,11 @@ private extension AlbumViewController {
 
     func updateThumbnailSize() {
         guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
-        dataSource?.imageConfig.size = layout.itemSize.scaledToScreen
+        dataSource?.imageOptions.size = layout.itemSize.scaledToScreen
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
+        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: VideoCell.name, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
         configure(cell: cell, for: video)
         return cell
     }

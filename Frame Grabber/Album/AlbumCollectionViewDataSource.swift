@@ -14,7 +14,7 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     var albumChangedHandler: (() -> ())?
     var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>) -> ())?
 
-    var imageConfig: ImageConfig {
+    var imageOptions: PHImageManager.ImageOptions {
         didSet { imageManager.stopCachingImagesForAllAssets() }
     }
 
@@ -25,13 +25,13 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     init(album: FetchedAlbum?,
          photoLibrary: PHPhotoLibrary = .shared(),
          imageManager: PHCachingImageManager = .init(),
-         imageConfig: ImageConfig = .init(),
+         imageOptions: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
          cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)) {
 
         self.album = album
         self.photoLibrary = photoLibrary
         self.imageManager = imageManager
-        self.imageConfig = imageConfig
+        self.imageOptions = imageOptions
         self.cellProvider = cellProvider
 
         super.init()
@@ -49,8 +49,25 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         album!.fetchResult.object(at: indexPath.item)
     }
 
-    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> ImageRequest {
-        imageManager.requestImage(for: video, config: imageConfig, resultHandler: resultHandler)
+    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> PHImageManager.Request {
+        imageManager.requestImage(for: video, options: imageOptions, resultHandler: resultHandler)
+    }
+
+    func indexPath(of video: PHAsset) -> IndexPath? {
+        guard let index = album?.fetchResult.index(of: video) else { return nil }
+        return IndexPath(item: index, section: 0)
+    }
+
+    func toggleFavorite(for video: PHAsset) {
+        photoLibrary.performChanges({
+            PHAssetChangeRequest(for: video).isFavorite = !video.isFavorite
+        }, completionHandler: nil)
+    }
+
+    func delete(_ video: PHAsset) {
+        photoLibrary.performChanges({
+            PHAssetChangeRequest.deleteAssets([video] as NSArray)
+        }, completionHandler: nil)
     }
 
     private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
@@ -78,12 +95,12 @@ extension AlbumCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         // Index paths might not exist anymore in the model.
         let videos = safeVideos(at: indexPaths)
-        imageManager.startCachingImages(for: videos, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
+        imageManager.startCachingImages(for: videos, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         let videos = safeVideos(at: indexPaths)
-        imageManager.stopCachingImages(for: videos, targetSize: imageConfig.size, contentMode: imageConfig.mode, options: imageConfig.options)
+        imageManager.stopCachingImages(for: videos, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
     }
 }
 
