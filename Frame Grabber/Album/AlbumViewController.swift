@@ -48,7 +48,6 @@ class AlbumViewController: UICollectionViewController, NavigationBarHiddenPrefer
         }
     }
 
-    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let video = dataSource?.video(at: indexPath) else { return nil }
 
@@ -59,7 +58,6 @@ class AlbumViewController: UICollectionViewController, NavigationBarHiddenPrefer
         })
     }
 
-    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         guard let video = configuration.identifier as? PHAsset,
             let indexPath = dataSource?.indexPath(of: video) else { return }
@@ -90,10 +88,6 @@ private extension AlbumViewController {
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
         collectionView?.collectionViewLayout.prepare()
-
-        if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "info.circle")
-        }
 
         updateAlbumData()
     }

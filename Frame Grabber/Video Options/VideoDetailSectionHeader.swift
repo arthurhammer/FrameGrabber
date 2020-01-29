@@ -24,11 +24,6 @@ class VideoDetailSectionHeader: UITableViewHeaderFooterView {
     private func updateViews() {
         // Slightly larger than normal
         titleLabel.font = UIFont.preferredFont(forTextStyle: .headline, size: 18, weight: .semibold)
-
-        if #available(iOS 13, *), isGroupedInset {
-            leadingConstraint.constant = isGroupedInset ? groupedInsetCustomHeaderMargin : 0
-        } else {
-            leadingConstraint.constant = 0
-        }
+        leadingConstraint.constant = isGroupedInset ? groupedInsetCustomHeaderMargin : 0
     }
 }

@@ -46,9 +46,7 @@ class Coordinator: NSObject {
             completion()
         }
 
-        if #available(iOS 13.0, *) {
-            authorizationController.isModalInPresentation = true
-        }
+        authorizationController.isModalInPresentation = true
 
         rootNavigationController.present(authorizationController, animated: animated)
     }

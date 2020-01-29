@@ -81,10 +81,8 @@ class VideoDetailViewController: UITableViewController {
     private func configureViews() {
         tableView.register(VideoDetailSectionHeader.nib, forHeaderFooterViewReuseIdentifier: VideoDetailSectionHeader.name)
 
-        if #available(iOS 13, *) {
-            tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-            tableView.backgroundColor = .clear
-        }
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        tableView.backgroundColor = .clear
 
         updateViews()
     }

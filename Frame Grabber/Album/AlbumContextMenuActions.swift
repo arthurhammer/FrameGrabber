@@ -1,7 +1,6 @@
 import UIKit
 import Photos
 
-@available(iOS 13.0, *)
 extension UIContextMenuConfiguration {
 
     static func menu(for video: PHAsset, toggleFavoriteAction: @escaping (UIAction) -> (), deleteAction: @escaping (UIAction) -> ()) -> UIContextMenuConfiguration {
@@ -14,7 +13,6 @@ extension UIContextMenuConfiguration {
     }
 }
 
-@available(iOS 13.0, *)
 extension UIMenuElement {
 
     static func toggleFavorite(for video: PHAsset, action: @escaping (UIAction) -> ()) -> UIMenuElement {

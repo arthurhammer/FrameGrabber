@@ -6,27 +6,11 @@ struct Style {
         static let mainTint = UIColor.systemBlue
 
         static var cellSelection: UIColor {
-            if #available(iOS 13, *) {
-                return .systemGray4
-            } else {
-                return UIColor(red: 0.90, green: 0.91, blue: 0.92, alpha: 1.00)
-            }
+            .systemGray4
         }
 
         static var disabledLabel: UIColor {
-            if #available(iOS 13, *) {
-                return .systemGray
-            } else {
-                return .lightGray
-            }
-        }
-
-        static var progressViewAccent: UIColor {
-            if #available(iOS 13, *) {
-                return .label
-            } else {
-                return .black
-            }
+            .systemGray
         }
 
         static let timeSlider = UIColor(white: 0.65, alpha: 1)

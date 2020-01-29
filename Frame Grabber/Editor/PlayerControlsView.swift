@@ -58,6 +58,6 @@ import AVKit
 
 extension UIButton {
     func setTimeControlStatus(_ status: AVPlayer.TimeControlStatus) {
-        setImage((status == .paused) ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause"), for: .normal)
+        setImage((status == .paused) ? UIImage(systemName: "play.fill") : UIImage(systemName: "pause.fill"), for: .normal)
     }
 }
