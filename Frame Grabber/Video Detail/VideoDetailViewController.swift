@@ -17,16 +17,13 @@ class VideoDetailViewController: UITableViewController {
 
     var settings = UserDefaults.standard
 
-    @IBOutlet private var metadataSwitch: UISwitch!
     @IBOutlet private var imageFormatLabel: UILabel!
-
     @IBOutlet private var dimensionsLabel: UILabel!
     @IBOutlet private var frameRateLabel: UILabel!
     @IBOutlet private var dateCreatedLabel: UILabel!
+    @IBOutlet private var locationCell: UITableViewCell!
     @IBOutlet private var locationLabel: UILabel!
     @IBOutlet private var mapView: MKMapView!
-
-    @IBOutlet private var locationCell: UITableViewCell!
 
     private lazy var locationFormatter = CachingGeocodingLocationFormatter.shared
     private let notAvailablePlaceholder = "—"
@@ -38,15 +35,11 @@ class VideoDetailViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateFrameSettings()
+        updateExportOptions()
     }
 
     @IBAction private func done() {
         dismiss(animated: true)
-    }
-
-    @IBAction private func metadataOptionDidChange(_ sender: UISwitch) {
-        settings.includeMetadata = sender.isOn
     }
 
     func openLocationInMaps() {
@@ -67,8 +60,16 @@ class VideoDetailViewController: UITableViewController {
         openLocationInMaps()
     }
 
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        tableView.cellForRow(at: indexPath)?.accessoryType != .some(.none)
+    }
+
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         (Section(section) == .video) ? 0 : UITableView.automaticDimension
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        (Section(section) == .options) ? 0 : UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -89,19 +90,25 @@ class VideoDetailViewController: UITableViewController {
 
     private func updateViews() {
         guard isViewLoaded else { return }
-        updateFrameSettings()
+        updateExportOptions()
         updateAssetMetadata()
      }
 
+    private func updateExportOptions() {
+        let metadataSummary = settings.includeMetadata
+            ? NSLocalizedString("more.exportOptions.metadataIncluded", value: "With Metadata", comment: "Export options summary, metadata is included.")
+            : NSLocalizedString("more.exportOptions.metadataNotIncluded", value: "No metadata", comment: "Export options summary, metadata is not included.")
 
-    private func updateFrameSettings() {
-        metadataSwitch.isOn = settings.includeMetadata
+        var formatSummary: String
 
         if let quality = NumberFormatter.percentFormatter().string(from: settings.compressionQuality as NSNumber) {
-            imageFormatLabel.text = "\(settings.imageFormat.displayString) \(quality)"
+            formatSummary = "\(settings.imageFormat.displayString) \(quality)"
         } else {
-            imageFormatLabel.text = settings.imageFormat.displayString
+            formatSummary = settings.imageFormat.displayString
         }
+
+        let messageFormat = NSLocalizedString("more.exportOptions.summary", value: "%@ • %@", comment: "Export options summary: Image format and metadata")
+        imageFormatLabel.text = String.localizedStringWithFormat(messageFormat, formatSummary, metadataSummary)
     }
 
     private func updateAssetMetadata() {
@@ -150,7 +157,7 @@ class VideoDetailViewController: UITableViewController {
 extension VideoDetailViewController.Section {
     var title: String? {
         switch self {
-        case .options: return NSLocalizedString("more.section.options", value: "Export", comment: "Video detail frame export settings section header")
+        case .options: return nil
         case .video: return NSLocalizedString("more.section.video", value: "Video", comment: "Video detail video metadata section header")
         case .location: return nil
         }

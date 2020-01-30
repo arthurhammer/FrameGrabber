@@ -1,22 +1,24 @@
 import UIKit
 
-class ImageFormatViewController: UITableViewController {
+class ExportOptionsViewController: UITableViewController {
 
     enum Section: Int {
+        case metadata
         case format
         case compressionQuality
     }
 
     var settings: UserDefaults = .standard
 
+    @IBOutlet private var includeMetadataSwitch: UISwitch!
     @IBOutlet private var heifCell: UITableViewCell!
     @IBOutlet private var heifLabel: UILabel!
     @IBOutlet private var jpgCell: UITableViewCell!
     @IBOutlet private var compressionQualitySlider: UISlider!
     @IBOutlet private var compressionQualityLabel: UILabel!
 
-    private let heifIndexPath = IndexPath(row: 0, section: 0)
-    private let jpgIndexPath = IndexPath(row: 1, section: 0)
+    private let heifIndexPath = IndexPath(row: 0, section: 1)
+    private let jpgIndexPath = IndexPath(row: 1, section: 1)
 
     private lazy var compressionFormatter = NumberFormatter.percentFormatter()
 
@@ -27,6 +29,10 @@ class ImageFormatViewController: UITableViewController {
 
     @IBAction private func done() {
         dismiss(animated: true)
+    }
+
+    @IBAction private func didUpdateIncludeMetadata(_ sender: UISwitch) {
+        settings.includeMetadata = sender.isOn
     }
 
     @IBAction func didChangeCompressionQuality() {
@@ -72,6 +78,8 @@ class ImageFormatViewController: UITableViewController {
     }
 
     private func updateViews() {
+        includeMetadataSwitch.isOn = settings.includeMetadata
+
         compressionQualitySlider.value = Float(settings.compressionQuality)
         compressionQualityLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
 
@@ -94,11 +102,12 @@ private extension Double {
     }
 }
 
-extension ImageFormatViewController.Section {
+extension ExportOptionsViewController.Section {
     var title: String? {
         switch self {
-        case .format: return nil
-        case .compressionQuality: return NSLocalizedString("more.section.compressionQuality", value: "Compression Quality", comment: "Image format settings compression quality section header")
+        case .metadata: return nil
+        case .format: return NSLocalizedString("more.section.imageFormat", value: "Image Format", comment: "Export settings image format section header")
+        case .compressionQuality: return NSLocalizedString("more.section.compressionQuality", value: "Compression Quality", comment: "Export settings compression quality section header")
         }
     }
 }

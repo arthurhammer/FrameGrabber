@@ -64,17 +64,23 @@
 /* Photo library authorization title */
 "authorization.title" = "Frame Grabber 👋";
 
+/* Export options summary, metadata is included. */
+"more.exportOptions.metadataIncluded" = "Mit Metadaten";
+
+/* Export options summary, metadata is not included. */
+"more.exportOptions.metadataNotIncluded" = "Ohne Metadaten";
+
 /* The HEIF image format is not support message. */
 "more.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
 
 /* Title of map item opened in Maps app. */
 "more.mapTitle" = "Dein Video";
 
-/* Image format settings compression quality section header */
+/* Export settings compression quality section header */
 "more.section.compressionQuality" = "Kompressionsqualität";
 
-/* Video detail frame export settings section header */
-"more.section.options" = "Export";
+/* Export settings image format section header */
+"more.section.imageFormat" = "Bildformat";
 
 /* Video detail video metadata section header */
 "more.section.video" = "Video";
