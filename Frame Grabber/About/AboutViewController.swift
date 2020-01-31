@@ -21,6 +21,8 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
                            \(device.type ?? device.model)
                            """
 
+    @IBOutlet private var appIconView: UIImageView!
+    @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var versionLabel: UILabel!
 
     override func viewDidLoad() {
@@ -28,30 +30,41 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         configureViews()
     }
 
-    override func viewDidLayoutSubviews() {
-         super.viewDidLayoutSubviews()
-         updateHeaderAndFooter()
-     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let sendFeedpackPath = IndexPath(row: 0, section: 0)
-        let rateAppPath = IndexPath(row: 1, section: 0)
-        let showSourceCodePath = IndexPath(row: 0, section: 1)
+        let sendFeedpackPath = IndexPath(row: 0, section: 1)
         let privacyPolicyPath = IndexPath(row: 1, section: 1)
+        let showSourceCodePath = IndexPath(row: 2, section: 1)
 
         switch indexPath {
         case sendFeedpackPath: sendFeedback()
-        case rateAppPath: rate()
-        case showSourceCodePath: showSourceCode()
         case privacyPolicyPath: showPrivacyPolicy()
+        case showSourceCodePath: showSourceCode()
         default: break
         }
     }
 
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        tableView.cellForRow(at: indexPath)?.accessoryType != .some(.none)
+    }
+
     private func configureViews() {
-        let format = NSLocalizedString("about.version", value: "Version: %@", comment: "Version label prefix including colon.")
+        appIconView.image = bundle.appIcon
+        appIconView.layer.cornerRadius = Style.Size.buttonCornerRadius
+        appIconView.layer.borderWidth = 1
+        appIconView.layer.borderColor = UIColor.separator.cgColor
+
+        rateButton.tintColor = .white
+        rateButton.backgroundColor = Style.Color.mainTint
+        rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
+
+        let format = NSLocalizedString("about.version", value: "Version %@", comment: "Version label with numerical version")
         versionLabel.text = String.localizedStringWithFormat(format, bundle.shortFormattedVersion)
     }
 }
@@ -62,6 +75,13 @@ extension AboutViewController {
 
     @IBAction private func done() {
         dismiss(animated: true)
+    }
+
+    @IBAction func rate() {
+        guard let url = storeURL,
+            app.canOpenURL(url) else { return }
+
+        app.open(url)
     }
 
     func sendFeedback() {
@@ -81,13 +101,6 @@ extension AboutViewController {
 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         dismiss(animated: true)
-    }
-
-    func rate() {
-        guard let url = storeURL,
-            app.canOpenURL(url) else { return }
-
-        app.open(url)
     }
 
     func showSourceCode() {
@@ -115,26 +128,5 @@ private extension UIDevice {
                 String(validatingUTF8: $0)
             }
         }
-    }
-}
-
-private extension UITableViewController {
-    /// Size footer/header views according to AutoLayout.
-    func updateHeaderAndFooter() {
-        if let newHeight = autoLayoutHeight(for: tableView.tableHeaderView) {
-            tableView.tableHeaderView?.bounds.size.height = newHeight
-            tableView.tableHeaderView = tableView.tableHeaderView
-        }
-
-        if let newHeight = autoLayoutHeight(for: tableView.tableFooterView) {
-            tableView.tableFooterView?.bounds.size.height = newHeight
-            tableView.tableFooterView = tableView.tableFooterView
-        }
-    }
-
-    func autoLayoutHeight(for view: UIView?) -> CGFloat? {
-        guard let view = view else { return nil }
-        let newHeight = view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        return (newHeight != view.bounds.height) ? newHeight : nil
     }
 }

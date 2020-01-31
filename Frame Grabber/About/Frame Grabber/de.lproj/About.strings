@@ -1,20 +1,30 @@
-/* Class = "UILabel"; text = "View Source Code"; ObjectID = "87B-UZ-DeT"; */
-"87B-UZ-DeT.text" = "Source Code Ansehen";
-
 /* Class = "UILabel"; text = "By Arthur Hammer ♥︎"; ObjectID = "aGX-4N-Bcc"; */
 "aGX-4N-Bcc.text" = "Von Arthur Hammer ♥︎";
 
-/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "Caq-ca-pPp"; */
-"Caq-ca-pPp.text" = "Datenschutzerklärung";
+/* Class = "UILabel"; text = "Grab images from videos in full quality."; ObjectID = "Ciq-8B-rvv"; */
+"Ciq-8B-rvv.text" = "Exportiere Einzelbilder aus deinen Videos in voller Qualität";
+
+/* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
+"CWr-Fn-l1m.text" = "Quellcode";
 
 /* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "gKu-gc-lE0"; */
 "gKu-gc-lE0.title" = "Frame Grabber";
 
-/* Class = "UILabel"; text = "Rate on the App Store!"; ObjectID = "LcX-5g-hZa"; */
-"LcX-5g-hZa.text" = "Im App Store Bewerten!";
+/* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
+"GkV-0K-xRO.text" = "Kontakt";
 
-/* Class = "UILabel"; text = "Send Feedback"; ObjectID = "odN-ky-B2u"; */
-"odN-ky-B2u.text" = "Feedback Senden";
+/* Class = "UILabel"; text = "Hi, I'm Arthur! I made this app to learn iOS development with Swift. If you like it, you can rate it on the App Store. ♥︎"; ObjectID = "IiT-LI-i5k"; */
+"IiT-LI-i5k.text" = "Hi, ich bin Arthur! Ich habe diese App entwickelt, um iOS-Programmierung mit Swift zu lernen. Wenn du die App magst, kannst du sie im App Store bewerten. ♥︎";
 
-/* Class = "UILabel"; text = "Frame Grabber lets you export video frames as images. "; ObjectID = "gyD-ww-Z3w"; */
-"gyD-ww-Z3w.text" = "Frame Grabber exportiert Einzelbilder aus deinen Videos.";
+/* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
+"jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
+
+/* Class = "UIButton"; normalTitle = "Rate Frame Grabber"; ObjectID = "lni-tn-UXo"; */
+"lni-tn-UXo.normalTitle" = "Frame Grabber Bewerten";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */
+"qvE-dH-xjJ.text" = "Datenschutzerklärung";
+
+/* Class = "UILabel"; text = "No ads, no analytics, private."; ObjectID = "QZZ-Gh-i28"; */
+"QZZ-Gh-i28.text" = "Keine Werbung, keine Analytics, kein Tracking.";
+

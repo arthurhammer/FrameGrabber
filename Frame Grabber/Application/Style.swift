@@ -22,12 +22,12 @@ struct Style {
     }
 
     struct Size {
-        static let buttonCornerRadius: CGFloat = 8
+        static let buttonCornerRadius: CGFloat = 12
     }
 
     static func configureAppearance(using window: UIWindow?) {
         window?.tintColor = Style.Color.mainTint
-        UINavigationBar.appearance().shadowImage = UIImage()
+        UISwitch.appearance().onTintColor = Style.Color.mainTint
     }
 }
 

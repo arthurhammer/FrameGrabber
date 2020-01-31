@@ -1,23 +1,17 @@
 /* Class = "UILabel"; text = "JPG"; ObjectID = "Byn-C0-URJ"; */
 "Byn-C0-URJ.text" = "JPEG";
 
-/* Class = "UILabel"; text = "Include Metadata"; ObjectID = "Coc-PF-WKs"; */
-"Coc-PF-WKs.text" = "Metadaten Hinzufügen";
-
-/* Class = "UILabel"; text = "Format"; ObjectID = "cYJ-1N-NnQ"; */
-"cYJ-1N-NnQ.text" = "Bildformat";
-
-/* Class = "UILabel"; text = "<Detail>"; ObjectID = "eVk-oq-tyN"; */
-"eVk-oq-tyN.text" = "<Detail>";
-
 /* Class = "UILabel"; text = "Frame Rate"; ObjectID = "ha7-Pc-OB7"; */
 "ha7-Pc-OB7.text" = "Bildfrequenz";
 
-/* Class = "UINavigationItem"; title = "Details"; ObjectID = "hPT-0r-vTx"; */
-"hPT-0r-vTx.title" = "Details";
+/* Class = "UINavigationItem"; title = "Info"; ObjectID = "hPT-0r-vTx"; */
+"hPT-0r-vTx.title" = "Info";
 
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "Ic6-HB-vmD"; */
 "Ic6-HB-vmD.text" = "<Detail>";
+
+/* Class = "UILabel"; text = "Export Options"; ObjectID = "jme-Ai-iBd"; */
+"jme-Ai-iBd.text" = "Exportoptionen";
 
 /* Class = "UILabel"; text = "Dimensions"; ObjectID = "jPm-bV-Lir"; */
 "jPm-bV-Lir.text" = "Dimensionen";
@@ -34,7 +28,10 @@
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "QKS-Vc-EVl"; */
 "QKS-Vc-EVl.text" = "<Detail>";
 
-/* Class = "UINavigationItem"; title = "Image Format"; ObjectID = "wmB-Os-3eg"; */
+/* Class = "UILabel"; text = "Include Metadata"; ObjectID = "So8-Af-ERQ"; */
+"So8-Af-ERQ.text" = "Metadaten Hinzufügen";
+
+/* Class = "UINavigationItem"; title = "Export Options"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Bildformat";
 
 /* Class = "UILabel"; text = "HEIF"; ObjectID = "Wrh-C2-4X7"; */
@@ -42,4 +39,7 @@
 
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "wuC-qx-baV"; */
 "wuC-qx-baV.text" = "<Detail>";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "XXj-Ps-2WK"; */
+"XXj-Ps-2WK.text" = "Ort";
 
