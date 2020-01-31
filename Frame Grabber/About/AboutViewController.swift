@@ -55,9 +55,12 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
 
     private func configureViews() {
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        tableView.backgroundColor = .clear
+
         appIconView.image = bundle.appIcon
         appIconView.layer.cornerRadius = Style.Size.buttonCornerRadius
-        appIconView.layer.borderWidth = 1
+        appIconView.layer.borderWidth = 0.5
         appIconView.layer.borderColor = UIColor.separator.cgColor
 
         rateButton.tintColor = .white
