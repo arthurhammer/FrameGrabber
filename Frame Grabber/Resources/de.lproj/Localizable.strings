@@ -56,13 +56,13 @@
 "authorization.deniedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos in voller Auflösung. Erlaube dafür den Zugriff auf deine Videos in den Einstellungen.";
 
 /* Photo library authorization default action */
-"authorization.notDeterminedAction" = "Zugriff Erlauben";
+"authorization.notDeterminedAction" = "Los Geht's";
 
 /* Photo library authorization default message */
-"authorization.notDeterminedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos in voller Auflösung. Erlaube dafür den Zugriff auf deine Videos.";
+"authorization.notDeterminedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos in voller Auflösung. Los geht's, indem du den Zugriff auf deine Videos erlaubst.";
 
 /* Photo library authorization title */
-"authorization.title" = "Frame Grabber 👋";
+"authorization.title" = "Willkommen zu\nFrame Grabber";
 
 /* Export options summary, metadata is included. */
 "more.exportOptions.metadataIncluded" = "Mit Metadaten";

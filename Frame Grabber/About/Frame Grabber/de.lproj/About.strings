@@ -1,7 +1,4 @@
-/* Class = "UILabel"; text = "By Arthur Hammer ♥︎"; ObjectID = "aGX-4N-Bcc"; */
-"aGX-4N-Bcc.text" = "Von Arthur Hammer ♥︎";
-
-/* Class = "UILabel"; text = "Grab images from videos in full quality."; ObjectID = "Ciq-8B-rvv"; */
+/* Class = "UILabel"; text = "Extract full-resolution video frames as images"; ObjectID = "Ciq-8B-rvv"; */
 "Ciq-8B-rvv.text" = "Exportiere Einzelbilder aus Videos in voller Auflösung";
 
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
@@ -25,6 +22,6 @@
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */
 "qvE-dH-xjJ.text" = "Datenschutzerklärung";
 
-/* Class = "UILabel"; text = "No ads, no analytics, private."; ObjectID = "QZZ-Gh-i28"; */
+/* Class = "UILabel"; text = "No ads, no analytics, no tracking."; ObjectID = "QZZ-Gh-i28"; */
 "QZZ-Gh-i28.text" = "Keine Werbung, keine Analytics, kein Tracking.";
 

@@ -48,7 +48,6 @@
 		00730EA8214FEA5A001A6EA7 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B42213941A20038CB56 /* ZoomAnimator.swift */; };
 		00730EA9214FEA5A001A6EA7 /* FetchedAlbum+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */; };
 		00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF5121273FA000778885 /* AlbumsViewController.swift */; };
-		00730EAB214FEA5A001A6EA7 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
 		00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C256213058FE0030B7EC /* FetchedAlbum.swift */; };
 		00730EAD214FEA5A001A6EA7 /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C254213046CD0030B7EC /* AlbumHeader.swift */; };
 		00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E812212F2EF8008395CA /* Bundle.swift */; };
@@ -144,7 +143,6 @@
 		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
 		00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* CMTime.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize.swift */; };
-		00C098E31FC1C089000B05FE /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098E21FC1C089000B05FE /* StatusView.swift */; };
 		00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
 		00CB8124234CE05400354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CB8125234CE05800354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
@@ -241,7 +239,6 @@
 		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Authorization.swift"; sourceTree = "<group>"; };
 		00C098D61FC1A7CB000B05FE /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
-		00C098E21FC1C089000B05FE /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		00C098EA1FC477E5000B05FE /* PHImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManager.swift; sourceTree = "<group>"; };
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
@@ -450,7 +447,6 @@
 				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 				005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */,
 				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */,
-				00C098E21FC1C089000B05FE /* StatusView.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -649,7 +645,6 @@
 				00730EA9214FEA5A001A6EA7 /* FetchedAlbum+Fetch.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
 				00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
-				00730EAB214FEA5A001A6EA7 /* StatusView.swift in Sources */,
 				00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumHeader.swift in Sources */,
 				00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */,
@@ -729,7 +724,6 @@
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
-				00C098E31FC1C089000B05FE /* StatusView.swift in Sources */,
 				00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle.swift in Sources */,
