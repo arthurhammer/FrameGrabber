@@ -29,3 +29,15 @@ extension Bundle {
             ?? (infoDictionary?[key] as? T)
     }
 }
+
+import UIKit
+
+extension Bundle {
+    var appIcon: UIImage? {
+        guard let icons: [String: Any] = info(for: "CFBundleIcons"),
+              let primaryIcons = icons["CFBundlePrimaryIcon"] as? [String: Any],
+              let iconFiles = primaryIcons["CFBundleIconFiles"] as? [String],
+              let lastIcon = iconFiles.last else { return nil }
+        return UIImage(named: lastIcon)
+    }
+}

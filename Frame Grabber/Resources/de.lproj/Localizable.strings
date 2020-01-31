@@ -1,8 +1,8 @@
 /* Feedback email subject */
 "about.email.subject" = "Frame Grabber: Feedback";
 
-/* Version label prefix including colon. */
-"about.version" = "Version: %@";
+/* Version label with numerical version */
+"about.version" = "Version %@";
 
 /* Delete video context action menu */
 "album.menu.delete" = "Löschen";
