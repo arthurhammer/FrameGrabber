@@ -33,6 +33,10 @@
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* PlayerViewController.swift */; };
 		00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
+		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
+		0054936223E562E600F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
+		0054936423E5631B00F3E684 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936323E5631B00F3E684 /* About.swift */; };
+		0054936523E5633700F3E684 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936323E5631B00F3E684 /* About.swift */; };
 		0058E354213D645900BE28DD /* ZoomAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomAnimatable.swift */; };
 		0058E356213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */; };
 		005E2AA320273C5800F731FA /* CollectionViewGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */; };
@@ -199,6 +203,8 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
+		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
+		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
 		0058E353213D645900BE28DD /* ZoomAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimatable.swift; sourceTree = "<group>"; };
 		0058E355213D9AE900BE28DD /* UIViewControllerContextTransitioning+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControllerContextTransitioning+Util.swift"; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewGridLayout.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 				00C098EA1FC477E5000B05FE /* PHImageManager.swift */,
 				00EDF97E2340A28900FA0F48 /* RawRepresentable.swift */,
 				007208961FBF7C920046F389 /* UICollectionView+PhotoLibraryChanges.swift */,
+				0054936023E562E200F3E684 /* UIDevice.swift */,
 				00D9E83223424A07009E7AFA /* UIFont.swift */,
 				00BAFCA1205E994D00BCEE69 /* UIView.swift */,
 			);
@@ -475,6 +482,7 @@
 				00CB8123234CE05400354E03 /* NavigationController.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */,
+				0054936323E5631B00F3E684 /* About.swift */,
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
 			);
@@ -654,6 +662,7 @@
 				00024F6E23447EDF00937941 /* PHAsset.swift in Sources */,
 				00730EB3214FEA5A001A6EA7 /* BlurredImageView.swift in Sources */,
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
+				0054936523E5633700F3E684 /* About.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* FetchingPhotos.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
@@ -704,6 +713,7 @@
 				00730ED8214FEA5A001A6EA7 /* UIView.swift in Sources */,
 				00730ED9214FEA5A001A6EA7 /* TimeSlider+CMTime.swift in Sources */,
 				00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */,
+				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* Formatters.swift in Sources */,
 				00730EDC214FEA5A001A6EA7 /* AlbumViewController+Transition.swift in Sources */,
 				00730EDD214FEA5A001A6EA7 /* FetchedAlbum+Change.swift in Sources */,
@@ -733,6 +743,7 @@
 				00024F6D23447EDF00937941 /* PHAsset.swift in Sources */,
 				00B02DFC212077CD00336F34 /* BlurredImageView.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
+				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* FetchingPhotos.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
@@ -783,6 +794,7 @@
 				00BAFCA2205E994D00BCEE69 /* UIView.swift in Sources */,
 				00EAFD98205EB2CE0031F8A2 /* TimeSlider+CMTime.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
+				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */,
 				00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */,
 				00229DB8212D978A00848CE8 /* FetchedAlbum+Change.swift in Sources */,

@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 extension Bundle {
 
@@ -24,20 +25,16 @@ extension Bundle {
         "\(version) (\(build))"
     }
 
-    private func info<T>(for key: String) -> T? {
-        (localizedInfoDictionary?[key] as? T)
-            ?? (infoDictionary?[key] as? T)
-    }
-}
-
-import UIKit
-
-extension Bundle {
     var appIcon: UIImage? {
         guard let icons: [String: Any] = info(for: "CFBundleIcons"),
               let primaryIcons = icons["CFBundlePrimaryIcon"] as? [String: Any],
               let iconFiles = primaryIcons["CFBundleIconFiles"] as? [String],
-              let lastIcon = iconFiles.last else { return nil }
-        return UIImage(named: lastIcon)
+              let icon = iconFiles.last else { return nil }
+        return UIImage(named: icon)
+    }
+
+    private func info<T>(for key: String) -> T? {
+        (localizedInfoDictionary?[key] as? T)
+            ?? (infoDictionary?[key] as? T)
     }
 }

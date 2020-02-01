@@ -25,7 +25,7 @@
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>To export frames from your videos.</string>
+	<string>To extract full-resolution video frames as images.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

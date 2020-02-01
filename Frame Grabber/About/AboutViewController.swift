@@ -8,12 +8,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     let bundle = Bundle.main
     let device = UIDevice.current
 
-    static let privacyPolicyURL = URL(string: "https://arthurhammer.github.io/FrameGrabber")
-    let storeURL = URL(string: "itms-apps://itunes.apple.com/app/id1434703541?ls=1&mt=8&action=write-review")
-    let sourceCodeURL = URL(string: "https://github.com/arthurhammer/FrameGrabber")
-
     let contactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
-    let contactAddress = "hi@arthurhammer.de"
     lazy var contactMessage = """
                            \n\n
                            \(bundle.longFormattedVersion)
@@ -28,11 +23,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -81,7 +71,7 @@ extension AboutViewController {
     }
 
     @IBAction func rate() {
-        guard let url = storeURL,
+        guard let url = About.storeURL,
             app.canOpenURL(url) else { return }
 
         app.open(url)
@@ -89,13 +79,13 @@ extension AboutViewController {
 
     func sendFeedback() {
         guard MFMailComposeViewController.canSendMail() else {
-            presentAlert(.mailNotAvailable(contactAddress: contactAddress))
+            presentAlert(.mailNotAvailable(contactAddress: About.contactAddress))
             return
         }
 
         let mailController = MFMailComposeViewController()
         mailController.mailComposeDelegate = self
-        mailController.setToRecipients([contactAddress])
+        mailController.setToRecipients([About.contactAddress])
         mailController.setSubject(contactSubject)
         mailController.setMessageBody(contactMessage, isHTML: false)
 
@@ -107,29 +97,12 @@ extension AboutViewController {
     }
 
     func showSourceCode() {
-        guard let url = sourceCodeURL else { return }
+        guard let url = About.sourceCodeURL else { return }
         present(SFSafariViewController(url: url), animated: true)
     }
 
     func showPrivacyPolicy() {
-        guard let url = AboutViewController.privacyPolicyURL else { return }
+        guard let url = About.privacyPolicyURL else { return }
         present(SFSafariViewController(url: url), animated: true)
-    }
-}
-
-// MARK: - Util
-
-private extension UIDevice {
-    /// Device type, e.g. "iPhone7,2".
-    var type: String? {
-        // From the world wide webs.
-        var systemInfo = utsname()
-        uname(&systemInfo)
-
-        return withUnsafePointer(to: &systemInfo.machine) {
-            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
-                String(validatingUTF8: $0)
-            }
-        }
     }
 }
