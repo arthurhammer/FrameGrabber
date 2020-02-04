@@ -1,35 +1,26 @@
 import UIKit
 import AVKit
 
-class PlayerViewController: UIViewController, NavigationBarHiddenPreferring {
+class PlayerViewController: UIViewController {
 
     var videoController: VideoController!
 
     private var playbackController: PlaybackController?
     private lazy var timeFormatter = VideoTimeFormatter()
 
-    @IBOutlet private var backgroundView: BlurredImageView!
     @IBOutlet private var playerView: ZoomingPlayerView!
     @IBOutlet private var loadingView: PlayerLoadingView!
-    @IBOutlet private var titleView: PlayerTitleView!
-    @IBOutlet private var controlsView: PlayerControlsView!
+    @IBOutlet private var toolbar: PlayerControlsView!
+    @IBOutlet private var timeLabel: UILabel!
 
     private var isInitiallyReadyForPlayback = false
 
     private var isScrubbing: Bool {
-        controlsView.timeSlider.isInteracting
+        toolbar.timeSlider.isTracking
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        true
-    }
-
-    var prefersNavigationBarHidden: Bool {
-        true
     }
 
     override func viewDidLoad() {
@@ -124,10 +115,6 @@ extension PlayerViewController: PlaybackControllerDelegate {
     func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {
         updateSlider(withDuration: duration)
     }
-
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateTracks tracks: [AVPlayerItemTrack]) {
-        updateDetailLabels()
-    }
 }
 
 // MARK: - ZoomingPlayerViewDelegate
@@ -145,52 +132,39 @@ private extension PlayerViewController {
 
     func configureViews() {
         playerView.delegate = self
+        playerView.clipsToBounds = false
 
-        controlsView.previousButton.repeatAction = { [weak self] in
+        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular)
+
+        // TODO: Navigation controller/delegate should handle this
+        if let navBar = navigationController?.navigationBar {
+            navBar.shadowImage = UIImage()
+            navBar.layer.shadowColor = UIColor.black.cgColor
+            navBar.layer.shadowOffset = .zero
+            navBar.layer.shadowOpacity = 0.1
+            navBar.layer.shadowRadius = 12
+
+            toolbar.layer.shadowColor = navBar.layer.shadowColor
+            toolbar.layer.shadowOffset = navBar.layer.shadowOffset
+            toolbar.layer.shadowOpacity = navBar.layer.shadowOpacity
+            toolbar.layer.shadowRadius = navBar.layer.shadowRadius
+        }
+
+        toolbar.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
         }
 
-        controlsView.nextButton.repeatAction = { [weak self] in
+        toolbar.nextButton.repeatAction = { [weak self] in
             self?.stepForward()
         }
-
-        configureGestures()
 
         updatePlaybackStatus()
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateSlider(withTime: .zero)
         updateTimeLabel(withTime: .zero)
-        updateDetailLabels()
         updateLoadingProgress(with: nil)
         updatePreviewImage()
-    }
-
-    func configureGestures() {
-        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown))
-        swipeRecognizer.direction = .down
-        playerView.addGestureRecognizer(swipeRecognizer)
-
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        tapRecognizer.require(toFail: playerView.doubleTapToZoomRecognizer)
-        tapRecognizer.require(toFail: swipeRecognizer)
-        playerView.addGestureRecognizer(tapRecognizer)
-    }
-
-    @objc func handleTap(sender: UIGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        titleView.toggleHidden(animated: true)
-        controlsView.toggleHidden(animated: true)
-    }
-
-    @objc func handleSwipeDown(sender: UIGestureRecognizer) {
-        // Avoid dismissing when panning down Notification/Control Center.
-        let nonInteractiveTopSpacing: CGFloat = 40
-
-        guard sender.state == .ended,
-            sender.location(in: playerView).y >= nonInteractiveTopSpacing else { return }
-
-        done()
     }
 
     // MARK: Sync Player UI
@@ -206,7 +180,7 @@ private extension PlayerViewController {
             updatePreviewImage()
         }
 
-        controlsView.setControlsEnabled(isReadyToPlay)
+        toolbar.setControlsEnabled(isReadyToPlay)
     }
 
     func updatePreviewImage() {
@@ -218,30 +192,22 @@ private extension PlayerViewController {
     }
 
     func updatePlayButton(withStatus status: AVPlayer.TimeControlStatus) {
-        controlsView.playButton.setTimeControlStatus(status)
-    }
-
-    func updateDetailLabels() {
-        let fps = videoController?.video?.frameRate
-        let formattedDimensions = NumberFormatter().string(fromPixelDimensions: videoController.dimensions)
-        let formattedFps = fps.flatMap { NumberFormatter.frameRateFormatter().string(fromFrameRate: $0) }
-
-        titleView.setDetailLabels(for: formattedDimensions, frameRate: formattedFps)
+        toolbar.playButton.setTimeControlStatus(status)
     }
 
     func updateTimeLabel(withTime time: CMTime) {
         let showMilliseconds = playbackController?.isPlaying == false
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-        controlsView.timeLabel.text = formattedTime
+        timeLabel.text = formattedTime
     }
 
     func updateSlider(withTime time: CMTime) {
         guard !isScrubbing else { return }
-        controlsView.timeSlider.time = time
+        toolbar.timeSlider.setTime(time, animated: true)
     }
 
     func updateSlider(withDuration duration: CMTime) {
-        controlsView.timeSlider.duration = duration
+        toolbar.timeSlider.duration = duration
     }
 
     // MARK: Video Loading
@@ -252,8 +218,6 @@ private extension PlayerViewController {
         videoController.loadPreviewImage(with: size) { [weak self] image, _ in
             guard let image = image else { return }
             self?.loadingView.imageView.image = image
-            // Use same image for background (ignoring different size/content mode as it's blurred).
-            self?.backgroundView.imageView.image = image
             self?.updatePreviewImage()
         }
     }
@@ -323,15 +287,11 @@ extension PlayerViewController: ZoomAnimatable {
     func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
         playerView.isHidden = true
         loadingView.isHidden = true
-        controlsView.isHidden = true  
-        titleView.isHidden = true
     }
 
     func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
         playerView.isHidden = false
         loadingView.isHidden = false
-        controlsView.setHidden(false, animated: true, duration: 0.2)
-        titleView.setHidden(false, animated: true, duration: 0.2)
         updatePreviewImage()
     }
 

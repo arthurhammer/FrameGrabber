@@ -47,14 +47,11 @@ class Coordinator: NSObject {
         }
 
         authorizationController.isModalInPresentation = true
-
         rootNavigationController.present(authorizationController, animated: animated)
     }
 
     private func pushAlbumViewController(animated: Bool) {
-        guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else {
-            fatalError("Wrong controller id or type")
-        }
+        guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else { fatalError("Wrong controller id or type") }
         albumViewController.navigationItem.largeTitleDisplayMode = .always
         rootNavigationController.pushViewController(albumViewController, animated: animated)
     }
@@ -84,6 +81,6 @@ class Coordinator: NSObject {
 extension Coordinator: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        !(rootNavigationController.topViewController is PlayerViewController)
+        true
     }
 }

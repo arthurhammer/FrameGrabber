@@ -3,22 +3,22 @@ import UIKit
 struct Style {
 
     struct Color {
-        static let mainTint = UIColor.systemBlue
 
-        static var cellSelection: UIColor {
-            .systemGray4
+        static let mainTint: UIColor = .init { traitCollection in
+            (traitCollection.userInterfaceStyle == .light)
+                ? UIColor(red: 0.27, green: 0.16, blue: 0.97, alpha: 1.00)
+                : UIColor(red: 0.44, green: 0.36, blue: 0.95, alpha: 1.00) 
         }
 
-        static var disabledLabel: UIColor {
-            .systemGray
+        static let secondaryTint: UIColor = .init { traitCollection in
+            (traitCollection.userInterfaceStyle == .light)
+                ? UIColor(red: 0.23, green: 0.18, blue: 0.23, alpha: 1.00)
+                : .white
         }
 
-        static let timeSlider = UIColor(white: 0.65, alpha: 1)
-        static let disabledTimeSlider = Style.Color.timeSlider.withAlphaComponent(0.4)
-
+        static var cellSelection: UIColor = .systemGray4
+        static var disabledLabel: UIColor = .systemGray
         static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.6)]
-        static let overlayTopGradient = [UIColor.black.withAlphaComponent(0.4), UIColor.black.withAlphaComponent(0)]
-        static let overlayBottomGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
     }
 
     struct Size {
@@ -28,14 +28,6 @@ struct Style {
     static func configureAppearance(using window: UIWindow?) {
         window?.tintColor = Style.Color.mainTint
         UISwitch.appearance().onTintColor = Style.Color.mainTint
-    }
-}
 
-extension UIView {
-    func applyOverlayShadow() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.8
-        layer.shadowRadius = 2
-        layer.shadowOffset = CGSize(width: 0, height: 1)
     }
 }

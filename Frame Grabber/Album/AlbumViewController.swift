@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class AlbumViewController: UICollectionViewController, NavigationBarHiddenPreferring {
+class AlbumViewController: UICollectionViewController {
 
     // nil if deleted.
     var album: FetchedAlbum? {
@@ -17,10 +17,6 @@ class AlbumViewController: UICollectionViewController, NavigationBarHiddenPrefer
     private lazy var durationFormatter = VideoDurationFormatter()
 
     // MARK: Lifecycle
-
-    var prefersNavigationBarHidden: Bool {
-        false
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

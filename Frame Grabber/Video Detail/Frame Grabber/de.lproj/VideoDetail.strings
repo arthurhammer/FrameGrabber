@@ -32,7 +32,7 @@
 "So8-Af-ERQ.text" = "Metadaten Hinzufügen";
 
 /* Class = "UINavigationItem"; title = "Export Options"; ObjectID = "wmB-Os-3eg"; */
-"wmB-Os-3eg.title" = "Bildformat";
+"wmB-Os-3eg.title" = "Exportoptionen";
 
 /* Class = "UILabel"; text = "HEIF"; ObjectID = "Wrh-C2-4X7"; */
 "Wrh-C2-4X7.text" = "HEIF";
