@@ -1,6 +1,6 @@
 import UIKit
 
-class TimeSlider: UISlider {
+class TimeSlider: ScrubbingSlider {
 
     @IBInspectable var trackHeight: CGFloat = 8 {
         didSet { setNeedsDisplay() }

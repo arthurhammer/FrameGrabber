@@ -14,6 +14,8 @@
 		00024F762344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		0015537F2129C8CF00F58CEE /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
+		0016410023E9B8440071687B /* ScrubbingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001640FF23E9B8440071687B /* ScrubbingSlider.swift */; };
+		0016410123E9B8440071687B /* ScrubbingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001640FF23E9B8440071687B /* ScrubbingSlider.swift */; };
 		001A6C5120623B0000B91F3A /* PlayerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */; };
 		00229DB8212D978A00848CE8 /* FetchedAlbum+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */; };
 		0023FC8F23390D940046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
@@ -176,6 +178,7 @@
 		00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumContextMenuActions.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		0015537E2129C8CF00F58CEE /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		001640FF23E9B8440071687B /* ScrubbingSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScrubbingSlider.swift; path = "Frame Grabber/Views/ScrubbingSlider.swift"; sourceTree = SOURCE_ROOT; };
 		001A6C4B20600E1A00B91F3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		001A6C5020623B0000B91F3A /* PlayerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerLoadingView.swift; sourceTree = "<group>"; };
 		001AA1781FB4977100A00BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -459,6 +462,7 @@
 				00328A941FC85919004648F9 /* PlayerView.swift */,
 				006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */,
 				0054936923E852DE00F3E684 /* TimeSlider.swift */,
+				001640FF23E9B8440071687B /* ScrubbingSlider.swift */,
 				008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */,
 			);
 			path = Views;
@@ -693,6 +697,7 @@
 				00730ED1214FEA5A001A6EA7 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */,
 				0054936B23E852E200F3E684 /* TimeSlider.swift in Sources */,
+				0016410123E9B8440071687B /* ScrubbingSlider.swift in Sources */,
 				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
 				009E1864233DD40B008100D5 /* VideoDetailViewController.swift in Sources */,
 				00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */,
@@ -772,6 +777,7 @@
 				00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */,
 				0054936A23E852DE00F3E684 /* TimeSlider.swift in Sources */,
+				0016410023E9B8440071687B /* ScrubbingSlider.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
 				009E1863233DD403008100D5 /* VideoDetailViewController.swift in Sources */,
 				0015537F2129C8CF00F58CEE /* Album.swift in Sources */,
