@@ -32,10 +32,18 @@ struct Style {
 }
 
 extension UIView {
+
     func applyOverlayShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.4
         layer.shadowRadius = 4
+        layer.shadowOffset = .zero
+    }
+
+    func applyToolbarShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 10
         layer.shadowOffset = .zero
     }
 }

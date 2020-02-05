@@ -36,6 +36,6 @@ class PreviewPlayerView: PlayerView {
         posterImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
-        addSubview(posterImageView)
+        insertSubview(posterImageView, at: 0)
     }
 }

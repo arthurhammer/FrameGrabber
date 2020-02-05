@@ -4,6 +4,7 @@ import AVKit
 class EditorViewController: UIViewController {
 
     var videoController: VideoController!
+    var transitionController: ZoomTransitionController?
 
     private var playbackController: PlaybackController?
     private lazy var timeFormatter = VideoTimeFormatter()
@@ -11,9 +12,8 @@ class EditorViewController: UIViewController {
     @IBOutlet private var playerView: ZoomingPlayerView!
     @IBOutlet private var loadingView: EditorLoadingView!
     @IBOutlet private var toolbar: EditorToolbar!
+    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
-
-    private var isInitiallyReadyForPlayback = false
 
     private var isScrubbing: Bool {
         toolbar.timeSlider.isTracking
@@ -30,6 +30,11 @@ class EditorViewController: UIViewController {
         loadVideo()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? UINavigationController,
             let controller = destination.topViewController as? VideoDetailViewController {
@@ -44,11 +49,8 @@ class EditorViewController: UIViewController {
 
 private extension EditorViewController {
 
-    @IBAction func done() {
-        videoController.cancelAllRequests()
-        playbackController?.pause()
-
-        // TODO: A delegate/the coordinator should handle this.
+    func done() {
+        // (todo: Move into coordinator/delegate?)
         navigationController?.popViewController(animated: true)
     }
 
@@ -95,12 +97,7 @@ extension EditorViewController: PlaybackControllerDelegate {
     }
 
     private func handlePlaybackError() {
-        // Dismiss detail view if necessary, show alert, on "OK" dismiss.
-        dismiss(animated: true) {
-            self.presentAlert(.playbackFailed { _ in
-                self.done()
-            })
-        }
+        (presentedViewController ?? self).presentAlert(.playbackFailed())
     }
 
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
@@ -134,21 +131,12 @@ private extension EditorViewController {
         playerView.delegate = self
         playerView.clipsToBounds = false
 
-        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular)
+        timeLabel.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
 
-        // TODO: Navigation controller/delegate should handle this
-        if let navBar = navigationController?.navigationBar {
-            navBar.shadowImage = UIImage()
-            navBar.layer.shadowColor = UIColor.black.cgColor
-            navBar.layer.shadowOffset = .zero
-            navBar.layer.shadowOpacity = 0.1
-            navBar.layer.shadowRadius = 12
-
-            toolbar.layer.shadowColor = navBar.layer.shadowColor
-            toolbar.layer.shadowOffset = navBar.layer.shadowOffset
-            toolbar.layer.shadowOpacity = navBar.layer.shadowOpacity
-            toolbar.layer.shadowRadius = navBar.layer.shadowRadius
-        }
+        // todo: Navigation controller/delegate should handle this.
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.applyToolbarShadow()
+        toolbar.applyToolbarShadow()
 
         toolbar.previousButton.repeatAction = { [weak self] in
             self?.stepBackward()
@@ -158,38 +146,40 @@ private extension EditorViewController {
             self?.stepForward()
         }
 
+        configureGestures()
+
         updatePlaybackStatus()
         updatePlayButton(withStatus: .paused)
         updateSlider(withDuration: .zero)
         updateSlider(withTime: .zero)
         updateTimeLabel(withTime: .zero)
         updateLoadingProgress(with: nil)
-        updatePreviewImage()
+    }
+
+    private func configureGestures() {
+        let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
+        playerView.addGestureRecognizer(slideToPopRecognizer)
+    }
+
+    @objc private func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
+        guard !isScrubbing else { return }
+        
+        transitionController?.handleSlideToPopGesture(gesture, performTransition: {
+            done()
+        })
     }
 
     // MARK: Sync Player UI
 
     func updatePlaybackStatus() {
         let isReadyToPlay = playbackController?.isReadyToPlay ?? false
-        let isReadyToDisplay = playerView.isReadyForDisplay
-
-        // All player, item and view will reset their readiness on loops. Capture when
-        // all have been ready at least once. (Later states not considered.)
-        if isReadyToPlay && isReadyToDisplay {
-            isInitiallyReadyForPlayback = true
-            updatePreviewImage()
-        }
-
-        navigationItem.rightBarButtonItem?.isEnabled = isReadyToPlay
         toolbar.setControlsEnabled(isReadyToPlay)
-    }
-
-    func updatePreviewImage() {
-        playerView.posterImageView.isHidden = isInitiallyReadyForPlayback
+        navigationItem.rightBarButtonItem?.isEnabled = isReadyToPlay
+        titleLabel.isEnabled = isReadyToPlay
+        timeLabel.isEnabled = isReadyToPlay
     }
 
     func updateLoadingProgress(with progress: Float?) {
-        playerView.isUserInteractionEnabled = progress == nil  // Disable zoom during load. TODO: improve this.
         loadingView.setProgress(progress, animated: true)
     }
 
@@ -220,7 +210,6 @@ private extension EditorViewController {
         videoController.loadPreviewImage(with: size) { [weak self] image, _ in
             guard let image = image else { return }
             self?.playerView.posterImageView.image = image
-            self?.updatePreviewImage()
         }
     }
 
@@ -238,7 +227,7 @@ private extension EditorViewController {
             if let video = video {
                 self?.configurePlayer(with: video)
             } else {
-                self?.presentAlert(.videoLoadingFailed { _ in self?.done() })
+                (self?.presentedViewController ?? self)?.presentAlert(.videoLoadingFailed())
             }
         })
     }
@@ -282,39 +271,30 @@ private extension EditorViewController {
     }
 }
 
-// MARK: - ZoomAnimatable
+// MARK: - ZoomTransitionDelegate
 
-extension EditorViewController: ZoomAnimatable {
+extension EditorViewController: ZoomTransitionDelegate {
 
-    func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
-        playerView.isHidden = true
+    func zoomTransitionWillBegin(_ transition: ZoomTransition) {
+        guard transition.type == .pop else { return }
+
+        let backgroundColor = view.backgroundColor
+
+        loadingView.alpha = 0  // (Don't animate.)
+
+        transition.animate(alongsideTransition: { [weak self] _ in
+            guard let self = self else { return }
+            self.view.backgroundColor = .clear
+            self.toolbar.alpha = 0
+            self.toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: self.toolbar.bounds.height * 1.5)
+        }, completion: { [weak self] _ in
+            // Animation interpolates dynamic to fixed color. Restore dynamic color.
+            self?.view.backgroundColor = backgroundColor
+            self?.loadingView.alpha = 1
+        })
     }
 
-    func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
-        playerView.isHidden = false
-        updatePreviewImage()
-    }
-
-    func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
-        playerView.posterImageView.image
-    }
-
-    func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
-        let videoFrame = playerView.zoomedVideoFrame
-
-        // If ready animate from video position (possibly zoomed, scrolled), otherwise
-        // from preview image (centered, aspect fitted).
-        if videoFrame != .zero {
-            return playerView.convert(videoFrame, to: view)
-        } else {
-            return playerView.posterImageView.superview?.convert(posterImageFrame, to: view)
-        }
-    }
-
-    /// The aspect fitted size the preview image occupies in the image view.
-    private var posterImageFrame: CGRect {
-        let imageView = playerView.posterImageView
-        let imageSize = imageView.image?.size ?? videoController.dimensions
-        return imageSize.aspectFitting(imageView.frame)
+    func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
+        playerView.playerView
     }
 }

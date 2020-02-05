@@ -1,34 +1,25 @@
 import UIKit
 
-extension AlbumViewController: ZoomAnimatable {
+extension AlbumViewController: ZoomTransitionDelegate {
 
-    func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
-        if animator.type == .backward {
+    func zoomTransitionWillBegin(_ transition: ZoomTransition) {
+        if transition.type == .pop {
             collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
-            // Seems to be necessary once more for offscreen cells.
-            collectionView?.layoutIfNeeded()
         }
 
         collectionView?.selectedCell?.isHidden = true
     }
 
-    func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
-        guard let selectedCell = collectionView?.selectedCell as? VideoCell else { return nil }
-        return selectedCell.imageView.image
+    func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
+        // Might have once more scrolled off-screen during interactive gesture.
+        collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
+
+        return (collectionView?.selectedCell as? VideoCell)?.imageView
     }
 
-    func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
-        guard let selectedCell = collectionView?.selectedCell else { return nil }
-        return selectedCell.superview?.convert(selectedCell.frame, to: view) ?? .zero
-    }
-
-    func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
+    func zoomTransitionDidEnd(_ transition: ZoomTransition) {
         // Also unhide after presentation in case we'll use fallback animation later.
         collectionView?.selectedCell?.isHidden = false
-
-        if animator.type == .backward {
-            collectionView?.clearSelection()
-        }
     }
 }
 
@@ -49,13 +40,15 @@ private extension UICollectionView {
             let position = scrollPosition(for: selectedIndexPath) else { return }
 
         scrollToItem(at: selectedIndexPath, at: position, animated: animated)
+        layoutIfNeeded()
     }
 
-    /// nil for fully visible cells, otherwise `top` or `bottom` whichever is closer.
+    /// nil for fully visible cells, otherwise `top` or `bottom` whichever is closer,
+    /// taking into account the receiver's safe area.
     func scrollPosition(for indexPath: IndexPath) -> UICollectionView.ScrollPosition? {
         // Partially visible cells.
         if let cell = cellForItem(at: indexPath) {
-            let cellFrame = convert(cell.frame, to: superview ?? self)
+            let cellFrame = (cell.superview ?? self).convert(cell.frame, to: superview)
 
             if cellFrame.minY < safeFrame.minY {
                 return .top

@@ -10,7 +10,6 @@ class AlbumViewController: UICollectionViewController {
     }
 
     private var dataSource: AlbumCollectionViewDataSource?
-    private lazy var transitionController = ZoomTransitionController()
 
     @IBOutlet private var emptyView: UIView!
 
@@ -21,6 +20,12 @@ class AlbumViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.layer.shadowOpacity = 0
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -37,7 +42,10 @@ class AlbumViewController: UICollectionViewController {
     private func prepareForPlayerSegue(with destination: EditorViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
-        transitionController.prepareNavigationControllerTransition(for: navigationController)
+        // (todo: Handle this in coordinator/delegate/navigation controller.)
+        let transitionController = ZoomTransitionController()
+        navigationController?.delegate = transitionController
+        destination.transitionController = transitionController
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
             destination.videoController = VideoController(asset: selectedAsset)
