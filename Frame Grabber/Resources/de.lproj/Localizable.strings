@@ -23,7 +23,7 @@
 "albums.userAlbumsHeader" = "Meine Alben";
 
 /* No comment provided by engineer. */
-"alert.image-generation.message" = "Beim Generieren der Bilder ist ein Fehler aufgetreten.";
+"alert.image-generation.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
 
 /* No comment provided by engineer. */
 "alert.image-generation.title" = "Export nicht möglich";
@@ -69,9 +69,6 @@
 
 /* Export options summary, metadata is not included. */
 "more.exportOptions.metadataNotIncluded" = "Ohne Metadaten";
-
-/* The HEIF image format is not support message. */
-"more.format.noheif" = "Dieses Gerät unterstützt das HEIF-Format nicht.";
 
 /* Title of map item opened in Maps app. */
 "more.mapTitle" = "Dein Video";

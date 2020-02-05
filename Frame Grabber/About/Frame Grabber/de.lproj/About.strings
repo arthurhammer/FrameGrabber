@@ -1,5 +1,5 @@
 /* Class = "UILabel"; text = "Extract full-resolution video frames as images"; ObjectID = "Ciq-8B-rvv"; */
-"Ciq-8B-rvv.text" = "Exportiere Einzelbilder aus Videos in voller Auflösung";
+"Ciq-8B-rvv.text" = "Exportiere Einzelbilder aus Videos in voller Auflösung.";
 
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
 "CWr-Fn-l1m.text" = "Quellcode";
@@ -11,13 +11,16 @@
 "GkV-0K-xRO.text" = "Kontakt";
 
 /* Class = "UILabel"; text = "Hi, I'm Arthur! I made this app to learn iOS development with Swift. If you like it, you can rate it on the App Store. ♥︎"; ObjectID = "IiT-LI-i5k"; */
-"IiT-LI-i5k.text" = "Hi, ich bin Arthur! Ich habe die App entwickelt, um iOS-Programmierung mit Swift zu lernen. Wenn du die App magst, kannst du sie im App Store bewerten. ♥︎";
+"IiT-LI-i5k.text" = "Hi, ich bin Arthur! Ich habe Frame Grabber entwickelt, um iOS-Programmierung mit Swift zu lernen. Wenn du die App magst, kannst du sie im App Store bewerten. ♥︎";
 
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
 /* Class = "UIButton"; normalTitle = "Rate Frame Grabber"; ObjectID = "lni-tn-UXo"; */
 "lni-tn-UXo.normalTitle" = "Frame Grabber Bewerten";
+
+/* Class = "UILabel"; text = "For Feedback and Support."; ObjectID = "Q2G-GR-huD"; */
+"Q2G-GR-huD.text" = "Für Feedback und Support.";
 
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */
 "qvE-dH-xjJ.text" = "Datenschutzerklärung";

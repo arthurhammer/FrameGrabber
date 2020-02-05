@@ -41,13 +41,6 @@ class ExportOptionsViewController: UITableViewController {
         updateViews()
     }
 
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let title = Section(section)?.title else { return nil }
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: VideoDetailSectionHeader.name) as? VideoDetailSectionHeader else { fatalError("Wrong view id or type.") }
-        view.titleLabel.text = title
-        return view
-    }
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -65,10 +58,27 @@ class ExportOptionsViewController: UITableViewController {
         ((indexPath == heifIndexPath) && UserDefaults.isHeifSupported) || (indexPath == jpgIndexPath)
     }
 
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let title = Section(section)?.title else { return nil }
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: VideoDetailSectionHeader.name) as? VideoDetailSectionHeader else { fatalError("Wrong view id or type.") }
+        view.titleLabel.text = title
+        return view
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // When using custom headers, no additional spacing is applied. Add manually.
+        let additionalSpacing: CGFloat = 44
+        let height = super.tableView(tableView, heightForHeaderInSection: section)
+
+        guard section > 0 else { return height }
+
+        let hasPreviousFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
+        return hasPreviousFooter ? (height + additionalSpacing) : height
+    }
+
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard Section(section) == .format else { return nil }
-        let message = NSLocalizedString("more.format.noheif", value: "The HEIF format is not available on this device.", comment: "The HEIF image format is not support message.")
-        return UserDefaults.isHeifSupported ? nil : message
+        if Section(section) == .format && UserDefaults.isHeifSupported { return nil }
+        return super.tableView(tableView, titleForFooterInSection: section)
     }
 
     private func configureViews() {

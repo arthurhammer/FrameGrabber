@@ -32,7 +32,9 @@ class PhotoLibraryAuthorizationController: UIViewController {
 
     @IBAction private func showPrivacyPolicy() {
         guard let url = About.privacyPolicyURL else { return }
-        present(SFSafariViewController(url: url), animated: true)
+        let safariController = SFSafariViewController(url: url)
+        safariController.preferredControlTintColor = Style.Color.mainTint
+        present(safariController, animated: true)
     }
 
     private func configureViews() {

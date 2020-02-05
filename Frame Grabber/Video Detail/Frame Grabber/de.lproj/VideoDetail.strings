@@ -1,3 +1,6 @@
+/* Class = "UITableViewSection"; footerTitle = "The HEIF format is not available on this device."; ObjectID = "ak6-oU-70Q"; */
+"ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
+
 /* Class = "UILabel"; text = "JPG"; ObjectID = "Byn-C0-URJ"; */
 "Byn-C0-URJ.text" = "JPEG";
 
@@ -9,6 +12,9 @@
 
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "Ic6-HB-vmD"; */
 "Ic6-HB-vmD.text" = "<Detail>";
+
+/* Class = "UITableViewSection"; footerTitle = "Include creation date and GPS location."; ObjectID = "iHH-Fm-kn8"; */
+"iHH-Fm-kn8.footerTitle" = "Fügt Erstellungsdatum und Ort hinzu.";
 
 /* Class = "UILabel"; text = "Export Options"; ObjectID = "jme-Ai-iBd"; */
 "jme-Ai-iBd.text" = "Exportoptionen";
@@ -28,8 +34,8 @@
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "QKS-Vc-EVl"; */
 "QKS-Vc-EVl.text" = "<Detail>";
 
-/* Class = "UILabel"; text = "Include Metadata"; ObjectID = "So8-Af-ERQ"; */
-"So8-Af-ERQ.text" = "Metadaten Hinzufügen";
+/* Class = "UILabel"; text = "Metadata"; ObjectID = "So8-Af-ERQ"; */
+"So8-Af-ERQ.text" = "Metadaten";
 
 /* Class = "UINavigationItem"; title = "Export Options"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Exportoptionen";

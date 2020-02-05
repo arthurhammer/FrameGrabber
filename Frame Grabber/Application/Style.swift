@@ -28,7 +28,6 @@ struct Style {
     static func configureAppearance(using window: UIWindow?) {
         window?.tintColor = Style.Color.mainTint
         UISwitch.appearance().onTintColor = Style.Color.mainTint
-
     }
 }
 

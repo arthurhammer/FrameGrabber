@@ -120,7 +120,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="&lt;Album&gt;" id="T1c-VB-q52">
                         <barButtonItem key="backBarButtonItem" title=" " id="884-UV-moN"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="info.circle" catalog="system" id="r6g-Iu-tPw">
+                        <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="r6g-Iu-tPw">
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
                             </connections>
@@ -352,7 +352,7 @@
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Hyz-Dk-Ftn" secondAttribute="bottom" id="zIA-xn-xDY"/>
                             </constraints>
                         </view>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis.circle" catalog="system" id="ON1-SU-aKj">
+                        <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="ON1-SU-aKj">
                             <connections>
                                 <segue destination="T9q-3e-n8f" kind="presentation" id="JXw-Yw-VHe"/>
                             </connections>
@@ -468,7 +468,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Albums" largeTitleDisplayMode="always" id="nBX-8Q-BwE">
                         <barButtonItem key="backBarButtonItem" title=" " id="vAZ-vU-ao3"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="info.circle" catalog="system" id="ebI-qQ-c1r">
+                        <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="ebI-qQ-c1r">
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="iPV-yR-eo7"/>
                             </connections>

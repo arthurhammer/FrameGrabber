@@ -84,6 +84,7 @@ extension AboutViewController {
         }
 
         let mailController = MFMailComposeViewController()
+        mailController.view.tintColor = Style.Color.mainTint
         mailController.mailComposeDelegate = self
         mailController.setToRecipients([About.contactAddress])
         mailController.setSubject(contactSubject)
@@ -98,11 +99,17 @@ extension AboutViewController {
 
     func showSourceCode() {
         guard let url = About.sourceCodeURL else { return }
-        present(SFSafariViewController(url: url), animated: true)
+        showURL(url)
     }
 
     func showPrivacyPolicy() {
         guard let url = About.privacyPolicyURL else { return }
-        present(SFSafariViewController(url: url), animated: true)
+        showURL(url)
+    }
+
+    private func showURL(_ url: URL) {
+        let safariController = SFSafariViewController(url: url)
+        safariController.preferredControlTintColor = Style.Color.mainTint
+        present(safariController, animated: true)
     }
 }
