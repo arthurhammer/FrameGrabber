@@ -157,43 +157,47 @@
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" verticalCompressionResistancePriority="850" translatesAutoresizingMaskIntoConstraints="NO" id="j77-MA-S24" customClass="EditorLoadingView" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="678"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="100" verticalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="hNT-4m-8Wu">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="678"/>
-                                    </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e1b-6l-rn9">
-                                        <rect key="frame" x="12" y="319" width="390" height="40.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="e1b-6l-rn9">
+                                        <rect key="frame" x="99" y="309" width="216.5" height="60.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading from iCloud…" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGN-ie-szR">
-                                                <rect key="frame" x="87" y="0.0" width="216.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <progressView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="5BC-Up-7x5">
-                                                <rect key="frame" x="87" y="32.5" width="216.5" height="8"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icloud.and.arrow.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xaz-Xc-2WQ">
+                                                <rect key="frame" x="93" y="-2" width="30.5" height="26.5"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                </preferredSymbolConfiguration>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="It4-ph-aop">
+                                                <rect key="frame" x="0.0" y="26" width="216.5" height="34.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading from iCloud…" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGN-ie-szR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="216.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="5BC-Up-7x5">
+                                                        <rect key="frame" x="0.0" y="26.5" width="216.5" height="8"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="8" id="oXD-k2-Wh1"/>
+                                                        </constraints>
+                                                        <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </progressView>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="8" id="oXD-k2-Wh1"/>
+                                                    <constraint firstItem="oGN-ie-szR" firstAttribute="width" secondItem="5BC-Up-7x5" secondAttribute="width" id="kfm-G2-QyR"/>
                                                 </constraints>
-                                                <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </progressView>
+                                            </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="oGN-ie-szR" firstAttribute="width" secondItem="5BC-Up-7x5" secondAttribute="width" id="SNu-IM-Lme"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="e1b-6l-rn9" firstAttribute="centerY" secondItem="j77-MA-S24" secondAttribute="centerY" id="2oq-3l-akG"/>
-                                    <constraint firstItem="e1b-6l-rn9" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" constant="12" id="RcN-nC-WIP"/>
-                                    <constraint firstAttribute="trailing" secondItem="hNT-4m-8Wu" secondAttribute="trailing" id="TMn-Iu-lap"/>
-                                    <constraint firstItem="hNT-4m-8Wu" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" id="Wtf-rQ-BFS"/>
-                                    <constraint firstItem="hNT-4m-8Wu" firstAttribute="top" secondItem="j77-MA-S24" secondAttribute="top" id="bj2-sD-5px"/>
-                                    <constraint firstAttribute="trailing" secondItem="e1b-6l-rn9" secondAttribute="trailing" constant="12" id="mcF-Hm-53d"/>
-                                    <constraint firstAttribute="bottom" secondItem="hNT-4m-8Wu" secondAttribute="bottom" id="n1D-BC-V6k"/>
+                                    <constraint firstItem="e1b-6l-rn9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j77-MA-S24" secondAttribute="leading" constant="12" id="RcN-nC-WIP"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="e1b-6l-rn9" secondAttribute="trailing" constant="12" id="mcF-Hm-53d"/>
                                     <constraint firstItem="e1b-6l-rn9" firstAttribute="centerX" secondItem="j77-MA-S24" secondAttribute="centerX" id="qwY-Sc-h1K"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView" destination="hNT-4m-8Wu" id="LvG-Xn-rFO"/>
                                     <outlet property="progressView" destination="5BC-Up-7x5" id="Xg6-c4-1Q8"/>
                                     <outlet property="titleLabel" destination="oGN-ie-szR" id="sXm-tS-oem"/>
                                 </connections>
@@ -523,6 +527,7 @@
         <image name="arrow.right" catalog="system" width="64" height="48"/>
         <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
         <image name="heart.fill" catalog="system" width="64" height="54"/>
+        <image name="icloud.and.arrow.down.fill" catalog="system" width="64" height="56"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>

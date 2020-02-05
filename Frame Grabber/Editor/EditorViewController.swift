@@ -180,14 +180,16 @@ private extension EditorViewController {
             updatePreviewImage()
         }
 
+        navigationItem.rightBarButtonItem?.isEnabled = isReadyToPlay
         toolbar.setControlsEnabled(isReadyToPlay)
     }
 
     func updatePreviewImage() {
-        loadingView.imageView.isHidden = isInitiallyReadyForPlayback
+        playerView.posterImageView.isHidden = isInitiallyReadyForPlayback
     }
 
     func updateLoadingProgress(with progress: Float?) {
+        playerView.isUserInteractionEnabled = progress == nil  // Disable zoom during load. TODO: improve this.
         loadingView.setProgress(progress, animated: true)
     }
 
@@ -213,11 +215,11 @@ private extension EditorViewController {
     // MARK: Video Loading
 
     func loadPreviewImage() {
-        let size = loadingView.imageView.bounds.size.scaledToScreen
+        let size = playerView.bounds.size.scaledToScreen
 
         videoController.loadPreviewImage(with: size) { [weak self] image, _ in
             guard let image = image else { return }
-            self?.loadingView.imageView.image = image
+            self?.playerView.posterImageView.image = image
             self?.updatePreviewImage()
         }
     }
@@ -286,17 +288,15 @@ extension EditorViewController: ZoomAnimatable {
 
     func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
         playerView.isHidden = true
-        loadingView.isHidden = true
     }
 
     func zoomAnimatorAnimationDidEnd(_ animator: ZoomAnimator) {
         playerView.isHidden = false
-        loadingView.isHidden = false
         updatePreviewImage()
     }
 
     func zoomAnimatorImage(_ animator: ZoomAnimator) -> UIImage? {
-        loadingView.imageView.image
+        playerView.posterImageView.image
     }
 
     func zoomAnimator(_ animator: ZoomAnimator, imageFrameInView view: UIView) -> CGRect? {
@@ -305,17 +305,16 @@ extension EditorViewController: ZoomAnimatable {
         // If ready animate from video position (possibly zoomed, scrolled), otherwise
         // from preview image (centered, aspect fitted).
         if videoFrame != .zero {
-            return playerView.superview?.convert(videoFrame, to: view)
+            return playerView.convert(videoFrame, to: view)
         } else {
-            return loadingView.convert(loadingImageFrame, to: view)
+            return playerView.posterImageView.superview?.convert(posterImageFrame, to: view)
         }
     }
 
     /// The aspect fitted size the preview image occupies in the image view.
-    private var loadingImageFrame: CGRect {
-        let imageSize = loadingView.imageView.image?.size
-            ?? videoController.asset.dimensions
-
-        return AVMakeRect(aspectRatio: imageSize, insideRect: loadingView.imageView.frame)
+    private var posterImageFrame: CGRect {
+        let imageView = playerView.posterImageView
+        let imageSize = imageView.image?.size ?? videoController.dimensions
+        return imageSize.aspectFitting(imageView.frame)
     }
 }

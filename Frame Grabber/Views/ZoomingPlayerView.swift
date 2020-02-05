@@ -23,7 +23,11 @@ class ZoomingPlayerView: UIView {
         }
     }
 
-    let playerView = PlayerView()
+    let playerView = PreviewPlayerView()
+
+    var posterImageView: UIImageView {
+        playerView.posterImageView
+    }
 
     var isReadyForDisplay: Bool {
         playerView.playerLayer.isReadyForDisplay
@@ -118,7 +122,7 @@ private extension ZoomingPlayerView {
     }
 
     func updatePlayerSize(keepingZoomIfPossible: Bool) {
-        let videoSize = player?.currentItem?.presentationSize ?? .zero
+        let videoSize = player?.currentItem?.presentationSize ?? playerView.posterImageView.image?.size ?? .zero
 
         // Remain zoomed in if the player item changed but has same size (to avoid zooming
         // out when looping the same video).

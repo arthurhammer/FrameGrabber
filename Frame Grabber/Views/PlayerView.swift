@@ -16,3 +16,26 @@ class PlayerView: UIView {
         set { playerLayer.player = newValue }
     }
 }
+
+class PreviewPlayerView: PlayerView {
+
+    let posterImageView = UIImageView(frame: .zero)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureViews()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configureViews()
+    }
+
+    private func configureViews() {
+        posterImageView.frame = bounds
+        posterImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        posterImageView.contentMode = .scaleAspectFill
+        posterImageView.clipsToBounds = true
+        addSubview(posterImageView)
+    }
+}
