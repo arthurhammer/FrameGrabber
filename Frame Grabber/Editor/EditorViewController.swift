@@ -1,7 +1,7 @@
 import UIKit
 import AVKit
 
-class PlayerViewController: UIViewController {
+class EditorViewController: UIViewController {
 
     var videoController: VideoController!
 
@@ -9,8 +9,8 @@ class PlayerViewController: UIViewController {
     private lazy var timeFormatter = VideoTimeFormatter()
 
     @IBOutlet private var playerView: ZoomingPlayerView!
-    @IBOutlet private var loadingView: PlayerLoadingView!
-    @IBOutlet private var toolbar: PlayerControlsView!
+    @IBOutlet private var loadingView: EditorLoadingView!
+    @IBOutlet private var toolbar: EditorToolbar!
     @IBOutlet private var timeLabel: UILabel!
 
     private var isInitiallyReadyForPlayback = false
@@ -42,7 +42,7 @@ class PlayerViewController: UIViewController {
 
 // MARK: - Actions
 
-private extension PlayerViewController {
+private extension EditorViewController {
 
     @IBAction func done() {
         videoController.cancelAllRequests()
@@ -82,7 +82,7 @@ private extension PlayerViewController {
 
 // MARK: - PlaybackControllerDelegate
 
-extension PlayerViewController: PlaybackControllerDelegate {
+extension EditorViewController: PlaybackControllerDelegate {
 
     func player(_ player: AVPlayer, didUpdateStatus status: AVPlayer.Status) {
         guard status != .failed  else { return handlePlaybackError() }
@@ -119,7 +119,7 @@ extension PlayerViewController: PlaybackControllerDelegate {
 
 // MARK: - ZoomingPlayerViewDelegate
 
-extension PlayerViewController: ZoomingPlayerViewDelegate {
+extension EditorViewController: ZoomingPlayerViewDelegate {
 
     func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {
         updatePlaybackStatus()
@@ -128,7 +128,7 @@ extension PlayerViewController: ZoomingPlayerViewDelegate {
 
 // MARK: - Private
 
-private extension PlayerViewController {
+private extension EditorViewController {
 
     func configureViews() {
         playerView.delegate = self
@@ -282,7 +282,7 @@ private extension PlayerViewController {
 
 // MARK: - ZoomAnimatable
 
-extension PlayerViewController: ZoomAnimatable {
+extension EditorViewController: ZoomAnimatable {
 
     func zoomAnimatorAnimationWillBegin(_ animator: ZoomAnimator) {
         playerView.isHidden = true

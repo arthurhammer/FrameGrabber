@@ -1,6 +1,6 @@
 import UIKit
 
-class PlayerControlsView: UIView {
+class EditorToolbar: UIView {
 
     @IBOutlet var timeSlider: UISlider!
     @IBOutlet var playButton: UIButton!

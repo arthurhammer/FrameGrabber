@@ -1,6 +1,6 @@
 import UIKit
 
-class PlayerLoadingView: UIView {
+class EditorLoadingView: UIView {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
@@ -19,6 +19,8 @@ class PlayerLoadingView: UIView {
     }
 
     private func configureViews() {
+//        titleLabel.applyOverlayShadow()
+//        progressView.applyOverlayShadow()
         progressView.trackTintColor = .white
         progressView.layer.cornerRadius = 4
         progressView.layer.masksToBounds = true

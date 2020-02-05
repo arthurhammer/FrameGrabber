@@ -29,12 +29,12 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? PlayerViewController {
+        if let controller = segue.destination as? EditorViewController {
             prepareForPlayerSegue(with: controller)
         }
     }
 
-    private func prepareForPlayerSegue(with destination: PlayerViewController) {
+    private func prepareForPlayerSegue(with destination: EditorViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
         transitionController.prepareNavigationControllerTransition(for: navigationController)
@@ -60,7 +60,7 @@ class AlbumViewController: UICollectionViewController {
 
         animator.addAnimations {
             self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            self.performSegue(withIdentifier: PlayerViewController.name, sender: nil)
+            self.performSegue(withIdentifier: EditorViewController.name, sender: nil)
         }
     }
 }
