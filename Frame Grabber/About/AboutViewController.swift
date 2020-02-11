@@ -48,7 +48,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
 
-        rateButton.tintColor = .white
+        rateButton.tintColor = .systemBackground
         rateButton.backgroundColor = Style.Color.mainTint
         rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
 

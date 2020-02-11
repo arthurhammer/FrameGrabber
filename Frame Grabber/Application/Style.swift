@@ -7,7 +7,7 @@ struct Style {
         static let mainTint: UIColor = .init { traitCollection in
             (traitCollection.userInterfaceStyle == .light)
                 ? UIColor(red: 0.27, green: 0.16, blue: 0.97, alpha: 1.00)
-                : UIColor(red: 0.44, green: 0.36, blue: 0.95, alpha: 1.00) 
+                : .systemTeal
         }
 
         static let secondaryTint: UIColor = .init { traitCollection in

@@ -40,7 +40,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
     private func configureViews() {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
 
-        button.tintColor = .white
+        button.tintColor = .systemBackground
         button.backgroundColor = Style.Color.mainTint
         button.layer.cornerRadius = Style.Size.buttonCornerRadius
         button.titleLabel?.adjustsFontForContentSizeCategory = true
