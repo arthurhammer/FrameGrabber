@@ -25,14 +25,6 @@ extension Bundle {
         "\(version) (\(build))"
     }
 
-    var appIcon: UIImage? {
-        guard let icons: [String: Any] = info(for: "CFBundleIcons"),
-              let primaryIcons = icons["CFBundlePrimaryIcon"] as? [String: Any],
-              let iconFiles = primaryIcons["CFBundleIconFiles"] as? [String],
-              let icon = iconFiles.last else { return nil }
-        return UIImage(named: icon)
-    }
-
     private func info<T>(for key: String) -> T? {
         (localizedInfoDictionary?[key] as? T)
             ?? (infoDictionary?[key] as? T)

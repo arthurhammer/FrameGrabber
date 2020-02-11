@@ -139,7 +139,7 @@ private extension ZoomingPlayerView {
 
     func configureGestures() {
         doubleTapToZoomRecognizer.numberOfTapsRequired = 2
-        playerView.addGestureRecognizer(doubleTapToZoomRecognizer)
+        addGestureRecognizer(doubleTapToZoomRecognizer)
     }
 
     @objc func handleDoubleTap(_ tap: UITapGestureRecognizer) {
