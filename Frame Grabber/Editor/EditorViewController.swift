@@ -9,8 +9,8 @@ class EditorViewController: UIViewController {
     private var playbackController: PlaybackController?
     private lazy var timeFormatter = VideoTimeFormatter()
 
+    @IBOutlet private var progressView: ProgressView!
     @IBOutlet private var playerView: ZoomingPlayerView!
-    @IBOutlet private var loadingView: EditorLoadingView!
     @IBOutlet private var toolbar: EditorToolbar!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
@@ -114,21 +114,11 @@ extension EditorViewController: PlaybackControllerDelegate {
     }
 }
 
-// MARK: - ZoomingPlayerViewDelegate
-
-extension EditorViewController: ZoomingPlayerViewDelegate {
-
-    func playerView(_ playerView: ZoomingPlayerView, didUpdateReadyForDisplay ready: Bool) {
-        updatePlaybackStatus()
-    }
-}
-
 // MARK: - Private
 
 private extension EditorViewController {
 
     func configureViews() {
-        playerView.delegate = self
         playerView.clipsToBounds = false
 
         timeLabel.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
@@ -153,7 +143,6 @@ private extension EditorViewController {
         updateSlider(withDuration: .zero)
         updateSlider(withTime: .zero)
         updateTimeLabel(withTime: .zero)
-        updateLoadingProgress(with: nil)
     }
 
     private func configureGestures() {
@@ -170,7 +159,7 @@ private extension EditorViewController {
         })
     }
 
-    // MARK: Sync Player UI
+    // MARK: Updating Player UI
 
     func updatePlaybackStatus() {
         let isReadyToPlay = playbackController?.isReadyToPlay ?? false
@@ -178,10 +167,6 @@ private extension EditorViewController {
         navigationItem.rightBarButtonItem?.isEnabled = isReadyToPlay
         titleLabel.isEnabled = isReadyToPlay
         timeLabel.isEnabled = isReadyToPlay
-    }
-
-    func updateLoadingProgress(with progress: Float?) {
-        loadingView.setProgress(progress, animated: true)
     }
 
     func updatePlayButton(withStatus status: AVPlayer.TimeControlStatus) {
@@ -203,7 +188,36 @@ private extension EditorViewController {
         toolbar.timeSlider.duration = duration
     }
 
-    // MARK: Video Loading
+    // MARK: Showing Progress
+
+    enum Activity {
+        case download
+        case export
+
+        var title: String {
+            switch self {
+            case .download: return NSLocalizedString("progress.title.icloud", value: "Downloading…", comment: "iCloud download progress title.")
+            case .export: return NSLocalizedString("progress.title.frameExport", value: "Exporting…", comment: "Frame generation progress title.")
+            }
+        }
+    }
+
+    func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
+        view.isUserInteractionEnabled = !show  // todo: improve
+
+        progressView.titleLabel.text = activity.title
+        if show {
+            progressView.show(in: playerView, animated: animated, completion: completion)
+        } else {
+            progressView.hide(animated: animated, completion: completion)
+        }
+
+        if let value = value {
+            progressView.setProgress(value, animated: animated)
+        }
+    }
+
+    // MARK: Loading Videos
 
     func loadPreviewImage() {
         let size = playerView.bounds.size.scaledToScreen
@@ -215,13 +229,13 @@ private extension EditorViewController {
     }
 
     func loadVideo() {
-        videoController.loadVideo(progressHandler: { [weak self] progress in
+        showProgress(true, forActivity: .download, value: .determinate(0))
 
-            self?.updateLoadingProgress(with: Float(progress))
+        videoController.loadVideo(progressHandler: { [weak self] progress in
+            self?.progressView.setProgress(.determinate(Float(progress)), animated: true)
 
         }, completionHandler: { [weak self] video, info in
-
-            self?.updateLoadingProgress(with: nil)
+            self?.showProgress(false, forActivity: .download, value: .determinate(1))
 
             guard !info.isCancelled else { return }
 
@@ -241,31 +255,34 @@ private extension EditorViewController {
         playbackController?.play()
     }
 
-    // MARK: Image Generation
+    // MARK: Generating Images
 
     func generateFramesAndShare(for times: [CMTime]) {
-        view.isUserInteractionEnabled = false
-        let feedbackGenerator = UINotificationFeedbackGenerator()
-        feedbackGenerator.prepare()
+        showProgress(true, forActivity: .export, value: .indeterminate)
 
-        videoController.generateAndExportFrames(for: times, progressHandler: { completed, total in }, completionHandler: { [weak self] result in
-            self?.view.isUserInteractionEnabled = true
-            self?.handleFrameGenerationResult(result, withFeedbackGenerator: feedbackGenerator)
+        videoController.generateAndExportFrames(for: times, progressHandler: { _, _ in }, completionHandler: { [weak self] result in
+            self?.showProgress(false, forActivity: .export) {
+                self?.view.isUserInteractionEnabled = true
+                self?.handleFrameGenerationResult(result)
+            }
         })
     }
 
-    func handleFrameGenerationResult(_ result: FrameExporter.Result, withFeedbackGenerator feedbackGenerator: UINotificationFeedbackGenerator?) {
+    func handleFrameGenerationResult(_ result: FrameExporter.Result) {
+        let feedbackGenerator = UINotificationFeedbackGenerator()
+        feedbackGenerator.prepare()
+
         switch result {
 
         case .failed:
-            feedbackGenerator?.notificationOccurred(.error)
+            feedbackGenerator.notificationOccurred(.error)
             presentAlert(.imageGenerationFailed())
 
         case .cancelled:
-            feedbackGenerator?.notificationOccurred(.warning)
+            feedbackGenerator.notificationOccurred(.warning)
 
         case .succeeded(let urls):
-            feedbackGenerator?.notificationOccurred(.success)
+            feedbackGenerator.notificationOccurred(.success)
             share(urls: urls)
         }
     }
@@ -288,17 +305,15 @@ extension EditorViewController: ZoomTransitionDelegate {
 
         let backgroundColor = view.backgroundColor
 
-        loadingView.alpha = 0  // (Don't animate.)
-
         transition.animate(alongsideTransition: { [weak self] _ in
             guard let self = self else { return }
             self.view.backgroundColor = .clear
+            self.progressView.alpha = 0
             self.toolbar.alpha = 0
             self.toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: self.toolbar.bounds.height * 1.5)
         }, completion: { [weak self] _ in
             // Animation interpolates dynamic to fixed color. Restore dynamic color.
             self?.view.backgroundColor = backgroundColor
-            self?.loadingView.alpha = 1
         })
     }
 

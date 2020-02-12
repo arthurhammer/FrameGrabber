@@ -82,3 +82,9 @@
 /* Video detail video metadata section header */
 "more.section.video" = "Video";
 
+/* Frame generation progress title. */
+"progress.title.frameExport" = "Exportieren…";
+
+/* iCloud download progress title. */
+"progress.title.icloud" = "Herunterladen…";
+
