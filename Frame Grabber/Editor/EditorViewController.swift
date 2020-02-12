@@ -162,8 +162,9 @@ private extension EditorViewController {
     }
 
     @objc private func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
-        guard !isScrubbing else { return }
-        
+        let hasVideoOrPoster = playerView.playerView.bounds.size != .zero
+        guard !isScrubbing, hasVideoOrPoster else { return }
+
         transitionController?.handleSlideToPopGesture(gesture, performTransition: {
             done()
         })

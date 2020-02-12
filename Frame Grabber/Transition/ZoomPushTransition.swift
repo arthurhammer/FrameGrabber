@@ -48,7 +48,22 @@ class ZoomPushTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTran
         guard let sourceView = fromDelegate?.zoomTransitionView(self),
             let targetView = toDelegate?.zoomTransitionView(self) else {
 
-                fatalError("Source and target views to animate between are required for the transition.")
+                // In a race condition, it could potentially happen that between initiating
+                // the transition and now either delegate's required view has vanished
+                // (e.g. collection view reloads and the source cell we are transitioning
+                // from vanishes). In that case, use a rudamentary fallback transition
+                // instead of crashing.
+                dprint("Warning: Source and target views are required for the push transition.")
+
+                animator.addAnimations {}  // Non-empty animations required.
+
+                animator.addCompletion { _ in
+                    self.animator = nil
+                    self.transitionContext = nil
+                    self.transitionDidEnd()
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                }
+                return animator
         }
 
         let containerView = transitionContext.containerView

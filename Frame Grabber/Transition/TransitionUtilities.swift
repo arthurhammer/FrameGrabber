@@ -92,7 +92,15 @@ extension CGAffineTransform {
 
     /// Applying a transform where the translation is scaled with the current scale.
     func adjusted(withTranslation translation: CGPoint, scale: CGFloat) -> CGAffineTransform {
-        let baseScale = self.scale
+        var baseScale = self.scale
+
+        if baseScale.x == 0 {
+            baseScale.x = 1
+        }
+        
+        if baseScale.y == 0 {
+            baseScale.y = 1
+        }
 
         return translatedBy(x: translation.x / baseScale.x, y: translation.y / baseScale.y)
             .scaledBy(x: scale, y: scale)

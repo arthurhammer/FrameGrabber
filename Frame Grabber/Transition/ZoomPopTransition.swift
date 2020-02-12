@@ -73,6 +73,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     /// notifies delegates the transition is about to begin.
     private func prepareTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let sourceView = fromDelegate?.zoomTransitionView(self) else {
+            // todo: Use rudamentary fallback transition instead of crashing.
             fatalError("A source view to animate from is required for the transition.")
         }
 
