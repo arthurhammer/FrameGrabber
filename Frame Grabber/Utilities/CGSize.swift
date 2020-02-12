@@ -7,6 +7,12 @@ extension CGSize {
         let scale = UIScreen.main.scale
         return CGSize(width: width * scale, height: height * scale)
     }
+
+    /// The receiver divided by the screen's scale.
+    var unscaledFromScreen: CGSize {
+        let scale = UIScreen.main.scale
+        return CGSize(width: width / scale, height: height / scale)
+    }
 }
 
 extension CGSize {
