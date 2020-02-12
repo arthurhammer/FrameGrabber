@@ -244,20 +244,27 @@ private extension EditorViewController {
 
     func generateFramesAndShare(for times: [CMTime]) {
         view.isUserInteractionEnabled = false
+        let feedbackGenerator = UINotificationFeedbackGenerator()
+        feedbackGenerator.prepare()
 
         videoController.generateAndExportFrames(for: times, progressHandler: { completed, total in }, completionHandler: { [weak self] result in
             self?.view.isUserInteractionEnabled = true
-            self?.handleFrameGenerationResult(result)
+            self?.handleFrameGenerationResult(result, withFeedbackGenerator: feedbackGenerator)
         })
     }
 
-    func handleFrameGenerationResult(_ result: FrameExporter.Result) {
+    func handleFrameGenerationResult(_ result: FrameExporter.Result, withFeedbackGenerator feedbackGenerator: UINotificationFeedbackGenerator?) {
         switch result {
+
         case .failed:
+            feedbackGenerator?.notificationOccurred(.error)
             presentAlert(.imageGenerationFailed())
+
         case .cancelled:
-            break
+            feedbackGenerator?.notificationOccurred(.warning)
+
         case .succeeded(let urls):
+            feedbackGenerator?.notificationOccurred(.success)
             share(urls: urls)
         }
     }
