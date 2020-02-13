@@ -122,7 +122,7 @@ private extension ZoomingPlayerView {
     }
 
     func updatePlayerSize(keepingZoomIfPossible: Bool) {
-        let videoSize = player?.currentItem?.presentationSize ?? playerView.posterImageView.image?.size ?? .zero
+        let videoSize = player?.currentItem?.presentationSize.nilIfZero ?? playerView.posterImageView.image?.size ?? .zero
 
         // Remain zoomed in if the player item changed but has same size (to avoid zooming
         // out when looping the same video).
@@ -214,5 +214,12 @@ private extension UIScrollView {
         // (Don't use `frame` directly since the scroll view applies a scale transform.)
         contentView.center = CGPoint(x: contentSize.width/2 + offsetX,
                                      y: contentSize.height/2 + offsetY)
+    }
+}
+
+private extension CGSize {
+    var nilIfZero: CGSize? {
+        if self == .zero { return nil }
+        return self
     }
 }
