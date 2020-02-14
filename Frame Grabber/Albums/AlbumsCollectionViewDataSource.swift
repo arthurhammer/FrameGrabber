@@ -1,5 +1,6 @@
 import UIKit
 import Photos
+import Combine
 
 struct AlbumsSection {
     let title: String?
@@ -49,10 +50,10 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         sections[indexPath.section].albums[indexPath.item]
     }
 
-    func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> PHImageManager.Request? {
+    func thumbnail(for album: Album, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
 
-        return imageManager.requestImage(for: keyAsset, options: imageOptions, resultHandler: resultHandler)
+        return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
     }
 
     func fetchUpdate(forAlbumAt indexPath: IndexPath) -> FetchedAlbum? {

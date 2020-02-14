@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var coordinator: Coordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        try? FrameExporter.clearTemporaryDirectory()
+        clearTemporaryDirectory()
 
         Style.configureAppearance(using: window)
 
@@ -18,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        try? FrameExporter.clearTemporaryDirectory()
+        clearTemporaryDirectory()
+    }
+
+    /// Clear any remaining temporary frames or live photo data exports.
+    private func clearTemporaryDirectory() {
+        try? FileManager.default.clearTemporaryDirectory()
     }
 }

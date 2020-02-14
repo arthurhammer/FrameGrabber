@@ -19,10 +19,6 @@ class EditorViewController: UIViewController {
         toolbar.timeSlider.isTracking
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
@@ -233,26 +229,24 @@ private extension EditorViewController {
 
         videoController.loadVideo(progressHandler: { [weak self] progress in
             self?.progressView.setProgress(.determinate(Float(progress)), animated: true)
-
-        }, completionHandler: { [weak self] video, info in
+        }, completionHandler: { [weak self] result in
             self?.showProgress(false, forActivity: .download, value: .determinate(1))
-
-            guard !info.isCancelled else { return }
-
-            if let video = video {
-                self?.configurePlayer(with: video)
-            } else {
-                (self?.presentedViewController ?? self)?.presentAlert(.videoLoadingFailed())
-            }
+            self?.handleVideoLoadingResult(result)
         })
     }
 
-    func configurePlayer(with video: AVAsset) {
-        playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
-        playbackController?.delegate = self
-        playerView.player = playbackController?.player
-
-        playbackController?.play()
+    func handleVideoLoadingResult(_ result: VideoController.Result<Error?, AVAsset>) {
+        switch result {
+        case .cancelled:
+            break
+        case .failed:
+            (presentedViewController ?? self)?.presentAlert(.videoLoadingFailed())
+        case .succeeded(let video):
+            playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
+            playbackController?.delegate = self
+            playerView.player = playbackController?.player
+            playbackController?.play()
+        }
     }
 
     // MARK: Generating Images
@@ -260,19 +254,18 @@ private extension EditorViewController {
     func generateFramesAndShare(for times: [CMTime]) {
         showProgress(true, forActivity: .export, value: .indeterminate)
 
-        videoController.generateAndExportFrames(for: times, progressHandler: { _, _ in }, completionHandler: { [weak self] result in
+        videoController.generateAndExportFrames(for: times) { [weak self] status in
             self?.showProgress(false, forActivity: .export) {
                 self?.view.isUserInteractionEnabled = true
-                self?.handleFrameGenerationResult(result)
+                self?.handleFrameGenerationResult(status)
             }
-        })
+        }
     }
 
-    func handleFrameGenerationResult(_ result: FrameExporter.Result) {
+    func handleFrameGenerationResult(_ status: FrameExport.Status) {
         let feedbackGenerator = UINotificationFeedbackGenerator()
-        feedbackGenerator.prepare()
 
-        switch result {
+        switch status {
 
         case .failed:
             feedbackGenerator.notificationOccurred(.error)
@@ -280,6 +273,9 @@ private extension EditorViewController {
 
         case .cancelled:
             feedbackGenerator.notificationOccurred(.warning)
+
+        case .progressed:
+            break
 
         case .succeeded(let urls):
             feedbackGenerator.notificationOccurred(.success)
@@ -290,7 +286,7 @@ private extension EditorViewController {
     func share(urls: [URL]) {
         let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
         shareController.completionWithItemsHandler = { [weak self] _, _, _, _ in
-            self?.videoController.deleteFrames(for: urls)
+            self?.videoController.deleteExportedFrames()
         }
         present(shareController, animated: true)
     }

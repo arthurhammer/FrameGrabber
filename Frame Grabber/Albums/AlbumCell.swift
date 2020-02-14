@@ -1,10 +1,10 @@
 import UIKit
-import Photos
+import Combine
 
 class AlbumCell: UICollectionViewCell {
 
     var identifier: String?
-    var imageRequest: PHImageManager.Request?
+    var imageRequest: Cancellable?
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!

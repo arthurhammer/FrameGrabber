@@ -5,3 +5,9 @@ extension PHAsset {
         CGSize(width: pixelWidth, height: pixelHeight)
     }
 }
+
+extension PHAsset {
+    var isLivePhoto: Bool {
+        mediaSubtypes.contains(.photoLive)
+    }
+}

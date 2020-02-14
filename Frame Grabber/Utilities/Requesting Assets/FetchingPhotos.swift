@@ -42,6 +42,6 @@ extension PHFetchOptions {
 
 extension NSPredicate {
     convenience init(mediaType: PHAssetMediaType) {
-        self.init(format: "mediaType == %d", mediaType.rawValue)
+        self.init(format: "(mediaType == %d) OR (mediaSubtypes & %d) != 0", mediaType.rawValue, PHAssetMediaSubtype.photoLive.rawValue)
     }
 }

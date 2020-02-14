@@ -1,5 +1,6 @@
 import UIKit
 import Photos
+import Combine
 
 class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
@@ -49,8 +50,8 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         album!.fetchResult.object(at: indexPath.item)
     }
 
-    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> PHImageManager.Request {
-        imageManager.requestImage(for: video, options: imageOptions, resultHandler: resultHandler)
+    func thumbnail(for video: PHAsset, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable {
+        imageManager.requestImage(for: video, options: imageOptions, completionHandler: completionHandler)
     }
 
     func indexPath(of video: PHAsset) -> IndexPath? {
