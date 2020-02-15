@@ -36,8 +36,6 @@ class FrameExport {
     }()
 
     /// Handlers are called on an arbitrary queue.
-    /// - parameter progressHandler: Called with the number of successfully processed and
-    ///   the number of total frames to process.
     init(request: Request, fileManager: FileManager = .default, updateHandler: @escaping (Status) -> ()) {
         self.request = request
         self.fileManager = fileManager
@@ -56,7 +54,7 @@ class FrameExport {
     /// for deleting frames when they are not needed anymore, e.g. with `deleteFiles(in:)`.
     ///
     /// Failure modes include:
-    /// - The requested or a temporary directory could not be created.
+    /// - The temporary export directory could not be created.
     /// - Any one of the requested frames could not be generated.
     /// - Generated frames could not be encoded with the requested encoding.
     /// - Encoded images could not be written to disk.

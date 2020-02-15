@@ -122,12 +122,10 @@ class VideoController {
         deleteExportedVideo()
 
         let finish = { [weak self] (result: Result<Error?, AVAsset>) in
-            DispatchQueue.main.async {
-                self?.videoRequest = nil
-                self?.exportedVideoURL = (result.video as? AVURLAsset)?.url
-                self?.video = result.video
-                completionHandler(result)
-            }
+            self?.videoRequest = nil
+            self?.exportedVideoURL = (result.video as? AVURLAsset)?.url
+            self?.video = result.video
+            completionHandler(result)
         }
 
         guard let videoResource = PHAssetResource.videoResource(forLivePhoto: asset) else {
@@ -147,7 +145,11 @@ class VideoController {
 
         videoRequest = resourceManager.requestAndWriteData(for: videoResource, toFile: fileURL, options: options, progressHandler: progressHandler) { error in
             if let error = error {
-                finish(.failed(error))
+                if error.isCancelled {
+                    finish(.cancelled)
+                } else {
+                    finish(.failed(error))
+                }
                 return
             }
 

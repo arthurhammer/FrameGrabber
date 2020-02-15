@@ -3,6 +3,8 @@ import Combine
 
 extension PHAssetResourceManager {
 
+    /// A variant of `writeData` that can be cancelled.
+    ///
     /// Releasing the returned object cancels the request. In that case, the completion
     /// handler is called with an `CocoaError.userCancelled` error.
     /// Handlers are called asynchronously on the main thread.
@@ -36,8 +38,8 @@ extension PHAssetResourceManager {
             do {
                 try data.write(to: fileURL)
 
-                // Handle caller cancelling between the data request succeeding and the
-                // data being written to disk (there's still a race condition).
+                // Handle cancelling between the data request succeeding and the data
+                // being written to disk.
                 if didCancel {
                     try fileManager.removeItem(at: fileURL)
                     finish(CocoaError(.userCancelled))

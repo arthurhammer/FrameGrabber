@@ -1,22 +1,20 @@
 import UIKit
 
-/// A interactive and non-interactive animated pop transition.
+/// An interactive and non-interactive animated pop transition.
 class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning  {
 
     let type: TransitionType = .pop
 
-    /// Typically same as `transitionContext.viewController(forKey: .from)` but not required.
     weak var fromDelegate: ZoomTransitionDelegate?
-    /// Typically same as `transitionContext.viewController(forKey: .to)` but not required.
     weak var toDelegate: ZoomTransitionDelegate?
 
-    /// Clients can use this flag to track whether the transition should be started
+    /// You can use this flag to track whether the transition should be started
     /// interactively.
     var wantsInteractiveStart = false
 
     private var transitionContext: UIViewControllerContextTransitioning?
     /// Runs additional animations in sync with the main pan and release animations.
-    /// Clients can use `animate(alongsideTransition:completion:)` to add their own animations.
+    /// You can use `animate(alongsideTransition:completion:)` to add their own animations.
     private var backgroundAnimator: UIViewPropertyAnimator?
     private var gestureEndedBeforeTransitionStarted = false
 
@@ -32,7 +30,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     typealias AnimationParameters = (duration: TimeInterval, damping: CGFloat)
     private let completionParameters: AnimationParameters = (0.37, 0.90)
     private let cancelParameters: AnimationParameters = (0.45, 0.75)
-    private let fallbackParameters: AnimationParameters = (0.5, 0.90)
+    private let fallbackParameters: AnimationParameters = (0.50, 0.90)
 
     /// Required by `UIViewControllerAnimatedTransitioning` for the non-interactive
     /// transition.

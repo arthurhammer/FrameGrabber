@@ -41,8 +41,6 @@ class ZoomPushTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTran
         self.transitionContext = transitionContext
         self.animator = animator
 
-        // Context and animator instance variables need to be set before this is called
-        // so the client can use `animate(alongsideTransition:completion:)` inside.
         transitionWillBegin()
 
         guard let sourceView = fromDelegate?.zoomTransitionView(self),
@@ -85,6 +83,7 @@ class ZoomPushTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTran
         animator.addCompletion { _ in
             targetView.isHidden = false
 
+            // Blend into the target view separately.
             UIView.animate(withDuration: self.crossDissolveDuration, animations: {
                 transitionView.alpha = 0
             }, completion: { _ in

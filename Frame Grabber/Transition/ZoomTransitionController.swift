@@ -4,7 +4,7 @@ import UIKit
 /// for the navigation controller.
 ///
 /// To use the transition, set the relevant navigation controller's delegate to an instance
-/// of this class and adpot the `ZoomTransitionDelegate` protocol in participating view
+/// of this class and adopt the `ZoomTransitionDelegate` protocol in participating view
 /// controllers on the navigation stack.
 class ZoomTransitionController: NSObject {
 
