@@ -62,7 +62,9 @@ class AlbumViewController: UICollectionViewController {
         }, toggleFavoriteAction: { [weak self] _ in
             self?.dataSource?.toggleFavorite(for: video)
         }, deleteAction: { [weak self] _ in
-            self?.dataSource?.delete(video)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self?.dataSource?.delete(video)
+            }
         })
     }
 
