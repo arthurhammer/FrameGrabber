@@ -4,9 +4,6 @@
 /* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
 "nBX-8Q-BwE.title" = "Alben";
 
-/* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
-"T19-Lc-8RI.text" = "Keine Videos";
-
 /* Class = "UISegmentedControl"; U8f-AX-pha.segmentTitles[0] = "All"; ObjectID = "U8f-AX-pha"; */
 "U8f-AX-pha.segmentTitles[0]" = "Alle";
 

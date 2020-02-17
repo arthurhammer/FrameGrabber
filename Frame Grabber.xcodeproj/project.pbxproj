@@ -181,6 +181,8 @@
 		00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */; };
 		00F3C255213046CD0030B7EC /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C254213046CD0030B7EC /* AlbumHeader.swift */; };
 		00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C256213058FE0030B7EC /* FetchedAlbum.swift */; };
+		00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
+		00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -281,6 +283,7 @@
 		00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00F3C254213046CD0030B7EC /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
 		00F3C256213058FE0030B7EC /* FetchedAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedAlbum.swift; sourceTree = "<group>"; };
+		00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyAlbumView.swift; path = "Frame Grabber/Album/EmptyAlbumView.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +384,7 @@
 				00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */,
 				0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */,
 				00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */,
+				00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 				005E2AA220273C5800F731FA /* CollectionViewGridLayout.swift */,
 			);
@@ -685,6 +689,7 @@
 				00730EA7214FEA5A001A6EA7 /* CollectionViewTableLayout.swift in Sources */,
 				00730EA8214FEA5A001A6EA7 /* ZoomPushTransition.swift in Sources */,
 				00730EA9214FEA5A001A6EA7 /* FetchedAlbum+Fetch.swift in Sources */,
+				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
 				00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
 				00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */,
@@ -770,6 +775,7 @@
 				00AA20232136C93100084B08 /* CollectionViewTableLayout.swift in Sources */,
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
+				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
 				0054936723E5772D00F3E684 /* UISlider.swift in Sources */,

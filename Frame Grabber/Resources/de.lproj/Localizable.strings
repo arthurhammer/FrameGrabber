@@ -4,6 +4,15 @@
 /* Version label with numerical version */
 "about.version" = "Version %@";
 
+/* Empty album message */
+"album.empty.any" = "Keine Videos oder Live Photos";
+
+/* No live photos in album message */
+"album.empty.livePhoto" = "Keine Live Photos";
+
+/* No videos in album message */
+"album.empty.video" = "Keine Videos";
+
 /* Delete video context action menu */
 "album.menu.delete" = "Löschen";
 
@@ -13,8 +22,11 @@
 /* Unfavorite video context action menu */
 "album.menu.unfavorite" = "Kein Favorit";
 
-/* Title for missing/deleted/initial placeholder album */
-"album.title.default" = "Zuletzt";
+/* Title for missing or deleted albums. */
+"album.title.missingOrDeleted" = "Album";
+
+/* Title for the initial placeholder album until the user authorizes. */
+"album.title.unauthorized" = "Zuletzt";
 
 /* Smart photo albums section header */
 "albums.smartAlbumsHeader" = "Mediathek";

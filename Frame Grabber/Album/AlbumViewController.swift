@@ -9,13 +9,18 @@ class AlbumViewController: UICollectionViewController {
         set { configureDataSource(with: newValue) }
     }
 
+    /// The title that will be used when album is `nil`
+    var defaultTitle = NSLocalizedString("album.title.missingOrDeleted", value: "Album", comment: "Title for missing or deleted albums.") {
+        didSet { updateViews() }
+    }
+
     var settings: UserDefaults = .standard
 
     private var dataSource: AlbumCollectionViewDataSource?
 
     @IBOutlet private var filterControl: SwipingSegmentedControl!
-    @IBOutlet private var emptyView: UIView!
 
+    private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
 
     // MARK: Lifecycle
@@ -101,6 +106,7 @@ private extension AlbumViewController {
         collectionView?.alwaysBounceVertical = true
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
         collectionView?.collectionViewLayout.prepare()
+        collectionView.backgroundView = emptyView
 
         filterControl.installGestures(in: collectionView)
         collectionView.panGestureRecognizer.require(toFail: filterControl.swipeLeftGestureRecognizer)
@@ -151,9 +157,9 @@ private extension AlbumViewController {
     }
 
     func updateViews() {
-        let defaultTitle = NSLocalizedString("album.title.default", value: "Recents", comment: "Title for missing/deleted/initial placeholder album")
         title = dataSource?.album?.title ?? defaultTitle
-        collectionView?.backgroundView = (dataSource?.isEmpty ?? true) ? emptyView : nil
+        emptyView.type = dataSource?.type ?? .any
+        emptyView.isEmpty = dataSource?.isEmpty ?? true
         filterControl.selectedSegmentIndex = (dataSource?.type ?? .any).rawValue
     }
 
@@ -163,7 +169,9 @@ private extension AlbumViewController {
     }
 
     @IBAction func videoTypeSelectionDidChange(_ sender: UISegmentedControl) {
-        dataSource?.type = VideoType(sender.selectedSegmentIndex) ?? .any
+        let type = VideoType(sender.selectedSegmentIndex) ?? .any
+        emptyView.type = type
+        dataSource?.type = type
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
