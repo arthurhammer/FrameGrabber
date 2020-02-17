@@ -5,7 +5,7 @@ import UIKit
 /// the view hierarchy, instead use `show` and `hide`.
 class ProgressView: UIView {
 
-    enum Progress {
+    enum Progress: Equatable {
         case determinate(Float)
         case indeterminate
     }
@@ -67,7 +67,7 @@ class ProgressView: UIView {
         }
 
         cancelTimer()
-        doShow(false, animated: false)  // TODO
+        doShow(false, animated: false)
         isScheduledToShow = true
 
         let show = { [weak self] (_: Any?) in

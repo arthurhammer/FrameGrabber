@@ -209,7 +209,10 @@ private extension EditorViewController {
     }
 
     func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
-        view.isUserInteractionEnabled = !show  // todo: improve
+        view.isUserInteractionEnabled = !show  // todo
+
+        let localLoadMightTakeAWhile = (activity == .download) && (value == .determinate(0))
+        progressView.showDelay = localLoadMightTakeAWhile ? 0.3 : 0.1
 
         progressView.titleLabel.text = activity.title
         if show {
