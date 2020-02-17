@@ -1,6 +1,7 @@
 import Photos
 
 extension PHAssetCollection {
+
     static func fetchSmartAlbums(with types: [PHAssetCollectionSubtype]) -> [PHAssetCollection] {
         let options = PHFetchOptions()
         options.fetchLimit = 1
@@ -16,32 +17,38 @@ extension PHAssetCollection {
 }
 
 extension PHFetchOptions {
-    /// Smart albums are naturally unordered, sort by date.
-    static func smartAlbumVideos() -> PHFetchOptions {
-        let options = PHFetchOptions()
-        options.predicate = NSPredicate(mediaType: .video)
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        options.includeAssetSourceTypes = [.typeUserLibrary, .typeiTunesSynced, .typeCloudShared]
-        return options
-    }
-
-    /// For user albums use default user-defined order.
-    static func userAlbumVideos() -> PHFetchOptions {
-        let options = PHFetchOptions()
-        options.predicate = NSPredicate(mediaType: .video)
-        options.includeAssetSourceTypes = [.typeUserLibrary, .typeiTunesSynced, .typeCloudShared]
-        return options
-    }
 
     static func userAlbums() -> PHFetchOptions {
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: true)]
         return options
     }
+
+    /// Smart albums are naturally unordered, sort by date.
+    static func smartAlbumVideos(containing type: VideoType) -> PHFetchOptions {
+        let options = PHFetchOptions()
+        options.predicate = type.fetchPredicate
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.includeAssetSourceTypes = [.typeUserLibrary, .typeiTunesSynced, .typeCloudShared]
+        return options
+    }
+
+    /// Default user-defined order.
+    static func userAlbumVideos(containing type: VideoType) -> PHFetchOptions {
+        let options = PHFetchOptions()
+        options.predicate = type.fetchPredicate
+        options.includeAssetSourceTypes = [.typeUserLibrary, .typeiTunesSynced, .typeCloudShared]
+        return options
+    }
 }
 
-extension NSPredicate {
-    convenience init(mediaType: PHAssetMediaType) {
-        self.init(format: "(mediaType == %d) OR (mediaSubtypes & %d) != 0", mediaType.rawValue, PHAssetMediaSubtype.photoLive.rawValue)
+extension VideoType {
+
+    var fetchPredicate: NSPredicate {
+        switch self  {
+        case .any: return NSPredicate(format: "(mediaType == %d) OR (mediaSubtypes & %d) != 0", PHAssetMediaType.video.rawValue, PHAssetMediaSubtype.photoLive.rawValue)
+        case .video: return NSPredicate(format: "(mediaType == %d)", PHAssetMediaType.video.rawValue)
+        case .livePhoto: return NSPredicate(format: "(mediaSubtypes & %d) != 0", PHAssetMediaSubtype.photoLive.rawValue)
+        }
     }
 }

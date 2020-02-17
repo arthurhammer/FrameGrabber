@@ -57,12 +57,13 @@ class Coordinator: NSObject {
     private func configureAlbumViewControllers() {
         // Defer configuring data sources until authorized to avoid triggering premature
         // authorization dialogs.
-        currentAlbumViewController?.album = fetchInitialAlbum()
+        let type = currentAlbumViewController?.settings.videoType ?? .any
+        currentAlbumViewController?.album = fetchInitialAlbum(with: type)
         albumsViewController.dataSource = AlbumsDataSource()
     }
 
-    private func fetchInitialAlbum() -> FetchedAlbum? {
-        let type = AlbumsDataSource.defaultSmartAlbumTypes.first ?? .smartAlbumVideos
-        return FetchedAlbum.fetchSmartAlbums(with: [type], assetFetchOptions: .smartAlbumVideos()).first
+    private func fetchInitialAlbum(with videoType: VideoType) -> FetchedAlbum? {
+        let albumType = AlbumsDataSource.defaultSmartAlbumTypes.first ?? .smartAlbumUserLibrary
+        return FetchedAlbum.fetchSmartAlbums(with: [albumType], assetFetchOptions: .smartAlbumVideos(containing: videoType)).first
     }
 }

@@ -109,6 +109,8 @@
 		00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
 		00730EE4214FEA5A001A6EA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00730EE5214FEA5A001A6EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17F1FB4977100A00BB9 /* Assets.xcassets */; };
+		00777D4523F6E73600D94F80 /* VideoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00777D4423F6E73600D94F80 /* VideoType.swift */; };
+		00777D4623F6E73600D94F80 /* VideoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00777D4423F6E73600D94F80 /* VideoType.swift */; };
 		0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
 		0078A45623F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
 		008426991FD5CAC300F4119D /* ZoomingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */; };
@@ -224,6 +226,7 @@
 		007208961FBF7C920046F389 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00777D4423F6E73600D94F80 /* VideoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoType.swift; path = "Frame Grabber/Model/VideoType.swift"; sourceTree = SOURCE_ROOT; };
 		0078A45423F4AD700033E81C /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingPlayerView.swift; sourceTree = "<group>"; };
 		0086A6B12344CD7100989646 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
@@ -403,6 +406,7 @@
 				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
 				00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */,
 				00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */,
+				00777D4423F6E73600D94F80 /* VideoType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -692,6 +696,7 @@
 				0054936523E5633700F3E684 /* About.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* FetchingPhotos.swift in Sources */,
+				00777D4623F6E73600D94F80 /* VideoType.swift in Sources */,
 				0054936823E5777200F3E684 /* UISlider.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
 				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
@@ -775,6 +780,7 @@
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
+				00777D4523F6E73600D94F80 /* VideoType.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* FetchingPhotos.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,

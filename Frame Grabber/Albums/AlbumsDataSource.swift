@@ -5,7 +5,7 @@ import Photos
 class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
     static let defaultSmartAlbumTypes: [PHAssetCollectionSubtype] =
-        [.smartAlbumVideos, .smartAlbumFavorites, .smartAlbumTimelapses, .smartAlbumSlomoVideos]
+        [.smartAlbumUserLibrary, .smartAlbumFavorites, .smartAlbumTimelapses, .smartAlbumSlomoVideos]
 
     // Handlers are called on the main thread.
     var smartAlbumsChangedHandler: (([Album]) -> ())?
@@ -33,9 +33,9 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
     private let photoLibrary: PHPhotoLibrary
 
     init(smartAlbumTypes: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes,
-         smartAlbumAssetFetchOptions: PHFetchOptions = .smartAlbumVideos(),
+         smartAlbumAssetFetchOptions: PHFetchOptions = .smartAlbumVideos(containing: .any),
          userAlbumFetchOptions: PHFetchOptions = .userAlbums(),
-         userAlbumAssetFetchOptions: PHFetchOptions = .userAlbumVideos(),
+         userAlbumAssetFetchOptions: PHFetchOptions = .userAlbumVideos(containing: .any),
          updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self), qos: .userInitiated),
          photoLibrary: PHPhotoLibrary = .shared()) {
 

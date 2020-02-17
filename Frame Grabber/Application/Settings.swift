@@ -7,10 +7,16 @@ extension UserDefaults {
         static let includeMetadata = "IncludeMetadata"
         static let imageFormat = "ImageFormat"
         static let compressionQuality = "CompressionQuality"
+        static let videoType = "VideoType"
     }
 
     static var isHeifSupported: Bool {
         AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
+    }
+
+    var videoType: VideoType {
+        get { codableValue(forKey: Key.videoType) ?? .any }
+        set { setCodableValue(value: newValue, forKey: Key.videoType) }
     }
 
     var includeMetadata: Bool {

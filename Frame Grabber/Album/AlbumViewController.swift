@@ -3,11 +3,13 @@ import Photos
 
 class AlbumViewController: UICollectionViewController {
 
-    // nil if deleted.
+    /// nil if deleted.
     var album: FetchedAlbum? {
         get { return dataSource?.album }
         set { configureDataSource(with: newValue) }
     }
+
+    var settings: UserDefaults = .standard
 
     private var dataSource: AlbumCollectionViewDataSource?
 
@@ -103,7 +105,7 @@ private extension AlbumViewController {
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
-        dataSource = AlbumCollectionViewDataSource(album: album) { [unowned self] in
+        dataSource = AlbumCollectionViewDataSource(album: album, settings: settings) { [unowned self] in
             self.cell(for: $1, at: $0)
         }
 
@@ -134,7 +136,7 @@ private extension AlbumViewController {
     }
 
     func updateAlbumData() {
-        let defaultTitle = NSLocalizedString("album.title.default", value: "Videos", comment: "Title for missing/deleted/initial placeholder album")
+        let defaultTitle = NSLocalizedString("album.title.default", value: "Recents", comment: "Title for missing/deleted/initial placeholder album")
         title = dataSource?.album?.title ?? defaultTitle
         collectionView?.backgroundView = (dataSource?.isEmpty ?? true) ? emptyView : nil
     }
@@ -151,7 +153,7 @@ private extension AlbumViewController {
     }
 
     func configure(cell: VideoCell, for video: PHAsset) {
-        cell.durationLabel.text = durationFormatter.string(from: video.duration)
+        cell.durationLabel.text = video.isLivePhoto ? nil : durationFormatter.string(from: video.duration)
         cell.favoritedImageView.isHidden = !video.isFavorite
         loadThumbnail(for: cell, video: video)
     }

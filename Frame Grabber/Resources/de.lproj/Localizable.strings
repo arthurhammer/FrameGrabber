@@ -14,7 +14,7 @@
 "album.menu.unfavorite" = "Kein Favorit";
 
 /* Title for missing/deleted/initial placeholder album */
-"album.title.default" = "Videos";
+"album.title.default" = "Zuletzt";
 
 /* Smart photo albums section header */
 "albums.smartAlbumsHeader" = "Mediathek";

@@ -19,6 +19,8 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         didSet { imageManager.stopCachingImagesForAllAssets() }
     }
 
+    var settings: UserDefaults
+
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
     private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
@@ -27,12 +29,14 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
          photoLibrary: PHPhotoLibrary = .shared(),
          imageManager: PHCachingImageManager = .init(),
          imageOptions: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
+         settings: UserDefaults = .standard,
          cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)) {
 
         self.album = album
         self.photoLibrary = photoLibrary
         self.imageManager = imageManager
         self.imageOptions = imageOptions
+        self.settings = settings
         self.cellProvider = cellProvider
 
         super.init()
