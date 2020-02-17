@@ -57,12 +57,12 @@ class PhotoLibraryAuthorizationController: UIViewController {
 
         switch PHPhotoLibrary.authorizationStatus() {
         case .denied, .restricted:
-            messageLabel.text = NSLocalizedString("authorization.deniedMessage", value: "Frame Grabber extracts full-resolution video frames as images. You can allow access to your videos in Settings.", comment: "Photo library authorization denied message")
+            messageLabel.text = NSLocalizedString("authorization.deniedMessage", value: "Frame Grabber extracts still images from your videos and live photos. You can allow access to your photo library in Settings.", comment: "Photo library authorization denied message")
             button.setTitle(NSLocalizedString("authorization.deniedAction", value: "Open Settings", comment: "Photo library authorization denied action"), for: .normal)
 
         // Mostly for `notDetermined` but also as fallback if we land in `authorized` state.
         default:
-            messageLabel.text = NSLocalizedString("authorization.notDeterminedMessage", value: "Frame Grabber extracts full-resolution video frames as images. Get started by allowing access to your videos.", comment: "Photo library authorization default message")
+            messageLabel.text = NSLocalizedString("authorization.notDeterminedMessage", value: "Frame Grabber extracts still images from your videos and live photos. Get started by allowing access to your photo library.", comment: "Photo library authorization default message")
             button.setTitle(NSLocalizedString("authorization.notDeterminedAction", value: "Get Started", comment: "Photo library authorization default action"), for: .normal)
         }
     }

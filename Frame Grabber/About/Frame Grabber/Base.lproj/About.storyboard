@@ -55,7 +55,7 @@
                                                                         <constraint firstAttribute="width" secondItem="WBH-YM-FaP" secondAttribute="height" id="cEn-2j-6VG"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extract full-resolution video frames as images." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-8B-rvv">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extract still images from videos and live photos. In full resolution." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-8B-rvv">
                                                                     <rect key="frame" x="0.0" y="0.0" width="334" height="0.0"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                     <nil key="textColor"/>
@@ -65,7 +65,7 @@
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiT-LI-i5k">
                                                             <rect key="frame" x="0.0" y="22" width="334" height="0.0"/>
-                                                            <string key="text">Hi, I'm Arthur! I made this app to learn iOS development with Swift. If you like Frame Grabber, you can rate it on the App Store. ♥︎</string>
+                                                            <string key="text">Hi, I'm Arthur! I made this app to learn iOS development with Swift. If you like Frame Grabber, you can rate it on the App Store.</string>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                                                             <rect key="frame" x="0.0" y="44" width="334" height="55"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                             <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
-                                                            <state key="normal" title="Rate Frame Grabber"/>
+                                                            <state key="normal" title="♥︎ Rate"/>
                                                             <connections>
                                                                 <action selector="rate" destination="hnE-0J-ppI" eventType="touchUpInside" id="YrG-1x-q4h"/>
                                                             </connections>

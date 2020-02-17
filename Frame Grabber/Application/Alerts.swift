@@ -3,13 +3,13 @@ import UIKit
 extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.video-load.title", value: "Unable to Load Video", comment: "")
-        let message = NSLocalizedString("alert.video-load.message", value: "Please check your network settings and make sure the video format is supported on this device.", comment: "")
+        let title = NSLocalizedString("alert.video-load.title", value: "Unable to Load Item", comment: "")
+        let message = NSLocalizedString("alert.video-load.message", value: "Please check your network settings and make sure the format is supported on this device.", comment: "")
         return with(title: title, message: message, okHandler: okHandler)
     }
 
     static func playbackFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        let title = NSLocalizedString("alert.playback.title", value: "Cannot Play Video", comment: "")
+        let title = NSLocalizedString("alert.playback.title", value: "Cannot Play Item", comment: "")
         let message = NSLocalizedString("alert.playback.message", value: "There was an error during playback.", comment: "")
         return with(title: title, message: message, okHandler: okHandler)
     }

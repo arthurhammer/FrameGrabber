@@ -47,7 +47,7 @@ class VideoDetailViewController: UITableViewController {
     func openLocationInMaps() {
         guard let location = videoController?.location else { return }
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
-        item.name = NSLocalizedString("more.mapTitle", value: "Your Video", comment: "Title of map item opened in Maps app.")
+        item.name = NSLocalizedString("more.mapTitle", value: "Your Photo", comment: "Title of map item opened in Maps app.")
         item.openInMaps(launchOptions: nil)
     }
 

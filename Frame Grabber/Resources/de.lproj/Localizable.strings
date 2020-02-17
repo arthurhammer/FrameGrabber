@@ -53,25 +53,25 @@
 "alert.playback.message" = "Es ist ein Fehler aufgetreten.";
 
 /* No comment provided by engineer. */
-"alert.playback.title" = "Video kann nicht abgespielt werden";
+"alert.playback.title" = "Objekt kann nicht abgespielt werden";
 
 /* No comment provided by engineer. */
-"alert.video-load.message" = "Es ist kein Netzwerk vorhanden oder das Videoformat wird nicht unterstützt.";
+"alert.video-load.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
 
 /* No comment provided by engineer. */
-"alert.video-load.title" = "Download nicht möglich";
+"alert.video-load.title" = "Laden nicht möglich";
 
 /* Photo library authorization denied action */
 "authorization.deniedAction" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
-"authorization.deniedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos in voller Auflösung. Erlaube dafür den Zugriff auf deine Videos in den Einstellungen.";
+"authorization.deniedMessage" = "Frame Grabber macht Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
 
 /* Photo library authorization default action */
 "authorization.notDeterminedAction" = "Los Geht's";
 
 /* Photo library authorization default message */
-"authorization.notDeterminedMessage" = "Frame Grabber exportiert Einzelbilder aus deinen Videos in voller Auflösung. Los geht's, indem du den Zugriff auf deine Videos erlaubst.";
+"authorization.notDeterminedMessage" = "Frame Grabber macht Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
 
 /* Photo library authorization title */
 "authorization.title" = "Willkommen zu\nFrame Grabber";
@@ -83,7 +83,7 @@
 "more.exportOptions.metadataNotIncluded" = "Ohne Metadaten";
 
 /* Title of map item opened in Maps app. */
-"more.mapTitle" = "Dein Video";
+"more.mapTitle" = "Dein Foto";
 
 /* Export settings compression quality section header */
 "more.section.compressionQuality" = "Kompressionsqualität";
