@@ -19,9 +19,10 @@ class AlbumCell: UICollectionViewCell {
         super.prepareForReuse()
         identifier = nil
         imageRequest = nil
-        imageView.image = nil
         titleLabel.text = nil
         detailLabel.text = nil
+        imageView.image = UIImage(systemName: "photo.on.rectangle")
+        imageView.contentMode = .center
     }
 
     private func configureViews() {

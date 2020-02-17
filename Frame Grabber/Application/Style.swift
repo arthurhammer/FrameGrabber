@@ -16,7 +16,7 @@ struct Style {
                 : .white
         }
 
-        static var cellSelection: UIColor = .systemGray4
+        static var cellSelection: UIColor = .secondarySystemFill
         static var disabledLabel: UIColor = .systemGray
         static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.6)]
     }

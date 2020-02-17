@@ -112,6 +112,7 @@ class AlbumsViewController: UICollectionViewController {
 
             guard !isCellRecycled, let image = image else { return }
 
+            cell.imageView.contentMode = .scaleAspectFill
             cell.imageView.image = image
         }
     }

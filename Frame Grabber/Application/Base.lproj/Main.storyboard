@@ -435,12 +435,14 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ksC-vD-09u">
                                             <rect key="frame" x="12" y="6" width="340" height="58"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-TW-Qck">
-                                                    <rect key="frame" x="0.0" y="0.0" width="58" height="58"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.on.rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-TW-Qck">
+                                                    <rect key="frame" x="0.0" y="-2.5" width="58" height="63"/>
                                                     <color key="backgroundColor" systemColor="secondarySystemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="dXw-TW-Qck" secondAttribute="height" id="DoE-dB-eFx"/>
                                                     </constraints>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ess-KV-3nS">
                                                     <rect key="frame" x="70" y="8" width="270" height="42.5"/>
@@ -568,10 +570,11 @@
         <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
         <image name="heart.fill" catalog="system" width="64" height="54"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="photo.on.rectangle" catalog="system" width="64" height="48"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yrf-sk-izP"/>
+        <segue reference="iPV-yR-eo7"/>
     </inferredMetricsTieBreakers>
 </document>
