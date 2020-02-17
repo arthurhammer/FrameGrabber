@@ -33,9 +33,9 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
     private let photoLibrary: PHPhotoLibrary
 
     init(smartAlbumTypes: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes,
-         smartAlbumAssetFetchOptions: PHFetchOptions = .smartAlbumVideos(containing: .any),
+         smartAlbumAssetFetchOptions: PHFetchOptions = .assets(forAlbumType: .smartAlbum, videoType: .any),
          userAlbumFetchOptions: PHFetchOptions = .userAlbums(),
-         userAlbumAssetFetchOptions: PHFetchOptions = .userAlbumVideos(containing: .any),
+         userAlbumAssetFetchOptions: PHFetchOptions = .assets(forAlbumType: .album, videoType: .any),
          updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self), qos: .userInitiated),
          photoLibrary: PHPhotoLibrary = .shared()) {
 

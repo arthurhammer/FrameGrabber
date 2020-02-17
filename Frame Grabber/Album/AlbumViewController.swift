@@ -13,6 +13,7 @@ class AlbumViewController: UICollectionViewController {
 
     private var dataSource: AlbumCollectionViewDataSource?
 
+    @IBOutlet private var filterControl: SwipingSegmentedControl!
     @IBOutlet private var emptyView: UIView!
 
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -101,7 +102,16 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout = CollectionViewGridLayout()
         collectionView?.collectionViewLayout.prepare()
 
-        updateAlbumData()
+        filterControl.installGestures(in: collectionView)
+        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeLeftGestureRecognizer)
+        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeRightGestureRecognizer)
+
+        if let popGesture = navigationController?.interactivePopGestureRecognizer {
+            filterControl.swipeLeftGestureRecognizer.require(toFail: popGesture)
+            filterControl.swipeRightGestureRecognizer.require(toFail: popGesture)
+        }
+
+        updateViews()
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
@@ -111,16 +121,21 @@ private extension AlbumViewController {
 
         dataSource?.albumDeletedHandler = { [weak self] in
             // Just show empty screen.
-            self?.updateAlbumData()
+            self?.updateViews()
             self?.collectionView?.reloadData()
         }
 
         dataSource?.albumChangedHandler = { [weak self] in
-            self?.updateAlbumData()
+            self?.updateViews()
         }
 
         dataSource?.videosChangedHandler = { [weak self] changeDetails in
-            self?.updateAlbumData()
+            self?.updateViews()
+
+            guard let changeDetails = changeDetails else {
+                self?.collectionView.reloadSections([0])
+                return
+            }
 
             self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: { 
                 self?.reconfigure(cellAt: $0)
@@ -131,19 +146,24 @@ private extension AlbumViewController {
         collectionView?.dataSource = dataSource
         collectionView?.prefetchDataSource = dataSource
 
-        updateAlbumData()
+        updateViews()
         updateThumbnailSize()
     }
 
-    func updateAlbumData() {
+    func updateViews() {
         let defaultTitle = NSLocalizedString("album.title.default", value: "Recents", comment: "Title for missing/deleted/initial placeholder album")
         title = dataSource?.album?.title ?? defaultTitle
         collectionView?.backgroundView = (dataSource?.isEmpty ?? true) ? emptyView : nil
+        filterControl.selectedSegmentIndex = (dataSource?.type ?? .any).rawValue
     }
 
     func updateThumbnailSize() {
         guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
         dataSource?.imageOptions.size = layout.itemSize.scaledToScreen
+    }
+
+    @IBAction func videoTypeSelectionDidChange(_ sender: UISegmentedControl) {
+        dataSource?.type = VideoType(sender.selectedSegmentIndex) ?? .any
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {

@@ -32,6 +32,8 @@
 		0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
 		00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */; };
 		0026620C212C4A6B00786797 /* AlbumsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026620B212C4A6B00786797 /* AlbumsDataSource.swift */; };
+		0027546D23F8A84B00086947 /* SwipingSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0027546C23F8A84B00086947 /* SwipingSegmentedControl.swift */; };
+		0027546E23F8A84B00086947 /* SwipingSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0027546C23F8A84B00086947 /* SwipingSegmentedControl.swift */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
@@ -208,6 +210,7 @@
 		0023FCA4233A42150046D9F8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchedAlbum+Fetch.swift"; sourceTree = "<group>"; };
 		0026620B212C4A6B00786797 /* AlbumsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsDataSource.swift; sourceTree = "<group>"; };
+		0027546C23F8A84B00086947 /* SwipingSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingSegmentedControl.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
@@ -486,6 +489,7 @@
 				006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */,
 				0054936923E852DE00F3E684 /* TimeSlider.swift */,
 				001640FF23E9B8440071687B /* ScrubbingSlider.swift */,
+				0027546C23F8A84B00086947 /* SwipingSegmentedControl.swift */,
 				008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */,
 			);
 			path = Views;
@@ -743,6 +747,7 @@
 				00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */,
 				00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */,
 				0086A6B32344CD7100989646 /* FileManager.swift in Sources */,
+				0027546E23F8A84B00086947 /* SwipingSegmentedControl.swift in Sources */,
 				00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */,
 				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* Formatters.swift in Sources */,
@@ -827,6 +832,7 @@
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,
 				0086A6B22344CD7100989646 /* FileManager.swift in Sources */,
+				0027546D23F8A84B00086947 /* SwipingSegmentedControl.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
 				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */,

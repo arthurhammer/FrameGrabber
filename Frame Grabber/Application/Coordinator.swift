@@ -64,6 +64,6 @@ class Coordinator: NSObject {
 
     private func fetchInitialAlbum(with videoType: VideoType) -> FetchedAlbum? {
         let albumType = AlbumsDataSource.defaultSmartAlbumTypes.first ?? .smartAlbumUserLibrary
-        return FetchedAlbum.fetchSmartAlbums(with: [albumType], assetFetchOptions: .smartAlbumVideos(containing: videoType)).first
+        return FetchedAlbum.fetchSmartAlbums(with: [albumType], assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoType: videoType)).first
     }
 }

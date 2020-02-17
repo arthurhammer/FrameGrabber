@@ -24,21 +24,23 @@ extension PHFetchOptions {
         return options
     }
 
-    /// Smart albums are naturally unordered, sort by date.
-    static func smartAlbumVideos(containing type: VideoType) -> PHFetchOptions {
+    static func assets(forAlbumType albumType: PHAssetCollectionType, videoType: VideoType) -> PHFetchOptions {
         let options = PHFetchOptions()
-        options.predicate = type.fetchPredicate
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.predicate = videoType.fetchPredicate
+        options.sortDescriptors = albumType.sortDescriptors
         options.includeAssetSourceTypes = [.typeUserLibrary, .typeiTunesSynced, .typeCloudShared]
         return options
     }
+}
 
-    /// Default user-defined order.
-    static func userAlbumVideos(containing type: VideoType) -> PHFetchOptions {
-        let options = PHFetchOptions()
-        options.predicate = type.fetchPredicate
-        options.includeAssetSourceTypes = [.typeUserLibrary, .typeiTunesSynced, .typeCloudShared]
-        return options
+extension PHAssetCollectionType {
+
+    var sortDescriptors: [NSSortDescriptor]? {
+        switch self {
+        case .smartAlbum: return [NSSortDescriptor(key: "creationDate", ascending: false)]
+        case .album: return nil
+        default: return nil
+        }
     }
 }
 
@@ -52,3 +54,4 @@ extension VideoType {
         }
     }
 }
+

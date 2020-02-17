@@ -110,8 +110,20 @@
                             <outlet property="prefetchDataSource" destination="z5r-QY-0zg" id="E2j-7q-Uz8"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="&lt;Album&gt;" largeTitleDisplayMode="never" id="T1c-VB-q52">
-                        <barButtonItem key="backBarButtonItem" title=" " id="884-UV-moN"/>
+                    <navigationItem key="navigationItem" title="&lt;Album&gt;" largeTitleDisplayMode="always" id="T1c-VB-q52">
+                        <barButtonItem key="backBarButtonItem" title=" " id="a5R-LE-pLO"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="U8f-AX-pha" customClass="SwipingSegmentedControl" customModule="Frame_Grabber" customModuleProvider="target">
+                            <rect key="frame" x="125" y="5.5" width="164" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="All"/>
+                                <segment title="Video"/>
+                                <segment title="Live"/>
+                            </segments>
+                            <connections>
+                                <action selector="videoTypeSelectionDidChange:" destination="z5r-QY-0zg" eventType="valueChanged" id="ldr-wN-0tf"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="r6g-Iu-tPw">
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
@@ -121,6 +133,7 @@
                     <connections>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
                         <outlet property="emptyView" destination="T19-Lc-8RI" id="YU2-Cm-61P"/>
+                        <outlet property="filterControl" destination="U8f-AX-pha" id="umC-Tc-2LA"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                     </connections>
                 </collectionViewController>

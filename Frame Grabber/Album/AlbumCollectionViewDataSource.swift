@@ -7,13 +7,26 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
 
+    var type: VideoType {
+        get { settings.videoType }
+        set {
+            settings.videoType = newValue
+
+            if let album = album {
+                let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollection.assetCollectionType, videoType: type)
+                self.album = FetchedAlbum.fetchUpdate(for: album.assetCollection, assetFetchOptions: fetchOptions)
+                videosChangedHandler?(nil)
+            }
+        }
+    }
+
     var isEmpty: Bool {
         album?.isEmpty ?? true
     }
 
     var albumDeletedHandler: (() -> ())?
     var albumChangedHandler: (() -> ())?
-    var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>) -> ())?
+    var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>?) -> ())?
 
     var imageOptions: PHImageManager.ImageOptions {
         didSet { imageManager.stopCachingImagesForAllAssets() }
