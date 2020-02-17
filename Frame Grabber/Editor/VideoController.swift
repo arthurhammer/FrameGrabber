@@ -45,11 +45,6 @@ class VideoController {
         try? fileManager.clearTemporaryDirectory()
     }
 
-    /// The video's actual dimensions if it is loaded, otherwise the Photo asset's dimensions.
-    var dimensions: CGSize {
-        video?.dimensions ?? asset.dimensions
-    }
-
     var location: CLLocation? {
         asset.location
     }

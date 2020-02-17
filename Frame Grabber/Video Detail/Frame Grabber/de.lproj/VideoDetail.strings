@@ -1,26 +1,26 @@
+/* Class = "UILabel"; text = "Dimensions"; ObjectID = "8tE-P6-SWp"; */
+"8tE-P6-SWp.text" = "Dimensionen";
+
+/* Class = "UILabel"; text = "Live Photo"; ObjectID = "35c-S2-T6T"; */
+"35c-S2-T6T.text" = "Live Photo";
+
 /* Class = "UITableViewSection"; footerTitle = "The HEIF format is not available on this device."; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
 /* Class = "UILabel"; text = "JPG"; ObjectID = "Byn-C0-URJ"; */
 "Byn-C0-URJ.text" = "JPEG";
 
-/* Class = "UILabel"; text = "Frame Rate"; ObjectID = "ha7-Pc-OB7"; */
-"ha7-Pc-OB7.text" = "Bildfrequenz";
+/* Class = "UILabel"; text = "Frame Rate"; ObjectID = "eOZ-EE-t4I"; */
+"eOZ-EE-t4I.text" = "Bildfrequenz";
 
 /* Class = "UINavigationItem"; title = "Info"; ObjectID = "hPT-0r-vTx"; */
 "hPT-0r-vTx.title" = "Info";
-
-/* Class = "UILabel"; text = "<Detail>"; ObjectID = "Ic6-HB-vmD"; */
-"Ic6-HB-vmD.text" = "<Detail>";
 
 /* Class = "UITableViewSection"; footerTitle = "Include creation date and GPS location."; ObjectID = "iHH-Fm-kn8"; */
 "iHH-Fm-kn8.footerTitle" = "Fügt Erstellungsdatum und Ort hinzu.";
 
 /* Class = "UILabel"; text = "Export Options"; ObjectID = "jme-Ai-iBd"; */
 "jme-Ai-iBd.text" = "Exportoptionen";
-
-/* Class = "UILabel"; text = "Dimensions"; ObjectID = "jPm-bV-Lir"; */
-"jPm-bV-Lir.text" = "Dimensionen";
 
 /* Class = "UILabel"; text = "Created"; ObjectID = "m36-F5-kfj"; */
 "m36-F5-kfj.text" = "Erstellt";
@@ -31,8 +31,8 @@
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "QgA-bN-Emx"; */
 "QgA-bN-Emx.text" = "<Detail>";
 
-/* Class = "UILabel"; text = "<Detail>"; ObjectID = "QKS-Vc-EVl"; */
-"QKS-Vc-EVl.text" = "<Detail>";
+/* Class = "UILabel"; text = "Duration"; ObjectID = "Rfb-1G-Zgl"; */
+"Rfb-1G-Zgl.text" = "Länge";
 
 /* Class = "UILabel"; text = "Metadata"; ObjectID = "So8-Af-ERQ"; */
 "So8-Af-ERQ.text" = "Metadaten";

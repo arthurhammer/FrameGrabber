@@ -7,7 +7,7 @@ class VideoDetailViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
         case options
-        case video
+        case metadata
         case location
     }
 
@@ -18,15 +18,17 @@ class VideoDetailViewController: UITableViewController {
     var settings = UserDefaults.standard
 
     @IBOutlet private var imageFormatLabel: UILabel!
-    @IBOutlet private var dimensionsLabel: UILabel!
+    @IBOutlet private var frameDimensionsLabel: UILabel!
+    @IBOutlet private var livePhotoDimensionsLabel: UILabel!
     @IBOutlet private var frameRateLabel: UILabel!
+    @IBOutlet private var durationLabel: UILabel!
     @IBOutlet private var dateCreatedLabel: UILabel!
     @IBOutlet private var locationCell: UITableViewCell!
     @IBOutlet private var locationLabel: UILabel!
     @IBOutlet private var mapView: MKMapView!
 
     private lazy var locationFormatter = CachingGeocodingLocationFormatter.shared
-    private let notAvailablePlaceholder = "—"
+    private let notAvailablePlaceholder = "Loading…"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +67,7 @@ class VideoDetailViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        (Section(section) == .video) ? 0 : UITableView.automaticDimension
+        (Section(section) == .metadata) ? 0 : UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -105,16 +107,29 @@ class VideoDetailViewController: UITableViewController {
 
         let messageFormat = NSLocalizedString("more.exportOptions.summary", value: "%@ • %@", comment: "Export options summary: Image format and metadata")
         imageFormatLabel.text = String.localizedStringWithFormat(messageFormat, formatSummary, metadataSummary)
+        tableView.reloadData()
     }
 
     private func updateAssetMetadata() {
         let frameRateFormatter = NumberFormatter.frameRateFormatter()
         let dimensionsFormatter = NumberFormatter()
         let dateFormatter = DateFormatter.default()
+        let durationFormatter = VideoDurationFormatter()
 
-        frameRateLabel.text = videoController?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? notAvailablePlaceholder
-        dimensionsLabel.text = (videoController?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
-        dateCreatedLabel.text = videoController?.creationDate.flatMap(dateFormatter.string) ?? notAvailablePlaceholder
+        let asset = videoController?.asset
+        let video = videoController?.video
+
+        title = (asset?.isLivePhoto == true)
+            ? NSLocalizedString("more.title.livePhoto", value: "Live Photo", comment: "Detail view title for live photos")
+            : NSLocalizedString("more.title.video", value: "Video", comment: "Detail view title for videos")
+
+        frameDimensionsLabel.text = video?.dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
+        livePhotoDimensionsLabel.text = (asset?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
+        frameRateLabel.text = video?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? notAvailablePlaceholder
+        durationLabel.text = (video?.duration.seconds).flatMap(durationFormatter.string) ?? notAvailablePlaceholder
+        dateCreatedLabel.text = asset?.creationDate.flatMap(dateFormatter.string) ?? notAvailablePlaceholder
+
+        livePhotoDimensionsLabel.superview?.isHidden = asset?.isLivePhoto == false
 
         updateLocation()
     }
@@ -154,7 +169,7 @@ extension VideoDetailViewController.Section {
     var title: String? {
         switch self {
         case .options: return nil
-        case .video: return NSLocalizedString("more.section.video", value: "Video", comment: "Video detail video metadata section header")
+        case .metadata: return NSLocalizedString("more.section.metadata", value: "Info", comment: "Detail view metadata section header")
         case .location: return nil
         }
     }

@@ -91,8 +91,14 @@
 /* Export settings image format section header */
 "more.section.imageFormat" = "Bildformat";
 
-/* Video detail video metadata section header */
-"more.section.video" = "Video";
+/* Detail view metadata section header */
+"more.section.metadata" = "Info";
+
+/* Detail view title for live photos */
+"more.title.livePhoto" = "Live Photo";
+
+/* Detail view title for videos */
+"more.title.video" = "Video";
 
 /* Frame generation progress title. */
 "progress.title.frameExport" = "Exportieren…";
