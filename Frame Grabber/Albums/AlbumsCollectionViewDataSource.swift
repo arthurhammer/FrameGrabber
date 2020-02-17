@@ -5,7 +5,6 @@ import Combine
 struct AlbumsSection {
     let title: String?
     var albums: [Album]
-    let assetFetchOptions: PHFetchOptions
 }
 
 class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
@@ -56,10 +55,10 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
     }
 
-    func fetchUpdate(forAlbumAt indexPath: IndexPath, containing type: VideoType) -> FetchedAlbum? {
-        let assetFetchOptions = sections[indexPath.section].assetFetchOptions
-        assetFetchOptions.predicate = type.fetchPredicate
-        return FetchedAlbum.fetchUpdate(for: album(at: indexPath).assetCollection, assetFetchOptions: assetFetchOptions)
+    func fetchUpdate(forAlbumAt indexPath: IndexPath, containing videoType: VideoType) -> FetchedAlbum? {
+        let album = self.album(at: indexPath).assetCollection
+        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: videoType)
+        return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
     }
 
     private func safeAlbums(at indexPaths: [IndexPath]) -> [Album] {
@@ -72,8 +71,8 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
 
     private func configureSections() {
         sections = [
-            AlbumsSection(title: NSLocalizedString("albums.smartAlbumsHeader", value: "Library", comment: "Smart photo albums section header"), albums: albumsDataSource.smartAlbums, assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoType: .any)),
-            AlbumsSection(title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"), albums: albumsDataSource.userAlbums, assetFetchOptions: .assets(forAlbumType: .album, videoType: .any))
+            AlbumsSection(title: NSLocalizedString("albums.smartAlbumsHeader", value: "Library", comment: "Smart photo albums section header"), albums: albumsDataSource.smartAlbums),
+            AlbumsSection(title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"), albums: albumsDataSource.userAlbums)
         ]
 
         albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in

@@ -93,7 +93,7 @@
 		00730ECD214FEA5A001A6EA7 /* MappedFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */; };
 		00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763D1FB60DB600B5D7A3 /* Style.swift */; };
 		00730ECF214FEA5A001A6EA7 /* RepeatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */; };
-		00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
+		00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */; };
 		00730ED1214FEA5A001A6EA7 /* MappedFetchResult+Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */; };
 		00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoController.swift */; };
 		00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
@@ -150,7 +150,7 @@
 		00B02DFC212077CD00336F34 /* BlurredImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B02DFB212077CD00336F34 /* BlurredImageView.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
-		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */; };
+		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */; };
 		00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* CMTime.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize.swift */; };
 		00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
@@ -254,7 +254,7 @@
 		00B02DFB212077CD00336F34 /* BlurredImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageView.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Authorization.swift"; sourceTree = "<group>"; };
+		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPhotoLibrary.swift; sourceTree = "<group>"; };
 		00C098D61FC1A7CB000B05FE /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		00C098EA1FC477E5000B05FE /* PHImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManager.swift; sourceTree = "<group>"; };
@@ -332,6 +332,7 @@
 				0026620A212BFCC900786797 /* Model */,
 				00C098E61FC1C9E0000B05FE /* Views */,
 				00653B41213941860038CB56 /* Transition */,
+				00CD76FD23F6C0F600F78C56 /* Requesting Assets */,
 				0020D2F11FB4ED95002379D0 /* Utilities */,
 				001AA1981FB497E900A00BB9 /* Resources */,
 			);
@@ -353,8 +354,6 @@
 		0020D2F11FB4ED95002379D0 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				003EC973234B9A2200EA8035 /* Frame Export */,
-				00CD76FD23F6C0F600F78C56 /* Requesting Assets */,
 				009BEA48234E243D00C284FA /* dprint.swift */,
 				00024F752344C06F00937941 /* AVAsset.swift */,
 				0096E812212F2EF8008395CA /* Bundle.swift */,
@@ -403,8 +402,6 @@
 				0015537E2129C8CF00F58CEE /* Album.swift */,
 				00EA2C672142988F002E1266 /* StaticAlbum.swift */,
 				00F3C256213058FE0030B7EC /* FetchedAlbum.swift */,
-				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
-				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,
 				008A48D623479D7300CEAA26 /* ImageEncoding.swift */,
 				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
 				00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */,
@@ -475,7 +472,7 @@
 			children = (
 				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 				005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */,
-				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift */,
+				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -498,7 +495,10 @@
 		00CD76FD23F6C0F600F78C56 /* Requesting Assets */ = {
 			isa = PBXGroup;
 			children = (
+				003EC973234B9A2200EA8035 /* Frame Export */,
 				00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */,
+				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
+				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,
 				00C098EA1FC477E5000B05FE /* PHImageManager.swift */,
 				00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */,
 			);
@@ -732,7 +732,7 @@
 				00730ECD214FEA5A001A6EA7 /* MappedFetchResult.swift in Sources */,
 				00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */,
 				00730ECF214FEA5A001A6EA7 /* RepeatingButton.swift in Sources */,
-				00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary+Authorization.swift in Sources */,
+				00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary.swift in Sources */,
 				00D9E83423424A07009E7AFA /* UIFont.swift in Sources */,
 				00730ED1214FEA5A001A6EA7 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */,
@@ -817,7 +817,7 @@
 				00EA2C662141C7C7002E1266 /* MappedFetchResult.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
-				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary+Authorization.swift in Sources */,
+				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */,
 				00D9E83323424A07009E7AFA /* UIFont.swift in Sources */,
 				00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */,
