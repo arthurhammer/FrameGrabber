@@ -108,15 +108,7 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout.prepare()
         collectionView.backgroundView = emptyView
 
-        filterControl.installGestures(in: collectionView)
-        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeLeftGestureRecognizer)
-        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeRightGestureRecognizer)
-
-        if let popGesture = navigationController?.interactivePopGestureRecognizer {
-            filterControl.swipeLeftGestureRecognizer.require(toFail: popGesture)
-            filterControl.swipeRightGestureRecognizer.require(toFail: popGesture)
-        }
-
+        configureGestures()
         updateViews()
     }
 
@@ -154,6 +146,19 @@ private extension AlbumViewController {
 
         updateViews()
         updateThumbnailSize()
+    }
+
+    func configureGestures() {
+        filterControl.installGestures(in: collectionView)
+        filterControl.swipeRightGestureRecognizer.delegate = self
+
+        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeLeftGestureRecognizer)
+        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeRightGestureRecognizer)
+
+        if let popGesture = navigationController?.interactivePopGestureRecognizer {
+            filterControl.swipeLeftGestureRecognizer.require(toFail: popGesture)
+            filterControl.swipeRightGestureRecognizer.require(toFail: popGesture)
+        }
     }
 
     func updateViews() {
@@ -203,5 +208,12 @@ private extension AlbumViewController {
 
             cell.imageView.image = image
         }
+    }
+}
+
+extension AlbumViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gesture: UIGestureRecognizer) -> Bool {
+        let edgePanMargin: CGFloat = 30
+        return gesture.location(in: gesture.view).x > edgePanMargin
     }
 }
