@@ -8,7 +8,7 @@ class AlbumsViewController: UICollectionViewController {
 
     private var collectionViewDataSource: AlbumsCollectionViewDataSource?
     private lazy var albumCountFormatter = NumberFormatter()
-    private let headerHeight: CGFloat = 50
+    private let headerHeight: CGFloat = 40
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +71,7 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionViewDataSource?.sectionsChangedHandler = { [weak self] sections in
-            UIView.performWithoutAnimation {
-                self?.collectionView?.reloadSections(sections)
-            }
+            self?.collectionView?.reloadSections(sections)
         }
 
         collectionView?.isPrefetchingEnabled = true
@@ -128,14 +126,15 @@ extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     private func showsHeader(forSection section: Int) -> Bool {
-        guard let collectionViewDataSource = collectionViewDataSource else { return false }
-        let section = collectionViewDataSource.sections[section]
-        return (section.albums.count > 0) && (section.title != nil)
+        collectionViewDataSource?.sections[section].title != nil
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.name, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
-        header.titleLabel.text = collectionViewDataSource?.sections[indexPath.section].title
+        let section = collectionViewDataSource?.sections[indexPath.section]
+        header.titleLabel.text = section?.title
+        header.detailLabel.text = section?.subtitle
+        header.activityIndicator.isHidden = section?.showsActivityIndicator == false
         return header
     }
 }

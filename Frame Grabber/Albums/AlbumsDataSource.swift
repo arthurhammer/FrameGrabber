@@ -14,16 +14,16 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
     // Smart albums don't get any Photo Library update information. Instead, store the
     // fetch results to check for updates instead.
     private(set) var smartAlbums = [FetchedAlbum]() {
-        didSet {
-            guard smartAlbums != oldValue else { return }
-            smartAlbumsChangedHandler?(smartAlbums)
-        }
+        didSet { smartAlbumsChangedHandler?(smartAlbums) }
     }
 
     // For user albums, static album suffices.
     private(set) var userAlbums = [StaticAlbum]() {
         didSet { userAlbumsChangedHandler?(userAlbums) }
     }
+
+    private(set) var didInitializeSmartAlbums = false
+    private(set) var didInitializeUserAlbums = false
 
     private var userAlbumsFetchResult: MappedFetchResult<PHAssetCollection, StaticAlbum>!  {
         didSet { userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty } }
@@ -73,6 +73,7 @@ private extension AlbumsDataSource {
             // Instance vars synchronized on main. `sync` to block current task until done
             // so subsequent tasks start with correct data.
             DispatchQueue.main.sync {
+                self?.didInitializeSmartAlbums = true
                 self?.smartAlbums = smartAlbums
             }
         }
@@ -92,6 +93,7 @@ private extension AlbumsDataSource {
             }
 
             DispatchQueue.main.sync {
+                guard self.smartAlbums != updatedAlbums else { return }
                 self.smartAlbums = updatedAlbums
             }
         }
@@ -108,6 +110,7 @@ private extension AlbumsDataSource {
             }
 
             DispatchQueue.main.sync {
+                self?.didInitializeUserAlbums = true
                 self?.userAlbumsFetchResult = userAlbums
             }
         }

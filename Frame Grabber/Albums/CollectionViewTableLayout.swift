@@ -4,11 +4,12 @@ class CollectionViewTableLayout: UICollectionViewFlowLayout {
 
     let itemHeight: CGFloat
 
-    init(itemHeight: CGFloat = 80, lineSpacing: CGFloat = 0) {
+    init(itemHeight: CGFloat = 80, lineSpacing: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)) {
         self.itemHeight = itemHeight
         super.init()
         self.sectionInsetReference = .fromSafeArea
         self.minimumLineSpacing = lineSpacing
+        self.sectionInset = sectionInset
     }
 
     required init?(coder aDecoder: NSCoder) {
