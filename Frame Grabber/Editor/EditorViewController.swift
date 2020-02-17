@@ -31,6 +31,11 @@ class EditorViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        videoController.cancelFrameExport()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? UINavigationController,
             let controller = destination.topViewController as? VideoDetailViewController {
@@ -76,6 +81,11 @@ private extension EditorViewController {
     @IBAction func scrub(_ sender: TimeSlider) {
         playbackController?.smoothlySeek(to: sender.time)
     }
+
+    func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
+        let presenter = navigationController ?? presentedViewController ?? self
+        presenter.present(viewController, animated: animated)
+    }
 }
 
 // MARK: - PlaybackControllerDelegate
@@ -93,7 +103,7 @@ extension EditorViewController: PlaybackControllerDelegate {
     }
 
     private func handlePlaybackError() {
-        (presentedViewController ?? self).presentAlert(.playbackFailed())
+        presentOnTop(UIAlertController.playbackFailed())
     }
 
     func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
@@ -240,7 +250,7 @@ private extension EditorViewController {
         case .cancelled:
             break
         case .failed:
-            (presentedViewController ?? self)?.presentAlert(.videoLoadingFailed())
+            presentOnTop(UIAlertController.videoLoadingFailed())
         case .succeeded(let video):
             playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
             playbackController?.delegate = self
@@ -256,7 +266,6 @@ private extension EditorViewController {
 
         videoController.generateAndExportFrames(for: times) { [weak self] status in
             self?.showProgress(false, forActivity: .export) {
-                self?.view.isUserInteractionEnabled = true
                 self?.handleFrameGenerationResult(status)
             }
         }
@@ -269,7 +278,7 @@ private extension EditorViewController {
 
         case .failed:
             feedbackGenerator.notificationOccurred(.error)
-            presentAlert(.imageGenerationFailed())
+            presentOnTop(UIAlertController.imageGenerationFailed())
 
         case .cancelled:
             feedbackGenerator.notificationOccurred(.warning)
@@ -288,7 +297,7 @@ private extension EditorViewController {
         shareController.completionWithItemsHandler = { [weak self] _, _, _, _ in
             self?.videoController.deleteExportedFrames()
         }
-        present(shareController, animated: true)
+        presentOnTop(shareController)
     }
 }
 

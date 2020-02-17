@@ -182,8 +182,7 @@ class VideoController {
     }
 
     func cancelFrameExport() {
-        frameExport?.cancel()
-        frameExport = nil
+        frameExport?.cancel()  // Don't release as we need update handlers to go through.
     }
 
     func deleteExportedFrames() {
