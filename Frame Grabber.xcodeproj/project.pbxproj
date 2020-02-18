@@ -404,12 +404,10 @@
 			isa = PBXGroup;
 			children = (
 				0015537E2129C8CF00F58CEE /* Album.swift */,
-				00EA2C672142988F002E1266 /* StaticAlbum.swift */,
 				00F3C256213058FE0030B7EC /* FetchedAlbum.swift */,
+				00EA2C672142988F002E1266 /* StaticAlbum.swift */,
 				008A48D623479D7300CEAA26 /* ImageEncoding.swift */,
 				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
-				00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */,
-				00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */,
 				00777D4423F6E73600D94F80 /* VideoType.swift */,
 			);
 			path = Model;
@@ -435,6 +433,16 @@
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Editor;
+			sourceTree = "<group>";
+		};
+		00641AA523FC085C000D0EDF /* Fetching Albums */ = {
+			isa = PBXGroup;
+			children = (
+				0026620B212C4A6B00786797 /* AlbumsDataSource.swift */,
+				00EA2C652141C7C7002E1266 /* MappedFetchResult.swift */,
+				00EA2C692142B20E002E1266 /* MappedFetchResult+Change.swift */,
+			);
+			path = "Fetching Albums";
 			sourceTree = "<group>";
 		};
 		00653B41213941860038CB56 /* Transition */ = {
@@ -463,7 +471,6 @@
 			children = (
 				00A9DF5121273FA000778885 /* AlbumsViewController.swift */,
 				00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */,
-				0026620B212C4A6B00786797 /* AlbumsDataSource.swift */,
 				00A9DF542127635C00778885 /* AlbumCell.swift */,
 				00F3C254213046CD0030B7EC /* AlbumHeader.swift */,
 				00AA20222136C93100084B08 /* CollectionViewTableLayout.swift */,
@@ -500,6 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				003EC973234B9A2200EA8035 /* Frame Export */,
+				00641AA523FC085C000D0EDF /* Fetching Albums */,
 				00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */,
 				00266208212BFBC900786797 /* FetchedAlbum+Fetch.swift */,
 				00229DB7212D978A00848CE8 /* FetchedAlbum+Change.swift */,

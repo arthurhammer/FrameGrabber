@@ -101,7 +101,7 @@ private extension AlbumViewController {
         collectionView?.alwaysBounceVertical = true
         collectionView.backgroundView = emptyView
 
-        collectionView?.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
+        collectionView?.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
             self?.dataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
 

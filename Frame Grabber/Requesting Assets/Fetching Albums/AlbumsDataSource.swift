@@ -4,11 +4,14 @@ import Photos
 /// Fetches, filters and updates the albums in response to Photo Library changes.
 class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
-    static let defaultSmartAlbumTypes: [PHAssetCollectionSubtype] =
-        [.smartAlbumUserLibrary, .smartAlbumFavorites, .smartAlbumTimelapses, .smartAlbumSlomoVideos]
+    static let defaultSmartAlbumTypes = [PHAssetCollectionSubtype.smartAlbumUserLibrary,
+                                         .smartAlbumFavorites,
+                                         .smartAlbumTimelapses,
+                                         .smartAlbumSlomoVideos]
 
-    // Handlers are called on the main thread.
+    /// The handler is called on the main thread.
     var smartAlbumsChangedHandler: (([Album]) -> ())?
+    /// The handler is called on the main thread.
     var userAlbumsChangedHandler: (([Album]) -> ())?
 
     // Smart albums don't get any Photo Library update information. Instead, store the
