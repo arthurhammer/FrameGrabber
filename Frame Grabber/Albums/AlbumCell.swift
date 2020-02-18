@@ -21,12 +21,12 @@ class AlbumCell: UICollectionViewCell {
         imageRequest = nil
         titleLabel.text = nil
         detailLabel.text = nil
-        imageView.image = UIImage(systemName: "photo.on.rectangle")
+        imageView.image = nil
         imageView.contentMode = .center
     }
 
     private func configureViews() {
-        imageView.layer.cornerRadius = 4
+        imageView.layer.cornerRadius = 6
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = Style.Color.cellSelection
     }

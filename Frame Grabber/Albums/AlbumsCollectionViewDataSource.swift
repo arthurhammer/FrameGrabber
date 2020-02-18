@@ -2,22 +2,31 @@ import UIKit
 import Photos
 import Combine
 
-struct AlbumsSection {
-    let title: String?
-    let subtitle: String?
-    let showsActivityIndicator: Bool
-    var albums: [Album]
-}
-
 class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
+
+    enum SectionType: Int {
+        case smartAlbum
+        case userAlbum
+    }
+
+    struct Section {
+        let type: SectionType
+        let title: String?
+        let subtitle: String?
+        let isLoading: Bool
+        let albums: [Album]
+    }
 
     var sectionsChangedHandler: ((IndexSet) -> ())?
 
     var imageOptions: PHImageManager.ImageOptions {
-        didSet { imageManager.stopCachingImagesForAllAssets() }
+        didSet {
+            guard imageOptions != oldValue else { return }
+            imageManager.stopCachingImagesForAllAssets()
+        }
     }
 
-    private(set) var sections = [AlbumsSection]()
+    private(set) var sections = [Section]()
 
     private let albumsDataSource: AlbumsDataSource
     private let sectionHeaderProvider: (IndexPath) -> UICollectionReusableView
@@ -93,15 +102,17 @@ class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICo
         let userAlbumsSubtitle = isLoadingUserAlbums ? nil : NumberFormatter().string(from: userAlbumCount as NSNumber)
 
         sections = [
-            AlbumsSection(title: NSLocalizedString("albums.smartAlbumsHeader", value: "Library", comment: "Smart photo albums section header"),
-                          subtitle: nil,
-                          showsActivityIndicator: false,
-                          albums: albumsDataSource.smartAlbums),
+            Section(type: .smartAlbum,
+                    title: nil,
+                    subtitle: nil,
+                    isLoading: !albumsDataSource.didInitializeSmartAlbums,
+                    albums: albumsDataSource.smartAlbums),
 
-            AlbumsSection(title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
-                          subtitle:  userAlbumsSubtitle,
-                          showsActivityIndicator: isLoadingUserAlbums,
-                          albums: albumsDataSource.userAlbums)
+            Section(type: .userAlbum,
+                    title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
+                    subtitle:  userAlbumsSubtitle,
+                    isLoading: isLoadingUserAlbums,
+                    albums: albumsDataSource.userAlbums)
         ]
     }
 

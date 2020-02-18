@@ -8,17 +8,11 @@ class AlbumsViewController: UICollectionViewController {
 
     private var collectionViewDataSource: AlbumsCollectionViewDataSource?
     private lazy var albumCountFormatter = NumberFormatter()
-    private let headerHeight: CGFloat = 40
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
         configureDataSource()
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        updateThumbnailSize()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,10 +43,9 @@ class AlbumsViewController: UICollectionViewController {
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
 
-        collectionView?.collectionViewLayout = CollectionViewTableLayout()
-        // In some cases, safe are content size isn't yet calculated on initialization.
-        // Trigger layout update manually (`invalidate` doesn't work).
-        collectionView?.collectionViewLayout.prepare()
+        collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
+            self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
+        }
     }
 
     private func configureDataSource() {
@@ -78,32 +71,36 @@ class AlbumsViewController: UICollectionViewController {
         collectionView?.dataSource = collectionViewDataSource
         collectionView?.prefetchDataSource = collectionViewDataSource
 
-        updateThumbnailSize()
-    }
-
-    private func updateThumbnailSize() {
-        guard let layout = collectionView?.collectionViewLayout as? CollectionViewTableLayout else { return }
-        let height = layout.itemSize.height
-        collectionViewDataSource?.imageOptions.size = CGSize(width: height, height: height).scaledToScreen
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: AlbumCell.name, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type.") }
-        configure(cell: cell, for: album)
+        guard let type = AlbumsCollectionViewDataSource.SectionType(indexPath.section) else { fatalError("Wrong number of sections.") }
+        let id = (type == .smartAlbum) ? "SmartAlbumCell" : "UserAlbumCell"
+        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type.") }
+
+        configure(cell: cell, for: album, type: type)
         return cell
     }
 
-    private func configure(cell: AlbumCell, for album: Album) {
-        cell.identifier = album.assetCollection.localIdentifier
+    private func configure(cell: AlbumCell, for album: Album, type: AlbumsCollectionViewDataSource.SectionType) {
+        cell.identifier = album.id
         cell.titleLabel.text = album.title
         cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
 
-        loadThumbnail(for: cell, album: album)
+        switch type {
+        case .smartAlbum:
+            cell.imageView.image = album.icon
+            cell.imageView.tintColor = Style.Color.mainTint
+        case .userAlbum:
+            loadThumbnail(for: cell, album: album)
+        }
     }
 
     private func loadThumbnail(for cell: AlbumCell, album: Album) {
-        let albumId = album.assetCollection.localIdentifier
+        let albumId = album.id
         cell.identifier = albumId
+        cell.imageView.image = album.icon
 
         cell.imageRequest = collectionViewDataSource?.thumbnail(for: album) { image, _ in
             let isCellRecycled = cell.identifier != albumId
@@ -114,27 +111,15 @@ class AlbumsViewController: UICollectionViewController {
             cell.imageView.image = image
         }
     }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout / Section Headers
-
-extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard showsHeader(forSection: section) else { return .zero }
-        return CGSize(width: 0, height: headerHeight)
-    }
-
-    private func showsHeader(forSection section: Int) -> Bool {
-        collectionViewDataSource?.sections[section].title != nil
-    }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.name, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.name, for: indexPath) as? AlbumsHeader else { fatalError("Wrong view identifier or type.") }
+
         let section = collectionViewDataSource?.sections[indexPath.section]
         header.titleLabel.text = section?.title
         header.detailLabel.text = section?.subtitle
-        header.activityIndicator.isHidden = section?.showsActivityIndicator == false
+        header.activityIndicator.isHidden = section?.isLoading == false
+
         return header
     }
 }

@@ -1,13 +1,13 @@
 import Photos
 
-/// An album with static content.
-struct StaticAlbum: Album, Equatable {
+/// A type-erasing album with static content.
+struct AnyAlbum: Album, Hashable {
     let assetCollection: PHAssetCollection
     let count: Int
     let keyAsset: PHAsset?
 }
 
-extension StaticAlbum {
+extension AnyAlbum {
     init(album: Album) {
         self.assetCollection = album.assetCollection
         self.count = album.count

@@ -1,6 +1,6 @@
 import UIKit
 
-class AlbumHeader: UICollectionReusableView {
+class AlbumsHeader: UICollectionReusableView {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var detailLabel: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!

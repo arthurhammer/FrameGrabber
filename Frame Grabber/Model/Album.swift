@@ -24,3 +24,20 @@ extension Album {
         count == 0
     }
 }
+
+// MARK: -
+
+import UIKit
+
+extension Album {
+
+    var icon: UIImage? {
+        switch assetCollection.assetCollectionSubtype {
+        case .smartAlbumUserLibrary: return UIImage(systemName: "camera")
+        case .smartAlbumFavorites: return UIImage(systemName: "heart")
+        case .smartAlbumTimelapses: return UIImage(systemName: "timelapse")
+        case .smartAlbumSlomoVideos: return UIImage(systemName: "slowmo")
+        default: return UIImage(systemName: "photo.on.rectangle")
+        }
+    }
+}
