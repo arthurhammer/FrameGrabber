@@ -36,11 +36,6 @@ class AlbumViewController: UICollectionViewController {
         navigationController?.navigationBar.layer.shadowOpacity = 0
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        updateThumbnailSize()
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? EditorViewController {
             prepareForPlayerSegue(with: controller)
@@ -104,9 +99,11 @@ private extension AlbumViewController {
     func configureViews() {
         clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
-        collectionView?.collectionViewLayout = CollectionViewGridLayout()
-        collectionView?.collectionViewLayout.prepare()
         collectionView.backgroundView = emptyView
+
+        collectionView?.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
+            self?.dataSource?.imageOptions.size = newItemSize.scaledToScreen
+        }
 
         configureGestures()
         updateViews()
@@ -145,7 +142,7 @@ private extension AlbumViewController {
         collectionView?.prefetchDataSource = dataSource
 
         updateViews()
-        updateThumbnailSize()
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     func configureGestures() {
@@ -166,11 +163,6 @@ private extension AlbumViewController {
         emptyView.type = dataSource?.type ?? .any
         emptyView.isEmpty = dataSource?.isEmpty ?? true
         filterControl.selectedSegmentIndex = (dataSource?.type ?? .any).rawValue
-    }
-
-    func updateThumbnailSize() {
-        guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
-        dataSource?.imageOptions.size = layout.itemSize.scaledToScreen
     }
 
     @IBAction func videoTypeSelectionDidChange(_ sender: UISegmentedControl) {

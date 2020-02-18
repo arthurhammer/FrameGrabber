@@ -4,7 +4,7 @@ import Combine
 
 extension PHImageManager {
 
-    struct ImageOptions {
+    struct ImageOptions: Equatable {
         var size: CGSize
         var mode: PHImageContentMode
         var requestOptions: PHImageRequestOptions

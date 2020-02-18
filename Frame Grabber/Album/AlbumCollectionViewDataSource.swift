@@ -29,7 +29,10 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>?) -> ())?
 
     var imageOptions: PHImageManager.ImageOptions {
-        didSet { imageManager.stopCachingImagesForAllAssets() }
+        didSet {
+            guard imageOptions != oldValue else { return }
+            imageManager.stopCachingImagesForAllAssets()
+        }
     }
 
     var settings: UserDefaults
