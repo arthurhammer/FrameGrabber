@@ -5,7 +5,7 @@ class AlbumsLayout: UICollectionViewCompositionalLayout {
     init(didUpdateUserAlbumItemSizeHandler: ((CGSize) -> ())? = nil) {
         super.init { index, environment in
 
-            guard let type = AlbumsCollectionViewDataSource.SectionType(index) else { fatalError("Unknown section type.") }
+            guard let type = AlbumsSection(index) else { fatalError("Unknown section type.") }
 
             switch type {
 

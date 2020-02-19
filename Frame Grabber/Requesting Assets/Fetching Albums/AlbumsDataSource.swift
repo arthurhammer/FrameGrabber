@@ -1,39 +1,42 @@
 import Photos
 
-/// Data source for Photo Library smart and user albums.
-/// Fetches, filters and updates the albums in response to Photo Library changes.
+
+extension AlbumsDataSource {
+    static let defaultSmartAlbumTypes: [PHAssetCollectionSubtype] = [
+        .smartAlbumUserLibrary,
+        .smartAlbumFavorites,
+        .smartAlbumTimelapses,
+        .smartAlbumSlomoVideos
+    ]
+}
+
+/// Data source for smart albums and user albums in the user's photo library.
+///
+/// Asynchronously fetches, filters and updates the albums in response to photo library
+/// changes.
 class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
-    static let defaultSmartAlbumTypes = [PHAssetCollectionSubtype.smartAlbumUserLibrary,
-                                         .smartAlbumFavorites,
-                                         .smartAlbumTimelapses,
-                                         .smartAlbumSlomoVideos]
+    // MARK: Smart Albums
 
-    /// The handler is called on the main thread.
-    var smartAlbumsChangedHandler: (([Album]) -> ())?
-    /// The handler is called on the main thread.
-    var userAlbumsChangedHandler: (([Album]) -> ())?
-
-    // Smart albums don't get any Photo Library update information. Instead, store the
-    // fetch results to check for updates instead.
-    private(set) var smartAlbums = [FetchedAlbum]() {
+    private(set) var smartAlbums = [AnyAlbum]() {
         didSet { smartAlbumsChangedHandler?(smartAlbums) }
     }
 
-    // For user albums, static album suffices.
-    private(set) var userAlbums = [StaticAlbum]() {
+    /// The handler is called on the main thread.
+    var smartAlbumsChangedHandler: (([AnyAlbum]) -> ())?
+    private(set) var didInitializeSmartAlbums = false
+
+    // MARK: User Albums
+
+    /// The handler is called on the main thread.
+    var userAlbumsChangedHandler: (([AnyAlbum]) -> ())?
+    private(set) var didInitializeUserAlbums = false
+
+    private(set) var userAlbums = [AnyAlbum]() {
         didSet { userAlbumsChangedHandler?(userAlbums) }
     }
 
-    private(set) var didInitializeSmartAlbums = false
-    private(set) var didInitializeUserAlbums = false
-
-    private var userAlbumsFetchResult: MappedFetchResult<PHAssetCollection, StaticAlbum>!  {
-        didSet { userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty } }
-    }
-
-    private let updateQueue: DispatchQueue
-    private let photoLibrary: PHPhotoLibrary
+    // MARK: Lifecycle
 
     init(smartAlbumTypes: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes,
          smartAlbumAssetFetchOptions: PHFetchOptions = .assets(forAlbumType: .smartAlbum, videoType: .any),
@@ -57,19 +60,26 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
         photoLibrary.unregisterChangeObserver(self)
     }
 
-    // MARK: PHPhotoLibraryChangeObserver
-
     func photoLibraryDidChange(_ change: PHChange) {
         updateSmartAlbums(with: change)
         updateUserAlbums(with: change)
     }
-}
 
-private extension AlbumsDataSource {
+    // MARK: - Private
+
+    private let updateQueue: DispatchQueue
+    private let photoLibrary: PHPhotoLibrary
 
     // MARK: Updating Smart Albums
 
-    func initSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions) {
+    /// `PHAssetCollection` instances of type smart album don't report any photo library
+    /// changes. As a workaround, store the album's contents as a fetch result that we can
+    /// check against changes.
+    private var fetchedSmartAlbums = [FetchedAlbum]() {
+        didSet { smartAlbums = fetchedSmartAlbums.map(AnyAlbum.init) }
+    }
+
+    private func initSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions) {
         updateQueue.async { [weak self] in
             let smartAlbums = FetchedAlbum.fetchSmartAlbums(with: types, assetFetchOptions: assetFetchOptions)
 
@@ -77,17 +87,17 @@ private extension AlbumsDataSource {
             // so subsequent tasks start with correct data.
             DispatchQueue.main.sync {
                 self?.didInitializeSmartAlbums = true
-                self?.smartAlbums = smartAlbums
+                self?.fetchedSmartAlbums = smartAlbums
             }
         }
     }
 
-    func updateSmartAlbums(with change: PHChange) {
+    private func updateSmartAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
             guard let self = self else { return }
 
             let smartAlbums = DispatchQueue.main.sync {
-                self.smartAlbums
+                self.fetchedSmartAlbums
             }
 
             let updatedAlbums: [FetchedAlbum] = smartAlbums.compactMap {
@@ -96,20 +106,24 @@ private extension AlbumsDataSource {
             }
 
             DispatchQueue.main.sync {
-                guard self.smartAlbums != updatedAlbums else { return }
-                self.smartAlbums = updatedAlbums
+                guard self.fetchedSmartAlbums != updatedAlbums else { return }
+                self.fetchedSmartAlbums = updatedAlbums
             }
         }
     }
 
     // MARK: Updating User Albums
 
-    func initUserAlbums(with albumFetchOptions: PHFetchOptions, assetFetchOptions: PHFetchOptions) {
+    private var userAlbumsFetchResult: MappedFetchResult<PHAssetCollection, AnyAlbum>!  {
+        didSet { userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty } }
+    }
+
+    private func initUserAlbums(with albumFetchOptions: PHFetchOptions, assetFetchOptions: PHFetchOptions) {
         updateQueue.async { [weak self] in
             let fetchResult = PHAssetCollection.fetchUserAlbums(with: albumFetchOptions)
 
             let userAlbums = MappedFetchResult(fetchResult: fetchResult) {
-                StaticAlbum(album: FetchedAlbum.fetchAssets(in: $0, options: assetFetchOptions))
+                AnyAlbum(album: FetchedAlbum.fetchAssets(in: $0, options: assetFetchOptions))
             }
 
             DispatchQueue.main.sync {
@@ -119,7 +133,7 @@ private extension AlbumsDataSource {
         }
     }
 
-    func updateUserAlbums(with change: PHChange) {
+    private func updateUserAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
             guard let self = self else { return }
 

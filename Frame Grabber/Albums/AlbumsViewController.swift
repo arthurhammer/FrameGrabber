@@ -57,40 +57,31 @@ class AlbumsViewController: UICollectionViewController {
             return
         }
 
-        collectionViewDataSource = AlbumsCollectionViewDataSource(albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] in
-            self.sectionHeader(at: $0)
-        }, cellProvider: { [unowned self] in
-            self.cell(for: $1, at: $0)
+        collectionViewDataSource = AlbumsCollectionViewDataSource(collectionView: collectionView, albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] _, _, indexPath  in
+            return self.sectionHeader(at: indexPath)
+        }, cellProvider: { [unowned self] _, indexPath, album in
+            return self.cell(for: album, at: indexPath)
         })
 
-        collectionViewDataSource?.sectionsChangedHandler = { [weak self] sections in
-            self?.collectionView?.reloadSections(sections)
-        }
-
-        collectionView?.isPrefetchingEnabled = true
         collectionView?.dataSource = collectionViewDataSource
-        collectionView?.prefetchDataSource = collectionViewDataSource
-
-        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let type = AlbumsCollectionViewDataSource.SectionType(indexPath.section) else { fatalError("Wrong number of sections.") }
-        let id = (type == .smartAlbum) ? "SmartAlbumCell" : "UserAlbumCell"
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type.") }
+        guard let section = AlbumsSection(indexPath.section),
+            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: section.cellIdentifier, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type or unknown section.") }
 
-        configure(cell: cell, for: album, type: type)
+        configure(cell: cell, for: album, section: section)
         return cell
     }
 
-    private func configure(cell: AlbumCell, for album: Album, type: AlbumsCollectionViewDataSource.SectionType) {
+    private func configure(cell: AlbumCell, for album: Album, section: AlbumsSection) {
         cell.identifier = album.id
         cell.titleLabel.text = album.title
         cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
+        cell.imageView.image = album.icon
 
-        switch type {
+        switch section {
         case .smartAlbum:
-            cell.imageView.image = album.icon
             cell.imageView.tintColor = Style.Color.mainTint
         case .userAlbum:
             loadThumbnail(for: cell, album: album)
@@ -100,11 +91,9 @@ class AlbumsViewController: UICollectionViewController {
     private func loadThumbnail(for cell: AlbumCell, album: Album) {
         let albumId = album.id
         cell.identifier = albumId
-        cell.imageView.image = album.icon
 
         cell.imageRequest = collectionViewDataSource?.thumbnail(for: album) { image, _ in
             let isCellRecycled = cell.identifier != albumId
-
             guard !isCellRecycled, let image = image else { return }
 
             cell.imageView.contentMode = .scaleAspectFill
@@ -113,13 +102,23 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.name, for: indexPath) as? AlbumsHeader else { fatalError("Wrong view identifier or type.") }
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.name, for: indexPath) as? AlbumsHeader,
+            let section = collectionViewDataSource?.section(at: indexPath.section) else { fatalError("Wrong view identifier or type or no data source.") }
 
-        let section = collectionViewDataSource?.sections[indexPath.section]
-        header.titleLabel.text = section?.title
-        header.detailLabel.text = section?.subtitle
-        header.activityIndicator.isHidden = section?.isLoading == false
+        header.titleLabel.text = section.title
+        header.detailLabel.text = albumCountFormatter.string(from: section.albumCount as NSNumber)
+        header.detailLabel.isHidden = section.isLoading
+        header.activityIndicator.isHidden = !section.isLoading
 
         return header
+    }
+}
+
+private extension AlbumsSection {
+    var cellIdentifier: String {
+        switch self {
+        case .smartAlbum: return "SmartAlbumCell"
+        case .userAlbum: return "UserAlbumCell"
+        }
     }
 }

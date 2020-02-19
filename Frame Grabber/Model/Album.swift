@@ -1,9 +1,11 @@
 import Photos
 
+/// A type that provides a unique id.
 protocol PhotosIdentifiable {
     var id: String { get }
 }
 
+/// A type that represents a PhotoKit album.
 protocol Album: PhotosIdentifiable {
     var assetCollection: PHAssetCollection { get }
     var title: String? { get }
@@ -12,6 +14,7 @@ protocol Album: PhotosIdentifiable {
 }
 
 extension Album {
+
     var id: String {
         assetCollection.localIdentifier
     }
@@ -22,22 +25,5 @@ extension Album {
 
     var isEmpty: Bool {
         count == 0
-    }
-}
-
-// MARK: -
-
-import UIKit
-
-extension Album {
-
-    var icon: UIImage? {
-        switch assetCollection.assetCollectionSubtype {
-        case .smartAlbumUserLibrary: return UIImage(systemName: "camera")
-        case .smartAlbumFavorites: return UIImage(systemName: "heart")
-        case .smartAlbumTimelapses: return UIImage(systemName: "timelapse")
-        case .smartAlbumSlomoVideos: return UIImage(systemName: "slowmo")
-        default: return UIImage(systemName: "photo.on.rectangle")
-        }
     }
 }
