@@ -182,7 +182,11 @@ private extension EditorViewController {
     func updateTimeLabel(withTime time: CMTime) {
         let showMilliseconds = playbackController?.isPlaying == false
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-        timeLabel.text = formattedTime
+
+        UIView.animate(withDuration: 0.15, delay: 0, options: .beginFromCurrentState, animations: {
+            self.timeLabel.text = formattedTime
+            self.timeLabel.superview?.layoutIfNeeded()
+        }, completion: nil)
     }
 
     func updateSlider(withTime time: CMTime) {
