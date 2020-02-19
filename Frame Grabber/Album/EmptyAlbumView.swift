@@ -1,6 +1,16 @@
 import UIKit
 
-class EmptyAlbumView: UILabel {
+class EmptyAlbumView: UIView {
+
+    private(set) lazy var titleLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = .preferredFont(forTextStyle: .title1, weight: .semibold)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        return label
+    }()
 
     var isEmpty: Bool = true {
         didSet { updateViews() }
@@ -21,15 +31,24 @@ class EmptyAlbumView: UILabel {
     }
 
     private func configureViews() {
-        font = .preferredFont(forTextStyle: .title1, weight: .semibold)
-        adjustsFontForContentSizeCategory = true
-        textColor = .secondaryLabel
-        textAlignment = .center
+        addSubview(titleLabel)
+        configureConstraints()
         updateViews()
     }
 
     private func updateViews() {
-        text = isEmpty ? type.emptyAlbumMessage : nil
+        titleLabel.text = isEmpty ? type.emptyAlbumMessage : nil
+    }
+
+    private func configureConstraints() {
+        let margin: CGFloat = -16
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: margin).isActive = true
+        titleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.trailingAnchor, constant: margin).isActive = true
+        titleLabel.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: margin).isActive = true
+        titleLabel.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: margin).isActive = true
     }
 }
 
