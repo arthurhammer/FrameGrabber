@@ -14,12 +14,12 @@ class AlbumViewController: UICollectionViewController {
         didSet { updateViews() }
     }
 
+    /// The most recently selected asset.
+    private(set) var selectedAsset: PHAsset?
     var settings: UserDefaults = .standard
 
-    private var dataSource: AlbumCollectionViewDataSource?
-
     @IBOutlet private var filterControl: SwipingSegmentedControl!
-
+    private var dataSource: AlbumCollectionViewDataSource?
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
 
@@ -51,6 +51,7 @@ class AlbumViewController: UICollectionViewController {
         destination.transitionController = transitionController
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
+            self.selectedAsset = selectedAsset
             destination.videoController = VideoController(asset: selectedAsset)
         }
     }
@@ -79,6 +80,12 @@ class AlbumViewController: UICollectionViewController {
             self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
             self.performSegue(withIdentifier: EditorViewController.name, sender: nil)
         }
+    }
+
+    /// Selects `selectedAsset` in the collection view.
+    func restoreSelection(animated: Bool) {
+        let selectedIndexPath = selectedAsset.flatMap { dataSource?.indexPath(of: $0) }
+        collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
 }
 

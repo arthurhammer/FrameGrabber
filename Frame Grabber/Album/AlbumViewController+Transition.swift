@@ -4,6 +4,7 @@ extension AlbumViewController: ZoomTransitionDelegate {
 
     func zoomTransitionWillBegin(_ transition: ZoomTransition) {
         if transition.type == .pop {
+            restoreSelection(animated: false)
             collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
         }
 
@@ -11,7 +12,8 @@ extension AlbumViewController: ZoomTransitionDelegate {
     }
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
-        // Might have once more scrolled off-screen during interactive gesture.
+        // Might have once more been removed during interactive gesture.
+        restoreSelection(animated: false)
         collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
 
         return (collectionView?.selectedCell as? VideoCell)?.imageView
