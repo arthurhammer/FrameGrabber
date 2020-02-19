@@ -59,10 +59,10 @@ class AlbumViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let video = dataSource?.video(at: indexPath) else { return nil }
 
-        let previewImage = (collectionView.cellForItem(at: indexPath) as? VideoCell)?.imageView.image
+        let sourceImageView = (collectionView.cellForItem(at: indexPath) as? VideoCell)?.imageView
 
         return .menu(for: video, previewProvider: { [weak self] in
-            self?.imagePreviewController(with: previewImage, scale: 1.2)
+            self?.imagePreviewController(for: sourceImageView)
         }, toggleFavoriteAction: { [weak self] _ in
             self?.dataSource?.toggleFavorite(for: video)
         }, deleteAction: { [weak self] _ in

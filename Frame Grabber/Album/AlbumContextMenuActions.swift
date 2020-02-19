@@ -35,12 +35,19 @@ extension AlbumViewController {
 
     /// A view controller with an image view, sized to the full size of the image with an
     /// optional additional scale. The image is assumed to be sized with the screen's scale.
-    func imagePreviewController(with image: UIImage?, scale: CGFloat = 1) -> UIViewController? {
-        guard let image = image else { return nil }
+    func imagePreviewController(for sourceImageView: UIImageView?, scale: CGFloat = 1.2) -> UIViewController? {
+        guard let sourceImageView = sourceImageView,
+            let image = sourceImageView.image else { return nil }
 
-        let size = image.size
-            .unscaledFromScreen  // Get base size for image.
-            .applying(.init(scaleX: scale, y: scale))
+        let imageSize = image.size.unscaledFromScreen
+        let minimumSize = sourceImageView.bounds.size
+        var size = imageSize
+
+        if (imageSize.width < minimumSize.width) || (imageSize.height < minimumSize.height) {
+            size = size.aspectFilling(minimumSize)
+        }
+
+        size = size.applying(.init(scaleX: scale, y: scale))
 
         let controller = UIViewController()
         controller.view.bounds.size = size
