@@ -22,6 +22,10 @@ extension AlbumViewController: ZoomTransitionDelegate {
     func zoomTransitionDidEnd(_ transition: ZoomTransition) {
         // Also unhide after presentation in case we'll use fallback animation later.
         collectionView?.selectedCell?.isHidden = false
+
+        // Manually collapse navbar during the transition to prevent it sometimes
+        // collapsing on its own during the animation and messing up our target frames.
+        navigationItem.largeTitleDisplayMode = (transition.type == .push) ? .never : .always
     }
 }
 
