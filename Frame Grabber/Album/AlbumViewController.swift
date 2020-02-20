@@ -18,7 +18,7 @@ class AlbumViewController: UICollectionViewController {
     private(set) var selectedAsset: PHAsset?
     var settings: UserDefaults = .standard
 
-    @IBOutlet private var filterControl: SwipingSegmentedControl!
+    @IBOutlet private var filterControl: VideoTypeFilterControl!
     private var dataSource: AlbumCollectionViewDataSource?
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -34,6 +34,11 @@ class AlbumViewController: UICollectionViewController {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.layer.shadowOpacity = 0
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateContentInset()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -112,7 +117,7 @@ private extension AlbumViewController {
             self?.dataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
 
-        configureGestures()
+        configureFilterControl()
         updateViews()
     }
 
@@ -152,17 +157,19 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    func configureGestures() {
-        filterControl.installGestures(in: collectionView)
-        filterControl.swipeRightGestureRecognizer.delegate = self
+    func configureFilterControl() {
+        let margin: CGFloat = 16
+        view.addSubview(filterControl)
 
-        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeLeftGestureRecognizer)
-        collectionView.panGestureRecognizer.require(toFail: filterControl.swipeRightGestureRecognizer)
-
-        if let popGesture = navigationController?.interactivePopGestureRecognizer {
-            filterControl.swipeLeftGestureRecognizer.require(toFail: popGesture)
-            filterControl.swipeRightGestureRecognizer.require(toFail: popGesture)
-        }
+        filterControl.translatesAutoresizingMaskIntoConstraints = false
+        filterControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        view.safeAreaLayoutGuide.leadingAnchor.constraint(lessThanOrEqualTo: filterControl.leadingAnchor , constant: -margin).isActive = true
+        view.safeAreaLayoutGuide.trailingAnchor.constraint(greaterThanOrEqualTo: filterControl.trailingAnchor, constant: margin).isActive = true
+        // 0 for notched phones, `margin`` for non-notched phones.
+        view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: filterControl.bottomAnchor, constant: 0).isActive = true
+        let bottomConstraint = view.bottomAnchor.constraint(equalTo: filterControl.bottomAnchor, constant: margin)
+        bottomConstraint.priority = .init(rawValue: 999)
+        bottomConstraint.isActive = true
     }
 
     func updateViews() {
@@ -172,9 +179,15 @@ private extension AlbumViewController {
         filterControl.selectedSegmentIndex = (dataSource?.type ?? .any).rawValue
     }
 
-    @IBAction func videoTypeSelectionDidChange(_ sender: UISegmentedControl) {
+    func updateContentInset() {
+        let spacing: CGFloat = 8
+        let filterControlAdjust = filterControl.bounds.height + spacing
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: filterControlAdjust, right: 0)
+        collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
+    }
+
+    @IBAction func filterDidChange(_ sender: VideoTypeFilterControl) {
         let type = VideoType(sender.selectedSegmentIndex) ?? .any
-        emptyView.type = type
         dataSource?.type = type
     }
 

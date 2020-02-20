@@ -112,18 +112,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="&lt;Album&gt;" largeTitleDisplayMode="always" id="T1c-VB-q52">
                         <barButtonItem key="backBarButtonItem" title=" " id="a5R-LE-pLO"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="U8f-AX-pha" customClass="SwipingSegmentedControl" customModule="Frame_Grabber" customModuleProvider="target">
-                            <rect key="frame" x="125" y="5.5" width="164" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="All"/>
-                                <segment title="Video"/>
-                                <segment title="Live"/>
-                            </segments>
-                            <connections>
-                                <action selector="videoTypeSelectionDidChange:" destination="z5r-QY-0zg" eventType="valueChanged" id="ldr-wN-0tf"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="r6g-Iu-tPw">
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
@@ -132,11 +120,82 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
-                        <outlet property="filterControl" destination="U8f-AX-pha" id="umC-Tc-2LA"/>
+                        <outlet property="filterControl" destination="e45-xK-H0E" id="DAY-Pq-EkD"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="e45-xK-H0E" customClass="VideoTypeFilterControl" customModule="Frame_Grabber" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMs-d1-mRM">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aFu-2Z-Ad4">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3P-Gk-kBM">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7sU-8c-9Hv">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <vibrancyEffect style="fill">
+                                            <blurEffect style="systemThinMaterial"/>
+                                        </vibrancyEffect>
+                                    </visualEffectView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="0i6-nb-i7W" userLabel="Segment Stack (note: not in vibrancy view!)">
+                                        <rect key="frame" x="4" y="4" width="382" height="48"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tzq-rg-EiV">
+                                                <rect key="frame" x="0.0" y="0.0" width="126" height="48"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
+                                                <state key="normal" title="All"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2zK-Ub-ClA">
+                                                <rect key="frame" x="128" y="0.0" width="126" height="48"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                                <state key="normal" title="Video"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAB-1m-CBh">
+                                                <rect key="frame" x="256" y="0.0" width="126" height="48"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                                <state key="normal" title="Live"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="0i6-nb-i7W" firstAttribute="top" secondItem="aFu-2Z-Ad4" secondAttribute="top" constant="4" id="4tu-lt-Znf"/>
+                                    <constraint firstItem="0i6-nb-i7W" firstAttribute="leading" secondItem="aFu-2Z-Ad4" secondAttribute="leading" constant="4" id="8DV-ka-YeY"/>
+                                    <constraint firstItem="f3P-Gk-kBM" firstAttribute="leading" secondItem="aFu-2Z-Ad4" secondAttribute="leading" id="8ti-W4-zWU"/>
+                                    <constraint firstAttribute="bottom" secondItem="f3P-Gk-kBM" secondAttribute="bottom" id="Mn7-Q0-lKo"/>
+                                    <constraint firstAttribute="bottom" secondItem="0i6-nb-i7W" secondAttribute="bottom" constant="4" id="ShH-XA-g0n"/>
+                                    <constraint firstAttribute="trailing" secondItem="f3P-Gk-kBM" secondAttribute="trailing" id="Wi5-B0-WP6"/>
+                                    <constraint firstItem="f3P-Gk-kBM" firstAttribute="top" secondItem="aFu-2Z-Ad4" secondAttribute="top" id="iiR-QK-NjX"/>
+                                    <constraint firstAttribute="trailing" secondItem="0i6-nb-i7W" secondAttribute="trailing" constant="4" id="vVA-Ke-wfk"/>
+                                </constraints>
+                            </view>
+                            <blurEffect style="systemThinMaterial"/>
+                        </visualEffectView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="CMs-d1-mRM" firstAttribute="leading" secondItem="AHy-iL-1GW" secondAttribute="leading" id="3AO-rb-Fne"/>
+                        <constraint firstItem="CMs-d1-mRM" firstAttribute="top" secondItem="e45-xK-H0E" secondAttribute="top" id="BkZ-b0-QKZ"/>
+                        <constraint firstItem="AHy-iL-1GW" firstAttribute="trailing" secondItem="CMs-d1-mRM" secondAttribute="trailing" id="fFy-pO-p8A"/>
+                        <constraint firstAttribute="bottom" secondItem="CMs-d1-mRM" secondAttribute="bottom" id="vMA-xU-08R"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="AHy-iL-1GW"/>
+                    <connections>
+                        <action selector="filterDidChange:" destination="z5r-QY-0zg" eventType="valueChanged" id="qhD-SS-Jog"/>
+                        <outlet property="segmentsStack" destination="0i6-nb-i7W" id="TI1-CO-Q3d"/>
+                        <outlet property="visualEffectView" destination="CMs-d1-mRM" id="c02-UV-5hr"/>
+                    </connections>
+                </view>
             </objects>
             <point key="canvasLocation" x="1439" y="-2076"/>
         </scene>
@@ -154,7 +213,7 @@
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="163" y="718" width="88.5" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="89" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="88.5" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
@@ -178,7 +237,7 @@
                                                 </constraints>
                                             </view>
                                             <vibrancyEffect style="label">
-                                                <blurEffect style="systemThinMaterialDark"/>
+                                                <blurEffect style="systemMaterialDark"/>
                                             </vibrancyEffect>
                                         </visualEffectView>
                                     </subviews>
@@ -192,7 +251,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="o3x-rC-AI6"/>
                                 </constraints>
-                                <blurEffect style="systemThinMaterialDark"/>
+                                <blurEffect style="systemMaterialDark"/>
                                 <connections>
                                     <outlet property="speedLabel" destination="OOU-XQ-SBc" id="u4S-qb-DJy"/>
                                 </connections>
@@ -434,7 +493,7 @@
                                             </constraints>
                                         </view>
                                         <vibrancyEffect style="label">
-                                            <blurEffect style="systemThickMaterial"/>
+                                            <blurEffect style="systemMaterial"/>
                                         </vibrancyEffect>
                                     </visualEffectView>
                                 </subviews>
@@ -445,7 +504,7 @@
                                     <constraint firstItem="CC8-Pa-xJL" firstAttribute="top" secondItem="FDg-mW-BNn" secondAttribute="top" id="rQO-ko-W8K"/>
                                 </constraints>
                             </view>
-                            <blurEffect style="systemThickMaterial"/>
+                            <blurEffect style="systemMaterial"/>
                         </visualEffectView>
                     </subviews>
                     <constraints>
@@ -704,7 +763,7 @@
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iPV-yR-eo7"/>
+        <segue reference="yrf-sk-izP"/>
         <segue reference="lS1-3M-qF6"/>
     </inferredMetricsTieBreakers>
 </document>

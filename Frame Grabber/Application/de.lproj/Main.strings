@@ -1,15 +1,15 @@
+/* Class = "UIButton"; normalTitle = "Video"; ObjectID = "2zK-Ub-ClA"; */
+"2zK-Ub-ClA.normalTitle" = "Video";
+
 /* Class = "UILabel"; text = "Choose Frame"; ObjectID = "MTO-N1-Rre"; */
 "MTO-N1-Rre.text" = "Bild Auswählen";
 
 /* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
 "nBX-8Q-BwE.title" = "Alben";
 
-/* Class = "UISegmentedControl"; U8f-AX-pha.segmentTitles[0] = "All"; ObjectID = "U8f-AX-pha"; */
-"U8f-AX-pha.segmentTitles[0]" = "Alle";
+/* Class = "UIButton"; normalTitle = "Live"; ObjectID = "OAB-1m-CBh"; */
+"OAB-1m-CBh.normalTitle" = "Live";
 
-/* Class = "UISegmentedControl"; U8f-AX-pha.segmentTitles[1] = "Video"; ObjectID = "U8f-AX-pha"; */
-"U8f-AX-pha.segmentTitles[1]" = "Video";
-
-/* Class = "UISegmentedControl"; U8f-AX-pha.segmentTitles[2] = "Live"; ObjectID = "U8f-AX-pha"; */
-"U8f-AX-pha.segmentTitles[2]" = "Live";
+/* Class = "UIButton"; normalTitle = "All"; ObjectID = "Tzq-rg-EiV"; */
+"Tzq-rg-EiV.normalTitle" = "Alle";
 

@@ -11,12 +11,7 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         get { settings.videoType }
         set {
             settings.videoType = newValue
-
-            if let album = album {
-                let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollection.assetCollectionType, videoType: type)
-                self.album = FetchedAlbum.fetchUpdate(for: album.assetCollection, assetFetchOptions: fetchOptions)
-                videosChangedHandler?(nil)
-            }
+            fetchAlbum()
         }
     }
 
@@ -40,12 +35,14 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
     private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
+    private let filterQueue: DispatchQueue
 
     init(album: FetchedAlbum?,
          photoLibrary: PHPhotoLibrary = .shared(),
          imageManager: PHCachingImageManager = .init(),
          imageOptions: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
          settings: UserDefaults = .standard,
+         filterQueue: DispatchQueue = .init(label: "", qos: .userInteractive, attributes: []),
          cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)) {
 
         self.album = album
@@ -53,6 +50,7 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         self.imageManager = imageManager
         self.imageOptions = imageOptions
         self.settings = settings
+        self.filterQueue = filterQueue
         self.cellProvider = cellProvider
 
         super.init()
@@ -89,6 +87,21 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         photoLibrary.performChanges({
             PHAssetChangeRequest.deleteAssets([video] as NSArray)
         }, completionHandler: nil)
+    }
+
+    private func fetchAlbum() {
+        guard let album = album?.assetCollection else { return }
+        let filter = type
+
+        filterQueue.async {
+            let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: filter)
+            let filteredAlbum = FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: fetchOptions)
+
+            DispatchQueue.main.async {
+                self.album = filteredAlbum
+                self.videosChangedHandler?(nil)
+            }
+        }
     }
 
     private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
