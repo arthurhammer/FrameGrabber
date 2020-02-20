@@ -61,19 +61,11 @@ class ExportOptionsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let title = Section(section)?.title else { return nil }
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: VideoDetailSectionHeader.name) as? VideoDetailSectionHeader else { fatalError("Wrong view id or type.") }
+
         view.titleLabel.text = title
+        view.hasPreviousFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
+
         return view
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        // When using custom headers, no additional spacing is applied. Add manually.
-        let additionalSpacing: CGFloat = 44
-        let height = super.tableView(tableView, heightForHeaderInSection: section)
-
-        guard section > 0 else { return height }
-
-        let hasPreviousFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
-        return hasPreviousFooter ? (height + additionalSpacing) : height
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
