@@ -1,4 +1,4 @@
-# Privacy Policy
+# Frame Grabber Privacy Policy
 
 ## Summary
 
@@ -18,7 +18,7 @@ Frame Grabber works with your photos and videos in iCloud Photos. You can author
 
 ### Export
 
-Exported video frames contain metadata that match the source video (e.g. creation date and geolocation). You can disable this feature at any time.
+Exported video frames contain metadata that match the source video or photo (e.g. creation date and geolocation). You can disable this feature at any time.
 
 ### Email
 
@@ -41,7 +41,7 @@ Changes to this privacy policy will be posted on this page.
 
 ---
 
-For questions, email us at [privacy@arthurhammer.de](mailto:privacy@arthurhammer.de).
+For questions, please email us at [privacy@arthurhammer.de](mailto:privacy@arthurhammer.de).
 
 ---
 
