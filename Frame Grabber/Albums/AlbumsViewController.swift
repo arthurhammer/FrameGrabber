@@ -58,9 +58,9 @@ class AlbumsViewController: UICollectionViewController {
         }
 
         collectionViewDataSource = AlbumsCollectionViewDataSource(collectionView: collectionView, albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] _, _, indexPath  in
-            return self.sectionHeader(at: indexPath)
+            self.sectionHeader(at: indexPath)
         }, cellProvider: { [unowned self] _, indexPath, album in
-            return self.cell(for: album, at: indexPath)
+            self.cell(for: album, at: indexPath)
         })
 
         collectionView?.dataSource = collectionViewDataSource

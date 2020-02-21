@@ -79,7 +79,7 @@ class ProgressView: UIView {
 
             view.addSubview(self)
             self.center(in: view)
-            self.doShow(true, animated: animated)  // not animated inside timer!?
+            self.doShow(true, animated: animated)
             completion?()
         }
 
@@ -93,7 +93,7 @@ class ProgressView: UIView {
     /// Hides the view, taking into account `showDelay` and `minimumShowDuration`.
     ///
     /// Hides synchronously if the view has been shown for at least `minimumShowDuration`.
-    /// Otherwise, schedules to hide after the remaining time. If the view not yet shown
+    /// Otherwise, schedules to hide after the remaining time. If the view is not yet shown
     /// but scheduled to show, cancels showing it.
     func hide(animated: Bool = true, completion: (() -> ())? = nil) {
         let isScheduledToShow = !isShown && self.isScheduledToShow
@@ -139,11 +139,15 @@ class ProgressView: UIView {
         }
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.height / 2
+    }
+
     // MARK: - Private
 
     private func configureViews() {
         backgroundColor = nil
-        layer.cornerRadius = Style.Size.buttonCornerRadius
         clipsToBounds = true
 
         titleLabel.font = .preferredFont(forTextStyle: .subheadline, weight: .semibold)

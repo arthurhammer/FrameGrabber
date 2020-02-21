@@ -28,9 +28,6 @@
 /* Title for the initial placeholder album until the user authorizes. */
 "album.title.unauthorized" = "Zuletzt";
 
-/* Smart photo albums section header */
-"albums.smartAlbumsHeader" = "Mediathek";
-
 /* User photo albums section header */
 "albums.userAlbumsHeader" = "Meine Alben";
 
