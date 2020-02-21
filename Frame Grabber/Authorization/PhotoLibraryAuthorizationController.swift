@@ -31,7 +31,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
     }
 
     @IBAction private func showPrivacyPolicy() {
-        guard let url = About.privacyPolicyURL else { return }
+        guard let url = About.PrivacyPolicy.preferred else { return }
         let safariController = SFSafariViewController(url: url)
         safariController.preferredControlTintColor = Style.Color.mainTint
         present(safariController, animated: true)

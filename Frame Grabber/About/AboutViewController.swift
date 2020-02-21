@@ -98,7 +98,7 @@ extension AboutViewController {
     }
 
     func showPrivacyPolicy() {
-        guard let url = About.privacyPolicyURL else { return }
+        guard let url = About.PrivacyPolicy.preferred else { return }
         showURL(url)
     }
 
