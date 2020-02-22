@@ -1,6 +1,12 @@
 /* Feedback email subject */
 "about.email.subject" = "Frame Grabber: Feedback";
 
+/* Container view button message when in-app purchase was not purchased. */
+"about.icecream.notpurchased" = "Himbeereis";
+
+/* Container view button message when in-app purchase was purchased. */
+"about.icecream.purchased" = "Dankeschön! :)";
+
 /* Version label with numerical version */
 "about.version" = "Version %@";
 
@@ -52,6 +58,40 @@
 /* No comment provided by engineer. */
 "alert.playback.title" = "Objekt kann nicht abgespielt werden";
 
+/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
+"alert.purchase.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
+
+/* Alert title: Purchasing failed. */
+"alert.purchase.failed.title" = "Eis kann nicht gekauft werden";
+
+/* Alert message: The user is not authorized to make payments. */
+"alert.purchase.notallowed.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
+
+/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
+"alert.purchase.notfetched.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal";
+
+/* Alert title: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
+"alert.purchase.notfetched.title" = "Eis kann nicht gekauft werden";
+
+/* Alert message: Nothing to restore, the user has not previously purchased anything. */
+"alert.purchase.restore.empty.message" = "Scheint, als hättest du noch kein Himbeereis gekauft.";
+
+/* Alert title: Nothing to restore, the user has not previously purchased anything. */
+"alert.purchase.restore.empty.title" = "Keine vorherigen Käufe";
+
+/* Alert message: Restoring failed. */
+"alert.purchase.restore.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
+
+/* Alert title: Restoring failed. */
+"alert.purchase.restore.failed.title" = "Fehler beim Wiederherstellen";
+
+/* Alert message: The user is not authorized to restore purchases. */
+"alert.purchase.restore.notallowed.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
+
+/* Alert title: The user is not authorized to make payments.
+   Alert title: The user is not authorized to restore purchases. */
+"alert.purchase.restore.notallowed.title" = "Eis kann nicht gekauft werden";
+
 /* No comment provided by engineer. */
 "alert.video-load.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
 
@@ -72,6 +112,24 @@
 
 /* Photo library authorization title */
 "authorization.title" = "Willkommen zu\nFrame Grabber";
+
+/* Ice cream message label when not purchased */
+"icecream.notpurchased.message" = "Falls du Frame Grabber magst und die weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nWas bekommst du dafür? Das Gefühl zu wissen, dass du mir eine Freude bereitet hast. :)\n\nDanke, dass du meine App ausprobierst!\n\nArthur";
+
+/* Ice cream title label when not purchased */
+"icecream.notpurchased.title" = "Himbeereis Senden";
+
+/* Ice cream purchase button label with price */
+"icecream.purchasebutton.price" = "Himbeereis Senden – %@";
+
+/* Ice cream purchase button label without price */
+"icecream.purchasebutton.withoutprice" = "Himbeereis Senden";
+
+/* Ice cream message label when purchased. */
+"icecream.purchased.message" = "Vielen Dank, dass du mich und meine App unterstützt!";
+
+/* Ice cream title label when purchased. */
+"icecream.purchased.title" = "Dankeschön";
 
 /* Export options summary, metadata is included. */
 "more.exportOptions.metadataIncluded" = "Mit Metadaten";

@@ -24,13 +24,13 @@
                                 <blurEffect style="systemThickMaterial"/>
                             </visualEffectView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgC-6x-dUz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="646"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="664"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-bd-e8C" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="646"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="664"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="gBx-ZU-g8g">
-                                                <rect key="frame" x="22" y="193.5" width="370" height="97.5"/>
+                                                <rect key="frame" x="22" y="200.5" width="370" height="97.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="9Cb-d0-Wxc" userLabel="Labels">
                                                         <rect key="frame" x="0.0" y="0.0" width="370" height="97.5"/>
@@ -75,12 +75,12 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="a2N-mD-EP1"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="QxL-oM-ZOA"/>
                             </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="rME-8f-Wj1">
-                                <rect key="frame" x="22" y="712" width="370" height="128"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="rME-8f-Wj1">
+                                <rect key="frame" x="22" y="730" width="370" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40q-y2-rgZ">
                                         <rect key="frame" x="0.0" y="0.0" width="370" height="53"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
                                         <state key="normal" title="&lt;Action&gt;"/>
                                         <connections>
@@ -88,19 +88,19 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xlZ-fO-cv2">
-                                        <rect key="frame" x="86" y="75" width="198" height="53"/>
+                                        <rect key="frame" x="86" y="65" width="198" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdY-Cc-mGB">
-                                                <rect key="frame" x="53.5" y="0.0" width="91" height="37"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
+                                                <rect key="frame" x="53.5" y="0.0" width="91" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="4" maxX="16" maxY="4"/>
                                                 <state key="normal" title="Privacy"/>
                                                 <connections>
                                                     <action selector="showPrivacyPolicy" destination="1xs-ZW-CG9" eventType="touchUpInside" id="diF-Ky-muP"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No ads, no analytics, no tracking" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzY-in-DO7">
-                                                <rect key="frame" x="0.0" y="37" width="198" height="16"/>
+                                                <rect key="frame" x="0.0" y="29" width="198" height="16"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>

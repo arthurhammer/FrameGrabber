@@ -26,7 +26,49 @@ extension UIAlertController {
         let message = String.localizedStringWithFormat(messageFormat, contactAddress)
         return with(title: title, message: message, okHandler: okHandler)
     }
+
+    // MARK: In-App Purchase Errors
+
+    static func purchaseNotAllowed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let title = NSLocalizedString("alert.purchase.restore.notallowed.title", value: "Cannot Purchase Ice Cream", comment: "Alert title: The user is not authorized to make payments.")
+        let message = NSLocalizedString("alert.purchase.notallowed.message", value: "In-App Purchases are not allowed on this device. Thank you for trying!", comment: "Alert message: The user is not authorized to make payments.")
+        return with(title: title, message: message, okHandler: okHandler)
+    }
+
+    static func productNotFetched(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let title = NSLocalizedString("alert.purchase.notfetched.title", value: "Cannot Purchase Ice Cream", comment: "Alert title: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
+        let message = NSLocalizedString("alert.purchase.notfetched.message", value: "Please check your network settings and try again later.", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
+        return with(title: title, message: message, okHandler: okHandler)
+    }
+
+    static func purchaseFailed(error: Error?, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        // Unfortunately, `error.localizedDescription` does not seem to be localized, so
+        // we use a generic message.
+        let title = NSLocalizedString("alert.purchase.failed.title", value: "Cannot Purchase Ice Cream", comment: "Alert title: Purchasing failed.")
+        let message = NSLocalizedString("alert.purchase.failed.message", value: "Please check your network settings and try again later. Thank you for your support!", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
+        return with(title: title, message: message, okHandler: okHandler)
+    }
+
+    static func restoreNotAllowed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let title = NSLocalizedString("alert.purchase.restore.notallowed.title", value: "Cannot Restore Your Purchase", comment: "Alert title: The user is not authorized to restore purchases.")
+        let message = NSLocalizedString("alert.purchase.restore.notallowed.message", value: "In-App Purchases are not allowed on this device. Thank you for trying!", comment: "Alert message: The user is not authorized to restore purchases.")
+        return with(title: title, message: message, okHandler: okHandler)
+    }
+
+    static func nothingToRestore(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let title = NSLocalizedString("alert.purchase.restore.empty.title", value: "Nothing to Restore", comment: "Alert title: Nothing to restore, the user has not previously purchased anything.")
+        let message = NSLocalizedString("alert.purchase.restore.empty.message", value: "Looks like you haven't sent any ice cream yet!", comment: "Alert message: Nothing to restore, the user has not previously purchased anything. ")
+        return with(title: title, message: message, okHandler: okHandler)
+    }
+
+    static func restoreFailed(error: Error, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        let title = NSLocalizedString("alert.purchase.restore.failed.title", value: "Cannot Restore Your Purchase", comment: "Alert title: Restoring failed.")
+        let message = NSLocalizedString("alert.purchase.restore.failed.message", value: "Please check your network settings and try again later. Thank you for your support!", comment: "Alert message: Restoring failed.")
+        return with(title: title, message: message, okHandler: okHandler)
+    }
 }
+
+// MARK: - Utility
 
 extension UIAlertController {
     static func with(title: String?, message: String? = nil, preferredStyle: UIAlertController.Style = .alert, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {

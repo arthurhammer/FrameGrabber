@@ -2,7 +2,7 @@ import UIKit
 import MessageUI
 import SafariServices
 
-class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+class AboutTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
     let app = UIApplication.shared
     let bundle = Bundle.main
@@ -16,8 +16,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
                            \(device.type ?? device.model)
                            """
 
-    @IBOutlet private var appIconView: UIImageView!
-    @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var versionLabel: UILabel!
 
     override func viewDidLoad() {
@@ -45,12 +43,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
 
     private func configureViews() {
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
-
-        rateButton.tintColor = .systemBackground
-        rateButton.backgroundColor = Style.Color.mainTint
-        rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
 
         let format = NSLocalizedString("about.version", value: "Version %@", comment: "Version label with numerical version")
         versionLabel.text = String.localizedStringWithFormat(format, bundle.shortFormattedVersion)
@@ -59,19 +52,8 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
 
 // MARK: - Actions
 
-extension AboutViewController {
-
-    @IBAction private func done() {
-        dismiss(animated: true)
-    }
-
-    @IBAction func rate() {
-        guard let url = About.storeURL,
-            app.canOpenURL(url) else { return }
-
-        app.open(url)
-    }
-
+extension AboutTableViewController {
+    
     func sendFeedback() {
         guard MFMailComposeViewController.canSendMail() else {
             presentAlert(.mailNotAvailable(contactAddress: About.contactAddress))

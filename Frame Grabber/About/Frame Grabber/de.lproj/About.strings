@@ -1,25 +1,28 @@
-/* Class = "UILabel"; text = "Extract still images from videos and live photos. In full resolution."; ObjectID = "Ciq-8B-rvv"; */
-"Ciq-8B-rvv.text" = "Macht Einzelbilder aus Videos und Live Photos. In voller Auflösung.";
+/* Class = "UILabel"; text = "Frame Grabber extracts full-resolution still images from videos and live photos."; ObjectID = "Ciq-8B-rvv"; */
+"Ciq-8B-rvv.text" = "Frame Grabber macht Einzelbilder aus Videos und Live Photos.";
 
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
 "CWr-Fn-l1m.text" = "Quellcode";
 
-/* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "gKu-gc-lE0"; */
-"gKu-gc-lE0.title" = "Frame Grabber";
-
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
 "GkV-0K-xRO.text" = "Kontakt";
 
-/* Class = "UILabel"; text = "Hi, I'm Arthur! I made this app to learn iOS development with Swift. If you like Frame Grabber, you can rate it on the App Store."; ObjectID = "IiT-LI-i5k"; */
+/* Class = "UILabel"; text = "<Detail>"; ObjectID = "IiT-LI-i5k"; */
 "IiT-LI-i5k.text" = "Hi, ich bin Arthur! Ich habe Frame Grabber entwickelt, um iOS-Programmierung mit Swift zu lernen. Wenn du die App magst, kannst du sie im App Store bewerten.";
+
+/* Class = "UIBarButtonItem"; title = "Restore"; ObjectID = "IRk-Y0-M2Q"; */
+"IRk-Y0-M2Q.title" = "Wiederherstellen";
+
+/* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "j7T-IN-X4o"; */
+"j7T-IN-X4o.title" = "Frame Grabber";
 
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
-/* Class = "UIButton"; normalTitle = "♥︎ Rate"; ObjectID = "lni-tn-UXo"; */
-"lni-tn-UXo.normalTitle" = "♥︎ Bewerten";
+/* Class = "UIButton"; normalTitle = "Leave a Review"; ObjectID = "lni-tn-UXo"; */
+"lni-tn-UXo.normalTitle" = "App Bewerten";
 
-/* Class = "UILabel"; text = "For Feedback and Support."; ObjectID = "Q2G-GR-huD"; */
+/* Class = "UILabel"; text = "For feedback and support."; ObjectID = "Q2G-GR-huD"; */
 "Q2G-GR-huD.text" = "Für Feedback und Support.";
 
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */

@@ -43,11 +43,6 @@ class PhotoLibraryAuthorizationController: UIViewController {
         button.tintColor = .systemBackground
         button.backgroundColor = Style.Color.mainTint
         button.layer.cornerRadius = Style.Size.buttonCornerRadius
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.minimumScaleFactor = 0.8
-
-        privacyButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        privacyButton.titleLabel?.minimumScaleFactor = 0.8
 
         updateViews()
     }

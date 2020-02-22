@@ -16,13 +16,15 @@ struct Style {
                 : .white
         }
 
+        static let iceCream = UIColor(red: 0.97, green: 0.56, blue: 0.70, alpha: 1.00)
+
         static var cellSelection: UIColor = .secondarySystemFill
         static var disabledLabel: UIColor = .systemGray
         static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.6)]
     }
 
     struct Size {
-        static let buttonCornerRadius: CGFloat = 12
+        static let buttonCornerRadius: CGFloat = 18
     }
 
     static func configureAppearance(using window: UIWindow?) {
