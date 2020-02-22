@@ -41,6 +41,12 @@
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
+		0034AFF7240068C30041513F /* StorePaymentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFF6240068C30041513F /* StorePaymentsManager.swift */; };
+		0034AFF8240068C30041513F /* StorePaymentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFF6240068C30041513F /* StorePaymentsManager.swift */; };
+		0034AFFD240139E30041513F /* CoffeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* CoffeeViewController.swift */; };
+		0034AFFE240139E30041513F /* CoffeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* CoffeeViewController.swift */; };
+		0034B00024014DAE0041513F /* StoreKitUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFF24014DAE0041513F /* StoreKitUtilities.swift */; };
+		0034B00124014DAE0041513F /* StoreKitUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFF24014DAE0041513F /* StoreKitUtilities.swift */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
@@ -114,6 +120,8 @@
 		00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
 		00730EE4214FEA5A001A6EA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00730EE5214FEA5A001A6EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17F1FB4977100A00BB9 /* Assets.xcassets */; };
+		0073D56324000E99008CABC3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0073D56224000E99008CABC3 /* StoreKit.framework */; };
+		0073D56424000EA3008CABC3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0073D56224000E99008CABC3 /* StoreKit.framework */; };
 		00777D4523F6E73600D94F80 /* VideoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00777D4423F6E73600D94F80 /* VideoType.swift */; };
 		00777D4623F6E73600D94F80 /* VideoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00777D4423F6E73600D94F80 /* VideoType.swift */; };
 		0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
@@ -152,6 +160,8 @@
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
+		00BD29202400565A00FF1B1F /* StoreProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD291F2400565A00FF1B1F /* StoreProductsManager.swift */; };
+		00BD29212400565A00FF1B1F /* StoreProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD291F2400565A00FF1B1F /* StoreProductsManager.swift */; };
 		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */; };
 		00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D61FC1A7CB000B05FE /* CMTime.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize.swift */; };
@@ -219,6 +229,9 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
+		0034AFF6240068C30041513F /* StorePaymentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePaymentsManager.swift; sourceTree = "<group>"; };
+		0034AFFC240139E30041513F /* CoffeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeViewController.swift; sourceTree = "<group>"; };
+		0034AFFF24014DAE0041513F /* StoreKitUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitUtilities.swift; sourceTree = "<group>"; };
 		00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubbingIndicatorView.swift; sourceTree = "<group>"; };
 		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
@@ -235,6 +248,7 @@
 		007208961FBF7C920046F389 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0073D56224000E99008CABC3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		00777D4423F6E73600D94F80 /* VideoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoType.swift; path = "Frame Grabber/Model/VideoType.swift"; sourceTree = SOURCE_ROOT; };
 		0078A45423F4AD700033E81C /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingPlayerView.swift; sourceTree = "<group>"; };
@@ -259,6 +273,7 @@
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		00BD291F2400565A00FF1B1F /* StoreProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProductsManager.swift; sourceTree = "<group>"; };
 		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPhotoLibrary.swift; sourceTree = "<group>"; };
 		00C098D61FC1A7CB000B05FE /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
@@ -294,6 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0073D56424000EA3008CABC3 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +317,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0073D56324000E99008CABC3 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +330,7 @@
 				001A6C4B20600E1A00B91F3A /* README.md */,
 				001AA1771FB4977100A00BB9 /* Frame Grabber */,
 				001AA1761FB4977100A00BB9 /* Products */,
+				0073D56124000E99008CABC3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -400,6 +418,8 @@
 			children = (
 				0023FC8D23390D940046D9F8 /* About.storyboard */,
 				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
+				0034AFFC240139E30041513F /* CoffeeViewController.swift */,
+				0034B00224014DD30041513F /* StoreKit */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -415,6 +435,16 @@
 				00777D4423F6E73600D94F80 /* VideoType.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0034B00224014DD30041513F /* StoreKit */ = {
+			isa = PBXGroup;
+			children = (
+				00BD291F2400565A00FF1B1F /* StoreProductsManager.swift */,
+				0034AFF6240068C30041513F /* StorePaymentsManager.swift */,
+				0034AFFF24014DAE0041513F /* StoreKitUtilities.swift */,
+			);
+			path = StoreKit;
 			sourceTree = "<group>";
 		};
 		003EC973234B9A2200EA8035 /* Frame Export */ = {
@@ -460,6 +490,14 @@
 				0058E355213D9AE900BE28DD /* TransitionUtilities.swift */,
 			);
 			path = Transition;
+			sourceTree = "<group>";
+		};
+		0073D56124000E99008CABC3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0073D56224000E99008CABC3 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		0078A45323F4AD2B0033E81C /* Progress */ = {
@@ -686,7 +724,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"";
+			shellScript = "#buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${INFOPLIST_FILE}\")\n#buildNumber=$(($buildNumber + 1))\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -699,6 +737,7 @@
 				00730EA6214FEA5A001A6EA7 /* VideoCell.swift in Sources */,
 				0078A45623F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00730EA7214FEA5A001A6EA7 /* AlbumsLayout.swift in Sources */,
+				0034AFFE240139E30041513F /* CoffeeViewController.swift in Sources */,
 				00730EA8214FEA5A001A6EA7 /* ZoomPushTransition.swift in Sources */,
 				00730EA9214FEA5A001A6EA7 /* FetchedAlbum+Fetch.swift in Sources */,
 				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
@@ -719,8 +758,10 @@
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* FetchingPhotos.swift in Sources */,
 				00777D4623F6E73600D94F80 /* VideoType.swift in Sources */,
+				00BD29212400565A00FF1B1F /* StoreProductsManager.swift in Sources */,
 				0054936823E5777200F3E684 /* UISlider.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
+				0034AFF8240068C30041513F /* StorePaymentsManager.swift in Sources */,
 				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
 				00730EB8214FEA5A001A6EA7 /* ZoomTransitionController.swift in Sources */,
 				00730EB9214FEA5A001A6EA7 /* Coordinator.swift in Sources */,
@@ -765,6 +806,7 @@
 				0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */,
 				00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */,
+				0034B00124014DAE0041513F /* StoreKitUtilities.swift in Sources */,
 				0086A6B32344CD7100989646 /* FileManager.swift in Sources */,
 				00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */,
 				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
@@ -786,6 +828,7 @@
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00AA20232136C93100084B08 /* AlbumsLayout.swift in Sources */,
+				0034AFFD240139E30041513F /* CoffeeViewController.swift in Sources */,
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00266209212BFBC900786797 /* FetchedAlbum+Fetch.swift in Sources */,
 				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
@@ -806,8 +849,10 @@
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00777D4523F6E73600D94F80 /* VideoType.swift in Sources */,
+				00BD29202400565A00FF1B1F /* StoreProductsManager.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* FetchingPhotos.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
+				0034AFF7240068C30041513F /* StorePaymentsManager.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
 				0023FC9F233A0E4C0046D9F8 /* ExportOptionsViewController.swift in Sources */,
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
@@ -852,6 +897,7 @@
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,
+				0034B00024014DAE0041513F /* StoreKitUtilities.swift in Sources */,
 				0086A6B22344CD7100989646 /* FileManager.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
 				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
@@ -1058,7 +1104,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = de.arthurhammer.framegrabber.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1078,7 +1124,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = de.arthurhammer.framegrabber.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
