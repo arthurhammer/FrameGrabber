@@ -312,6 +312,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Info" id="hPT-0r-vTx">
+                        <barButtonItem key="backBarButtonItem" title=" " id="lrY-vm-opE"/>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="tYQ-H1-DEk">
                             <connections>
                                 <action selector="done" destination="umA-xu-G6j" id="Kf7-pY-vEi"/>

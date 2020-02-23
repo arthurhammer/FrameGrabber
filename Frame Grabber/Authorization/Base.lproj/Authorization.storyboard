@@ -15,6 +15,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5D-tf-vpy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LVc-Ri-d4x">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="systemThickMaterial"/>
+                            </visualEffectView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgC-6x-dUz">
                                 <rect key="frame" x="0.0" y="44" width="414" height="646"/>
                                 <subviews>
@@ -105,14 +113,17 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="w5D-tf-vpy" firstAttribute="top" secondItem="uep-rp-0KY" secondAttribute="top" id="2zJ-NC-hYd"/>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="trailing" secondItem="mB5-wO-tQR" secondAttribute="trailing" id="7ky-6C-zHe"/>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="leading" secondItem="mB5-wO-tQR" secondAttribute="leading" id="8g7-T1-tju"/>
+                            <constraint firstItem="w5D-tf-vpy" firstAttribute="leading" secondItem="uep-rp-0KY" secondAttribute="leading" id="C6h-Zl-aPs"/>
+                            <constraint firstItem="w5D-tf-vpy" firstAttribute="bottom" secondItem="uep-rp-0KY" secondAttribute="bottom" id="ETG-xB-y8F"/>
                             <constraint firstItem="mB5-wO-tQR" firstAttribute="bottom" secondItem="rME-8f-Wj1" secondAttribute="bottom" constant="22" id="G1e-9R-ffB"/>
                             <constraint firstItem="rME-8f-Wj1" firstAttribute="top" secondItem="jgC-6x-dUz" secondAttribute="bottom" constant="22" id="Owr-xS-ATV"/>
                             <constraint firstItem="rME-8f-Wj1" firstAttribute="leading" secondItem="mB5-wO-tQR" secondAttribute="leading" constant="22" id="c0d-Mr-nzj"/>
                             <constraint firstItem="mB5-wO-tQR" firstAttribute="trailing" secondItem="rME-8f-Wj1" secondAttribute="trailing" constant="22" id="rOr-G2-Grd"/>
+                            <constraint firstAttribute="trailing" secondItem="w5D-tf-vpy" secondAttribute="trailing" id="sqC-HZ-juJ"/>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="top" secondItem="mB5-wO-tQR" secondAttribute="top" id="uVe-jS-l85"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mB5-wO-tQR"/>
