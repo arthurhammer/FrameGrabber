@@ -140,7 +140,7 @@ private extension AlbumViewController {
             self?.updateViews()
 
             guard let changeDetails = changeDetails else {
-                self?.collectionView.reloadSections([0])
+                self?.collectionView.reloadData()
                 return
             }
 
