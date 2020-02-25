@@ -5,7 +5,7 @@
 "about.icecream.notpurchased" = "Himbeereis";
 
 /* Container view button message when in-app purchase was purchased. */
-"about.icecream.purchased" = "Dankeschön! :)";
+"about.icecream.purchased" = "Danke";
 
 /* Version label with numerical version */
 "about.version" = "Version %@";

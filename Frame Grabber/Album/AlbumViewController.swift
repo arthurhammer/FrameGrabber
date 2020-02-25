@@ -187,8 +187,7 @@ private extension AlbumViewController {
     }
 
     @IBAction func filterDidChange(_ sender: VideoTypeFilterControl) {
-        let type = VideoType(sender.selectedSegmentIndex) ?? .any
-        dataSource?.type = type
+        dataSource?.type = VideoType(sender.selectedSegmentIndex) ?? .any
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -220,12 +219,5 @@ private extension AlbumViewController {
 
             cell.imageView.image = image
         }
-    }
-}
-
-extension AlbumViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_ gesture: UIGestureRecognizer) -> Bool {
-        let edgePanMargin: CGFloat = 30
-        return gesture.location(in: gesture.view).x > edgePanMargin
     }
 }

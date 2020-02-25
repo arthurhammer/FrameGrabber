@@ -81,16 +81,12 @@ class FrameExportTask: Operation {
     }
 
     private func write(_ image: CGImage, for request: Request, index: Int) -> Status {
-        guard let directory = request.directory,
-            let encodedImage = image.data(with: request.encoding) else { return .failed(nil) }
+        guard let directory = request.directory else { return .failed(nil) }
 
-        do {
-            let fileUrl = url(forFrameAt: index, in: directory, format: request.encoding.format)
-            try encodedImage.write(to: fileUrl)
-            return .succeeded([fileUrl])
-        } catch let error {
-            return .failed(error)
-        }
+        let fileUrl = url(forFrameAt: index, in: directory, format: request.encoding.format)
+        let ok = image.write(to: fileUrl, with: request.encoding)
+
+        return ok ? .succeeded([fileUrl]) : .failed(nil)
     }
 
     private func url(forFrameAt index: Int, in directory: URL, format: ImageFormat) -> URL {

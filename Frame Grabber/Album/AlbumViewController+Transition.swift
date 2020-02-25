@@ -43,7 +43,7 @@ private extension UICollectionView {
 
     func scrollSelectedCellIntoViewIfNeeded(animated: Bool) {
         guard let selectedIndexPath = indexPathsForSelectedItems?.first,
-            let position = scrollPosition(for: selectedIndexPath) else { return }
+            let position = closestScrollPosition(for: selectedIndexPath) else { return }
 
         scrollToItem(at: selectedIndexPath, at: position, animated: animated)
         layoutIfNeeded()
@@ -51,7 +51,7 @@ private extension UICollectionView {
 
     /// nil for fully visible cells, otherwise `top` or `bottom` whichever is closer,
     /// taking into account the receiver's safe area.
-    func scrollPosition(for indexPath: IndexPath) -> UICollectionView.ScrollPosition? {
+    func closestScrollPosition(for indexPath: IndexPath) -> UICollectionView.ScrollPosition? {
         // Partially visible cells.
         if let cell = cellForItem(at: indexPath) {
             let cellFrame = (cell.superview ?? self).convert(cell.frame, to: superview)

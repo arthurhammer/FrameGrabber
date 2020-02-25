@@ -1,6 +1,5 @@
 import Photos
 
-
 extension AlbumsDataSource {
     static let defaultSmartAlbumTypes: [PHAssetCollectionSubtype] = [
         .smartAlbumUserLibrary,

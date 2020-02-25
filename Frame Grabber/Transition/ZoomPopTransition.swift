@@ -14,7 +14,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
 
     private var transitionContext: UIViewControllerContextTransitioning?
     /// Runs additional animations in sync with the main pan and release animations.
-    /// You can use `animate(alongsideTransition:completion:)` to add their own animations.
+    /// You can use `animate(alongsideTransition:completion:)` to add your own animations.
     private var backgroundAnimator: UIViewPropertyAnimator?
     private var gestureEndedBeforeTransitionStarted = false
 
@@ -35,7 +35,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     /// Required by `UIViewControllerAnimatedTransitioning` for the non-interactive
     /// transition.
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return completionParameters.duration
+        completionParameters.duration
     }
 
     // MARK: Entry Points
@@ -214,7 +214,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
             parameters = fallbackParameters
 
             let currentFrame = sourceView.currentFrameWithoutTransform
-            let targetFrame = fallbackTransitionImageViewFrame(in: containerView)
+            let targetFrame = fallbackTargetFrame(in: containerView)
 
             sourceView.transform = .identity
             sourceView.frame = currentFrame
@@ -278,7 +278,7 @@ private extension ZoomPopTransition {
     }
 
     /// A tiny frame at the mid-bottom of the container view.
-    func fallbackTransitionImageViewFrame(in containerView: UIView) -> CGRect {
+    func fallbackTargetFrame(in containerView: UIView) -> CGRect {
         let frame = containerView.frame
         return CGRect(x: frame.midX, y: frame.maxY, width: 1, height: 1)  // Zero size doesn't seem to work.
     }

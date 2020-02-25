@@ -51,7 +51,7 @@ class AboutContainerViewController: UIViewController {
 
     private func updateViews() {
         let title = hasPurchased
-            ? NSLocalizedString("about.icecream.purchased", value: "Thank You :)", comment: "Container view button message when in-app purchase was purchased.")
+            ? NSLocalizedString("about.icecream.purchased", value: "Thank You", comment: "Container view button message when in-app purchase was purchased.")
             : NSLocalizedString("about.icecream.notpurchased", value: "Ice Cream", comment: "Container view button message when in-app purchase was not purchased.")
 
         iceCreamButton.setTitle(title, for: .normal)

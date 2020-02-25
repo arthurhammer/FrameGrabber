@@ -93,13 +93,13 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         guard let album = album?.assetCollection else { return }
         let filter = type
 
-        filterQueue.async {
+        filterQueue.async { [weak self] in
             let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: filter)
             let filteredAlbum = FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: fetchOptions)
 
             DispatchQueue.main.async {
-                self.album = filteredAlbum
-                self.videosChangedHandler?(nil)
+                self?.album = filteredAlbum
+                self?.videosChangedHandler?(nil)
             }
         }
     }
