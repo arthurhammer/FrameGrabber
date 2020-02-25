@@ -17,6 +17,7 @@ class IceCreamViewController: UIViewController {
 
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var messageLabel: UILabel!
+    @IBOutlet private var confettiView: ConfettiView!
     @IBOutlet private var purchaseButton: ActivityButton!
 
     override func viewDidLoad() {
@@ -31,6 +32,8 @@ class IceCreamViewController: UIViewController {
 
         transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.styleNavigationBar()
+            self?.showConfettiIfNeeded()
+
         }, completion: { [weak self] _ in
             self?.styleNavigationBar()
         })
@@ -39,13 +42,17 @@ class IceCreamViewController: UIViewController {
     // MARK: Actions
 
     private func fetchProductsIfNeeded() {
-        if !hasPurchased,
-            !productsManager.isFetchingProducts {
+        defer { updateViews() }
 
-            productsManager.fetchProducts(with: [inAppPurchaseId])
-        }
+        guard !hasPurchased,
+            !productsManager.isFetchingProducts else { return }
 
-        updateViews()
+        productsManager.fetchProducts(with: [inAppPurchaseId])
+    }
+
+    private func showConfettiIfNeeded() {
+        guard hasPurchased else { return }
+        confettiView.startConfetti(withDuration: 2)
     }
 
     @IBAction private func restore() {
@@ -84,12 +91,14 @@ class IceCreamViewController: UIViewController {
     // MARK: Configuring
 
     private func configureViews() {
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
+
         purchaseButton.tintColor = .white
         purchaseButton.backgroundColor = Style.Color.iceCream
         purchaseButton.layer.cornerRadius = Style.Size.buttonCornerRadius
         purchaseButton.activityIndicator.color = .white
 
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
+        confettiView.confettiImage = UIImage(named: "confetti")
 
         updateViews()
     }
@@ -124,6 +133,7 @@ class IceCreamViewController: UIViewController {
             messageLabel.text = notHasPurchasedMessage
 
         case .purchased:
+            purchaseButton.dormantTitle = nil
             purchaseButton.isHidden = true
             navigationItem.rightBarButtonItem = nil
             titleLabel.text = hasPurchasedTitle
@@ -164,17 +174,20 @@ class IceCreamViewController: UIViewController {
     // MARK: Handling Transactions
 
     private func handleTransactionDidUpdate(_ transaction: SKPaymentTransaction) {
-        dprint(transaction.payment.productIdentifier, transaction.transactionState)
+        defer { updateViews() }
 
-        let isCancelled = transaction.error?.isStoreKitCancelledError == true
-
-        if transaction.transactionState == .failed,
-            !isCancelled {
-
-            presentAlert(.purchaseFailed(error: transaction.error))
+        if transaction.error?.isStoreKitCancelledError == true {
+            return
         }
 
-        updateViews()
+        if transaction.transactionState == .failed {
+            presentAlert(.purchaseFailed(error: transaction.error))
+            return
+        }
+
+        if [.purchased, .restored].contains(transaction.transactionState) {
+            showConfettiIfNeeded()
+        }
     }
 
     private func handleRestoreDidFail(with error: Error) {

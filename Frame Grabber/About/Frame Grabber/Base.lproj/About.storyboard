@@ -266,8 +266,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="inAppPurchaseButton" destination="8UP-tj-XNX" id="mZi-bF-qNh"/>
-                        <outlet property="rateButton" destination="lni-tn-UXo" id="qoD-0A-Stf"/>
                         <outlet property="versionLabel" destination="eyT-Xn-NOm" id="aid-yq-DsE"/>
                     </connections>
                 </tableViewController>
@@ -286,7 +284,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icecream" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETp-48-pMy" userLabel="Dimming View">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETp-48-pMy" customClass="ConfettiView" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -359,9 +357,7 @@
                                         <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
                                         <state key="normal" title="&lt;Title&gt;"/>
                                         <connections>
-                                            <action selector="purchase" destination="Q1Q-IQ-Mgh" eventType="touchUpInside" id="awh-Ig-naV"/>
-                                            <action selector="rate" destination="v2F-CM-Qyx" eventType="touchUpInside" id="1hv-ca-CJt"/>
-                                            <action selector="rate" destination="hnE-0J-ppI" eventType="touchUpInside" id="Shj-ER-Fw8"/>
+                                            <action selector="purchase" destination="Q1Q-IQ-Mgh" eventType="touchUpInside" id="iB7-Mq-uyh"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSM-a5-Quj">
@@ -404,6 +400,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="confettiView" destination="ETp-48-pMy" id="afP-hy-w34"/>
                         <outlet property="messageLabel" destination="fwx-Gi-CbO" id="9mg-o1-CM7"/>
                         <outlet property="purchaseButton" destination="2Cf-Os-zO1" id="G4C-cm-1Pu"/>
                         <outlet property="titleLabel" destination="MBv-Ck-5UY" id="QZv-rE-3fg"/>
@@ -445,7 +442,6 @@
                                         <state key="normal" title="Leave a Review"/>
                                         <connections>
                                             <action selector="rate" destination="v2F-CM-Qyx" eventType="touchUpInside" id="8Ta-6D-lop"/>
-                                            <action selector="rate" destination="hnE-0J-ppI" eventType="touchUpInside" id="YrG-1x-q4h"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-tj-XNX">
