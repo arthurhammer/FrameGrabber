@@ -6,6 +6,10 @@ extension PHAsset {
         CGSize(width: pixelWidth, height: pixelHeight)
     }
 
+    var isVideo: Bool {
+        mediaType == .video
+    }
+
     var isLivePhoto: Bool {
         mediaSubtypes.contains(.photoLive)
     }

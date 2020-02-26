@@ -197,8 +197,9 @@ private extension AlbumViewController {
     }
 
     func configure(cell: VideoCell, for video: PHAsset) {
-        cell.durationLabel.text = video.isLivePhoto ? nil : durationFormatter.string(from: video.duration)
+        cell.durationLabel.text = video.isVideo ? durationFormatter.string(from: video.duration) : nil
         cell.favoritedImageView.isHidden = !video.isFavorite
+        cell.gradientView.isHidden = !video.isFavorite && !video.isVideo
         loadThumbnail(for: cell, video: video)
     }
 
