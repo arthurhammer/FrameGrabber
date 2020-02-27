@@ -22,7 +22,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     private let albumsDataSource: AlbumsDataSource
     private let imageManager: PHImageManager
 
-    private(set) lazy var searcher = AlbumsSearcher(albums: albumsDataSource.userAlbums) { [weak self] _ in
+    private(set) lazy var searcher = AlbumsSearcher { [weak self] _ in
         self?.updateData()
     }
 
@@ -82,6 +82,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
             self?.searcher.albums = albums
         }
 
+        searcher.albums = albumsDataSource.userAlbums
         updateData()
     }
 

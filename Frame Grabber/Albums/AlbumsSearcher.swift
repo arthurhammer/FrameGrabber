@@ -14,7 +14,7 @@ class AlbumsSearcher: NSObject {
     private let searchTermPublisher = PassthroughSubject<String?, Never>()
     private var searchTermObserver: AnyCancellable?
 
-    init(albums: [AnyAlbum], updateHandler: @escaping ([AnyAlbum]) -> ()) {
+    init(albums: [AnyAlbum] = [], updateHandler: @escaping ([AnyAlbum]) -> ()) {
         self.albums = albums
         self.updateHandler = updateHandler
 
