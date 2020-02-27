@@ -211,29 +211,32 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="678"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="163" y="718" width="88.5" height="32"/>
+                                <rect key="frame" x="171" y="718" width="72" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="88.5" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="88" height="32"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="72" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="88" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
-                                                        <rect key="frame" x="16" y="8" width="55.5" height="16"/>
+                                                        <rect key="frame" x="8" y="8" width="55.5" height="16"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="kHc-hE-41m"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="OOU-XQ-SBc" secondAttribute="trailing" constant="16" id="1hu-0f-gOJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OOU-XQ-SBc" secondAttribute="trailing" constant="8" id="1hu-0f-gOJ"/>
                                                     <constraint firstItem="OOU-XQ-SBc" firstAttribute="top" secondItem="xio-Qn-6z3" secondAttribute="top" constant="8" id="Z7Y-be-kjn"/>
                                                     <constraint firstAttribute="bottom" secondItem="OOU-XQ-SBc" secondAttribute="bottom" constant="8" id="fof-Zb-gYv"/>
-                                                    <constraint firstItem="OOU-XQ-SBc" firstAttribute="leading" secondItem="xio-Qn-6z3" secondAttribute="leading" constant="16" id="jHK-m2-imU"/>
+                                                    <constraint firstItem="OOU-XQ-SBc" firstAttribute="leading" secondItem="xio-Qn-6z3" secondAttribute="leading" constant="8" id="jHK-m2-imU"/>
                                                 </constraints>
                                             </view>
                                             <vibrancyEffect style="label">
@@ -248,9 +251,6 @@
                                         <constraint firstItem="tnn-3x-Dm8" firstAttribute="top" secondItem="0VV-Wk-bY8" secondAttribute="top" id="yGb-dN-LWy"/>
                                     </constraints>
                                 </view>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="o3x-rC-AI6"/>
-                                </constraints>
                                 <blurEffect style="systemMaterialDark"/>
                                 <connections>
                                     <outlet property="speedLabel" destination="OOU-XQ-SBc" id="u4S-qb-DJy"/>
@@ -763,7 +763,7 @@
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yrf-sk-izP"/>
+        <segue reference="iPV-yR-eo7"/>
         <segue reference="lS1-3M-qF6"/>
     </inferredMetricsTieBreakers>
 </document>
