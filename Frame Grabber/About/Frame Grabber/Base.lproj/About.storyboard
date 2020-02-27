@@ -30,7 +30,7 @@
             <objects>
                 <tableViewController id="hnE-0J-ppI" customClass="AboutTableViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ehP-Ps-s8C">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <inset key="separatorInset" minX="59" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
@@ -43,21 +43,51 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="HbH-fk-2Wt">
-                                                    <rect key="frame" x="20" y="19" width="334" height="5.5"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="HbH-fk-2Wt">
+                                                    <rect key="frame" x="20" y="-23.5" width="334" height="48"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frame Grabber extracts full-resolution still images from videos and live photos." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-8B-rvv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="334" height="5.5"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Detail&gt;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiT-LI-i5k">
-                                                            <rect key="frame" x="0.0" y="0.0" width="334" height="0.0"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Bqk-Ng-pEw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="334" height="12"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save your favorite video and Live Photo moments as pictures." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-8B-rvv">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="334" height="0.0"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiT-LI-i5k">
+                                                                    <rect key="frame" x="0.0" y="12" width="334" height="0.0"/>
+                                                                    <string key="text">Hi, I'm Arthur. I made this app to learn iOS development, it's my first! If you like Frame Grabber, please rate it on the App Store.</string>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="950" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="QC3-kx-y8X">
+                                                            <rect key="frame" x="0.0" y="36" width="334" height="12"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lni-tn-UXo">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="334" height="0.0"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                    <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
+                                                                    <state key="normal" title="Leave a Review"/>
+                                                                    <connections>
+                                                                        <action selector="rate" destination="hnE-0J-ppI" eventType="touchUpInside" id="KAy-cs-NX4"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-tj-XNX">
+                                                                    <rect key="frame" x="0.0" y="12" width="334" height="0.0"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                    <inset key="contentEdgeInsets" minX="16" minY="4" maxX="16" maxY="4"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                    <state key="normal" title="&lt;Ice Cream&gt;" image="app.gift" catalog="system"/>
+                                                                    <connections>
+                                                                        <segue destination="Q1Q-IQ-Mgh" kind="show" id="8U4-5B-eY7"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -266,30 +296,32 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="iceCreamButton" destination="8UP-tj-XNX" id="CG8-OY-X06"/>
+                        <outlet property="rateButton" destination="lni-tn-UXo" id="i3p-K7-GUv"/>
                         <outlet property="versionLabel" destination="eyT-Xn-NOm" id="aid-yq-DsE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ut-1p-jhN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1254" y="-393"/>
+            <point key="canvasLocation" x="1265" y="-345"/>
         </scene>
         <!--Ice Cream View Controller-->
         <scene sceneID="0SB-VX-QAf">
             <objects>
                 <viewController id="Q1Q-IQ-Mgh" customClass="IceCreamViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="42g-9b-btt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icecream" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETp-48-pMy" customClass="ConfettiView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJn-T0-q26">
-                                <rect key="frame" x="0.0" y="88" width="414" height="256"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="256"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="256"/>
@@ -349,7 +381,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="XSy-un-NLQ"/>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W">
-                                <rect key="frame" x="16" y="809" width="382" height="53"/>
+                                <rect key="frame" x="16" y="755" width="382" height="53"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1" customClass="ActivityButton" customModule="Frame_Grabber" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="53"/>
@@ -408,7 +440,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2j-b6-eHL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="-356"/>
+            <point key="canvasLocation" x="2026" y="-346"/>
         </scene>
         <!--Frame Grabber-->
         <scene sceneID="MXd-gh-EDU">
@@ -427,48 +459,20 @@
                                 <blurEffect style="systemThickMaterial"/>
                             </visualEffectView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUN-mp-Ycb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
                                     <segue destination="hnE-0J-ppI" kind="embed" id="J5T-mT-O1T"/>
                                 </connections>
                             </containerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="950" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="QC3-kx-y8X">
-                                <rect key="frame" x="22" y="768" width="370" height="94"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lni-tn-UXo">
-                                        <rect key="frame" x="0.0" y="0.0" width="370" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
-                                        <state key="normal" title="Leave a Review"/>
-                                        <connections>
-                                            <action selector="rate" destination="v2F-CM-Qyx" eventType="touchUpInside" id="8Ta-6D-lop"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-tj-XNX">
-                                        <rect key="frame" x="0.0" y="65" width="370" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <inset key="contentEdgeInsets" minX="16" minY="4" maxX="16" maxY="4"/>
-                                        <state key="normal" title="&lt;Ice Cream&gt;"/>
-                                        <connections>
-                                            <segue destination="Q1Q-IQ-Mgh" kind="show" id="DAU-dj-53G"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <variation key="heightClass=compact" axis="horizontal"/>
-                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="QUN-mp-Ycb" firstAttribute="top" secondItem="eiC-I5-tRo" secondAttribute="top" id="07E-Rv-2EF"/>
-                            <constraint firstItem="QC3-kx-y8X" firstAttribute="leading" secondItem="8dO-so-lX9" secondAttribute="leading" constant="22" id="9Gy-Bv-Y0u"/>
-                            <constraint firstAttribute="bottom" secondItem="QC3-kx-y8X" secondAttribute="bottom" priority="999" constant="16" id="ATw-ua-d34"/>
-                            <constraint firstItem="QC3-kx-y8X" firstAttribute="top" secondItem="QUN-mp-Ycb" secondAttribute="bottom" constant="16" id="FHf-uV-0Em"/>
-                            <constraint firstItem="8dO-so-lX9" firstAttribute="trailing" secondItem="QC3-kx-y8X" secondAttribute="trailing" constant="22" id="Gjb-LF-Mcz"/>
                             <constraint firstItem="gKA-Hn-62h" firstAttribute="leading" secondItem="eiC-I5-tRo" secondAttribute="leading" id="Hxr-o5-Sew"/>
                             <constraint firstItem="gKA-Hn-62h" firstAttribute="trailing" secondItem="eiC-I5-tRo" secondAttribute="trailing" id="K9F-hn-htB"/>
                             <constraint firstAttribute="bottom" secondItem="gKA-Hn-62h" secondAttribute="bottom" id="Pjs-C1-wkQ"/>
                             <constraint firstItem="QUN-mp-Ycb" firstAttribute="trailing" secondItem="eiC-I5-tRo" secondAttribute="trailing" id="Sqf-hG-GiW"/>
+                            <constraint firstAttribute="bottom" secondItem="QUN-mp-Ycb" secondAttribute="bottom" id="TWY-Ox-l1W"/>
                             <constraint firstItem="QUN-mp-Ycb" firstAttribute="leading" secondItem="eiC-I5-tRo" secondAttribute="leading" id="dvL-0J-hOR"/>
-                            <constraint firstItem="8dO-so-lX9" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QC3-kx-y8X" secondAttribute="bottom" id="goC-72-DyX"/>
                             <constraint firstItem="gKA-Hn-62h" firstAttribute="top" secondItem="eiC-I5-tRo" secondAttribute="top" id="lYj-fQ-VC6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8dO-so-lX9"/>
@@ -481,10 +485,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="iceCreamButton" destination="8UP-tj-XNX" id="2Ke-rH-jcE"/>
-                        <outlet property="rateButton" destination="lni-tn-UXo" id="H9x-Oo-EOJ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5E-wU-dUL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -492,6 +492,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="app.gift" catalog="system" width="64" height="56"/>
         <image name="app.gift.fill" catalog="system" width="64" height="56"/>
         <image name="icecream" width="525.66668701171875" height="999.33331298828125"/>
         <image name="link" catalog="system" width="64" height="58"/>

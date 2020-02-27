@@ -8,19 +8,34 @@ class AboutTableViewController: UITableViewController, MFMailComposeViewControll
     let bundle = Bundle.main
     let device = UIDevice.current
 
-    let contactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
-    lazy var contactMessage = """
-                           \n\n
-                           \(bundle.longFormattedVersion)
-                           \(device.systemName) \(device.systemVersion)
-                           \(device.type ?? device.model)
-                           """
+    var hasPurchased: Bool {
+        paymentsManager.hasPurchasedProduct(withId: inAppPurchaseId)
+    }
 
+    private let paymentsManager = StorePaymentsManager.shared
+    private let inAppPurchaseId = About.inAppPurchaseIdentifier
+    private let reviewURL = About.storeReviewURL
+    private let contactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
+
+    private lazy var contactMessage = """
+    \n\n
+    \(bundle.longFormattedVersion)
+    \(device.systemName) \(device.systemVersion)
+    \(device.type ?? device.model)
+    """
+
+    @IBOutlet private var rateButton: UIButton!
+    @IBOutlet private var iceCreamButton: UIButton!
     @IBOutlet private var versionLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViews()
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -45,14 +60,35 @@ class AboutTableViewController: UITableViewController, MFMailComposeViewControll
     private func configureViews() {
         tableView.backgroundColor = .clear
 
+        rateButton.tintColor = .systemGroupedBackground
+        rateButton.backgroundColor = Style.Color.mainTint
+        rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
+
         let format = NSLocalizedString("about.version", value: "Version %@", comment: "Version label with numerical version")
         versionLabel.text = String.localizedStringWithFormat(format, bundle.shortFormattedVersion)
+
+        updateViews()
+    }
+
+    private func updateViews() {
+        let title = hasPurchased
+            ? NSLocalizedString("about.icecream.purchased", value: "Thank You", comment: "Container view button message when in-app purchase was purchased.")
+            : NSLocalizedString("about.icecream.notpurchased", value: "Ice Cream", comment: "Container view button message when in-app purchase was not purchased.")
+
+        iceCreamButton.setTitle(title, for: .normal)
     }
 }
 
 // MARK: - Actions
 
 extension AboutTableViewController {
+
+    @IBAction private func rate() {
+        guard let url = reviewURL,
+            app.canOpenURL(url) else { return }
+
+        app.open(url)
+    }
     
     func sendFeedback() {
         guard MFMailComposeViewController.canSendMail() else {
