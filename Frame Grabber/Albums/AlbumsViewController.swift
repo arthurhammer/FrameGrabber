@@ -13,6 +13,12 @@ class AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         configureViews()
         configureDataSource()
+        configureSearchController()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,6 +48,7 @@ class AlbumsViewController: UICollectionViewController {
     private func configureViews() {
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
+        collectionView.keyboardDismissMode = .interactive
 
         collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
             self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
@@ -64,6 +71,16 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionView?.dataSource = collectionViewDataSource
+        navigationItem.searchController?.searchResultsUpdater = collectionViewDataSource?.searcher
+    }
+
+    private func configureSearchController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = collectionViewDataSource?.searcher
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -111,6 +128,26 @@ class AlbumsViewController: UICollectionViewController {
         header.activityIndicator.isHidden = !section.isLoading
 
         return header
+    }
+}
+
+extension AlbumsViewController: UISearchBarDelegate {
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        stopSearchingWhenSearchBarEmpty(searchBar)
+    }
+
+    private func stopSearchingWhenSearchBarEmpty(_ searchBar: UISearchBar) {
+        guard searchBar.text?.trimmedOrNil == nil else { return }
+        searchBar.text = nil
+
+        navigationItem.searchController?.dismiss(animated: true) { [weak self] in
+            // Fix a weird glitch.
+            DispatchQueue.main.async {
+                self?.navigationController?.navigationBar.setNeedsLayout()
+                self?.navigationController?.navigationBar.layoutIfNeeded()
+            }
+        }
     }
 }
 

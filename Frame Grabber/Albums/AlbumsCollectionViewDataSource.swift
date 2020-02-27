@@ -22,6 +22,10 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     private let albumsDataSource: AlbumsDataSource
     private let imageManager: PHImageManager
 
+    private(set) lazy var searcher = AlbumsSearcher(albums: albumsDataSource.userAlbums) { [weak self] _ in
+        self?.updateData()
+    }
+
     init(collectionView: UICollectionView,
          albumsDataSource: AlbumsDataSource,
          imageConfig: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
@@ -54,7 +58,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         case .smartAlbum:
             return albumsDataSource.smartAlbums[indexPath.item]
         case .userAlbum:
-            return albumsDataSource.userAlbums[indexPath.item]
+            return searcher.filtered[indexPath.item]
         }
     }
 
@@ -75,30 +79,33 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         }
 
         albumsDataSource.userAlbumsChangedHandler = { [weak self] albums in
-            self?.updateData()
+            self?.searcher.albums = albums
         }
 
         updateData()
     }
 
     private func updateData() {
+        let smartAlbums = albumsDataSource.smartAlbums
+        let userAlbums = searcher.filtered
+
         sections = [
             AlbumsSectionInfo(type: .smartAlbum,
                               title: nil,
-                              albumCount: albumsDataSource.smartAlbums.count,
+                              albumCount: smartAlbums.count,
                               isLoading: !albumsDataSource.didInitializeSmartAlbums),
 
             AlbumsSectionInfo(type: .userAlbum,
                               title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
-                              albumCount: albumsDataSource.userAlbums.count,
+                              albumCount: userAlbums.count,
                               isLoading: !albumsDataSource.didInitializeUserAlbums)
         ]
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
 
         snapshot.appendSections(sections)
-        snapshot.appendItems(albumsDataSource.smartAlbums, toSection: sections[0])
-        snapshot.appendItems(albumsDataSource.userAlbums, toSection: sections[1])
+        snapshot.appendItems(smartAlbums, toSection: sections[0])
+        snapshot.appendItems(userAlbums, toSection: sections[1])
 
         apply(snapshot, animatingDifferences: true)
     }
