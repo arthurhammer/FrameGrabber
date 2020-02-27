@@ -1,9 +1,11 @@
 import Photos
 
+/// A type that provides a unique id.
 protocol PhotosIdentifiable {
     var id: String { get }
 }
 
+/// A type that represents a PhotoKit album.
 protocol Album: PhotosIdentifiable {
     var assetCollection: PHAssetCollection { get }
     var title: String? { get }
@@ -12,6 +14,7 @@ protocol Album: PhotosIdentifiable {
 }
 
 extension Album {
+
     var id: String {
         assetCollection.localIdentifier
     }

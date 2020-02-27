@@ -10,6 +10,7 @@ extension CGImage {
     /// format is not supported on the device (such as HEIC on iPhone 6S and lower).
     func data(with encoding: ImageEncoding) -> Data? {
         let data = NSMutableData()
+
         let uti = encoding.format.uti as CFString
         var properties = encoding.metadata ?? Metadata()
         properties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
@@ -21,6 +22,18 @@ extension CGImage {
         guard CGImageDestinationFinalize(destination) else { return nil }
 
         return data as Data
+    }
+
+    func write(to url: URL, with encoding: ImageEncoding) -> Bool {
+        let uti = encoding.format.uti as CFString
+        var properties = encoding.metadata ?? Metadata()
+        properties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
+
+        guard let destination = CGImageDestinationCreateWithURL(url as CFURL, uti, 1, nil) else { return false }
+
+        CGImageDestinationAddImage(destination, self, properties as CFDictionary)
+
+        return CGImageDestinationFinalize(destination)
     }
 }
 

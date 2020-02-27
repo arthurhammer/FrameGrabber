@@ -6,7 +6,8 @@ extension AVAsset {
     }
 
     var dimensions: CGSize? {
-        videoTrack?.naturalSize
+        guard let videoTrack = videoTrack else { return .zero }
+        return videoTrack.naturalSize.applying(videoTrack.preferredTransform)
     }
 
     var frameRate: Float? {

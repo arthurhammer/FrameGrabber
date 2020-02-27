@@ -1,73 +1,96 @@
 import UIKit
 import Photos
 
-class AlbumViewController: UICollectionViewController, NavigationBarHiddenPreferring {
+class AlbumViewController: UICollectionViewController {
 
-    // nil if deleted.
+    /// nil if deleted.
     var album: FetchedAlbum? {
         get { return dataSource?.album }
         set { configureDataSource(with: newValue) }
     }
 
+    /// The title that will be used when album is `nil`
+    var defaultTitle = NSLocalizedString("album.title.missingOrDeleted", value: "Album", comment: "Title for missing or deleted albums.") {
+        didSet { updateViews() }
+    }
+
+    /// The most recently selected asset.
+    private(set) var selectedAsset: PHAsset?
+    var settings: UserDefaults = .standard
+
+    @IBOutlet private var filterControl: VideoTypeFilterControl!
     private var dataSource: AlbumCollectionViewDataSource?
-    private lazy var transitionController = ZoomTransitionController()
-
-    @IBOutlet private var emptyView: UIView!
-
+    private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
 
     // MARK: Lifecycle
-
-    var prefersNavigationBarHidden: Bool {
-        false
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        updateThumbnailSize()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.layer.shadowOpacity = 0
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateContentInset()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? PlayerViewController {
+        if let controller = segue.destination as? EditorViewController {
             prepareForPlayerSegue(with: controller)
         }
     }
 
-    private func prepareForPlayerSegue(with destination: PlayerViewController) {
+    private func prepareForPlayerSegue(with destination: EditorViewController) {
         guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
 
-        transitionController.prepareNavigationControllerTransition(for: navigationController)
+        // (todo: Handle this in coordinator/delegate/navigation controller.)
+        let transitionController = ZoomTransitionController()
+        navigationController?.delegate = transitionController
+        destination.transitionController = transitionController
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
+            self.selectedAsset = selectedAsset
             destination.videoController = VideoController(asset: selectedAsset)
         }
     }
 
-    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let video = dataSource?.video(at: indexPath) else { return nil }
 
-        return .menu(for: video, toggleFavoriteAction: { [weak self] _ in
+        let sourceImageView = (collectionView.cellForItem(at: indexPath) as? VideoCell)?.imageView
+
+        return .menu(for: video, previewProvider: { [weak self] in
+            self?.imagePreviewController(for: sourceImageView)
+        }, toggleFavoriteAction: { [weak self] _ in
             self?.dataSource?.toggleFavorite(for: video)
         }, deleteAction: { [weak self] _ in
-            self?.dataSource?.delete(video)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self?.dataSource?.delete(video)
+            }
         })
     }
 
-    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         guard let video = configuration.identifier as? PHAsset,
             let indexPath = dataSource?.indexPath(of: video) else { return }
 
         animator.addAnimations {
             self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            self.performSegue(withIdentifier: PlayerViewController.name, sender: nil)
+            self.performSegue(withIdentifier: EditorViewController.name, sender: nil)
         }
+    }
+
+    /// Selects `selectedAsset` in the collection view.
+    func restoreSelection(animated: Bool) {
+        let selectedIndexPath = selectedAsset.flatMap { dataSource?.indexPath(of: $0) }
+        collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
 }
 
@@ -88,33 +111,38 @@ private extension AlbumViewController {
     func configureViews() {
         clearsSelectionOnViewWillAppear = false
         collectionView?.alwaysBounceVertical = true
-        collectionView?.collectionViewLayout = CollectionViewGridLayout()
-        collectionView?.collectionViewLayout.prepare()
+        collectionView.backgroundView = emptyView
 
-        if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "info.circle")
+        collectionView?.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
+            self?.dataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
 
-        updateAlbumData()
+        configureFilterControl()
+        updateViews()
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
-        dataSource = AlbumCollectionViewDataSource(album: album) { [unowned self] in
+        dataSource = AlbumCollectionViewDataSource(album: album, settings: settings) { [unowned self] in
             self.cell(for: $1, at: $0)
         }
 
         dataSource?.albumDeletedHandler = { [weak self] in
             // Just show empty screen.
-            self?.updateAlbumData()
+            self?.updateViews()
             self?.collectionView?.reloadData()
         }
 
         dataSource?.albumChangedHandler = { [weak self] in
-            self?.updateAlbumData()
+            self?.updateViews()
         }
 
         dataSource?.videosChangedHandler = { [weak self] changeDetails in
-            self?.updateAlbumData()
+            self?.updateViews()
+
+            guard let changeDetails = changeDetails else {
+                self?.collectionView.reloadData()
+                return
+            }
 
             self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: { 
                 self?.reconfigure(cellAt: $0)
@@ -125,19 +153,41 @@ private extension AlbumViewController {
         collectionView?.dataSource = dataSource
         collectionView?.prefetchDataSource = dataSource
 
-        updateAlbumData()
-        updateThumbnailSize()
+        updateViews()
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    func updateAlbumData() {
-        let defaultTitle = NSLocalizedString("album.title.default", value: "Videos", comment: "Title for missing/deleted/initial placeholder album")
+    func configureFilterControl() {
+        let margin: CGFloat = 16
+        view.addSubview(filterControl)
+
+        filterControl.translatesAutoresizingMaskIntoConstraints = false
+        filterControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        view.safeAreaLayoutGuide.leadingAnchor.constraint(lessThanOrEqualTo: filterControl.leadingAnchor , constant: -margin).isActive = true
+        view.safeAreaLayoutGuide.trailingAnchor.constraint(greaterThanOrEqualTo: filterControl.trailingAnchor, constant: margin).isActive = true
+        // 0 for notched phones, `margin`` for non-notched phones.
+        view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: filterControl.bottomAnchor, constant: 0).isActive = true
+        let bottomConstraint = view.bottomAnchor.constraint(equalTo: filterControl.bottomAnchor, constant: margin)
+        bottomConstraint.priority = .init(rawValue: 999)
+        bottomConstraint.isActive = true
+    }
+
+    func updateViews() {
         title = dataSource?.album?.title ?? defaultTitle
-        collectionView?.backgroundView = (dataSource?.isEmpty ?? true) ? emptyView : nil
+        emptyView.type = dataSource?.type ?? .any
+        emptyView.isEmpty = dataSource?.isEmpty ?? true
+        filterControl.selectedSegmentIndex = (dataSource?.type ?? .any).rawValue
     }
 
-    func updateThumbnailSize() {
-        guard let layout = collectionView?.collectionViewLayout as? CollectionViewGridLayout else { return }
-        dataSource?.imageOptions.size = layout.itemSize.scaledToScreen
+    func updateContentInset() {
+        let spacing: CGFloat = 8
+        let filterControlAdjust = filterControl.bounds.height + spacing
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: filterControlAdjust, right: 0)
+        collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
+    }
+
+    @IBAction func filterDidChange(_ sender: VideoTypeFilterControl) {
+        dataSource?.type = VideoType(sender.selectedSegmentIndex) ?? .any
     }
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -147,8 +197,9 @@ private extension AlbumViewController {
     }
 
     func configure(cell: VideoCell, for video: PHAsset) {
-        cell.durationLabel.text = durationFormatter.string(from: video.duration)
+        cell.durationLabel.text = video.isVideo ? durationFormatter.string(from: video.duration) : nil
         cell.favoritedImageView.isHidden = !video.isFavorite
+        cell.gradientView.isHidden = !video.isFavorite && !video.isVideo
         loadThumbnail(for: cell, video: video)
     }
 

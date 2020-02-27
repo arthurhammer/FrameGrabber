@@ -1,12 +1,15 @@
-/* Class = "UILabel"; text = "Pick a Frame"; ObjectID = "bP2-FO-hcM"; */
-"bP2-FO-hcM.text" = "Bild Auswählen";
+/* Class = "UIButton"; normalTitle = "Video"; ObjectID = "2zK-Ub-ClA"; */
+"2zK-Ub-ClA.normalTitle" = "Video";
+
+/* Class = "UILabel"; text = "Choose Frame"; ObjectID = "MTO-N1-Rre"; */
+"MTO-N1-Rre.text" = "Bild Auswählen";
 
 /* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
 "nBX-8Q-BwE.title" = "Alben";
 
-/* Class = "UILabel"; text = "Downloading from iCloud…"; ObjectID = "oGN-ie-szR"; */
-"oGN-ie-szR.text" = "Von iCloud Laden…";
+/* Class = "UIButton"; normalTitle = "Live"; ObjectID = "OAB-1m-CBh"; */
+"OAB-1m-CBh.normalTitle" = "Live";
 
-/* Class = "UILabel"; text = "No Videos"; ObjectID = "T19-Lc-8RI"; */
-"T19-Lc-8RI.text" = "Keine Videos";
+/* Class = "UIButton"; normalTitle = "All"; ObjectID = "Tzq-rg-EiV"; */
+"Tzq-rg-EiV.normalTitle" = "Alle";
 

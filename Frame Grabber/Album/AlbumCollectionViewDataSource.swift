@@ -1,10 +1,19 @@
 import UIKit
 import Photos
+import Combine
 
 class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
+
+    var type: VideoType {
+        get { settings.videoType }
+        set {
+            settings.videoType = newValue
+            fetchAlbum()
+        }
+    }
 
     var isEmpty: Bool {
         album?.isEmpty ?? true
@@ -12,26 +21,36 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
 
     var albumDeletedHandler: (() -> ())?
     var albumChangedHandler: (() -> ())?
-    var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>) -> ())?
+    var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>?) -> ())?
 
     var imageOptions: PHImageManager.ImageOptions {
-        didSet { imageManager.stopCachingImagesForAllAssets() }
+        didSet {
+            guard imageOptions != oldValue else { return }
+            imageManager.stopCachingImagesForAllAssets()
+        }
     }
+
+    var settings: UserDefaults
 
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
     private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
+    private let filterQueue: DispatchQueue
 
     init(album: FetchedAlbum?,
          photoLibrary: PHPhotoLibrary = .shared(),
          imageManager: PHCachingImageManager = .init(),
          imageOptions: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
+         settings: UserDefaults = .standard,
+         filterQueue: DispatchQueue = .init(label: "", qos: .userInteractive, attributes: []),
          cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)) {
 
         self.album = album
         self.photoLibrary = photoLibrary
         self.imageManager = imageManager
         self.imageOptions = imageOptions
+        self.settings = settings
+        self.filterQueue = filterQueue
         self.cellProvider = cellProvider
 
         super.init()
@@ -49,8 +68,8 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         album!.fetchResult.object(at: indexPath.item)
     }
 
-    func thumbnail(for video: PHAsset, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> PHImageManager.Request {
-        imageManager.requestImage(for: video, options: imageOptions, resultHandler: resultHandler)
+    func thumbnail(for video: PHAsset, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable {
+        imageManager.requestImage(for: video, options: imageOptions, completionHandler: completionHandler)
     }
 
     func indexPath(of video: PHAsset) -> IndexPath? {
@@ -68,6 +87,21 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         photoLibrary.performChanges({
             PHAssetChangeRequest.deleteAssets([video] as NSArray)
         }, completionHandler: nil)
+    }
+
+    private func fetchAlbum() {
+        guard let album = album?.assetCollection else { return }
+        let filter = type
+
+        filterQueue.async { [weak self] in
+            let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: filter)
+            let filteredAlbum = FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: fetchOptions)
+
+            DispatchQueue.main.async {
+                self?.album = filteredAlbum
+                self?.videosChangedHandler?(nil)
+            }
+        }
     }
 
     private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {

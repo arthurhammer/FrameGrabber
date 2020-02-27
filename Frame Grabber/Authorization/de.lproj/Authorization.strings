@@ -1,3 +1,6 @@
-/* Class = "UIButton"; normalTitle = "Privacy"; ObjectID = "QJM-MM-NoA"; */
-"QJM-MM-NoA.normalTitle" = "Datenschutz";
+/* Class = "UILabel"; text = "No ads, no analytics, no tracking"; ObjectID = "FzY-in-DO7"; */
+"FzY-in-DO7.text" = "Keine Werbung, kein Analytics, kein Tracking.";
+
+/* Class = "UIButton"; normalTitle = "Privacy"; ObjectID = "YdY-Cc-mGB"; */
+"YdY-Cc-mGB.normalTitle" = "Datenschutz";
 

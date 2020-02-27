@@ -1,122 +1,113 @@
 import UIKit
 import Photos
+import Combine
 
-struct AlbumsSection {
-    let title: String?
-    var albums: [Album]
-    let assetFetchOptions: PHFetchOptions
+enum AlbumsSection: Int {
+    case smartAlbum
+    case userAlbum
 }
 
-class AlbumsCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
+struct AlbumsSectionInfo: Hashable {
+    let type: AlbumsSection
+    let title: String?
+    let albumCount: Int
+    let isLoading: Bool
+}
 
-    var sectionsChangedHandler: ((IndexSet) -> ())?
+class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsSectionInfo, AnyAlbum> {
 
-    var imageOptions: PHImageManager.ImageOptions {
-        didSet { imageManager.stopCachingImagesForAllAssets() }
+    var imageOptions: PHImageManager.ImageOptions
+
+    private var sections = [AlbumsSectionInfo]()
+    private let albumsDataSource: AlbumsDataSource
+    private let imageManager: PHImageManager
+
+    private(set) lazy var searcher = AlbumsSearcher { [weak self] _ in
+        self?.updateData()
     }
 
-    private(set) var sections = [AlbumsSection]()
-
-    private let albumsDataSource: AlbumsDataSource
-    private let sectionHeaderProvider: (IndexPath) -> UICollectionReusableView
-    private let cellProvider: (IndexPath, Album) -> UICollectionViewCell
-    private let imageManager: PHCachingImageManager
-
-    init(albumsDataSource: AlbumsDataSource,
+    init(collectionView: UICollectionView,
+         albumsDataSource: AlbumsDataSource,
          imageConfig: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
-         imageManager: PHCachingImageManager = .init(),
-         sectionHeaderProvider: @escaping (IndexPath) -> UICollectionReusableView,
-         cellProvider: @escaping (IndexPath, Album) -> UICollectionViewCell) {
+         imageManager: PHImageManager = .default(),
+         sectionHeaderProvider: @escaping SupplementaryViewProvider,
+         cellProvider: @escaping CellProvider) {
 
         self.albumsDataSource = albumsDataSource
         self.imageOptions = imageConfig
         self.imageManager = imageManager
-        self.sectionHeaderProvider = sectionHeaderProvider
-        self.cellProvider = cellProvider
 
-        super.init()
+        super.init(collectionView: collectionView, cellProvider: cellProvider)
+        self.supplementaryViewProvider = sectionHeaderProvider
 
-        configureSections()
-    }
-
-    deinit {
-        imageManager.stopCachingImagesForAllAssets()
+        // Otherwise, synchronously asks the view controller for cells and headers before
+        // the initializer even returns...
+        DispatchQueue.main.async {
+            self.configureDataSource()
+        }
     }
 
     // MARK: Data
 
+    func section(at index: Int) -> AlbumsSectionInfo {
+        sections[index]
+    }
+
     func album(at indexPath: IndexPath) -> Album {
-        sections[indexPath.section].albums[indexPath.item]
+        switch AlbumsSection(indexPath.section)! {
+        case .smartAlbum:
+            return albumsDataSource.smartAlbums[indexPath.item]
+        case .userAlbum:
+            return searcher.filtered[indexPath.item]
+        }
     }
 
-    func thumbnail(for album: Album, resultHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> PHImageManager.Request? {
+    func fetchUpdate(forAlbumAt indexPath: IndexPath, containing videoType: VideoType) -> FetchedAlbum? {
+        let album = self.album(at: indexPath).assetCollection
+        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: videoType)
+        return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
+    }
+
+    func thumbnail(for album: Album, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
-
-        return imageManager.requestImage(for: keyAsset, options: imageOptions, resultHandler: resultHandler)
+        return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
     }
 
-    func fetchUpdate(forAlbumAt indexPath: IndexPath) -> FetchedAlbum? {
-        let assetFetchOptions = sections[indexPath.section].assetFetchOptions
-        return FetchedAlbum.fetchUpdate(for: album(at: indexPath).assetCollection, assetFetchOptions: assetFetchOptions)
-    }
-
-    private func safeAlbums(at indexPaths: [IndexPath]) -> [Album] {
-        let safeIndexPaths = indexPaths
-            .filter { $0.section < sections.count }
-            .filter { $0.item < sections[$0.section].albums.count }
-
-        return safeIndexPaths.map(album)
-    }
-
-    private func configureSections() {
-        sections = [
-            AlbumsSection(title: NSLocalizedString("albums.smartAlbumsHeader", value: "Library", comment: "Smart photo albums section header"), albums: albumsDataSource.smartAlbums, assetFetchOptions: .smartAlbumVideos()),
-            AlbumsSection(title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"), albums: albumsDataSource.userAlbums, assetFetchOptions: .userAlbumVideos())
-        ]
-
+    private func configureDataSource() {
         albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in
-            self?.updateSection(at: 0, with: albums)
+            self?.updateData()
         }
 
         albumsDataSource.userAlbumsChangedHandler = { [weak self] albums in
-            self?.updateSection(at: 1, with: albums)
+            self?.searcher.albums = albums
         }
+
+        searcher.albums = albumsDataSource.userAlbums
+        updateData()
     }
 
-    private func updateSection(at index: Int, with albums: [Album]) {
-        imageManager.stopCachingImagesForAllAssets()
-        sections[index].albums = albums
-        sectionsChangedHandler?(IndexSet([index]))
-    }
+    private func updateData() {
+        let smartAlbums = albumsDataSource.smartAlbums
+        let userAlbums = searcher.filtered
 
-    // MARK: UICollectionViewDataSource
+        sections = [
+            AlbumsSectionInfo(type: .smartAlbum,
+                              title: nil,
+                              albumCount: smartAlbums.count,
+                              isLoading: !albumsDataSource.didInitializeSmartAlbums),
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        sections.count
-    }
+            AlbumsSectionInfo(type: .userAlbum,
+                              title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
+                              albumCount: userAlbums.count,
+                              isLoading: !albumsDataSource.didInitializeUserAlbums)
+        ]
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        sections[section].albums.count
-    }
+        var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        cellProvider(indexPath, album(at: indexPath))
-    }
+        snapshot.appendSections(sections)
+        snapshot.appendItems(smartAlbums, toSection: sections[0])
+        snapshot.appendItems(userAlbums, toSection: sections[1])
 
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        sectionHeaderProvider(indexPath)
-    }
-
-    // MARK: UICollectionViewDataSourcePrefetching
-
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        // Index paths might not exist anymore in the model.
-        let keyAssets = safeAlbums(at: indexPaths).compactMap { $0.keyAsset }
-        imageManager.startCachingImages(for: keyAssets, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        let keyAssets = safeAlbums(at: indexPaths).compactMap { $0.keyAsset }
-        imageManager.stopCachingImages(for: keyAssets, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
+        apply(snapshot, animatingDifferences: true)
     }
 }

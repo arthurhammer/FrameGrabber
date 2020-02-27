@@ -1,33 +1,27 @@
 import UIKit
 
-protocol NavigationBarHiddenPreferring {
-    var prefersNavigationBarHidden: Bool { get }
-}
-
 class NavigationController: UINavigationController {
 
-    override var viewControllers: [UIViewController] {
-        didSet { updateNavigationBar(animated: false) }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureInteractivePopGesture()
     }
 
-    override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
-        super.setViewControllers(viewControllers, animated: animated)
-        updateNavigationBar(animated: false)
+    /// Restores the default swipe to right to pop gesture (note: not the custom swipe to
+    /// bottom to pop gesture).
+    private func configureInteractivePopGesture() {
+        // On custom navigation transitions, UIKit seems to disable the default
+        // interactive pop gesture. Restore it by setting the delegate. But work around
+        // the fact that the recognizer is nil until a second controller has been pushed.
+        pushViewController(UIViewController(), animated: false)
+        popViewController(animated: false)
+        interactivePopGestureRecognizer?.delegate = self
     }
+}
 
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        super.pushViewController(viewController, animated: animated)
-        updateNavigationBar(animated: false)
-    }
+extension NavigationController: UIGestureRecognizerDelegate {
 
-    override func popViewController(animated: Bool) -> UIViewController? {
-        let popped = super.popViewController(animated: animated)
-        updateNavigationBar(animated: false)
-        return popped
-    }
-
-    private func updateNavigationBar(animated: Bool) {
-        guard let prefersHidden = (topViewController as? NavigationBarHiddenPreferring)?.prefersNavigationBarHidden else { return }
-        setNavigationBarHidden(prefersHidden, animated: animated)
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
     }
 }

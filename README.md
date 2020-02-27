@@ -2,22 +2,25 @@
     <img src="design/banner.jpg" alt="App Store banner.">
 </a>
 
-[Frame Grabber](https://apps.apple.com/app/frame-grabber/id1434703541) is an iPhone app that lets you extract video frames as images. You can use it to save favorite moments in your videos as still images or share them to social networks.
+[Frame Grabber](https://apps.apple.com/app/frame-grabber/id1434703541) is an iOS app that lets you extract full-resolution video frames as images.
 
-This is my first iOS app! I made this to learn Swift and iOS development. Thanks for checking it out.
-
-Feedback welcome. 👍
+Unlike screenshots, images extracted with Frame Grabber have full resolution, contain video metadata and much more! Perfect to save favorite video moments to your photo library or to share them on social media.
 
 ## Features
 
 - Quick and easy to use.
-- Precision frame by frame stepping.
-- Zooming for details.
-- Includes metadata such as creation date and location in exported frames.
-- Choose export format and compression quality.
-- Free and ad-free.
+- Export frames in full resolution.
+- Export video metadata (creation date, geolocation and more).
+- Step frame by frame and zoom in to find the perfect moment.
+- Adjust export format (HEIF, JPG) and compression quality.
 
-## Building the App
+Frame Grabber is completely free with a [focus on privacy](https://arthurhammer.github.io/FrameGrabber/). No ads or trackers.
+
+## About
+
+I made this app to learn iOS development with Swift. [Try Frame Grabber on the App Store](https://apps.apple.com/app/frame-grabber/id1434703541). Feedback is welcome!
+
+## Development
 
 The app has no dependencies. Open the project in Xcode and build.
 

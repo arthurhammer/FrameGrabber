@@ -8,17 +8,17 @@ class AlbumsViewController: UICollectionViewController {
 
     private var collectionViewDataSource: AlbumsCollectionViewDataSource?
     private lazy var albumCountFormatter = NumberFormatter()
-    private let headerHeight: CGFloat = 50
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
         configureDataSource()
+        configureSearchController()
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        updateThumbnailSize()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -30,9 +30,10 @@ class AlbumsViewController: UICollectionViewController {
     private func prepareForAlbumSegue(with destination: AlbumViewController) {
         guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
 
+        let type = destination.settings.videoType
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
         // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection)
+        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, containing: type)
     }
 
     // MARK: - UICollectionViewDelegate
@@ -45,17 +46,13 @@ class AlbumsViewController: UICollectionViewController {
     // MARK: - Private
 
     private func configureViews() {
-        if #available(iOS 13, *) {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "info.circle")
-        }
-
         clearsSelectionOnViewWillAppear = true
         collectionView?.alwaysBounceVertical = true
+        collectionView.keyboardDismissMode = .interactive
 
-        collectionView?.collectionViewLayout = CollectionViewTableLayout()
-        // In some cases, safe are content size isn't yet calculated on initialization.
-        // Trigger layout update manually (`invalidate` doesn't work).
-        collectionView?.collectionViewLayout.prepare()
+        collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
+            self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
+        }
     }
 
     private func configureDataSource() {
@@ -67,77 +64,98 @@ class AlbumsViewController: UICollectionViewController {
             return
         }
 
-        collectionViewDataSource = AlbumsCollectionViewDataSource(albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] in
-            self.sectionHeader(at: $0)
-        }, cellProvider: { [unowned self] in
-            self.cell(for: $1, at: $0)
+        collectionViewDataSource = AlbumsCollectionViewDataSource(collectionView: collectionView, albumsDataSource: dataSource, sectionHeaderProvider: { [unowned self] _, _, indexPath  in
+            self.sectionHeader(at: indexPath)
+        }, cellProvider: { [unowned self] _, indexPath, album in
+            self.cell(for: album, at: indexPath)
         })
 
-        collectionViewDataSource?.sectionsChangedHandler = { [weak self] sections in
-            UIView.performWithoutAnimation {
-                self?.collectionView?.reloadSections(sections)
-            }
-        }
-
-        collectionView?.isPrefetchingEnabled = true
         collectionView?.dataSource = collectionViewDataSource
-        collectionView?.prefetchDataSource = collectionViewDataSource
-
-        updateThumbnailSize()
+        navigationItem.searchController?.searchResultsUpdater = collectionViewDataSource?.searcher
     }
 
-    private func updateThumbnailSize() {
-        guard let layout = collectionView?.collectionViewLayout as? CollectionViewTableLayout else { return }
-        let height = layout.itemSize.height
-        collectionViewDataSource?.imageOptions.size = CGSize(width: height, height: height).scaledToScreen
+    private func configureSearchController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = collectionViewDataSource?.searcher
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
 
     private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: AlbumCell.name, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type.") }
-        configure(cell: cell, for: album)
+        guard let section = AlbumsSection(indexPath.section),
+            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: section.cellIdentifier, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type or unknown section.") }
+
+        configure(cell: cell, for: album, section: section)
         return cell
     }
 
-    private func configure(cell: AlbumCell, for album: Album) {
-        cell.identifier = album.assetCollection.localIdentifier
+    private func configure(cell: AlbumCell, for album: Album, section: AlbumsSection) {
+        cell.identifier = album.id
         cell.titleLabel.text = album.title
         cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
+        cell.imageView.image = album.icon
 
-        loadThumbnail(for: cell, album: album)
+        switch section {
+        case .smartAlbum:
+            cell.imageView.tintColor = Style.Color.mainTint
+        case .userAlbum:
+            loadThumbnail(for: cell, album: album)
+        }
     }
 
     private func loadThumbnail(for cell: AlbumCell, album: Album) {
-        let albumId = album.assetCollection.localIdentifier
+        let albumId = album.id
         cell.identifier = albumId
 
         cell.imageRequest = collectionViewDataSource?.thumbnail(for: album) { image, _ in
             let isCellRecycled = cell.identifier != albumId
-
             guard !isCellRecycled, let image = image else { return }
 
+            cell.imageView.contentMode = .scaleAspectFill
             cell.imageView.image = image
+        }
+    }
+
+    private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.name, for: indexPath) as? AlbumsHeader,
+            let section = collectionViewDataSource?.section(at: indexPath.section) else { fatalError("Wrong view identifier or type or no data source.") }
+
+        header.titleLabel.text = section.title
+        header.detailLabel.text = albumCountFormatter.string(from: section.albumCount as NSNumber)
+        header.detailLabel.isHidden = section.isLoading
+        header.activityIndicator.isHidden = !section.isLoading
+
+        return header
+    }
+}
+
+extension AlbumsViewController: UISearchBarDelegate {
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        stopSearchingWhenSearchBarEmpty(searchBar)
+    }
+
+    private func stopSearchingWhenSearchBarEmpty(_ searchBar: UISearchBar) {
+        guard searchBar.text?.trimmedOrNil == nil else { return }
+        searchBar.text = nil
+
+        navigationItem.searchController?.dismiss(animated: true) { [weak self] in
+            // Fix a weird glitch.
+            DispatchQueue.main.async {
+                self?.navigationController?.navigationBar.setNeedsLayout()
+                self?.navigationController?.navigationBar.layoutIfNeeded()
+            }
         }
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout / Section Headers
-
-extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard showsHeader(forSection: section) else { return .zero }
-        return CGSize(width: 0, height: headerHeight)
-    }
-
-    private func showsHeader(forSection section: Int) -> Bool {
-        guard let collectionViewDataSource = collectionViewDataSource else { return false }
-        let section = collectionViewDataSource.sections[section]
-        return (section.albums.count > 0) && (section.title != nil)
-    }
-
-    private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.name, for: indexPath) as? AlbumHeader else { fatalError("Wrong view identifier or type.") }
-        header.titleLabel.text = collectionViewDataSource?.sections[indexPath.section].title
-        return header
+private extension AlbumsSection {
+    var cellIdentifier: String {
+        switch self {
+        case .smartAlbum: return "SmartAlbumCell"
+        case .userAlbum: return "UserAlbumCell"
+        }
     }
 }

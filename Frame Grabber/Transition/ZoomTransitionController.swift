@@ -1,55 +1,72 @@
 import UIKit
 
-enum TransitionType {
-    /// Typically `presentation` for modal presentation and `push` for navigation
-    /// controller operation.
-    case forward
-    /// Typically `dismissal` for modal presentation and `pop` for navigation
-    /// controller operation.
-    case backward
-}
-
+/// Coordinates the overall zoom transition by vending push and pop transition animators
+/// for the navigation controller.
+///
+/// To use the transition, set the relevant navigation controller's delegate to an instance
+/// of this class and adopt the `ZoomTransitionDelegate` protocol in participating view
+/// controllers on the navigation stack.
 class ZoomTransitionController: NSObject {
 
-    private weak var modalFrom: ZoomAnimatable?
-    private weak var modalTo: ZoomAnimatable?
+    /// Handles both interactive (slide to pop) and non-interactive transition (back button).
+    /// (todo: Refactor this into a fresh instance every time?)
+    private lazy var popTransition: ZoomPopTransition = {
+        let transition = ZoomPopTransition()
+        // The transition is non-interactive so it can handle the back button transition.
+        // When the user swipes downward for the first time, it becomes interactive.
+        transition.wantsInteractiveStart = false
+        return transition
+    }()
+
+    /// Handles the slide to pop gesture, typically from the top view controller, and
+    /// initiates the pop transition if certain criteria are met (gesture moves downwards).
+    @objc func handleSlideToPopGesture(_ gesture: UIPanGestureRecognizer, performTransition: () -> ()) {
+        let movingDown = gesture.velocity(in: gesture.view).y > 0
+
+        switch gesture.state {
+
+        // Initially moving downwards, start transition.
+        case .began where movingDown:
+            popTransition.wantsInteractiveStart = true
+            performTransition()
+
+        // If now moving downwards where not before, start transition.
+        case .changed where movingDown && !popTransition.wantsInteractiveStart:
+            popTransition.wantsInteractiveStart = true
+            performTransition()
+            gesture.setTranslation(.zero, in: gesture.view)
+
+        case .changed:
+            break
+
+        default:
+            // Non-interactive to handle back button until next swipe attempt.
+            popTransition.wantsInteractiveStart = false
+        }
+
+        // Rest handled by the transition instance (animation, lifecycle etc.).
+        popTransition.updateInteractiveTransition(for: gesture)
+    }
 }
-
-// MARK: - Modal Transition
-
-extension ZoomTransitionController: UIViewControllerTransitioningDelegate {
-
-    func prepareModalTransition(forSource source: UIViewController, destination: UIViewController) {
-        destination.modalPresentationStyle = .custom
-        destination.transitioningDelegate = self
-    }
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        modalFrom = modalFrom ?? (source as? ZoomAnimatable) ?? (presenting as? ZoomAnimatable)
-        modalTo = modalTo ?? (presented as? ZoomAnimatable)
-
-        return ZoomAnimator(type: .forward, from: modalFrom, to: modalTo)
-    }
-
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        ZoomAnimator(type: .backward, from: modalTo, to: modalFrom)
-    }
-}
-
-// MARK: - UINavigationController Transition
 
 extension ZoomTransitionController: UINavigationControllerDelegate {
 
-    func prepareNavigationControllerTransition(for navigationController: UINavigationController?) {
-        navigationController?.delegate = self
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let from = fromVC as? ZoomTransitionDelegate,
+            let to = toVC as? ZoomTransitionDelegate else { return nil }
+
+        if operation == .push  {
+            return ZoomPushTransition(from: from, to: to)
+        }
+
+        popTransition.fromDelegate = from
+        popTransition.toDelegate = to
+        return popTransition
     }
 
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let type = (operation == .push) ? TransitionType.forward : .backward
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        guard let popTransition = animationController as? ZoomPopTransition else { return nil }
 
-        guard let from = fromVC as? ZoomAnimatable,
-            let to = toVC as? ZoomAnimatable else { return nil }
-
-        return ZoomAnimator(type: type, from: from, to: to)
+        return popTransition.wantsInteractiveStart ? popTransition : nil
     }
 }

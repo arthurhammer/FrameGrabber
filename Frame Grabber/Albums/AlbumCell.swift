@@ -1,10 +1,10 @@
 import UIKit
-import Photos
+import Combine
 
 class AlbumCell: UICollectionViewCell {
 
     var identifier: String?
-    var imageRequest: PHImageManager.Request?
+    var imageRequest: Cancellable?
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
@@ -19,13 +19,14 @@ class AlbumCell: UICollectionViewCell {
         super.prepareForReuse()
         identifier = nil
         imageRequest = nil
-        imageView.image = nil
         titleLabel.text = nil
         detailLabel.text = nil
+        imageView.image = nil
+        imageView.contentMode = .center
     }
 
     private func configureViews() {
-        imageView.layer.cornerRadius = 4
+        imageView.layer.cornerRadius = 6
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = Style.Color.cellSelection
     }

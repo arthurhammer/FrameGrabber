@@ -7,10 +7,17 @@ extension UserDefaults {
         static let includeMetadata = "IncludeMetadata"
         static let imageFormat = "ImageFormat"
         static let compressionQuality = "CompressionQuality"
+        static let videoType = "VideoType"
+        static let purchasedProductIdentifiers = "PurchasedProductIdentifiers"
     }
 
     static var isHeifSupported: Bool {
         AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
+    }
+
+    var videoType: VideoType {
+        get { codableValue(forKey: Key.videoType) ?? .any }
+        set { setCodableValue(value: newValue, forKey: Key.videoType) }
     }
 
     var includeMetadata: Bool {
@@ -25,8 +32,15 @@ extension UserDefaults {
     }
 
     var compressionQuality: Double {
-        get { (object(forKey: Key.compressionQuality) as? Double) ?? 0.95 }
+        get { (object(forKey: Key.compressionQuality) as? Double) ?? 1 }
         set { set(newValue, forKey: Key.compressionQuality) }
+    }
+}
+
+extension UserDefaults: PurchasedProductsStore {
+    var purchasedProductIdentifiers: [String] {
+        get { (array(forKey: Key.purchasedProductIdentifiers) as? [String]) ?? [] }
+        set { set(newValue, forKey: Key.purchasedProductIdentifiers) }
     }
 }
 

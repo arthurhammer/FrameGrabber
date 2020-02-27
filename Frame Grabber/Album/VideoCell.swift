@@ -1,20 +1,15 @@
 import UIKit
-import Photos
+import Combine
 
 class VideoCell: UICollectionViewCell {
 
     var identifier: String?
-    var imageRequest: PHImageManager.Request?
+    var imageRequest: Cancellable?
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var durationLabel: UILabel!
     @IBOutlet var favoritedImageView: UIImageView!
-    @IBOutlet var highlightView: UIView!
     @IBOutlet var gradientView: GradientView!
-
-    override var isHighlighted: Bool {
-        didSet { updateViews() }
-    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,17 +24,10 @@ class VideoCell: UICollectionViewCell {
         imageView.image = nil
         durationLabel.text = nil
         favoritedImageView.isHidden = true
-        updateViews()
     }
 
     private func configureViews() {
-        highlightView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         gradientView.colors = Style.Color.videoCellGradient
         favoritedImageView.isHidden = true
-        updateViews()
-    }
-
-    private func updateViews() {
-        highlightView.isHidden = !isHighlighted
     }
 }
