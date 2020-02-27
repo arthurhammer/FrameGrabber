@@ -1,5 +1,5 @@
-/* Class = "UILabel"; text = "Frame Grabber extracts full-resolution still images from videos and live photos."; ObjectID = "Ciq-8B-rvv"; */
-"Ciq-8B-rvv.text" = "Frame Grabber macht Einzelbilder aus Videos und Live Photos.";
+/* Class = "UILabel"; text = "Save your favorite video and Live Photo moments as pictures."; ObjectID = "Ciq-8B-rvv"; */
+"Ciq-8B-rvv.text" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos.";
 
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
 "CWr-Fn-l1m.text" = "Quellcode";
@@ -7,8 +7,8 @@
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
 "GkV-0K-xRO.text" = "Kontakt";
 
-/* Class = "UILabel"; text = "<Detail>"; ObjectID = "IiT-LI-i5k"; */
-"IiT-LI-i5k.text" = "Hi, ich bin Arthur! Ich habe Frame Grabber entwickelt, um iOS-Programmierung mit Swift zu lernen. Wenn du die App magst, kannst du sie im App Store bewerten.";
+/* Class = "UILabel"; text = "Hi, I'm Arthur. I made this app to learn iOS development, it's my first! If you like Frame Grabber, please rate it on the App Store."; ObjectID = "IiT-LI-i5k"; */
+"IiT-LI-i5k.text" = "Hi, ich bin Arthur. Dies ist meine erste App! Ich habe sie entwickelt, um iOS-App-Programmierung zu lernen. Wenn sie dir gefällt, kannst du sie im App Store bewerten.";
 
 /* Class = "UIBarButtonItem"; title = "Restore"; ObjectID = "IRk-Y0-M2Q"; */
 "IRk-Y0-M2Q.title" = "Wiederherstellen";

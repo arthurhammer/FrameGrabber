@@ -106,8 +106,8 @@ class IceCreamViewController: UIViewController {
     private func updateViews() {
         let hasPurchasedTitle = NSLocalizedString("icecream.purchased.title", value: "Thank You", comment: "Ice cream title label when purchased.")
         let hasPurchasedMessage = NSLocalizedString("icecream.purchased.message", value: "Thank you so much for supporting me and my app!", comment: "Ice cream message label when purchased.")
-        let notHasPurchasedTitle = NSLocalizedString("icecream.notpurchased.title", value: "Send Me Ice Cream", comment: "Ice cream title label when not purchased")
-        let notHasPurchasedMessage = NSLocalizedString("icecream.notpurchased.message", value: "If you like Frame Grabber or want to support future development, you can send me this delicious piece of raspberry ice cream in form of a tip.\n\nWhat's in it for you? The satisfaction of knowing you made my day. :)\n\nThank you for checking out my app!\n\nArthur", comment: "Ice cream message label when not purchased")
+        let notHasPurchasedTitle = NSLocalizedString("icecream.notpurchased.title", value: "Yummy", comment: "Ice cream title label when not purchased")
+        let notHasPurchasedMessage = NSLocalizedString("icecream.notpurchased.message", value: "If you want to go the extra mile or support future development, you can send me this delicious piece of raspberry ice cream in form of a tip.\n\nAs a reward, you get the satisfaction of knowing you made my day. :)\n\nThank you for checking out my app!", comment: "Ice cream message label when not purchased")
 
         switch state() {
 

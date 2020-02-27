@@ -102,28 +102,28 @@
 "authorization.deniedAction" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
-"authorization.deniedMessage" = "Frame Grabber macht Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
+"authorization.deniedMessage" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
 
 /* Photo library authorization default action */
 "authorization.notDeterminedAction" = "Los Geht's";
 
 /* Photo library authorization default message */
-"authorization.notDeterminedMessage" = "Frame Grabber macht Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
+"authorization.notDeterminedMessage" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
 
 /* Photo library authorization title */
 "authorization.title" = "Willkommen zu\nFrame Grabber";
 
 /* Ice cream message label when not purchased */
-"icecream.notpurchased.message" = "Falls du Frame Grabber magst und die weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nWas bekommst du dafür? Das Gefühl zu wissen, dass du mir eine Freude bereitet hast. :)\n\nDanke, dass du meine App ausprobierst!\n\nArthur";
+"icecream.notpurchased.message" = "Falls du ganz begeistert bist oder Frame Grabbers weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nDu bekommst dafür das gute Gefühl, mir eine Freude bereitet zu haben. :)\n\nDanke, dass du meine App ausprobierst!";
 
 /* Ice cream title label when not purchased */
-"icecream.notpurchased.title" = "Himbeereis Senden";
+"icecream.notpurchased.title" = "Lecker";
 
 /* Ice cream purchase button label with price */
-"icecream.purchasebutton.price" = "Himbeereis Senden – %@";
+"icecream.purchasebutton.price" = "Eis Ausgeben – %@";
 
 /* Ice cream purchase button label without price */
-"icecream.purchasebutton.withoutprice" = "Himbeereis Senden";
+"icecream.purchasebutton.withoutprice" = "Eis Ausgeben";
 
 /* Ice cream message label when purchased. */
 "icecream.purchased.message" = "Vielen Dank, dass du mich und meine App unterstützt!";
