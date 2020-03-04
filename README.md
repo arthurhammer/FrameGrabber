@@ -19,7 +19,7 @@ Frame Grabber is completely free and respects your privacy.
 
 ## About
 
-Frame Graber is my first app!
+Frame Grabber is my first app!
 
 I made it primarily for two reasons: One, because I've wanted an app like this for the longest time. And two, because it seemed like the perfect project in size to finally learn iOS development and Swift.
 
