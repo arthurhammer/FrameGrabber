@@ -25,11 +25,11 @@ class ScrubbingIndicatorView: UIVisualEffectView {
 
     @IBAction private func startScrubbing(_ sender: TimeSlider) {
         isUsingSpeed = false
-        (previousPreviousSpeed, previousSpeed) = (sender.scrubbingSpeed, sender.scrubbingSpeed)
+        (previousPreviousSpeed, previousSpeed) = (sender.currentScrubbingSpeed.speed, sender.currentScrubbingSpeed.speed)
     }
 
     @IBAction private func scrub(_ sender: TimeSlider) {
-        let speed = sender.scrubbingSpeed
+        let speed = sender.currentScrubbingSpeed.speed
         isUsingSpeed = isUsingSpeed || (speed != previousSpeed)
         speedLabel.text = formatter.string(from: speed as NSNumber)
         show(isUsingSpeed)
