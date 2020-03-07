@@ -74,7 +74,7 @@ extension DateFormatter {
 
     static func `default`() -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateStyle = .medium
         formatter.timeStyle = .short
         formatter.doesRelativeDateFormatting = true
         return formatter
