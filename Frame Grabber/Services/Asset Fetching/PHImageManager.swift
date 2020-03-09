@@ -44,9 +44,7 @@ extension PHImageManager {
 
     /// Releasing the returned object cancels the request.
     /// Handlers are called asynchronously on the main thread.
-    func requestAVAsset(for video: PHAsset, options: PHVideoRequestOptions? = .default(), progressHandler: ((Double) -> ())? = nil, completionHandler: @escaping (AVAsset?, AVAudioMix?, Info) -> ()) -> Cancellable {
-        let options = options ?? .init()
-
+    func requestAVAsset(for video: PHAsset, options: PHVideoRequestOptions = .default(), progressHandler: ((Double) -> ())? = nil, completionHandler: @escaping (AVAsset?, AVAudioMix?, Info) -> ()) -> Cancellable {
         options.progressHandler = { progress, _, _, _ in
             DispatchQueue.main.async {
                 progressHandler?(progress)

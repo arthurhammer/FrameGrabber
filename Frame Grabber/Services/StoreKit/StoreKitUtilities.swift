@@ -10,9 +10,7 @@ extension Error {
     var isStoreKitCancelledError: Bool {
         let nserror = self as NSError
 
-        // First condition is a general request cancellation, second one is a purchase
-        // cancellation error.
-        return ((self as? SKError)?.isCancelled == true)
+        return (nserror.domain, nserror.code) == (CocoaError.errorDomain, CocoaError.Code.userCancelled.rawValue)
             || (nserror.domain, nserror.code) == (SKError.errorDomain, SKError.Code.paymentCancelled.rawValue)
     }
 }

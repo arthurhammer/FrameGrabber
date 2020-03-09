@@ -45,7 +45,7 @@ class VideoDetailViewController: UITableViewController {
     }
 
     func openLocationInMaps() {
-        guard let location = videoController?.location else { return }
+        guard let location = videoController?.asset.location else { return }
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
         item.name = NSLocalizedString("more.mapTitle", value: "Your Photo", comment: "Title of map item opened in Maps app.")
         item.openInMaps(launchOptions: nil)
@@ -53,7 +53,7 @@ class VideoDetailViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         let sections = Section.allCases.count
-        return (videoController?.location == nil) ? (sections-1) : sections
+        return (videoController?.asset.location == nil) ? (sections-1) : sections
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -140,7 +140,7 @@ class VideoDetailViewController: UITableViewController {
         tableView.reloadData()  // Show/hide location cells.
         mapView.isUserInteractionEnabled = false
 
-        guard let location = videoController?.location else {
+        guard let location = videoController?.asset.location else {
             locationLabel.text = notAvailablePlaceholder
             return
         }

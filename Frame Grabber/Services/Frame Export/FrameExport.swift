@@ -64,11 +64,11 @@ class FrameExport {
         precondition(!didStart, "Export already started. Use a new instance to make a new request.")
         didStart = true
 
-        var directory: URL!
+        let directory: URL
 
         do {
-            directory = try request.directory ?? fileManager.createUniqueTemporaryDirectory()
-        } catch let error {
+            directory = try request.directory ?? fileManager.createUniqueDirectory()
+        } catch {
             updateHandler(.failed(error))
             return
         }

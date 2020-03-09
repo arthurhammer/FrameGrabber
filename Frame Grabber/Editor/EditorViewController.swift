@@ -252,13 +252,14 @@ private extension EditorViewController {
         })
     }
 
-    func handleVideoLoadingResult(_ result: VideoController.Result<Error?, AVAsset>) {
+    func handleVideoLoadingResult(_ result: VideoController.VideoResult) {
         switch result {
-        case .cancelled:
-            break
-        case .failed:
+
+        case .failure(let error):
+            guard !error.isCocoaCancelledError else { return }
             presentOnTop(UIAlertController.videoLoadingFailed())
-        case .succeeded(let video):
+
+        case .success(let video):
             playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
             playbackController?.delegate = self
             playerView.player = playbackController?.player
