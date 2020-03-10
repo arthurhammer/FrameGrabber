@@ -11,8 +11,10 @@ class FrameExport {
         let video: AVAsset
         let times: [CMTime]
         let encoding: ImageEncoding
-        /// If nil, the exporter creates a directory in the user's temporary directory.
+        /// The parent directory in which the exporter creates the export directory.
+        /// If nil, uses the user's temporary directory.
         let directory: URL?
+        /// The maximum number of frames the exporter generates simultaneously.
         let chunkSize: Int
     }
 
@@ -27,6 +29,7 @@ class FrameExport {
 
     private let updateHandler: (Status) -> ()
     private let fileManager: FileManager
+    private var exportDirectory: URL?
 
     private lazy var taskQueue: OperationQueue = {
         let queue = OperationQueue()
@@ -49,12 +52,11 @@ class FrameExport {
     /// Starts the export.
     ///
     /// When the export is cancelled (but not yet finished) or any one frame export fails
-    /// for any reason, successfully exported frames so far are deleted. On success,
-    /// returns the URLs to the exported frames. In that case, the caller is responsible
-    /// for deleting frames when they are not needed anymore, e.g. with `deleteFiles(in:)`.
+    /// for any reason, the exporter attempts to delete exported frames so far.
     ///
     /// Failure modes include:
-    /// - The temporary export directory could not be created.
+    ///
+    /// - The export directory could not be created.
     /// - Any one of the requested frames could not be generated.
     /// - Generated frames could not be encoded with the requested encoding.
     /// - Encoded images could not be written to disk.
@@ -64,24 +66,22 @@ class FrameExport {
         precondition(!didStart, "Export already started. Use a new instance to make a new request.")
         didStart = true
 
-        let directory: URL
+        let parentDirectory = request.directory ?? fileManager.temporaryDirectory
 
         do {
-            directory = try request.directory ?? fileManager.createUniqueDirectory()
+            exportDirectory = try fileManager.createUniqueDirectory(in: parentDirectory)
         } catch {
             updateHandler(.failed(error))
             return
         }
 
         let generator = AVAssetImageGenerator.default(for: request.video)
-        let requestedTimes = request.times
-        let subtasks = requestedTimes.chunked(into: request.chunkSize)
+        let requests = subrequests(for: request, directory: exportDirectory).enumerated()
 
-        subtasks.enumerated().forEach { taskIndex, chunk in
-            let subrequest = Request(video: request.video, times: chunk, encoding: request.encoding, directory: directory, chunkSize: NSNotFound)
-            let startIndex = taskIndex * request.chunkSize
+        requests.forEach { index, subrequest in
+            let startIndex = index * request.chunkSize
 
-            let task = FrameExportTask(generator: generator, request: subrequest, frameStartIndex: startIndex) { [weak self] _, frameResult in
+            let task = FrameExportOperation(generator: generator, request: subrequest, frameStartIndex: startIndex) { [weak self] _, frameResult in
                 self?.updateOverallResult(with: frameResult)
             }
 
@@ -106,13 +106,21 @@ class FrameExport {
         taskQueue.cancelAllOperations()
     }
 
-    /// Deletes all image files in the result.
-    func deleteFiles(in status: Status) {
-        let urls = status.urls ?? []
-        try? urls.forEach(fileManager.removeItem)
+    // MARK: Private
+
+    private func subrequests(for request: Request, directory: URL?) -> [Request] {
+        request.times.chunked(into: request.chunkSize).map {
+            Request(video: request.video,
+                    times: $0,
+                    encoding: request.encoding,
+                    directory: directory,
+                    chunkSize: request.chunkSize)
+        }
     }
 
-    // MARK: Private
+    private func rollback() throws {
+        try exportDirectory.flatMap(fileManager.removeItem)
+    }
 
     private var didStart = false
     private var status: Status = .progressed([])  // Access needs to be synchronized.
@@ -124,7 +132,7 @@ class FrameExport {
         accessQueue.async(flags: .barrier) { [weak self] in
             guard let self = self else { return }
 
-            let complete = { (result: Status) in
+            let update = { (result: Status) in
                 self.status = result
                 self.updateHandler(result)
             }
@@ -134,25 +142,24 @@ class FrameExport {
             // A single frame was exported successfully.
             case (.progressed(let urls), .succeeded(let url)):
                 let newUrls = urls + url
-                self.status = .progressed(newUrls)
 
                 // All tasks finished successfully, complete.
                 if newUrls.count == self.request.times.count {
-                    complete(.succeeded(newUrls))
+                    update(.succeeded(newUrls))
                 } else {
-                    self.updateHandler(self.status)
+                    update(.progressed(newUrls))
                 }
 
             // Initial cancellation. Delete results, complete.
             case (.progressed, .cancelled):
-                self.deleteFiles(in: self.status)
-                complete(.cancelled)
+                try? self.rollback()
+                update(.cancelled)
 
             // Initial failure. Cancel pending tasks, delete results, complete.
             case (.progressed, .failed(let error)):
-                self.deleteFiles(in: self.status)
+                try? self.rollback()
                 self.cancel()
-                complete(.failed(error))
+                update(.failed(error))
 
             // Invalid transitions.
             default:

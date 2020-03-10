@@ -48,7 +48,6 @@
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
-		00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
 		0034AFF7240068C30041513F /* StorePaymentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFF6240068C30041513F /* StorePaymentsManager.swift */; };
 		0034AFF8240068C30041513F /* StorePaymentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFF6240068C30041513F /* StorePaymentsManager.swift */; };
 		0034AFFD240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
@@ -115,7 +114,6 @@
 		00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoController.swift */; };
 		00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
 		00730ED4214FEA5A001A6EA7 /* AlbumCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */; };
-		00730ED5214FEA5A001A6EA7 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */; };
 		00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* TransitionUtilities.swift */; };
 		00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
@@ -145,8 +143,8 @@
 		0096E815212F2FA7008395CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E814212F2FA7008395CA /* Settings.swift */; };
 		009BEA43234E152E00C284FA /* FrameExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA42234E152E00C284FA /* FrameExport.swift */; };
 		009BEA44234E152E00C284FA /* FrameExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA42234E152E00C284FA /* FrameExport.swift */; };
-		009BEA46234E17E900C284FA /* FrameExportTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA45234E17E900C284FA /* FrameExportTask.swift */; };
-		009BEA47234E17E900C284FA /* FrameExportTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA45234E17E900C284FA /* FrameExportTask.swift */; };
+		009BEA46234E17E900C284FA /* FrameExportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA45234E17E900C284FA /* FrameExportOperation.swift */; };
+		009BEA47234E17E900C284FA /* FrameExportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA45234E17E900C284FA /* FrameExportOperation.swift */; };
 		009BEA49234E243D00C284FA /* dprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA48234E243D00C284FA /* dprint.swift */; };
 		009BEA4A234E243D00C284FA /* dprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA48234E243D00C284FA /* dprint.swift */; };
 		009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1781FB4977100A00BB9 /* AppDelegate.swift */; };
@@ -164,6 +162,8 @@
 		00AA201E213432B400084B08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
 		00AA2021213432B400084B08 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201F213432B400084B08 /* Localizable.strings */; };
 		00AA20232136C93100084B08 /* AlbumsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA20222136C93100084B08 /* AlbumsLayout.swift */; };
+		00AD72C124194107009D18BA /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD72C024194107009D18BA /* AVPlayer.swift */; };
+		00AD72C224194107009D18BA /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD72C024194107009D18BA /* AVPlayer.swift */; };
 		00AFE4F42027A03F005E2AA8 /* FetchingPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */; };
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
@@ -176,6 +176,10 @@
 		00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
 		00C13CF32404FDCE000193EB /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C13CF22404FDCD000193EB /* ConfettiView.swift */; };
 		00C13CF42404FDCE000193EB /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C13CF22404FDCD000193EB /* ConfettiView.swift */; };
+		00C4476B242AB3DF00976DAF /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C4476A242AB3DF00976DAF /* Combine.swift */; };
+		00C4476C242AB3E600976DAF /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C4476A242AB3DF00976DAF /* Combine.swift */; };
+		00C68E54242B6A3D004135A4 /* EditorTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* EditorTitleView.swift */; };
+		00C68E55242B6A3D004135A4 /* EditorTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* EditorTitleView.swift */; };
 		00CB8124234CE05400354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CB8125234CE05800354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
@@ -244,7 +248,6 @@
 		0026620B212C4A6B00786797 /* AlbumsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsDataSource.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
 		0034AFF6240068C30041513F /* StorePaymentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePaymentsManager.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* IceCreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCreamViewController.swift; sourceTree = "<group>"; };
 		0034AFFF24014DAE0041513F /* StoreKitUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitUtilities.swift; sourceTree = "<group>"; };
@@ -274,7 +277,7 @@
 		0096E812212F2EF8008395CA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		0096E814212F2FA7008395CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		009BEA42234E152E00C284FA /* FrameExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExport.swift; sourceTree = "<group>"; };
-		009BEA45234E17E900C284FA /* FrameExportTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExportTask.swift; sourceTree = "<group>"; };
+		009BEA45234E17E900C284FA /* FrameExportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExportOperation.swift; sourceTree = "<group>"; };
 		009BEA48234E243D00C284FA /* dprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dprint.swift; sourceTree = "<group>"; };
 		009C65631FBF32A600DB25A6 /* Frame Grabber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		009E1862233DD403008100D5 /* VideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +288,7 @@
 		00AA201D213432B400084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		00AA2020213432B400084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		00AA20222136C93100084B08 /* AlbumsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsLayout.swift; sourceTree = "<group>"; };
+		00AD72C024194107009D18BA /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
 		00AFE4F32027A03F005E2AA8 /* FetchingPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingPhotos.swift; sourceTree = "<group>"; };
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 		00C098D81FC1A7D3000B05FE /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		00C098EA1FC477E5000B05FE /* PHImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManager.swift; sourceTree = "<group>"; };
 		00C13CF22404FDCD000193EB /* ConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		00C4476A242AB3DF00976DAF /* Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
+		00C68E53242B6A3D004135A4 /* EditorTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTitleView.swift; sourceTree = "<group>"; };
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
@@ -402,6 +408,7 @@
 				00E713592125E2940052EAF8 /* CGImage.swift */,
 				00C098D81FC1A7D3000B05FE /* CGSize.swift */,
 				00C098D61FC1A7CB000B05FE /* CMTime.swift */,
+				00C4476A242AB3DF00976DAF /* Combine.swift */,
 				0086A6B12344CD7100989646 /* FileManager.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
 				00CF4BC823F208C4006DB612 /* CachingGeocodingLocationFormatter.swift */,
@@ -413,7 +420,6 @@
 				007208961FBF7C920046F389 /* UICollectionView.swift */,
 				0054936023E562E200F3E684 /* UIDevice.swift */,
 				00D9E83223424A07009E7AFA /* UIFont.swift */,
-				0054936623E5772C00F3E684 /* UISlider.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -471,7 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				009BEA42234E152E00C284FA /* FrameExport.swift */,
-				009BEA45234E17E900C284FA /* FrameExportTask.swift */,
+				009BEA45234E17E900C284FA /* FrameExportOperation.swift */,
 				0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */,
 			);
 			path = "Frame Export";
@@ -482,6 +488,7 @@
 			children = (
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
+				00C68E53242B6A3D004135A4 /* EditorTitleView.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
 				0078A45323F4AD2B0033E81C /* Progress */,
@@ -562,6 +569,7 @@
 				006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */,
 				0054936923E852DE00F3E684 /* TimeSlider.swift */,
 				001640FF23E9B8440071687B /* ScrubbingSlider.swift */,
+				0054936623E5772C00F3E684 /* UISlider.swift */,
 				008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */,
 			);
 			path = Views;
@@ -619,8 +627,8 @@
 			isa = PBXGroup;
 			children = (
 				00B264551FD090B300A6C3C3 /* PlaybackController.swift */,
-				00328A9D1FC8BE1D004648F9 /* PlayerObserver.swift */,
 				00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */,
+				00AD72C024194107009D18BA /* AVPlayer.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -783,6 +791,7 @@
 				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
 				00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
+				00AD72C224194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumsHeader.swift in Sources */,
@@ -817,13 +826,14 @@
 				00730EC1214FEA5A001A6EA7 /* CMTime.swift in Sources */,
 				00730EC2214FEA5A001A6EA7 /* AlbumsCollectionViewDataSource.swift in Sources */,
 				00CF4BCA23F208C4006DB612 /* CachingGeocodingLocationFormatter.swift in Sources */,
+				00C4476C242AB3E600976DAF /* Combine.swift in Sources */,
 				00730EC3214FEA5A001A6EA7 /* ZoomingPlayerView.swift in Sources */,
 				00730EC4214FEA5A001A6EA7 /* ZoomTransitionTypes.swift in Sources */,
 				00EDF98323422B5A00FA0F48 /* NSObject.swift in Sources */,
 				00730EC5214FEA5A001A6EA7 /* AlbumsDataSource.swift in Sources */,
 				00E273512416A77F007FE0C6 /* Result.swift in Sources */,
 				00730EC6214FEA5A001A6EA7 /* EditorToolbar.swift in Sources */,
-				009BEA47234E17E900C284FA /* FrameExportTask.swift in Sources */,
+				009BEA47234E17E900C284FA /* FrameExportOperation.swift in Sources */,
 				0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */,
 				008A48D823479D7300CEAA26 /* ImageEncoding.swift in Sources */,
 				00730EC9214FEA5A001A6EA7 /* AlbumGridLayout.swift in Sources */,
@@ -841,13 +851,13 @@
 				00D9E83423424A07009E7AFA /* UIFont.swift in Sources */,
 				00730ED1214FEA5A001A6EA7 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */,
+				00C68E55242B6A3D004135A4 /* EditorTitleView.swift in Sources */,
 				0054936B23E852E200F3E684 /* TimeSlider.swift in Sources */,
 				0016410123E9B8440071687B /* ScrubbingSlider.swift in Sources */,
 				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
 				009E1864233DD40B008100D5 /* VideoDetailViewController.swift in Sources */,
 				00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */,
 				00730ED4214FEA5A001A6EA7 /* AlbumCollectionViewDataSource.swift in Sources */,
-				00730ED5214FEA5A001A6EA7 /* PlayerObserver.swift in Sources */,
 				0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */,
 				00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */,
@@ -880,6 +890,7 @@
 				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
 				00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
+				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				0054936723E5772D00F3E684 /* UISlider.swift in Sources */,
 				00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */,
@@ -914,6 +925,7 @@
 				00CB8124234CE05400354E03 /* NavigationController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
 				00CF4BC923F208C4006DB612 /* CachingGeocodingLocationFormatter.swift in Sources */,
+				00C4476B242AB3DF00976DAF /* Combine.swift in Sources */,
 				00C098D71FC1A7CB000B05FE /* CMTime.swift in Sources */,
 				00F3867F212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift in Sources */,
 				00EDF98223422B5A00FA0F48 /* NSObject.swift in Sources */,
@@ -921,7 +933,7 @@
 				00E273502416A77F007FE0C6 /* Result.swift in Sources */,
 				0058E354213D645900BE28DD /* ZoomTransitionTypes.swift in Sources */,
 				0026620C212C4A6B00786797 /* AlbumsDataSource.swift in Sources */,
-				009BEA46234E17E900C284FA /* FrameExportTask.swift in Sources */,
+				009BEA46234E17E900C284FA /* FrameExportOperation.swift in Sources */,
 				00EAFD9A205ED32B0031F8A2 /* EditorToolbar.swift in Sources */,
 				008A48D723479D7300CEAA26 /* ImageEncoding.swift in Sources */,
 				005E2AA320273C5800F731FA /* AlbumGridLayout.swift in Sources */,
@@ -938,13 +950,13 @@
 				00D9E83323424A07009E7AFA /* UIFont.swift in Sources */,
 				00EA2C6A2142B20E002E1266 /* MappedFetchResult+Change.swift in Sources */,
 				00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */,
+				00C68E54242B6A3D004135A4 /* EditorTitleView.swift in Sources */,
 				0054936A23E852DE00F3E684 /* TimeSlider.swift in Sources */,
 				0016410023E9B8440071687B /* ScrubbingSlider.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
 				009E1863233DD403008100D5 /* VideoDetailViewController.swift in Sources */,
 				0015537F2129C8CF00F58CEE /* Album.swift in Sources */,
 				0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */,
-				00328A9E1FC8BE1D004648F9 /* PlayerObserver.swift in Sources */,
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,

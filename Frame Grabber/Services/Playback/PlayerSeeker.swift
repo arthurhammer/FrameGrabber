@@ -1,34 +1,34 @@
-import AVKit
+import AVFoundation
 
-struct SeekInfo {
-    let time: CMTime
-    let toleranceBefore: CMTime
-    let toleranceAfter: CMTime
-}
-
-/// Implements "smooth seeking" as described in QA1820.
-/// - Note: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html),
-///         see also: [AV Foundation Release Notes for iOS 5](https://developer.apple.com/library/content/releasenotes/AudioVideo/RN-AVFoundation/index.html#//apple_ref/doc/uid/TP40010717-CH1-DontLinkElementID_6).
+/// Performs "smooth seeking" on an AVPlayer.
+///
+/// - See also: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html).
+/// - See also: [AVFoundation Release Notes for iOS 5](https://developer.apple.com/library/content/releasenotes/AudioVideo/RN-AVFoundation/index.html#//apple_ref/doc/uid/TP40010717-CH1-DontLinkElementID_6).
 class PlayerSeeker {
 
-    private let player: AVPlayer
+    struct Target {
+        let time: CMTime
+        let toleranceBefore: CMTime
+        let toleranceAfter: CMTime
+    }
 
-    /// True if the seeker is performing a seek.
-    /// Does not consider seeks directly started on the receiver's player.
+    let player: AVPlayer
+
+    /// True if the receiver is performing a seek.
     var isSeeking: Bool {
         currentSeek != nil
     }
 
-    /// The overall time the player is seeking towards.
-    var finalSeekTime: CMTime? {
+    /// The overall time the receiver is seeking towards.
+    var targetTime: CMTime? {
         (nextSeek ?? currentSeek)?.time
     }
 
     /// The seek currently in progress.
-    private(set) var currentSeek: SeekInfo?
+    private(set) var currentSeek: Target?
 
-    /// The seek that starts when `currentSeek` finishes.
-    private(set) var nextSeek: SeekInfo?
+    /// The seek that starts when the current seek finishes.
+    private(set) var nextSeek: Target?
 
     init(player: AVPlayer) {
         self.player = player
@@ -38,37 +38,39 @@ class PlayerSeeker {
         player.currentItem?.cancelPendingSeeks()
     }
 
-    /// "Smoothly" seeks to the given time by letting pending seeks finish before new ones
-    /// are started when invoked in succession (such as from a `UISlider`). When the
-    /// current seek finishes, the latest of the enqueued ones is started.
+    /// Smoothly seeks to the given time.
     ///
-    /// To start a seek immediately, use `directlySeek`.
-    ///
-    /// - Note: [QA1820](https://developer.apple.com/library/content/qa/qa1820/_index.html)
+    /// Lets pending seeks finish before new ones are started when invoked in succession
+    /// (such as from a `UISlider`). When the current seek finishes, the latest of the
+    /// enqueued ones is started. To start a seek immediately, use `directlySeek`.
     func smoothlySeek(to time: CMTime, toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
-        let info = SeekInfo(time: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
-        smoothlySeek(with: info)
+        let target = Target(time: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
+        smoothlySeek(to: target)
     }
 
-    func smoothlySeek(with info: SeekInfo) {
-        guard info.time != player.currentTime() else { return }
+    func smoothlySeek(to target: Target) {
+        guard target.time != player.currentTime() else { return }
 
-        nextSeek = info
+        nextSeek = target
 
         if !isSeeking {
             if player.rate > 0 {
                 player.pause()
             }
+
             startNextSeek()
         }
     }
 
     func directlySeek(to time: CMTime, toleranceBefore: CMTime = .zero, toleranceAfter: CMTime = .zero) {
         cancelPendingSeeks()
+
         if player.rate > 0 {
             player.pause()
         }
-        player.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
+
+        nextSeek = Target(time: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
+        startNextSeek()
     }
 
     private func startNextSeek() {
@@ -77,7 +79,7 @@ class PlayerSeeker {
         currentSeek = next
         nextSeek = nil
 
-        player.seek(with: currentSeek!) { [weak self] finished in
+        player.seek(to: next) { [weak self] finished in
             self?.didFinishCurrentSeek(wasCancelled: !finished)
         }
     }
@@ -85,9 +87,9 @@ class PlayerSeeker {
     private func didFinishCurrentSeek(wasCancelled: Bool) {
         currentSeek = nil
 
-        let continueSeeking = !wasCancelled && (nextSeek != nil)
+        let shouldContinue = !wasCancelled && (nextSeek != nil)
 
-        if continueSeeking {
+        if shouldContinue {
             startNextSeek()
         } else {
             didFinishAllSeeks()
@@ -101,10 +103,10 @@ class PlayerSeeker {
 }
 
 extension AVPlayer {
-    func seek(with info: SeekInfo, completionHandler: @escaping (Bool) -> ()) {
-        seek(to: info.time,
-             toleranceBefore: info.toleranceBefore,
-             toleranceAfter: info.toleranceAfter,
+    func seek(to target: PlayerSeeker.Target, completionHandler: @escaping (Bool) -> ()) {
+        seek(to: target.time,
+             toleranceBefore: target.toleranceBefore,
+             toleranceAfter: target.toleranceAfter,
              completionHandler: completionHandler)
     }
 }

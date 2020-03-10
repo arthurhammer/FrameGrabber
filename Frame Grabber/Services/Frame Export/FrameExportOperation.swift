@@ -1,6 +1,6 @@
 import AVFoundation
 
-class FrameExportTask: Operation {
+class FrameExportOperation: Operation {
 
     typealias Request = FrameExport.Request
     typealias Status = FrameExport.Status
@@ -25,8 +25,6 @@ class FrameExportTask: Operation {
         self.frameProcessedHandler = frameProcessedHandler
 
         super.init()
-
-        self.qualityOfService = .userInitiated
     }
 
     override func cancel() {
@@ -35,12 +33,9 @@ class FrameExportTask: Operation {
     }
 
     override func main() {
-        guard !isCancelled else {
-            return
-        }
+        guard !isCancelled else { return }
 
-        // Since the operation is already asynchronous, make `generateCGImagesAsynchronously`
-        // synchronous within the current queue.
+        // Make `generateCGImagesAsynchronously` synchronous within the current operation.
         let block = DispatchGroup()
         block.enter()
 

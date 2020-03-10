@@ -1,4 +1,5 @@
-import AVKit
+import UIKit
+import AVFoundation
 import Photos
 import Combine
 
@@ -31,6 +32,7 @@ class VideoController {
 
     init(asset: PHAsset,
          video: AVAsset? = nil,
+         previewImage: UIImage? = nil,
          settings: UserDefaults = .standard,
          imageManager: PHImageManager = .default(),
          resourceManager: PHAssetResourceManager = .default(),
@@ -38,6 +40,7 @@ class VideoController {
 
         self.asset = asset
         self.video = video
+        self.previewImage = previewImage
         self.settings = settings
         self.imageManager = imageManager
         self.resourceManager = resourceManager
@@ -70,7 +73,7 @@ class VideoController {
 
         imageRequest = imageManager.requestImage(for: asset, options: options) { [weak self] image, info in
             if let image = image {
-                self?.previewImage =  image
+                self?.previewImage = image
             }
             self?.imageRequest = nil  // (Note: This can execute synchronously, before the outer `imageRequest` is set, thus having no effect.)
             completionHandler(image, info)

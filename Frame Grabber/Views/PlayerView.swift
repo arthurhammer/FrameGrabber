@@ -10,32 +10,19 @@ class PlayerView: UIView {
     var playerLayer: AVPlayerLayer {
         layer as! AVPlayerLayer
     }
-    
+
     var player: AVPlayer? {
         get { playerLayer.player }
         set { playerLayer.player = newValue }
     }
-}
 
-class PreviewPlayerView: PlayerView {
-
-    let posterImageView = UIImageView(frame: .zero)
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureViews()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureViews()
-    }
-
-    private func configureViews() {
-        posterImageView.frame = bounds
-        posterImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        posterImageView.contentMode = .scaleAspectFill
-        posterImageView.clipsToBounds = true
-        insertSubview(posterImageView, at: 0)
-    }
+    private(set) lazy var posterImageView: UIImageView = {
+        let imageView = UIImageView(frame: bounds)
+        imageView.frame = bounds
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        insertSubview(imageView, at: 0)
+        return imageView
+    }()
 }

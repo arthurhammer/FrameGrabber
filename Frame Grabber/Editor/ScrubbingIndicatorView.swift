@@ -1,13 +1,11 @@
 import UIKit
 
-/// Shows, hides, updates the current scrubbing speed in response to the `TimeSlider`
-/// instance configured in the storyboard.
+/// Shows, hides, updates the current scrubbing speed.
 class ScrubbingIndicatorView: UIVisualEffectView {
 
-    @IBOutlet var speedLabel: UILabel!
+    @IBOutlet private(set) var speedLabel: UILabel!
 
     private var previousSpeed: Float?
-    private var previousPreviousSpeed: Float?
     private var isUsingSpeed = false
     private lazy var formatter = NumberFormatter.percentFormatter()
 
@@ -23,23 +21,26 @@ class ScrubbingIndicatorView: UIVisualEffectView {
         layer.cornerRadius = bounds.height / 2
     }
 
-    @IBAction private func startScrubbing(_ sender: TimeSlider) {
-        isUsingSpeed = false
-        (previousPreviousSpeed, previousSpeed) = (sender.currentScrubbingSpeed.speed, sender.currentScrubbingSpeed.speed)
+    func configure(for slider: ScrubbingSlider) {
+        slider.addTarget(self, action: #selector(startScrubbing), for: .touchDown)
+        slider.addTarget(self, action: #selector(scrub), for: .valueChanged)
+        slider.addTarget(self, action: #selector(endScrubbing), for: [.touchUpInside, .touchUpOutside])
     }
 
-    @IBAction private func scrub(_ sender: TimeSlider) {
+    @objc private func startScrubbing(_ sender: ScrubbingSlider) {
+        isUsingSpeed = false
+        previousSpeed = sender.currentScrubbingSpeed.speed
+    }
+
+    @objc private func scrub(_ sender: ScrubbingSlider) {
         let speed = sender.currentScrubbingSpeed.speed
         isUsingSpeed = isUsingSpeed || (speed != previousSpeed)
         speedLabel.text = formatter.string(from: speed as NSNumber)
         show(isUsingSpeed)
-        (previousPreviousSpeed, previousSpeed) = (previousSpeed, speed)
+        previousSpeed = speed
     }
 
-    @IBAction private func endScrubbing(_ sender: TimeSlider) {
-        // The slider resets its speed to 1 when ending. For the fade out, preserve the
-        // effective speed the scrubbing ended with.
-        speedLabel.text = previousPreviousSpeed.flatMap { formatter.string(from: $0 as NSNumber) }
+    @objc private func endScrubbing(_ sender: ScrubbingSlider) {
         show(false)
     }
 

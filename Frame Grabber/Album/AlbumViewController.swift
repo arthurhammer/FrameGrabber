@@ -57,14 +57,15 @@ class AlbumViewController: UICollectionViewController {
 
         if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
             self.selectedAsset = selectedAsset
-            destination.videoController = VideoController(asset: selectedAsset)
+            let thumbnail = videoCell(at: selectedIndexPath)?.imageView.image
+            destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
         }
     }
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let video = dataSource?.video(at: indexPath) else { return nil }
 
-        let sourceImageView = (collectionView.cellForItem(at: indexPath) as? VideoCell)?.imageView
+        let sourceImageView = videoCell(at: indexPath)?.imageView
 
         return .menu(for: video, previewProvider: { [weak self] in
             self?.imagePreviewController(for: sourceImageView)
@@ -204,10 +205,10 @@ private extension AlbumViewController {
     }
 
     func reconfigure(cellAt indexPath: IndexPath) {
-        guard let cell = collectionView?.cellForItem(at: indexPath) as? VideoCell else { return }
-        if let video = dataSource?.video(at: indexPath) {
-            configure(cell: cell, for: video)
-        }
+        guard let cell = videoCell(at: indexPath),
+            let video = dataSource?.video(at: indexPath) else { return }
+
+        configure(cell: cell, for: video)
     }
 
     func loadThumbnail(for cell: VideoCell, video: PHAsset) {
@@ -220,5 +221,9 @@ private extension AlbumViewController {
 
             cell.imageView.image = image
         }
+    }
+
+    func videoCell(at indexPath: IndexPath) -> VideoCell? {
+        collectionView.cellForItem(at: indexPath) as? VideoCell
     }
 }

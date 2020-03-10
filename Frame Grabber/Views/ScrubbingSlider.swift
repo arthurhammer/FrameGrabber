@@ -79,13 +79,13 @@ class ScrubbingSlider: UISlider {
     }
 
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        resetScrubbingSpeed()
         super.endTracking(touch, with: event)
+        resetScrubbingSpeed()
     }
 
     override func cancelTracking(with event: UIEvent?) {
-        resetScrubbingSpeed()
         super.cancelTracking(with: event)
+        resetScrubbingSpeed()
     }
 }
 

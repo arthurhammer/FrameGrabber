@@ -2,7 +2,7 @@ import UIKit
 
 class EditorToolbar: UIView {
 
-    @IBOutlet var timeSlider: UISlider!
+    @IBOutlet var timeSlider: ScrubbingSlider!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!
@@ -13,7 +13,7 @@ class EditorToolbar: UIView {
         configureViews()
     }
 
-    func setControlsEnabled(_ enabled: Bool) {
+    func setEnabled(_ enabled: Bool) {
         timeSlider.isEnabled = enabled
         shareButton.isEnabled = enabled
         playButton.isEnabled = enabled
@@ -36,7 +36,7 @@ class EditorToolbar: UIView {
 
 // MARK: - Play Button
 
-import AVKit
+import AVFoundation
 
 extension UIButton {
     func setTimeControlStatus(_ status: AVPlayer.TimeControlStatus) {
