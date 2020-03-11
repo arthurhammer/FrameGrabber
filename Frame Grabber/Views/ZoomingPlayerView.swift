@@ -20,6 +20,8 @@ class ZoomingPlayerView: UIView {
         }
     }
 
+    private let overZoomFactor: CGFloat = 4
+
     private(set) lazy var doubleTapToZoomRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
 
     private lazy var scrollView: UIScrollView = {
@@ -103,7 +105,7 @@ private extension ZoomingPlayerView {
         playerView.bounds.size = newSize
         scrollView.contentSize = newSize
 
-        scrollView.updateZoomRange(keepingZoom: shouldKeepZoom)
+        scrollView.updateZoomRange(keepingZoom: shouldKeepZoom, overZoomFactor: overZoomFactor)
         scrollView.centerContentView()
     }
 
@@ -116,7 +118,7 @@ private extension ZoomingPlayerView {
         if scrollView.zoomScale == scrollView.minimumZoomScale {
             scrollView.maximumZoomScale = scrollView.aspectFillScale
             scrollView.zoomIn(at: tap.location(in: playerView), animated: true)
-            scrollView.maximumZoomScale = max(scrollView.aspectFillScale, scrollView.fullSizeScreenScale)
+            scrollView.maximumZoomScale = max(scrollView.aspectFillScale, scrollView.fullSizeScreenScale) * overZoomFactor
         } else {
             scrollView.zoomOut(animated: true)
         }
@@ -164,11 +166,11 @@ private extension UIScrollView {
         1.0 / UIScreen.main.scale
     }
 
-    func updateZoomRange(keepingZoom: Bool = true) {
+    func updateZoomRange(keepingZoom: Bool = true, overZoomFactor: CGFloat = 1) {
         let previousScale = zoomScale
 
         minimumZoomScale = aspectFitScale
-        maximumZoomScale = max(aspectFillScale, fullSizeScreenScale)
+        maximumZoomScale = max(aspectFillScale, fullSizeScreenScale) * overZoomFactor
         zoomScale = keepingZoom ? previousScale : aspectFitScale
     }
 
