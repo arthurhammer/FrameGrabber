@@ -21,12 +21,17 @@ class VideoTimeFormatter {
     
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.locale = Locale.current
         return formatter
     }()
 
     func string(fromCurrentTime time: CMTime, includeMilliseconds: Bool = false) -> String {
-        let format = includeMilliseconds ? "mm:ss.SS" : "mm:ss"
+        let hours = (time.seconds >= 3600) ? "HH:" : ""
+        let minutesSeconds = "mm:ss"
+        let millis = includeMilliseconds ? ".SS" : ""
+
+        let format = "\(hours)\(minutesSeconds)\(millis)"
         return string(from: time, localizedFormatTemplate: format)
     }
 
