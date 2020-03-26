@@ -211,7 +211,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="678"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="171.5" y="718" width="71" height="32"/>
+                                <rect key="frame" x="171.5" y="718" width="71.5" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
                                     <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,7 +219,7 @@
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
                                             <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
@@ -315,7 +315,7 @@
                                                             <action selector="stepForward" destination="1Cw-ag-d47" eventType="touchDown" id="kOp-9v-zCZ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
                                                         <rect key="frame" x="270.5" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="square.and.arrow.up" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
