@@ -77,7 +77,7 @@ class PlaybackController {
 
     private func seekToStartIfNecessary() {
         guard let item = player.currentItem,
-           item.currentTime() >= item.duration else { return }
+              item.currentTime() >= item.duration else { return }
 
         directlySeek(to: .zero)
     }
