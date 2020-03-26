@@ -15,7 +15,7 @@ class AboutTableViewController: UITableViewController, MFMailComposeViewControll
     private let paymentsManager = StorePaymentsManager.shared
     private let inAppPurchaseId = About.inAppPurchaseIdentifier
     private let reviewURL = About.storeReviewURL
-    private let contactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
+    private let contactSubject = UserText.aboutContactSubject
 
     private lazy var contactMessage = """
     \n\n
@@ -64,17 +64,13 @@ class AboutTableViewController: UITableViewController, MFMailComposeViewControll
         rateButton.backgroundColor = Style.Color.mainTint
         rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
 
-        let format = NSLocalizedString("about.version", value: "Version %@", comment: "Version label with numerical version")
-        versionLabel.text = String.localizedStringWithFormat(format, bundle.shortFormattedVersion)
+        versionLabel.text = String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
 
         updateViews()
     }
 
     private func updateViews() {
-        let title = hasPurchased
-            ? NSLocalizedString("about.icecream.purchased", value: "Thank You", comment: "Container view button message when in-app purchase was purchased.")
-            : NSLocalizedString("about.icecream.notpurchased", value: "Ice Cream", comment: "Container view button message when in-app purchase was not purchased.")
-
+        let title = hasPurchased ? UserText.aboutPurchasedButton : UserText.aboutNotPurchasedButton
         iceCreamButton.setTitle(title, for: .normal)
     }
 }

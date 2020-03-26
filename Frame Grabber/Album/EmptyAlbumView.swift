@@ -56,9 +56,9 @@ private extension VideoType {
 
     var emptyAlbumMessage: String {
         switch self {
-        case .any: return NSLocalizedString("album.empty.any", value: "No Videos or Live Photos", comment: "Empty album message")
-        case .video: return NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")
-        case .livePhoto: return NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
+        case .any: return UserText.albumEmptyAny
+        case .video: return UserText.albumEmptyVideos
+        case .livePhoto: return UserText.albumEmptyLive
         }
     }
 }

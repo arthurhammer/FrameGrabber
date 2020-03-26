@@ -1,14 +1,26 @@
 /* Feedback email subject */
 "about.email.subject" = "Frame Grabber: Feedback";
 
-/* Container view button message when in-app purchase was not purchased. */
-"about.icecream.notpurchased" = "Himbeereis";
+/* Container view button message when in-app purchase was not purchased */
+"about.notpurchased.action" = "Himbeereis";
 
-/* Container view button message when in-app purchase was purchased. */
-"about.icecream.purchased" = "Danke";
+/* Container view button message when in-app purchase was purchased */
+"about.purchased.action" = "Danke";
 
 /* Version label with numerical version */
-"about.version" = "Version %@";
+"about.version.format" = "Version %@";
+
+/* Delete context action */
+"action.delete" = "Löschen";
+
+/* Favorite context action */
+"action.favorite" = "Favorit";
+
+/* Ok action */
+"action.ok" = "OK";
+
+/* Unfavorite context action */
+"action.unfavorite" = "Kein Favorit";
 
 /* Empty album message */
 "album.empty.any" = "Keine Videos oder Live Photos";
@@ -19,29 +31,38 @@
 /* No videos in album message */
 "album.empty.video" = "Keine Videos";
 
-/* Delete video context action menu */
-"album.menu.delete" = "Löschen";
-
-/* Favorite video context action menu */
-"album.menu.favorite" = "Favorit";
-
-/* Unfavorite video context action menu */
-"album.menu.unfavorite" = "Kein Favorit";
-
 /* Title for missing or deleted albums. */
-"album.title.missingOrDeleted" = "Album";
+"album.missing.title" = "Album";
 
 /* Title for the initial placeholder album until the user authorizes. */
-"album.title.unauthorized" = "Zuletzt";
+"album.unauthorized.title" = "Zuletzt";
 
 /* User photo albums section header */
-"albums.userAlbumsHeader" = "Meine Alben";
+"albums.header.useralbum" = "Meine Alben";
 
 /* No comment provided by engineer. */
-"alert.image-generation.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
+"alert.frameexport.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
 
 /* No comment provided by engineer. */
-"alert.image-generation.title" = "Export nicht möglich";
+"alert.frameexport.title" = "Export nicht möglich";
+
+/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
+"alert.iap.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
+
+/* Alert title: Purchasing failed. */
+"alert.iap.failed.title" = "Kauf nicht möglich";
+
+/* Alert message: Nothing to restore, the user has not previously purchased anything. */
+"alert.iap.restore.empty.message" = "Scheint, als hättest du noch kein Himbeereis gekauft.";
+
+/* Alert title: Nothing to restore, the user has not previously purchased anything. */
+"alert.iap.restore.empty.title" = "Keine vorherigen Käufe";
+
+/* Alert title: Restoring failed. */
+"alert.iap.restore.failed.title" = "Wiederherstellen nicht möglich";
+
+/* Alert message: The user is not authorized to make payments. */
+"alert.iap.unauthorized.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
 
 /* E-mail address */
 "alert.mail.message" = "Du kannst mich via %@ erreichen.";
@@ -50,114 +71,77 @@
 "alert.mail.title" = "Dieses Gerät kann keine E-Mails senden";
 
 /* No comment provided by engineer. */
-"alert.ok" = "OK";
-
-/* No comment provided by engineer. */
 "alert.playback.message" = "Es ist ein Fehler aufgetreten.";
 
 /* No comment provided by engineer. */
-"alert.playback.title" = "Objekt kann nicht abgespielt werden";
-
-/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"alert.purchase.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
-
-/* Alert title: Purchasing failed. */
-"alert.purchase.failed.title" = "Eis kann nicht gekauft werden";
-
-/* Alert message: The user is not authorized to make payments. */
-"alert.purchase.notallowed.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
-
-/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"alert.purchase.notfetched.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal";
-
-/* Alert title: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"alert.purchase.notfetched.title" = "Eis kann nicht gekauft werden";
-
-/* Alert message: Nothing to restore, the user has not previously purchased anything. */
-"alert.purchase.restore.empty.message" = "Scheint, als hättest du noch kein Himbeereis gekauft.";
-
-/* Alert title: Nothing to restore, the user has not previously purchased anything. */
-"alert.purchase.restore.empty.title" = "Keine vorherigen Käufe";
-
-/* Alert message: Restoring failed. */
-"alert.purchase.restore.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
-
-/* Alert title: Restoring failed. */
-"alert.purchase.restore.failed.title" = "Fehler beim Wiederherstellen";
-
-/* Alert message: The user is not authorized to restore purchases. */
-"alert.purchase.restore.notallowed.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
-
-/* Alert title: The user is not authorized to make payments.
-   Alert title: The user is not authorized to restore purchases. */
-"alert.purchase.restore.notallowed.title" = "Eis kann nicht gekauft werden";
+"alert.playback.title" = "Wiedergabe nicht möglich";
 
 /* No comment provided by engineer. */
-"alert.video-load.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
+"alert.videoload.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
 
 /* No comment provided by engineer. */
-"alert.video-load.title" = "Laden nicht möglich";
+"alert.videoload.title" = "Laden nicht möglich";
 
 /* Photo library authorization denied action */
-"authorization.deniedAction" = "Einstellungen Öffnen";
+"authorization.denied.action" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
-"authorization.deniedMessage" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
-
-/* Photo library authorization default action */
-"authorization.notDeterminedAction" = "Los Geht's";
-
-/* Photo library authorization default message */
-"authorization.notDeterminedMessage" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
+"authorization.denied.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
 
 /* Photo library authorization title */
 "authorization.title" = "Willkommen zu\nFrame Grabber";
 
-/* Ice cream message label when not purchased */
-"icecream.notpurchased.message" = "Falls du ganz begeistert bist oder Frame Grabbers weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nDu bekommst dafür das gute Gefühl, mir eine Freude bereitet zu haben. :)\n\nDanke, dass du meine App ausprobierst!";
+/* Photo library authorization default action */
+"authorization.undetermined.action" = "Los Geht's";
 
-/* Ice cream title label when not purchased */
-"icecream.notpurchased.title" = "Lecker";
-
-/* Ice cream purchase button label with price */
-"icecream.purchasebutton.price" = "Eis Ausgeben – %@";
-
-/* Ice cream purchase button label without price */
-"icecream.purchasebutton.withoutprice" = "Eis Ausgeben";
-
-/* Ice cream message label when purchased. */
-"icecream.purchased.message" = "Vielen Dank, dass du mich und meine App unterstützt!";
-
-/* Ice cream title label when purchased. */
-"icecream.purchased.title" = "Dankeschön";
+/* Photo library authorization default message */
+"authorization.undetermined.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
 
 /* Export options summary, metadata is included. */
-"more.exportOptions.metadataIncluded" = "Mit Metadaten";
+"detail.export.summary.metadata" = "Mit Metadaten";
 
 /* Export options summary, metadata is not included. */
-"more.exportOptions.metadataNotIncluded" = "Ohne Metadaten";
-
-/* Title of map item opened in Maps app. */
-"more.mapTitle" = "Dein Foto";
-
-/* Export settings compression quality section header */
-"more.section.compressionQuality" = "Kompressionsqualität";
-
-/* Export settings image format section header */
-"more.section.imageFormat" = "Bildformat";
-
-/* Detail view metadata section header */
-"more.section.metadata" = "Info";
+"detail.export.summary.nometadata" = "Ohne Metadaten";
 
 /* Detail view title for live photos */
-"more.title.livePhoto" = "Live Photo";
+"detail.livephoto.title" = "Live Photo";
+
+/* Title of map item opened in Maps app. */
+"detail.map.item.title" = "Deine Aufnahme";
+
+/* Detail view metadata section header */
+"detail.section.metadata.title" = "Info";
 
 /* Detail view title for videos */
-"more.title.video" = "Video";
+"detail.video.title" = "Video";
+
+/* Export settings compression quality section header */
+"exportoptions.section.compression.title" = "Kompressionsqualität";
+
+/* Export settings image format section header */
+"exportoptions.section.format.title" = "Bildformat";
+
+/* Ice cream message label when not purchased */
+"iap.notpurchased.message" = "Falls du ganz begeistert bist oder Frame Grabbers weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nDu bekommst dafür das gute Gefühl, mir eine Freude bereitet zu haben. :)\n\nDanke, dass du meine App ausprobierst!";
+
+/* Ice cream title label when not purchased */
+"iap.notpurchased.title" = "Lecker";
+
+/* Ice cream purchase button label without price */
+"iap.purchase.noprice.action" = "Eis Ausgeben";
+
+/* Ice cream purchase button label with price */
+"iap.purchase.price.action.format" = "Eis Ausgeben – %@";
+
+/* Ice cream message label when purchased. */
+"iap.purchased.message" = "Vielen Dank, dass du mich und meine App unterstützt!";
+
+/* Ice cream title label when purchased. */
+"iap.purchased.title" = "Dankeschön";
 
 /* Frame generation progress title. */
-"progress.title.frameExport" = "Exportieren…";
+"progress.frameExport.title" = "Exportieren…";
 
 /* iCloud download progress title. */
-"progress.title.icloud" = "Herunterladen…";
+"progress.icloud.title" = "Herunterladen…";
 

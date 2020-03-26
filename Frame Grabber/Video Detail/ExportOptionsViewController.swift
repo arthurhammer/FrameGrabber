@@ -108,8 +108,8 @@ extension ExportOptionsViewController.Section {
     var title: String? {
         switch self {
         case .metadata: return nil
-        case .format: return NSLocalizedString("more.section.imageFormat", value: "Image Format", comment: "Export settings image format section header")
-        case .compressionQuality: return NSLocalizedString("more.section.compressionQuality", value: "Compression Quality", comment: "Export settings compression quality section header")
+        case .format: return UserText.exportImageFormatSection
+        case .compressionQuality: return UserText.exportCompressionQualitySection
         }
     }
 }

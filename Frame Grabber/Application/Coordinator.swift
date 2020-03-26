@@ -51,7 +51,7 @@ class Coordinator: NSObject {
     private func pushAlbumViewController(animated: Bool) {
         guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else { fatalError("Wrong controller id or type") }
         albumViewController.navigationItem.largeTitleDisplayMode = .always
-        albumViewController.defaultTitle = NSLocalizedString("album.title.unauthorized", value: "Recents", comment: "Title for the initial placeholder album until the user authorizes.")
+        albumViewController.defaultTitle = UserText.albumUnauthorizedTitle
         rootNavigationController.pushViewController(albumViewController, animated: animated)
     }
 

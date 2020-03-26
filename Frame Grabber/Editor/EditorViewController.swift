@@ -234,7 +234,7 @@ private extension EditorViewController {
         case .cancelled, .progressed:
             break
         case .failed:
-            presentOnTop(UIAlertController.imageGenerationFailed())
+            presentOnTop(UIAlertController.frameExportFailed())
         case .succeeded(let urls):
             share(urls: urls)
         }
@@ -258,8 +258,8 @@ private extension EditorViewController {
 
         var title: String {
             switch self {
-            case .download: return NSLocalizedString("progress.title.icloud", value: "Downloading…", comment: "iCloud download progress title.")
-            case .export: return NSLocalizedString("progress.title.frameExport", value: "Exporting…", comment: "Frame generation progress title.")
+            case .download: return UserText.editoriCloudProgress
+            case .export: return UserText.editorExportProgress
             }
         }
     }

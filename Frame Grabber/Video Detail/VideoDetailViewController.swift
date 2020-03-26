@@ -47,7 +47,7 @@ class VideoDetailViewController: UITableViewController {
     func openLocationInMaps() {
         guard let location = videoController?.asset.location else { return }
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
-        item.name = NSLocalizedString("more.mapTitle", value: "Your Photo", comment: "Title of map item opened in Maps app.")
+        item.name = UserText.detailMapItem
         item.openInMaps(launchOptions: nil)
     }
 
@@ -93,9 +93,7 @@ class VideoDetailViewController: UITableViewController {
      }
 
     private func updateExportOptions() {
-        let metadataSummary = settings.includeMetadata
-            ? NSLocalizedString("more.exportOptions.metadataIncluded", value: "With Metadata", comment: "Export options summary, metadata is included.")
-            : NSLocalizedString("more.exportOptions.metadataNotIncluded", value: "No metadata", comment: "Export options summary, metadata is not included.")
+        let metadataSummary = settings.includeMetadata ? UserText.detailMetadataIncluded : UserText.detailMetadataExcluded
 
         var formatSummary: String
 
@@ -105,8 +103,7 @@ class VideoDetailViewController: UITableViewController {
             formatSummary = settings.imageFormat.displayString
         }
 
-        let messageFormat = NSLocalizedString("more.exportOptions.summary", value: "%@ • %@", comment: "Export options summary: Image format and metadata")
-        imageFormatLabel.text = String.localizedStringWithFormat(messageFormat, formatSummary, metadataSummary)
+        imageFormatLabel.text = String.localizedStringWithFormat(UserText.detailExportSummaryFormat, formatSummary, metadataSummary)
         tableView.reloadData()
     }
 
@@ -119,9 +116,7 @@ class VideoDetailViewController: UITableViewController {
         let asset = videoController?.asset
         let video = videoController?.video
 
-        title = (asset?.isLivePhoto == true)
-            ? NSLocalizedString("more.title.livePhoto", value: "Live Photo", comment: "Detail view title for live photos")
-            : NSLocalizedString("more.title.video", value: "Video", comment: "Detail view title for videos")
+        title = (asset?.isLivePhoto == true) ? UserText.detailLivePhotoTitle : UserText.detailVideoTitle
 
         frameDimensionsLabel.text = video?.dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
         livePhotoDimensionsLabel.text = (asset?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
@@ -169,7 +164,7 @@ extension VideoDetailViewController.Section {
     var title: String? {
         switch self {
         case .options: return nil
-        case .metadata: return NSLocalizedString("more.section.metadata", value: "Info", comment: "Detail view metadata section header")
+        case .metadata: return UserText.detailMetadataSection
         case .location: return nil
         }
     }

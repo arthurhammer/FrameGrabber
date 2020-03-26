@@ -104,18 +104,13 @@ class IceCreamViewController: UIViewController {
     }
 
     private func updateViews() {
-        let hasPurchasedTitle = NSLocalizedString("icecream.purchased.title", value: "Thank You", comment: "Ice cream title label when purchased.")
-        let hasPurchasedMessage = NSLocalizedString("icecream.purchased.message", value: "Thank you so much for supporting me and my app!", comment: "Ice cream message label when purchased.")
-        let notHasPurchasedTitle = NSLocalizedString("icecream.notpurchased.title", value: "Yummy", comment: "Ice cream title label when not purchased")
-        let notHasPurchasedMessage = NSLocalizedString("icecream.notpurchased.message", value: "If you want to go the extra mile or support future development, you can send me this delicious piece of raspberry ice cream in form of a tip.\n\nAs a reward, you get the satisfaction of knowing you made my day. :)\n\nThank you for checking out my app!", comment: "Ice cream message label when not purchased")
-
         switch state() {
 
         case .fetchingProducts, .purchasing, .restoring:
             purchaseButton.isShowingActivity = true
             navigationItem.rightBarButtonItem?.isEnabled = false
-            titleLabel.text = notHasPurchasedTitle
-            messageLabel.text = notHasPurchasedMessage
+            titleLabel.text = UserText.IAPNotPurchasedTitle
+            messageLabel.text = UserText.IAPNotPurchasedMessage
 
         case .productsNotFetched, .readyToPurchase:
             purchaseButton.isShowingActivity = false
@@ -123,21 +118,20 @@ class IceCreamViewController: UIViewController {
 
             if let product = fetchedProduct {
                 let price = formattedPrice(for: product)
-                let format = NSLocalizedString("icecream.purchasebutton.price", value: "Send Ice Cream – %@", comment: "Ice cream purchase button label with price")
-                purchaseButton.dormantTitle = String.localizedStringWithFormat(format, price)
+                purchaseButton.dormantTitle = String.localizedStringWithFormat(UserText.IAPActionWithPriceFormat, price)
             } else {
-                purchaseButton.dormantTitle = NSLocalizedString("icecream.purchasebutton.withoutprice", value: "Send Ice Cream", comment: "Ice cream purchase button label without price")
+                purchaseButton.dormantTitle = UserText.IAPActionWithoutPrice
             }
 
-            titleLabel.text = notHasPurchasedTitle
-            messageLabel.text = notHasPurchasedMessage
+            titleLabel.text = UserText.IAPNotPurchasedTitle
+            messageLabel.text = UserText.IAPNotPurchasedMessage
 
         case .purchased:
             purchaseButton.dormantTitle = nil
             purchaseButton.isHidden = true
             navigationItem.rightBarButtonItem = nil
-            titleLabel.text = hasPurchasedTitle
-            messageLabel.text = hasPurchasedMessage
+            titleLabel.text = UserText.IAPPurchasedTitle
+            messageLabel.text = UserText.IAPPurchasedMessage
         }
     }
 

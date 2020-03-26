@@ -61,8 +61,7 @@ extension NumberFormatter {
     /// Includes units.
     func string(fromFrameRate frameRate: Float) -> String? {
         guard let formattedFps = string(from: frameRate as NSNumber) else { return nil }
-        let format = NSLocalizedString("numberFormatter.frameRate",  value: "%@ fps", comment: "Video frame rate with unit")
-        return String.localizedStringWithFormat(format, formattedFps)
+        return String.localizedStringWithFormat(UserText.formatterFrameRateFormat, formattedFps)
     }
 
     /// Includes units.
@@ -70,8 +69,7 @@ extension NumberFormatter {
         guard let w = string(from: abs(Int(size.width)) as NSNumber),
             let h = string(from: abs(Int(size.height)) as NSNumber) else { return nil }
 
-        let format = NSLocalizedString("numberFormatter.videoDimensions", value: "%@ × %@ px", comment: "Video pixel size with unit")
-        return String.localizedStringWithFormat(format, w, h)
+        return String.localizedStringWithFormat(UserText.formatterDimensionsFormat, w, h)
     }
 }
 

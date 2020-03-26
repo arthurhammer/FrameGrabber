@@ -25,6 +25,8 @@
 		001888F523FDBCA800A49500 /* VideoTypeFilterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001888F423FDBCA800A49500 /* VideoTypeFilterControl.swift */; };
 		001888F623FDBCA800A49500 /* VideoTypeFilterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001888F423FDBCA800A49500 /* VideoTypeFilterControl.swift */; };
 		001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* ProgressView.swift */; };
+		001CBD94242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
+		001CBD95242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
 		001E825D2403B0A300388E62 /* AboutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825C2403B0A300388E62 /* AboutContainerViewController.swift */; };
 		001E825E2403B0AB00388E62 /* AboutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825C2403B0A300388E62 /* AboutContainerViewController.swift */; };
 		001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825F2403D7ED00388E62 /* ActivityButton.swift */; };
@@ -230,6 +232,7 @@
 		001AA1841FB4977100A00BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		001AA1991FB498C700A00BB9 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		001CBD93242BB7CE00625685 /* UserText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserText.swift; sourceTree = "<group>"; };
 		001E825C2403B0A300388E62 /* AboutContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutContainerViewController.swift; sourceTree = "<group>"; };
 		001E825F2403D7ED00388E62 /* ActivityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButton.swift; sourceTree = "<group>"; };
 		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
@@ -596,6 +599,7 @@
 				0054936323E5631B00F3E684 /* About.swift */,
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
+				001CBD93242BB7CE00625685 /* UserText.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -850,6 +854,7 @@
 				0054936B23E852E200F3E684 /* TimeSlider.swift in Sources */,
 				0016410123E9B8440071687B /* ScrubbingSlider.swift in Sources */,
 				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
+				001CBD95242BB7CE00625685 /* UserText.swift in Sources */,
 				009E1864233DD40B008100D5 /* VideoDetailViewController.swift in Sources */,
 				00730ED3214FEA5A001A6EA7 /* Album.swift in Sources */,
 				00730ED4214FEA5A001A6EA7 /* AlbumCollectionViewDataSource.swift in Sources */,
@@ -948,6 +953,7 @@
 				0054936A23E852DE00F3E684 /* TimeSlider.swift in Sources */,
 				0016410023E9B8440071687B /* ScrubbingSlider.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
+				001CBD94242BB7CE00625685 /* UserText.swift in Sources */,
 				009E1863233DD403008100D5 /* VideoDetailViewController.swift in Sources */,
 				0015537F2129C8CF00F58CEE /* Album.swift in Sources */,
 				0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */,

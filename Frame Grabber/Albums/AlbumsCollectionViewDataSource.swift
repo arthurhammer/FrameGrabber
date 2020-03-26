@@ -109,7 +109,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
                               isLoading: albumsDataSource.isLoadingSmartAlbums),
 
             AlbumsSectionInfo(type: .userAlbum,
-                              title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
+                              title: UserText.albumsUserAlbumsHeader,
                               albumCount: userAlbums.count,
                               isLoading: albumsDataSource.isLoadingUserAlbums)
         ]

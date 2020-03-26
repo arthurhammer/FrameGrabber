@@ -10,7 +10,7 @@ class AlbumViewController: UICollectionViewController {
     }
 
     /// The title that will be used when album is `nil`
-    var defaultTitle = NSLocalizedString("album.title.missingOrDeleted", value: "Album", comment: "Title for missing or deleted albums.") {
+    var defaultTitle = UserText.albumDefaultTitle {
         didSet { updateViews() }
     }
 
