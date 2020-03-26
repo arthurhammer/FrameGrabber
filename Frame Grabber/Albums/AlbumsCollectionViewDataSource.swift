@@ -16,15 +16,12 @@ struct AlbumsSectionInfo: Hashable {
 
 class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsSectionInfo, AnyAlbum> {
 
+    @Published var searchTerm: String?
     var imageOptions: PHImageManager.ImageOptions
 
-    private var sections = [AlbumsSectionInfo]()
     private let albumsDataSource: AlbumsDataSource
     private let imageManager: PHImageManager
-
-    private(set) lazy var searcher = AlbumsSearcher { [weak self] _ in
-        self?.updateData()
-    }
+    private var bindings = Set<AnyCancellable>()
 
     init(collectionView: UICollectionView,
          albumsDataSource: AlbumsDataSource,
@@ -38,28 +35,26 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         self.imageManager = imageManager
 
         super.init(collectionView: collectionView, cellProvider: cellProvider)
+
         self.supplementaryViewProvider = sectionHeaderProvider
 
         // Otherwise, synchronously asks the view controller for cells and headers before
-        // the initializer even returns...
+        // the initializer even returns.
         DispatchQueue.main.async {
+            self.configureSearch()
             self.configureDataSource()
         }
     }
 
-    // MARK: Data
+    // MARK: - Accessing Data
 
     func section(at index: Int) -> AlbumsSectionInfo {
-        sections[index]
+        snapshot().sectionIdentifiers[index]
     }
 
     func album(at indexPath: IndexPath) -> Album {
-        switch AlbumsSection(indexPath.section)! {
-        case .smartAlbum:
-            return albumsDataSource.smartAlbums[indexPath.item]
-        case .userAlbum:
-            return searcher.filtered[indexPath.item]
-        }
+        guard let album = itemIdentifier(for: indexPath) else { fatalError("Invalid index path.") }
+        return album
     }
 
     func fetchUpdate(forAlbumAt indexPath: IndexPath, containing videoType: VideoType) -> FetchedAlbum? {
@@ -73,33 +68,50 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
     }
 
+    // MARK: - Updating Data
+
+    private func configureSearch() {
+        $searchTerm
+            .dropFirst()
+            .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: true)
+            .map { $0?.trimmedOrNil }
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                self?.updateData()
+            }
+            .store(in: &bindings)
+    }
+
     private func configureDataSource() {
-        albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in
-            self?.updateData()
-        }
+        albumsDataSource
+            .$smartAlbums
+            .sink { [weak self] _ in
+                self?.updateData()
+            }.store(in: &bindings)
 
-        albumsDataSource.userAlbumsChangedHandler = { [weak self] albums in
-            self?.searcher.albums = albums
-        }
+        albumsDataSource
+            .$userAlbums
+            .sink { [weak self] albums in
+                self?.updateData()
+            }.store(in: &bindings)
 
-        searcher.albums = albumsDataSource.userAlbums
         updateData()
     }
 
     private func updateData() {
         let smartAlbums = albumsDataSource.smartAlbums
-        let userAlbums = searcher.filtered
+        let userAlbums = albumsDataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
 
-        sections = [
+        let sections = [
             AlbumsSectionInfo(type: .smartAlbum,
                               title: nil,
                               albumCount: smartAlbums.count,
-                              isLoading: !albumsDataSource.didInitializeSmartAlbums),
+                              isLoading: albumsDataSource.isLoadingSmartAlbums),
 
             AlbumsSectionInfo(type: .userAlbum,
                               title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
                               albumCount: userAlbums.count,
-                              isLoading: !albumsDataSource.didInitializeUserAlbums)
+                              isLoading: albumsDataSource.isLoadingUserAlbums)
         ]
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
@@ -109,5 +121,18 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         snapshot.appendItems(userAlbums, toSection: sections[1])
 
         apply(snapshot, animatingDifferences: true)
+    }
+}
+
+// MARK: - Utility
+
+private extension Array {
+
+    func searched(for searchTerm: String?, by key: (Element) -> String?) -> Self {
+        guard let searchTerm = searchTerm?.trimmedOrNil else { return self }
+
+        return filter {
+            key($0)?.range(of: searchTerm, options: [.diacriticInsensitive, .caseInsensitive]) != nil
+        }
     }
 }

@@ -71,14 +71,13 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionView?.dataSource = collectionViewDataSource
-        navigationItem.searchController?.searchResultsUpdater = collectionViewDataSource?.searcher
     }
 
     private func configureSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = collectionViewDataSource?.searcher
+        searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
@@ -131,7 +130,11 @@ class AlbumsViewController: UICollectionViewController {
     }
 }
 
-extension AlbumsViewController: UISearchBarDelegate {
+extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        collectionViewDataSource?.searchTerm = searchController.searchBar.text
+    }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         stopSearchingWhenSearchBarEmpty(searchBar)

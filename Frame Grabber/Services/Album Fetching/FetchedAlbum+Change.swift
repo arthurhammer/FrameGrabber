@@ -7,7 +7,9 @@ struct FetchedAlbumChangeDetails {
     let assetCollectionChanges: PHObjectChangeDetails<PHAssetCollection>?
     /// nil if album contents did not change.
     let fetchResultChanges: PHFetchResultChangeDetails<PHAsset>?
+}
 
+extension FetchedAlbumChangeDetails {
     var albumWasDeleted: Bool {
         albumAfterChanges == nil
     }

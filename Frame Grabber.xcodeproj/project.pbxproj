@@ -17,8 +17,6 @@
 		00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
 		0010CF46240783DA00DE0C31 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF45240783DA00DE0C31 /* String.swift */; };
 		0010CF47240783DA00DE0C31 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF45240783DA00DE0C31 /* String.swift */; };
-		0010CF492407956E00DE0C31 /* AlbumsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF482407956E00DE0C31 /* AlbumsSearcher.swift */; };
-		0010CF4A2407956E00DE0C31 /* AlbumsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF482407956E00DE0C31 /* AlbumsSearcher.swift */; };
 		00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */; };
 		00142EA923EB1766000BEC63 /* ZoomPopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */; };
 		0015537F2129C8CF00F58CEE /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015537E2129C8CF00F58CEE /* Album.swift */; };
@@ -219,7 +217,6 @@
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		00109CCB23FD239400B79F58 /* AlbumIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumIcons.swift; sourceTree = "<group>"; };
 		0010CF45240783DA00DE0C31 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = "Frame Grabber/Utilities/String.swift"; sourceTree = SOURCE_ROOT; };
-		0010CF482407956E00DE0C31 /* AlbumsSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsSearcher.swift; sourceTree = "<group>"; };
 		00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPopTransition.swift; sourceTree = "<group>"; };
 		0015537E2129C8CF00F58CEE /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		001640FF23E9B8440071687B /* ScrubbingSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScrubbingSlider.swift; path = "Frame Grabber/Views/ScrubbingSlider.swift"; sourceTree = SOURCE_ROOT; };
@@ -540,7 +537,6 @@
 			children = (
 				00A9DF5121273FA000778885 /* AlbumsViewController.swift */,
 				00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */,
-				0010CF482407956E00DE0C31 /* AlbumsSearcher.swift */,
 				00A9DF542127635C00778885 /* AlbumCell.swift */,
 				00F3C254213046CD0030B7EC /* AlbumsHeader.swift */,
 				00AA20222136C93100084B08 /* AlbumsLayout.swift */,
@@ -795,7 +791,6 @@
 				001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00730EAC214FEA5A001A6EA7 /* FetchedAlbum.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumsHeader.swift in Sources */,
-				0010CF4A2407956E00DE0C31 /* AlbumsSearcher.swift in Sources */,
 				00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */,
 				001888F623FDBCA800A49500 /* VideoTypeFilterControl.swift in Sources */,
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
@@ -894,7 +889,6 @@
 				001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				0054936723E5772D00F3E684 /* UISlider.swift in Sources */,
 				00F3C257213058FE0030B7EC /* FetchedAlbum.swift in Sources */,
-				0010CF492407956E00DE0C31 /* AlbumsSearcher.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumsHeader.swift in Sources */,
 				001888F523FDBCA800A49500 /* VideoTypeFilterControl.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle.swift in Sources */,

@@ -1,12 +1,24 @@
 import Photos
+import Combine
 
 extension AlbumsDataSource {
+
     static let defaultSmartAlbumTypes: [PHAssetCollectionSubtype] = [
         .smartAlbumUserLibrary,
         .smartAlbumFavorites,
         .smartAlbumTimelapses,
         .smartAlbumSlomoVideos
     ]
+
+    struct SmartAlbumConfiguration {
+        let types: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes
+        let assetFetchOptions: PHFetchOptions = .assets(forAlbumType: .smartAlbum, videoType: .any)
+    }
+
+    struct UserAlbumConfiguration {
+        let albumFetchOptions: PHFetchOptions = .userAlbums()
+        let assetFetchOptions: PHFetchOptions = .assets(forAlbumType: .album, videoType: .any)
+    }
 }
 
 /// Data source for smart albums and user albums in the user's photo library.
@@ -15,33 +27,18 @@ extension AlbumsDataSource {
 /// changes.
 class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
-    // MARK: Smart Albums
+    @Published var smartAlbums = [AnyAlbum]()
+    @Published var isLoadingSmartAlbums = true
 
-    private(set) var smartAlbums = [AnyAlbum]() {
-        didSet { smartAlbumsChangedHandler?(smartAlbums) }
-    }
+    @Published var userAlbums = [AnyAlbum]()
+    @Published var isLoadingUserAlbums = true
 
-    /// The handler is called on the main thread.
-    var smartAlbumsChangedHandler: (([AnyAlbum]) -> ())?
-    private(set) var didInitializeSmartAlbums = false
+    private let updateQueue: DispatchQueue
+    private let photoLibrary: PHPhotoLibrary
 
-    // MARK: User Albums
-
-    /// The handler is called on the main thread.
-    var userAlbumsChangedHandler: (([AnyAlbum]) -> ())?
-    private(set) var didInitializeUserAlbums = false
-
-    private(set) var userAlbums = [AnyAlbum]() {
-        didSet { userAlbumsChangedHandler?(userAlbums) }
-    }
-
-    // MARK: Lifecycle
-
-    init(smartAlbumTypes: [PHAssetCollectionSubtype] = AlbumsDataSource.defaultSmartAlbumTypes,
-         smartAlbumAssetFetchOptions: PHFetchOptions = .assets(forAlbumType: .smartAlbum, videoType: .any),
-         userAlbumFetchOptions: PHFetchOptions = .userAlbums(),
-         userAlbumAssetFetchOptions: PHFetchOptions = .assets(forAlbumType: .album, videoType: .any),
-         updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self), qos: .userInitiated),
+    init(smartAlbumConfig: SmartAlbumConfiguration = .init(),
+         userAlbumConfig: UserAlbumConfiguration = .init(),
+         updateQueue: DispatchQueue = .init(label: AlbumsDataSource.name, qos: .userInitiated),
          photoLibrary: PHPhotoLibrary = .shared()) {
 
         self.updateQueue = updateQueue
@@ -51,8 +48,8 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
         photoLibrary.register(self)
 
-        initSmartAlbums(with: smartAlbumTypes, assetFetchOptions: smartAlbumAssetFetchOptions)
-        initUserAlbums(with: userAlbumFetchOptions, assetFetchOptions: userAlbumAssetFetchOptions)
+        fetchSmartAlbums(with: smartAlbumConfig)
+        fetchUserAlbums(with: userAlbumConfig)
     }
 
     deinit {
@@ -64,11 +61,6 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
         updateUserAlbums(with: change)
     }
 
-    // MARK: - Private
-
-    private let updateQueue: DispatchQueue
-    private let photoLibrary: PHPhotoLibrary
-
     // MARK: Updating Smart Albums
 
     /// `PHAssetCollection` instances of type smart album don't report any photo library
@@ -78,14 +70,14 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
         didSet { smartAlbums = fetchedSmartAlbums.map(AnyAlbum.init) }
     }
 
-    private func initSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions) {
+    private func fetchSmartAlbums(with config: SmartAlbumConfiguration) {
         updateQueue.async { [weak self] in
-            let smartAlbums = FetchedAlbum.fetchSmartAlbums(with: types, assetFetchOptions: assetFetchOptions)
+            let smartAlbums = FetchedAlbum.fetchSmartAlbums(with: config.types, assetFetchOptions: config.assetFetchOptions)
 
             // Instance vars synchronized on main. `sync` to block current task until done
             // so subsequent tasks start with correct data.
             DispatchQueue.main.sync {
-                self?.didInitializeSmartAlbums = true
+                self?.isLoadingSmartAlbums = false
                 self?.fetchedSmartAlbums = smartAlbums
             }
         }
@@ -117,16 +109,16 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
         didSet { userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty } }
     }
 
-    private func initUserAlbums(with albumFetchOptions: PHFetchOptions, assetFetchOptions: PHFetchOptions) {
+    private func fetchUserAlbums(with config: UserAlbumConfiguration) {
         updateQueue.async { [weak self] in
-            let fetchResult = PHAssetCollection.fetchUserAlbums(with: albumFetchOptions)
+            let fetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: config.albumFetchOptions)
 
             let userAlbums = MappedFetchResult(fetchResult: fetchResult) {
-                AnyAlbum(album: FetchedAlbum.fetchAssets(in: $0, options: assetFetchOptions))
+                AnyAlbum(album: FetchedAlbum.fetchAssets(in: $0, options: config.assetFetchOptions))
             }
 
             DispatchQueue.main.sync {
-                self?.didInitializeUserAlbums = true
+                self?.isLoadingUserAlbums = false
                 self?.userAlbumsFetchResult = userAlbums
             }
         }
@@ -141,7 +133,8 @@ class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
             }
 
             guard let changes = change.changeDetails(for: userAlbums.fetchResult) else { return }
-            let updatedAlbums = applyIncrementalChanges(changes, to: userAlbums)
+
+            let updatedAlbums = userAlbums.applyChanges(changes)
 
             DispatchQueue.main.sync {
                 self.userAlbumsFetchResult = updatedAlbums
