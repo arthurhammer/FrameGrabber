@@ -1,3 +1,4 @@
+import PhotoAlbums
 import UIKit
 
 class Coordinator: NSObject {
@@ -60,11 +61,12 @@ class Coordinator: NSObject {
         // authorization dialogs.
         let type = currentAlbumViewController?.settings.videoType ?? .any
         currentAlbumViewController?.album = fetchInitialAlbum(with: type)
-        albumsViewController.dataSource = AlbumsDataSource()
+
+        albumsViewController.dataSource = AlbumsDataSource.default()
     }
 
     private func fetchInitialAlbum(with videoType: VideoType) -> FetchedAlbum? {
-        let albumType = AlbumsDataSource.defaultSmartAlbumTypes.first ?? .smartAlbumUserLibrary
+        let albumType = AlbumsDataSource.smartAlbumTypes.first ?? .smartAlbumUserLibrary
         return FetchedAlbum.fetchSmartAlbums(with: [albumType], assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoType: videoType)).first
     }
 }

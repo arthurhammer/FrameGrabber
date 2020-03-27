@@ -1,6 +1,7 @@
-import UIKit
-import Photos
 import Combine
+import PhotoAlbums
+import Photos
+import UIKit
 
 class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
@@ -154,7 +155,7 @@ extension AlbumCollectionViewDataSource {
 
         self.album = changeDetails.albumAfterChanges
 
-        guard !changeDetails.albumWasDeleted else {
+        guard changeDetails.albumAfterChanges != nil else {
             imageManager.stopCachingImagesForAllAssets()
             albumDeletedHandler?()
             return

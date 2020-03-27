@@ -1,3 +1,4 @@
+import PhotoAlbums
 import UIKit
 
 class AlbumsViewController: UICollectionViewController {
@@ -82,7 +83,7 @@ class AlbumsViewController: UICollectionViewController {
         navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
 
-    private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
+    private func cell(for album: AnyAlbum, at indexPath: IndexPath) -> UICollectionViewCell {
         guard let section = AlbumsSection(indexPath.section),
             let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: section.cellIdentifier, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type or unknown section.") }
 
@@ -90,7 +91,7 @@ class AlbumsViewController: UICollectionViewController {
         return cell
     }
 
-    private func configure(cell: AlbumCell, for album: Album, section: AlbumsSection) {
+    private func configure(cell: AlbumCell, for album: AnyAlbum, section: AlbumsSection) {
         cell.identifier = album.id
         cell.titleLabel.text = album.title
         cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
@@ -104,7 +105,7 @@ class AlbumsViewController: UICollectionViewController {
         }
     }
 
-    private func loadThumbnail(for cell: AlbumCell, album: Album) {
+    private func loadThumbnail(for cell: AlbumCell, album: AnyAlbum) {
         let albumId = album.id
         cell.identifier = albumId
 

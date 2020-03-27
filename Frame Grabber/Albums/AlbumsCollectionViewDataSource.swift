@@ -1,6 +1,7 @@
-import UIKit
-import Photos
 import Combine
+import PhotoAlbums
+import Photos
+import UIKit
 
 enum AlbumsSection: Int {
     case smartAlbum
@@ -52,7 +53,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         snapshot().sectionIdentifiers[index]
     }
 
-    func album(at indexPath: IndexPath) -> Album {
+    func album(at indexPath: IndexPath) -> AnyAlbum {
         guard let album = itemIdentifier(for: indexPath) else { fatalError("Invalid index path.") }
         return album
     }
@@ -63,7 +64,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
     }
 
-    func thumbnail(for album: Album, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
+    func thumbnail(for album: AnyAlbum, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
         return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
     }

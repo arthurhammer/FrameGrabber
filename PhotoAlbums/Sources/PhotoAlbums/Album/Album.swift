@@ -1,29 +1,26 @@
 import Photos
 
-/// A type that provides a unique id.
-protocol PhotosIdentifiable {
-    var id: String { get }
-}
-
 /// A type that represents a PhotoKit album.
-protocol Album: PhotosIdentifiable {
+public protocol Album: Identifiable, Hashable {
     var assetCollection: PHAssetCollection { get }
+    var id: String { get }
     var title: String? { get }
     var count: Int { get }
+    /// The asset that provides the album's thumbnail.
     var keyAsset: PHAsset? { get }
 }
 
 extension Album {
 
-    var id: String {
+    public var id: String {
         assetCollection.localIdentifier
     }
 
-    var title: String? {
+    public var title: String? {
         assetCollection.localizedTitle
     }
 
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         count == 0
     }
 }

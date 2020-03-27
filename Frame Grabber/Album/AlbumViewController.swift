@@ -1,5 +1,6 @@
-import UIKit
+import PhotoAlbums
 import Photos
+import UIKit
 
 class AlbumViewController: UICollectionViewController {
 
