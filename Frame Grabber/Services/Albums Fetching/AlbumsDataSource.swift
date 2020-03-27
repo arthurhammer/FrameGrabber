@@ -27,11 +27,11 @@ extension AlbumsDataSource {
 /// changes.
 class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
-    @Published var smartAlbums = [AnyAlbum]()
-    @Published var isLoadingSmartAlbums = true
+    @Published private(set) var smartAlbums = [AnyAlbum]()
+    @Published private(set) var isLoadingSmartAlbums = true
 
-    @Published var userAlbums = [AnyAlbum]()
-    @Published var isLoadingUserAlbums = true
+    @Published private(set) var userAlbums = [AnyAlbum]()
+    @Published private(set) var isLoadingUserAlbums = true
 
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary
