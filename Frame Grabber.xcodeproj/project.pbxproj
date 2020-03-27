@@ -185,6 +185,7 @@
 		00E7135A2125E2940052EAF8 /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* CGImage.swift */; };
 		00EAFD9A205ED32B0031F8A2 /* EditorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */; };
 		00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */; };
+		00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ECC734242E5BCC00B95E32 /* Frame_Grabber_Tests.swift */; };
 		00EDF97823409EC800FA0F48 /* VideoDetailSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00EDF97723409EC800FA0F48 /* VideoDetailSectionHeader.xib */; };
 		00EDF97923409ED900FA0F48 /* VideoDetailSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00EDF97723409EC800FA0F48 /* VideoDetailSectionHeader.xib */; };
 		00EDF97B2340A17400FA0F48 /* VideoDetailSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EDF97A2340A17400FA0F48 /* VideoDetailSectionHeader.swift */; };
@@ -198,6 +199,23 @@
 		00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
 		00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00ECC737242E5BCC00B95E32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 001AA16D1FB4977100A00BB9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 009C65621FBF32A600DB25A6;
+			remoteInfo = "Frame Grabber";
+		};
+		00ECC73C242E5BD800B95E32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 001AA16D1FB4977100A00BB9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00730EA4214FEA5A001A6EA7;
+			remoteInfo = "Frame Grabber Dev";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
@@ -297,6 +315,9 @@
 		00E82088214FEBC000460FD1 /* Info-Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dev.plist"; sourceTree = "<group>"; };
 		00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbar.swift; sourceTree = "<group>"; };
 		00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSeeker.swift; sourceTree = "<group>"; };
+		00ECC732242E5BCC00B95E32 /* Frame Grabber Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Frame Grabber Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00ECC734242E5BCC00B95E32 /* Frame_Grabber_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame_Grabber_Tests.swift; sourceTree = "<group>"; };
+		00ECC736242E5BCC00B95E32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00EDF97723409EC800FA0F48 /* VideoDetailSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoDetailSectionHeader.xib; sourceTree = "<group>"; };
 		00EDF97A2340A17400FA0F48 /* VideoDetailSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailSectionHeader.swift; sourceTree = "<group>"; };
 		00EDF97E2340A28900FA0F48 /* RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RawRepresentable.swift; path = "Frame Grabber/Utilities/RawRepresentable.swift"; sourceTree = SOURCE_ROOT; };
@@ -325,6 +346,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		00ECC72F242E5BCC00B95E32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -333,6 +361,7 @@
 			children = (
 				001A6C4B20600E1A00B91F3A /* README.md */,
 				001AA1771FB4977100A00BB9 /* Frame Grabber */,
+				00ECC733242E5BCC00B95E32 /* Frame Grabber Tests */,
 				001AA1761FB4977100A00BB9 /* Products */,
 				0073D56124000E99008CABC3 /* Frameworks */,
 			);
@@ -343,6 +372,7 @@
 			children = (
 				009C65631FBF32A600DB25A6 /* Frame Grabber.app */,
 				00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */,
+				00ECC732242E5BCC00B95E32 /* Frame Grabber Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -589,6 +619,15 @@
 			path = Playback;
 			sourceTree = "<group>";
 		};
+		00ECC733242E5BCC00B95E32 /* Frame Grabber Tests */ = {
+			isa = PBXGroup;
+			children = (
+				00ECC734242E5BCC00B95E32 /* Frame_Grabber_Tests.swift */,
+				00ECC736242E5BCC00B95E32 /* Info.plist */,
+			);
+			path = "Frame Grabber Tests";
+			sourceTree = "<group>";
+		};
 		00EDF97C2340A17A00FA0F48 /* Video Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -645,13 +684,32 @@
 			productReference = 009C65631FBF32A600DB25A6 /* Frame Grabber.app */;
 			productType = "com.apple.product-type.application";
 		};
+		00ECC731242E5BCC00B95E32 /* Frame Grabber Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00ECC739242E5BCC00B95E32 /* Build configuration list for PBXNativeTarget "Frame Grabber Tests" */;
+			buildPhases = (
+				00ECC72E242E5BCC00B95E32 /* Sources */,
+				00ECC72F242E5BCC00B95E32 /* Frameworks */,
+				00ECC730242E5BCC00B95E32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00ECC738242E5BCC00B95E32 /* PBXTargetDependency */,
+				00ECC73D242E5BD800B95E32 /* PBXTargetDependency */,
+			);
+			name = "Frame Grabber Tests";
+			productName = "Frame Grabber Tests";
+			productReference = 00ECC732242E5BCC00B95E32 /* Frame Grabber Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		001AA16D1FB4977100A00BB9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Arthur Hammer";
 				TargetAttributes = {
@@ -663,6 +721,10 @@
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
+					};
+					00ECC731242E5BCC00B95E32 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 00730EA4214FEA5A001A6EA7;
 					};
 				};
 			};
@@ -682,6 +744,7 @@
 			targets = (
 				009C65621FBF32A600DB25A6 /* Frame Grabber */,
 				00730EA4214FEA5A001A6EA7 /* Frame Grabber Dev */,
+				00ECC731242E5BCC00B95E32 /* Frame Grabber Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -716,6 +779,13 @@
 				00EDF97823409EC800FA0F48 /* VideoDetailSectionHeader.xib in Resources */,
 				002F59901FBF3AC400910891 /* Main.storyboard in Resources */,
 				009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00ECC730242E5BCC00B95E32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -921,7 +991,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		00ECC72E242E5BCC00B95E32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00ECC738242E5BCC00B95E32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 009C65621FBF32A600DB25A6 /* Frame Grabber */;
+			targetProxy = 00ECC737242E5BCC00B95E32 /* PBXContainerItemProxy */;
+		};
+		00ECC73D242E5BD800B95E32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00730EA4214FEA5A001A6EA7 /* Frame Grabber Dev */;
+			targetProxy = 00ECC73C242E5BD800B95E32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		001AA17C1FB4977100A00BB9 /* Main.storyboard */ = {
@@ -1198,6 +1289,49 @@
 			};
 			name = Release;
 		};
+		00ECC73A242E5BCC00B95E32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Frame Grabber Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.Frame-Grabber-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Frame Grabber Dev.app/Frame Grabber Dev";
+			};
+			name = Debug;
+		};
+		00ECC73B242E5BCC00B95E32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Frame Grabber Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.Frame-Grabber-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Frame Grabber Dev.app/Frame Grabber Dev";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1224,6 +1358,15 @@
 			buildConfigurations = (
 				009C65731FBF32A600DB25A6 /* Debug */,
 				009C65741FBF32A600DB25A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00ECC739242E5BCC00B95E32 /* Build configuration list for PBXNativeTarget "Frame Grabber Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00ECC73A242E5BCC00B95E32 /* Debug */,
+				00ECC73B242E5BCC00B95E32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
