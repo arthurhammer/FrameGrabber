@@ -3,7 +3,7 @@ import UIKit
 
 class AlbumsViewController: UICollectionViewController {
 
-    var dataSource: AlbumsDataSource? {
+    var albumsDataSource: AlbumsDataSource? {
         didSet { configureDataSource() }
     }
 
@@ -14,7 +14,6 @@ class AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         configureViews()
         configureDataSource()
-        configureSearchController()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -54,12 +53,23 @@ class AlbumsViewController: UICollectionViewController {
         collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
             self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
+
+        configureSearch()
+    }
+
+    private func configureSearch() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
 
     private func configureDataSource() {
         guard isViewLoaded else { return }
 
-        guard let dataSource = dataSource else {
+        guard let dataSource = albumsDataSource else {
             collectionViewDataSource = nil
             collectionView.dataSource = nil
             return
@@ -72,15 +82,6 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionView?.dataSource = collectionViewDataSource
-    }
-
-    private func configureSearchController() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
 
     private func cell(for album: AnyAlbum, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -131,6 +132,8 @@ class AlbumsViewController: UICollectionViewController {
     }
 }
 
+// MARK: - Searching
+
 extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
@@ -143,6 +146,7 @@ extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
 
     private func stopSearchingWhenSearchBarEmpty(_ searchBar: UISearchBar) {
         guard searchBar.text?.trimmedOrNil == nil else { return }
+
         searchBar.text = nil
 
         navigationItem.searchController?.dismiss(animated: true) { [weak self] in
@@ -154,6 +158,8 @@ extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
         }
     }
 }
+
+// MARK: - Utilities
 
 private extension AlbumsSection {
     var cellIdentifier: String {

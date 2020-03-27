@@ -10,7 +10,7 @@ class AlbumViewController: UICollectionViewController {
         set { configureDataSource(with: newValue) }
     }
 
-    /// The title that will be used when album is `nil`
+    /// The title that will be used when album is `nil`.
     var defaultTitle = UserText.albumDefaultTitle {
         didSet { updateViews() }
     }
@@ -19,10 +19,11 @@ class AlbumViewController: UICollectionViewController {
     private(set) var selectedAsset: PHAsset?
     var settings: UserDefaults = .standard
 
-    @IBOutlet private var filterControl: VideoTypeFilterControl!
     private var dataSource: AlbumCollectionViewDataSource?
-    private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
+
+    @IBOutlet private var filterControl: VideoTypeFilterControl!
+    private lazy var emptyView = EmptyAlbumView()
 
     // MARK: Lifecycle
 

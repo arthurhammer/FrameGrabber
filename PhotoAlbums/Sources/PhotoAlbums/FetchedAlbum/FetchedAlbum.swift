@@ -22,7 +22,6 @@ extension FetchedAlbum {
         /// nil if album contents did not change.
         public let fetchResultChanges: PHFetchResultChangeDetails<PHAsset>?
     }
-
 }
 
 // MARK: - Fetching Albums

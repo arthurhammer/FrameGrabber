@@ -3,27 +3,31 @@ import UIKit
 
 class Coordinator: NSObject {
 
-    let rootNavigationController: UINavigationController
+    let navigationController: NavigationController
     let albumsViewController: AlbumsViewController
 
-    var currentAlbumViewController: AlbumViewController? {
-        return rootNavigationController.topViewController as? AlbumViewController
-    }
+    init(navigationController: NavigationController) {
+        self.navigationController = navigationController
 
-    init(window: UIWindow?) {
-        self.rootNavigationController = window!.rootViewController as! UINavigationController
-        self.albumsViewController = rootNavigationController.viewControllers.first as! AlbumsViewController
+        guard let albumsViewController = navigationController.viewControllers.first as? AlbumsViewController else {
+            fatalError("Wrong view controller")
+        }
+
+        self.albumsViewController = albumsViewController
 
         super.init()
     }
 
     func start() {
-        pushAlbumViewController(animated: false)
+        showEmptyAlbum(animated: false)
 
+        // Defer configuration to avoid triggering premature authorization dialogs.
         authorizeIfNecessary { [weak self] in
-            self?.configureAlbumViewControllers()
+            self?.configureAlbums()
         }
     }
+
+    // MARK: Authorizing
 
     private func authorizeIfNecessary(completion: @escaping () -> ()) {
         if PhotoLibraryAuthorizationController.needsAuthorization {
@@ -31,8 +35,8 @@ class Coordinator: NSObject {
                 self.showAuthorization(animated: true, completion: completion)
             }
         } else {
-              completion()
-          }
+            completion()
+        }
     }
 
     private func showAuthorization(animated: Bool, completion: @escaping () -> ()) {
@@ -41,32 +45,29 @@ class Coordinator: NSObject {
         guard let authorizationController = storyboard.instantiateInitialViewController() as? PhotoLibraryAuthorizationController else { fatalError("Wrong controller type") }
 
         authorizationController.didAuthorizeHandler = { [weak self] in
-            self?.rootNavigationController.dismiss(animated: true) 
+            self?.navigationController.dismiss(animated: true)
             completion()
         }
 
         authorizationController.isModalInPresentation = true
-        rootNavigationController.present(authorizationController, animated: animated)
+        navigationController.present(authorizationController, animated: animated)
     }
 
-    private func pushAlbumViewController(animated: Bool) {
+    // MARK: Showing Albums
+
+    private func showEmptyAlbum(animated: Bool) {
         guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else { fatalError("Wrong controller id or type") }
         albumViewController.navigationItem.largeTitleDisplayMode = .always
         albumViewController.defaultTitle = UserText.albumUnauthorizedTitle
-        rootNavigationController.pushViewController(albumViewController, animated: animated)
+        navigationController.pushViewController(albumViewController, animated: animated)
     }
 
-    private func configureAlbumViewControllers() {
-        // Defer configuring data sources until authorized to avoid triggering premature
-        // authorization dialogs.
-        let type = currentAlbumViewController?.settings.videoType ?? .any
-        currentAlbumViewController?.album = fetchInitialAlbum(with: type)
+    private func configureAlbums() {
+        albumsViewController.albumsDataSource = AlbumsDataSource.default()
 
-        albumsViewController.dataSource = AlbumsDataSource.default()
-    }
-
-    private func fetchInitialAlbum(with videoType: VideoType) -> FetchedAlbum? {
-        let albumType = AlbumsDataSource.smartAlbumTypes.first ?? .smartAlbumUserLibrary
-        return FetchedAlbum.fetchSmartAlbums(with: [albumType], assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoType: videoType)).first
+        if let albumViewController = navigationController.topViewController as? AlbumViewController {
+            let type = albumViewController.settings.videoType
+            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(withVideoType: type)
+        }
     }
 }

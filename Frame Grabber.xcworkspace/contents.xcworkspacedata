@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PhotoAlbums">
+      location = "container:Frame Grabber.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:Frame Grabber.xcodeproj">
+      location = "group:PhotoAlbums">
    </FileRef>
 </Workspace>
