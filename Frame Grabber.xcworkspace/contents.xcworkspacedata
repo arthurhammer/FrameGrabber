@@ -5,6 +5,9 @@
       location = "container:Frame Grabber.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:InAppPurchase">
+   </FileRef>
+   <FileRef
       location = "group:PhotoAlbums">
    </FileRef>
 </Workspace>

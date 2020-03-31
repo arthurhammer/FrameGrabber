@@ -7,7 +7,7 @@ extension SKPaymentTransaction {
 }
 
 extension Error {
-    var isStoreKitCancelledError: Bool {
+    public var isStoreKitCancelledError: Bool {
         let nserror = self as NSError
 
         return (nserror.domain, nserror.code) == (CocoaError.errorDomain, CocoaError.Code.userCancelled.rawValue)

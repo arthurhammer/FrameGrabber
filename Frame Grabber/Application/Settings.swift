@@ -1,5 +1,6 @@
-import Foundation
 import AVFoundation
+import Foundation
+import InAppPurchase
 
 extension UserDefaults {
 
@@ -38,7 +39,7 @@ extension UserDefaults {
 }
 
 extension UserDefaults: PurchasedProductsStore {
-    var purchasedProductIdentifiers: [String] {
+    public var purchasedProductIdentifiers: [String] {
         get { (array(forKey: Key.purchasedProductIdentifiers) as? [String]) ?? [] }
         set { set(newValue, forKey: Key.purchasedProductIdentifiers) }
     }

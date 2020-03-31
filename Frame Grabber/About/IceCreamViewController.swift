@@ -1,5 +1,6 @@
-import UIKit
+import InAppPurchase
 import StoreKit
+import UIKit
 
 class IceCreamViewController: UIViewController {
 

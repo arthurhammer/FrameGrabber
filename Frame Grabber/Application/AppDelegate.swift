@@ -1,3 +1,4 @@
+import InAppPurchase
 import UIKit
 
 @UIApplicationMain
@@ -23,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func configureCoordinator() {
         guard let navigationController = window?.rootViewController as? NavigationController else {
-            fatalError("Wrong root view controller")            
+            fatalError("Wrong root view controller")
         }
 
         coordinator = Coordinator(navigationController: navigationController)

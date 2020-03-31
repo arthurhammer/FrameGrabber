@@ -1,18 +1,17 @@
-import Foundation
 import StoreKit
 
 /// Fetches the available in-app purchases configured in App Store Connect.
-class StoreProductsManager: NSObject {
+public class StoreProductsManager: NSObject {
 
-    private(set) var fetchedProducts = [SKProduct]()
-    private(set) var invalidProductIdentifiers = [String]()
+    private(set) public var fetchedProducts = [SKProduct]()
+    private(set) public var invalidProductIdentifiers = [String]()
 
     /// Is called on the main queue.
-    var requestDidFail: ((SKRequest, Error) -> ())?
+    public var requestDidFail: ((SKRequest, Error) -> ())?
     /// Is called on the main queue.
-    var requestDidSucceed: ((SKRequest, SKProductsResponse) -> ())?
+    public var requestDidSucceed: ((SKRequest, SKProductsResponse) -> ())?
 
-    var isFetchingProducts: Bool {
+    public var isFetchingProducts: Bool {
         productRequest != nil
     }
 
@@ -23,14 +22,14 @@ class StoreProductsManager: NSObject {
     }
 
     /// If a request is already in progress, it is cancelled.
-    func fetchProducts(with identifiers: [String]) {
+    public func fetchProducts(with identifiers: [String]) {
         productRequest?.cancel()
         productRequest = SKProductsRequest(productIdentifiers: Set(identifiers))
         productRequest?.delegate = self
         productRequest?.start()
     }
 
-    func cancelFetchingProducts() {
+    public func cancelFetchingProducts() {
         productRequest?.cancel()
     }
 }
@@ -39,14 +38,14 @@ class StoreProductsManager: NSObject {
 
 extension StoreProductsManager: SKProductsRequestDelegate {
 
-    func request(_ request: SKRequest, didFailWithError error: Error) {
+    public func request(_ request: SKRequest, didFailWithError error: Error) {
         DispatchQueue.main.async { [weak self] in
             self?.productRequest = nil
             self?.requestDidFail?(request, error)
         }
     }
 
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+    public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async { [weak self] in
             self?.productRequest = nil
             self?.fetchedProducts = response.products

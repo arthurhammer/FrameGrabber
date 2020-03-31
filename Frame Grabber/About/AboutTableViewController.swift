@@ -1,6 +1,7 @@
-import UIKit
+import InAppPurchase
 import MessageUI
 import SafariServices
+import UIKit
 
 class AboutTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 

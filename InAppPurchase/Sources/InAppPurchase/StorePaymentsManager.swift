@@ -1,7 +1,6 @@
-import Foundation
 import StoreKit
 
-protocol PurchasedProductsStore {
+public protocol PurchasedProductsStore {
     var purchasedProductIdentifiers: [String] { get set }
 }
 
@@ -10,30 +9,32 @@ protocol PurchasedProductsStore {
 ///
 /// The manager persists successful purchases in a persistent store. It does not support
 /// receipt validation.
-class StorePaymentsManager: NSObject {
+public class StorePaymentsManager: NSObject {
 
-    static let shared = StorePaymentsManager()
+    public static let shared = StorePaymentsManager()
 
-    var purchasedProductsStore: PurchasedProductsStore?
+    public var purchasedProductsStore: PurchasedProductsStore?
 
-    var canMakePayments: Bool {
+    public var canMakePayments: Bool {
         SKPaymentQueue.canMakePayments()
     }
 
-    var simulatesAskToBuyInSandbox = false
+    public var simulatesAskToBuyInSandbox = false
 
     /// Is called on the main queue. Note: Cancellation reports as `.failed`.
-    var transactionDidUpdate: ((SKPaymentTransaction) -> ())?
+    public var transactionDidUpdate: ((SKPaymentTransaction) -> ())?
+
     /// Is called on the main queue. Note: Cancellation reports as error.
-    var restoreDidFail: ((Error) -> ())?
+    public var restoreDidFail: ((Error) -> ())?
+
     /// Is called on the main queue.
-    var restoreDidComplete: (() -> ())?
+    public var restoreDidComplete: (() -> ())?
 
     /// Products that have been previously purchased.
     ///
     /// When a product is successfully purchased or restored, the manager adds its
     /// identifier to this list and persists it across launches.
-    private(set) var persistedPurchasedProductIdentifiers: [String] {
+    private(set) public var persistedPurchasedProductIdentifiers: [String] {
         get { purchasedProductsStore?.purchasedProductIdentifiers ?? [] }
         set { purchasedProductsStore?.purchasedProductIdentifiers = Array(Set(newValue)) }
     }
@@ -41,17 +42,17 @@ class StorePaymentsManager: NSObject {
     /// Transactions that were purchased during the lifecycle of the current manager
     /// instance. Previously purchased products are either recorded in
     /// `persistedPurchasedProductIdentifiers` or need to be restored via `restore`.
-    private(set) var purchased = [SKPaymentTransaction]() {
+    private(set) public var purchased = [SKPaymentTransaction]() {
         didSet { purchased = Array(Set(purchased)) }
     }
 
     /// Transactions that were restored during the lifecycle of the current manager
     /// instance.
-    private(set) var restored = [SKPaymentTransaction]() {
+    private(set) public var restored = [SKPaymentTransaction]() {
         didSet { restored = Array(Set(restored)) }
     }
 
-    private(set) var isRestoring = false
+    private(set) public var isRestoring = false
 
     private let paymentQueue: SKPaymentQueue
 
@@ -60,18 +61,18 @@ class StorePaymentsManager: NSObject {
         super.init()
     }
 
-    func startObservingPayments() {
+    public func startObservingPayments() {
         paymentQueue.add(self)
     }
 
-    func stopObservingPayments() {
+    public func stopObservingPayments() {
         paymentQueue.remove(self)
     }
 
     /// It is not guaranteed that `finishTransaction` is called for all transactions in
     /// all cases (such as during a crash). This method can be used to batch complete
     /// transactions in the payment queue that have finished states.
-    func flushFinishedTransactions() {
+    public func flushFinishedTransactions() {
         paymentQueue.transactions
             .filter { $0.isFinished }
             .forEach(paymentQueue.finishTransaction)
@@ -84,11 +85,11 @@ class StorePaymentsManager: NSObject {
     /// If false, it does not necessarily mean that the product has not been purchased.
     /// It might have been purchased but not yet restored, a purchase might be pending or
     /// it might not have been purchased at all.
-    func hasPurchasedProduct(withId identifier: String) -> Bool {
+    public func hasPurchasedProduct(withId identifier: String) -> Bool {
         persistedPurchasedProductIdentifiers.contains(identifier)
     }
 
-    func hasPendingUnfinishedTransactions(withId identifier: String) -> Bool {
+    public func hasPendingUnfinishedTransactions(withId identifier: String) -> Bool {
         !paymentQueue.transactions
             .filter { $0.payment.productIdentifier == identifier }
             .filter { !$0.isFinished }
@@ -101,7 +102,7 @@ class StorePaymentsManager: NSObject {
     ///   - the user is not authorized to make payments
     ///   - the product is known to have been purchased before
     ///   - there are pending unfinished transactions for this product
-    func purchase(_ product: SKProduct) {
+    public func purchase(_ product: SKProduct) {
         guard canMakePayments,
             !hasPurchasedProduct(withId: product.productIdentifier),
             !hasPendingUnfinishedTransactions(withId: product.productIdentifier) else { return }
@@ -115,7 +116,7 @@ class StorePaymentsManager: NSObject {
     ///
     /// When the user is not authorized to make payments, this has no effect and no
     /// callbacks are called.
-    func restore() {
+    public func restore() {
         guard canMakePayments,
             !isRestoring else { return }
         isRestoring = true
@@ -132,7 +133,7 @@ class StorePaymentsManager: NSObject {
 
 extension StorePaymentsManager: SKPaymentTransactionObserver {
 
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         DispatchQueue.main.async { [weak self] in
             transactions.forEach {
                 self?.handleTransactionUpdate(for: $0)
@@ -165,14 +166,14 @@ extension StorePaymentsManager: SKPaymentTransactionObserver {
         transactionDidUpdate?(transaction)
     }
 
-    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+    public func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
         DispatchQueue.main.async { [weak self] in
             self?.isRestoring = false
             self?.restoreDidFail?(error)
         }
     }
 
-    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+    public func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         DispatchQueue.main.async { [weak self] in
             self?.isRestoring = false
             self?.restoreDidComplete?()
