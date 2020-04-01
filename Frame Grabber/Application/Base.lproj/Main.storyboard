@@ -208,18 +208,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8St-aq-4oR" customClass="ZoomingPlayerView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="678"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="654"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="171.5" y="718" width="71.5" height="32"/>
+                                <rect key="frame" x="171.5" y="690" width="71.5" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
                                             <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
@@ -257,22 +257,19 @@
                                 </connections>
                             </visualEffectView>
                             <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="766" width="414" height="130"/>
+                                <rect key="frame" x="0.0" y="742" width="414" height="154"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls ">
-                                        <rect key="frame" x="32" y="16" width="350" height="80"/>
+                                        <rect key="frame" x="20" y="20" width="374" height="100"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ink-Mj-YaI" customClass="TimeSlider" customModule="Frame_Grabber" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="0.0" width="354" height="31"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" updatesFrequently="YES"/>
-                                                </accessibility>
+                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-a9-tZe" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                 <connections>
-                                                    <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="xdZ-4T-l3Q"/>
+                                                    <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="0gC-uX-7Gc"/>
                                                 </connections>
-                                            </slider>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7vZ-h2-pIt" userLabel="Buttons">
-                                                <rect key="frame" x="0.0" y="36" width="350" height="44"/>
+                                                <rect key="frame" x="0.0" y="56" width="374" height="44"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="umm-NT-gvM">
                                                         <rect key="frame" x="0.0" y="0.0" width="1" height="44"/>
@@ -282,7 +279,7 @@
                                                         <variation key="heightClass=compact" hidden="YES"/>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
-                                                        <rect key="frame" x="35.5" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="40" y="0.0" width="44" height="44"/>
                                                         <accessibility key="accessibilityConfiguration">
                                                             <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
                                                         </accessibility>
@@ -298,7 +295,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                        <rect key="frame" x="114" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="123.5" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="arrow.left" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
@@ -307,7 +304,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                        <rect key="frame" x="192" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="206.5" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="arrow.right" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
@@ -316,7 +313,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
-                                                        <rect key="frame" x="270.5" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="290" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="square.and.arrow.up" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
@@ -325,7 +322,7 @@
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="c9y-JL-pbF">
-                                                        <rect key="frame" x="349" y="0.0" width="1" height="44"/>
+                                                        <rect key="frame" x="373" y="0.0" width="1" height="44"/>
                                                         <variation key="heightClass=compact" hidden="YES"/>
                                                     </view>
                                                 </subviews>
@@ -341,17 +338,17 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="32" id="Agc-Fw-vDC">
+                                    <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="20" id="Agc-Fw-vDC">
                                         <variation key="heightClass=compact" constant="16"/>
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="g9o-LJ-bgy" secondAttribute="bottom" priority="999" constant="6" id="IGR-kM-In7">
                                         <variation key="heightClass=compact" constant="0.0"/>
                                     </constraint>
-                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="16" id="MuE-Wv-4oR">
+                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="20" id="MuE-Wv-4oR">
                                         <variation key="heightClass=compact" constant="6"/>
                                     </constraint>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="g9o-LJ-bgy" secondAttribute="bottom" id="Q8q-Qr-Vf9"/>
-                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="leading" secondItem="nnt-It-hLc" secondAttribute="leading" constant="32" id="kcW-li-BEn">
+                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="leading" secondItem="nnt-It-hLc" secondAttribute="leading" constant="20" id="kcW-li-BEn">
                                         <variation key="heightClass=compact" constant="16"/>
                                     </constraint>
                                 </constraints>
@@ -361,7 +358,7 @@
                                     <outlet property="playButton" destination="1k1-G4-5en" id="QhG-6q-C2t"/>
                                     <outlet property="previousButton" destination="eHg-xr-V48" id="nph-Q1-Vg8"/>
                                     <outlet property="shareButton" destination="9KQ-jV-rR8" id="KmQ-jT-Q0l"/>
-                                    <outlet property="timeSlider" destination="ink-Mj-YaI" id="Aqo-qE-xwy"/>
+                                    <outlet property="timeSlider" destination="6gi-a9-tZe" id="Bcm-H6-aoc"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -376,7 +373,7 @@
                             <constraint firstItem="J1y-Hs-CrT" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4TC-O5-Rin" secondAttribute="trailing" constant="16" id="WcZ-28-K3H"/>
                             <constraint firstItem="GAW-h9-8hv" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="gao-1Y-aJG"/>
                             <constraint firstItem="4TC-O5-Rin" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J1y-Hs-CrT" secondAttribute="leading" constant="16" id="lDY-ao-2xG"/>
-                            <constraint firstItem="GAW-h9-8hv" firstAttribute="top" secondItem="4TC-O5-Rin" secondAttribute="bottom" constant="16" id="o1Z-L5-wUu"/>
+                            <constraint firstItem="GAW-h9-8hv" firstAttribute="top" secondItem="4TC-O5-Rin" secondAttribute="bottom" constant="20" id="o1Z-L5-wUu"/>
                             <constraint firstItem="4TC-O5-Rin" firstAttribute="centerX" secondItem="mzG-VC-6dc" secondAttribute="centerX" id="u5x-7g-mg1"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="top" secondItem="J1y-Hs-CrT" secondAttribute="top" id="vzv-9g-mBa"/>
                             <constraint firstAttribute="bottom" secondItem="GAW-h9-8hv" secondAttribute="bottom" id="zFz-sB-APZ"/>

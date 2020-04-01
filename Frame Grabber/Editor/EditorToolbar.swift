@@ -1,8 +1,9 @@
+import ThumbnailSlider
 import UIKit
 
 class EditorToolbar: UIView {
 
-    @IBOutlet var timeSlider: ScrubbingSlider!
+    @IBOutlet var timeSlider: ScrubbingThumbnailSlider!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!

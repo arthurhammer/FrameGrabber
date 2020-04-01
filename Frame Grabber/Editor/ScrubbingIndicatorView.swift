@@ -1,3 +1,4 @@
+import ThumbnailSlider
 import UIKit
 
 /// Shows, hides, updates the current scrubbing speed.
@@ -21,18 +22,18 @@ class ScrubbingIndicatorView: UIVisualEffectView {
         layer.cornerRadius = bounds.height / 2
     }
 
-    func configure(for slider: ScrubbingSlider) {
+    func configure(for slider: ScrubbingThumbnailSlider) {
         slider.addTarget(self, action: #selector(startScrubbing), for: .touchDown)
         slider.addTarget(self, action: #selector(scrub), for: .valueChanged)
         slider.addTarget(self, action: #selector(endScrubbing), for: [.touchUpInside, .touchUpOutside])
     }
 
-    @objc private func startScrubbing(_ sender: ScrubbingSlider) {
+    @objc private func startScrubbing(_ sender: ScrubbingThumbnailSlider) {
         isUsingSpeed = false
         previousSpeed = sender.currentScrubbingSpeed.speed
     }
 
-    @objc private func scrub(_ sender: ScrubbingSlider) {
+    @objc private func scrub(_ sender: ScrubbingThumbnailSlider) {
         let speed = sender.currentScrubbingSpeed.speed
         isUsingSpeed = isUsingSpeed || (speed != previousSpeed)
         speedLabel.text = formatter.string(from: speed as NSNumber)
@@ -40,7 +41,7 @@ class ScrubbingIndicatorView: UIVisualEffectView {
         previousSpeed = speed
     }
 
-    @objc private func endScrubbing(_ sender: ScrubbingSlider) {
+    @objc private func endScrubbing(_ sender: ScrubbingThumbnailSlider) {
         show(false)
     }
 

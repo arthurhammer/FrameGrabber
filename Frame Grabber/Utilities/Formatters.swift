@@ -1,5 +1,5 @@
-import Foundation
 import AVFoundation
+import Foundation
 
 class VideoDurationFormatter {
 
@@ -36,7 +36,7 @@ class VideoTimeFormatter {
     }
 
     func string(from time: CMTime, localizedFormatTemplate: String) -> String {
-        guard time.isValidVideoTime else { return "--:--" }
+        guard time.isNumeric else { return "--:--" }
 
         let date = Date(timeIntervalSince1970: time.seconds)
         formatter.setLocalizedDateFormatFromTemplate(localizedFormatTemplate)

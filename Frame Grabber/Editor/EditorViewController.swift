@@ -1,6 +1,7 @@
-import UIKit
 import AVFoundation
 import Combine
+import ThumbnailSlider
+import UIKit
 
 class EditorViewController: UIViewController {
 
@@ -11,6 +12,7 @@ class EditorViewController: UIViewController {
 
     private lazy var playbackController = PlaybackController()
     private lazy var timeFormatter = VideoTimeFormatter()
+    private var sliderDataSource: AVAssetThumbnailSliderDataSource?
     private lazy var bindings = Set<AnyCancellable>()
 
     @IBOutlet private var titleView: EditorTitleView!
@@ -88,7 +90,7 @@ private extension EditorViewController {
         generateFramesAndShare(for: [playbackController.currentTime])
     }
 
-    @IBAction func scrub(_ sender: TimeSlider) {
+    @IBAction func scrub(_ sender: ScrubbingThumbnailSlider) {
         playbackController.smoothlySeek(to: sender.time)
     }
 
@@ -100,6 +102,12 @@ private extension EditorViewController {
         zoomingPlayerView.posterImage = videoController.previewImage
 
         scrubbingIndicator.configure(for: toolbar.timeSlider)
+
+        sliderDataSource = AVAssetThumbnailSliderDataSource(
+            slider: toolbar.timeSlider,
+            asset: videoController.video,
+            placeholderImage: videoController.previewImage
+        )
 
         configureNavigationBar()
         configureGestures()
@@ -212,6 +220,7 @@ private extension EditorViewController {
         case .success(let video):
             playbackController.asset = video
             playbackController.play()
+            sliderDataSource?.asset = video
         }
     }
 
