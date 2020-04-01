@@ -13,6 +13,8 @@
 		00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
 		00024F762344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
+		000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B12435181D00C339DE /* ThumbnailSlider */; };
+		000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B32435182300C339DE /* ThumbnailSlider */; };
 		00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
 		00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
 		0010CF46240783DA00DE0C31 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF45240783DA00DE0C31 /* String.swift */; };
@@ -327,6 +329,7 @@
 			files = (
 				0073D56424000EA3008CABC3 /* StoreKit.framework in Frameworks */,
 				002EDBC2242E0E0B00D7B46D /* PhotoAlbums in Frameworks */,
+				000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */,
 				00ECC742243335F900B95E32 /* InAppPurchase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +340,7 @@
 			files = (
 				0073D56324000E99008CABC3 /* StoreKit.framework in Frameworks */,
 				002EDBC4242E0E0E00D7B46D /* PhotoAlbums in Frameworks */,
+				000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */,
 				00ECC740243335F200B95E32 /* InAppPurchase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,6 +647,7 @@
 			packageProductDependencies = (
 				002EDBC1242E0E0B00D7B46D /* PhotoAlbums */,
 				00ECC741243335F900B95E32 /* InAppPurchase */,
+				000EA8B12435181D00C339DE /* ThumbnailSlider */,
 			);
 			productName = "Frame Grabber";
 			productReference = 00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */;
@@ -665,6 +670,7 @@
 			packageProductDependencies = (
 				002EDBC3242E0E0E00D7B46D /* PhotoAlbums */,
 				00ECC73F243335F200B95E32 /* InAppPurchase */,
+				000EA8B32435182300C339DE /* ThumbnailSlider */,
 			);
 			productName = "Frame Grabber";
 			productReference = 009C65631FBF32A600DB25A6 /* Frame Grabber.app */;
@@ -1354,6 +1360,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		000EA8B12435181D00C339DE /* ThumbnailSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ThumbnailSlider;
+		};
+		000EA8B32435182300C339DE /* ThumbnailSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ThumbnailSlider;
+		};
 		002EDBC1242E0E0B00D7B46D /* PhotoAlbums */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PhotoAlbums;
