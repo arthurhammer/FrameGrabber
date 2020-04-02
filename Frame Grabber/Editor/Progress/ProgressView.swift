@@ -139,16 +139,12 @@ class ProgressView: UIView {
         }
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = bounds.height / 2
-    }
-
     // MARK: - Private
 
     private func configureViews() {
         backgroundColor = nil
         clipsToBounds = true
+        layer.cornerRadius = Style.Size.buttonCornerRadius
 
         titleLabel.font = .preferredFont(forTextStyle: .subheadline, weight: .semibold)
         titleLabel.adjustsFontForContentSizeCategory = true
