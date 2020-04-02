@@ -5,12 +5,12 @@
       location = "container:Frame Grabber.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:InAppPurchase">
+      location = "group:Packages/InAppPurchase">
    </FileRef>
    <FileRef
-      location = "group:PhotoAlbums">
+      location = "group:Packages/PhotoAlbums">
    </FileRef>
    <FileRef
-      location = "group:ThumbnailSlider">
+      location = "group:Packages/ThumbnailSlider">
    </FileRef>
 </Workspace>
