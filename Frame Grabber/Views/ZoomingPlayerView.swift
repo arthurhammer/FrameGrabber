@@ -42,6 +42,7 @@ class ZoomingPlayerView: UIView {
             ?? .zero
     }
 
+    private lazy var previousSize: CGSize = .zero
     private var videoSizeObserver: NSKeyValueObservation?
 
     override init(frame: CGRect) {
@@ -56,7 +57,9 @@ class ZoomingPlayerView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateContentSize(with: videoContentSize, keepingZoomIfPossible: true)
+        guard bounds.size != previousSize else { return }
+        previousSize = bounds.size
+        updateContentSize(with: videoContentSize, keepingZoomIfPossible: false)
     }
 }
 
