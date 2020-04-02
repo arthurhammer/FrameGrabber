@@ -86,13 +86,15 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     private func configureDataSource() {
         albumsDataSource
             .$smartAlbums
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.updateData()
             }.store(in: &bindings)
 
         albumsDataSource
             .$userAlbums
-            .sink { [weak self] albums in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
                 self?.updateData()
             }.store(in: &bindings)
 
