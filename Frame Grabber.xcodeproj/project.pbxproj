@@ -15,6 +15,8 @@
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B12435181D00C339DE /* ThumbnailSlider */; };
 		000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B32435182300C339DE /* ThumbnailSlider */; };
+		000EA8B72437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
+		000EA8B82437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
 		00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
 		00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
 		0010CF46240783DA00DE0C31 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF45240783DA00DE0C31 /* String.swift */; };
@@ -211,6 +213,8 @@
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
 		00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumContextMenuActions.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
+		000EA8B62437311700C339DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Application/Base.lproj/Editor.storyboard"; sourceTree = "<group>"; };
+		000EA8BA243731CE00C339DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/Application/de.lproj/Editor.strings"; sourceTree = "<group>"; };
 		00109CCB23FD239400B79F58 /* AlbumIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumIcons.swift; sourceTree = "<group>"; };
 		0010CF45240783DA00DE0C31 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = "Frame Grabber/Utilities/String.swift"; sourceTree = SOURCE_ROOT; };
 		00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPopTransition.swift; sourceTree = "<group>"; };
@@ -469,6 +473,7 @@
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				000EA8B52437311700C339DE /* Editor.storyboard */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				00C68E53242B6A3D004135A4 /* EditorTitleView.swift */,
@@ -737,6 +742,7 @@
 				0023FC90233910D30046D9F8 /* About.storyboard in Resources */,
 				0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */,
 				00EDF97923409ED900FA0F48 /* VideoDetailSectionHeader.xib in Resources */,
+				000EA8B82437311700C339DE /* Editor.storyboard in Resources */,
 				00730EE4214FEA5A001A6EA7 /* Main.storyboard in Resources */,
 				00730EE5214FEA5A001A6EA7 /* Assets.xcassets in Resources */,
 			);
@@ -753,6 +759,7 @@
 				0023FC8F23390D940046D9F8 /* About.storyboard in Resources */,
 				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
 				00EDF97823409EC800FA0F48 /* VideoDetailSectionHeader.xib in Resources */,
+				000EA8B72437311700C339DE /* Editor.storyboard in Resources */,
 				002F59901FBF3AC400910891 /* Main.storyboard in Resources */,
 				009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */,
 			);
@@ -977,6 +984,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		000EA8B52437311700C339DE /* Editor.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				000EA8B62437311700C339DE /* Base */,
+				000EA8BA243731CE00C339DE /* de */,
+			);
+			name = Editor.storyboard;
+			sourceTree = "<group>";
+		};
 		001AA17C1FB4977100A00BB9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
