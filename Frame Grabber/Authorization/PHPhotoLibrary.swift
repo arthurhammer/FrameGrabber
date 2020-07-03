@@ -3,22 +3,41 @@ import UIKit
 
 extension PHPhotoLibrary {
 
-    /// Request authorization optionally opening Settings if denied or restricted.
-    static func requestAuthorization(openingSettingsIfNeeded openSettings: Bool, completion: @escaping (PHAuthorizationStatus, Bool) -> ()) {
-        let status = authorizationStatus()
-        let accessDenied = (status == .denied || status == .restricted)
+    /// Request read/write authorization optionally opening Settings if denied or restricted.
+    static func requestReadWriteAuthorization(openingSettingsIfNeeded openSettings: Bool, completion: @escaping (PHAuthorizationStatus, Bool) -> ()) {
+        let status = readWriteAuthorizationStatus
+        let isDenied = (status == .denied || status == .restricted)
 
-        if accessDenied && openSettings {
+        if isDenied && openSettings {
             UIApplication.shared.openSettings() { didOpen in
                 completion(status, didOpen)
             }
             return
         }
 
-        requestAuthorization { status in
+        requestReadWriteAuthorization { status in
             DispatchQueue.main.async {
                 completion(status, false)
             }
+        }
+    }
+}
+
+extension PHPhotoLibrary {
+
+    static var readWriteAuthorizationStatus: PHAuthorizationStatus {
+        if #available(iOS 14, *) {
+            return authorizationStatus(for: .readWrite)
+        } else {
+            return authorizationStatus()
+        }
+    }
+
+    static func requestReadWriteAuthorization(handler: @escaping (PHAuthorizationStatus) -> Void) {
+        if #available(iOS 14, *) {
+            requestAuthorization(for: .readWrite, handler: handler)
+        } else {
+            requestAuthorization(handler)
         }
     }
 }

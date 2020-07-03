@@ -5,7 +5,8 @@ import SafariServices
 class PhotoLibraryAuthorizationController: UIViewController {
 
     static var needsAuthorization: Bool {
-        PHPhotoLibrary.authorizationStatus() != .authorized
+        let status = PHPhotoLibrary.readWriteAuthorizationStatus
+        return [.notDetermined, .denied, .restricted].contains(status)
     }
 
     var didAuthorizeHandler: (() -> ())?
@@ -21,7 +22,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
     }
 
     @IBAction private func requestAuthorization() {
-        PHPhotoLibrary.requestAuthorization(openingSettingsIfNeeded: true) { status, _ in
+        PHPhotoLibrary.requestReadWriteAuthorization(openingSettingsIfNeeded: true) { status, _ in
             self.updateViews()
 
             if status == .authorized {
@@ -50,12 +51,12 @@ class PhotoLibraryAuthorizationController: UIViewController {
     private func updateViews() {
         titleLabel.text = UserText.authorizationTitle
 
-        switch PHPhotoLibrary.authorizationStatus() {
+        switch PHPhotoLibrary.readWriteAuthorizationStatus {
         case .denied, .restricted:
             messageLabel.text = UserText.authorizationDeniedMessage
             button.setTitle(UserText.authorizationDeniedAction, for: .normal)
 
-        // Mostly for `notDetermined` but also as fallback if we land in `authorized` state.
+        // For `notDetermined` but also as fallback if we land in `authorized`/`limited` state.
         default:
             messageLabel.text = UserText.authorizationUndeterminedMessage
             button.setTitle(UserText.authorizationUndeterminedAction, for: .normal)
