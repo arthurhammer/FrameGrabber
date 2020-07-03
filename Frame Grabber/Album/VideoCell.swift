@@ -9,6 +9,7 @@ class VideoCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var durationLabel: UILabel!
     @IBOutlet var favoritedImageView: UIImageView!
+    @IBOutlet var livePhotoImageView: UIImageView!
     @IBOutlet var gradientView: GradientView!
 
     override func awakeFromNib() {
@@ -24,10 +25,11 @@ class VideoCell: UICollectionViewCell {
         imageView.image = nil
         durationLabel.text = nil
         favoritedImageView.isHidden = true
+        livePhotoImageView.isHidden = true
     }
 
     private func configureViews() {
         gradientView.colors = Style.Color.videoCellGradient
-        favoritedImageView.isHidden = true
+        prepareForReuse()
     }
 }
