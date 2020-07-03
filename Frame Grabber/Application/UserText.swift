@@ -32,7 +32,7 @@ struct UserText {
     static let albumEmptyVideos = NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")
     static let albumEmptyLive = NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
 
-    static let editoriCloudProgress = NSLocalizedString("progress.icloud.title", value: "Downloading…", comment: "iCloud download progress title.")
+    static let editorVideoLoadProgress = NSLocalizedString("progress.videoLoad.title", value: "Loading…", comment: "Video loading (iCloud or otherwise) progress title.")
     static let editorExportProgress = NSLocalizedString("progress.frameExport.title", value: "Exporting…", comment: "Frame generation progress title.")
 
     static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")

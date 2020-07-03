@@ -267,7 +267,7 @@ private extension EditorViewController {
 
         var title: String {
             switch self {
-            case .download: return UserText.editoriCloudProgress
+            case .download: return UserText.editorVideoLoadProgress
             case .export: return UserText.editorExportProgress
             }
         }

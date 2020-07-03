@@ -148,6 +148,6 @@
 /* Frame generation progress title. */
 "progress.frameExport.title" = "Exportieren…";
 
-/* iCloud download progress title. */
-"progress.icloud.title" = "Herunterladen…";
+/* Video loading (iCloud or otherwise) progress title. */
+"progress.videoLoad.title" = "Laden…";
 
