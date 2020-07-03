@@ -12,15 +12,7 @@ class VideoTypeFilterControl: UIControl {
         segmentsStack.arrangedSubviews as! [UIButton]
     }
 
-    private lazy var selectionView: UIView = {
-        var view = UIView(frame: .zero)
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Style.Color.mainTint
-        visualEffectView.contentView.insertSubview(view, at: 0)
-        return view
-    }()
-
+    @IBOutlet private var selectionView: UIView!
     @IBOutlet private var segmentsStack: UIStackView!
     @IBOutlet private var visualEffectView: UIVisualEffectView!
 
@@ -48,6 +40,8 @@ class VideoTypeFilterControl: UIControl {
         backgroundColor = nil
         clipsToBounds = true
 
+        selectionView.translatesAutoresizingMaskIntoConstraints = false
+
         segments.forEach { button in
             button.addTarget(self, action: #selector(selectSegment), for: .touchUpInside)
         }
@@ -62,7 +56,7 @@ class VideoTypeFilterControl: UIControl {
     }
 
     @objc private func selectSegment(_ sender: UIButton) {
-        let index = segments.firstIndex(of: sender)!
+        guard let index = segments.firstIndex(of: sender) else { return }
         setSelectedSegmentIndex(index, interactively: true, animated: true)
     }
 
