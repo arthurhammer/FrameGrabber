@@ -18,6 +18,7 @@ class VideoDetailViewController: UITableViewController {
     var settings = UserDefaults.standard
 
     @IBOutlet private var imageFormatLabel: UILabel!
+    @IBOutlet private var frameDimensionsTitleLabel: UILabel!
     @IBOutlet private var frameDimensionsLabel: UILabel!
     @IBOutlet private var livePhotoDimensionsLabel: UILabel!
     @IBOutlet private var frameRateLabel: UILabel!
@@ -115,16 +116,17 @@ class VideoDetailViewController: UITableViewController {
 
         let asset = videoController?.asset
         let video = videoController?.video
+        let isLivePhoto = asset?.isLivePhoto == true
 
-        title = (asset?.isLivePhoto == true) ? UserText.detailLivePhotoTitle : UserText.detailVideoTitle
+        title = isLivePhoto ? UserText.detailLivePhotoTitle : UserText.detailVideoTitle
+        frameDimensionsTitleLabel.text = isLivePhoto ? UserText.detailFrameDimensionsForLivePhotoTitle : UserText.detailFrameDimensionsForVideoTitle
+        livePhotoDimensionsLabel.superview?.isHidden = !isLivePhoto
 
         frameDimensionsLabel.text = video?.dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
         livePhotoDimensionsLabel.text = (asset?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
         frameRateLabel.text = video?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? notAvailablePlaceholder
         durationLabel.text = (video?.duration.seconds).flatMap(durationFormatter.string) ?? notAvailablePlaceholder
         dateCreatedLabel.text = asset?.creationDate.flatMap(dateFormatter.string) ?? notAvailablePlaceholder
-
-        livePhotoDimensionsLabel.superview?.isHidden = asset?.isLivePhoto == false
 
         updateLocation()
     }

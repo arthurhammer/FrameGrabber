@@ -1,8 +1,5 @@
-/* Class = "UILabel"; text = "Dimensions"; ObjectID = "8tE-P6-SWp"; */
-"8tE-P6-SWp.text" = "Dimensionen";
-
-/* Class = "UILabel"; text = "Live Photo"; ObjectID = "35c-S2-T6T"; */
-"35c-S2-T6T.text" = "Live Photo";
+/* Class = "UILabel"; text = "Dimensions (Photo)"; ObjectID = "35c-S2-T6T"; */
+"35c-S2-T6T.text" = "Dimensionen (Foto)";
 
 /* Class = "UITableViewSection"; footerTitle = "The HEIF format is not available on this device."; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";

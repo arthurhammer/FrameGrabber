@@ -106,6 +106,9 @@
 /* Detail view title for live photos */
 "detail.livephoto.title" = "Live Photo";
 
+/* Dimensions label title for the Live Photo video component */
+"detail.livephoto.videodimensions.title" = "Dimensionen (Video)";
+
 /* Title of map item opened in Maps app. */
 "detail.map.item.title" = "Deine Aufnahme";
 
@@ -114,6 +117,9 @@
 
 /* Detail view title for videos */
 "detail.video.title" = "Video";
+
+/* Dimensions label title for videos */
+"detail.video.videodimensions.title" = "Dimensionen";
 
 /* Export settings compression quality section header */
 "exportoptions.section.compression.title" = "Kompressionsqualität";

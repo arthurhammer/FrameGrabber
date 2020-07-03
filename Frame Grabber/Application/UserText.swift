@@ -37,6 +37,8 @@ struct UserText {
 
     static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")
     static let detailLivePhotoTitle = NSLocalizedString("detail.livephoto.title", value: "Live Photo", comment: "Detail view title for live photos")
+    static let detailFrameDimensionsForVideoTitle = NSLocalizedString("detail.video.videodimensions.title", value: "Dimensions", comment: "Dimensions label title for videos")
+    static let detailFrameDimensionsForLivePhotoTitle = NSLocalizedString("detail.livephoto.videodimensions.title", value: "Dimensions (Video)", comment: "Dimensions label title for the Live Photo video component")
     static let detailExportSummaryFormat = NSLocalizedString("detail.export.summary.format", value: "%@ • %@", comment: "Export options summary: Image format and metadata")
     static let detailMetadataIncluded = NSLocalizedString("detail.export.summary.metadata", value: "With Metadata", comment: "Export options summary, metadata is included.")
     static let detailMetadataExcluded = NSLocalizedString("detail.export.summary.nometadata", value: "No metadata", comment: "Export options summary, metadata is not included.")
