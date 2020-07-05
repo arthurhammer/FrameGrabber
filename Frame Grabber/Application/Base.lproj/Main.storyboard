@@ -387,7 +387,6 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Albums" largeTitleDisplayMode="always" id="nBX-8Q-BwE">
-                        <barButtonItem key="backBarButtonItem" title=" " id="vAZ-vU-ao3"/>
                         <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="ebI-qQ-c1r">
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="iPV-yR-eo7"/>
