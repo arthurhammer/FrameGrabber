@@ -1,6 +1,6 @@
 import UIKit
 
-class VideoDetailSectionHeader: UITableViewHeaderFooterView {
+class ExportSettingsSectionHeader: UITableViewHeaderFooterView {
 
     static var nib: UINib {
         UINib(nibName: String(describing: self), bundle: nil)

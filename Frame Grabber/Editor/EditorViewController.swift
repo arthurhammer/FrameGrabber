@@ -46,13 +46,13 @@ class EditorViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? UINavigationController,
-            let controller = destination.topViewController as? VideoDetailViewController {
+            let controller = destination.topViewController as? MetadataViewController {
 
-            prepareForVideoDetailSegue(with: controller)
+            prepareForMetadataSegue(with: controller)
         }
     }
 
-    private func prepareForVideoDetailSegue(with controller: VideoDetailViewController) {
+    private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
         controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
     }

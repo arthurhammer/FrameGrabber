@@ -1,6 +1,6 @@
 import UIKit
 
-class ExportOptionsViewController: UITableViewController {
+class ExportSettingsViewController: UITableViewController {
 
     enum Section: Int {
         case metadata
@@ -60,7 +60,7 @@ class ExportOptionsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let title = Section(section)?.title else { return nil }
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: VideoDetailSectionHeader.name) as? VideoDetailSectionHeader else { fatalError("Wrong view id or type.") }
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExportSettingsSectionHeader.name) as? ExportSettingsSectionHeader else { fatalError("Wrong view id or type.") }
 
         view.titleLabel.text = title
         view.hasPreviousFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
@@ -74,7 +74,7 @@ class ExportOptionsViewController: UITableViewController {
     }
 
     private func configureViews() {
-        tableView.register(VideoDetailSectionHeader.nib, forHeaderFooterViewReuseIdentifier: VideoDetailSectionHeader.name)
+        tableView.register(ExportSettingsSectionHeader.nib, forHeaderFooterViewReuseIdentifier: ExportSettingsSectionHeader.name)
 
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
@@ -108,7 +108,7 @@ private extension Double {
     }
 }
 
-extension ExportOptionsViewController.Section {
+extension ExportSettingsViewController.Section {
     var title: String? {
         switch self {
         case .metadata: return nil

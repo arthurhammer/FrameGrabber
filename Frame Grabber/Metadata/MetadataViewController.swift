@@ -3,7 +3,7 @@ import AVFoundation
 import Photos
 import MapKit
 
-class VideoDetailViewController: UITableViewController {
+class MetadataViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
         case metadata

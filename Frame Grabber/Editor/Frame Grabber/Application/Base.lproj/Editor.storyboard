@@ -345,10 +345,10 @@
             </objects>
             <point key="canvasLocation" x="2245" y="-1736"/>
         </scene>
-        <!--ExportOptions-->
+        <!--ExportSettings-->
         <scene sceneID="ek0-jz-mt7">
             <objects>
-                <viewControllerPlaceholder storyboardName="ExportOptions" id="yGt-Ul-rBh" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ExportSettings" id="yGt-Ul-rBh" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="CfG-3f-kff"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tj3-6E-j4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
