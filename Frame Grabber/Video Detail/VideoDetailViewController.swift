@@ -6,18 +6,20 @@ import MapKit
 class VideoDetailViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
-        case options
         case metadata
         case location
     }
 
     var videoController: VideoController? {
-        didSet { updateViews() }
+        didSet { updateAssetMetadata() }
     }
 
     var settings = UserDefaults.standard
 
-    @IBOutlet private var imageFormatLabel: UILabel!
+    private lazy var locationFormatter = CachingGeocodingLocationFormatter.shared
+    private let notAvailablePlaceholder = "—"
+
+    @IBOutlet private var assetTypeLabel: UILabel!
     @IBOutlet private var frameDimensionsTitleLabel: UILabel!
     @IBOutlet private var frameDimensionsLabel: UILabel!
     @IBOutlet private var livePhotoDimensionsLabel: UILabel!
@@ -28,17 +30,9 @@ class VideoDetailViewController: UITableViewController {
     @IBOutlet private var locationLabel: UILabel!
     @IBOutlet private var mapView: MKMapView!
 
-    private lazy var locationFormatter = CachingGeocodingLocationFormatter.shared
-    private let notAvailablePlaceholder = "Loading…"
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateExportOptions()
     }
 
     @IBAction private func done() {
@@ -54,61 +48,37 @@ class VideoDetailViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         let sections = Section.allCases.count
-        return (videoController?.asset.location == nil) ? (sections-1) : sections
+        let hasLocation = videoController?.asset.location == nil
+        return hasLocation ? (sections-1) : sections
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard Section(indexPath.section) == .location else { return }
-        openLocationInMaps()
+
+        if Section(indexPath.section) == .location {
+            openLocationInMaps()
+        }
     }
 
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        tableView.cellForRow(at: indexPath)?.accessoryType != .some(.none)
+        guard let row = tableView.cellForRow(at: indexPath) else { return false }
+        return row.accessoryType != .none
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        (Section(section) == .metadata) ? 0 : UITableView.automaticDimension
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let title = Section(section)?.title else { return nil }
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: VideoDetailSectionHeader.name) as? VideoDetailSectionHeader else { fatalError("Wrong view id or type.") }
-        view.titleLabel.text = title
-        return view
+        0
     }
 
     private func configureViews() {
-        tableView.register(VideoDetailSectionHeader.nib, forHeaderFooterViewReuseIdentifier: VideoDetailSectionHeader.name)
-
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
 
-        updateViews()
-    }
-
-    private func updateViews() {
-        guard isViewLoaded else { return }
-        updateExportOptions()
         updateAssetMetadata()
-     }
-
-    private func updateExportOptions() {
-        let metadataSummary = settings.includeMetadata ? UserText.detailMetadataIncluded : UserText.detailMetadataExcluded
-
-        var formatSummary: String
-
-        if let quality = NumberFormatter.percentFormatter().string(from: settings.compressionQuality as NSNumber) {
-            formatSummary = "\(settings.imageFormat.displayString) \(quality)"
-        } else {
-            formatSummary = settings.imageFormat.displayString
-        }
-
-        imageFormatLabel.text = String.localizedStringWithFormat(UserText.detailExportSummaryFormat, formatSummary, metadataSummary)
-        tableView.reloadData()
     }
 
     private func updateAssetMetadata() {
+        guard isViewLoaded else { return }
+
         let frameRateFormatter = NumberFormatter.frameRateFormatter()
         let dimensionsFormatter = NumberFormatter()
         let dateFormatter = DateFormatter.default()
@@ -118,7 +88,7 @@ class VideoDetailViewController: UITableViewController {
         let video = videoController?.video
         let isLivePhoto = asset?.isLivePhoto == true
 
-        title = isLivePhoto ? UserText.detailLivePhotoTitle : UserText.detailVideoTitle
+        assetTypeLabel.text = isLivePhoto ? UserText.detailLivePhotoTitle : UserText.detailVideoTitle
         frameDimensionsTitleLabel.text = isLivePhoto ? UserText.detailFrameDimensionsForLivePhotoTitle : UserText.detailFrameDimensionsForVideoTitle
         livePhotoDimensionsLabel.superview?.isHidden = !isLivePhoto
 
@@ -132,8 +102,6 @@ class VideoDetailViewController: UITableViewController {
     }
 
     private func updateLocation() {
-        // (Don't call `reloadData` in `viewWillAppear` since that can be called multiple
-        // times during the sheet interactive dismissal and leads to glitches.)
         tableView.reloadData()  // Show/hide location cells.
         mapView.isUserInteractionEnabled = false
 
@@ -159,15 +127,5 @@ class VideoDetailViewController: UITableViewController {
     @objc private func handleMapTap(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         openLocationInMaps()
-    }
-}
-
-extension VideoDetailViewController.Section {
-    var title: String? {
-        switch self {
-        case .options: return nil
-        case .metadata: return UserText.detailMetadataSection
-        case .location: return nil
-        }
     }
 }

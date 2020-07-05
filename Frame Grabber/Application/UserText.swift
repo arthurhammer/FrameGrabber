@@ -39,10 +39,6 @@ struct UserText {
     static let detailLivePhotoTitle = NSLocalizedString("detail.livephoto.title", value: "Live Photo", comment: "Detail view title for live photos")
     static let detailFrameDimensionsForVideoTitle = NSLocalizedString("detail.video.videodimensions.title", value: "Dimensions", comment: "Dimensions label title for videos")
     static let detailFrameDimensionsForLivePhotoTitle = NSLocalizedString("detail.livephoto.videodimensions.title", value: "Dimensions (Video)", comment: "Dimensions label title for the Live Photo video component")
-    static let detailExportSummaryFormat = NSLocalizedString("detail.export.summary.format", value: "%@ • %@", comment: "Export options summary: Image format and metadata")
-    static let detailMetadataIncluded = NSLocalizedString("detail.export.summary.metadata", value: "With Metadata", comment: "Export options summary, metadata is included.")
-    static let detailMetadataExcluded = NSLocalizedString("detail.export.summary.nometadata", value: "No metadata", comment: "Export options summary, metadata is not included.")
-    static let detailMetadataSection = NSLocalizedString("detail.section.metadata.title", value: "Info", comment: "Detail view metadata section header")
     static let detailMapItem = NSLocalizedString("detail.map.item.title", value: "Your Shot", comment: "Title of map item opened in Maps app.")
 
     static let exportImageFormatSection = NSLocalizedString("exportoptions.section.format.title", value: "Image Format", comment: "Export settings image format section header")

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Cw-ag-d47">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Cw-ag-d47">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,19 +21,19 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="654"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="171.5" y="690" width="71.5" height="32"/>
+                                <rect key="frame" x="172" y="690" width="70.5" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
-                                                        <rect key="frame" x="8" y="8" width="55.5" height="16"/>
+                                                        <rect key="frame" x="8" y="8" width="55" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="kHc-hE-41m"/>
                                                         </constraints>
@@ -86,7 +88,7 @@
                                                         </constraints>
                                                         <variation key="heightClass=compact" hidden="YES"/>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
                                                         <rect key="frame" x="40" y="0.0" width="44" height="44"/>
                                                         <accessibility key="accessibilityConfiguration">
                                                             <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
@@ -102,7 +104,7 @@
                                                             <action selector="playOrPause" destination="1Cw-ag-d47" eventType="touchUpInside" id="REK-2a-Wzc"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                         <rect key="frame" x="123.5" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="arrow.left" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
@@ -111,7 +113,7 @@
                                                             <action selector="stepBackward" destination="1Cw-ag-d47" eventType="touchDown" id="WxM-MS-EXU"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                         <rect key="frame" x="206.5" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="arrow.right" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
@@ -120,7 +122,7 @@
                                                             <action selector="stepForward" destination="1Cw-ag-d47" eventType="touchDown" id="kOp-9v-zCZ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
                                                         <rect key="frame" x="290" y="0.0" width="44" height="44"/>
                                                         <state key="normal" image="square.and.arrow.up" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
@@ -145,6 +147,7 @@
                                         <variation key="heightClass=compact" axis="horizontal"/>
                                     </stackView>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                 <constraints>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="20" id="Agc-Fw-vDC">
                                         <variation key="heightClass=compact" constant="16"/>
@@ -160,7 +163,6 @@
                                         <variation key="heightClass=compact" constant="16"/>
                                     </constraint>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                 <connections>
                                     <outlet property="nextButton" destination="NnX-Na-6YA" id="9ZS-3S-Vcz"/>
                                     <outlet property="playButton" destination="1k1-G4-5en" id="QhG-6q-C2t"/>
@@ -170,7 +172,8 @@
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="4TC-O5-Rin" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J1y-Hs-CrT" secondAttribute="top" constant="16" id="AXd-Mi-ZiB"/>
@@ -186,7 +189,6 @@
                             <constraint firstItem="8St-aq-4oR" firstAttribute="top" secondItem="J1y-Hs-CrT" secondAttribute="top" id="vzv-9g-mBa"/>
                             <constraint firstAttribute="bottom" secondItem="GAW-h9-8hv" secondAttribute="bottom" id="zFz-sB-APZ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cLY-f1-ifd">
                         <view key="titleView" contentMode="scaleToFill" id="uhx-yn-jSi" customClass="EditorTitleView" customModule="Frame_Grabber" customModuleProvider="target">
@@ -194,10 +196,10 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hyz-Dk-Ftn">
-                                    <rect key="frame" x="19" y="2" width="115.5" height="36.5"/>
+                                    <rect key="frame" x="19" y="2" width="115" height="36.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Frame" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-N1-Rre">
-                                            <rect key="frame" x="0.0" y="0.0" width="115.5" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="20.5"/>
                                             <accessibility key="accessibilityConfiguration">
                                                 <accessibilityTraits key="traits" staticText="YES" header="YES"/>
                                             </accessibility>
@@ -207,7 +209,7 @@
                                             <variation key="heightClass=compact" hidden="NO"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
-                                            <rect key="frame" x="34" y="20.5" width="47" height="16"/>
+                                            <rect key="frame" x="34.5" y="20.5" width="46" height="16"/>
                                             <accessibility key="accessibilityConfiguration">
                                                 <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
                                             </accessibility>
@@ -235,7 +237,7 @@
                         </view>
                         <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="ON1-SU-aKj">
                             <connections>
-                                <segue destination="T9q-3e-n8f" kind="presentation" id="JXw-Yw-VHe"/>
+                                <segue destination="yGt-Ul-rBh" kind="show" id="fDF-Sb-fJx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -288,7 +290,7 @@
                                                             <rect key="frame" x="32" y="1" width="123" height="18"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Exporting…&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGN-ie-szR">
-                                                                    <rect key="frame" x="13" y="0.0" width="97" height="18"/>
+                                                                    <rect key="frame" x="13.5" y="0.0" width="96.5" height="18"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -319,13 +321,13 @@
                             <blurEffect style="systemMaterial"/>
                         </visualEffectView>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="LGJ-qM-ggI"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="pH5-Zm-MoK" secondAttribute="trailing" id="7n4-7D-Lcc"/>
                         <constraint firstAttribute="bottom" secondItem="pH5-Zm-MoK" secondAttribute="bottom" id="GD0-IZ-6bJ"/>
                         <constraint firstItem="pH5-Zm-MoK" firstAttribute="top" secondItem="j77-MA-S24" secondAttribute="top" id="KRC-9x-bep"/>
                         <constraint firstItem="pH5-Zm-MoK" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" id="MqT-jw-hXY"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="LGJ-qM-ggI"/>
                     <connections>
                         <outlet property="determinateProgressView" destination="TXp-E0-Jfd" id="NQR-rD-zE1"/>
                         <outlet property="indeterminateProgressView" destination="wEi-pI-5iC" id="CjC-FH-Lhr"/>
@@ -335,28 +337,33 @@
             </objects>
             <point key="canvasLocation" x="2205.7971014492755" y="-2077.2321428571427"/>
         </scene>
-        <!--VideoDetail-->
-        <scene sceneID="H1o-A0-ayW">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MoreViewController" storyboardName="VideoDetail" id="T9q-3e-n8f" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LpR-UY-6kk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2206" y="-1641"/>
-        </scene>
         <!--(Wait before changing toolbar margins: verify carefully for notch/no-notch, portrait/landscape, SE/11)-->
         <scene sceneID="Bk2-0M-lXQ">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="&lt;comment&gt;" id="lQX-5j-AFF" userLabel="(Wait before changing toolbar margins: verify carefully for notch/no-notch, portrait/landscape, SE/11)" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pdz-OY-tlK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2778" y="-1752"/>
+            <point key="canvasLocation" x="2245" y="-1736"/>
+        </scene>
+        <!--ExportOptions-->
+        <scene sceneID="ek0-jz-mt7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ExportOptions" id="yGt-Ul-rBh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="CfG-3f-kff"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tj3-6E-j4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2887" y="-2077"/>
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.left" catalog="system" width="64" height="48"/>
-        <image name="arrow.right" catalog="system" width="64" height="48"/>
-        <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
-        <image name="play.fill" catalog="system" width="58" height="64"/>
-        <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
+        <image name="arrow.left" catalog="system" width="128" height="98"/>
+        <image name="arrow.right" catalog="system" width="128" height="98"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

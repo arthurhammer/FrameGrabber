@@ -75,6 +75,10 @@ class ExportOptionsViewController: UITableViewController {
 
     private func configureViews() {
         tableView.register(VideoDetailSectionHeader.nib, forHeaderFooterViewReuseIdentifier: VideoDetailSectionHeader.name)
+
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        tableView.backgroundColor = .clear
+
         compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         updateViews()
     }

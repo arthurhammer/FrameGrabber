@@ -97,12 +97,6 @@
 /* Photo library authorization default message */
 "authorization.undetermined.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
 
-/* Export options summary, metadata is included. */
-"detail.export.summary.metadata" = "Mit Metadaten";
-
-/* Export options summary, metadata is not included. */
-"detail.export.summary.nometadata" = "Ohne Metadaten";
-
 /* Detail view title for live photos */
 "detail.livephoto.title" = "Live Photo";
 
@@ -111,9 +105,6 @@
 
 /* Title of map item opened in Maps app. */
 "detail.map.item.title" = "Deine Aufnahme";
-
-/* Detail view metadata section header */
-"detail.section.metadata.title" = "Info";
 
 /* Detail view title for videos */
 "detail.video.title" = "Video";
