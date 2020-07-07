@@ -1,17 +1,20 @@
-/* Class = "UITableViewSection"; footerTitle = "The HEIF format is not available on this device."; ObjectID = "ak6-oU-70Q"; */
+/* Class = "UITableViewSection"; footerTitle = "Smaller compression qualities result in smaller file sizes and degraded photo qualities."; ObjectID = "6AO-mV-PI8"; */
+"6AO-mV-PI8.footerTitle" = "Eine niedrigere Kompressionsqualität führt zu einer kleineren Dateigröße und schlechteren Bildqualität.";
+
+/* Class = "UITableViewSection"; footerTitle = "<HEIF can result in smaller file sizes. JPEG is most widely supported.>"; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
-/* Class = "UILabel"; text = "JPG"; ObjectID = "Byn-C0-URJ"; */
-"Byn-C0-URJ.text" = "JPG";
+/* Class = "UILabel"; text = "JPEG"; ObjectID = "Byn-C0-URJ"; */
+"Byn-C0-URJ.text" = "JPEG";
 
-/* Class = "UITableViewSection"; footerTitle = "Include creation date and GPS location."; ObjectID = "iHH-Fm-kn8"; */
-"iHH-Fm-kn8.footerTitle" = "Fügt Erstellungsdatum und Ort hinzu.";
+/* Class = "UITableViewSection"; footerTitle = "Adds creation date and GPS location to exported frames."; ObjectID = "iHH-Fm-kn8"; */
+"iHH-Fm-kn8.footerTitle" = "Fügt Erstellungsdatum und Ort zu exportierten Standbildern hinzu.";
 
 /* Class = "UILabel"; text = "<0.95>"; ObjectID = "mzj-e4-l06"; */
 "mzj-e4-l06.text" = "<0.95>";
 
-/* Class = "UILabel"; text = "Metadata"; ObjectID = "So8-Af-ERQ"; */
-"So8-Af-ERQ.text" = "Metadaten";
+/* Class = "UILabel"; text = "Export Metadata"; ObjectID = "So8-Af-ERQ"; */
+"So8-Af-ERQ.text" = "Metadaten Exportieren";
 
 /* Class = "UINavigationItem"; title = "Export Settings"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Exporteinstellungen";

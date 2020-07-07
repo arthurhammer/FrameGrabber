@@ -122,10 +122,16 @@
 "editor.more.metadata.action" = "Metadaten";
 
 /* Export settings compression quality section header */
-"exportoptions.section.compression.title" = "Kompressionsqualität";
+"exportsettings.section.compression.title" = "Kompressionsqualität";
+
+/* Explanation of image formats in settings footer when HEIF is not supported */
+"exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
+
+/* Explanation of image formats in settings footer */
+"exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
 
 /* Export settings image format section header */
-"exportoptions.section.format.title" = "Bildformat";
+"exportsettings.section.format.title" = "Bildformat";
 
 /* Video frame rate with unit */
 "formatter.framerate.format" = "%@ fps";

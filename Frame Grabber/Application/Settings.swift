@@ -48,7 +48,7 @@ extension UserDefaults: PurchasedProductsStore {
 private extension ImageFormat {
     var safeFormat: ImageFormat {
         if !UserDefaults.isHeifSupported && (self == .heif) {
-            return .jpg
+            return .jpeg
         }
         return self
     }

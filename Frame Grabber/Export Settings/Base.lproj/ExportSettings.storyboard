@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +12,10 @@
             <objects>
                 <tableViewController id="fKK-CY-nBn" customClass="ExportSettingsViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="1Xf-CR-HEn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
-                            <tableViewSection headerTitle="" footerTitle="Include creation date and GPS location." id="iHH-Fm-kn8">
+                            <tableViewSection headerTitle="" footerTitle="Adds creation date and GPS location to exported frames." id="iHH-Fm-kn8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2lV-7c-Xqf">
                                         <rect key="frame" x="20" y="39.5" width="374" height="44"/>
@@ -26,16 +25,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FEt-SU-P0X">
-                                                    <rect key="frame" x="16" y="11" width="153" height="21.5"/>
+                                                    <rect key="frame" x="20" y="11" width="334" height="24"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" text="Metadata" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="So8-Af-ERQ">
-                                                            <rect key="frame" x="0.0" y="0.5" width="72.5" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" text="Export Metadata" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="So8-Af-ERQ">
+                                                            <rect key="frame" x="0.0" y="2" width="163" height="20.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="35n-a5-8z9">
-                                                            <rect key="frame" x="138" y="0.0" width="51" height="21.5"/>
+                                                            <rect key="frame" x="285" y="0.0" width="51" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <connections>
                                                                 <action selector="didUpdateIncludeMetadata:" destination="fKK-CY-nBn" eventType="valueChanged" id="dmr-rn-NP0"/>
@@ -57,20 +56,20 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="" footerTitle="The HEIF format is not available on this device." id="ak6-oU-70Q">
+                            <tableViewSection headerTitle="" footerTitle="&lt;HEIF can result in smaller file sizes. JPEG is most widely supported.&gt;" id="ak6-oU-70Q">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" id="3Tm-Mp-LH1">
-                                        <rect key="frame" x="20" y="143" width="374" height="44"/>
+                                        <rect key="frame" x="20" y="159" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Tm-Mp-LH1" id="e7b-pQ-wm3">
                                             <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kga-8f-ZlM">
-                                                    <rect key="frame" x="16" y="11" width="496" height="21.5"/>
+                                                    <rect key="frame" x="20" y="11" width="302" height="21.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HEIF" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrh-C2-4X7">
-                                                            <rect key="frame" x="0.0" y="0.5" width="496" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.5" width="302" height="20.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -90,17 +89,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="W1d-fC-YX4">
-                                        <rect key="frame" x="20" y="187" width="374" height="44"/>
+                                        <rect key="frame" x="20" y="203" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="W1d-fC-YX4" id="spr-vf-FRr">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PSN-ao-Fmu">
-                                                    <rect key="frame" x="16" y="11" width="528" height="21.5"/>
+                                                    <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JPG" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byn-C0-URJ">
-                                                            <rect key="frame" x="0.0" y="0.5" width="528" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JPEG" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byn-C0-URJ">
+                                                            <rect key="frame" x="0.0" y="0.5" width="334" height="20.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -121,34 +120,32 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="" footerTitle="" id="6AO-mV-PI8">
+                            <tableViewSection headerTitle="" footerTitle="A smaller compression quality results in a smaller file size and reduced photo quality." id="6AO-mV-PI8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="u7N-Xf-5fC">
-                                        <rect key="frame" x="20" y="290.5" width="374" height="44"/>
+                                        <rect key="frame" x="20" y="322.5" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u7N-Xf-5fC" id="Gpl-sU-A0v">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hDu-C5-o1b">
-                                                    <rect key="frame" x="16" y="11" width="528" height="21.5"/>
+                                                    <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                                     <subviews>
-                                                        <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.94999998807907104" minValue="0.10000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jz7-C6-5Ml">
-                                                            <rect key="frame" x="-2" y="0.0" width="469" height="22.5"/>
-                                                            <connections>
-                                                                <action selector="didChangeCompressionQuality" destination="fKK-CY-nBn" eventType="valueChanged" id="MDo-c1-G6v"/>
-                                                            </connections>
-                                                        </slider>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="762" text="&lt;0.95&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzj-e4-l06">
-                                                            <rect key="frame" x="473" y="0.5" width="55" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.5" width="232" height="20.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minimumValue="70" maximumValue="100" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="1s7-4S-igP">
+                                                            <rect key="frame" x="240" y="0.0" width="94" height="21.5"/>
+                                                            <connections>
+                                                                <action selector="didChangeCompressionQuality" destination="fKK-CY-nBn" eventType="valueChanged" id="oZr-tf-Jfu"/>
+                                                            </connections>
+                                                        </stepper>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="24" id="c6J-pC-OM3"/>
-                                                        <constraint firstItem="Jz7-C6-5Ml" firstAttribute="width" relation="greaterThanOrEqual" secondItem="hDu-C5-o1b" secondAttribute="width" multiplier="0.75" id="e4I-Ea-tze"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -177,7 +174,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="compressionQualityLabel" destination="mzj-e4-l06" id="5AX-5F-C7I"/>
-                        <outlet property="compressionQualitySlider" destination="Jz7-C6-5Ml" id="0Sf-dV-sSL"/>
+                        <outlet property="compressionQualityStepper" destination="1s7-4S-igP" id="NXL-Ap-Tyq"/>
                         <outlet property="heifCell" destination="3Tm-Mp-LH1" id="bko-Ds-wHb"/>
                         <outlet property="heifLabel" destination="Wrh-C2-4X7" id="VcE-ik-J3w"/>
                         <outlet property="includeMetadataSwitch" destination="35n-a5-8z9" id="BBf-rc-kkh"/>
@@ -186,7 +183,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M99-aw-FoP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2990" y="-477"/>
+            <point key="canvasLocation" x="2989.8550724637685" y="-477.45535714285711"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3LT-gz-kVz">
@@ -207,9 +204,4 @@
             <point key="canvasLocation" x="2225" y="-477"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>

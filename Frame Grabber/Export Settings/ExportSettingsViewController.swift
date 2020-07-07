@@ -14,7 +14,7 @@ class ExportSettingsViewController: UITableViewController {
     @IBOutlet private var heifCell: UITableViewCell!
     @IBOutlet private var heifLabel: UILabel!
     @IBOutlet private var jpgCell: UITableViewCell!
-    @IBOutlet private var compressionQualitySlider: UISlider!
+    @IBOutlet private var compressionQualityStepper: UIStepper!
     @IBOutlet private var compressionQualityLabel: UILabel!
 
     private let heifIndexPath = IndexPath(row: 0, section: 1)
@@ -36,8 +36,7 @@ class ExportSettingsViewController: UITableViewController {
     }
 
     @IBAction func didChangeCompressionQuality() {
-        let value = Double(compressionQualitySlider.value).rounded(toDecimalDigits: 2)
-        settings.compressionQuality = value
+        settings.compressionQuality = compressionQualityStepper.value/100
         updateViews()
     }
 
@@ -48,7 +47,7 @@ class ExportSettingsViewController: UITableViewController {
         case heifIndexPath where UserDefaults.isHeifSupported:
             settings.imageFormat = .heif
         default:
-            settings.imageFormat = .jpg
+            settings.imageFormat = .jpeg
         }
 
         updateViews()
@@ -69,8 +68,11 @@ class ExportSettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if Section(section) == .format && UserDefaults.isHeifSupported { return nil }
-        return super.tableView(tableView, titleForFooterInSection: section)
+        guard Section(section) == .format else { return super.tableView(tableView, titleForFooterInSection: section) }
+
+        return UserDefaults.isHeifSupported
+            ? UserText.exportImageFormatHeifSupportedFooter
+            : UserText.exportImageFormatHeifNotSupportedFooter
     }
 
     private func configureViews() {
@@ -86,7 +88,7 @@ class ExportSettingsViewController: UITableViewController {
     private func updateViews() {
         includeMetadataSwitch.isOn = settings.includeMetadata
 
-        compressionQualitySlider.value = Float(settings.compressionQuality)
+        compressionQualityStepper.value = settings.compressionQuality*100
         compressionQualityLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
 
         let isHeif = settings.imageFormat == .heif
@@ -97,14 +99,6 @@ class ExportSettingsViewController: UITableViewController {
             heifCell.accessoryType = .none
             heifLabel.textColor = Style.Color.disabledLabel
         }
-    }
-}
-
-private extension Double {
-    /// Rounds the double to decimal places value.
-    func rounded(toDecimalDigits digits: Int) -> Self {
-        let divisor = pow(10.0, Double(digits))
-        return (self * divisor).rounded() / divisor
     }
 }
 
