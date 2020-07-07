@@ -94,6 +94,14 @@ private extension EditorViewController {
         playbackController.smoothlySeek(to: sender.time)
     }
 
+    @objc func showMoreMenuAsAlertSheet() {
+        let alertController = EditorMenuActions.moreAlertController { [weak self] chosenActionId in
+            self?.performSegue(withIdentifier: chosenActionId.rawValue, sender: nil)
+        }
+
+        presentOnTop(alertController)
+    }
+
     // MARK: Configuring
 
     func configureViews() {
@@ -108,6 +116,15 @@ private extension EditorViewController {
             asset: videoController.video,
             placeholderImage: videoController.previewImage
         )
+
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem?.menu = EditorMenuActions.moreMenu { [weak self] chosenActionId in
+                self?.performSegue(withIdentifier: chosenActionId.rawValue, sender: nil)
+            }
+        } else {
+            navigationItem.rightBarButtonItem?.target = self
+            navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
+        }
 
         configureNavigationBar()
         configureGestures()

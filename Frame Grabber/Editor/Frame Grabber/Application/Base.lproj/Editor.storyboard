@@ -21,15 +21,15 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="654"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="172" y="690" width="70.5" height="32"/>
+                                <rect key="frame" x="172" y="690" width="70" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="70" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
                                             <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
@@ -235,11 +235,7 @@
                                 <outlet property="titleLabel" destination="MTO-N1-Rre" id="rJM-9d-XlM"/>
                             </connections>
                         </view>
-                        <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="ON1-SU-aKj">
-                            <connections>
-                                <segue destination="yGt-Ul-rBh" kind="show" id="fDF-Sb-fJx"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="ON1-SU-aKj"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -249,6 +245,8 @@
                         <outlet property="toolbar" destination="GAW-h9-8hv" id="YKJ-8K-sBN"/>
                         <outlet property="view" destination="mzG-VC-6dc" id="9z2-of-GuI"/>
                         <outlet property="zoomingPlayerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
+                        <segue destination="yGt-Ul-rBh" kind="presentation" identifier="ExportSettings" id="aQw-im-yKm"/>
+                        <segue destination="iXB-0o-ofd" kind="presentation" identifier="Metadata" id="sdq-i6-83Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buo-a7-9ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -354,6 +352,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tj3-6E-j4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2887" y="-2077"/>
+        </scene>
+        <!--Metadata-->
+        <scene sceneID="5Hw-4e-7Bh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Metadata" id="iXB-0o-ofd" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="5hh-0X-9mT"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="psk-Eu-bfr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2862" y="-2106"/>
         </scene>
     </scenes>
     <resources>

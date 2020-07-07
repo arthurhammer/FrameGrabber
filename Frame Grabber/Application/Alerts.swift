@@ -81,6 +81,16 @@ extension UIAlertAction {
     static func ok(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
         UIAlertAction(title: UserText.okAction, style: .default, handler: handler)
     }
+
+    static func cancel(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
+        UIAlertAction(title: UserText.cancelAction, style: .cancel, handler: handler) 
+    }
+}
+
+extension UIAlertController {
+    func addActions(_ actions: UIAlertAction...) {
+        actions.forEach(addAction)
+    }
 }
 
 extension UIViewController {

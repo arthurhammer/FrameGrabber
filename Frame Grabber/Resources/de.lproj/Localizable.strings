@@ -10,6 +10,9 @@
 /* Version label with numerical version */
 "about.version.format" = "Version %@";
 
+/* Cancel action */
+"action.cancel" = "Abbrechen";
+
 /* Delete context action */
 "action.delete" = "Löschen";
 
@@ -112,11 +115,23 @@
 /* Dimensions label title for videos */
 "detail.video.videodimensions.title" = "Dimensionen";
 
+/* Editor more button export settings action */
+"editor.more.exportSettings.action" = "Exporteinstellungen";
+
+/* Editor more button metadata button action */
+"editor.more.metadata.action" = "Metadaten";
+
 /* Export settings compression quality section header */
 "exportoptions.section.compression.title" = "Kompressionsqualität";
 
 /* Export settings image format section header */
 "exportoptions.section.format.title" = "Bildformat";
+
+/* Video frame rate with unit */
+"formatter.framerate.format" = "%@ fps";
+
+/* Video pixel size with unit */
+"formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
 /* Ice cream message label when not purchased */
 "iap.notpurchased.message" = "Falls du ganz begeistert bist oder Frame Grabbers weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nDu bekommst dafür das gute Gefühl, mir eine Freude bereitet zu haben. :)\n\nDanke, dass du meine App ausprobierst!";

@@ -2,9 +2,10 @@ import Foundation
 
 struct UserText {
     static let okAction = NSLocalizedString("action.ok", value: "OK", comment: "Ok action")
+    static let cancelAction = NSLocalizedString("action.cancel", value: "Cancel", comment: "Cancel action")
+    static let deleteAction = NSLocalizedString("action.delete", value: "Delete", comment: "Delete context action")
     static let favoriteAction = NSLocalizedString("action.favorite", value: "Favorite", comment: "Favorite context action")
     static let unfavoriteAction = NSLocalizedString("action.unfavorite", value: "Unfavorite", comment: "Unfavorite context action")
-    static let deleteAction = NSLocalizedString("action.delete", value: "Delete", comment: "Delete context action")
 
     static let authorizationTitle = NSLocalizedString("authorization.title", value: "Welcome to\nFrame Grabber", comment: "Photo library authorization title")
     static let authorizationDeniedMessage = NSLocalizedString("authorization.denied.message", value: "Save your favorite video and Live Photo moments as pictures. To get started, allow access to your photo library in Settings.", comment: "Photo library authorization denied message")
@@ -34,6 +35,9 @@ struct UserText {
 
     static let editorVideoLoadProgress = NSLocalizedString("progress.videoLoad.title", value: "Loading…", comment: "Video loading (iCloud or otherwise) progress title.")
     static let editorExportProgress = NSLocalizedString("progress.frameExport.title", value: "Exporting…", comment: "Frame generation progress title.")
+
+    static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
+    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Export Settings", comment: "Editor more button export settings action")
 
     static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")
     static let detailLivePhotoTitle = NSLocalizedString("detail.livephoto.title", value: "Live Photo", comment: "Detail view title for live photos")
