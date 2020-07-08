@@ -37,4 +37,12 @@ class VideoCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         prepareForReuse()
     }
+
+    func fadeInOverlays() {
+        gradientView.alpha = 0
+
+        UIView.animate(withDuration: 0.2) {
+            self.gradientView.alpha = 1
+        }
+    }
 }
