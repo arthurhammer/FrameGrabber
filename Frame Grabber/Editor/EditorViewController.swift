@@ -13,6 +13,7 @@ class EditorViewController: UIViewController {
     private lazy var playbackController = PlaybackController()
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
+    private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
 
     @IBOutlet private var titleView: EditorTitleView!
@@ -70,22 +71,26 @@ private extension EditorViewController {
 
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
+        playSelectionFeedback()
         playbackController.playOrPause()
     }
 
     @IBAction func stepBackward() {
         guard !isScrubbing else { return }
+        playSelectionFeedback()
         playbackController.step(byCount: -1)
     }
 
     @IBAction func stepForward() {
         guard !isScrubbing else { return }
+        playSelectionFeedback()
         playbackController.step(byCount: 1)
     }
 
     @IBAction func shareFrames() {
         guard !isScrubbing else { return }
 
+        playSelectionFeedback()
         playbackController.pause()
         generateFramesAndShare(for: [playbackController.currentTime])
     }
@@ -100,6 +105,11 @@ private extension EditorViewController {
         }
 
         presentOnTop(alertController)
+    }
+
+    private func playSelectionFeedback() {
+        selectionFeedbackGenerator.selectionChanged()
+        selectionFeedbackGenerator.prepare()
     }
 
     // MARK: Configuring
