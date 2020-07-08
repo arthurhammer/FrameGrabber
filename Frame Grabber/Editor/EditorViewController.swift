@@ -148,8 +148,14 @@ private extension EditorViewController {
     }
 
     func configureGestures() {
+        guard transitionController != nil else { return }
+
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
         zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
+
+        if let defaultPopRecognizer = navigationController?.interactivePopGestureRecognizer {
+            slideToPopRecognizer.require(toFail: defaultPopRecognizer)
+        }
     }
 
     @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
