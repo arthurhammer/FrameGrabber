@@ -58,9 +58,9 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         return album
     }
 
-    func fetchUpdate(forAlbumAt indexPath: IndexPath, containing videoType: VideoType) -> FetchedAlbum? {
+    func fetchUpdate(forAlbumAt indexPath: IndexPath, filter: VideoTypesFilter) -> FetchedAlbum? {
         let album = self.album(at: indexPath).assetCollection
-        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: videoType)
+        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoFilter: filter)
         return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
     }
 

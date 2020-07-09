@@ -123,8 +123,7 @@ public class ThumbnailSlider: UIControl {
                 withDuration: animationDuration,
                 delay: 0,
                 options: .beginFromCurrentState,
-                animations: updateHandlePosition,
-                completion: nil
+                animations: updateHandlePosition
             )
         } else {
             updateHandlePosition()

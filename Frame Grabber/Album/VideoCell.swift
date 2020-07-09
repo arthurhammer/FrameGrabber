@@ -12,6 +12,10 @@ class VideoCell: UICollectionViewCell {
     @IBOutlet var livePhotoImageView: UIImageView!
     @IBOutlet var gradientView: GradientView!
 
+    @IBOutlet var imageContainer: UIView!
+    @IBOutlet var imageContainerWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var imageContainerHeightConstraint: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
@@ -30,6 +34,7 @@ class VideoCell: UICollectionViewCell {
 
     private func configureViews() {
         gradientView.colors = Style.Color.videoCellGradient
+        imageView.contentMode = .scaleAspectFill
         prepareForReuse()
     }
 }

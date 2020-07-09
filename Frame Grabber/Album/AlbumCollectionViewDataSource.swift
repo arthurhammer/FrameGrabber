@@ -8,10 +8,10 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
 
-    var type: VideoType {
-        get { settings.videoType }
+    var filter: VideoTypesFilter {
+        get { settings.videoTypesFilter }
         set {
-            settings.videoType = newValue
+            settings.videoTypesFilter = newValue
             fetchAlbum()
         }
     }
@@ -92,10 +92,10 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
 
     private func fetchAlbum() {
         guard let album = album?.assetCollection else { return }
-        let filter = type
+        let filter = self.filter
 
         filterQueue.async { [weak self] in
-            let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: filter)
+            let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoFilter: filter)
             let filteredAlbum = FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: fetchOptions)
 
             DispatchQueue.main.async {

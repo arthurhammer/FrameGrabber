@@ -66,8 +66,8 @@ class Coordinator: NSObject {
         albumsViewController.albumsDataSource = AlbumsDataSource.default()
 
         if let albumViewController = navigationController.topViewController as? AlbumViewController {
-            let type = albumViewController.settings.videoType
-            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(withVideoType: type)
+            let filter = albumViewController.settings.videoTypesFilter
+            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(with: filter)
         }
     }
 }

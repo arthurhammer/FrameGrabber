@@ -3,29 +3,30 @@ import Photos
 
 extension UIContextMenuConfiguration {
 
-    static func menu(for video: PHAsset, previewProvider: (() -> UIViewController?)? = nil, toggleFavoriteAction: @escaping (UIAction) -> (), deleteAction: @escaping (UIAction) -> ()) -> UIContextMenuConfiguration {
-        UIContextMenuConfiguration(identifier: video, previewProvider: previewProvider) { _ in
+    /// - Parameter indexPath: Passed as the identifier of the configuration.
+    static func videoCellContextMenu(
+        for video: PHAsset,
+        at indexPath: IndexPath,
+        previewProvider: (() -> UIViewController?)? = nil,
+        toggleFavoriteHandler: @escaping (UIAction) -> Void,
+        deleteHandler: @escaping (UIAction) -> Void
+    ) -> UIContextMenuConfiguration {
+
+        UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: previewProvider) { _ in
             UIMenu(title: "", children: [
-                .toggleFavorite(for: video, action: toggleFavoriteAction),
-                .delete(action: deleteAction)
+                UIAction(
+                    title: video.isFavorite ? UserText.unfavoriteAction : UserText.favoriteAction,
+                    image: UIImage(systemName: video.isFavorite ? "heart.slash" : "heart"),
+                    handler: toggleFavoriteHandler
+                ),
+                UIAction(
+                    title: UserText.deleteAction,
+                    image: UIImage(systemName: "trash"),
+                    attributes: .destructive,
+                    handler: deleteHandler
+                )
             ])
         }
-    }
-}
-
-extension UIMenuElement {
-
-    static func toggleFavorite(for video: PHAsset, action: @escaping (UIAction) -> ()) -> UIMenuElement {
-        UIAction(title: video.isFavorite ? UserText.unfavoriteAction : UserText.favoriteAction,
-                 image: UIImage(systemName: video.isFavorite ? "heart.slash" : "heart"),
-                 handler: action)
-    }
-
-    static func delete(action: @escaping (UIAction) -> ()) -> UIMenuElement {
-        UIAction(title: UserText.deleteAction,
-                 image: UIImage(systemName: "trash"),
-                 attributes: .destructive,
-                 handler: action)
     }
 }
 

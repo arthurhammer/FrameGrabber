@@ -10,8 +10,7 @@ class ThumbnailImageView: UIImageView {
                 with: self,
                 duration: fadeDuration,
                 options: [.transitionCrossDissolve, .beginFromCurrentState],
-                animations: { self.image = image },
-                completion: nil
+                animations: { self.image = image }
             )
         } else {
             self.image = image

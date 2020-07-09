@@ -29,7 +29,7 @@ struct EditorMenuActions {
     static func moreAlertController(handler: @escaping (SegueId) -> Void) -> UIAlertController {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        controller.addActions(
+        controller.addActions([
             UIAlertAction(
                 title: UserText.editorViewMetadataAction,
                 style: .default,
@@ -41,7 +41,7 @@ struct EditorMenuActions {
                 handler: { _ in handler(.exportSettings) }
             ),
             .cancel()
-        )
+        ])
 
         return controller
     }

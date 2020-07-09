@@ -217,12 +217,12 @@ private extension EditorViewController {
     }
 
     func loadVideo() {
-        showProgress(true, forActivity: .download, value: .determinate(0))
+        showProgress(true, forActivity: .load, value: .determinate(0))
 
         videoController.loadVideo(progressHandler: { [weak self] progress in
             self?.progressView.setProgress(.determinate(Float(progress)), animated: true)
         }, completionHandler: { [weak self] result in
-            self?.showProgress(false, forActivity: .download, value: .determinate(1))
+            self?.showProgress(false, forActivity: .load, value: .determinate(1))
             self?.handleVideoLoadingResult(result)
         })
     }
@@ -279,12 +279,12 @@ private extension EditorViewController {
     // MARK: Showing Progress
 
     enum Activity {
-        case download
+        case load
         case export
 
         var title: String {
             switch self {
-            case .download: return UserText.editorVideoLoadProgress
+            case .load: return UserText.editorVideoLoadProgress
             case .export: return UserText.editorExportProgress
             }
         }
@@ -293,10 +293,9 @@ private extension EditorViewController {
     func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
         view.isUserInteractionEnabled = !show  // todo
 
-        let localLoadMightTakeAWhile = (activity == .download) && (value == .determinate(0))
-        progressView.showDelay = localLoadMightTakeAWhile ? 0.3 : 0.1
-
+        progressView.showDelay = 0.2
         progressView.titleLabel.text = activity.title
+        
         if show {
             progressView.show(in: zoomingPlayerView, animated: animated, completion: completion)
         } else {

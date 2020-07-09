@@ -17,15 +17,17 @@ class AlbumViewController: UICollectionViewController {
 
     /// The most recently selected asset.
     private(set) var selectedAsset: PHAsset?
+
     var settings: UserDefaults = .standard
 
+    @IBOutlet private var contentModeBarItem: UIBarButtonItem!
+    @IBOutlet private var filterControl: VideoTypeFilterControl!
+
+    private lazy var emptyView = EmptyAlbumView()
     private var dataSource: AlbumCollectionViewDataSource?
     private lazy var durationFormatter = VideoDurationFormatter()
 
-    @IBOutlet private var filterControl: VideoTypeFilterControl!
-    private lazy var emptyView = EmptyAlbumView()
-
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,30 +66,24 @@ class AlbumViewController: UICollectionViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let video = dataSource?.video(at: indexPath) else { return nil }
+    // MARK: - Actions
 
-        let sourceImageView = videoCell(at: indexPath)?.imageView
+    // Rename
+    @IBAction func didChangeThumbnailContentMode() {
+        let newMode = settings.albumGridContentMode.toggled
 
-        return .menu(for: video, previewProvider: { [weak self] in
-            self?.imagePreviewController(for: sourceImageView)
-        }, toggleFavoriteAction: { [weak self] _ in
-            self?.dataSource?.toggleFavorite(for: video)
-        }, deleteAction: { [weak self] _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                self?.dataSource?.delete(video)
-            }
-        })
+        settings.albumGridContentMode = newMode
+
+        collectionView.indexPathsForVisibleItems.forEach { indexPath in
+            guard let cell = videoCell(at: indexPath) else { return }
+            setThumbnailContentMode(newMode, for: cell, at: indexPath, animated: true)
+        }
+
+        updateViews()
     }
 
-    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        guard let video = configuration.identifier as? PHAsset,
-            let indexPath = dataSource?.indexPath(of: video) else { return }
-
-        animator.addAnimations {
-            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            self.performSegue(withIdentifier: EditorViewController.name, sender: nil)
-        }
+    @IBAction func didChangeVideoFilter(_ sender: VideoTypeFilterControl) {
+        dataSource?.filter = VideoTypesFilter(sender.selectedSegmentIndex) ?? .all
     }
 
     /// Selects `selectedAsset` in the collection view.
@@ -95,15 +91,54 @@ class AlbumViewController: UICollectionViewController {
         let selectedIndexPath = selectedAsset.flatMap { dataSource?.indexPath(of: $0) }
         collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
-}
 
-// MARK: - UICollectionViewDelegate
+    // MARK: - Collection View Data Source & Delegate
 
-extension AlbumViewController {
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? VideoCell else { return }
+        setThumbnailContentMode(settings.albumGridContentMode, for: cell, at: indexPath, animated: false)
+    }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? VideoCell else { return }
-        cell.imageRequest = nil
+        (cell as? VideoCell)?.imageRequest = nil
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let video = dataSource?.video(at: indexPath) else { return nil }
+
+        let sourceImageView = videoCell(at: indexPath)?.imageView
+
+        return .videoCellContextMenu(for: video, at: indexPath) { [weak self] in
+            self?.imagePreviewController(for: sourceImageView)
+        }
+        toggleFavoriteHandler: { [weak self] _ in
+            self?.dataSource?.toggleFavorite(for: video)
+        }
+        deleteHandler: { [weak self] _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self?.dataSource?.delete(video)
+            }
+        }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        guard let indexPath = configuration.identifier as? IndexPath,
+              let cell = videoCell(at: indexPath) else { return nil }
+
+        return UITargetedPreview(view: cell.imageContainer)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        guard let indexPath = configuration.identifier as? IndexPath else { return }
+
+        animator.addAnimations {
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.performSegue(withIdentifier: EditorViewController.name, sender: nil)
+        }
     }
 }
 
@@ -122,6 +157,38 @@ private extension AlbumViewController {
 
         configureFilterControl()
         updateViews()
+    }
+
+    func updateViews() {
+        title = dataSource?.album?.title ?? defaultTitle
+
+        emptyView.type = dataSource?.filter ?? .all
+        emptyView.isEmpty = dataSource?.isEmpty ?? true
+
+        filterControl.selectedSegmentIndex = (dataSource?.filter ?? .all).rawValue
+        contentModeBarItem.image = settings.albumGridContentMode.toggled.image
+    }
+
+    func configureFilterControl() {
+        let margin: CGFloat = 16
+        view.addSubview(filterControl)
+
+        filterControl.translatesAutoresizingMaskIntoConstraints = false
+        filterControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        view.safeAreaLayoutGuide.leadingAnchor.constraint(lessThanOrEqualTo: filterControl.leadingAnchor , constant: -margin).isActive = true
+        view.safeAreaLayoutGuide.trailingAnchor.constraint(greaterThanOrEqualTo: filterControl.trailingAnchor, constant: margin).isActive = true
+        // 0 for notched phones, `margin`` for non-notched phones.
+        view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: filterControl.bottomAnchor, constant: 0).isActive = true
+        let bottomConstraint = view.bottomAnchor.constraint(equalTo: filterControl.bottomAnchor, constant: margin)
+        bottomConstraint.priority = .init(rawValue: 999)
+        bottomConstraint.isActive = true
+    }
+
+    func updateContentInset() {
+        let spacing: CGFloat = 8
+        let filterControlAdjust = filterControl.bounds.height + spacing
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: filterControlAdjust, right: 0)
+        collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
@@ -147,7 +214,7 @@ private extension AlbumViewController {
                 return
             }
 
-            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: { 
+            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: {
                 self?.reconfigure(cellAt: $0)
             })
         }
@@ -160,38 +227,8 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    func configureFilterControl() {
-        let margin: CGFloat = 16
-        view.addSubview(filterControl)
 
-        filterControl.translatesAutoresizingMaskIntoConstraints = false
-        filterControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        view.safeAreaLayoutGuide.leadingAnchor.constraint(lessThanOrEqualTo: filterControl.leadingAnchor , constant: -margin).isActive = true
-        view.safeAreaLayoutGuide.trailingAnchor.constraint(greaterThanOrEqualTo: filterControl.trailingAnchor, constant: margin).isActive = true
-        // 0 for notched phones, `margin`` for non-notched phones.
-        view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: filterControl.bottomAnchor, constant: 0).isActive = true
-        let bottomConstraint = view.bottomAnchor.constraint(equalTo: filterControl.bottomAnchor, constant: margin)
-        bottomConstraint.priority = .init(rawValue: 999)
-        bottomConstraint.isActive = true
-    }
-
-    func updateViews() {
-        title = dataSource?.album?.title ?? defaultTitle
-        emptyView.type = dataSource?.type ?? .any
-        emptyView.isEmpty = dataSource?.isEmpty ?? true
-        filterControl.selectedSegmentIndex = (dataSource?.type ?? .any).rawValue
-    }
-
-    func updateContentInset() {
-        let spacing: CGFloat = 8
-        let filterControlAdjust = filterControl.bounds.height + spacing
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: filterControlAdjust, right: 0)
-        collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
-    }
-
-    @IBAction func filterDidChange(_ sender: VideoTypeFilterControl) {
-        dataSource?.type = VideoType(sender.selectedSegmentIndex) ?? .any
-    }
+    // MARK: Cell Handling
 
     func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: VideoCell.name, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
@@ -204,6 +241,7 @@ private extension AlbumViewController {
         cell.durationLabel.isHidden = video.isLivePhoto
         cell.livePhotoImageView.isHidden = !video.isLivePhoto
         cell.favoritedImageView.isHidden = !video.isFavorite
+
         loadThumbnail(for: cell, video: video)
     }
 
@@ -224,6 +262,19 @@ private extension AlbumViewController {
 
             cell.imageView.image = image
         }
+    }
+
+    func setThumbnailContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath, animated: Bool) {
+        guard let video = dataSource?.video(at: indexPath) else { return }
+
+        let duration = animated ? 0.15 : 0
+        let targetSize = mode.thumbnailSize(forAssetDimensions: video.dimensions, in: cell.bounds.size)
+
+        UIView.animate(withDuration: duration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+            cell.imageContainerWidthConstraint.constant = targetSize.width
+            cell.imageContainerHeightConstraint.constant = targetSize.height
+            cell.imageContainer.layoutIfNeeded()
+        })
     }
 
     func videoCell(at indexPath: IndexPath) -> VideoCell? {

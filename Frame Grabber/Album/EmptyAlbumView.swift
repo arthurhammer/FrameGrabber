@@ -16,7 +16,7 @@ class EmptyAlbumView: UIView {
         didSet { updateViews() }
     }
 
-    var type: VideoType = .any {
+    var type: VideoTypesFilter = .all {
         didSet { updateViews() }
     }
 
@@ -52,11 +52,11 @@ class EmptyAlbumView: UIView {
     }
 }
 
-private extension VideoType {
+private extension VideoTypesFilter {
 
     var emptyAlbumMessage: String {
         switch self {
-        case .any: return UserText.albumEmptyAny
+        case .all: return UserText.albumEmptyAny
         case .video: return UserText.albumEmptyVideos
         case .livePhoto: return UserText.albumEmptyLive
         }

@@ -30,10 +30,10 @@ class AlbumsViewController: UICollectionViewController {
     private func prepareForAlbumSegue(with destination: AlbumViewController) {
         guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
 
-        let type = destination.settings.videoType
+        let filter = destination.settings.videoTypesFilter
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
         // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, containing: type)
+        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, filter: filter)
     }
 
     // MARK: - UICollectionViewDelegate

@@ -54,6 +54,6 @@ class ScrubbingIndicatorView: UIVisualEffectView {
     private func show(_ show: Bool) {
         UIView.animate(withDuration: animationDuration, delay: 0, options: .beginFromCurrentState, animations: {
             self.alpha = show ? 1 : 0
-        }, completion: nil)
+        })
     }
 }

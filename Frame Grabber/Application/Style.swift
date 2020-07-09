@@ -17,10 +17,9 @@ struct Style {
         }
 
         static let iceCream = UIColor(red: 0.97, green: 0.56, blue: 0.70, alpha: 1.00)
-
-        static var cellSelection: UIColor = .secondarySystemFill
-        static var disabledLabel: UIColor = .systemGray
-        static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.6)]
+        static let cellSelection: UIColor = .secondarySystemFill
+        static let disabledLabel: UIColor = .systemGray
+        static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
     }
 
     struct Size {
