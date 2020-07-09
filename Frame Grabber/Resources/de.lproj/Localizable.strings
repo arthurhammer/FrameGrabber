@@ -40,6 +40,15 @@
 /* Title for the initial placeholder album until the user authorizes. */
 "album.unauthorized.title" = "Zuletzt";
 
+/* Title of album view as aspect ratio settings menu item */
+"album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
+
+/* Title of album view settings button menu */
+"album.viewSettings.menu.title" = "Anzeigen";
+
+/* Title of album view as squares settings menu item */
+"album.viewSettings.squareGrid.title" = "Quadratisches Raster";
+
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
 
@@ -162,4 +171,13 @@
 
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
+
+/* Video filter title, all items */
+"videofilter.all" = "Alles";
+
+/* Video filter title, only Live Photos */
+"videofilter.livePhoto" = "Live Photos";
+
+/* Video filter title, only videos */
+"videofilter.video" = "Videos";
 

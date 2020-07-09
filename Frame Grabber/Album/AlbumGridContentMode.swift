@@ -17,6 +17,13 @@ extension AlbumGridContentMode {
         }
     }
 
+    var title: String {
+        switch self {
+        case .fit: return UserText.albumViewSettingsFitGridTitle
+        case .square: return UserText.albumViewSettingsSquareGridTitle
+        }
+    }
+
     var image: UIImage? {
         if #available(iOS 14, *) {
             switch self {

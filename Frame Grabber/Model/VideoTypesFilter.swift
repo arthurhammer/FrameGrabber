@@ -1,4 +1,5 @@
 import Photos
+import UIKit
 
 enum VideoTypesFilter: Int {
     case all
@@ -27,4 +28,21 @@ extension VideoTypesFilter {
             return NSPredicate(format: "(mediaSubtypes & %d) != 0", PHAssetMediaSubtype.photoLive.rawValue)
         }
     }
+
+    var title: String {
+        switch self {
+        case .all: return UserText.videoFilterAllItems
+        case .video: return UserText.videoFilterVideos
+        case .livePhoto: return UserText.videoFilterLivePhotos
+        }
+    }
+
+    var image: UIImage? {
+        switch self {
+        case .all: return UIImage(systemName: "square.grid.2x2")
+        case .video: return  UIImage(systemName: "video")
+        case .livePhoto: return  UIImage(systemName: "livephoto")
+        }
+    }
+
 }
