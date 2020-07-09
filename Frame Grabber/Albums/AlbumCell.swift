@@ -27,6 +27,7 @@ class AlbumCell: UICollectionViewCell {
 
     private func configureViews() {
         imageView.layer.cornerRadius = 6
+        imageView.layer.cornerCurve = .continuous
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = Style.Color.cellSelection
     }

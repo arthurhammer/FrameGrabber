@@ -20,6 +20,7 @@ class ScrubbingIndicatorView: UIVisualEffectView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 2
+        layer.cornerCurve = .continuous
     }
 
     func configure(for slider: ScrubbingThumbnailSlider) {

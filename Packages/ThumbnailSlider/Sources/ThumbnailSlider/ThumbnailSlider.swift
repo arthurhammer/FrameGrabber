@@ -71,6 +71,7 @@ public class ThumbnailSlider: UIControl {
         view.handleColor = handleColor
         view.disabledHandleColor = disabledHandleColor
         view.layer.cornerRadius = handleCornerRadius
+        view.layer.cornerCurve = .continuous
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowRadius = 6
@@ -85,6 +86,7 @@ public class ThumbnailSlider: UIControl {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.backgroundColor = trackColor
         view.layer.cornerRadius = trackCornerRadius
+        view.layer.cornerCurve = .continuous
         return view
     }()
 

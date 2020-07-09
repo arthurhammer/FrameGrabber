@@ -44,6 +44,7 @@ class PhotoLibraryAuthorizationController: UIViewController {
         button.tintColor = .systemBackground
         button.backgroundColor = Style.Color.mainTint
         button.layer.cornerRadius = Style.Size.buttonCornerRadius
+        button.layer.cornerCurve = .continuous
 
         updateViews()
     }

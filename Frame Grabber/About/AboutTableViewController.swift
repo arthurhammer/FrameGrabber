@@ -64,6 +64,7 @@ class AboutTableViewController: UITableViewController, MFMailComposeViewControll
         rateButton.tintColor = .systemGroupedBackground
         rateButton.backgroundColor = Style.Color.mainTint
         rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
+        rateButton.layer.cornerCurve = .continuous
 
         versionLabel.text = String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
 

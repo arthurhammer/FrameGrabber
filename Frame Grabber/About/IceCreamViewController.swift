@@ -97,6 +97,7 @@ class IceCreamViewController: UIViewController {
         purchaseButton.tintColor = .white
         purchaseButton.backgroundColor = Style.Color.iceCream
         purchaseButton.layer.cornerRadius = Style.Size.buttonCornerRadius
+        purchaseButton.layer.cornerCurve = .continuous
         purchaseButton.activityIndicator.color = .white
 
         confettiView.confettiImage = UIImage(named: "confetti")
