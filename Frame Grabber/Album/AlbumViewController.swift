@@ -87,16 +87,19 @@ class AlbumViewController: UICollectionViewController {
         guard let video = dataSource?.video(at: indexPath) else { return nil }
 
         let sourceImageView = videoCell(at: indexPath)?.imageView
+        let previewProvider = { [weak self] in self?.imagePreviewController(for: sourceImageView) }
 
-        return .videoCellContextMenu(for: video, at: indexPath) { [weak self] in
-            self?.imagePreviewController(for: sourceImageView)
-        }
-        toggleFavoriteHandler: { [weak self] _ in
-            self?.dataSource?.toggleFavorite(for: video)
-        }
-        deleteHandler: { [weak self] _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                self?.dataSource?.delete(video)
+        return AlbumCellContextMenu.menu(for: video, at: indexPath, previewProvider: previewProvider) {
+            [weak self] selection in
+
+            switch selection {
+            case .favorite:
+                self?.dataSource?.toggleFavorite(for: video)
+            case .delete:
+                let delay = 0.25
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    self?.dataSource?.delete(video)
+                }
             }
         }
     }
@@ -199,7 +202,7 @@ private extension AlbumViewController {
         if #available(iOS 14, *) {
             viewSettingsButton.showsMenuAsPrimaryAction = true
 
-            viewSettingsButton.menu = AlbumMenus.viewSettingsMenu(
+            viewSettingsButton.menu = AlbumViewSettingsMenu.menu(
                 forCurrentFilter: filter,
                 gridMode: settings.albumGridContentMode,
                 handler: { [weak self] selection in
@@ -212,7 +215,7 @@ private extension AlbumViewController {
     }
 
     @objc func showViewSettingsAlertSheet() {
-        let controller = AlbumMenus.viewSettingsAlertController(
+        let controller = AlbumViewSettingsMenu.alertController(
             forCurrentFilter: dataSource?.filter ?? .all,
             gridMode: settings.albumGridContentMode,
             handler: { [weak self] selection in
@@ -223,7 +226,7 @@ private extension AlbumViewController {
         presentAlert(controller)
     }
 
-    func handleMenuSelection(_ selection: AlbumMenus.Selection) {
+    func handleMenuSelection(_ selection: AlbumViewSettingsMenu.Selection) {
         switch selection {
         case .videosFilter(let filter):
             dataSource?.filter = filter

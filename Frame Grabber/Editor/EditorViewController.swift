@@ -100,8 +100,8 @@ private extension EditorViewController {
     }
 
     @objc func showMoreMenuAsAlertSheet() {
-        let alertController = EditorMenuActions.moreAlertController { [weak self] chosenActionId in
-            self?.performSegue(withIdentifier: chosenActionId.rawValue, sender: nil)
+        let alertController = EditorMoreMenu.alertController { [weak self] selection in
+            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
         }
 
         presentOnTop(alertController)
@@ -128,8 +128,8 @@ private extension EditorViewController {
         )
 
         if #available(iOS 14.0, *) {
-            navigationItem.rightBarButtonItem?.menu = EditorMenuActions.moreMenu { [weak self] chosenActionId in
-                self?.performSegue(withIdentifier: chosenActionId.rawValue, sender: nil)
+            navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
+                self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
             }
         } else {
             navigationItem.rightBarButtonItem?.target = self

@@ -1,6 +1,6 @@
 import UIKit
 
-struct AlbumMenus {
+struct AlbumViewSettingsMenu {
 
     enum Selection {
         case videosFilter(VideoTypesFilter)
@@ -8,7 +8,7 @@ struct AlbumMenus {
     }
 
     @available(iOS 14, *)
-    static func viewSettingsMenu(
+    static func menu(
         forCurrentFilter currentFilter: VideoTypesFilter,
         gridMode: AlbumGridContentMode,
         handler: @escaping (Selection) -> Void
@@ -34,7 +34,7 @@ struct AlbumMenus {
         return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [gridAction] + filterActions.reversed())
     }
 
-    static func viewSettingsAlertController(
+    static func alertController(
         forCurrentFilter currentFilter: VideoTypesFilter,
         gridMode: AlbumGridContentMode,
         handler: @escaping (Selection) -> Void

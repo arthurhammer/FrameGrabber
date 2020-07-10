@@ -1,16 +1,16 @@
 import UIKit
 
-struct EditorMenuActions {
+struct EditorMoreMenu {
 
-    /// The segue identifiers for the more menu actions.
-    enum SegueId: String {
+    /// The selected action. The raw values match the editor's segue identifiers.
+    enum Selection: String {
         case metadata = "Metadata"
         case exportSettings = "ExportSettings"
     }
 
     /// - Parameter handler: Is called with the segue identifier of the chosen menu item.
     @available(iOS 14, *)
-    static func moreMenu(handler: @escaping (SegueId) -> Void) -> UIMenu {
+    static func menu(handler: @escaping (Selection) -> Void) -> UIMenu {
         UIMenu(title: "", children: [
             UIAction(
                 title: UserText.editorViewMetadataAction,
@@ -26,7 +26,7 @@ struct EditorMenuActions {
     }
 
     /// - Parameter handler: Is called with the segue identifier of the chosen menu item.
-    static func moreAlertController(handler: @escaping (SegueId) -> Void) -> UIAlertController {
+    static func alertController(handler: @escaping (Selection) -> Void) -> UIAlertController {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         controller.addActions([

@@ -1,15 +1,19 @@
 import UIKit
 import Photos
 
-extension UIContextMenuConfiguration {
+struct AlbumCellContextMenu {
+
+    enum Selection {
+        case favorite
+        case delete
+    }
 
     /// - Parameter indexPath: Passed as the identifier of the configuration.
-    static func videoCellContextMenu(
+    static func menu(
         for video: PHAsset,
         at indexPath: IndexPath,
         previewProvider: (() -> UIViewController?)? = nil,
-        toggleFavoriteHandler: @escaping (UIAction) -> Void,
-        deleteHandler: @escaping (UIAction) -> Void
+        handler: @escaping (Selection) -> Void
     ) -> UIContextMenuConfiguration {
 
         UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: previewProvider) { _ in
@@ -17,13 +21,13 @@ extension UIContextMenuConfiguration {
                 UIAction(
                     title: video.isFavorite ? UserText.unfavoriteAction : UserText.favoriteAction,
                     image: UIImage(systemName: video.isFavorite ? "heart.slash" : "heart"),
-                    handler: toggleFavoriteHandler
+                    handler: { _ in handler(.favorite) }
                 ),
                 UIAction(
                     title: UserText.deleteAction,
                     image: UIImage(systemName: "trash"),
                     attributes: .destructive,
-                    handler: deleteHandler
+                    handler: { _ in handler(.delete) }
                 )
             ])
         }

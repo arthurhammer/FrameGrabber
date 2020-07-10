@@ -44,7 +44,7 @@ extension PHFetchOptions {
 
     static func assets(forAlbumType albumType: PHAssetCollectionType, videoFilter: VideoTypesFilter) -> PHFetchOptions {
         let options = PHFetchOptions.assets(forAlbumType: albumType)
-        options.predicate = videoFilter.fetchPredicate
+        options.predicate = videoFilter.photoLibraryFetchPredicate
         return options
     }
 }

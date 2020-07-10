@@ -21,15 +21,15 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="654"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="172" y="690" width="70" height="32"/>
+                                <rect key="frame" x="171.5" y="690" width="71.5" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="70" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="70.5" height="32"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="70" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
@@ -266,11 +266,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="187" height="52"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e1b-6l-rn9">
-                                                    <rect key="frame" x="16" y="16" width="155" height="20"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="e1b-6l-rn9">
+                                                    <rect key="frame" x="12" y="12" width="163" height="28"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g0E-H0-6De">
-                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                            <rect key="frame" x="0.0" y="4" width="20" height="20"/>
                                                             <subviews>
                                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="wEi-pI-5iC">
                                                                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -285,10 +285,10 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="It4-ph-aop">
-                                                            <rect key="frame" x="32" y="1" width="123" height="18"/>
+                                                            <rect key="frame" x="28" y="5" width="135" height="18"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Exporting…&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGN-ie-szR">
-                                                                    <rect key="frame" x="13.5" y="0.0" width="96.5" height="18"/>
+                                                                    <rect key="frame" x="19.5" y="0.0" width="96.5" height="18"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -298,10 +298,10 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="e1b-6l-rn9" secondAttribute="bottom" constant="16" id="5c6-xM-fON"/>
-                                                <constraint firstItem="e1b-6l-rn9" firstAttribute="leading" secondItem="oCI-YA-r8G" secondAttribute="leading" constant="16" id="E18-P7-52U"/>
-                                                <constraint firstItem="e1b-6l-rn9" firstAttribute="top" secondItem="oCI-YA-r8G" secondAttribute="top" constant="16" id="aaW-Pv-y9Y"/>
-                                                <constraint firstAttribute="trailing" secondItem="e1b-6l-rn9" secondAttribute="trailing" constant="16" id="zfV-fg-ZPD"/>
+                                                <constraint firstAttribute="bottom" secondItem="e1b-6l-rn9" secondAttribute="bottom" constant="12" id="5c6-xM-fON"/>
+                                                <constraint firstItem="e1b-6l-rn9" firstAttribute="leading" secondItem="oCI-YA-r8G" secondAttribute="leading" constant="12" id="E18-P7-52U"/>
+                                                <constraint firstItem="e1b-6l-rn9" firstAttribute="top" secondItem="oCI-YA-r8G" secondAttribute="top" constant="12" id="aaW-Pv-y9Y"/>
+                                                <constraint firstAttribute="trailing" secondItem="e1b-6l-rn9" secondAttribute="trailing" constant="12" id="zfV-fg-ZPD"/>
                                             </constraints>
                                         </view>
                                         <vibrancyEffect style="label">

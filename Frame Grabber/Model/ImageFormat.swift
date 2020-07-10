@@ -1,7 +1,9 @@
-enum ImageFormat: String, Hashable, Codable {
+enum ImageFormat: String {
     case heif
     case jpeg
 }
+
+extension ImageFormat: CaseIterable, Hashable, Codable {}
 
 extension ImageFormat {
 

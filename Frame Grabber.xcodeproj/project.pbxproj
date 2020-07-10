@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		00024F6D23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
 		00024F6E23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
-		00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
-		00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */; };
+		00024F70234482EE00937941 /* AlbumCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */; };
+		00024F71234482EE00937941 /* AlbumCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */; };
 		00024F762344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B12435181D00C339DE /* ThumbnailSlider */; };
@@ -58,8 +58,8 @@
 		0054936523E5633700F3E684 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936323E5631B00F3E684 /* About.swift */; };
 		0058E354213D645900BE28DD /* ZoomTransitionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */; };
 		0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* TransitionUtilities.swift */; };
-		005B22B724B246350006EE4A /* EditorMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMenuActions.swift */; };
-		005B22B824B246350006EE4A /* EditorMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMenuActions.swift */; };
+		005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMoreMenu.swift */; };
+		005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMoreMenu.swift */; };
 		005E2AA320273C5800F731FA /* AlbumGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* AlbumGridLayout.swift */; };
 		005E2AA7202773F800F731FA /* PhotoLibraryAuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */; };
 		00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
@@ -158,8 +158,8 @@
 		00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */; };
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
-		00B52C8F24B71C9F00FDD427 /* AlbumMenus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* AlbumMenus.swift */; };
-		00B52C9024B71C9F00FDD427 /* AlbumMenus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* AlbumMenus.swift */; };
+		00B52C8F24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift */; };
+		00B52C9024B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
 		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize.swift */; };
@@ -222,7 +222,7 @@
 
 /* Begin PBXFileReference section */
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
-		00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumContextMenuActions.swift; sourceTree = "<group>"; };
+		00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellContextMenu.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		000EA8B62437311700C339DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Application/Base.lproj/Editor.storyboard"; sourceTree = "<group>"; };
 		000EA8BA243731CE00C339DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/Application/de.lproj/Editor.strings"; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
 		0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionTypes.swift; sourceTree = "<group>"; };
 		0058E355213D9AE900BE28DD /* TransitionUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionUtilities.swift; sourceTree = "<group>"; };
-		005B22B624B246350006EE4A /* EditorMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorMenuActions.swift; sourceTree = "<group>"; };
+		005B22B624B246350006EE4A /* EditorMoreMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorMoreMenu.swift; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* AlbumGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGridLayout.swift; sourceTree = "<group>"; };
 		005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizationController.swift; sourceTree = "<group>"; };
 		00653B3F213923460038CB56 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
@@ -296,7 +296,7 @@
 		00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbums.swift; sourceTree = "<group>"; };
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
-		00B52C8E24B71C9F00FDD427 /* AlbumMenus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMenus.swift; sourceTree = "<group>"; };
+		00B52C8E24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewSettingsMenu.swift; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPhotoLibrary.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
@@ -408,11 +408,11 @@
 		001AA1981FB497E900A00BB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
-				001AA1841FB4977100A00BB9 /* Info.plist */,
 				00E82088214FEBC000460FD1 /* Info-Dev.plist */,
-				00AA201F213432B400084B08 /* Localizable.strings */,
+				001AA1841FB4977100A00BB9 /* Info.plist */,
+				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
 				00AA201C213432B400084B08 /* InfoPlist.strings */,
+				00AA201F213432B400084B08 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -420,15 +420,15 @@
 		0020D2F11FB4ED95002379D0 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				009BEA48234E243D00C284FA /* dprint.swift */,
 				00024F752344C06F00937941 /* AVAsset.swift */,
 				0096E812212F2EF8008395CA /* Bundle.swift */,
+				00CF4BC823F208C4006DB612 /* CachingGeocodingLocationFormatter.swift */,
 				00E713592125E2940052EAF8 /* CGImage.swift */,
 				00C098D81FC1A7D3000B05FE /* CGSize.swift */,
 				00C4476A242AB3DF00976DAF /* Combine.swift */,
+				009BEA48234E243D00C284FA /* dprint.swift */,
 				0086A6B12344CD7100989646 /* FileManager.swift */,
 				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
-				00CF4BC823F208C4006DB612 /* CachingGeocodingLocationFormatter.swift */,
 				00EDF98123422B5A00FA0F48 /* NSObject.swift */,
 				00024F6C23447EDF00937941 /* PHAsset.swift */,
 				00EDF97E2340A28900FA0F48 /* RawRepresentable.swift */,
@@ -444,14 +444,14 @@
 		0020D2F21FB4F277002379D0 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */,
+				0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */,
+				002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */,
+				005E2AA220273C5800F731FA /* AlbumGridLayout.swift */,
 				001AA1991FB498C700A00BB9 /* AlbumViewController.swift */,
 				00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */,
-				0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */,
-				005E2AA220273C5800F731FA /* AlbumGridLayout.swift */,
-				002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */,
-				00024F6F234482EE00937941 /* AlbumContextMenuActions.swift */,
-				00B52C8E24B71C9F00FDD427 /* AlbumMenus.swift */,
 				007F8A1824B7591C00324014 /* AlbumViewSettingsButton.swift */,
+				00B52C8E24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift */,
 				00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 			);
@@ -461,10 +461,10 @@
 		00229DBB212E0B1A00848CE8 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				0023FC8D23390D940046D9F8 /* About.storyboard */,
 				001E825C2403B0A300388E62 /* AboutContainerViewController.swift */,
 				0023FCA4233A42150046D9F8 /* AboutTableViewController.swift */,
 				0034AFFC240139E30041513F /* IceCreamViewController.swift */,
+				0023FC8D23390D940046D9F8 /* About.storyboard */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -482,9 +482,9 @@
 		003EC973234B9A2200EA8035 /* Frame Export */ = {
 			isa = PBXGroup;
 			children = (
+				0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */,
 				009BEA42234E152E00C284FA /* FrameExport.swift */,
 				009BEA45234E17E900C284FA /* FrameExportOperation.swift */,
-				0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */,
 			);
 			path = "Frame Export";
 			sourceTree = "<group>";
@@ -492,13 +492,13 @@
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				000EA8B52437311700C339DE /* Editor.storyboard */,
-				00328A961FC85D84004648F9 /* EditorViewController.swift */,
-				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
-				005B22B624B246350006EE4A /* EditorMenuActions.swift */,
+				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
 				00C68E53242B6A3D004135A4 /* EditorTitleView.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
+				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
+				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
+				000EA8B52437311700C339DE /* Editor.storyboard */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
 			path = Editor;
@@ -507,11 +507,11 @@
 		00653B41213941860038CB56 /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */,
-				00653B3F213923460038CB56 /* ZoomTransitionController.swift */,
-				00653B42213941A20038CB56 /* ZoomPushTransition.swift */,
-				00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */,
 				0058E355213D9AE900BE28DD /* TransitionUtilities.swift */,
+				00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */,
+				00653B42213941A20038CB56 /* ZoomPushTransition.swift */,
+				00653B3F213923460038CB56 /* ZoomTransitionController.swift */,
+				0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -527,8 +527,8 @@
 		0078A45323F4AD2B0033E81C /* Progress */ = {
 			isa = PBXGroup;
 			children = (
-				001A6C5020623B0000B91F3A /* ProgressView.swift */,
 				0078A45423F4AD700033E81C /* CircularProgressView.swift */,
+				001A6C5020623B0000B91F3A /* ProgressView.swift */,
 			);
 			path = Progress;
 			sourceTree = "<group>";
@@ -536,12 +536,12 @@
 		00A9DF5321273FA400778885 /* Albums */ = {
 			isa = PBXGroup;
 			children = (
-				00A9DF5121273FA000778885 /* AlbumsViewController.swift */,
-				00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */,
 				00A9DF542127635C00778885 /* AlbumCell.swift */,
+				00109CCB23FD239400B79F58 /* AlbumIcons.swift */,
+				00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */,
 				00F3C254213046CD0030B7EC /* AlbumsHeader.swift */,
 				00AA20222136C93100084B08 /* AlbumsLayout.swift */,
-				00109CCB23FD239400B79F58 /* AlbumIcons.swift */,
+				00A9DF5121273FA000778885 /* AlbumsViewController.swift */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -549,9 +549,9 @@
 		00AFE4FA202AEF01005E2AA8 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
-				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 				005E2AA6202773F800F731FA /* PhotoLibraryAuthorizationController.swift */,
 				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */,
+				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -572,8 +572,8 @@
 		00CD76FD23F6C0F600F78C56 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				003EC973234B9A2200EA8035 /* Frame Export */,
 				00E273532416BBD7007FE0C6 /* Asset Fetching */,
+				003EC973234B9A2200EA8035 /* Frame Export */,
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Services;
@@ -582,17 +582,17 @@
 		00D9E83E234349C2009E7AFA /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
-				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
+				0054936323E5631B00F3E684 /* About.swift */,
+				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				001AA1781FB4977100A00BB9 /* AppDelegate.swift */,
 				00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */,
 				00CB8123234CE05400354E03 /* NavigationController.swift */,
-				0054936323E5631B00F3E684 /* About.swift */,
-				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
 				001CBD93242BB7CE00625685 /* UserText.swift */,
+				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
+				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -600,8 +600,8 @@
 		00E273532416BBD7007FE0C6 /* Asset Fetching */ = {
 			isa = PBXGroup;
 			children = (
-				00C098EA1FC477E5000B05FE /* PHImageManager.swift */,
 				00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */,
+				00C098EA1FC477E5000B05FE /* PHImageManager.swift */,
 			);
 			path = "Asset Fetching";
 			sourceTree = "<group>";
@@ -609,9 +609,9 @@
 		00EAFDA0205FB42E0031F8A2 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				00AD72C024194107009D18BA /* AVPlayer.swift */,
 				00B264551FD090B300A6C3C3 /* PlaybackController.swift */,
 				00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */,
-				00AD72C024194107009D18BA /* AVPlayer.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -628,10 +628,10 @@
 		00ED22DC24AFDADF0023A973 /* Export Settings */ = {
 			isa = PBXGroup;
 			children = (
-				008D293524B20F5100813338 /* ExportSettings.storyboard */,
+				00EDF97A2340A17400FA0F48 /* ExportSettingsSectionHeader.swift */,
 				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
 				00EDF97723409EC800FA0F48 /* ExportSettingsSectionHeader.xib */,
-				00EDF97A2340A17400FA0F48 /* ExportSettingsSectionHeader.swift */,
+				008D293524B20F5100813338 /* ExportSettings.storyboard */,
 			);
 			path = "Export Settings";
 			sourceTree = "<group>";
@@ -639,8 +639,8 @@
 		00EDF97C2340A17A00FA0F48 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				00D9E83523426301009E7AFA /* Metadata.storyboard */,
 				009E1862233DD403008100D5 /* MetadataViewController.swift */,
+				00D9E83523426301009E7AFA /* Metadata.storyboard */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -835,14 +835,14 @@
 				00730EA8214FEA5A001A6EA7 /* ZoomPushTransition.swift in Sources */,
 				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
-				00024F71234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
+				00024F71234482EE00937941 /* AlbumCellContextMenu.swift in Sources */,
 				00AD72C224194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumsHeader.swift in Sources */,
 				00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */,
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
 				00730EB0214FEA5A001A6EA7 /* ProgressView.swift in Sources */,
-				005B22B824B246350006EE4A /* EditorMenuActions.swift in Sources */,
+				005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00730EB1214FEA5A001A6EA7 /* Settings.swift in Sources */,
 				00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				00024F6E23447EDF00937941 /* PHAsset.swift in Sources */,
@@ -899,7 +899,7 @@
 				0010CF47240783DA00DE0C31 /* String.swift in Sources */,
 				00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */,
 				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
-				00B52C9024B71C9F00FDD427 /* AlbumMenus.swift in Sources */,
+				00B52C9024B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* Formatters.swift in Sources */,
 				00730EDC214FEA5A001A6EA7 /* AlbumViewController+Transition.swift in Sources */,
 				00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */,
@@ -922,14 +922,14 @@
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
-				00024F70234482EE00937941 /* AlbumContextMenuActions.swift in Sources */,
+				00024F70234482EE00937941 /* AlbumCellContextMenu.swift in Sources */,
 				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumsHeader.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */,
 				001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */,
-				005B22B724B246350006EE4A /* EditorMenuActions.swift in Sources */,
+				005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
 				00024F6D23447EDF00937941 /* PHAsset.swift in Sources */,
@@ -986,7 +986,7 @@
 				0010CF46240783DA00DE0C31 /* String.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
 				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
-				00B52C8F24B71C9F00FDD427 /* AlbumMenus.swift in Sources */,
+				00B52C8F24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */,
 				00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */,
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,
