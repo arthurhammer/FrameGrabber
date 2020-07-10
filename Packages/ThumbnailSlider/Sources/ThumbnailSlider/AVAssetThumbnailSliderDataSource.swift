@@ -28,7 +28,7 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
 
     private var imageGenerator: AVAssetImageGenerator?
     private let timeTolerance: CMTime
-    private let scaleFactor: CGFloat = 1.5
+    private let scaleFactor: CGFloat = 2
 
     public init(
         slider: ThumbnailSlider?,

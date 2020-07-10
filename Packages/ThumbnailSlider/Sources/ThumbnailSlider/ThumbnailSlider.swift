@@ -46,7 +46,7 @@ public class ThumbnailSlider: UIControl {
     private var _time: CMTime = .zero
 
     private var previousSize: CGSize = .zero
-    private var reloadId: String?
+    private var reloadId: UUID?
     private var initialTrackingTouchLocation: CGPoint = .zero
     private var initialTrackingHandleLocation: CGPoint = .zero
 
@@ -58,6 +58,8 @@ public class ThumbnailSlider: UIControl {
     private let trackColor: UIColor = .tertiarySystemFill
     private let trackCornerRadius: CGFloat = 8
     private let verticalTrackInset: CGFloat = 4
+    private let minimumThumbnailWidth: CGFloat = 8
+    private let maximumThumbnailWidth: CGFloat = 90
 
     private let intrinsicHeight: CGFloat = 50
     private let minimumTouchTarget = CGSize(width: 44, height: 44)
@@ -142,7 +144,12 @@ public class ThumbnailSlider: UIControl {
 
         guard let aspectRatio = dataSource?.thumbnailAspectRatio(in: self) else { return }
 
-        track.makeThumbnails(withAspectRatio: aspectRatio)
+        track.makeThumbnails(
+            withAspectRatio: aspectRatio,
+            minimumWidth: minimumThumbnailWidth,
+            maximumWidth: maximumThumbnailWidth
+        )
+
         loadThumbnails()
     }
 
@@ -153,7 +160,7 @@ public class ThumbnailSlider: UIControl {
 
         let size = track.thumbnailSize.scaledToScreen
 
-        reloadId = UUID().uuidString
+        reloadId = UUID()
         let currentId = reloadId
 
         dataSource?.slider(self, loadThumbnailsForTimes: times, size: size) {
