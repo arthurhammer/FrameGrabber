@@ -48,6 +48,7 @@ class ThumbnailSliderTrack: UIView {
 
     func clearThumbnails() {
         thumbnailStack.arrangedSubviews.forEach(thumbnailStack.removeArrangedSubview)
+        thumbnailStack.subviews.forEach { $0.removeFromSuperview() }
     }
 
     /// Creates thumbnail views in size and amount fitting the given parameters.
