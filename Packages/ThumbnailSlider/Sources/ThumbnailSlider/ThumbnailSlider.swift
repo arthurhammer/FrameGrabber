@@ -170,7 +170,7 @@ public class ThumbnailSlider: UIControl {
 
             if isCurrent {
                 let imageView = self?.track.thumbnailViews[index]
-                imageView?.setImage(image, animated: true)
+                imageView?.setImage(image, animated: false)
             }
         }
     }
