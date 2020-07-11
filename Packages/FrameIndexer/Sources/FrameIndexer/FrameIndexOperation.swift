@@ -1,21 +1,11 @@
 import AVFoundation
 
-extension FrameIndexOperation {
-
-    typealias IndexResult = Result<[CMTime], IndexError>
-
-    enum IndexError: Error {
-        case cancelled
-        case invalidVideo
-        case frameLimitReached
-        case readingFailed(_ underlying: Error?)
-    }
-}
-
 /// An operation that indexes frames in a video.
 ///
 /// If successful, the result is a sorted list of frame presentation time stamps.
 class FrameIndexOperation: Operation {
+
+    typealias IndexResult = Result<[CMTime], FrameIndexError>
 
     private let video: AVAsset
     private var result: IndexResult
@@ -102,7 +92,7 @@ private extension FrameIndexOperation {
     }
 
     /// On success, a reader and reader output ready to read samples.
-    func preparedReader(for video: AVAsset) -> Result<(AVAssetReader, AVAssetReaderTrackOutput), IndexError> {
+    func preparedReader(for video: AVAsset) -> Result<(AVAssetReader, AVAssetReaderTrackOutput), FrameIndexError> {
         guard let videoTrack = video.tracks(withMediaType: .video).first else {
             return .failure(.invalidVideo)
         }

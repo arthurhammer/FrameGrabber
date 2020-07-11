@@ -1,11 +1,11 @@
 import AVKit
 
 /// Indexes frames in a video for their frame presentation time stamps.
-class FrameIndexer {
+public class FrameIndexer {
 
-    typealias IndexResult = Result<IndexedFrames, FrameIndexOperation.IndexError>
+    public typealias IndexResult = Result<IndexedFrames, FrameIndexError>
 
-    var qualityOfService: QualityOfService = .userInitiated {
+    public var qualityOfService: QualityOfService = .userInitiated {
         didSet { queue.qualityOfService = qualityOfService }
     }
 
@@ -16,11 +16,13 @@ class FrameIndexer {
         return queue
     }()
 
+    public init() {}
+
     deinit {
         cancel()
     }
 
-    func cancel() {
+    public func cancel() {
         queue.cancelAllOperations()
     }
 
@@ -28,7 +30,7 @@ class FrameIndexer {
     ///   - video: The video to index.
     ///   - frameLimit: The maximum number of frames to read.
     ///   - completionHandler: Called on an arbitrary queue.
-    func indexFrames(
+    public func indexFrames(
         for video: AVAsset,
         frameLimit: Int = .max,
         completionHandler: @escaping (IndexResult) -> Void

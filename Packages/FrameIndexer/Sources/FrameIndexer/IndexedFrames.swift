@@ -1,24 +1,27 @@
 import CoreMedia
 
 /// The result of a successful frame index operation, a sorted list of frame presentation time stamps.
-///
-/// Precondition: When instantiating a value of this struct, the provided `times` must be sorted.
-struct IndexedFrames {
+public struct IndexedFrames {
 
     /// Sorted list of frame presentation time stamps.
-    let times: [CMTime]
+    public let times: [CMTime]
+
+    /// - Parameter times: Precondition: Times must be sorted.
+    public init(times: [CMTime]) {
+        self.times = times
+    }
 
     /// Returns the time of the nearest frame for the given target time.
     ///
     /// If `times` is empty, returns nil.
-     func frame(closestTo time: CMTime) -> CMTime? {
+    public func frame(closestTo time: CMTime) -> CMTime? {
         guard let index = index(closestTo: time) else { return nil }
 
         return times[index]
     }
 
     /// Returns the time of the nearest frame for the given target time, aka the frame number.
-    func index(closestTo time: CMTime) -> Int? {
+    public func index(closestTo time: CMTime) -> Int? {
         // todo: implement binary search.
 
         guard let index = times.firstIndex(where: { time <= $0 }) else {
