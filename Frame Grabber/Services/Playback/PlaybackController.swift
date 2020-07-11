@@ -11,6 +11,7 @@ class PlaybackController {
         didSet {
             seeker.cancelPendingSeeks()
             player.replaceCurrentItem(with: asset.map(AVPlayerItem.init))
+            timeProvider.asset = asset
         }
     }
 
@@ -22,18 +23,26 @@ class PlaybackController {
 
     // MARK: - Private Properties
 
+    private let timeProvider: VideoTimeProvider
     private let seeker: PlayerSeeker
     private let audioSession: AVAudioSession
     private let notificationCenter: NotificationCenter
     private var bindings = Set<AnyCancellable>()
 
-    init(asset: AVAsset? = nil, audioSession: AVAudioSession = .sharedInstance(), notificationCenter: NotificationCenter = .default) {
+    init(
+        asset: AVAsset? = nil,
+        timeProvider: VideoTimeProvider = .init(),
+        audioSession: AVAudioSession = .sharedInstance(),
+        notificationCenter: NotificationCenter = .default
+    ) {
         self.player = AVPlayer(playerItem: asset.map(AVPlayerItem.init))
         self.player.actionAtItemEnd = .pause
+        self.timeProvider = timeProvider
         self.seeker = PlayerSeeker(player: self.player)
         self.audioSession = audioSession
         self.notificationCenter = notificationCenter
 
+        timeProvider.asset = asset
         bindPlayer()
         configureAudioSession()
     }
@@ -68,10 +77,12 @@ class PlaybackController {
     // MARK: - Seeking
 
     func smoothlySeek(to time: CMTime) {
+        let time = timeProvider.time(for: time)
         seeker.smoothlySeek(to: time)
     }
 
     func directlySeek(to time: CMTime) {
+        let time = timeProvider.time(for: time)
         seeker.directlySeek(to: time)
     }
 
@@ -115,6 +126,9 @@ class PlaybackController {
             .store(in: &bindings)
 
         player.periodicTimePublisher()
+            .map { [weak self] time in
+                self?.timeProvider.time(for: time) ?? time
+            }
             .assignWeak(to: \.currentTime, on: self)
             .store(in: &bindings)
 
