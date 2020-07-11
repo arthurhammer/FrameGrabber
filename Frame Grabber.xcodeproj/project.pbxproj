@@ -46,12 +46,10 @@
 		002EDBC4242E0E0E00D7B46D /* PhotoAlbums in Frameworks */ = {isa = PBXBuildFile; productRef = 002EDBC3242E0E0E00D7B46D /* PhotoAlbums */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
-		0031FE2824B8D78C004F07F6 /* IndexedFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0031FE2724B8D78C004F07F6 /* IndexedFrames.swift */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		0034AFFD240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
 		0034AFFE240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
-		003D45DE24B8D8560026923A /* IndexedFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0031FE2724B8D78C004F07F6 /* IndexedFrames.swift */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
@@ -203,12 +201,6 @@
 		00F3C255213046CD0030B7EC /* AlbumsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3C254213046CD0030B7EC /* AlbumsHeader.swift */; };
 		00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
 		00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
-		00FBA4A124B8B70300D160EC /* FrameIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FBA49E24B8B70300D160EC /* FrameIndexer.swift */; };
-		00FBA4A224B8B70300D160EC /* FrameIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FBA49E24B8B70300D160EC /* FrameIndexer.swift */; };
-		00FBA4A324B8B70300D160EC /* CMSampleBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FBA49F24B8B70300D160EC /* CMSampleBuffer.swift */; };
-		00FBA4A424B8B70300D160EC /* CMSampleBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FBA49F24B8B70300D160EC /* CMSampleBuffer.swift */; };
-		00FBA4A524B8B70300D160EC /* FrameIndexOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FBA4A024B8B70300D160EC /* FrameIndexOperation.swift */; };
-		00FBA4A624B8B70300D160EC /* FrameIndexOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FBA4A024B8B70300D160EC /* FrameIndexOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,7 +250,6 @@
 		0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		0023FCA4233A42150046D9F8 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGridContentMode.swift; sourceTree = "<group>"; };
-		0031FE2724B8D78C004F07F6 /* IndexedFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedFrames.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* IceCreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCreamViewController.swift; sourceTree = "<group>"; };
@@ -337,9 +328,6 @@
 		00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00F3C254213046CD0030B7EC /* AlbumsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsHeader.swift; sourceTree = "<group>"; };
 		00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyAlbumView.swift; path = "Frame Grabber/Album/EmptyAlbumView.swift"; sourceTree = SOURCE_ROOT; };
-		00FBA49E24B8B70300D160EC /* FrameIndexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameIndexer.swift; sourceTree = "<group>"; };
-		00FBA49F24B8B70300D160EC /* CMSampleBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMSampleBuffer.swift; sourceTree = "<group>"; };
-		00FBA4A024B8B70300D160EC /* FrameIndexOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameIndexOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -586,7 +574,6 @@
 			children = (
 				00E273532416BBD7007FE0C6 /* Asset Fetching */,
 				003EC973234B9A2200EA8035 /* Frame Export */,
-				00FBA49D24B8B70300D160EC /* Frame Indexing */,
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Services;
@@ -656,17 +643,6 @@
 				00D9E83523426301009E7AFA /* Metadata.storyboard */,
 			);
 			path = Metadata;
-			sourceTree = "<group>";
-		};
-		00FBA49D24B8B70300D160EC /* Frame Indexing */ = {
-			isa = PBXGroup;
-			children = (
-				00FBA49F24B8B70300D160EC /* CMSampleBuffer.swift */,
-				00FBA49E24B8B70300D160EC /* FrameIndexer.swift */,
-				00FBA4A024B8B70300D160EC /* FrameIndexOperation.swift */,
-				0031FE2724B8D78C004F07F6 /* IndexedFrames.swift */,
-			);
-			path = "Frame Indexing";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -862,7 +838,6 @@
 				00024F71234482EE00937941 /* AlbumCellContextMenu.swift in Sources */,
 				00AD72C224194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */,
-				00FBA4A424B8B70300D160EC /* CMSampleBuffer.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumsHeader.swift in Sources */,
 				00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */,
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
@@ -872,7 +847,6 @@
 				00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				00024F6E23447EDF00937941 /* PHAsset.swift in Sources */,
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
-				00FBA4A624B8B70300D160EC /* FrameIndexOperation.swift in Sources */,
 				0054936523E5633700F3E684 /* About.swift in Sources */,
 				00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
@@ -924,11 +898,9 @@
 				0086A6B32344CD7100989646 /* FileManager.swift in Sources */,
 				0010CF47240783DA00DE0C31 /* String.swift in Sources */,
 				00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */,
-				003D45DE24B8D8560026923A /* IndexedFrames.swift in Sources */,
 				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
 				00B52C9024B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* Formatters.swift in Sources */,
-				00FBA4A224B8B70300D160EC /* FrameIndexer.swift in Sources */,
 				00730EDC214FEA5A001A6EA7 /* AlbumViewController+Transition.swift in Sources */,
 				00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */,
 				009BEA44234E152E00C284FA /* FrameExport.swift in Sources */,
@@ -953,7 +925,6 @@
 				00024F70234482EE00937941 /* AlbumCellContextMenu.swift in Sources */,
 				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */,
-				00FBA4A324B8B70300D160EC /* CMSampleBuffer.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumsHeader.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */,
@@ -963,7 +934,6 @@
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
 				00024F6D23447EDF00937941 /* PHAsset.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
-				00FBA4A524B8B70300D160EC /* FrameIndexOperation.swift in Sources */,
 				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
@@ -1015,11 +985,9 @@
 				0086A6B22344CD7100989646 /* FileManager.swift in Sources */,
 				0010CF46240783DA00DE0C31 /* String.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
-				0031FE2824B8D78C004F07F6 /* IndexedFrames.swift in Sources */,
 				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
 				00B52C8F24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */,
-				00FBA4A124B8B70300D160EC /* FrameIndexer.swift in Sources */,
 				00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */,
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,
 				009BEA43234E152E00C284FA /* FrameExport.swift in Sources */,

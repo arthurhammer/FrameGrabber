@@ -103,7 +103,7 @@ private extension FrameIndexOperation {
 
     /// On success, a reader and reader output ready to read samples.
     func preparedReader(for video: AVAsset) -> Result<(AVAssetReader, AVAssetReaderTrackOutput), IndexError> {
-        guard let videoTrack = video.videoTrack else {
+        guard let videoTrack = video.tracks(withMediaType: .video).first else {
             return .failure(.invalidVideo)
         }
 
