@@ -27,6 +27,11 @@ class ExportSettingsViewController: UITableViewController {
         configureViews()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fixCellHeight()
+    }
+
     @IBAction private func done() {
         dismiss(animated: true)
     }
@@ -99,6 +104,15 @@ class ExportSettingsViewController: UITableViewController {
             heifCell.accessoryType = .none
             heifLabel.textColor = Style.Color.disabledLabel
         }
+    }
+
+    private var firstAppereance = true
+
+    private func fixCellHeight() {
+        guard firstAppereance else { return }
+        firstAppereance = false
+        // For some reason, the first cell initially has a wrong height (iOS 13 only).
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
 }
 
