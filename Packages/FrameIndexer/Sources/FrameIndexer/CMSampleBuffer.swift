@@ -4,6 +4,8 @@ extension CMSampleBuffer {
 
     /// A list of sample start times, one for each sample in the buffer.
     func outputSamplePresentationTimeStamps() throws -> [CMTime] {
+        guard numSamples > 0 else { return [] }
+
         let timingInfos = try outputSampleTimingInfos()
 
         // A single timing info can apply to multiple samples. In that case, we need to
