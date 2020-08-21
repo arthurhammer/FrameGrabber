@@ -2,6 +2,7 @@ import AVFoundation
 import CoreMedia
 import FrameIndexer
 
+/// Provides frame-accurate timing information for an asset.
 class VideoTimeProvider {
 
     var asset: AVAsset? {
@@ -11,8 +12,8 @@ class VideoTimeProvider {
         }
     }
 
-    /// If true, starts indexing asset's frames and, when finished successfully, provides frame-accurate timing
-    /// in `time(for:)`. If false, cancels indexing and simply returns the given target time in `time(for:)`.
+    /// If true, starts asynchronously indexing the asset's frames and, when finished successfully, provides
+    /// frame-accurate timing in `time(for:)`. Otherwise, cancels indexing and discards indexed frames.
     var providesFrameAccurateTiming = true {
         didSet {
             guard providesFrameAccurateTiming != oldValue else { return }
@@ -29,8 +30,10 @@ class VideoTimeProvider {
         indexFrames()
     }
 
-    /// If `providesFrameAccurateTiming` is true and frames have finished indexing successfully, returns the time of
-    /// the video frame closest to the target time. Otherwise, the target time.
+    /// The start time of the frame closest to the requested time or, if not available, the requested time.
+    ///
+    /// For the receiver to provide frame-accurate times, `providesFrameAccurateTiming` must be true and the
+    /// asynchronous frame indexing operation must have finished successfully.
     func time(for target: CMTime) -> CMTime {
         indexedFrames?.frame(closestTo: target) ?? target
     }

@@ -92,7 +92,7 @@ private extension EditorViewController {
 
         playSelectionFeedback()
         playbackController.pause()
-        generateFramesAndShare(for: [playbackController.currentTime])
+        generateFramesAndShare(for: [playbackController.currentFrameTime])
     }
 
     @IBAction func scrub(_ sender: ScrubbingThumbnailSlider) {
@@ -200,13 +200,17 @@ private extension EditorViewController {
             .store(in: &bindings)
 
         playbackController
-            .$currentTime
+            .$currentFrameTime
             .sink { [weak self] time in
                 self?.updateTimeLabel(withTime: time)
+            }
+            .store(in: &bindings)
 
-                if self?.isScrubbing == false {
-                    self?.toolbar.timeSlider.setTime(time, animated: time != .zero)
-                }
+        playbackController
+            .$currentPlaybackTime
+            .sink { [weak self] time in
+                guard self?.isScrubbing == false else { return }
+                self?.toolbar.timeSlider.setTime(time, animated: true)
             }
             .store(in: &bindings)
 
