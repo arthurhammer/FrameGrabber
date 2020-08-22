@@ -100,7 +100,7 @@ class AlbumsViewController: UICollectionViewController {
 
         switch section {
         case .smartAlbum:
-            cell.imageView.tintColor = Style.Color.mainTint
+            cell.imageView.tintColor = .accent
         case .userAlbum:
             loadThumbnail(for: cell, album: album)
         }

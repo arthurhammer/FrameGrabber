@@ -33,7 +33,7 @@ class VideoCell: UICollectionViewCell {
     }
 
     private func configureViews() {
-        gradientView.colors = Style.Color.videoCellGradient
+        gradientView.colors = UIColor.videoCellGradient
         imageView.contentMode = .scaleAspectFill
         prepareForReuse()
     }

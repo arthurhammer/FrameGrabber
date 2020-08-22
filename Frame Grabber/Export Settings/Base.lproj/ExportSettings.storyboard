@@ -204,4 +204,10 @@
             <point key="canvasLocation" x="2225" y="-477"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="accent"/>
+    <resources>
+        <namedColor name="accent">
+            <color red="0.27058823529411763" green="0.16078431372549018" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

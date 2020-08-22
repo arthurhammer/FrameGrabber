@@ -102,7 +102,7 @@ class ExportSettingsViewController: UITableViewController {
 
         if !UserDefaults.isHeifSupported {
             heifCell.accessoryType = .none
-            heifLabel.textColor = Style.Color.disabledLabel
+            heifLabel.textColor = .disabledLabel
         }
     }
 

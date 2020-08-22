@@ -319,7 +319,11 @@
             <point key="canvasLocation" x="2989.8550724637685" y="-1159.1517857142856"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="accent"/>
     <resources>
+        <namedColor name="accent">
+            <color red="0.27058823529411763" green="0.16078431372549018" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

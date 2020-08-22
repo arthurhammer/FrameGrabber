@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,15 +22,15 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="654"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="171.5" y="690" width="71.5" height="32"/>
+                                <rect key="frame" x="171.5" y="690" width="71" height="32"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="71" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
@@ -97,6 +98,7 @@
                                                             <constraint firstAttribute="width" secondItem="1k1-G4-5en" secondAttribute="height" id="bPS-Ht-Zpk"/>
                                                             <constraint firstAttribute="width" priority="999" constant="44" id="zhT-Tn-16H"/>
                                                         </constraints>
+                                                        <color key="tintColor" name="secondaryAccent"/>
                                                         <state key="normal" image="play.fill" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
@@ -106,6 +108,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                         <rect key="frame" x="123.5" y="0.0" width="44" height="44"/>
+                                                        <color key="tintColor" name="secondaryAccent"/>
                                                         <state key="normal" image="arrow.left" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
@@ -115,6 +118,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                         <rect key="frame" x="206.5" y="0.0" width="44" height="44"/>
+                                                        <color key="tintColor" name="secondaryAccent"/>
                                                         <state key="normal" image="arrow.right" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
@@ -364,12 +368,19 @@
             <point key="canvasLocation" x="2862" y="-2106"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="accent"/>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <namedColor name="accent">
+            <color red="0.27058823529411763" green="0.16078431372549018" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondaryAccent">
+            <color red="0.23000000000000001" green="0.17999999999999999" blue="0.23000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

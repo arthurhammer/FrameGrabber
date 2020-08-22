@@ -34,16 +34,14 @@ class PhotoLibraryAuthorizationController: UIViewController {
     @IBAction private func showPrivacyPolicy() {
         guard let url = About.PrivacyPolicy.preferred else { return }
         let safariController = SFSafariViewController(url: url)
-        safariController.preferredControlTintColor = Style.Color.mainTint
+        safariController.preferredControlTintColor = .accent
         present(safariController, animated: true)
     }
 
     private func configureViews() {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
 
-        button.tintColor = .systemBackground
-        button.backgroundColor = Style.Color.mainTint
-        button.layer.cornerRadius = Style.Size.buttonCornerRadius
+        button.layer.cornerRadius = Style.buttonCornerRadius
         button.layer.cornerCurve = .continuous
 
         updateViews()

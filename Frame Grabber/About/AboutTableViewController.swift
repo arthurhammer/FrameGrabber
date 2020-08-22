@@ -61,9 +61,7 @@ class AboutTableViewController: UITableViewController, MFMailComposeViewControll
     private func configureViews() {
         tableView.backgroundColor = .clear
 
-        rateButton.tintColor = .systemGroupedBackground
-        rateButton.backgroundColor = Style.Color.mainTint
-        rateButton.layer.cornerRadius = Style.Size.buttonCornerRadius
+        rateButton.layer.cornerRadius = Style.buttonCornerRadius
         rateButton.layer.cornerCurve = .continuous
 
         versionLabel.text = String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
@@ -95,7 +93,7 @@ extension AboutTableViewController {
         }
 
         let mailController = MFMailComposeViewController()
-        mailController.view.tintColor = Style.Color.mainTint
+        mailController.view.tintColor = .accent
         mailController.mailComposeDelegate = self
         mailController.setToRecipients([About.contactAddress])
         mailController.setSubject(contactSubject)
@@ -120,7 +118,7 @@ extension AboutTableViewController {
 
     private func showURL(_ url: URL) {
         let safariController = SFSafariViewController(url: url)
-        safariController.preferredControlTintColor = Style.Color.mainTint
+        safariController.preferredControlTintColor = .accent
         present(safariController, animated: true)
     }
 }

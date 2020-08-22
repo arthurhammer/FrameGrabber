@@ -94,9 +94,7 @@ class IceCreamViewController: UIViewController {
     private func configureViews() {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
 
-        purchaseButton.tintColor = .white
-        purchaseButton.backgroundColor = Style.Color.iceCream
-        purchaseButton.layer.cornerRadius = Style.Size.buttonCornerRadius
+        purchaseButton.layer.cornerRadius = Style.buttonCornerRadius
         purchaseButton.layer.cornerCurve = .continuous
         purchaseButton.activityIndicator.color = .white
 
