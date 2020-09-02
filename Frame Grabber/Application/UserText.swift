@@ -62,6 +62,9 @@ struct UserText {
 }
 
 extension UserText {
+    static let alertAlbumsNotAvailableTitle = NSLocalizedString("alert.albums.title", value: "Albums Not Available", comment: "")
+    static let alertAlbumsNotAvailableMessage = NSLocalizedString("alert.albums.message", value: "Photo albums can't be displayed if photo library access is limited.", comment: "")
+
     static let alertVideoLoadFailedTitle = NSLocalizedString("alert.videoload.title", value: "Unable to Load Item", comment: "")
     static let alertVideoLoadFailedMessage = NSLocalizedString("alert.videoload.message", value: "Please check your network settings and make sure the format is supported on this device.", comment: "")
 

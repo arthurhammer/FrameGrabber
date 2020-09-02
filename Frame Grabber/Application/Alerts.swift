@@ -2,6 +2,12 @@ import UIKit
 
 extension UIAlertController {
 
+    static func albumsNotAvailable(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.alertAlbumsNotAvailableTitle,
+             message: UserText.alertAlbumsNotAvailableMessage,
+             okHandler: okHandler)
+    }
+
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertVideoLoadFailedTitle,
              message: UserText.alertVideoLoadFailedMessage,

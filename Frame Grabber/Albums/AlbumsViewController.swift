@@ -125,10 +125,16 @@ class AlbumsViewController: UICollectionViewController {
 
         header.titleLabel.text = section.title
         header.detailLabel.text = albumCountFormatter.string(from: section.albumCount as NSNumber)
-        header.detailLabel.isHidden = section.isLoading
-        header.activityIndicator.isHidden = !section.isLoading
+        header.detailLabel.isHidden = section.isAvailable && section.isLoading
+        header.activityIndicator.isHidden = !section.isAvailable || !section.isLoading
+        header.detailButton.isHidden = section.isAvailable
+        header.detailButton.addTarget(self, action: #selector(showAlbumsNotAvailableAlert), for: .touchUpInside)
 
         return header
+    }
+
+    @objc private func showAlbumsNotAvailableAlert() {
+        presentAlert(.albumsNotAvailable())
     }
 }
 

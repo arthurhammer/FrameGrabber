@@ -13,12 +13,21 @@ struct AlbumsSectionInfo: Hashable {
     let title: String?
     let albumCount: Int
     let isLoading: Bool
+    let isAvailable: Bool
 }
 
 class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsSectionInfo, AnyAlbum> {
 
     @Published var searchTerm: String?
     var imageOptions: PHImageManager.ImageOptions
+
+    private var isAuthorizationLimited: Bool {
+        if #available(iOS 14, *) {
+            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
+        } else {
+            return false
+        }
+    }
 
     private let albumsDataSource: AlbumsDataSource
     private let imageManager: PHImageManager
@@ -107,15 +116,20 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         let isSearching = searchTerm?.trimmedOrNil != nil
 
         let sections = [
-            AlbumsSectionInfo(type: .smartAlbum,
-                              title: nil,
-                              albumCount: smartAlbums.count,
-                              isLoading: albumsDataSource.isLoadingSmartAlbums),
-
-            AlbumsSectionInfo(type: .userAlbum,
-                              title: UserText.albumsUserAlbumsHeader,
-                              albumCount: userAlbums.count,
-                              isLoading: albumsDataSource.isLoadingUserAlbums)
+            AlbumsSectionInfo(
+                type: .smartAlbum,
+                title: nil,
+                albumCount: smartAlbums.count,
+                isLoading: albumsDataSource.isLoadingSmartAlbums,
+                isAvailable: true
+            ),
+            AlbumsSectionInfo(
+                type: .userAlbum,
+                title: UserText.albumsUserAlbumsHeader,
+                albumCount: userAlbums.count,
+                isLoading: albumsDataSource.isLoadingUserAlbums,
+                isAvailable: !isAuthorizationLimited
+            )
         ]
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()

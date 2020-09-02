@@ -53,6 +53,12 @@
 "albums.header.useralbum" = "Meine Alben";
 
 /* No comment provided by engineer. */
+"alert.albums.message" = "Fotoalben können nicht angezeigt werden, wenn die Fotoauswahl limitiert ist.";
+
+/* No comment provided by engineer. */
+"alert.albums.title" = "Alben nicht verfügbar";
+
+/* No comment provided by engineer. */
 "alert.frameexport.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
 
 /* No comment provided by engineer. */
