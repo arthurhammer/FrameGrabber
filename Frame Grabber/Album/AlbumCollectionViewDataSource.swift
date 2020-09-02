@@ -31,10 +31,18 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         }
     }
 
+    var isAuthorizationLimited: Bool {
+        if #available(iOS 14, *) {
+            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
+        } else {
+            return false
+        }
+    }
+
     var settings: UserDefaults
+    let photoLibrary: PHPhotoLibrary
 
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
-    private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
     private let filterQueue: DispatchQueue
 

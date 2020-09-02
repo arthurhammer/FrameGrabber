@@ -1,5 +1,6 @@
 import PhotoAlbums
 import Photos
+import PhotosUI
 import UIKit
 
 class AlbumViewController: UICollectionViewController {
@@ -21,6 +22,9 @@ class AlbumViewController: UICollectionViewController {
     var settings: UserDefaults = .standard
 
     @IBOutlet private var viewSettingsButton: UIButton!
+    @IBOutlet private var infoBarItem: UIBarButtonItem!
+    @IBOutlet private var extendPhotoSelectionBarItem: UIBarButtonItem!
+
     private lazy var emptyView = EmptyAlbumView()
     private var dataSource: AlbumCollectionViewDataSource?
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -70,6 +74,12 @@ class AlbumViewController: UICollectionViewController {
     func restoreSelection(animated: Bool) {
         let selectedIndexPath = selectedAsset.flatMap { dataSource?.indexPath(of: $0) }
         collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
+    }
+
+    @IBAction private func extendPhotoSelection() {
+        if #available(iOS 14, *) {
+            dataSource?.photoLibrary.presentLimitedLibraryPicker(from: self)
+        } 
     }
 
     // MARK: - Collection View Data Source & Delegate
@@ -149,6 +159,7 @@ private extension AlbumViewController {
         emptyView.isEmpty = dataSource?.isEmpty ?? true
 
         updateViewSettingsButton(animated: animated)
+        configureNavigationItems()
     }
 
     func configureDataSource(with album: FetchedAlbum?) {
@@ -187,6 +198,13 @@ private extension AlbumViewController {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
+    func configureNavigationItems() {
+        if dataSource?.isAuthorizationLimited == true {
+            navigationItem.rightBarButtonItems = [infoBarItem, extendPhotoSelectionBarItem]
+        } else {
+            navigationItem.rightBarButtonItems = [infoBarItem]
+        }
+    }
 
     // MARK: Handling View Settings Button
 

@@ -130,14 +130,23 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="&lt;Album&gt;" largeTitleDisplayMode="always" id="T1c-VB-q52">
                         <barButtonItem key="backBarButtonItem" title=" " id="a5R-LE-pLO"/>
-                        <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="r6g-Iu-tPw">
-                            <connections>
-                                <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="info.circle" catalog="system" id="r6g-Iu-tPw">
+                                <connections>
+                                    <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="plus.rectangle.on.rectangle" catalog="system" id="ED8-sq-tvD">
+                                <connections>
+                                    <action selector="extendPhotoSelection" destination="z5r-QY-0zg" id="ga7-qk-NWd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
+                        <outlet property="extendPhotoSelectionBarItem" destination="ED8-sq-tvD" id="IP2-9u-ZhP"/>
+                        <outlet property="infoBarItem" destination="r6g-Iu-tPw" id="L1B-b5-YgF"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                         <outlet property="viewSettingsButton" destination="ps3-t8-YlX" id="c09-fI-VfY"/>
                     </connections>
@@ -392,7 +401,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iPV-yR-eo7"/>
+        <segue reference="yrf-sk-izP"/>
         <segue reference="lS1-3M-qF6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="accent"/>
@@ -403,6 +412,7 @@
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
         <image name="photo.on.rectangle" catalog="system" width="128" height="96"/>
+        <image name="plus.rectangle.on.rectangle" catalog="system" width="128" height="96"/>
         <image name="questionmark.circle" catalog="system" width="128" height="121"/>
         <namedColor name="accent">
             <color red="0.27099999785423279" green="0.16099999845027924" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
