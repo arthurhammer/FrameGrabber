@@ -2,9 +2,12 @@
     <img src="design/banner.jpg" alt="App Store banner.">
 </a>
 
-Frame Grabber is an iOS app that lets you extract full-resolution video and Live Photo frames as images. [You can get it on the App Store here](https://apps.apple.com/app/frame-grabber/id1434703541).
+Frame Grabber is an iOS app that lets you extract full-resolution video and Live Photo frames as images.
 
 Unlike screenshots, images extracted with Frame Grabber have full resolution, contain video metadata and much more! Perfect to save your favorite video moments to your photo library or to share them on social media.
+
+➡️ **[App Store](https://apps.apple.com/app/frame-grabber/id1434703541)**<br>
+➡️ **[Homepage](https://framegrabberapp.com)**
 
 ## Features
 
