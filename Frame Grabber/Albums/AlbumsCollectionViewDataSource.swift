@@ -104,6 +104,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     private func updateData() {
         let smartAlbums = albumsDataSource.smartAlbums
         let userAlbums = albumsDataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
+        let isSearching = searchTerm?.trimmedOrNil != nil
 
         let sections = [
             AlbumsSectionInfo(type: .smartAlbum,
@@ -120,8 +121,11 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
 
         snapshot.appendSections(sections)
-        snapshot.appendItems(smartAlbums, toSection: sections[0])
         snapshot.appendItems(userAlbums, toSection: sections[1])
+
+        if !isSearching {
+            snapshot.appendItems(smartAlbums, toSection: sections[0])
+        }
 
         apply(snapshot, animatingDifferences: true)
     }
