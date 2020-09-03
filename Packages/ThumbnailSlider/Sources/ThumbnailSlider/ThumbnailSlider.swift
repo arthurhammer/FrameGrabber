@@ -56,12 +56,12 @@ public class ThumbnailSlider: UIControl {
     private let disabledHandleColor: UIColor = .systemGray4
 
     private let trackColor: UIColor = .tertiarySystemFill
-    private let trackCornerRadius: CGFloat = 8
-    private let verticalTrackInset: CGFloat = 4
+    private let trackCornerRadius: CGFloat = 6
+    private let verticalTrackInset: CGFloat = 8
     private let minimumThumbnailWidth: CGFloat = 8
     private let maximumThumbnailWidth: CGFloat = 90
 
-    private let intrinsicHeight: CGFloat = 50
+    private let intrinsicHeight: CGFloat = 58
     private let minimumTouchTarget = CGSize(width: 44, height: 44)
     private let animationDuration: TimeInterval = 0.2
 
