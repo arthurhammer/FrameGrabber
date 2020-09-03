@@ -28,8 +28,6 @@
 		001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* ProgressView.swift */; };
 		001CBD94242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
 		001CBD95242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
-		001E825D2403B0A300388E62 /* AboutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825C2403B0A300388E62 /* AboutContainerViewController.swift */; };
-		001E825E2403B0AB00388E62 /* AboutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825C2403B0A300388E62 /* AboutContainerViewController.swift */; };
 		001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825F2403D7ED00388E62 /* ActivityButton.swift */; };
 		001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825F2403D7ED00388E62 /* ActivityButton.swift */; };
 		0023FC8F23390D940046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
@@ -40,8 +38,8 @@
 		0023FCA0233A17250046D9F8 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */; };
 		0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
 		0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
-		0023FCA5233A42150046D9F8 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutTableViewController.swift */; };
-		0023FCA6233A44B20046D9F8 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutTableViewController.swift */; };
+		0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
+		0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
 		002B066424B4F9BE005375ED /* AlbumGridContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */; };
 		002B066524B4FAB7005375ED /* AlbumGridContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */; };
 		002EDBC2242E0E0B00D7B46D /* PhotoAlbums in Frameworks */ = {isa = PBXBuildFile; productRef = 002EDBC1242E0E0B00D7B46D /* PhotoAlbums */; };
@@ -245,7 +243,6 @@
 		001AA1991FB498C700A00BB9 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		001CBD93242BB7CE00625685 /* UserText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserText.swift; sourceTree = "<group>"; };
-		001E825C2403B0A300388E62 /* AboutContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutContainerViewController.swift; sourceTree = "<group>"; };
 		001E825F2403D7ED00388E62 /* ActivityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButton.swift; sourceTree = "<group>"; };
 		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		0023FC8E23390D940046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/About.storyboard"; sourceTree = "<group>"; };
@@ -254,7 +251,7 @@
 		0023FC9B233911BA0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Authorization.strings; sourceTree = "<group>"; };
 		0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingsViewController.swift; sourceTree = "<group>"; };
 		0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
-		0023FCA4233A42150046D9F8 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
+		0023FCA4233A42150046D9F8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGridContentMode.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -469,8 +466,7 @@
 		00229DBB212E0B1A00848CE8 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				001E825C2403B0A300388E62 /* AboutContainerViewController.swift */,
-				0023FCA4233A42150046D9F8 /* AboutTableViewController.swift */,
+				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
 				0034AFFC240139E30041513F /* IceCreamViewController.swift */,
 				0023FC8D23390D940046D9F8 /* About.storyboard */,
 			);
@@ -865,7 +861,7 @@
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* PhotoAlbums.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
-				0023FCA6233A44B20046D9F8 /* AboutTableViewController.swift in Sources */,
+				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
 				00730EB8214FEA5A001A6EA7 /* ZoomTransitionController.swift in Sources */,
 				00730EB9214FEA5A001A6EA7 /* Coordinator.swift in Sources */,
 				00EDF97D2340A1EE00FA0F48 /* ExportSettingsSectionHeader.swift in Sources */,
@@ -894,7 +890,6 @@
 				00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */,
 				00730ECF214FEA5A001A6EA7 /* RepeatingButton.swift in Sources */,
 				00C13CF42404FDCE000193EB /* ConfettiView.swift in Sources */,
-				001E825E2403B0AB00388E62 /* AboutContainerViewController.swift in Sources */,
 				00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */,
 				00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary.swift in Sources */,
 				00D9E83423424A07009E7AFA /* UIFont.swift in Sources */,
@@ -953,7 +948,7 @@
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
-				0023FCA5233A42150046D9F8 /* AboutTableViewController.swift in Sources */,
+				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
 				0023FC9F233A0E4C0046D9F8 /* ExportSettingsViewController.swift in Sources */,
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
 				00EDF97B2340A17400FA0F48 /* ExportSettingsSectionHeader.swift in Sources */,
@@ -982,7 +977,6 @@
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
 				00C13CF32404FDCE000193EB /* ConfettiView.swift in Sources */,
-				001E825D2403B0A300388E62 /* AboutContainerViewController.swift in Sources */,
 				00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */,
 				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */,
 				00D9E83323424A07009E7AFA /* UIFont.swift in Sources */,
