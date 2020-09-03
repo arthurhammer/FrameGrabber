@@ -28,7 +28,11 @@ class AlbumCell: UICollectionViewCell {
     private func configureViews() {
         imageView.layer.cornerRadius = 6
         imageView.layer.cornerCurve = .continuous
+
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .cellSelection
+        selectedBackgroundView?.layer.cornerRadius = 8
+        selectedBackgroundView?.layer.cornerCurve = .continuous
+        selectedBackgroundView?.frame = bounds.inset(by: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
     }
 }
