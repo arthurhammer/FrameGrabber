@@ -48,8 +48,8 @@ class MetadataViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         let sections = Section.allCases.count
-        let hasLocation = videoController?.asset.location == nil
-        return hasLocation ? (sections-1) : sections
+        let hasLocation = videoController?.asset.location != nil
+        return hasLocation ? sections : (sections-1)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -126,10 +126,5 @@ class MetadataViewController: UITableViewController {
             self?.locationLabel.text = string
             self?.tableView.reloadData()  // Update cell height for new text.
         }
-    }
-
-    @objc private func handleMapTap(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        openLocationInMaps()
     }
 }
