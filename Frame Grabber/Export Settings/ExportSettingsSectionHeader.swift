@@ -5,18 +5,18 @@ class ExportSettingsSectionHeader: UITableViewHeaderFooterView {
     static var nib: UINib {
         UINib(nibName: String(describing: self), bundle: nil)
     }
-    
+
+    /// If true, aligns the title label by adding leading spacing.
     var isGroupedInset: Bool = true {
         didSet { updateViews() }
     }
 
-    var hasPreviousFooter: Bool = false {
-        didSet { updateViews() }
-    }
-
     // When using custom headers, the default margin doesn't seem to be respected.
-    let groupedInsetCustomHeaderMargin: CGFloat = 8
-    let additionalTopSpacing: CGFloat = 20 
+    let groupedInsetLeadingMargin: CGFloat = 8
+
+    // Margin from the top of the title label to the previous section's footer (set in the view controller).
+    let interSectionSpacing: CGFloat = 20
+    let defaultVerticalMargins: CGFloat = 8
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
@@ -33,9 +33,10 @@ class ExportSettingsSectionHeader: UITableViewHeaderFooterView {
     }
 
     private func updateViews() {
-        // Slightly larger than normal
+        // Slightly larger than normal.
         titleLabel.font = UIFont.preferredFont(forTextStyle: .headline, size: 18, weight: .semibold)
-        leadingConstraint.constant = isGroupedInset ? groupedInsetCustomHeaderMargin : 0
-        topConstraint.constant = hasPreviousFooter ? additionalTopSpacing : 8
+
+        leadingConstraint.constant = isGroupedInset ? groupedInsetLeadingMargin : 0
+        topConstraint.priority = .defaultHigh
     }
 }

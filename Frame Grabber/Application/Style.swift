@@ -13,6 +13,7 @@ extension UIColor {
 struct Style {
 
     static let buttonCornerRadius: CGFloat = 18
+    static let staticTableViewTopMargin: CGFloat = 12
 
     static func configureAppearance() {
         UISwitch.appearance().onTintColor = .accent

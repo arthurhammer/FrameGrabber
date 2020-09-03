@@ -63,13 +63,30 @@ class ExportSettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let title = Section(section)?.title else { return nil }
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExportSettingsSectionHeader.name) as? ExportSettingsSectionHeader else { fatalError("Wrong view id or type.") }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExportSettingsSectionHeader.name) as? ExportSettingsSectionHeader else { fatalError("Wrong view id or type.") }
 
-        view.titleLabel.text = title
-        view.hasPreviousFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
+        header.titleLabel.text = Section(section)?.title
 
-        return view
+        if section == 0 {
+            let hasTitle = Section(section)?.title == nil
+
+            header.topConstraint.constant = hasTitle
+                ? Style.staticTableViewTopMargin
+                : (Style.staticTableViewTopMargin - header.defaultVerticalMargins)  // Top margin := total desired - bottom
+        } else {
+            let hasPrecedingFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
+
+            header.topConstraint.constant = hasPrecedingFooter
+                ? header.interSectionSpacing
+                : header.defaultVerticalMargins
+        }
+
+        // Missing cases:
+        //   - Header is empty but previous footer isn't.
+        //   - Both header and previous footer are empty.
+        // Results in minor inconsistencies in spacing. Why is this so weird?
+
+        return header
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -111,8 +128,11 @@ class ExportSettingsViewController: UITableViewController {
     private func fixCellHeight() {
         guard firstAppereance else { return }
         firstAppereance = false
-        // For some reason, the first cell initially has a wrong height (iOS 13 only).
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+
+        // For some reason, the first cell initially has a wrong height.
+        DispatchQueue.main.async {
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
     }
 }
 

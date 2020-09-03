@@ -65,6 +65,10 @@ class MetadataViewController: UITableViewController {
         return row.accessoryType != .none
     }
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
+    }
+
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         0
     }

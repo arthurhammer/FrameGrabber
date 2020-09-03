@@ -14,8 +14,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     let bundle = Bundle.main
     let device = UIDevice.current
 
-    private let topMargin: CGFloat = 12
-
     @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var purchaseButton: UIButton!
 
@@ -69,21 +67,16 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         bar?.setBackgroundImage(nil, for: .default)
     }
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
+    }
+
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch Section(section) {
         case .about:
             return String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
         default:
             return nil
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch Section(section) {
-        case .featured:
-            return topMargin
-        default:
-            return UITableView.automaticDimension
         }
     }
 }
