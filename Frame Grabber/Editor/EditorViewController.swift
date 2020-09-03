@@ -311,12 +311,19 @@ private extension EditorViewController {
             case .export: return UserText.editorExportProgress
             }
         }
+
+        var delay: TimeInterval {
+            switch self {
+            case .load: return 0.25
+            case .export: return 0.1
+            }
+        }
     }
 
     func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
-        view.isUserInteractionEnabled = !show  // todo
+        view.isUserInteractionEnabled = !show 
 
-        progressView.showDelay = 0.2
+        progressView.showDelay = activity.delay
         progressView.titleLabel.text = activity.title
         
         if show {
