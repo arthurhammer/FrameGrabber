@@ -245,6 +245,8 @@ private extension AlbumViewController {
     }
 
     func handleMenuSelection(_ selection: AlbumViewSettingsMenu.Selection) {
+        UISelectionFeedbackGenerator().selectionChanged()
+
         switch selection {
         case .videosFilter(let filter):
             dataSource?.filter = filter

@@ -41,6 +41,7 @@ class ExportSettingsViewController: UITableViewController {
     }
 
     @IBAction func didChangeCompressionQuality() {
+        UISelectionFeedbackGenerator().selectionChanged()
         settings.compressionQuality = compressionQualityStepper.value/100
         updateViews()
     }
