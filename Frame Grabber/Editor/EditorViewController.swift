@@ -293,10 +293,19 @@ private extension EditorViewController {
 
     func share(urls: [URL]) {
         let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        shareController.completionWithItemsHandler = { [weak self] _, _, _, _ in
+
+        shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
+            guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
             self?.videoController.deleteExportedFrames()
         }
+
         presentOnTop(shareController)
+    }
+
+    func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
+        let wasDismissed = (shareActivity == nil) && !completed
+        let didFinish = (shareActivity != nil) && completed
+        return wasDismissed || didFinish
     }
 
     // MARK: Showing Progress
