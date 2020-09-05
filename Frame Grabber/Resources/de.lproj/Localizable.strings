@@ -104,16 +104,13 @@
 "authorization.denied.action" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
-"authorization.denied.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
-
-/* Photo library authorization title */
-"authorization.title" = "Willkommen zu\nFrame Grabber";
+"authorization.denied.message" = "Frame Grabber arbeitet mit Videos und Live Photos aus deiner Fotomediathek. Du kannst den Zugriff in den Einstellungen erlauben.";
 
 /* Photo library authorization default action */
 "authorization.undetermined.action" = "Los Geht's";
 
 /* Photo library authorization default message */
-"authorization.undetermined.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
+"authorization.undetermined.message" = "Frame Grabber arbeitet mit Videos und Fotos in deiner Fotomediathek. Los geht's, indem du den Zugriff erlaubst.";
 
 /* Detail view title for live photos */
 "detail.livephoto.title" = "Live Photo";
