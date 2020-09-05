@@ -50,6 +50,8 @@
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		0034AFFD240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
 		0034AFFE240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
+		003D1F2F25041F7A006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2E25041F7A006107C0 /* Configuration.storekit */; };
+		003D1F3025041F88006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2E25041F7A006107C0 /* Configuration.storekit */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
@@ -256,6 +258,7 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* IceCreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCreamViewController.swift; sourceTree = "<group>"; };
+		003D1F2E25041F7A006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubbingIndicatorView.swift; sourceTree = "<group>"; };
 		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
@@ -415,6 +418,7 @@
 			children = (
 				00E82088214FEBC000460FD1 /* Info-Dev.plist */,
 				001AA1841FB4977100A00BB9 /* Info.plist */,
+				003D1F2E25041F7A006107C0 /* Configuration.storekit */,
 				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
 				00AA201C213432B400084B08 /* InfoPlist.strings */,
 				00AA201F213432B400084B08 /* Localizable.strings */,
@@ -772,6 +776,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */,
+				003D1F3025041F88006107C0 /* Configuration.storekit in Resources */,
 				00730EE2214FEA5A001A6EA7 /* LaunchScreen.storyboard in Resources */,
 				00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */,
 				008D293224B20F5100813338 /* ExportSettings.storyboard in Resources */,
@@ -790,6 +795,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00AA2021213432B400084B08 /* Localizable.strings in Resources */,
+				003D1F2F25041F7A006107C0 /* Configuration.storekit in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
 				008D293124B20F5100813338 /* ExportSettings.storyboard in Resources */,
