@@ -11,9 +11,8 @@ class PhotoLibraryAuthorizationController: UIViewController {
 
     var didAuthorizeHandler: (() -> ())?
 
-    @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var messageLabel: UILabel!
-    @IBOutlet private var button: UIButton!
+    @IBOutlet private var authorizationMessageLabel: UILabel!
+    @IBOutlet private var actionButton: UIButton!
     @IBOutlet private var privacyButton: UIButton!
 
     override func viewDidLoad() {
@@ -39,26 +38,22 @@ class PhotoLibraryAuthorizationController: UIViewController {
     }
 
     private func configureViews() {
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
-
-        button.layer.cornerRadius = Style.buttonCornerRadius
-        button.layer.cornerCurve = .continuous
+        actionButton.configureAsActionButton()
+        privacyButton.configureDynamicTypeLabel()
 
         updateViews()
     }
 
     private func updateViews() {
-        titleLabel.text = UserText.authorizationTitle
-
         switch PHPhotoLibrary.readWriteAuthorizationStatus {
         case .denied, .restricted:
-            messageLabel.text = UserText.authorizationDeniedMessage
-            button.setTitle(UserText.authorizationDeniedAction, for: .normal)
+            authorizationMessageLabel.text = UserText.authorizationDeniedMessage
+            actionButton.setTitle(UserText.authorizationDeniedAction, for: .normal)
 
         // For `notDetermined` but also as fallback if we land in `authorized`/`limited` state.
         default:
-            messageLabel.text = UserText.authorizationUndeterminedMessage
-            button.setTitle(UserText.authorizationUndeterminedAction, for: .normal)
+            authorizationMessageLabel.text = UserText.authorizationUndeterminedMessage
+            actionButton.setTitle(UserText.authorizationUndeterminedAction, for: .normal)
         }
     }
 }

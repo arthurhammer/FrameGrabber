@@ -52,12 +52,9 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
 
     private func configureViews() {
-        rateButton.layer.cornerRadius = Style.buttonCornerRadius
-        rateButton.layer.cornerCurve = .continuous
-
+        rateButton.configureAsActionButton()
+        purchaseButton.configureAsActionButton()
         purchaseButton.backgroundColor = UIColor.accent?.withAlphaComponent(0.1)
-        purchaseButton.layer.cornerRadius = Style.buttonCornerRadius
-        purchaseButton.layer.cornerCurve = .continuous
     }
 
     private func updateNavigationBar() {

@@ -20,6 +20,25 @@ struct Style {
     }
 }
 
+extension UIButton {
+
+    func configureAsActionButton() {
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
+        titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        configureDynamicTypeLabel()
+
+        layer.cornerRadius = Style.buttonCornerRadius
+        layer.cornerCurve = .continuous
+    }
+
+    func configureDynamicTypeLabel() {
+        titleLabel?.adjustsFontForContentSizeCategory = true
+        titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.allowsDefaultTighteningForTruncation = true
+        titleLabel?.minimumScaleFactor = 0.6
+    }
+}
+
 extension UIView {
     func applyToolbarShadow() {
         layer.shadowColor = UIColor.black.cgColor
