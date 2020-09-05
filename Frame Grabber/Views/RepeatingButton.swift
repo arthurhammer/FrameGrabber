@@ -42,8 +42,6 @@ private extension RepeatingButton {
     }
 
     @objc func scheduleTimer() {
-        sendTouchDown()
-
         timer = Timer.scheduledTimer(withTimeInterval: repeatInterval, repeats: true) { [weak self] _ in
             self?.sendTouchDown()
         }

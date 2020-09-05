@@ -46,7 +46,7 @@ public class ThumbnailSlider: UIControl {
     private var _time: CMTime = .zero
 
     private var previousSize: CGSize = .zero
-    private var reloadId: String?
+    private var reloadId: UUID?
     private var initialTrackingTouchLocation: CGPoint = .zero
     private var initialTrackingHandleLocation: CGPoint = .zero
 
@@ -56,10 +56,12 @@ public class ThumbnailSlider: UIControl {
     private let disabledHandleColor: UIColor = .systemGray4
 
     private let trackColor: UIColor = .tertiarySystemFill
-    private let trackCornerRadius: CGFloat = 8
-    private let verticalTrackInset: CGFloat = 4
+    private let trackCornerRadius: CGFloat = 6
+    private let verticalTrackInset: CGFloat = 8
+    private let minimumThumbnailWidth: CGFloat = 8
+    private let maximumThumbnailWidth: CGFloat = 90
 
-    private let intrinsicHeight: CGFloat = 50
+    private let intrinsicHeight: CGFloat = 58
     private let minimumTouchTarget = CGSize(width: 44, height: 44)
     private let animationDuration: TimeInterval = 0.2
 
@@ -71,6 +73,7 @@ public class ThumbnailSlider: UIControl {
         view.handleColor = handleColor
         view.disabledHandleColor = disabledHandleColor
         view.layer.cornerRadius = handleCornerRadius
+        view.layer.cornerCurve = .continuous
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowRadius = 6
@@ -85,6 +88,7 @@ public class ThumbnailSlider: UIControl {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.backgroundColor = trackColor
         view.layer.cornerRadius = trackCornerRadius
+        view.layer.cornerCurve = .continuous
         return view
     }()
 
@@ -123,8 +127,7 @@ public class ThumbnailSlider: UIControl {
                 withDuration: animationDuration,
                 delay: 0,
                 options: .beginFromCurrentState,
-                animations: updateHandlePosition,
-                completion: nil
+                animations: updateHandlePosition
             )
         } else {
             updateHandlePosition()
@@ -141,7 +144,12 @@ public class ThumbnailSlider: UIControl {
 
         guard let aspectRatio = dataSource?.thumbnailAspectRatio(in: self) else { return }
 
-        track.makeThumbnails(withAspectRatio: aspectRatio)
+        track.makeThumbnails(
+            withAspectRatio: aspectRatio,
+            minimumWidth: minimumThumbnailWidth,
+            maximumWidth: maximumThumbnailWidth
+        )
+
         loadThumbnails()
     }
 
@@ -152,7 +160,7 @@ public class ThumbnailSlider: UIControl {
 
         let size = track.thumbnailSize.scaledToScreen
 
-        reloadId = UUID().uuidString
+        reloadId = UUID()
         let currentId = reloadId
 
         dataSource?.slider(self, loadThumbnailsForTimes: times, size: size) {
@@ -162,7 +170,7 @@ public class ThumbnailSlider: UIControl {
 
             if isCurrent {
                 let imageView = self?.track.thumbnailViews[index]
-                imageView?.setImage(image, animated: true)
+                imageView?.setImage(image, animated: false)
             }
         }
     }

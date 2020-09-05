@@ -13,12 +13,21 @@ struct AlbumsSectionInfo: Hashable {
     let title: String?
     let albumCount: Int
     let isLoading: Bool
+    let isAvailable: Bool
 }
 
 class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsSectionInfo, AnyAlbum> {
 
     @Published var searchTerm: String?
     var imageOptions: PHImageManager.ImageOptions
+
+    private var isAuthorizationLimited: Bool {
+        if #available(iOS 14, *) {
+            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
+        } else {
+            return false
+        }
+    }
 
     private let albumsDataSource: AlbumsDataSource
     private let imageManager: PHImageManager
@@ -58,9 +67,9 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         return album
     }
 
-    func fetchUpdate(forAlbumAt indexPath: IndexPath, containing videoType: VideoType) -> FetchedAlbum? {
+    func fetchUpdate(forAlbumAt indexPath: IndexPath, filter: VideoTypesFilter) -> FetchedAlbum? {
         let album = self.album(at: indexPath).assetCollection
-        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: videoType)
+        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoFilter: filter)
         return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
     }
 
@@ -104,24 +113,33 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     private func updateData() {
         let smartAlbums = albumsDataSource.smartAlbums
         let userAlbums = albumsDataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
+        let isSearching = searchTerm?.trimmedOrNil != nil
 
         let sections = [
-            AlbumsSectionInfo(type: .smartAlbum,
-                              title: nil,
-                              albumCount: smartAlbums.count,
-                              isLoading: albumsDataSource.isLoadingSmartAlbums),
-
-            AlbumsSectionInfo(type: .userAlbum,
-                              title: UserText.albumsUserAlbumsHeader,
-                              albumCount: userAlbums.count,
-                              isLoading: albumsDataSource.isLoadingUserAlbums)
+            AlbumsSectionInfo(
+                type: .smartAlbum,
+                title: nil,
+                albumCount: smartAlbums.count,
+                isLoading: albumsDataSource.isLoadingSmartAlbums,
+                isAvailable: true
+            ),
+            AlbumsSectionInfo(
+                type: .userAlbum,
+                title: UserText.albumsUserAlbumsHeader,
+                albumCount: userAlbums.count,
+                isLoading: albumsDataSource.isLoadingUserAlbums,
+                isAvailable: !isAuthorizationLimited
+            )
         ]
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
 
         snapshot.appendSections(sections)
-        snapshot.appendItems(smartAlbums, toSection: sections[0])
         snapshot.appendItems(userAlbums, toSection: sections[1])
+
+        if !isSearching {
+            snapshot.appendItems(smartAlbums, toSection: sections[0])
+        }
 
         apply(snapshot, animatingDifferences: true)
     }

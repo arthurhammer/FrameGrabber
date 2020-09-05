@@ -24,9 +24,6 @@ class EditorToolbar: UIView {
 
     private func configureViews() {
         backgroundColor = nil
-        playButton.tintColor = Style.Color.secondaryTint
-        previousButton.tintColor = Style.Color.secondaryTint
-        nextButton.tintColor = Style.Color.secondaryTint
 
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
         blurView.frame = bounds

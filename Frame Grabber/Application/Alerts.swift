@@ -2,6 +2,12 @@ import UIKit
 
 extension UIAlertController {
 
+    static func albumsNotAvailable(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.alertAlbumsNotAvailableTitle,
+             message: UserText.alertAlbumsNotAvailableMessage,
+             okHandler: okHandler)
+    }
+
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertVideoLoadFailedTitle,
              message: UserText.alertVideoLoadFailedMessage,
@@ -80,6 +86,16 @@ extension UIAlertController {
 extension UIAlertAction {
     static func ok(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
         UIAlertAction(title: UserText.okAction, style: .default, handler: handler)
+    }
+
+    static func cancel(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
+        UIAlertAction(title: UserText.cancelAction, style: .cancel, handler: handler) 
+    }
+}
+
+extension UIAlertController {
+    func addActions(_ actions: [UIAlertAction]) {
+        actions.forEach(addAction)
     }
 }
 

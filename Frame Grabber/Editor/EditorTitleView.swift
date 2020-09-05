@@ -21,7 +21,7 @@ class EditorTitleView: UIView {
             UIView.animate(withDuration: 0.15, delay: 0, options: .beginFromCurrentState, animations: {
                 self.timeLabel.text = formattedTime
                 self.timeLabel.superview?.layoutIfNeeded()
-            }, completion: nil)
+            })
         } else {
             timeLabel.text = formattedTime
         }

@@ -1,14 +1,16 @@
-enum ImageFormat: String, Hashable, Codable {
+enum ImageFormat: String {
     case heif
-    case jpg
+    case jpeg
 }
+
+extension ImageFormat: CaseIterable, Hashable, Codable {}
 
 extension ImageFormat {
 
     var uti: String {
         switch self {
         case .heif: return "public.heic"  // Note: heic, not heif!
-        case .jpg: return "public.jpeg"
+        case .jpeg: return "public.jpeg"
         }
     }
 

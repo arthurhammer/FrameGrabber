@@ -13,6 +13,7 @@ class EditorViewController: UIViewController {
     private lazy var playbackController = PlaybackController()
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
+    private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
 
     @IBOutlet private var titleView: EditorTitleView!
@@ -46,13 +47,13 @@ class EditorViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? UINavigationController,
-            let controller = destination.topViewController as? VideoDetailViewController {
+            let controller = destination.topViewController as? MetadataViewController {
 
-            prepareForVideoDetailSegue(with: controller)
+            prepareForMetadataSegue(with: controller)
         }
     }
 
-    private func prepareForVideoDetailSegue(with controller: VideoDetailViewController) {
+    private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
         controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
     }
@@ -70,28 +71,45 @@ private extension EditorViewController {
 
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
+        playSelectionFeedback()
         playbackController.playOrPause()
     }
 
     @IBAction func stepBackward() {
         guard !isScrubbing else { return }
+        playSelectionFeedback()
         playbackController.step(byCount: -1)
     }
 
     @IBAction func stepForward() {
         guard !isScrubbing else { return }
+        playSelectionFeedback()
         playbackController.step(byCount: 1)
     }
 
     @IBAction func shareFrames() {
         guard !isScrubbing else { return }
 
+        playSelectionFeedback()
         playbackController.pause()
-        generateFramesAndShare(for: [playbackController.currentTime])
+        generateFramesAndShare(for: [playbackController.currentFrameTime])
     }
 
     @IBAction func scrub(_ sender: ScrubbingThumbnailSlider) {
         playbackController.smoothlySeek(to: sender.time)
+    }
+
+    @objc func showMoreMenuAsAlertSheet() {
+        let alertController = EditorMoreMenu.alertController { [weak self] selection in
+            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
+        }
+
+        presentOnTop(alertController)
+    }
+
+    private func playSelectionFeedback() {
+        selectionFeedbackGenerator.selectionChanged()
+        selectionFeedbackGenerator.prepare()
     }
 
     // MARK: Configuring
@@ -109,6 +127,15 @@ private extension EditorViewController {
             placeholderImage: videoController.previewImage
         )
 
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
+                self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
+            }
+        } else {
+            navigationItem.rightBarButtonItem?.target = self
+            navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
+        }
+
         configureNavigationBar()
         configureGestures()
         bindPlayer()
@@ -121,8 +148,14 @@ private extension EditorViewController {
     }
 
     func configureGestures() {
+        guard transitionController != nil else { return }
+
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
         zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
+
+        if let defaultPopRecognizer = navigationController?.interactivePopGestureRecognizer {
+            slideToPopRecognizer.require(toFail: defaultPopRecognizer)
+        }
     }
 
     @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
@@ -167,10 +200,17 @@ private extension EditorViewController {
             .store(in: &bindings)
 
         playbackController
-            .$currentTime
-            .sink { [weak self] in
-                self?.updateTimeLabel(withTime: $0)
-                self?.toolbar.timeSlider.setTime($0, animated: true)
+            .$currentFrameTime
+            .sink { [weak self] time in
+                self?.updateTimeLabel(withTime: time)
+            }
+            .store(in: &bindings)
+
+        playbackController
+            .$currentPlaybackTime
+            .sink { [weak self] time in
+                guard self?.isScrubbing == false else { return }
+                self?.toolbar.timeSlider.setTime(time, animated: true)
             }
             .store(in: &bindings)
 
@@ -200,12 +240,12 @@ private extension EditorViewController {
     }
 
     func loadVideo() {
-        showProgress(true, forActivity: .download, value: .determinate(0))
+        showProgress(true, forActivity: .load, value: .determinate(0))
 
         videoController.loadVideo(progressHandler: { [weak self] progress in
             self?.progressView.setProgress(.determinate(Float(progress)), animated: true)
         }, completionHandler: { [weak self] result in
-            self?.showProgress(false, forActivity: .download, value: .determinate(1))
+            self?.showProgress(false, forActivity: .load, value: .determinate(1))
             self?.handleVideoLoadingResult(result)
         })
     }
@@ -253,33 +293,48 @@ private extension EditorViewController {
 
     func share(urls: [URL]) {
         let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        shareController.completionWithItemsHandler = { [weak self] _, _, _, _ in
+
+        shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
+            guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
             self?.videoController.deleteExportedFrames()
         }
+
         presentOnTop(shareController)
+    }
+
+    func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
+        let wasDismissed = (shareActivity == nil) && !completed
+        let didFinish = (shareActivity != nil) && completed
+        return wasDismissed || didFinish
     }
 
     // MARK: Showing Progress
 
     enum Activity {
-        case download
+        case load
         case export
 
         var title: String {
             switch self {
-            case .download: return UserText.editorVideoLoadProgress
+            case .load: return UserText.editorVideoLoadProgress
             case .export: return UserText.editorExportProgress
+            }
+        }
+
+        var delay: TimeInterval {
+            switch self {
+            case .load: return 0.25
+            case .export: return 0.1
             }
         }
     }
 
     func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
-        view.isUserInteractionEnabled = !show  // todo
+        view.isUserInteractionEnabled = !show 
 
-        let localLoadMightTakeAWhile = (activity == .download) && (value == .determinate(0))
-        progressView.showDelay = localLoadMightTakeAWhile ? 0.3 : 0.1
-
+        progressView.showDelay = activity.delay
         progressView.titleLabel.text = activity.title
+        
         if show {
             progressView.show(in: zoomingPlayerView, animated: animated, completion: completion)
         } else {

@@ -52,7 +52,9 @@ class VideoTypeFilterControl: UIControl {
 
     private func updateCornerRadius() {
         layer.cornerRadius = bounds.height / 2
+        layer.cornerCurve = .continuous
         selectionView.layer.cornerRadius = selectionView.bounds.height / 2
+        selectionView.layer.cornerCurve = .continuous
     }
 
     @objc private func selectSegment(_ sender: UIButton) {

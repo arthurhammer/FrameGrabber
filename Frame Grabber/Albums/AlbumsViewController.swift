@@ -30,10 +30,10 @@ class AlbumsViewController: UICollectionViewController {
     private func prepareForAlbumSegue(with destination: AlbumViewController) {
         guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
 
-        let type = destination.settings.videoType
+        let filter = destination.settings.videoTypesFilter
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
         // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, containing: type)
+        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, filter: filter)
     }
 
     // MARK: - UICollectionViewDelegate
@@ -100,7 +100,7 @@ class AlbumsViewController: UICollectionViewController {
 
         switch section {
         case .smartAlbum:
-            cell.imageView.tintColor = Style.Color.mainTint
+            cell.imageView.tintColor = .accent
         case .userAlbum:
             loadThumbnail(for: cell, album: album)
         }
@@ -125,10 +125,16 @@ class AlbumsViewController: UICollectionViewController {
 
         header.titleLabel.text = section.title
         header.detailLabel.text = albumCountFormatter.string(from: section.albumCount as NSNumber)
-        header.detailLabel.isHidden = section.isLoading
-        header.activityIndicator.isHidden = !section.isLoading
+        header.detailLabel.isHidden = section.isAvailable && section.isLoading
+        header.activityIndicator.isHidden = !section.isAvailable || !section.isLoading
+        header.detailButton.isHidden = section.isAvailable
+        header.detailButton.addTarget(self, action: #selector(showAlbumsNotAvailableAlert), for: .touchUpInside)
 
         return header
+    }
+
+    @objc private func showAlbumsNotAvailableAlert() {
+        presentAlert(.albumsNotAvailable())
     }
 }
 

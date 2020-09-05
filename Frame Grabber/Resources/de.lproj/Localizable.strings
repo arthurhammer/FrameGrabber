@@ -1,14 +1,11 @@
 /* Feedback email subject */
 "about.email.subject" = "Frame Grabber: Feedback";
 
-/* Container view button message when in-app purchase was not purchased */
-"about.notpurchased.action" = "Himbeereis";
-
-/* Container view button message when in-app purchase was purchased */
-"about.purchased.action" = "Danke";
-
 /* Version label with numerical version */
 "about.version.format" = "Version %@";
+
+/* Cancel action */
+"action.cancel" = "Abbrechen";
 
 /* Delete context action */
 "action.delete" = "Löschen";
@@ -37,8 +34,23 @@
 /* Title for the initial placeholder album until the user authorizes. */
 "album.unauthorized.title" = "Zuletzt";
 
+/* Title of album view as aspect ratio settings menu item */
+"album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
+
+/* Title of album view settings button menu */
+"album.viewSettings.menu.title" = "Anzeigen";
+
+/* Title of album view as squares settings menu item */
+"album.viewSettings.squareGrid.title" = "Quadratisches Raster";
+
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
+
+/* No comment provided by engineer. */
+"alert.albums.message" = "Fotoalben können nicht angezeigt werden, wenn die Fotoauswahl limitiert ist.";
+
+/* No comment provided by engineer. */
+"alert.albums.title" = "Alben nicht verfügbar";
 
 /* No comment provided by engineer. */
 "alert.frameexport.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
@@ -53,7 +65,7 @@
 "alert.iap.failed.title" = "Kauf nicht möglich";
 
 /* Alert message: Nothing to restore, the user has not previously purchased anything. */
-"alert.iap.restore.empty.message" = "Scheint, als hättest du noch kein Himbeereis gekauft.";
+"alert.iap.restore.empty.message" = "Scheint, als hättest du noch kein Eis gekauft.";
 
 /* Alert title: Nothing to restore, the user has not previously purchased anything. */
 "alert.iap.restore.empty.title" = "Keine vorherigen Käufe";
@@ -86,22 +98,13 @@
 "authorization.denied.action" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
-"authorization.denied.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Erlaube dafür den Zugriff auf deine Fotobibliothek in den Einstellungen.";
-
-/* Photo library authorization title */
-"authorization.title" = "Willkommen zu\nFrame Grabber";
+"authorization.denied.message" = "Frame Grabber arbeitet mit Videos und Live Photos aus deiner Fotomediathek. Du kannst den Zugriff in den Einstellungen erlauben.";
 
 /* Photo library authorization default action */
 "authorization.undetermined.action" = "Los Geht's";
 
 /* Photo library authorization default message */
-"authorization.undetermined.message" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos. Los geht's, indem du den Zugriff auf deine Fotobibliothek erlaubst.";
-
-/* Export options summary, metadata is included. */
-"detail.export.summary.metadata" = "Mit Metadaten";
-
-/* Export options summary, metadata is not included. */
-"detail.export.summary.nometadata" = "Ohne Metadaten";
+"authorization.undetermined.message" = "Frame Grabber arbeitet mit Videos und Fotos in deiner Fotomediathek. Los geht's, indem du den Zugriff erlaubst.";
 
 /* Detail view title for live photos */
 "detail.livephoto.title" = "Live Photo";
@@ -112,42 +115,84 @@
 /* Title of map item opened in Maps app. */
 "detail.map.item.title" = "Deine Aufnahme";
 
-/* Detail view metadata section header */
-"detail.section.metadata.title" = "Info";
-
 /* Detail view title for videos */
 "detail.video.title" = "Video";
 
 /* Dimensions label title for videos */
 "detail.video.videodimensions.title" = "Dimensionen";
 
+/* Editor more button export settings action */
+"editor.more.exportSettings.action" = "Exporteinstellungen";
+
+/* Editor more button metadata button action */
+"editor.more.metadata.action" = "Metadaten";
+
 /* Export settings compression quality section header */
-"exportoptions.section.compression.title" = "Kompressionsqualität";
+"exportsettings.section.compression.title" = "Kompressionsqualität";
+
+/* Explanation of image formats in settings footer when HEIF is not supported */
+"exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
+
+/* Explanation of image formats in settings footer */
+"exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
 
 /* Export settings image format section header */
-"exportoptions.section.format.title" = "Bildformat";
+"exportsettings.section.format.title" = "Bildformat";
 
-/* Ice cream message label when not purchased */
-"iap.notpurchased.message" = "Falls du ganz begeistert bist oder Frame Grabbers weitere Entwicklung unterstützen möchtest, kannst du mir dieses leckere Himbeereis in Form eines Trinkgelds ausgeben.\n\nDu bekommst dafür das gute Gefühl, mir eine Freude bereitet zu haben. :)\n\nDanke, dass du meine App ausprobierst!";
+/* Video frame rate with unit */
+"formatter.framerate.format" = "%@ fps";
 
-/* Ice cream title label when not purchased */
-"iap.notpurchased.title" = "Lecker";
+/* Video pixel size with unit */
+"formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
-/* Ice cream purchase button label without price */
+/* Purchase screen first message. */
+"iap.feature.first.message" = "Frame Grabber ist komplett kostenfrei und stört dich niemals mit Werbung.";
+
+/* Purchase screen first feature title. */
+"iap.feature.first.title" = "Werbefrei";
+
+/* Purchase screen second message. */
+"iap.feature.second.message" = "Ich stelle den Quellcode allen frei zur Verfügung.";
+
+/* Purchase screen second feature title. */
+"iap.feature.second.title" = "Transparent";
+
+/* Purchase screen third message. */
+"iap.feature.third.message" = "Du unterstützt einen Indie-Entwickler aus Deutschland und seinen Nachschub an Eis.";
+
+/* Purchase screen third feature title. */
+"iap.feature.third.title" = "Made in Germany";
+
+/* Purchase screen message label when not purchased */
+"iap.notpurchased.message" = "Falls dir meine App besonders gut gefällt und du helfen möchtest, kannst du mir ein Eis ausgeben.";
+
+/* Purchase screen title label when not purchased */
+"iap.notpurchased.title" = "Hey 👋";
+
+/* Purchase screen purchase button label without price */
 "iap.purchase.noprice.action" = "Eis Ausgeben";
 
-/* Ice cream purchase button label with price */
+/* Purchase screen purchase button label with price */
 "iap.purchase.price.action.format" = "Eis Ausgeben – %@";
 
-/* Ice cream message label when purchased. */
-"iap.purchased.message" = "Vielen Dank, dass du mich und meine App unterstützt!";
+/* Purchase screen message label when purchased. */
+"iap.purchased.message" = "Da mag wohl jemand auch besonders gern Eis. Vielen Dank, dass du mich und meine App unterstützt!";
 
-/* Ice cream title label when purchased. */
-"iap.purchased.title" = "Dankeschön";
+/* Purchase screen title label when purchased. */
+"iap.purchased.title" = "Dankeschön ❤️";
 
 /* Frame generation progress title. */
 "progress.frameExport.title" = "Exportieren…";
 
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
+
+/* Video filter title, all items */
+"videofilter.all" = "Alles";
+
+/* Video filter title, only Live Photos */
+"videofilter.livePhoto" = "Live Photos";
+
+/* Video filter title, only videos */
+"videofilter.video" = "Videos";
 

@@ -5,11 +5,15 @@ import UIKit
 class ScrubbingIndicatorView: UIVisualEffectView {
 
     @IBOutlet private(set) var speedLabel: UILabel!
+    @IBOutlet private(set) var icon: UIImageView!
 
     private var previousSpeed: Float?
-    private var isUsingSpeed = false
+    private var shouldShow = false {
+        didSet { show(shouldShow) }
+    }
     private lazy var formatter = NumberFormatter.percentFormatter()
 
+    private let hintDelay: TimeInterval = 1
     private let animationDuration: TimeInterval = 0.25
 
     override func awakeFromNib() {
@@ -20,6 +24,7 @@ class ScrubbingIndicatorView: UIVisualEffectView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 2
+        layer.cornerCurve = .continuous
     }
 
     func configure(for slider: ScrubbingThumbnailSlider) {
@@ -29,31 +34,45 @@ class ScrubbingIndicatorView: UIVisualEffectView {
     }
 
     @objc private func startScrubbing(_ sender: ScrubbingThumbnailSlider) {
-        isUsingSpeed = false
+        shouldShow = false
         previousSpeed = sender.currentScrubbingSpeed.speed
+
+        // Either show after `hintDelay` automatically or when the user first uses speed. Whichever comes first.
+        perform(#selector(hint), with: nil, afterDelay: hintDelay)
     }
 
     @objc private func scrub(_ sender: ScrubbingThumbnailSlider) {
         let speed = sender.currentScrubbingSpeed.speed
-        isUsingSpeed = isUsingSpeed || (speed != previousSpeed)
-        speedLabel.text = formatter.string(from: speed as NSNumber)
-        show(isUsingSpeed)
+        shouldShow = shouldShow || (speed != previousSpeed)
         previousSpeed = speed
+
+        speedLabel.text = formatter.string(from: speed as NSNumber)
+        icon.image = image(forSpeed: speed)
     }
 
     @objc private func endScrubbing(_ sender: ScrubbingThumbnailSlider) {
-        show(false)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hint), object: nil)
+        shouldShow = false
     }
 
     private func configureViews() {
         clipsToBounds = true
         alpha = 0
-        speedLabel.font = .monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+        speedLabel.font = .monospacedDigitSystemFont(ofSize: 12, weight: .semibold)
+        icon.preferredSymbolConfiguration = .init(pointSize: 12, weight: .semibold, scale: .small)
+    }
+
+    @objc private func hint() {
+        shouldShow = true
     }
 
     private func show(_ show: Bool) {
         UIView.animate(withDuration: animationDuration, delay: 0, options: .beginFromCurrentState, animations: {
             self.alpha = show ? 1 : 0
-        }, completion: nil)
+        })
+    }
+
+    private func image(forSpeed speed: Float) -> UIImage? {
+        (speed == 1) ? UIImage(systemName: "hare.fill") : UIImage(systemName: "tortoise.fill")
     }
 }

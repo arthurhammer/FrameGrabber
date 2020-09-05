@@ -14,12 +14,12 @@ extension AlbumsDataSource {
     static func `default`() -> AlbumsDataSource {
         let smartAlbumConfig = SmartAlbumConfiguration(
             types: AlbumsDataSource.smartAlbumTypes,
-            assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoType: .any)
+            assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoFilter: .all)
         )
 
         let userAlbumConfig = UserAlbumConfiguration(
             albumFetchOptions: .userAlbums(),
-            assetFetchOptions: .assets(forAlbumType: .album, videoType: .any)
+            assetFetchOptions: .assets(forAlbumType: .album, videoFilter: .all)
         )
 
         return AlbumsDataSource(
@@ -28,10 +28,10 @@ extension AlbumsDataSource {
         )
     }
 
-    static func fetchInitialAlbum(withVideoType type: VideoType) -> FetchedAlbum? {
+    static func fetchInitialAlbum(with filter: VideoTypesFilter) -> FetchedAlbum? {
         guard let smartAlbumType = smartAlbumTypes.first else { return nil }
 
-        let assetFetchOptions = PHFetchOptions.assets(forAlbumType: .smartAlbum, videoType: type)
+        let assetFetchOptions = PHFetchOptions.assets(forAlbumType: .smartAlbum, videoFilter: filter)
 
         return FetchedAlbum.fetchSmartAlbums(
             with: [smartAlbumType],
@@ -42,9 +42,9 @@ extension AlbumsDataSource {
 
 extension PHFetchOptions {
 
-    static func assets(forAlbumType albumType: PHAssetCollectionType, videoType: VideoType) -> PHFetchOptions {
+    static func assets(forAlbumType albumType: PHAssetCollectionType, videoFilter: VideoTypesFilter) -> PHFetchOptions {
         let options = PHFetchOptions.assets(forAlbumType: albumType)
-        options.predicate = videoType.fetchPredicate
+        options.predicate = videoFilter.photoLibraryFetchPredicate
         return options
     }
 }

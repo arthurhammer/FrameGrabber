@@ -1,11 +1,12 @@
 /* Class = "UILabel"; text = "Choose Frame"; ObjectID = "MTO-N1-Rre"; */
 "MTO-N1-Rre.text" = "Bild Auswählen";
 
-/* Class = "UILabel"; text = "<Speed>"; ObjectID = "OOU-XQ-SBc"; */
-"OOU-XQ-SBc.text" = "<Speed>";
-
 /* Class = "UILabel"; text = "<Time>"; ObjectID = "mXw-rO-aOk"; */
 "mXw-rO-aOk.text" = "<Time>";
 
 /* Class = "UILabel"; text = "<Exporting…>"; ObjectID = "oGN-ie-szR"; */
 "oGN-ie-szR.text" = "<Exporting…>";
+
+/* Class = "UILabel"; text = "<Speed>"; ObjectID = "OOU-XQ-SBc"; */
+"OOU-XQ-SBc.text" = "<Speed>";
+

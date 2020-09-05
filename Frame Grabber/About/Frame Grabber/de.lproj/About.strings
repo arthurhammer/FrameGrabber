@@ -1,5 +1,5 @@
-/* Class = "UILabel"; text = "Save your favorite video and Live Photo moments as pictures."; ObjectID = "Ciq-8B-rvv"; */
-"Ciq-8B-rvv.text" = "Frame Grabber erzeugt Standbilder aus deinen Videos und Live Photos.";
+/* Class = "UILabel"; text = "Save Your Best Moments"; ObjectID = "Ciq-8B-rvv"; */
+"Ciq-8B-rvv.text" = "Sammle die Besten Momente";
 
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
 "CWr-Fn-l1m.text" = "Quellcode";
@@ -7,27 +7,30 @@
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
 "GkV-0K-xRO.text" = "Kontakt";
 
-/* Class = "UILabel"; text = "Hi, I'm Arthur. I made this app to learn iOS development, it's my first! If you like Frame Grabber, please rate it on the App Store."; ObjectID = "IiT-LI-i5k"; */
-"IiT-LI-i5k.text" = "Hi, ich bin Arthur. Dies ist meine erste App! Ich habe sie entwickelt, um iOS-App-Programmierung zu lernen. Wenn sie dir gefällt, kannst du sie im App Store bewerten.";
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
+"hSM-a5-Quj.normalTitle" = "Bereits getan?";
 
-/* Class = "UIBarButtonItem"; title = "Restore"; ObjectID = "IRk-Y0-M2Q"; */
-"IRk-Y0-M2Q.title" = "Wiederherstellen";
+/* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "IAE-sF-IVF"; */
+"IAE-sF-IVF.title" = "Frame Grabber";
 
-/* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "j7T-IN-X4o"; */
-"j7T-IN-X4o.title" = "Frame Grabber";
+/* Class = "UILabel"; text = "Hi, I'm Arthur. I hope Frame Grabber helps you capture awesome frames in your videos and Live Photos!"; ObjectID = "IiT-LI-i5k"; */
+"IiT-LI-i5k.text" = "Hi, ich bin Arthur. Ich hoffe, Frame Grabber hilft dir, coole Frames aus deinen Videos und Live Photos festzuhalten!";
 
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
-/* Class = "UIButton"; normalTitle = "Leave a Review"; ObjectID = "lni-tn-UXo"; */
+/* Class = "UIButton"; normalTitle = "Rate Frame Grabber"; ObjectID = "lni-tn-UXo"; */
 "lni-tn-UXo.normalTitle" = "App Bewerten";
 
-/* Class = "UILabel"; text = "For feedback and support."; ObjectID = "Q2G-GR-huD"; */
+/* Class = "UILabel"; text = "Your feedback and questions are welcome."; ObjectID = "Q2G-GR-huD"; */
 "Q2G-GR-huD.text" = "Für Feedback und Support.";
 
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */
 "qvE-dH-xjJ.text" = "Datenschutzerklärung";
 
-/* Class = "UILabel"; text = "No ads, no analytics, no tracking."; ObjectID = "QZZ-Gh-i28"; */
-"QZZ-Gh-i28.text" = "Keine Werbung, keine Analytics, kein Tracking.";
+/* Class = "UILabel"; text = "I don't collect any data about you."; ObjectID = "QZZ-Gh-i28"; */
+"QZZ-Gh-i28.text" = "Ich sammle keine Daten von dir.";
+
+/* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "YwB-MD-zZ0"; */
+"YwB-MD-zZ0.headerTitle" = "Info";
 

@@ -11,8 +11,8 @@ struct About {
 extension About {
 
     struct PrivacyPolicy {
-        static let en = URL(string: "https://arthurhammer.github.io/FrameGrabber")
-        static let de = URL(string: "https://arthurhammer.github.io/FrameGrabber/de")
+        static let en = URL(string: "https://framegrabberapp.com/privacy/")
+        static let de = URL(string: "https://framegrabberapp.com/datenschutz/")
 
         static var preferred: URL? {
             let language = Bundle.main.preferredLocalizations.first

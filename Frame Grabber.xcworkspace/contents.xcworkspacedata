@@ -8,6 +8,9 @@
       location = "group:Packages/InAppPurchase">
    </FileRef>
    <FileRef
+      location = "group:Packages/FrameIndexer">
+   </FileRef>
+   <FileRef
       location = "group:Packages/PhotoAlbums">
    </FileRef>
    <FileRef

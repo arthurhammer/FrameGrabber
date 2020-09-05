@@ -30,7 +30,7 @@ class Coordinator: NSObject {
     // MARK: Authorizing
 
     private func authorizeIfNecessary(completion: @escaping () -> ()) {
-        if PhotoLibraryAuthorizationController.needsAuthorization {
+        if AuthorizationController.needsAuthorization {
             DispatchQueue.main.async {
                 self.showAuthorization(animated: true, completion: completion)
             }
@@ -42,7 +42,7 @@ class Coordinator: NSObject {
     private func showAuthorization(animated: Bool, completion: @escaping () -> ()) {
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
 
-        guard let authorizationController = storyboard.instantiateInitialViewController() as? PhotoLibraryAuthorizationController else { fatalError("Wrong controller type") }
+        guard let authorizationController = storyboard.instantiateInitialViewController() as? AuthorizationController else { fatalError("Wrong controller type") }
 
         authorizationController.didAuthorizeHandler = { [weak self] in
             self?.navigationController.dismiss(animated: true)
@@ -66,8 +66,8 @@ class Coordinator: NSObject {
         albumsViewController.albumsDataSource = AlbumsDataSource.default()
 
         if let albumViewController = navigationController.topViewController as? AlbumViewController {
-            let type = albumViewController.settings.videoType
-            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(withVideoType: type)
+            let filter = albumViewController.settings.videoTypesFilter
+            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(with: filter)
         }
     }
 }
