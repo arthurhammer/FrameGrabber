@@ -2,13 +2,13 @@ import InAppPurchase
 import StoreKit
 import UIKit
 
-class IceCreamViewController: UIViewController {
+class PurchaseViewController: UIViewController {
 
-    var hasPurchased: Bool {
+    private var hasPurchased: Bool {
         paymentsManager.hasPurchasedProduct(withId: inAppPurchaseId)
     }
 
-    var fetchedProduct: SKProduct? {
+    private var fetchedProduct: SKProduct? {
         productsManager.fetchedProducts.first { $0.productIdentifier == inAppPurchaseId }
     }
 
@@ -16,10 +16,14 @@ class IceCreamViewController: UIViewController {
     private let productsManager = StoreProductsManager()
     private let paymentsManager = StorePaymentsManager.shared
 
-    @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var messageLabel: UILabel!
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var scrollViewSeparator: UIView!
+    @IBOutlet private var featuresView: PurchaseFeaturesView!
+    @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
+    @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var confettiView: ConfettiView!
-    @IBOutlet private var purchaseButton: ActivityButton!
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,19 +32,19 @@ class IceCreamViewController: UIViewController {
         fetchProductsIfNeeded()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
-        transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
-            self?.styleNavigationBar()
-            self?.showConfettiIfNeeded()
-
-        }, completion: { [weak self] _ in
-            self?.styleNavigationBar()
-        })
+        DispatchQueue.main.async {
+            self.updateSeparator()
+        }
     }
 
-    // MARK: Actions
+    // MARK: - Actions
+
+    @IBAction private func done() {
+        dismiss(animated: true)
+    }
 
     private func fetchProductsIfNeeded() {
         defer { updateViews() }
@@ -72,7 +76,7 @@ class IceCreamViewController: UIViewController {
 
         guard !hasPurchased,
             !paymentsManager.hasPendingUnfinishedTransactions(withId: inAppPurchaseId) else {
-                return
+            return
         }
 
         guard paymentsManager.canMakePayments else {
@@ -89,59 +93,33 @@ class IceCreamViewController: UIViewController {
         paymentsManager.purchase(product)
     }
 
-    // MARK: Configuring
+    // MARK: - Configuring
 
     private func configureViews() {
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
-
-        purchaseButton.layer.cornerRadius = Style.buttonCornerRadius
-        purchaseButton.layer.cornerCurve = .continuous
-        purchaseButton.activityIndicator.color = .white
-
+        scrollView.delegate = self
         confettiView.confettiImage = UIImage(named: "confetti")
+        featuresView.mainFeatureView.titleLabel.font = .preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
+        closeButton.tintColor = UIColor.separator.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
 
         updateViews()
+        updateSeparator()
     }
 
     private func updateViews() {
-        switch state() {
-
-        case .fetchingProducts, .purchasing, .restoring:
-            purchaseButton.isShowingActivity = true
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            titleLabel.text = UserText.IAPNotPurchasedTitle
-            messageLabel.text = UserText.IAPNotPurchasedMessage
-
-        case .productsNotFetched, .readyToPurchase:
-            purchaseButton.isShowingActivity = false
-            navigationItem.rightBarButtonItem?.isEnabled = true
-
-            if let product = fetchedProduct {
-                let price = formattedPrice(for: product)
-                purchaseButton.dormantTitle = String.localizedStringWithFormat(UserText.IAPActionWithPriceFormat, price)
-            } else {
-                purchaseButton.dormantTitle = UserText.IAPActionWithoutPrice
-            }
-
-            titleLabel.text = UserText.IAPNotPurchasedTitle
-            messageLabel.text = UserText.IAPNotPurchasedMessage
-
-        case .purchased:
-            purchaseButton.dormantTitle = nil
-            purchaseButton.isHidden = true
-            navigationItem.rightBarButtonItem = nil
-            titleLabel.text = UserText.IAPPurchasedTitle
-            messageLabel.text = UserText.IAPPurchasedMessage
-        }
+        let state = self.state()
+        let price = fetchedProduct.flatMap(formattedPrice)
+        purchaseButtonsView.configure(with: state, price: price)
+        featuresView.configure(with: state)
     }
 
-    private func styleNavigationBar() {
-        let bar = navigationController?.navigationBar
-        bar?.tintColor = .white
-        bar?.shadowImage = UIImage()
-        bar?.setBackgroundImage(UIImage(), for: .default)
-        bar?.backgroundColor = nil
+    private func updateSeparator() {
+        guard let contentView = scrollView.subviews.first else { return  }
+
+        let contentRect = scrollView.convert(contentView.frame, to: view)
+        scrollViewSeparator.isHidden = !contentRect.intersects(purchaseButtonsView.frame)
     }
+
+    // MARK: Handling Transactions
 
     private func configureStoreManagers() {
         productsManager.requestDidFail = { [weak self] _, _ in
@@ -164,8 +142,6 @@ class IceCreamViewController: UIViewController {
             self?.handleTransactionDidUpdate(transaction)
         }
     }
-
-    // MARK: Handling Transactions
 
     private func handleTransactionDidUpdate(_ transaction: SKPaymentTransaction) {
         defer { updateViews() }
@@ -210,7 +186,7 @@ class IceCreamViewController: UIViewController {
 
     // MARK: Determining Current State
 
-    private enum State {
+    enum State {
         case fetchingProducts
         case productsNotFetched  // Not yet fetched or failed to fetch.
         case readyToPurchase
@@ -241,5 +217,14 @@ class IceCreamViewController: UIViewController {
         }
 
         return .readyToPurchase
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension PurchaseViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateSeparator()
     }
 }

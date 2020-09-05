@@ -14,15 +14,19 @@ struct UserText {
 
     static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "Version %@", comment: "Version label with numerical version")
     static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
-    static let aboutPurchasedButton = NSLocalizedString("about.purchased.action", value: "Thank You", comment: "Container view button message when in-app purchase was purchased")
-    static let aboutNotPurchasedButton = NSLocalizedString("about.notpurchased.action", value: "Ice Cream", comment: "Container view button message when in-app purchase was not purchased")
 
-    static let IAPPurchasedTitle = NSLocalizedString("iap.purchased.title", value: "Thank You", comment: "Ice cream title label when purchased.")
-    static let IAPPurchasedMessage = NSLocalizedString("iap.purchased.message", value: "Thank you so much for supporting me and my app!", comment: "Ice cream message label when purchased.")
-    static let IAPNotPurchasedTitle = NSLocalizedString("iap.notpurchased.title", value: "Yummy", comment: "Ice cream title label when not purchased")
-    static let IAPNotPurchasedMessage = NSLocalizedString("iap.notpurchased.message", value: "If you want to go the extra mile or support future development, you can send me this delicious piece of raspberry ice cream in form of a tip.\n\nAs a reward, you get the satisfaction of knowing you made my day. :)\n\nThank you for checking out my app!", comment: "Ice cream message label when not purchased")
-    static let IAPActionWithPriceFormat = NSLocalizedString("iap.purchase.price.action.format", value: "Send Ice Cream – %@", comment: "Ice cream purchase button label with price")
-    static let IAPActionWithoutPrice = NSLocalizedString("iap.purchase.noprice.action", value: "Send Ice Cream", comment: "Ice cream purchase button label without price")
+    static let IAPPurchasedTitle = NSLocalizedString("iap.purchased.title", value: "Thank You ❤️", comment: "Purchase screen title label when purchased.")
+    static let IAPPurchasedMessage = NSLocalizedString("iap.purchased.message", value: "Ah, another ice cream lover. Thank you so much for supporting me and my app!", comment: "Purchase screen message label when purchased.")
+    static let IAPNotPurchasedTitle = NSLocalizedString("iap.notpurchased.title", value: "Hey 👋", comment: "Purchase screen title label when not purchased")
+    static let IAPNotPurchasedMessage = NSLocalizedString("iap.notpurchased.message", value: "If my app is useful to you and you want to help out, sending me ice cream would be really sweet.", comment: "Purchase screen message label when not purchased")
+    static let IAPFirstFeatureTitle = NSLocalizedString("iap.feature.first.title", value: "Ad-free", comment: "Purchase screen first feature title.")
+    static let IAPFirstFeatureMessage = NSLocalizedString("iap.feature.first.message", value: "Frame Grabber is completely free and doesn't bug you with ads.", comment: "Purchase screen first message.")
+    static let IAPSecondFeatureTitle = NSLocalizedString("iap.feature.second.title", value: "Transparent", comment: "Purchase screen second feature title.")
+    static let IAPSecondFeatureMessage = NSLocalizedString("iap.feature.second.message", value: "The code is open source and your data is yours. No weird stuff.", comment: "Purchase screen second message.")
+    static let IAPThirdFeatureTitle = NSLocalizedString("iap.feature.third.title", value: "Support Indies", comment: "Purchase screen third feature title.")
+    static let IAPThirdFeatureMessage = NSLocalizedString("iap.feature.third.message", value: "You ensure the mission-critical supply of ice cream for this indie developer keeps coming.", comment: "Purchase screen third message.")
+    static let IAPActionWithPriceFormat = NSLocalizedString("iap.purchase.price.action.format", value: "Send Ice Cream – %@", comment: "Purchase screen purchase button label with price")
+    static let IAPActionWithoutPrice = NSLocalizedString("iap.purchase.noprice.action", value: "Send Ice Cream", comment: "Purchase screen purchase button label without price")
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 

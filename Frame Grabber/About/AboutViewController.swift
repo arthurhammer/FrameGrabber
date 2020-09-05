@@ -22,16 +22,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         configureViews()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
-            self?.updateNavigationBar()
-        }, completion: { [weak self] _ in
-            self?.updateNavigationBar()
-        })
-    }
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -55,13 +45,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         rateButton.configureAsActionButton()
         purchaseButton.configureAsActionButton()
         purchaseButton.backgroundColor = UIColor.accent?.withAlphaComponent(0.1)
-    }
-
-    private func updateNavigationBar() {
-        let bar = navigationController?.navigationBar
-        bar?.tintColor = nil
-        bar?.shadowImage = nil
-        bar?.setBackgroundImage(nil, for: .default)
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

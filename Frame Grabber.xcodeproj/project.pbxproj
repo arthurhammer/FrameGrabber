@@ -48,10 +48,14 @@
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
-		0034AFFD240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
-		0034AFFE240139E30041513F /* IceCreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* IceCreamViewController.swift */; };
-		003D1F2F25041F7A006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2E25041F7A006107C0 /* Configuration.storekit */; };
-		003D1F3025041F88006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2E25041F7A006107C0 /* Configuration.storekit */; };
+		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
+		0034AFFE240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
+		003D1F202503FE3A006107C0 /* PurchaseFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */; };
+		003D1F212503FEA4006107C0 /* PurchaseFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */; };
+		003D1F2725040718006107C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2525040717006107C0 /* InfoPlist.strings */; };
+		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
+		003D1F2A25040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
+		003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Configuration.storekit */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
@@ -257,8 +261,11 @@
 		002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGridContentMode.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		0034AFFC240139E30041513F /* IceCreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCreamViewController.swift; sourceTree = "<group>"; };
-		003D1F2E25041F7A006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
+		003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseFeaturesView.swift; sourceTree = "<group>"; };
+		003D1F2625040717006107C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
+		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubbingIndicatorView.swift; sourceTree = "<group>"; };
 		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
@@ -418,7 +425,7 @@
 			children = (
 				00E82088214FEBC000460FD1 /* Info-Dev.plist */,
 				001AA1841FB4977100A00BB9 /* Info.plist */,
-				003D1F2E25041F7A006107C0 /* Configuration.storekit */,
+				003D1F3125041FF1006107C0 /* Configuration.storekit */,
 				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
 				00AA201C213432B400084B08 /* InfoPlist.strings */,
 				00AA201F213432B400084B08 /* Localizable.strings */,
@@ -471,7 +478,9 @@
 			isa = PBXGroup;
 			children = (
 				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
-				0034AFFC240139E30041513F /* IceCreamViewController.swift */,
+				003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */,
+				003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */,
+				0034AFFC240139E30041513F /* PurchaseViewController.swift */,
 				0023FC8D23390D940046D9F8 /* About.storyboard */,
 			);
 			path = About;
@@ -631,6 +640,7 @@
 			children = (
 				00ECC734242E5BCC00B95E32 /* Frame_Grabber_Tests.swift */,
 				00ECC736242E5BCC00B95E32 /* Info.plist */,
+				003D1F2525040717006107C0 /* InfoPlist.strings */,
 			);
 			path = "Frame Grabber Tests";
 			sourceTree = "<group>";
@@ -776,7 +786,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */,
-				003D1F3025041F88006107C0 /* Configuration.storekit in Resources */,
 				00730EE2214FEA5A001A6EA7 /* LaunchScreen.storyboard in Resources */,
 				00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */,
 				008D293224B20F5100813338 /* ExportSettings.storyboard in Resources */,
@@ -795,7 +804,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00AA2021213432B400084B08 /* Localizable.strings in Resources */,
-				003D1F2F25041F7A006107C0 /* Configuration.storekit in Resources */,
+				003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
 				008D293124B20F5100813338 /* ExportSettings.storyboard in Resources */,
@@ -814,6 +823,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				008D293324B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				003D1F2725040718006107C0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,7 +855,7 @@
 				00730EA6214FEA5A001A6EA7 /* VideoCell.swift in Sources */,
 				0078A45623F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00730EA7214FEA5A001A6EA7 /* AlbumsLayout.swift in Sources */,
-				0034AFFE240139E30041513F /* IceCreamViewController.swift in Sources */,
+				0034AFFE240139E30041513F /* PurchaseViewController.swift in Sources */,
 				000BF42B24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */,
 				00730EA8214FEA5A001A6EA7 /* ZoomPushTransition.swift in Sources */,
 				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
@@ -860,6 +870,7 @@
 				005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00730EB1214FEA5A001A6EA7 /* Settings.swift in Sources */,
 				00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
+				003D1F212503FEA4006107C0 /* PurchaseFeaturesView.swift in Sources */,
 				00024F6E23447EDF00937941 /* PHAsset.swift in Sources */,
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
 				0054936523E5633700F3E684 /* About.swift in Sources */,
@@ -921,6 +932,7 @@
 				00024F772344C06F00937941 /* AVAsset.swift in Sources */,
 				009BEA4A234E243D00C284FA /* dprint.swift in Sources */,
 				002B066524B4FAB7005375ED /* AlbumGridContentMode.swift in Sources */,
+				003D1F2A25040A47006107C0 /* PurchaseButtonsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,7 +944,7 @@
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00AA20232136C93100084B08 /* AlbumsLayout.swift in Sources */,
-				0034AFFD240139E30041513F /* IceCreamViewController.swift in Sources */,
+				0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */,
 				000BF42A24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */,
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
@@ -947,6 +959,7 @@
 				005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
+				003D1F202503FE3A006107C0 /* PurchaseFeaturesView.swift in Sources */,
 				00024F6D23447EDF00937941 /* PHAsset.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,
@@ -1008,6 +1021,7 @@
 				00024F762344C06F00937941 /* AVAsset.swift in Sources */,
 				009BEA49234E243D00C284FA /* dprint.swift in Sources */,
 				002B066424B4F9BE005375ED /* AlbumGridContentMode.swift in Sources */,
+				003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1080,6 +1094,14 @@
 				0023FC9B233911BA0046D9F8 /* de */,
 			);
 			name = Authorization.storyboard;
+			sourceTree = "<group>";
+		};
+		003D1F2525040717006107C0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				003D1F2625040717006107C0 /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		008D293524B20F5100813338 /* ExportSettings.storyboard */ = {
