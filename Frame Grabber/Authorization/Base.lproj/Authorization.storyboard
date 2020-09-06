@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgC-6x-dUz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="703"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="695"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-bd-e8C" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="442"/>
@@ -91,7 +91,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="QxL-oM-ZOA"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZpT-Z1-rOe">
-                                <rect key="frame" x="0.0" y="747" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="739" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="HFn-iv-N9C"/>
@@ -99,7 +99,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="rME-8f-Wj1" userLabel="Action Stack">
-                                <rect key="frame" x="20" y="763" width="374" height="91"/>
+                                <rect key="frame" x="20" y="755" width="374" height="91"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40q-y2-rgZ">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
@@ -140,13 +140,16 @@
                         <constraints>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="trailing" secondItem="uep-rp-0KY" secondAttribute="trailing" id="7ky-6C-zHe"/>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="leading" secondItem="uep-rp-0KY" secondAttribute="leading" id="8g7-T1-tju"/>
-                            <constraint firstItem="rME-8f-Wj1" firstAttribute="bottom" secondItem="uep-rp-0KY" secondAttribute="bottom" priority="999" constant="16" id="K2c-bW-wc7"/>
-                            <constraint firstItem="mB5-wO-tQR" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rME-8f-Wj1" secondAttribute="bottom" constant="8" id="NIu-py-dxz"/>
+                            <constraint firstItem="mB5-wO-tQR" firstAttribute="bottom" secondItem="rME-8f-Wj1" secondAttribute="bottom" constant="16" id="NIu-py-dxz">
+                                <variation key="heightClass=compact" constant="8"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="rME-8f-Wj1" secondAttribute="trailing" id="Rcl-UZ-ide"/>
                             <constraint firstItem="ZpT-Z1-rOe" firstAttribute="leading" secondItem="uep-rp-0KY" secondAttribute="leading" id="Xam-sU-BkJ"/>
                             <constraint firstItem="PaK-qv-LjZ" firstAttribute="height" secondItem="uep-rp-0KY" secondAttribute="height" multiplier="0.296912" priority="999" id="cDA-ZE-IRl"/>
                             <constraint firstAttribute="trailing" secondItem="ZpT-Z1-rOe" secondAttribute="trailing" id="jYu-re-CwI"/>
-                            <constraint firstItem="rME-8f-Wj1" firstAttribute="top" secondItem="jgC-6x-dUz" secondAttribute="bottom" constant="16" id="kvc-eO-LoD"/>
+                            <constraint firstItem="rME-8f-Wj1" firstAttribute="top" secondItem="jgC-6x-dUz" secondAttribute="bottom" constant="16" id="kvc-eO-LoD">
+                                <variation key="heightClass=compact" constant="8"/>
+                            </constraint>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="top" secondItem="mB5-wO-tQR" secondAttribute="top" id="uVe-jS-l85"/>
                             <constraint firstItem="ZpT-Z1-rOe" firstAttribute="top" secondItem="jgC-6x-dUz" secondAttribute="bottom" id="w0r-th-b45"/>
                             <constraint firstItem="rME-8f-Wj1" firstAttribute="leading" secondItem="uep-rp-0KY" secondAttribute="leadingMargin" id="wUy-uM-LM2"/>

@@ -293,7 +293,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJn-T0-q26">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="704"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="688"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="560"/>
@@ -424,14 +424,14 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMy-Av-8q9">
-                                <rect key="frame" x="0.0" y="704" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="688" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="7eM-Dc-MQZ"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W" customClass="PurchaseButtonsView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="20" y="720" width="374" height="88"/>
+                                <rect key="frame" x="20" y="704" width="374" height="88"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1" customClass="ActivityButton" customModule="Frame_Grabber" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -507,12 +507,15 @@
                             <constraint firstAttribute="trailing" secondItem="hMy-Av-8q9" secondAttribute="trailing" id="DTv-Xq-5jk"/>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leadingMargin" id="GBE-tn-ZTf"/>
                             <constraint firstItem="hMy-Av-8q9" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="GQ5-sl-8pX"/>
-                            <constraint firstItem="fsd-Il-X8W" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="16" id="OsQ-GG-Iub"/>
-                            <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fsd-Il-X8W" secondAttribute="bottom" id="QUc-n9-YqS"/>
+                            <constraint firstItem="fsd-Il-X8W" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="16" id="OsQ-GG-Iub">
+                                <variation key="heightClass=compact" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="fsd-Il-X8W" secondAttribute="bottom" constant="16" id="QUc-n9-YqS">
+                                <variation key="heightClass=compact" constant="8"/>
+                            </constraint>
                             <constraint firstAttribute="bottom" secondItem="ETp-48-pMy" secondAttribute="bottom" id="TJp-hq-HdP"/>
                             <constraint firstItem="NG4-o2-qF9" firstAttribute="top" secondItem="m2J-rt-kXP" secondAttribute="top" constant="4" id="Ydq-Ir-K6W"/>
                             <constraint firstAttribute="trailing" secondItem="nJn-T0-q26" secondAttribute="trailing" id="a7p-jE-Wdr"/>
-                            <constraint firstAttribute="bottom" secondItem="fsd-Il-X8W" secondAttribute="bottom" priority="999" constant="16" id="eyV-SN-0Qc"/>
                             <constraint firstItem="ETp-48-pMy" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="l3W-Bj-sG6"/>
                             <constraint firstItem="nJn-T0-q26" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="mih-Gm-HO4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fsd-Il-X8W" secondAttribute="trailing" id="sOa-ev-itd"/>
