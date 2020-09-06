@@ -1,13 +1,15 @@
-import Foundation
 import AVFoundation
+import Foundation
+import InAppPurchase
 
 extension UserDefaults {
 
     private struct Key {
+        static let videoTypesFilter = "VideoTypesFilter"
+        static let albumGridContentMode = "AlbumGridContentMode"
         static let includeMetadata = "IncludeMetadata"
         static let imageFormat = "ImageFormat"
         static let compressionQuality = "CompressionQuality"
-        static let videoType = "VideoType"
         static let purchasedProductIdentifiers = "PurchasedProductIdentifiers"
     }
 
@@ -15,9 +17,14 @@ extension UserDefaults {
         AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
     }
 
-    var videoType: VideoType {
-        get { codableValue(forKey: Key.videoType) ?? .any }
-        set { setCodableValue(value: newValue, forKey: Key.videoType) }
+    var videoTypesFilter: VideoTypesFilter {
+        get { codableValue(forKey: Key.videoTypesFilter) ?? .all }
+        set { setCodableValue(value: newValue, forKey: Key.videoTypesFilter) }
+    }
+
+    var albumGridContentMode: AlbumGridContentMode {
+        get { codableValue(forKey: Key.albumGridContentMode) ?? .fit }
+        set { setCodableValue(value: newValue, forKey: Key.albumGridContentMode) }
     }
 
     var includeMetadata: Bool {
@@ -25,7 +32,7 @@ extension UserDefaults {
         set { set(newValue, forKey: Key.includeMetadata) }
     }
 
-    /// If the format is not supported on this device, falls back to jpg.
+    /// If the format is not supported on this device, falls back to jpeg.
     var imageFormat: ImageFormat {
         get { (codableValue(forKey: Key.imageFormat) ?? ImageFormat.heif).safeFormat }
         set { setCodableValue(value: newValue.safeFormat, forKey: Key.imageFormat) }
@@ -38,7 +45,7 @@ extension UserDefaults {
 }
 
 extension UserDefaults: PurchasedProductsStore {
-    var purchasedProductIdentifiers: [String] {
+    public var purchasedProductIdentifiers: [String] {
         get { (array(forKey: Key.purchasedProductIdentifiers) as? [String]) ?? [] }
         set { set(newValue, forKey: Key.purchasedProductIdentifiers) }
     }
@@ -47,7 +54,7 @@ extension UserDefaults: PurchasedProductsStore {
 private extension ImageFormat {
     var safeFormat: ImageFormat {
         if !UserDefaults.isHeifSupported && (self == .heif) {
-            return .jpg
+            return .jpeg
         }
         return self
     }

@@ -1,3 +1,9 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "FG Dev";
+
+/* Bundle name */
+"CFBundleName" = "Frame Grabber";
+
 /* Privacy - Photo Library Usage Description */
 "NSPhotoLibraryUsageDescription" = "Um dir deine Videos und Live Photos anzuzeigen.";
 

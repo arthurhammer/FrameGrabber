@@ -1,15 +1,6 @@
-/* Class = "UIButton"; normalTitle = "Video"; ObjectID = "2zK-Ub-ClA"; */
-"2zK-Ub-ClA.normalTitle" = "Video";
-
-/* Class = "UILabel"; text = "Choose Frame"; ObjectID = "MTO-N1-Rre"; */
-"MTO-N1-Rre.text" = "Bild Auswählen";
+/* Class = "UIButton"; accessibilityLabel = "Unavailable"; ObjectID = "2rF-GC-s1m"; */
+"2rF-GC-s1m.accessibilityLabel" = "Nicht verfügbar";
 
 /* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
 "nBX-8Q-BwE.title" = "Alben";
-
-/* Class = "UIButton"; normalTitle = "Live"; ObjectID = "OAB-1m-CBh"; */
-"OAB-1m-CBh.normalTitle" = "Live";
-
-/* Class = "UIButton"; normalTitle = "All"; ObjectID = "Tzq-rg-EiV"; */
-"Tzq-rg-EiV.normalTitle" = "Alle";
 

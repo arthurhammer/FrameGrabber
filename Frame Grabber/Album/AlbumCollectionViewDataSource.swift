@@ -1,16 +1,17 @@
-import UIKit
-import Photos
 import Combine
+import PhotoAlbums
+import Photos
+import UIKit
 
 class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
 
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
 
-    var type: VideoType {
-        get { settings.videoType }
+    var filter: VideoTypesFilter {
+        get { settings.videoTypesFilter }
         set {
-            settings.videoType = newValue
+            settings.videoTypesFilter = newValue
             fetchAlbum()
         }
     }
@@ -30,10 +31,14 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
         }
     }
 
+    var isAuthorizationLimited: Bool {
+        false
+    }
+
     var settings: UserDefaults
+    let photoLibrary: PHPhotoLibrary
 
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
-    private let photoLibrary: PHPhotoLibrary
     private let imageManager: PHCachingImageManager
     private let filterQueue: DispatchQueue
 
@@ -91,10 +96,10 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
 
     private func fetchAlbum() {
         guard let album = album?.assetCollection else { return }
-        let filter = type
+        let filter = self.filter
 
         filterQueue.async { [weak self] in
-            let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: filter)
+            let fetchOptions = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoFilter: filter)
             let filteredAlbum = FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: fetchOptions)
 
             DispatchQueue.main.async {
@@ -154,7 +159,7 @@ extension AlbumCollectionViewDataSource {
 
         self.album = changeDetails.albumAfterChanges
 
-        guard !changeDetails.albumWasDeleted else {
+        guard changeDetails.albumAfterChanges != nil else {
             imageManager.stopCachingImagesForAllAssets()
             albumDeletedHandler?()
             return

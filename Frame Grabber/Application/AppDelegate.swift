@@ -1,3 +1,4 @@
+import InAppPurchase
 import UIKit
 
 @UIApplicationMain
@@ -9,18 +10,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         configureInAppPurchases()
-        Style.configureAppearance(using: window)
-
-        coordinator = Coordinator(window: window)
-        coordinator?.start()
-
+        Style.configureAppearance()
+        configureCoordinator()
         clearTemporaryDirectory()
+
         return true
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         clearTemporaryDirectory()
         paymentsManager.stopObservingPayments()
+    }
+
+    private func configureCoordinator() {
+        guard let navigationController = window?.rootViewController as? NavigationController else {
+            fatalError("Wrong root view controller")
+        }
+
+        coordinator = Coordinator(navigationController: navigationController)
+        coordinator?.start()
     }
 
     private func configureInAppPurchases() {

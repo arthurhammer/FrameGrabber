@@ -1,6 +1,12 @@
-/* Class = "UILabel"; text = "No ads, no analytics, no tracking"; ObjectID = "FzY-in-DO7"; */
-"FzY-in-DO7.text" = "Keine Werbung, kein Analytics, kein Tracking.";
+/* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "1Mm-ug-fL0"; */
+"1Mm-ug-fL0.text" = "Frame Grabber";
 
-/* Class = "UIButton"; normalTitle = "Privacy"; ObjectID = "YdY-Cc-mGB"; */
-"YdY-Cc-mGB.normalTitle" = "Datenschutz";
+/* Class = "UILabel"; text = "Welcome to"; ObjectID = "jve-4i-sJx"; */
+"jve-4i-sJx.text" = "Willkommen zu";
+
+/* Class = "UIButton"; accessibilityHint = "Opens privacy policy."; ObjectID = "YdY-Cc-mGB"; */
+"YdY-Cc-mGB.accessibilityHint" = "Öffnet Datenschutzerklärung.";
+
+/* Class = "UIButton"; normalTitle = "Your videos remain private."; ObjectID = "YdY-Cc-mGB"; */
+"YdY-Cc-mGB.normalTitle" = "Deine Videos bleiben privat.";
 

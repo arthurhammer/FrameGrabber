@@ -1,20 +1,11 @@
 import UIKit
 
+/// Sends the `touchDown` event in regular intervals while pressed.
 class RepeatingButton: UIButton {
 
     var repeatInterval: TimeInterval = 0.15
-    var repeatAction: (() -> ())?
+
     private var timer: Timer?
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureViews()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureViews()
-    }
 
     override var isEnabled: Bool {
         didSet {
@@ -26,6 +17,16 @@ class RepeatingButton: UIButton {
         didSet {
             if !isUserInteractionEnabled { cancelTimer() }
         }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureViews()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configureViews()
     }
 
     deinit {
@@ -41,15 +42,19 @@ private extension RepeatingButton {
     }
 
     @objc func scheduleTimer() {
-        repeatAction?()
-
         timer = Timer.scheduledTimer(withTimeInterval: repeatInterval, repeats: true) { [weak self] _ in
-            self?.repeatAction?()
+            self?.sendTouchDown()
         }
     }
 
     @objc func cancelTimer() {
         timer?.invalidate()
         timer = nil
+    }
+
+    func sendTouchDown() {
+        removeTarget(self, action: #selector(scheduleTimer), for: .touchDown)
+        sendActions(for: .touchDown)
+        addTarget(self, action: #selector(scheduleTimer), for: .touchDown)
     }
 }

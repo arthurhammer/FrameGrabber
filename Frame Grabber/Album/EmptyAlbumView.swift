@@ -16,7 +16,7 @@ class EmptyAlbumView: UIView {
         didSet { updateViews() }
     }
 
-    var type: VideoType = .any {
+    var type: VideoTypesFilter = .all {
         didSet { updateViews() }
     }
 
@@ -52,13 +52,13 @@ class EmptyAlbumView: UIView {
     }
 }
 
-private extension VideoType {
+private extension VideoTypesFilter {
 
     var emptyAlbumMessage: String {
         switch self {
-        case .any: return NSLocalizedString("album.empty.any", value: "No Videos or Live Photos", comment: "Empty album message")
-        case .video: return NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")
-        case .livePhoto: return NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
+        case .all: return UserText.albumEmptyAny
+        case .video: return UserText.albumEmptyVideos
+        case .livePhoto: return UserText.albumEmptyLive
         }
     }
 }

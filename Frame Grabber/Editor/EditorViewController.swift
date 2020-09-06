@@ -1,23 +1,32 @@
+import AVFoundation
+import Combine
+import ThumbnailSlider
 import UIKit
-import AVKit
 
 class EditorViewController: UIViewController {
 
     var videoController: VideoController!
     var transitionController: ZoomTransitionController?
 
-    private var playbackController: PlaybackController?
-    private lazy var timeFormatter = VideoTimeFormatter()
+    // MARK: Private Properties
 
-    @IBOutlet private var progressView: ProgressView!
-    @IBOutlet private var playerView: ZoomingPlayerView!
+    private lazy var playbackController = PlaybackController()
+    private lazy var timeFormatter = VideoTimeFormatter()
+    private var sliderDataSource: AVAssetThumbnailSliderDataSource?
+    private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    private lazy var bindings = Set<AnyCancellable>()
+
+    @IBOutlet private var titleView: EditorTitleView!
     @IBOutlet private var toolbar: EditorToolbar!
-    @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var timeLabel: UILabel!
+    @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
+    @IBOutlet private var scrubbingIndicator: ScrubbingIndicatorView!
+    @IBOutlet private var progressView: ProgressView!
 
     private var isScrubbing: Bool {
         toolbar.timeSlider.isTracking
     }
+
+    // MARK: Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +37,7 @@ class EditorViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        configureNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,85 +47,15 @@ class EditorViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? UINavigationController,
-            let controller = destination.topViewController as? VideoDetailViewController {
+            let controller = destination.topViewController as? MetadataViewController {
 
-            playbackController?.pause()
-            controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
+            prepareForMetadataSegue(with: controller)
         }
     }
-}
 
-// MARK: - Actions
-
-private extension EditorViewController {
-
-    func done() {
-        // (todo: Move into coordinator/delegate?)
-        navigationController?.popViewController(animated: true)
-    }
-
-    @IBAction func playOrPause() {
-        guard !isScrubbing else { return }
-        playbackController?.playOrPause()
-    }
-
-    func stepBackward() {
-        guard !isScrubbing else { return }
-        playbackController?.step(byCount: -1)
-    }
-
-    func stepForward() {
-        guard !isScrubbing else { return }
-        playbackController?.step(byCount: 1)
-    }
-
-    @IBAction func shareFrames() {
-        guard !isScrubbing,
-            let playbackController = playbackController else { return }
-
+    private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
-        generateFramesAndShare(for: [playbackController.currentTime])
-    }
-
-    @IBAction func scrub(_ sender: TimeSlider) {
-        playbackController?.smoothlySeek(to: sender.time)
-    }
-
-    func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
-        let presenter = navigationController ?? presentedViewController ?? self
-        presenter.present(viewController, animated: animated)
-    }
-}
-
-// MARK: - PlaybackControllerDelegate
-
-extension EditorViewController: PlaybackControllerDelegate {
-
-    func player(_ player: AVPlayer, didUpdateStatus status: AVPlayer.Status) {
-        guard status != .failed  else { return handlePlaybackError() }
-        updatePlaybackStatus()
-    }
-
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateStatus status: AVPlayerItem.Status) {
-        guard status != .failed else { return handlePlaybackError() }
-        updatePlaybackStatus()
-    }
-
-    private func handlePlaybackError() {
-        presentOnTop(UIAlertController.playbackFailed())
-    }
-
-    func player(_ player: AVPlayer, didPeriodicUpdateAtTime time: CMTime) {
-        updateSlider(withTime: time)
-        updateTimeLabel(withTime: time)
-    }
-
-    func player(_ player: AVPlayer, didUpdateTimeControlStatus status: AVPlayer.TimeControlStatus) {
-        updatePlayButton(withStatus: status)
-    }
-
-    func currentPlayerItem(_ playerItem: AVPlayerItem, didUpdateDuration duration: CMTime) {
-        updateSlider(withDuration: duration)
+        controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
     }
 }
 
@@ -124,145 +63,199 @@ extension EditorViewController: PlaybackControllerDelegate {
 
 private extension EditorViewController {
 
+    // MARK: Actions
+
+    func done() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    @IBAction func playOrPause() {
+        guard !isScrubbing else { return }
+        playSelectionFeedback()
+        playbackController.playOrPause()
+    }
+
+    @IBAction func stepBackward() {
+        guard !isScrubbing else { return }
+        playSelectionFeedback()
+        playbackController.step(byCount: -1)
+    }
+
+    @IBAction func stepForward() {
+        guard !isScrubbing else { return }
+        playSelectionFeedback()
+        playbackController.step(byCount: 1)
+    }
+
+    @IBAction func shareFrames() {
+        guard !isScrubbing else { return }
+
+        playSelectionFeedback()
+        playbackController.pause()
+        generateFramesAndShare(for: [playbackController.currentFrameTime])
+    }
+
+    @IBAction func scrub(_ sender: ScrubbingThumbnailSlider) {
+        playbackController.smoothlySeek(to: sender.time)
+    }
+
+    @objc func showMoreMenuAsAlertSheet() {
+        let alertController = EditorMoreMenu.alertController { [weak self] selection in
+            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
+        }
+
+        presentOnTop(alertController)
+    }
+
+    private func playSelectionFeedback() {
+        selectionFeedbackGenerator.selectionChanged()
+        selectionFeedbackGenerator.prepare()
+    }
+
+    // MARK: Configuring
+
     func configureViews() {
-        playerView.clipsToBounds = false
+        zoomingPlayerView.clipsToBounds = false
+        zoomingPlayerView.player = playbackController.player
+        zoomingPlayerView.posterImage = videoController.previewImage
 
-        timeLabel.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
+        scrubbingIndicator.configure(for: toolbar.timeSlider)
 
-        // todo: Navigation controller/delegate should handle this.
-        navigationController?.navigationBar.shadowImage = nil
+        sliderDataSource = AVAssetThumbnailSliderDataSource(
+            slider: toolbar.timeSlider,
+            asset: videoController.video,
+            placeholderImage: videoController.previewImage
+        )
+
+
+        navigationItem.rightBarButtonItem?.target = self
+        navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
+
+        configureNavigationBar()
+        configureGestures()
+        bindPlayer()
+    }
+
+    func configureNavigationBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.applyToolbarShadow()
         toolbar.applyToolbarShadow()
-
-        toolbar.previousButton.repeatAction = { [weak self] in
-            self?.stepBackward()
-        }
-
-        toolbar.nextButton.repeatAction = { [weak self] in
-            self?.stepForward()
-        }
-
-        configureGestures()
-
-        updatePlaybackStatus()
-        updatePlayButton(withStatus: .paused)
-        updateSlider(withDuration: .zero)
-        updateSlider(withTime: .zero)
-        updateTimeLabel(withTime: .zero)
     }
 
-    private func configureGestures() {
+    func configureGestures() {
+        guard transitionController != nil else { return }
+
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
-        playerView.addGestureRecognizer(slideToPopRecognizer)
+        zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
+
+        if let defaultPopRecognizer = navigationController?.interactivePopGestureRecognizer {
+            slideToPopRecognizer.require(toFail: defaultPopRecognizer)
+        }
     }
 
-    @objc private func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
-        let hasVideoOrPoster = playerView.playerView.bounds.size != .zero
-        guard !isScrubbing, hasVideoOrPoster else { return }
+    @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
+        let hasVideoOrPoster = zoomingPlayerView.playerView.bounds.size != .zero
+
+        guard !isScrubbing,
+            hasVideoOrPoster else { return }
 
         transitionController?.handleSlideToPopGesture(gesture, performTransition: {
             done()
         })
     }
 
-    // MARK: Updating Player UI
-
-    func updatePlaybackStatus() {
-        let isReadyToPlay = playbackController?.isReadyToPlay ?? false
-        toolbar.setControlsEnabled(isReadyToPlay)
-        navigationItem.rightBarButtonItem?.isEnabled = isReadyToPlay
-        titleLabel.isEnabled = isReadyToPlay
-        timeLabel.isEnabled = isReadyToPlay
+    func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
+        let presenter = navigationController ?? presentedViewController ?? self
+        presenter.present(viewController, animated: animated)
     }
 
-    func updatePlayButton(withStatus status: AVPlayer.TimeControlStatus) {
-        toolbar.playButton.setTimeControlStatus(status)
+    func bindPlayer() {
+        playbackController
+            .$status
+            .map { $0 == .readyToPlay }
+            .sink { [weak self] in
+                self?.titleView.setEnabled($0)
+                self?.toolbar.setEnabled($0)
+                self?.navigationItem.rightBarButtonItem?.isEnabled = $0
+            }
+            .store(in: &bindings)
+
+        playbackController
+            .$status
+            .filter { $0 == .failed }
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                self?.presentOnTop(UIAlertController.playbackFailed())
+            }
+            .store(in: &bindings)
+
+        playbackController
+            .$duration
+            .assignWeak(to: \.duration, on: toolbar.timeSlider)
+            .store(in: &bindings)
+
+        playbackController
+            .$currentFrameTime
+            .sink { [weak self] time in
+                self?.updateTimeLabel(withTime: time)
+            }
+            .store(in: &bindings)
+
+        playbackController
+            .$currentPlaybackTime
+            .sink { [weak self] time in
+                guard self?.isScrubbing == false else { return }
+                self?.toolbar.timeSlider.setTime(time, animated: true)
+            }
+            .store(in: &bindings)
+
+        playbackController
+            .$timeControlStatus
+            .sink { [weak self] in
+                self?.toolbar.playButton.setTimeControlStatus($0)
+            }
+            .store(in: &bindings)
     }
 
     func updateTimeLabel(withTime time: CMTime) {
-        let showMilliseconds = playbackController?.isPlaying == false
+        let showMilliseconds = !playbackController.isPlaying
         let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-
-        UIView.animate(withDuration: 0.15, delay: 0, options: .beginFromCurrentState, animations: {
-            self.timeLabel.text = formattedTime
-            self.timeLabel.superview?.layoutIfNeeded()
-        }, completion: nil)
-    }
-
-    func updateSlider(withTime time: CMTime) {
-        guard !isScrubbing else { return }
-        toolbar.timeSlider.setTime(time, animated: true)
-    }
-
-    func updateSlider(withDuration duration: CMTime) {
-        toolbar.timeSlider.duration = duration
-    }
-
-    // MARK: Showing Progress
-
-    enum Activity {
-        case download
-        case export
-
-        var title: String {
-            switch self {
-            case .download: return NSLocalizedString("progress.title.icloud", value: "Downloading…", comment: "iCloud download progress title.")
-            case .export: return NSLocalizedString("progress.title.frameExport", value: "Exporting…", comment: "Frame generation progress title.")
-            }
-        }
-    }
-
-    func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
-        view.isUserInteractionEnabled = !show  // todo
-
-        let localLoadMightTakeAWhile = (activity == .download) && (value == .determinate(0))
-        progressView.showDelay = localLoadMightTakeAWhile ? 0.3 : 0.1
-
-        progressView.titleLabel.text = activity.title
-        if show {
-            progressView.show(in: playerView, animated: animated, completion: completion)
-        } else {
-            progressView.hide(animated: animated, completion: completion)
-        }
-
-        if let value = value {
-            progressView.setProgress(value, animated: animated)
-        }
+        titleView.setFormattedTime(formattedTime, animated: true)
     }
 
     // MARK: Loading Videos
 
     func loadPreviewImage() {
-        let size = playerView.bounds.size.scaledToScreen
+        let size = zoomingPlayerView.bounds.size.scaledToScreen
 
         videoController.loadPreviewImage(with: size) { [weak self] image, _ in
             guard let image = image else { return }
-            self?.playerView.posterImageView.image = image
+            self?.zoomingPlayerView.posterImage = image
         }
     }
 
     func loadVideo() {
-        showProgress(true, forActivity: .download, value: .determinate(0))
+        showProgress(true, forActivity: .load, value: .determinate(0))
 
         videoController.loadVideo(progressHandler: { [weak self] progress in
             self?.progressView.setProgress(.determinate(Float(progress)), animated: true)
         }, completionHandler: { [weak self] result in
-            self?.showProgress(false, forActivity: .download, value: .determinate(1))
+            self?.showProgress(false, forActivity: .load, value: .determinate(1))
             self?.handleVideoLoadingResult(result)
         })
     }
 
-    func handleVideoLoadingResult(_ result: VideoController.Result<Error?, AVAsset>) {
+    func handleVideoLoadingResult(_ result: VideoController.VideoResult) {
         switch result {
-        case .cancelled:
-            break
-        case .failed:
+
+        case .failure(let error):
+            guard !error.isCocoaCancelledError else { return }
             presentOnTop(UIAlertController.videoLoadingFailed())
-        case .succeeded(let video):
-            playbackController = PlaybackController(playerItem: AVPlayerItem(asset: video))
-            playbackController?.delegate = self
-            playerView.player = playbackController?.player
-            playbackController?.play()
+
+        case .success(let video):
+            playbackController.asset = video
+            playbackController.play()
+            sliderDataSource?.asset = video
         }
     }
 
@@ -282,29 +275,70 @@ private extension EditorViewController {
         let feedbackGenerator = UINotificationFeedbackGenerator()
 
         switch status {
-
-        case .failed:
-            feedbackGenerator.notificationOccurred(.error)
-            presentOnTop(UIAlertController.imageGenerationFailed())
-
-        case .cancelled:
-            feedbackGenerator.notificationOccurred(.warning)
-
-        case .progressed:
+        case .cancelled, .progressed:
             break
-
+        case .failed:
+            presentOnTop(UIAlertController.frameExportFailed())
         case .succeeded(let urls):
-            feedbackGenerator.notificationOccurred(.success)
             share(urls: urls)
         }
+
+        status.feedback.flatMap(feedbackGenerator.notificationOccurred)
     }
 
     func share(urls: [URL]) {
         let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        shareController.completionWithItemsHandler = { [weak self] _, _, _, _ in
+
+        shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
+            guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
             self?.videoController.deleteExportedFrames()
         }
+
         presentOnTop(shareController)
+    }
+
+    func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
+        let wasDismissed = (shareActivity == nil) && !completed
+        let didFinish = (shareActivity != nil) && completed
+        return wasDismissed || didFinish
+    }
+
+    // MARK: Showing Progress
+
+    enum Activity {
+        case load
+        case export
+
+        var title: String {
+            switch self {
+            case .load: return UserText.editorVideoLoadProgress
+            case .export: return UserText.editorExportProgress
+            }
+        }
+
+        var delay: TimeInterval {
+            switch self {
+            case .load: return 0.25
+            case .export: return 0.1
+            }
+        }
+    }
+
+    func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
+        view.isUserInteractionEnabled = !show 
+
+        progressView.showDelay = activity.delay
+        progressView.titleLabel.text = activity.title
+        
+        if show {
+            progressView.show(in: zoomingPlayerView, animated: animated, completion: completion)
+        } else {
+            progressView.hide(animated: animated, completion: completion)
+        }
+
+        if let value = value {
+            progressView.setProgress(value, animated: animated)
+        }
     }
 }
 
@@ -330,6 +364,17 @@ extension EditorViewController: ZoomTransitionDelegate {
     }
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
-        playerView.playerView
+        zoomingPlayerView.playerView
+    }
+}
+
+private extension FrameExport.Status {
+    var feedback: UINotificationFeedbackGenerator.FeedbackType? {
+        switch self {
+        case .cancelled: return .warning
+        case .failed: return .error
+        case .progressed: return nil
+        case .succeeded: return .success
+        }
     }
 }

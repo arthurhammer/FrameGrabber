@@ -1,8 +1,9 @@
+import ThumbnailSlider
 import UIKit
 
 class EditorToolbar: UIView {
 
-    @IBOutlet var timeSlider: UISlider!
+    @IBOutlet var timeSlider: ScrubbingThumbnailSlider!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!
@@ -13,7 +14,7 @@ class EditorToolbar: UIView {
         configureViews()
     }
 
-    func setControlsEnabled(_ enabled: Bool) {
+    func setEnabled(_ enabled: Bool) {
         timeSlider.isEnabled = enabled
         shareButton.isEnabled = enabled
         playButton.isEnabled = enabled
@@ -23,9 +24,6 @@ class EditorToolbar: UIView {
 
     private func configureViews() {
         backgroundColor = nil
-        playButton.tintColor = Style.Color.secondaryTint
-        previousButton.tintColor = Style.Color.secondaryTint
-        nextButton.tintColor = Style.Color.secondaryTint
 
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
         blurView.frame = bounds
@@ -36,7 +34,7 @@ class EditorToolbar: UIView {
 
 // MARK: - Play Button
 
-import AVKit
+import AVFoundation
 
 extension UIButton {
     func setTimeControlStatus(_ status: AVPlayer.TimeControlStatus) {

@@ -1,3 +1,5 @@
+import PhotoAlbums
+import Photos
 import UIKit
 
 extension Album {

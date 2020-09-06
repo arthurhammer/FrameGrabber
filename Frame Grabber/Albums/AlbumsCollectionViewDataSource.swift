@@ -1,6 +1,7 @@
-import UIKit
-import Photos
 import Combine
+import PhotoAlbums
+import Photos
+import UIKit
 
 enum AlbumsSection: Int {
     case smartAlbum
@@ -12,19 +13,21 @@ struct AlbumsSectionInfo: Hashable {
     let title: String?
     let albumCount: Int
     let isLoading: Bool
+    let isAvailable: Bool
 }
 
 class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsSectionInfo, AnyAlbum> {
 
+    @Published var searchTerm: String?
     var imageOptions: PHImageManager.ImageOptions
 
-    private var sections = [AlbumsSectionInfo]()
+    private var isAuthorizationLimited: Bool {
+        false
+    }
+
     private let albumsDataSource: AlbumsDataSource
     private let imageManager: PHImageManager
-
-    private(set) lazy var searcher = AlbumsSearcher { [weak self] _ in
-        self?.updateData()
-    }
+    private var bindings = Set<AnyCancellable>()
 
     init(collectionView: UICollectionView,
          albumsDataSource: AlbumsDataSource,
@@ -38,76 +41,115 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         self.imageManager = imageManager
 
         super.init(collectionView: collectionView, cellProvider: cellProvider)
+
         self.supplementaryViewProvider = sectionHeaderProvider
 
         // Otherwise, synchronously asks the view controller for cells and headers before
-        // the initializer even returns...
+        // the initializer even returns.
         DispatchQueue.main.async {
+            self.configureSearch()
             self.configureDataSource()
         }
     }
 
-    // MARK: Data
+    // MARK: - Accessing Data
 
     func section(at index: Int) -> AlbumsSectionInfo {
-        sections[index]
+        snapshot().sectionIdentifiers[index]
     }
 
-    func album(at indexPath: IndexPath) -> Album {
-        switch AlbumsSection(indexPath.section)! {
-        case .smartAlbum:
-            return albumsDataSource.smartAlbums[indexPath.item]
-        case .userAlbum:
-            return searcher.filtered[indexPath.item]
-        }
+    func album(at indexPath: IndexPath) -> AnyAlbum {
+        guard let album = itemIdentifier(for: indexPath) else { fatalError("Invalid index path.") }
+        return album
     }
 
-    func fetchUpdate(forAlbumAt indexPath: IndexPath, containing videoType: VideoType) -> FetchedAlbum? {
+    func fetchUpdate(forAlbumAt indexPath: IndexPath, filter: VideoTypesFilter) -> FetchedAlbum? {
         let album = self.album(at: indexPath).assetCollection
-        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoType: videoType)
+        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoFilter: filter)
         return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
     }
 
-    func thumbnail(for album: Album, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
+    func thumbnail(for album: AnyAlbum, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
         return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
     }
 
+    // MARK: - Updating Data
+
+    private func configureSearch() {
+        $searchTerm
+            .dropFirst()
+            .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: true)
+            .map { $0?.trimmedOrNil }
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                self?.updateData()
+            }
+            .store(in: &bindings)
+    }
+
     private func configureDataSource() {
-        albumsDataSource.smartAlbumsChangedHandler = { [weak self] albums in
-            self?.updateData()
-        }
+        albumsDataSource
+            .$smartAlbums
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateData()
+            }.store(in: &bindings)
 
-        albumsDataSource.userAlbumsChangedHandler = { [weak self] albums in
-            self?.searcher.albums = albums
-        }
+        albumsDataSource
+            .$userAlbums
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateData()
+            }.store(in: &bindings)
 
-        searcher.albums = albumsDataSource.userAlbums
         updateData()
     }
 
     private func updateData() {
         let smartAlbums = albumsDataSource.smartAlbums
-        let userAlbums = searcher.filtered
+        let userAlbums = albumsDataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
+        let isSearching = searchTerm?.trimmedOrNil != nil
 
-        sections = [
-            AlbumsSectionInfo(type: .smartAlbum,
-                              title: nil,
-                              albumCount: smartAlbums.count,
-                              isLoading: !albumsDataSource.didInitializeSmartAlbums),
-
-            AlbumsSectionInfo(type: .userAlbum,
-                              title: NSLocalizedString("albums.userAlbumsHeader", value: "My Albums", comment: "User photo albums section header"),
-                              albumCount: userAlbums.count,
-                              isLoading: !albumsDataSource.didInitializeUserAlbums)
+        let sections = [
+            AlbumsSectionInfo(
+                type: .smartAlbum,
+                title: nil,
+                albumCount: smartAlbums.count,
+                isLoading: albumsDataSource.isLoadingSmartAlbums,
+                isAvailable: true
+            ),
+            AlbumsSectionInfo(
+                type: .userAlbum,
+                title: UserText.albumsUserAlbumsHeader,
+                albumCount: userAlbums.count,
+                isLoading: albumsDataSource.isLoadingUserAlbums,
+                isAvailable: !isAuthorizationLimited
+            )
         ]
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
 
         snapshot.appendSections(sections)
-        snapshot.appendItems(smartAlbums, toSection: sections[0])
         snapshot.appendItems(userAlbums, toSection: sections[1])
 
+        if !isSearching {
+            snapshot.appendItems(smartAlbums, toSection: sections[0])
+        }
+
         apply(snapshot, animatingDifferences: true)
+    }
+}
+
+// MARK: - Utility
+
+private extension Array {
+
+    func searched(for searchTerm: String?, by key: (Element) -> String?) -> Self {
+        guard let searchTerm = searchTerm?.trimmedOrNil else { return self }
+
+        return filter {
+            key($0)?.range(of: searchTerm, options: [.diacriticInsensitive, .caseInsensitive]) != nil
+        }
     }
 }

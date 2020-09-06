@@ -1,5 +1,5 @@
+import AVFoundation
 import Foundation
-import AVKit
 
 class VideoDurationFormatter {
 
@@ -21,17 +21,22 @@ class VideoTimeFormatter {
     
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.locale = Locale.current
         return formatter
     }()
 
     func string(fromCurrentTime time: CMTime, includeMilliseconds: Bool = false) -> String {
-        let format = includeMilliseconds ? "mm:ss.SS" : "mm:ss"
+        let hours = (time.seconds >= 3600) ? "HH:" : ""
+        let minutesSeconds = "mm:ss"
+        let millis = includeMilliseconds ? ".SS" : ""
+
+        let format = "\(hours)\(minutesSeconds)\(millis)"
         return string(from: time, localizedFormatTemplate: format)
     }
 
     func string(from time: CMTime, localizedFormatTemplate: String) -> String {
-        guard time.isValidVideoTime else { return "--:--" }
+        guard time.isNumeric else { return "--:--" }
 
         let date = Date(timeIntervalSince1970: time.seconds)
         formatter.setLocalizedDateFormatFromTemplate(localizedFormatTemplate)
@@ -56,8 +61,7 @@ extension NumberFormatter {
     /// Includes units.
     func string(fromFrameRate frameRate: Float) -> String? {
         guard let formattedFps = string(from: frameRate as NSNumber) else { return nil }
-        let format = NSLocalizedString("numberFormatter.frameRate",  value: "%@ fps", comment: "Video frame rate with unit")
-        return String.localizedStringWithFormat(format, formattedFps)
+        return String.localizedStringWithFormat(UserText.formatterFrameRateFormat, formattedFps)
     }
 
     /// Includes units.
@@ -65,8 +69,7 @@ extension NumberFormatter {
         guard let w = string(from: abs(Int(size.width)) as NSNumber),
             let h = string(from: abs(Int(size.height)) as NSNumber) else { return nil }
 
-        let format = NSLocalizedString("numberFormatter.videoDimensions", value: "%@ × %@ px", comment: "Video pixel size with unit")
-        return String.localizedStringWithFormat(format, w, h)
+        return String.localizedStringWithFormat(UserText.formatterDimensionsFormat, w, h)
     }
 }
 
@@ -74,7 +77,7 @@ extension DateFormatter {
 
     static func `default`() -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateStyle = .medium
         formatter.timeStyle = .short
         formatter.doesRelativeDateFormatting = true
         return formatter

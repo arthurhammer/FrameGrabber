@@ -1,0 +1,27 @@
+/* Class = "UILabel"; text = "Dimensions (Photo)"; ObjectID = "35c-S2-T6T"; */
+"35c-S2-T6T.text" = "Dimensionen (Foto)";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "41s-YM-nYL"; */
+"41s-YM-nYL.text" = "Typ";
+
+/* Class = "UILabel"; text = "Frame Rate"; ObjectID = "eOZ-EE-t4I"; */
+"eOZ-EE-t4I.text" = "Bildfrequenz";
+
+/* Class = "UINavigationItem"; title = "Metadata"; ObjectID = "hPT-0r-vTx"; */
+"hPT-0r-vTx.title" = "Metadaten";
+
+/* Class = "UILabel"; text = "Created"; ObjectID = "m36-F5-kfj"; */
+"m36-F5-kfj.text" = "Erstellt";
+
+/* Class = "UILabel"; text = "<Detail>"; ObjectID = "QgA-bN-Emx"; */
+"QgA-bN-Emx.text" = "<Detail>";
+
+/* Class = "UILabel"; text = "Duration"; ObjectID = "Rfb-1G-Zgl"; */
+"Rfb-1G-Zgl.text" = "Länge";
+
+/* Class = "UILabel"; text = "<Detail>"; ObjectID = "wuC-qx-baV"; */
+"wuC-qx-baV.text" = "<Detail>";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "XXj-Ps-2WK"; */
+"XXj-Ps-2WK.text" = "Ort";
+

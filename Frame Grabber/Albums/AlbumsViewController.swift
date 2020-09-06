@@ -1,8 +1,9 @@
+import PhotoAlbums
 import UIKit
 
 class AlbumsViewController: UICollectionViewController {
 
-    var dataSource: AlbumsDataSource? {
+    var albumsDataSource: AlbumsDataSource? {
         didSet { configureDataSource() }
     }
 
@@ -13,7 +14,6 @@ class AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         configureViews()
         configureDataSource()
-        configureSearchController()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -30,10 +30,10 @@ class AlbumsViewController: UICollectionViewController {
     private func prepareForAlbumSegue(with destination: AlbumViewController) {
         guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
 
-        let type = destination.settings.videoType
+        let filter = destination.settings.videoTypesFilter
         // Re-fetch album and contents as selected item can be outdated (i.e. data source
         // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, containing: type)
+        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, filter: filter)
     }
 
     // MARK: - UICollectionViewDelegate
@@ -53,12 +53,23 @@ class AlbumsViewController: UICollectionViewController {
         collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
             self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
+
+        configureSearch()
+    }
+
+    private func configureSearch() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
     }
 
     private func configureDataSource() {
         guard isViewLoaded else { return }
 
-        guard let dataSource = dataSource else {
+        guard let dataSource = albumsDataSource else {
             collectionViewDataSource = nil
             collectionView.dataSource = nil
             return
@@ -71,19 +82,9 @@ class AlbumsViewController: UICollectionViewController {
         })
 
         collectionView?.dataSource = collectionViewDataSource
-        navigationItem.searchController?.searchResultsUpdater = collectionViewDataSource?.searcher
     }
 
-    private func configureSearchController() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = collectionViewDataSource?.searcher
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
-    }
-
-    private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
+    private func cell(for album: AnyAlbum, at indexPath: IndexPath) -> UICollectionViewCell {
         guard let section = AlbumsSection(indexPath.section),
             let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: section.cellIdentifier, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type or unknown section.") }
 
@@ -91,7 +92,7 @@ class AlbumsViewController: UICollectionViewController {
         return cell
     }
 
-    private func configure(cell: AlbumCell, for album: Album, section: AlbumsSection) {
+    private func configure(cell: AlbumCell, for album: AnyAlbum, section: AlbumsSection) {
         cell.identifier = album.id
         cell.titleLabel.text = album.title
         cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
@@ -99,13 +100,16 @@ class AlbumsViewController: UICollectionViewController {
 
         switch section {
         case .smartAlbum:
-            cell.imageView.tintColor = Style.Color.mainTint
+            cell.imageView.tintColor = .accent
         case .userAlbum:
             loadThumbnail(for: cell, album: album)
         }
+
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = album.title
     }
 
-    private func loadThumbnail(for cell: AlbumCell, album: Album) {
+    private func loadThumbnail(for cell: AlbumCell, album: AnyAlbum) {
         let albumId = album.id
         cell.identifier = albumId
 
@@ -124,14 +128,26 @@ class AlbumsViewController: UICollectionViewController {
 
         header.titleLabel.text = section.title
         header.detailLabel.text = albumCountFormatter.string(from: section.albumCount as NSNumber)
-        header.detailLabel.isHidden = section.isLoading
-        header.activityIndicator.isHidden = !section.isLoading
+        header.detailLabel.isHidden = section.isAvailable && section.isLoading
+        header.activityIndicator.isHidden = !section.isAvailable || !section.isLoading
+        header.detailButton.isHidden = section.isAvailable
+        header.detailButton.addTarget(self, action: #selector(showAlbumsNotAvailableAlert), for: .touchUpInside)
 
         return header
     }
+
+    @objc private func showAlbumsNotAvailableAlert() {
+        presentAlert(.albumsNotAvailable())
+    }
 }
 
-extension AlbumsViewController: UISearchBarDelegate {
+// MARK: - Searching
+
+extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        collectionViewDataSource?.searchTerm = searchController.searchBar.text
+    }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         stopSearchingWhenSearchBarEmpty(searchBar)
@@ -139,6 +155,7 @@ extension AlbumsViewController: UISearchBarDelegate {
 
     private func stopSearchingWhenSearchBarEmpty(_ searchBar: UISearchBar) {
         guard searchBar.text?.trimmedOrNil == nil else { return }
+
         searchBar.text = nil
 
         navigationItem.searchController?.dismiss(animated: true) { [weak self] in
@@ -150,6 +167,8 @@ extension AlbumsViewController: UISearchBarDelegate {
         }
     }
 }
+
+// MARK: - Utilities
 
 private extension AlbumsSection {
     var cellIdentifier: String {

@@ -1,6 +1,7 @@
 import AVFoundation
 
 extension AVAsset {
+    
     var videoTrack: AVAssetTrack? {
         tracks(withMediaType: .video).first
     }

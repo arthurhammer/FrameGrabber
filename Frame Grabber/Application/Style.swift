@@ -1,35 +1,41 @@
 import UIKit
 
+extension UIColor {
+    static let accent = UIColor(named: "accent")
+    static let secondaryAccent = UIColor(named: "secondaryAccent")
+    static let iceCream = UIColor(named: "iceCream")
+    static let cellSelection = UIColor(named: "cellSelection")
+    static let disabledLabel = UIColor(named: "disabledLabel")
+    static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
+
+}
+
 struct Style {
 
-    struct Color {
+    static let buttonCornerRadius: CGFloat = 18
+    static let staticTableViewTopMargin: CGFloat = 12
 
-        static let mainTint: UIColor = .init { traitCollection in
-            (traitCollection.userInterfaceStyle == .light)
-                ? UIColor(red: 0.27, green: 0.16, blue: 0.97, alpha: 1.00)
-                : .systemTeal
-        }
+    static func configureAppearance() {
+        UISwitch.appearance().onTintColor = .accent
+    }
+}
 
-        static let secondaryTint: UIColor = .init { traitCollection in
-            (traitCollection.userInterfaceStyle == .light)
-                ? UIColor(red: 0.23, green: 0.18, blue: 0.23, alpha: 1.00)
-                : .white
-        }
+extension UIButton {
 
-        static let iceCream = UIColor(red: 0.97, green: 0.56, blue: 0.70, alpha: 1.00)
+    func configureAsActionButton() {
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
+        titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        configureDynamicTypeLabel()
 
-        static var cellSelection: UIColor = .secondarySystemFill
-        static var disabledLabel: UIColor = .systemGray
-        static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.6)]
+        layer.cornerRadius = Style.buttonCornerRadius
+        layer.cornerCurve = .continuous
     }
 
-    struct Size {
-        static let buttonCornerRadius: CGFloat = 18
-    }
-
-    static func configureAppearance(using window: UIWindow?) {
-        window?.tintColor = Style.Color.mainTint
-        UISwitch.appearance().onTintColor = Style.Color.mainTint
+    func configureDynamicTypeLabel() {
+        titleLabel?.adjustsFontForContentSizeCategory = true
+        titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.allowsDefaultTighteningForTruncation = true
+        titleLabel?.minimumScaleFactor = 0.6
     }
 }
 

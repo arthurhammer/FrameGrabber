@@ -1,24 +1,23 @@
-import AVKit
+import UIKit
+import AVFoundation
 import Photos
 import Combine
 
-/// Manages a single asset from the photo library and loads various representations for it.
-/// Supported asset types are videos and live photos.
+/// Manages a video or Live Photo asset from the photo library. Loads and exports various
+/// representations for the asset.
 ///
 /// Temporary resources for that asset are written to the user's temporary directory
 /// (exported frames and video data for live photos). Upon deinitializing, these resources
 /// are deleted by clearing the user's temporary directory.
 class VideoController {
 
+    typealias VideoResult = Result<AVAsset, Error?>
+
     let asset: PHAsset
     private(set) var video: AVAsset?
     private(set) var previewImage: UIImage?
 
-    enum Result<Error, Media> {
-        case cancelled
-        case failed(Error)
-        case succeeded(Media)
-    }
+    // MARK: Private Properties
 
     private let settings: UserDefaults
     private let imageManager: PHImageManager
@@ -31,9 +30,17 @@ class VideoController {
     private var videoRequest: Cancellable?
     private var imageRequest: Cancellable?
 
-    init(asset: PHAsset, video: AVAsset? = nil, settings: UserDefaults = .standard, imageManager: PHImageManager = .default(), resourceManager: PHAssetResourceManager = .default(), fileManager: FileManager = .default) {
+    init(asset: PHAsset,
+         video: AVAsset? = nil,
+         previewImage: UIImage? = nil,
+         settings: UserDefaults = .standard,
+         imageManager: PHImageManager = .default(),
+         resourceManager: PHAssetResourceManager = .default(),
+         fileManager: FileManager = .default) {
+
         self.asset = asset
         self.video = video
+        self.previewImage = previewImage
         self.settings = settings
         self.imageManager = imageManager
         self.resourceManager = resourceManager
@@ -45,45 +52,50 @@ class VideoController {
         try? fileManager.clearTemporaryDirectory()
     }
 
-    var location: CLLocation? {
-        asset.location
-    }
-
-    var creationDate: Date? {
-        asset.creationDate
-    }
-
-    var frameRate: Float? {
-        video?.frameRate
-    }
+    // MARK: Cancelling
 
     func cancelAllRequests() {
+        cancelPreviewImageLoading()
+        cancelVideoLoading()
         cancelFrameExport()
-        imageRequest = nil
-        videoRequest = nil
     }
 
     // MARK: Loading Preview Images
 
-    /// If an image loading request is in progress, it is cancelled. Upon success, the
-    /// `previewImage` property is set to the loaded image. Handlers are called on the main
-    /// thread.
+    /// Upon success, the `previewImage` property is set to the loaded image.
+    ///
+    /// If an image loading request is already in progress, it is cancelled. Check the
+    /// info dictionary in the completion handler if the request was cancelled.
+    ///
+    /// Handlers are called on the main thread.
     func loadPreviewImage(with size: CGSize, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) {
         let options = PHImageManager.ImageOptions(size: size, mode: .aspectFit, requestOptions: .default())
 
         imageRequest = imageManager.requestImage(for: asset, options: options) { [weak self] image, info in
             if let image = image {
-                self?.previewImage =  image
+                self?.previewImage = image
             }
             self?.imageRequest = nil  // (Note: This can execute synchronously, before the outer `imageRequest` is set, thus having no effect.)
             completionHandler(image, info)
         }
     }
 
+    func cancelPreviewImageLoading() {
+        imageRequest = nil
+    }
+
     // MARK: Loading Videos
 
-    /// Depending on type, calls `loadVideoForVideo` or `loadVideoForLivePhoto`.
-    func loadVideo(progressHandler: @escaping (Double) -> (), completionHandler: @escaping (Result<Error?, AVAsset>) -> ()) {
+    /// Depending on the type of asset, calls `loadVideoForVideo` or `loadVideoForLivePhoto`
+    /// with default request options.
+    ///
+    /// Upon success, the `video` property is set to the loaded video.
+    ///
+    /// If a video loading request is already in progress, it is cancelled. If the request
+    /// is cancelled, calls the completion handler with a `CocoaError.userCancelled` error.
+    ///
+    /// Handlers are called on the main thread.
+    func loadVideo(progressHandler: @escaping (Double) -> (), completionHandler: @escaping (VideoResult) -> ()) {
         if asset.isLivePhoto {
             loadVideoForLivePhoto(progressHandler: progressHandler, completionHandler: completionHandler)
         } else {
@@ -91,65 +103,64 @@ class VideoController {
         }
     }
 
-    /// If a video loading request is in progress, it is cancelled. Upon success, the
-    /// `video` property is set to the loaded video. Handlers are called on the main
-    /// thread.
-    func loadVideoForVideo(withOptions options: PHVideoRequestOptions? = .default(), progressHandler: @escaping (Double) -> (), completionHandler: @escaping (Result<Error?, AVAsset>) -> ()) {
+    /// See `loadVideo(progressHandler:completionHandler:)`
+    func loadVideoForVideo(withOptions options: PHVideoRequestOptions = .default(),
+                           progressHandler: @escaping (Double) -> (),
+                           completionHandler: @escaping (VideoResult) -> ()) {
+
         videoRequest = imageManager.requestAVAsset(for: asset, options: options, progressHandler: progressHandler) { [weak self] video, _, info in
             self?.video = video
             self?.videoRequest = nil
 
             if info.isCancelled {
-                completionHandler(.cancelled)
+                completionHandler(.failure(CocoaError(.userCancelled)))
             } else if let video = video {
-                completionHandler(.succeeded(video))
+                completionHandler(.success(video))
             } else {
-                completionHandler(.failed(info.error))
+                completionHandler(.failure(info.error))
             }
         }
     }
 
-    /// If a video loading request is in progress, it is cancelled. Previously loaded live
-    /// photo videos are deleted. Upon success, the `video` property is set to the loaded
-    /// video. Handlers are called on the main thread.
-    func loadVideoForLivePhoto(withOptions options: PHAssetResourceRequestOptions? = .default(), progressHandler: @escaping (Double) -> (), completionHandler: @escaping (Result<Error?, AVAsset>) -> ()) {
+    /// See `loadVideo(progressHandler:completionHandler:)`.
+    func loadVideoForLivePhoto(withOptions options: PHAssetResourceRequestOptions = .default(),
+                               progressHandler: @escaping (Double) -> (),
+                               completionHandler: @escaping (VideoResult) -> ()) {
+
         videoRequest = nil
         deleteExportedVideo()
 
-        let finish = { [weak self] (result: Result<Error?, AVAsset>) in
+        let completion = { [weak self] (result: Result<URL, Error?>) in
+            let videoResult = result.map { AVAsset(url: $0) }
             self?.videoRequest = nil
-            self?.exportedVideoURL = (result.video as? AVURLAsset)?.url
-            self?.video = result.video
-            completionHandler(result)
+            self?.video = videoResult.value
+            self?.exportedVideoURL = result.value
+            completionHandler(videoResult)
         }
 
         guard let videoResource = PHAssetResource.videoResource(forLivePhoto: asset) else {
-            finish(.failed(nil))
+            completion(.failure(nil))
             return
         }
 
-        let fileURL: URL!
+        let directory: URL
 
         do {
-            let directory = try fileManager.createUniqueTemporaryDirectory()
-            fileURL = directory.appendingPathComponent(videoResource.originalFilename)
-        } catch let error {
-            finish(.failed(error))
+            directory = try fileManager.createUniqueDirectory()
+        } catch {
+            completion(.failure(error))
             return
         }
 
-        videoRequest = resourceManager.requestAndWriteData(for: videoResource, toFile: fileURL, options: options, progressHandler: progressHandler) { error in
-            if let error = error {
-                if error.isCancelled {
-                    finish(.cancelled)
-                } else {
-                    finish(.failed(error))
-                }
-                return
-            }
+        let fileUrl = directory.appendingPathComponent(videoResource.originalFilename)
 
-            finish(.succeeded(AVURLAsset(url: fileURL)))
+        videoRequest = resourceManager.requestAndWriteData(for: videoResource, toFile: fileUrl, options: options, progressHandler: progressHandler) { result in
+            completion( result.mapError { $0 } )
         }
+    }
+
+    func cancelVideoLoading() {
+        videoRequest = nil
     }
 
     func deleteExportedVideo() {
@@ -165,7 +176,7 @@ class VideoController {
         cancelFrameExport()
         deleteExportedFrames()
 
-        let finish = { [weak self] (status: FrameExport.Status) in
+        let completion = { [weak self] (status: FrameExport.Status) in
             DispatchQueue.main.async {
                 self?.exportedFrameURLs = status.urls
                 updateHandler(status)
@@ -173,16 +184,16 @@ class VideoController {
         }
 
         guard let video = video else {
-            finish(.failed(nil))
+            completion(.failed(nil))
             return
         }
 
-        frameExport = FrameExport(request: frameRequest(for: video, times: times), fileManager: fileManager, updateHandler: finish)
+        frameExport = FrameExport(request: frameRequest(for: video, times: times), fileManager: fileManager, updateHandler: completion)
         frameExport?.start()
     }
 
     func cancelFrameExport() {
-        frameExport?.cancel()  // Don't release as we need update handlers to go through.
+        frameExport?.cancel()
     }
 
     func deleteExportedFrames() {
@@ -198,15 +209,6 @@ class VideoController {
 
         let encoding = ImageEncoding(format: settings.imageFormat, compressionQuality: settings.compressionQuality, metadata: metadata)
 
-        return .init(video: video, times: times, encoding: encoding, directory: nil, chunkSize: 5)
-    }
-}
-
-extension VideoController.Result {
-    var video: Media? {
-        if case .succeeded(let video) = self {
-            return video
-        }
-        return nil
+        return FrameExport.Request(video: video, times: times, encoding: encoding, directory: nil, chunkSize: 5)
     }
 }
