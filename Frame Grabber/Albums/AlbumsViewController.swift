@@ -104,6 +104,9 @@ class AlbumsViewController: UICollectionViewController {
         case .userAlbum:
             loadThumbnail(for: cell, album: album)
         }
+
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = album.title
     }
 
     private func loadThumbnail(for cell: AlbumCell, album: AnyAlbum) {

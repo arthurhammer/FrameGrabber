@@ -92,6 +92,16 @@ public class ThumbnailSlider: UIControl {
         return view
     }()
 
+    private let accessibilityIncrementPercentage = 0.05
+
+    private lazy var accessibilityValueFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .default
+        formatter.unitsStyle = .spellOut
+        formatter.allowedUnits = [.hour, .minute, .second, .nanosecond]
+        return formatter
+    }()
+
     // MARK: - Lifecycle
 
     override public init(frame: CGRect) {
@@ -121,6 +131,7 @@ public class ThumbnailSlider: UIControl {
 
     public func setTime(_ time: CMTime, animated: Bool) {
         _time = time.numericOrZero.clamped(to: .zero, and: duration)
+        accessibilityValue = accessibilityValueFormatter.string(from: time.seconds.rounded())
 
         if animated {
             UIView.animate(
@@ -132,6 +143,21 @@ public class ThumbnailSlider: UIControl {
         } else {
             updateHandlePosition()
         }
+    }
+
+
+    // MARK: Accessibility
+
+    public override func accessibilityIncrement() {
+        let newTime = time + CMTimeMultiplyByFloat64(duration, multiplier: Float64(accessibilityIncrementPercentage))
+        setTime(newTime, animated: true)
+        sendActions(for: .valueChanged)
+    }
+
+    public override func accessibilityDecrement() {
+        let newTime = time - CMTimeMultiplyByFloat64(duration, multiplier: Float64(accessibilityIncrementPercentage))
+        setTime(newTime, animated: true)
+        sendActions(for: .valueChanged)
     }
 
     // MARK: - Loading Thumbnails
@@ -214,6 +240,9 @@ public class ThumbnailSlider: UIControl {
         addSubview(track)
         addSubview(handle)
         updateHandlePosition()
+
+        isAccessibilityElement = true
+        accessibilityTraits.insert(.adjustable)
     }
 
     // MARK: - Utilities

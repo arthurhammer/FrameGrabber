@@ -1,15 +1,12 @@
 /* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "1Mm-ug-fL0"; */
 "1Mm-ug-fL0.text" = "Frame Grabber";
 
-/* Class = "UILabel"; text = "Your photo library remains completely private. No information is collected from your device."; ObjectID = "FzY-in-DO7"; */
-"FzY-in-DO7.text" = "Deine Fotomediathek bleibt komplett privat. Es werden keine Informationen über dich gesammelt.";
-
 /* Class = "UILabel"; text = "Welcome to"; ObjectID = "jve-4i-sJx"; */
 "jve-4i-sJx.text" = "Willkommen zu";
 
-/* Class = "UILabel"; text = "Capture your favorite video and Live Photo moments as pictures."; ObjectID = "trS-Hq-qmM"; */
-"trS-Hq-qmM.text" = "Halte deine Lieblingsmomente aus deinen Videos und Live Photos fest.";
+/* Class = "UIButton"; accessibilityHint = "Opens privacy policy."; ObjectID = "YdY-Cc-mGB"; */
+"YdY-Cc-mGB.accessibilityHint" = "Öffnet Datenschutzerklärung.";
 
-/* Class = "UIButton"; normalTitle = "Your data is safe."; ObjectID = "YdY-Cc-mGB"; */
+/* Class = "UIButton"; normalTitle = "Your videos remain private."; ObjectID = "YdY-Cc-mGB"; */
 "YdY-Cc-mGB.normalTitle" = "Deine Videos bleiben privat.";
 

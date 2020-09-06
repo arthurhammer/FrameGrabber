@@ -84,6 +84,9 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-tj-XNX">
                                                                     <rect key="frame" x="334" y="0.0" width="0.0" height="0.0"/>
+                                                                    <accessibility key="accessibilityConfiguration" label="Support Frame Grabber">
+                                                                        <bool key="isElement" value="YES"/>
+                                                                    </accessibility>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="8UP-tj-XNX" secondAttribute="height" id="5FA-5p-weU"/>
                                                                     </constraints>
@@ -159,6 +162,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="nMj-fX-o9r" secondAttribute="bottom" id="xT1-bj-ab3"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="jlI-gf-hRg">
                                         <rect key="frame" x="20" y="190.5" width="374" height="44"/>
@@ -208,6 +214,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="CXx-eI-RU3" secondAttribute="bottom" id="vjV-kD-nBi"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="nNI-E5-TuU">
                                         <rect key="frame" x="20" y="234.5" width="374" height="44"/>
@@ -257,6 +266,9 @@
                                                 <constraint firstItem="yTh-V8-rNd" firstAttribute="top" secondItem="6ft-6E-7tE" secondAttribute="topMargin" id="xv4-zh-WS7"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -266,15 +278,7 @@
                             <outlet property="delegate" destination="hnE-0J-ppI" id="Q9I-Hc-ild"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Frame Grabber" id="IAE-sF-IVF">
-                        <barButtonItem key="backBarButtonItem" title=" " id="Nqy-nZ-Ujo"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="WS3-Cp-XiD">
-                            <color key="tintColor" name="accent"/>
-                            <connections>
-                                <action selector="done" destination="hnE-0J-ppI" id="wNp-0Y-CVm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Frame Grabber" id="IAE-sF-IVF"/>
                     <connections>
                         <outlet property="purchaseButton" destination="8UP-tj-XNX" id="CG8-OY-X06"/>
                         <outlet property="rateButton" destination="lni-tn-UXo" id="i3p-K7-GUv"/>
@@ -436,6 +440,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1" customClass="ActivityButton" customModule="Frame_Grabber" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                         <color key="backgroundColor" name="iceCream"/>
+                                        <accessibility key="accessibilityConfiguration" hint="In-App Purchase"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" placeholder="YES" id="6ys-VB-R0y"/>
                                         </constraints>
@@ -478,6 +483,7 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NG4-o2-qF9" userLabel="Close Button">
                                 <rect key="frame" x="366" y="4" width="44" height="44"/>
+                                <accessibility key="accessibilityConfiguration" label="Close"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="And-5R-Mv8"/>
                                     <constraint firstAttribute="height" constant="44" id="df9-Ad-exZ"/>

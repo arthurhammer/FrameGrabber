@@ -1,3 +1,9 @@
+/* Class = "UIButton"; accessibilityHint = "In-App Purchase"; ObjectID = "2Cf-Os-zO1"; */
+"2Cf-Os-zO1.accessibilityHint" = "In-App-Kauf";
+
+/* Class = "UIButton"; accessibilityLabel = "Support Frame Grabber"; ObjectID = "8UP-tj-XNX"; */
+"8UP-tj-XNX.accessibilityLabel" = "Frame Grabber unterstützen.";
+
 /* Class = "UILabel"; text = "Save Your Best Moments"; ObjectID = "Ciq-8B-rvv"; */
 "Ciq-8B-rvv.text" = "Sammle die Besten Momente";
 
@@ -21,6 +27,9 @@
 
 /* Class = "UIButton"; normalTitle = "Rate Frame Grabber"; ObjectID = "lni-tn-UXo"; */
 "lni-tn-UXo.normalTitle" = "App Bewerten";
+
+/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "NG4-o2-qF9"; */
+"NG4-o2-qF9.accessibilityLabel" = "Fertig";
 
 /* Class = "UILabel"; text = "Your feedback and questions are welcome."; ObjectID = "Q2G-GR-huD"; */
 "Q2G-GR-huD.text" = "Für Feedback und Support.";

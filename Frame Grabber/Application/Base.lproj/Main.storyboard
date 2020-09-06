@@ -109,6 +109,10 @@
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hhT-FV-jJv" secondAttribute="bottom" id="uJO-Av-tcs"/>
                                     <constraint firstItem="hhT-FV-jJv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5bC-Z5-gpV" secondAttribute="leading" id="vwR-Nv-cTm"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Video"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="durationLabel" destination="5QW-JB-E9S" id="0mi-FM-7Jj"/>
                                     <outlet property="favoritedImageView" destination="tvD-d1-DcJ" id="9Jp-wx-dTO"/>
@@ -132,11 +136,17 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="a5R-LE-pLO"/>
                         <rightBarButtonItems>
                             <barButtonItem image="info.circle" catalog="system" id="r6g-Iu-tPw">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="plus.rectangle.on.rectangle" catalog="system" id="ED8-sq-tvD">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Extend Photos Selection"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="extendPhotoSelection" destination="z5r-QY-0zg" id="ga7-qk-NWd"/>
                                 </connections>
@@ -307,6 +317,9 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Section&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oz3-Tk-orO">
                                             <rect key="frame" x="0.0" y="0.0" width="104" height="26.5"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                            </accessibility>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -325,6 +338,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rF-GC-s1m">
                                                     <rect key="frame" x="91.5" y="0.0" width="20" height="20"/>
+                                                    <accessibility key="accessibilityConfiguration" label="Unavailable"/>
                                                     <state key="normal">
                                                         <imageReference key="image" image="questionmark.circle" catalog="system" symbolScale="medium"/>
                                                     </state>
@@ -355,6 +369,9 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Albums" largeTitleDisplayMode="always" id="nBX-8Q-BwE">
                         <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="ebI-qQ-c1r">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <segue destination="Q9O-On-eG2" kind="presentation" id="iPV-yR-eo7"/>
                             </connections>
@@ -403,7 +420,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iPV-yR-eo7"/>
+        <segue reference="yrf-sk-izP"/>
         <segue reference="lS1-3M-qF6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="accent"/>
