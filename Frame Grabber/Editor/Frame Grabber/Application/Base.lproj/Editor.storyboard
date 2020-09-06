@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Cw-ag-d47">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Cw-ag-d47">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,26 +23,25 @@
                                 </accessibility>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="160.5" y="682" width="93" height="40"/>
+                                <rect key="frame" x="157.5" y="682" width="99.5" height="40"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="93" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="99.5" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="93.5" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="99.5" height="40"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g4t-w4-IEi">
-                                                        <rect key="frame" x="8" y="10" width="78" height="20"/>
+                                                        <rect key="frame" x="8" y="10" width="83.5" height="20"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ZR-Hl-Ovz">
-                                                                <rect key="frame" x="0.0" y="1.5" width="23" height="16.5"/>
-                                                                <imageReference key="image" image="hare.fill" catalog="system" symbolScale="small"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hare.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7ZR-Hl-Ovz">
+                                                                <rect key="frame" x="0.0" y="-0.5" width="28" height="20"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
-                                                                <rect key="frame" x="23" y="2" width="55" height="16"/>
+                                                                <rect key="frame" x="28" y="2" width="55.5" height="16"/>
                                                                 <accessibility key="accessibilityConfiguration">
                                                                     <bool key="isElement" value="NO"/>
                                                                 </accessibility>
@@ -110,7 +106,7 @@
                                                         </constraints>
                                                         <variation key="heightClass=compact" hidden="YES"/>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
                                                         <rect key="frame" x="40" y="0.0" width="44" height="44"/>
                                                         <accessibility key="accessibilityConfiguration">
                                                             <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
@@ -127,7 +123,7 @@
                                                             <action selector="playOrPause" destination="1Cw-ag-d47" eventType="touchUpInside" id="REK-2a-Wzc"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                         <rect key="frame" x="123.5" y="0.0" width="44" height="44"/>
                                                         <accessibility key="accessibilityConfiguration" label="Previous Frame"/>
                                                         <color key="tintColor" name="secondaryAccent"/>
@@ -138,7 +134,7 @@
                                                             <action selector="stepBackward" destination="1Cw-ag-d47" eventType="touchDown" id="WxM-MS-EXU"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
                                                         <rect key="frame" x="206.5" y="0.0" width="44" height="44"/>
                                                         <accessibility key="accessibilityConfiguration" label="Next Frame"/>
                                                         <color key="tintColor" name="secondaryAccent"/>
@@ -149,7 +145,7 @@
                                                             <action selector="stepForward" destination="1Cw-ag-d47" eventType="touchDown" id="kOp-9v-zCZ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
                                                         <rect key="frame" x="290" y="0.0" width="44" height="44"/>
                                                         <accessibility key="accessibilityConfiguration" label="Share Frame"/>
                                                         <state key="normal" image="square.and.arrow.up" catalog="system">
@@ -175,7 +171,6 @@
                                         <variation key="heightClass=compact" axis="horizontal"/>
                                     </stackView>
                                 </subviews>
-                                <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                 <constraints>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="20" id="Agc-Fw-vDC">
                                         <variation key="heightClass=compact" constant="16"/>
@@ -191,6 +186,7 @@
                                         <variation key="heightClass=compact" constant="16"/>
                                     </constraint>
                                 </constraints>
+                                <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                 <connections>
                                     <outlet property="nextButton" destination="NnX-Na-6YA" id="9ZS-3S-Vcz"/>
                                     <outlet property="playButton" destination="1k1-G4-5en" id="QhG-6q-C2t"/>
@@ -200,8 +196,7 @@
                                 </connections>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="4TC-O5-Rin" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J1y-Hs-CrT" secondAttribute="top" constant="16" id="AXd-Mi-ZiB"/>
@@ -217,6 +212,7 @@
                             <constraint firstItem="8St-aq-4oR" firstAttribute="top" secondItem="J1y-Hs-CrT" secondAttribute="top" id="vzv-9g-mBa"/>
                             <constraint firstAttribute="bottom" secondItem="GAW-h9-8hv" secondAttribute="bottom" id="zFz-sB-APZ"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cLY-f1-ifd">
                         <view key="titleView" contentMode="scaleToFill" id="uhx-yn-jSi" customClass="EditorTitleView" customModule="Frame_Grabber" customModuleProvider="target">
@@ -224,10 +220,10 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hyz-Dk-Ftn">
-                                    <rect key="frame" x="19" y="2" width="115" height="36.5"/>
+                                    <rect key="frame" x="19" y="2" width="115.5" height="36.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Frame" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-N1-Rre">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115.5" height="20.5"/>
                                             <accessibility key="accessibilityConfiguration">
                                                 <accessibilityTraits key="traits" staticText="YES" header="YES"/>
                                             </accessibility>
@@ -237,7 +233,7 @@
                                             <variation key="heightClass=compact" hidden="NO"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
-                                            <rect key="frame" x="34.5" y="20.5" width="46" height="16"/>
+                                            <rect key="frame" x="34" y="20.5" width="47" height="16"/>
                                             <accessibility key="accessibilityConfiguration" hint="Video Time">
                                                 <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
                                             </accessibility>
@@ -320,7 +316,7 @@
                                                             <rect key="frame" x="28" y="1" width="135" height="18"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Exporting…&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGN-ie-szR">
-                                                                    <rect key="frame" x="19.5" y="0.0" width="96.5" height="18"/>
+                                                                    <rect key="frame" x="19" y="0.0" width="97" height="18"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -351,13 +347,13 @@
                             <blurEffect style="systemMaterial"/>
                         </visualEffectView>
                     </subviews>
-                    <viewLayoutGuide key="safeArea" id="LGJ-qM-ggI"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="pH5-Zm-MoK" secondAttribute="trailing" id="7n4-7D-Lcc"/>
                         <constraint firstAttribute="bottom" secondItem="pH5-Zm-MoK" secondAttribute="bottom" id="GD0-IZ-6bJ"/>
                         <constraint firstItem="pH5-Zm-MoK" firstAttribute="top" secondItem="j77-MA-S24" secondAttribute="top" id="KRC-9x-bep"/>
                         <constraint firstItem="pH5-Zm-MoK" firstAttribute="leading" secondItem="j77-MA-S24" secondAttribute="leading" id="MqT-jw-hXY"/>
                     </constraints>
+                    <viewLayoutGuide key="safeArea" id="LGJ-qM-ggI"/>
                     <connections>
                         <outlet property="determinateProgressView" destination="TXp-E0-Jfd" id="NQR-rD-zE1"/>
                         <outlet property="indeterminateProgressView" destination="wEi-pI-5iC" id="CjC-FH-Lhr"/>
@@ -410,8 +406,5 @@
         <namedColor name="secondaryAccent">
             <color red="0.23000000417232513" green="0.18000000715255737" blue="0.23000000417232513" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

@@ -127,14 +127,9 @@ private extension EditorViewController {
             placeholderImage: videoController.previewImage
         )
 
-        if #available(iOS 14.0, *) {
-            navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
-                self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-            }
-        } else {
-            navigationItem.rightBarButtonItem?.target = self
-            navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
-        }
+
+        navigationItem.rightBarButtonItem?.target = self
+        navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
 
         configureNavigationBar()
         configureGestures()
