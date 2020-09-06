@@ -204,6 +204,14 @@ private extension AlbumViewController {
         } else {
             navigationItem.rightBarButtonItems = [infoBarItem]
         }
+
+        // Use the controller's `title` instead.
+        navigationItem.backButtonTitle = nil
+        navigationItem.backBarButtonItem?.title = nil
+
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonDisplayMode = .minimal
+        }
     }
 
     // MARK: Handling View Settings Button
