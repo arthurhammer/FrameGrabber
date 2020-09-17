@@ -32,7 +32,11 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
     }
 
     var isAuthorizationLimited: Bool {
-        false
+        if #available(iOS 14, *) {
+            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
+        } else {
+            return false
+        }
     }
 
     var settings: UserDefaults

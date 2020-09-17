@@ -77,6 +77,9 @@ class AlbumViewController: UICollectionViewController {
     }
 
     @IBAction private func extendPhotoSelection() {
+        if #available(iOS 14, *) {
+            dataSource?.photoLibrary.presentLimitedLibraryPicker(from: self)
+        } 
     }
 
     // MARK: - Collection View Data Source & Delegate
@@ -202,7 +205,13 @@ private extension AlbumViewController {
             navigationItem.rightBarButtonItems = [infoBarItem]
         }
 
+        // Use the controller's `title` instead.
+        navigationItem.backButtonTitle = nil
         navigationItem.backBarButtonItem?.title = nil
+
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonDisplayMode = .minimal
+        }
     }
 
     // MARK: Handling View Settings Button
@@ -216,7 +225,19 @@ private extension AlbumViewController {
             self.viewSettingsButton.layoutIfNeeded()
         }
 
-        viewSettingsButton.addTarget(self, action: #selector(showViewSettingsAlertSheet), for: .touchUpInside)
+        if #available(iOS 14, *) {
+            viewSettingsButton.showsMenuAsPrimaryAction = true
+
+            viewSettingsButton.menu = AlbumViewSettingsMenu.menu(
+                forCurrentFilter: filter,
+                gridMode: settings.albumGridContentMode,
+                handler: { [weak self] selection in
+                    self?.handleMenuSelection(selection)
+                }
+            )
+        } else {
+            viewSettingsButton.addTarget(self, action: #selector(showViewSettingsAlertSheet), for: .touchUpInside)
+        }
     }
 
     @objc func showViewSettingsAlertSheet() {

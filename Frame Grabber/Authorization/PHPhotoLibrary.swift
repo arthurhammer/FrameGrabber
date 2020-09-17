@@ -26,11 +26,19 @@ extension PHPhotoLibrary {
 extension PHPhotoLibrary {
 
     static var readWriteAuthorizationStatus: PHAuthorizationStatus {
-        authorizationStatus()
+        if #available(iOS 14, *) {
+            return authorizationStatus(for: .readWrite)
+        } else {
+            return authorizationStatus()
+        }
     }
 
     static func requestReadWriteAuthorization(handler: @escaping (PHAuthorizationStatus) -> Void) {
-        requestAuthorization(handler)
+        if #available(iOS 14, *) {
+            requestAuthorization(for: .readWrite, handler: handler)
+        } else {
+            requestAuthorization(handler)
+        }
     }
 }
 

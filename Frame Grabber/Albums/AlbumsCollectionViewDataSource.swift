@@ -22,7 +22,11 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     var imageOptions: PHImageManager.ImageOptions
 
     private var isAuthorizationLimited: Bool {
-        false
+        if #available(iOS 14, *) {
+            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
+        } else {
+            return false
+        }
     }
 
     private let albumsDataSource: AlbumsDataSource
