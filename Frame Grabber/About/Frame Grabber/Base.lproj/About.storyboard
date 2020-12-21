@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U9v-tC-F8s">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U9v-tC-F8s">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -278,7 +278,13 @@
                             <outlet property="delegate" destination="hnE-0J-ppI" id="Q9I-Hc-ild"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Frame Grabber" id="IAE-sF-IVF"/>
+                    <navigationItem key="navigationItem" title="Frame Grabber" id="IAE-sF-IVF">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="xpb-OQ-pwg">
+                            <connections>
+                                <action selector="done" destination="hnE-0J-ppI" id="Fgl-Ll-g1B"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="purchaseButton" destination="8UP-tj-XNX" id="CG8-OY-X06"/>
                         <outlet property="rateButton" destination="lni-tn-UXo" id="i3p-K7-GUv"/>
