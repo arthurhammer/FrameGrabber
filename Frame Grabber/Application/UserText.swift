@@ -53,7 +53,7 @@ struct UserText {
     static let detailLivePhotoTitle = NSLocalizedString("detail.livephoto.title", value: "Live Photo", comment: "Detail view title for live photos")
     static let detailFrameDimensionsForVideoTitle = NSLocalizedString("detail.video.videodimensions.title", value: "Dimensions", comment: "Dimensions label title for videos")
     static let detailFrameDimensionsForLivePhotoTitle = NSLocalizedString("detail.livephoto.videodimensions.title", value: "Dimensions (Video)", comment: "Dimensions label title for the Live Photo video component")
-    static let detailMapItem = NSLocalizedString("detail.map.item.title", value: "Your Shot", comment: "Title of map item opened in Maps app.")
+    static let detailMapItem = NSLocalizedString("detail.map.item.title", value: "Location of Photo", comment: "Title of map item opened in Maps app.")
 
     static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in smaller file sizes. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")

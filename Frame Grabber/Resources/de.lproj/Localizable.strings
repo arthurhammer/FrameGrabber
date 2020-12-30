@@ -113,7 +113,7 @@
 "detail.livephoto.videodimensions.title" = "Dimensionen (Video)";
 
 /* Title of map item opened in Maps app. */
-"detail.map.item.title" = "Deine Aufnahme";
+"detail.map.item.title" = "Aufnahmeort des Fotos";
 
 /* Detail view title for videos */
 "detail.video.title" = "Video";
