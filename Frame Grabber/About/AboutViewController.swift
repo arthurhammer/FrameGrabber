@@ -45,6 +45,8 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         rateButton.configureAsActionButton()
         purchaseButton.configureAsActionButton()
         purchaseButton.backgroundColor = UIColor.accent?.withAlphaComponent(0.1)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

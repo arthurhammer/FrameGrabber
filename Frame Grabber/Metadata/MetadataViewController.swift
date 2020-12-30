@@ -76,6 +76,8 @@ class MetadataViewController: UITableViewController {
     private func configureViews() {
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
 
         updateAssetMetadata()
     }

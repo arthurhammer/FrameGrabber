@@ -73,6 +73,8 @@ class ExportSettingsViewController: UITableViewController {
 
         compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
+        
         configureImageFormatControl()
         updateViews(for: traitCollection)
         updateViews()

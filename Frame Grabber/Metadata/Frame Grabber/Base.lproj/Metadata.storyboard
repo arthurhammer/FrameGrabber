@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z91-gs-K5C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z91-gs-K5C">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +29,7 @@
         <!--Metadata-->
         <scene sceneID="Q0l-Fb-wZw">
             <objects>
-                <tableViewController storyboardIdentifier="UITableViewController-SRQ-UK-rba" id="umA-xu-G6j" customClass="MetadataViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UITableViewController-SRQ-UK-rba" title="Metadata" id="umA-xu-G6j" customClass="MetadataViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Kom-t5-Ixt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -295,11 +295,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Metadata" id="hPT-0r-vTx">
                         <barButtonItem key="backBarButtonItem" title=" " id="lrY-vm-opE"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="tYQ-H1-DEk">
-                            <connections>
-                                <action selector="done" destination="umA-xu-G6j" id="Kf7-pY-vEi"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="assetTypeLabel" destination="ILU-IC-y2A" id="gQR-H0-dl5"/>

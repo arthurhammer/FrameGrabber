@@ -99,7 +99,7 @@ class PurchaseViewController: UIViewController {
         scrollView.delegate = self
         confettiView.confettiImage = UIImage(named: "confetti")
         featuresView.mainFeatureView.titleLabel.font = .preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
-        closeButton.tintColor = UIColor.separator.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
+        closeButton.overrideUserInterfaceStyle = .light
 
         updateViews()
         updateSeparator()

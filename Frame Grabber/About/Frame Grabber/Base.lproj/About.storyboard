@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U9v-tC-F8s">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U9v-tC-F8s">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -278,13 +278,7 @@
                             <outlet property="delegate" destination="hnE-0J-ppI" id="Q9I-Hc-ild"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Frame Grabber" id="IAE-sF-IVF">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="xpb-OQ-pwg">
-                            <connections>
-                                <action selector="done" destination="hnE-0J-ppI" id="Fgl-Ll-g1B"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Frame Grabber" id="IAE-sF-IVF"/>
                     <connections>
                         <outlet property="purchaseButton" destination="8UP-tj-XNX" id="CG8-OY-X06"/>
                         <outlet property="rateButton" destination="lni-tn-UXo" id="i3p-K7-GUv"/>
@@ -487,16 +481,9 @@
                                     <outlet property="restoreButton" destination="hSM-a5-Quj" id="Za2-Ct-dvJ"/>
                                 </connections>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NG4-o2-qF9" userLabel="Close Button">
-                                <rect key="frame" x="366" y="4" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NG4-o2-qF9" userLabel="Close Button">
+                                <rect key="frame" x="364" y="12" width="30" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="Close"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="And-5R-Mv8"/>
-                                    <constraint firstAttribute="height" constant="44" id="df9-Ad-exZ"/>
-                                </constraints>
-                                <state key="normal" image="xmark.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
-                                </state>
                                 <connections>
                                     <action selector="done" destination="Q1Q-IQ-Mgh" eventType="touchUpInside" id="PFp-KP-p1Y"/>
                                 </connections>
@@ -511,7 +498,7 @@
                             <constraint firstItem="nJn-T0-q26" firstAttribute="top" secondItem="m2J-rt-kXP" secondAttribute="top" id="019-JP-a7s"/>
                             <constraint firstAttribute="trailing" secondItem="ETp-48-pMy" secondAttribute="trailing" id="1UY-Or-kco"/>
                             <constraint firstItem="hMy-Av-8q9" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" id="2G7-by-nQL"/>
-                            <constraint firstItem="NG4-o2-qF9" firstAttribute="trailing" secondItem="m2J-rt-kXP" secondAttribute="trailing" constant="-4" id="3mX-Pl-Qvr"/>
+                            <constraint firstItem="m2J-rt-kXP" firstAttribute="trailing" secondItem="NG4-o2-qF9" secondAttribute="trailing" constant="20" id="3mX-Pl-Qvr"/>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="8" id="4ah-Io-luG"/>
                             <constraint firstItem="ETp-48-pMy" firstAttribute="top" secondItem="42g-9b-btt" secondAttribute="top" id="7UZ-QP-Kg1"/>
                             <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="nJn-T0-q26" secondAttribute="bottom" priority="500" id="8PD-Pm-pCq"/>
@@ -526,7 +513,7 @@
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstAttribute="bottom" secondItem="ETp-48-pMy" secondAttribute="bottom" id="TJp-hq-HdP"/>
-                            <constraint firstItem="NG4-o2-qF9" firstAttribute="top" secondItem="m2J-rt-kXP" secondAttribute="top" constant="4" id="Ydq-Ir-K6W"/>
+                            <constraint firstItem="NG4-o2-qF9" firstAttribute="top" secondItem="m2J-rt-kXP" secondAttribute="top" constant="12" id="Ydq-Ir-K6W"/>
                             <constraint firstAttribute="trailing" secondItem="nJn-T0-q26" secondAttribute="trailing" id="a7p-jE-Wdr"/>
                             <constraint firstItem="ETp-48-pMy" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="l3W-Bj-sG6"/>
                             <constraint firstItem="nJn-T0-q26" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="mih-Gm-HO4"/>
@@ -560,7 +547,6 @@
         <image name="ice-cream" width="645.33331298828125" height="394.66665649414062"/>
         <image name="keyboard" catalog="system" width="128" height="79"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="accent">
             <color red="0.27099999785423279" green="0.16099999845027924" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
