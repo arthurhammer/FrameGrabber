@@ -39,7 +39,7 @@ extension UserDefaults {
     }
 
     var compressionQuality: Double {
-        get { (object(forKey: Key.compressionQuality) as? Double) ?? 1 }
+        get { (object(forKey: Key.compressionQuality) as? Double) ?? 0.95 }
         set { set(newValue, forKey: Key.compressionQuality) }
     }
 }
