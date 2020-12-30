@@ -5,7 +5,6 @@ extension UIColor {
     static let secondaryAccent = UIColor(named: "secondaryAccent")
     static let iceCream = UIColor(named: "iceCream")
     static let cellSelection = UIColor(named: "cellSelection")
-    static let disabledLabel = UIColor(named: "disabledLabel")
     static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
 
 }

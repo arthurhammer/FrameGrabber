@@ -4,9 +4,6 @@
 /* Class = "UITableViewSection"; footerTitle = "<HEIF can result in smaller file sizes. JPEG is most widely supported.>"; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
-/* Class = "UILabel"; text = "JPEG"; ObjectID = "Byn-C0-URJ"; */
-"Byn-C0-URJ.text" = "JPEG";
-
 /* Class = "UITableViewSection"; footerTitle = "Adds creation date and GPS location to exported frames."; ObjectID = "iHH-Fm-kn8"; */
 "iHH-Fm-kn8.footerTitle" = "Fügt Erstellungsdatum und Ort zu exportierten Standbildern hinzu.";
 
@@ -16,9 +13,12 @@
 /* Class = "UILabel"; text = "Export Metadata"; ObjectID = "So8-Af-ERQ"; */
 "So8-Af-ERQ.text" = "Metadaten Exportieren";
 
+/* Class = "UILabel"; text = "Quality"; ObjectID = "sWo-g3-pni"; */
+"sWo-g3-pni.text" = "Qualität";
+
 /* Class = "UINavigationItem"; title = "Export Settings"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Exporteinstellungen";
 
-/* Class = "UILabel"; text = "HEIF"; ObjectID = "Wrh-C2-4X7"; */
-"Wrh-C2-4X7.text" = "HEIF";
+/* Class = "UILabel"; text = "Image Format"; ObjectID = "Wrh-C2-4X7"; */
+"Wrh-C2-4X7.text" = "Bildformat";
 

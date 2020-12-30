@@ -55,10 +55,8 @@ struct UserText {
     static let detailFrameDimensionsForLivePhotoTitle = NSLocalizedString("detail.livephoto.videodimensions.title", value: "Dimensions (Video)", comment: "Dimensions label title for the Live Photo video component")
     static let detailMapItem = NSLocalizedString("detail.map.item.title", value: "Your Shot", comment: "Title of map item opened in Maps app.")
 
-    static let exportImageFormatSection = NSLocalizedString("exportsettings.section.format.title", value: "Image Format", comment: "Export settings image format section header")
     static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in smaller file sizes. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")
-    static let exportCompressionQualitySection = NSLocalizedString("exportsettings.section.compression.title", value: "Compression Quality", comment: "Export settings compression quality section header")
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")

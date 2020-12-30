@@ -11,14 +11,10 @@ class ExportSettingsViewController: UITableViewController {
     var settings: UserDefaults = .standard
 
     @IBOutlet private var includeMetadataSwitch: UISwitch!
-    @IBOutlet private var heifCell: UITableViewCell!
-    @IBOutlet private var heifLabel: UILabel!
-    @IBOutlet private var jpgCell: UITableViewCell!
+    @IBOutlet private var imageFormatControl: UISegmentedControl!
     @IBOutlet private var compressionQualityStepper: UIStepper!
     @IBOutlet private var compressionQualityLabel: UILabel!
-
-    private let heifIndexPath = IndexPath(row: 0, section: 1)
-    private let jpgIndexPath = IndexPath(row: 1, section: 1)
+    @IBOutlet private var compressionQualityStack: UIStackView!
 
     private lazy var compressionFormatter = NumberFormatter.percentFormatter()
 
@@ -31,7 +27,15 @@ class ExportSettingsViewController: UITableViewController {
         super.viewWillAppear(animated)
         fixCellHeight()
     }
-
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            updateViews(for: traitCollection)
+        }
+    }
+    
     @IBAction private func done() {
         dismiss(animated: true)
     }
@@ -39,55 +43,20 @@ class ExportSettingsViewController: UITableViewController {
     @IBAction private func didUpdateIncludeMetadata(_ sender: UISwitch) {
         settings.includeMetadata = sender.isOn
     }
-
-    @IBAction func didChangeCompressionQuality() {
+    
+    @IBAction private func didUpdateImageFormat(_ sender: UISegmentedControl) {
         UISelectionFeedbackGenerator().selectionChanged()
-        settings.compressionQuality = compressionQualityStepper.value/100
+        settings.imageFormat = ImageFormat.allCases[sender.selectedSegmentIndex]
+    }
+
+    @IBAction private func didChangeCompressionQuality(_ sender: UIStepper) {
+        UISelectionFeedbackGenerator().selectionChanged()
+        settings.compressionQuality = sender.value/100
         updateViews()
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        switch indexPath {
-        case heifIndexPath where UserDefaults.isHeifSupported:
-            settings.imageFormat = .heif
-        default:
-            settings.imageFormat = .jpeg
-        }
-
-        updateViews()
-    }
-
-    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        ((indexPath == heifIndexPath) && UserDefaults.isHeifSupported) || (indexPath == jpgIndexPath)
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExportSettingsSectionHeader.name) as? ExportSettingsSectionHeader else { fatalError("Wrong view id or type.") }
-
-        header.titleLabel.text = Section(section)?.title
-
-        if section == 0 {
-            let hasTitle = Section(section)?.title == nil
-
-            header.topConstraint.constant = hasTitle
-                ? Style.staticTableViewTopMargin
-                : (Style.staticTableViewTopMargin - header.defaultVerticalMargins)  // Top margin := total desired - bottom
-        } else {
-            let hasPrecedingFooter = self.tableView(tableView, titleForFooterInSection: section-1) != nil
-
-            header.topConstraint.constant = hasPrecedingFooter
-                ? header.interSectionSpacing
-                : header.defaultVerticalMargins
-        }
-
-        // Missing cases:
-        //   - Header is empty but previous footer isn't.
-        //   - Both header and previous footer are empty.
-        // Results in minor inconsistencies in spacing. Why is this so weird?
-
-        return header
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -99,13 +68,32 @@ class ExportSettingsViewController: UITableViewController {
     }
 
     private func configureViews() {
-        tableView.register(ExportSettingsSectionHeader.nib, forHeaderFooterViewReuseIdentifier: ExportSettingsSectionHeader.name)
-
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
 
         compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
+        
+        configureImageFormatControl()
+        updateViews(for: traitCollection)
         updateViews()
+    }
+        
+    private func configureImageFormatControl() {
+        let formats = ImageFormat.allCases
+        imageFormatControl.removeAllSegments()
+        
+        formats.enumerated().forEach {
+            imageFormatControl.insertSegment(
+                withTitle: $0.element.displayString,
+                at: $0.offset,
+                animated: false
+            )
+        }
+        
+        if let heifIndex = formats.firstIndex(of: .heif) {
+            let isHeifSupported = UserDefaults.isHeifSupported
+            imageFormatControl.setEnabled(isHeifSupported, forSegmentAt: heifIndex)
+        }
     }
 
     private func updateViews() {
@@ -113,15 +101,14 @@ class ExportSettingsViewController: UITableViewController {
 
         compressionQualityStepper.value = settings.compressionQuality*100
         compressionQualityLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
-
-        let isHeif = settings.imageFormat == .heif
-        heifCell.accessoryType = isHeif ? .checkmark : .none
-        jpgCell.accessoryType = isHeif ? .none : .checkmark
-
-        if !UserDefaults.isHeifSupported {
-            heifCell.accessoryType = .none
-            heifLabel.textColor = .disabledLabel
-        }
+        
+        let formatIndex = ImageFormat.allCases.firstIndex(of: settings.imageFormat)
+        imageFormatControl.selectedSegmentIndex = formatIndex ?? 0
+    }
+    
+    private func updateViews(for traitCollection: UITraitCollection) {
+        let isHuge = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+        compressionQualityStack.axis = isHuge ? .vertical : .horizontal
     }
 
     private var firstAppereance = true
@@ -133,16 +120,6 @@ class ExportSettingsViewController: UITableViewController {
         // For some reason, the first cell initially has a wrong height.
         DispatchQueue.main.async {
             self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        }
-    }
-}
-
-extension ExportSettingsViewController.Section {
-    var title: String? {
-        switch self {
-        case .metadata: return nil
-        case .format: return UserText.exportImageFormatSection
-        case .compressionQuality: return UserText.exportCompressionQualitySection
         }
     }
 }
