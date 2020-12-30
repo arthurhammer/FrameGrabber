@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Cw-ag-d47">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Cw-ag-d47">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -26,15 +26,15 @@
                                 </accessibility>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="160.5" y="682" width="93" height="40"/>
+                                <rect key="frame" x="160" y="682" width="94" height="40"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="93" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="93.5" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g4t-w4-IEi">
@@ -263,7 +263,7 @@
                                 <outlet property="titleLabel" destination="MTO-N1-Rre" id="rJM-9d-XlM"/>
                             </connections>
                         </view>
-                        <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="ON1-SU-aKj">
+                        <barButtonItem key="rightBarButtonItem" image="more" id="ON1-SU-aKj">
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="More"/>
                             </userDefinedRuntimeAttributes>
@@ -400,8 +400,8 @@
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
-        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="hare.fill" catalog="system" width="128" height="91"/>
+        <image name="more" width="30" height="30"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="accent">
