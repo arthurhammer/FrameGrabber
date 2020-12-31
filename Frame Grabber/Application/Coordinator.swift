@@ -4,26 +4,16 @@ import UIKit
 class Coordinator: NSObject {
 
     let navigationController: NavigationController
-    let albumsViewController: AlbumsViewController
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
-
-        guard let albumsViewController = navigationController.viewControllers.first as? AlbumsViewController else {
-            fatalError("Wrong view controller")
-        }
-
-        self.albumsViewController = albumsViewController
-
         super.init()
     }
 
     func start() {
-        showEmptyAlbum(animated: false)
-
         // Defer configuration to avoid triggering premature authorization dialogs.
         authorizeIfNecessary { [weak self] in
-            self?.configureAlbums()
+            self?.configureAlbum()
         }
     }
 
@@ -55,19 +45,10 @@ class Coordinator: NSObject {
 
     // MARK: Showing Albums
 
-    private func showEmptyAlbum(animated: Bool) {
-        guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else { fatalError("Wrong controller id or type") }
-        albumViewController.navigationItem.largeTitleDisplayMode = .always
-        albumViewController.defaultTitle = UserText.albumUnauthorizedTitle
-        navigationController.pushViewController(albumViewController, animated: animated)
-    }
-
-    private func configureAlbums() {
-        albumsViewController.albumsDataSource = AlbumsDataSource.default()
-
-        if let albumViewController = navigationController.topViewController as? AlbumViewController {
-            let filter = albumViewController.settings.videoTypesFilter
-            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(with: filter)
-        }
+    private func configureAlbum() {
+        guard let albumViewController = navigationController.topViewController as? AlbumViewController else { return }
+        
+        let filter = albumViewController.settings.videoTypesFilter
+        albumViewController.album = AlbumsDataSource.fetchInitialAlbum(with: filter)
     }
 }

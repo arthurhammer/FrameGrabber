@@ -1,9 +1,15 @@
 import PhotoAlbums
 import UIKit
 
-class AlbumsViewController: UICollectionViewController {
+protocol AlbumsViewControllerDelegate: class {
+    func controller(_ controller: AlbumsViewController, didSelectAlbum album: AnyAlbum)
+}
 
-    var albumsDataSource: AlbumsDataSource? {
+class AlbumsViewController: UICollectionViewController {
+    
+    weak var delegate: AlbumsViewControllerDelegate?
+
+    var albumsDataSource: AlbumsDataSource? = .default() {
         didSet { configureDataSource() }
     }
 
@@ -20,23 +26,20 @@ class AlbumsViewController: UICollectionViewController {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? AlbumViewController {
-            prepareForAlbumSegue(with: controller)
-        }
-    }
-
-    private func prepareForAlbumSegue(with destination: AlbumViewController) {
-        guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
-
-        let filter = destination.settings.videoTypesFilter
-        // Re-fetch album and contents as selected item can be outdated (i.e. data source
-        // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, filter: filter)
+    
+    @IBAction private func done() {
+        presentingViewController?.dismiss(animated: true)
     }
 
     // MARK: - UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let album = collectionViewDataSource?.album(at: indexPath) {
+            delegate?.controller(self, didSelectAlbum: album)
+        }
+        
+        done()
+    }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? AlbumCell else { return }
@@ -53,6 +56,8 @@ class AlbumsViewController: UICollectionViewController {
         collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
             self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
 
         configureSearch()
     }

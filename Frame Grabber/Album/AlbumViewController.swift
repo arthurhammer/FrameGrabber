@@ -48,9 +48,16 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? EditorViewController {
-            prepareForPlayerSegue(with: controller)
+        if let destination = segue.destination as? UINavigationController,
+           let controller = destination.topViewController as? AlbumsViewController {
+            prepareForAlbumsSegue(with: controller)
+        } else if let destination = segue.destination as? EditorViewController {
+            prepareForPlayerSegue(with: destination)
         }
+    }
+    
+    private func prepareForAlbumsSegue(with destination: AlbumsViewController) {
+        destination.delegate = self
     }
 
     private func prepareForPlayerSegue(with destination: EditorViewController) {
@@ -132,6 +139,23 @@ class AlbumViewController: UICollectionViewController {
             self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
             self.performSegue(withIdentifier: EditorViewController.name, sender: nil)
         }
+    }
+}
+
+// MARK: - AlbumsViewControllerDelegate
+
+extension AlbumViewController: AlbumsViewControllerDelegate {
+    
+    // TODO
+    func controller(_ controller: AlbumsViewController, didSelectAlbum album: AnyAlbum) {
+        let assetCollection = album.assetCollection
+        
+        let options = PHFetchOptions.assets(
+            forAlbumType: assetCollection.assetCollectionType,
+            videoFilter: dataSource?.filter ?? .all
+        )
+        
+        self.album = FetchedAlbum.fetchUpdate(for: assetCollection, assetFetchOptions: options)
     }
 }
 

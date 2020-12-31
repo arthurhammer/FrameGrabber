@@ -67,12 +67,6 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         return album
     }
 
-    func fetchUpdate(forAlbumAt indexPath: IndexPath, filter: VideoTypesFilter) -> FetchedAlbum? {
-        let album = self.album(at: indexPath).assetCollection
-        let options = PHFetchOptions.assets(forAlbumType: album.assetCollectionType, videoFilter: filter)
-        return FetchedAlbum.fetchUpdate(for: album, assetFetchOptions: options)
-    }
-
     func thumbnail(for album: AnyAlbum, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
         return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
@@ -135,11 +129,12 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
         var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
 
         snapshot.appendSections(sections)
-        snapshot.appendItems(userAlbums, toSection: sections[1])
 
         if !isSearching {
             snapshot.appendItems(smartAlbums, toSection: sections[0])
         }
+        
+        snapshot.appendItems(userAlbums, toSection: sections[1])
 
         apply(snapshot, animatingDifferences: true)
     }
