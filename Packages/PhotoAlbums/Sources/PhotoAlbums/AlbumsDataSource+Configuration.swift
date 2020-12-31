@@ -19,7 +19,7 @@ extension AlbumsDataSource {
         public let assetFetchOptions: PHFetchOptions
 
         public init(albumFetchOptions: PHFetchOptions = .userAlbums(),
-                    assetFetchOptions: PHFetchOptions = .assets(forAlbumType: .smartAlbum)) {
+                    assetFetchOptions: PHFetchOptions = .assets(forAlbumType: .album)) {
 
             self.albumFetchOptions = albumFetchOptions
             self.assetFetchOptions = assetFetchOptions
