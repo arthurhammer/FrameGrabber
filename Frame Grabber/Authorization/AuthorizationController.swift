@@ -43,6 +43,7 @@ class AuthorizationController: UIViewController {
     @IBAction private func showPrivacyPolicy() {
         guard let url = About.PrivacyPolicy.preferred else { return }
         let safariController = SFSafariViewController(url: url)
+        safariController.modalPresentationStyle = .automatic
         safariController.preferredControlTintColor = .accent
         present(safariController, animated: true)
     }

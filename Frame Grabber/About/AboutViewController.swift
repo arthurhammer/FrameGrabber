@@ -117,6 +117,7 @@ extension AboutViewController {
 
     private func showURL(_ url: URL) {
         let safariController = SFSafariViewController(url: url)
+        safariController.modalPresentationStyle = .automatic
         safariController.preferredControlTintColor = .accent
         present(safariController, animated: true)
     }
