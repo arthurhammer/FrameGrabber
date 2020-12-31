@@ -23,7 +23,7 @@ extension UserDefaults {
     }
 
     var albumGridContentMode: AlbumGridContentMode {
-        get { codableValue(forKey: Key.albumGridContentMode) ?? .fit }
+        get { codableValue(forKey: Key.albumGridContentMode) ?? .square }
         set { setCodableValue(value: newValue, forKey: Key.albumGridContentMode) }
     }
 
