@@ -6,8 +6,8 @@ import MapKit
 class MetadataViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
-        case metadata
         case location
+        case metadata
     }
 
     var videoController: VideoController? {
@@ -45,11 +45,12 @@ class MetadataViewController: UITableViewController {
         item.name = UserText.detailMapItem
         item.openInMaps(launchOptions: nil)
     }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        let sections = Section.allCases.count
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let hasLocation = videoController?.asset.location != nil
-        return hasLocation ? sections : (sections-1)
+        let hideRows = !hasLocation && (Section(section) == .location)
+        
+        return hideRows ? 0 : super.tableView(tableView, numberOfRowsInSection: section)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -66,7 +67,19 @@ class MetadataViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
+        let hasFirstSection = videoController?.asset.location != nil
+        
+        // Remove space if section hidden, otherwise default margin from the top
+        if (section == 0) {
+            return hasFirstSection ? Style.staticTableViewTopMargin : 0
+        }
+        
+        // If first section is hidden, the second section becomes the first
+        if (section == 1) {
+            return hasFirstSection ? UITableView.automaticDimension : Style.staticTableViewTopMargin
+        }
+        
+        return UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
