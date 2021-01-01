@@ -14,12 +14,12 @@ public class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary
 
-    public init(smartAlbumConfig: SmartAlbumConfiguration = .init(),
-                userAlbumConfig: UserAlbumConfiguration = .init(),
-                updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self),
-                                                   qos: .userInitiated),
-                photoLibrary: PHPhotoLibrary = .shared()) {
-
+    public init(
+        smartAlbumConfig: SmartAlbumConfiguration = .init(),
+        userAlbumConfig: UserAlbumConfiguration = .init(),
+        updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self), qos: .userInitiated),
+        photoLibrary: PHPhotoLibrary = .shared()
+    ) {
         self.updateQueue = updateQueue
         self.photoLibrary = photoLibrary
 
@@ -46,7 +46,9 @@ public class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
     /// changes. As a workaround, store the album's contents as a fetch result that we can
     /// check against changes.
     private var fetchedSmartAlbums = [FetchedAlbum]() {
-        didSet { smartAlbums = fetchedSmartAlbums.map(AnyAlbum.init) }
+        didSet {
+            smartAlbums = fetchedSmartAlbums.map(AnyAlbum.init)
+        }
     }
 
     private func fetchSmartAlbums(with config: SmartAlbumConfiguration) {
@@ -85,7 +87,9 @@ public class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
     // MARK: Updating User Albums
 
     private var userAlbumsFetchResult: MappedFetchResult<PHAssetCollection, AnyAlbum>!  {
-        didSet { userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty } }
+        didSet {
+            userAlbums = userAlbumsFetchResult.array.filter { !$0.isEmpty }
+        }
     }
 
     private func fetchUserAlbums(with config: UserAlbumConfiguration) {

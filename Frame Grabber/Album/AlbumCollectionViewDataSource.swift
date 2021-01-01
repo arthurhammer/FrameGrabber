@@ -3,7 +3,7 @@ import PhotoAlbums
 import Photos
 import UIKit
 
-class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, PHPhotoLibraryChangeObserver {
+class AlbumCollectionViewDataSource: NSObject {
 
     /// nil if deleted.
     private(set) var album: FetchedAlbum?
@@ -115,15 +115,16 @@ class AlbumCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICol
 
     private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
         guard let fetchResult = album?.fetchResult else { return [] }
+        
         let indexes = IndexSet(indexPaths.map { $0.item })
         let safeIndexes = indexes.filteredIndexSet { $0 < fetchResult.count }
         return fetchResult.objects(at: safeIndexes)
     }
 }
 
-extension AlbumCollectionViewDataSource {
+// MARK: - UICollectionViewDataSource
 
-    // MARK: UICollectionViewDataSource
+extension AlbumCollectionViewDataSource: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         album?.count ?? 0
@@ -132,8 +133,11 @@ extension AlbumCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         cellProvider(indexPath, video(at: indexPath))
     }
+}
 
-    // MARK: UICollectionViewDataSourcePrefetching
+// MARK: - UICollectionViewDataSourcePrefetching
+
+extension AlbumCollectionViewDataSource: UICollectionViewDataSourcePrefetching {
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         // Index paths might not exist anymore in the model.
@@ -149,7 +153,7 @@ extension AlbumCollectionViewDataSource {
 
 // MARK: - PHPhotoLibraryChangeObserver
 
-extension AlbumCollectionViewDataSource {
+extension AlbumCollectionViewDataSource: PHPhotoLibraryChangeObserver {
 
     func photoLibraryDidChange(_ change: PHChange) {
         DispatchQueue.main.async { [weak self] in

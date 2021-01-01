@@ -128,7 +128,7 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.name, for: indexPath) as? AlbumsHeader,
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.className, for: indexPath) as? AlbumsHeader,
             let section = collectionViewDataSource?.section(at: indexPath.section) else { fatalError("Wrong view identifier or type or no data source.") }
 
         header.titleLabel.text = section.title

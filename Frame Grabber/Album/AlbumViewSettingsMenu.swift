@@ -31,7 +31,10 @@ struct AlbumViewSettingsMenu {
             )
         ])
 
-        return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [gridAction] + filterActions.reversed())
+        return UIMenu(
+            title: UserText.albumViewSettingsMenuTitle,
+            children: [gridAction] + filterActions.reversed()
+        )
     }
 
     static func alertController(

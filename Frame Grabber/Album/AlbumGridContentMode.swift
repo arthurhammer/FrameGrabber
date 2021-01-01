@@ -52,10 +52,10 @@ extension AlbumGridContentMode {
         }
     }
 
-    func thumbnailSize(forAssetDimensions dimensions: CGSize, in boundingSize: CGSize) -> CGSize {
+    func thumbnailSize(for aspectRatio: CGSize, in boundingSize: CGSize) -> CGSize {
         switch self {
-        case .fit: return dimensions.aspectFitting(boundingSize)
-        case .square: return dimensions.aspectFilling(boundingSize)
+        case .fit: return aspectRatio.aspectFitting(boundingSize)
+        case .square: return aspectRatio.aspectFilling(boundingSize)
         }
     }
 }
