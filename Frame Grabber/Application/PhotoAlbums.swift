@@ -28,15 +28,14 @@ extension AlbumsDataSource {
         )
     }
 
-    static func fetchInitialAlbum(with filter: VideoTypesFilter) -> FetchedAlbum? {
-        guard let smartAlbumType = smartAlbumTypes.first else { return nil }
-
-        let assetFetchOptions = PHFetchOptions.assets(forAlbumType: .smartAlbum, videoFilter: filter)
-
-        return FetchedAlbum.fetchSmartAlbums(
-            with: [smartAlbumType],
-            assetFetchOptions: assetFetchOptions
-        ).first
+    static func fetchInitialAssetCollection() -> PHAssetCollection? {
+        guard let type = smartAlbumTypes.first else { return nil }
+        
+        return PHAssetCollection.fetchAssetCollections(
+            with: .smartAlbum,
+            subtype: type,
+            options: nil
+        ).firstObject
     }
 }
 

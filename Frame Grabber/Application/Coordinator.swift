@@ -4,13 +4,22 @@ import UIKit
 class Coordinator: NSObject {
 
     let navigationController: NavigationController
+    let albumViewController: AlbumViewController
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
+        
+        guard let albumViewController = navigationController.topViewController as? AlbumViewController else { fatalError("Wrong root controller or type.") }
+        
+        self.albumViewController = albumViewController
+        
         super.init()
     }
 
     func start() {
+        // Show placeholder title until authorized.
+        albumViewController.defaultTitle =  UserText.albumUnauthorizedTitle
+        
         // Defer configuration to avoid triggering premature authorization dialogs.
         authorizeIfNecessary { [weak self] in
             self?.configureAlbum()
@@ -46,9 +55,12 @@ class Coordinator: NSObject {
     // MARK: Showing Albums
 
     private func configureAlbum() {
-        guard let albumViewController = navigationController.topViewController as? AlbumViewController else { return }
+        // Show default title again.
+        albumViewController.defaultTitle = UserText.albumDefaultTitle
         
-        let filter = albumViewController.settings.videoTypesFilter
-        albumViewController.album = AlbumsDataSource.fetchInitialAlbum(with: filter)
+        if let initialCollection = AlbumsDataSource.fetchInitialAssetCollection() {
+            let album = AnyAlbum(assetCollection: initialCollection)
+            albumViewController.setSourceAlbum(album)
+        }
     }
 }

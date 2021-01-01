@@ -4,13 +4,7 @@ import PhotosUI
 import UIKit
 
 class AlbumViewController: UICollectionViewController {
-
-    /// nil if deleted.
-    var album: FetchedAlbum? {
-        get { return dataSource?.album }
-        set { configureDataSource(with: newValue) }
-    }
-
+        
     /// The title that will be used when album is `nil`.
     var defaultTitle = UserText.albumDefaultTitle {
         didSet { updateViews(animated: false) }
@@ -19,20 +13,27 @@ class AlbumViewController: UICollectionViewController {
     /// The most recently selected asset.
     private(set) var selectedAsset: PHAsset?
 
-    var settings: UserDefaults = .standard
-
     @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
     @IBOutlet private var infoBarItem: UIBarButtonItem!
     @IBOutlet private var extendPhotoSelectionBarItem: UIBarButtonItem!
 
     private lazy var emptyView = EmptyAlbumView()
-    private var dataSource: AlbumCollectionViewDataSource?
     private lazy var durationFormatter = VideoDurationFormatter()
+    
+    private lazy var dataSource: AlbumCollectionViewDataSource = AlbumCollectionViewDataSource {
+        [unowned self] in
+        self.cell(for: $1, at: $0)
+    }
+    
+    private var settings: UserDefaults {
+        dataSource.settings
+    }
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDataSource()
         configureViews()
     }
 
@@ -67,24 +68,34 @@ class AlbumViewController: UICollectionViewController {
         navigationController?.delegate = transitionController
         destination.transitionController = transitionController
 
-        if let selectedAsset = dataSource?.video(at: selectedIndexPath) {
-            self.selectedAsset = selectedAsset
-            let thumbnail = videoCell(at: selectedIndexPath)?.imageView.image
-            destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
-        }
+        let selectedAsset = dataSource.video(at: selectedIndexPath)
+        self.selectedAsset = selectedAsset
+        let thumbnail = videoCell(at: selectedIndexPath)?.imageView.image
+        destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
+    }
+    
+    // MARK: - Setting Albums
+    
+    /// Sets the current photo album.
+    ///
+    /// - Note: Upon first call, the receiver will start accessing the user's photo library. If
+    ///         the authorization is `notDetermined`, this will trigger an authorization dialog.
+    func setSourceAlbum(_ sourceAlbum: AnyAlbum) {
+        dataSource.startAccessingPhotoLibrary()
+        dataSource.setSourceAlbum(sourceAlbum)
     }
 
     // MARK: - Actions
 
     /// Selects `selectedAsset` in the collection view.
     func restoreSelection(animated: Bool) {
-        let selectedIndexPath = selectedAsset.flatMap { dataSource?.indexPath(of: $0) }
+        let selectedIndexPath = selectedAsset.flatMap { dataSource.indexPath(of: $0) }
         collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
 
     @IBAction private func extendPhotoSelection() {
         if #available(iOS 14, *) {
-            dataSource?.photoLibrary.presentLimitedLibraryPicker(from: self)
+            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
         } 
     }
 
@@ -101,8 +112,7 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let video = dataSource?.video(at: indexPath) else { return nil }
-
+        let video = dataSource.video(at: indexPath)
         let sourceImageView = videoCell(at: indexPath)?.imageView
         
         let previewProvider = { [weak self] in
@@ -126,10 +136,10 @@ class AlbumViewController: UICollectionViewController {
             switch selection {
             
             case .favorite:
-                self?.dataSource?.toggleFavorite(for: video)
+                self?.dataSource.toggleFavorite(for: video)
                 
             case .delete:
-                self?.dataSource?.delete(video)
+                self?.dataSource.delete(video)
             }
         }
     }
@@ -159,16 +169,8 @@ class AlbumViewController: UICollectionViewController {
 
 extension AlbumViewController: AlbumsViewControllerDelegate {
     
-    // TODO
     func controller(_ controller: AlbumsViewController, didSelectAlbum album: AnyAlbum) {
-        let assetCollection = album.assetCollection
-        
-        let options = PHFetchOptions.assets(
-            forAlbumType: assetCollection.assetCollectionType,
-            videoFilter: dataSource?.filter ?? .all
-        )
-        
-        self.album = FetchedAlbum.fetchUpdate(for: assetCollection, assetFetchOptions: options)
+        dataSource.setSourceAlbum(album)
     }
 }
 
@@ -177,13 +179,19 @@ private extension AlbumViewController {
     // MARK: Configuring
 
     func configureViews() {
-        clearsSelectionOnViewWillAppear = false
+        collectionView.isPrefetchingEnabled = true
+        collectionView.dataSource = dataSource
+        collectionView.prefetchDataSource = dataSource
+        
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundView = emptyView
+        clearsSelectionOnViewWillAppear = false
 
         collectionView.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
-            self?.dataSource?.imageOptions.size = newItemSize.scaledToScreen
+            self?.dataSource.imageOptions.size = newItemSize.scaledToScreen
         }
+        
+        collectionView.collectionViewLayout.invalidateLayout()
 
         viewSettingsButton.add(to: view)
         updateViews(animated: false)
@@ -192,10 +200,10 @@ private extension AlbumViewController {
     func updateViews(animated: Bool) {
         guard isViewLoaded else { return }
         
-        title = dataSource?.album?.title ?? defaultTitle
+        title = dataSource.album?.title ?? defaultTitle
 
-        emptyView.type = dataSource?.filter ?? .all
-        emptyView.isEmpty = dataSource?.isEmpty ?? true
+        emptyView.type = dataSource.filter
+        emptyView.isEmpty = dataSource.isEmpty
 
         updateViewSettingsButton(animated: animated)
         updateNavigationBar()
@@ -205,7 +213,7 @@ private extension AlbumViewController {
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.layer.shadowOpacity = 0
         
-        if dataSource?.isAuthorizationLimited == true {
+        if dataSource.isAuthorizationLimited == true {
             navigationItem.rightBarButtonItems = [infoBarItem, extendPhotoSelectionBarItem]
         } else {
             navigationItem.rightBarButtonItems = [infoBarItem]
@@ -219,23 +227,13 @@ private extension AlbumViewController {
             navigationItem.backButtonDisplayMode = .minimal
         }
     }
-
-    func configureDataSource(with album: FetchedAlbum?) {
-        dataSource = AlbumCollectionViewDataSource(album: album, settings: settings) { [unowned self] in
-            self.cell(for: $1, at: $0)
-        }
-
-        dataSource?.albumDeletedHandler = { [weak self] in
-            // Just show empty screen.
-            self?.updateViews(animated: false)
-            self?.collectionView?.reloadData()
-        }
-
-        dataSource?.albumChangedHandler = { [weak self] in
+        
+    func configureDataSource() {
+        dataSource.albumChangedHandler = { [weak self] _ in
             self?.updateViews(animated: false)
         }
 
-        dataSource?.videosChangedHandler = { [weak self] changeDetails in
+        dataSource.videosChangedHandler = { [weak self] changeDetails in
             self?.updateViews(animated: false)
 
             guard let changeDetails = changeDetails else {
@@ -247,20 +245,13 @@ private extension AlbumViewController {
                 self?.reconfigure(cellAt: $0)
             })
         }
-
-        collectionView?.isPrefetchingEnabled = true
-        collectionView?.dataSource = dataSource
-        collectionView?.prefetchDataSource = dataSource
-
-        updateViews(animated: false)
-        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: View Settings Button
 
     func updateViewSettingsButton(animated: Bool) {
         let duration = animated ? 0.1 : 0
-        let filter = dataSource?.filter ?? .all
+        let filter = dataSource.filter
 
         UIView.animate(withDuration: duration) {
             self.viewSettingsButton.setTitle(filter.title, for: .normal)
@@ -286,7 +277,7 @@ private extension AlbumViewController {
 
     @objc func showViewSettingsAlertSheet() {
         let controller = AlbumViewSettingsMenu.alertController(
-            forCurrentFilter: dataSource?.filter ?? .all,
+            forCurrentFilter: dataSource.filter,
             gridMode: settings.albumGridContentMode,
             handler: { [weak self] selection in
                 DispatchQueue.main.async {
@@ -304,7 +295,7 @@ private extension AlbumViewController {
         switch selection {
         
         case .videosFilter(let filter):
-            dataSource?.filter = filter
+            dataSource.filter = filter
             
         case .gridMode(let mode):
             settings.albumGridContentMode = mode
@@ -345,16 +336,16 @@ private extension AlbumViewController {
     }
 
     func reconfigure(cellAt indexPath: IndexPath) {
-        guard let cell = videoCell(at: indexPath),
-              let video = dataSource?.video(at: indexPath) else { return }
-
+        guard let cell = videoCell(at: indexPath)  else { return }
+              
+        let video = dataSource.video(at: indexPath)
         configure(cell: cell, for: video)
     }
 
     func loadThumbnail(for cell: VideoCell, video: PHAsset) {
         cell.identifier = video.localIdentifier
 
-        cell.imageRequest = dataSource?.thumbnail(for: video) { image, _ in
+        cell.imageRequest = dataSource.thumbnail(for: video) { image, _ in
             let isCellRecycled = cell.identifier != video.localIdentifier
 
             guard !isCellRecycled,
@@ -365,8 +356,7 @@ private extension AlbumViewController {
     }
 
     func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath, animated: Bool) {
-        guard let video = dataSource?.video(at: indexPath) else { return }
-        
+        let video = dataSource.video(at: indexPath)
         cell.setGridContentMode(mode, forAspectRatio: video.dimensions, animated: animated)
 
     }
