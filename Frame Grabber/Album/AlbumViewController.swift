@@ -7,7 +7,7 @@ class AlbumViewController: UICollectionViewController {
         
     /// The title that will be used when album is `nil`.
     var defaultTitle = UserText.albumDefaultTitle {
-        didSet { updateViews(animated: false) }
+        didSet { updateViews() }
     }
     
     override var title: String? {
@@ -41,10 +41,6 @@ class AlbumViewController: UICollectionViewController {
         return albumsNavController
     }()
     
-    private var settings: UserDefaults {
-        dataSource.settings
-    }
-
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -124,7 +120,7 @@ class AlbumViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoCell else { return }
         
-        setGridContentMode(settings.albumGridContentMode, for: cell, at: indexPath, animated: false)
+        setGridContentMode(dataSource.gridContentMode, for: cell, at: indexPath, animated: false)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -145,22 +141,20 @@ class AlbumViewController: UICollectionViewController {
             previewProvider: previewProvider
         ) { [weak self] selection in
 
-            self?.handleCellContextMenuSelection(selection, for: video)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self?.handleCellContextMenuSelection(selection, for: video)
+            }
         }
     }
     
     private func handleCellContextMenuSelection(_ selection: AlbumCellContextMenu.Selection, for video: PHAsset) {
-        let animationDelay = 0.2
+        switch selection {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDelay) { [weak self] in
-            switch selection {
+        case .favorite:
+            dataSource.toggleFavorite(for: video)
             
-            case .favorite:
-                self?.dataSource.toggleFavorite(for: video)
-                
-            case .delete:
-                self?.dataSource.delete(video)
-            }
+        case .delete:
+            dataSource.delete(video)
         }
     }
 
@@ -212,14 +206,24 @@ private extension AlbumViewController {
         titleButton.configureDynamicTypeLabel()
         titleButton.configureTrailingAlignedImage()
         
+        if #available(iOS 14, *) {
+            viewSettingsButton.showsMenuAsPrimaryAction = true
+        } else {
+            let action = #selector(showViewSettingsAlertSheet)
+            viewSettingsButton.addTarget(self, action: action, for: .touchUpInside)
+        }
+        
         viewSettingsButton.add(to: view)
-        updateViews(animated: false)
+        updateViews()
     }
 
-    func updateViews(animated: Bool) {
+    func updateViews() {
         guard isViewLoaded else { return }
         
         title = dataSource.album?.title ?? defaultTitle
+        
+        } else {
+        }
 
         emptyView.type = dataSource.filter
         emptyView.isEmpty = dataSource.isEmpty
@@ -249,11 +253,11 @@ private extension AlbumViewController {
         
     func configureDataSource() {
         dataSource.albumChangedHandler = { [weak self] _ in
-            self?.updateViews(animated: false)
+            self?.updateViews()
         }
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
-            self?.updateViews(animated: false)
+            self?.updateViews()
 
             guard let changeDetails = changeDetails else {
                 self?.collectionView?.reloadData()
@@ -269,27 +273,17 @@ private extension AlbumViewController {
     // MARK: View Settings Button
 
     func updateViewSettingsButton() {
-        let filter = dataSource.filter
-        
-        viewSettingsButton.setTitle(filter.title, for: .normal, animated: false)
+        viewSettingsButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
         
         if #available(iOS 14, *) {
-            viewSettingsButton.showsMenuAsPrimaryAction = true
-            
             viewSettingsButton.menu = AlbumViewSettingsMenu.menu(
-                forCurrentFilter: filter,
-                gridMode: settings.albumGridContentMode,
+                forCurrentFilter: dataSource.filter,
+                gridMode: dataSource.gridContentMode,
                 handler: { [weak self] selection in
                     DispatchQueue.main.async {
                         self?.handleViewSettingsMenuSelection(selection)
                     }
                 }
-            )
-        } else {
-            viewSettingsButton.addTarget(
-                self,
-                action: #selector(showViewSettingsAlertSheet),
-                for: .touchUpInside
             )
         }
     }
@@ -297,7 +291,7 @@ private extension AlbumViewController {
     @objc func showViewSettingsAlertSheet() {
         let controller = AlbumViewSettingsMenu.alertController(
             forCurrentFilter: dataSource.filter,
-            gridMode: settings.albumGridContentMode,
+            gridMode: dataSource.gridContentMode,
             handler: { [weak self] selection in
                 DispatchQueue.main.async {
                     self?.handleViewSettingsMenuSelection(selection)
@@ -317,7 +311,7 @@ private extension AlbumViewController {
             dataSource.filter = filter
             
         case .gridMode(let mode):
-            settings.albumGridContentMode = mode
+            dataSource.gridContentMode = mode
             setGridContentModeForVisibleCells(mode, animated: true)
         }
 

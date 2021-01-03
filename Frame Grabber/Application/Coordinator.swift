@@ -7,10 +7,9 @@ class Coordinator: NSObject {
     let albumViewController: AlbumViewController
 
     init(navigationController: NavigationController) {
-        self.navigationController = navigationController
-        
         guard let albumViewController = navigationController.topViewController as? AlbumViewController else { fatalError("Wrong root controller or type.") }
         
+        self.navigationController = navigationController
         self.albumViewController = albumViewController
         
         super.init()
@@ -20,15 +19,15 @@ class Coordinator: NSObject {
         // Show placeholder title until authorized.
         albumViewController.defaultTitle =  UserText.albumUnauthorizedTitle
         
-        // Defer configuration to avoid triggering premature authorization dialogs.
-        authorizeIfNecessary { [weak self] in
+        showAuthorizationIfNecessary { [weak self] in
+            // Defer configuration to avoid triggering premature authorization dialogs.
             self?.configureAlbum()
         }
     }
 
     // MARK: Authorizing
 
-    private func authorizeIfNecessary(completion: @escaping () -> ()) {
+    private func showAuthorizationIfNecessary(completion: @escaping () -> ()) {
         if AuthorizationController.needsAuthorization {
             DispatchQueue.main.async {
                 self.showAuthorization(animated: true, completion: completion)
@@ -47,7 +46,7 @@ class Coordinator: NSObject {
             self?.navigationController.dismiss(animated: true)
             completion()
         }
-
+        
         authorizationController.isModalInPresentation = true
         navigationController.present(authorizationController, animated: animated)
     }

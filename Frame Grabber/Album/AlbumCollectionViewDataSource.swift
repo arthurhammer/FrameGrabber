@@ -30,6 +30,11 @@ class AlbumCollectionViewDataSource: NSObject {
             fetchAlbum()
         }
     }
+    
+    var gridContentMode: AlbumGridContentMode {
+        get { settings.albumGridContentMode }
+        set { settings.albumGridContentMode = newValue }
+    }
 
     var imageOptions: PHImageManager.ImageOptions {
         didSet {
