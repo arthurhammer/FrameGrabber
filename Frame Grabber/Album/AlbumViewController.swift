@@ -32,6 +32,14 @@ class AlbumViewController: UICollectionViewController {
         [unowned self] in
         self.cell(for: $1, at: $0)
     }
+
+    private lazy var albumsContainerController: UIViewController = {
+        guard let albumsNavController = UIStoryboard(name: "Albums", bundle: nil).instantiateInitialViewController() as? UINavigationController,
+              let albumsPicker = albumsNavController.topViewController as? AlbumsViewController else { fatalError("Wrong controller type") }
+            
+        albumsPicker.delegate = self
+        return albumsNavController
+    }()
     
     private var settings: UserDefaults {
         dataSource.settings
@@ -105,6 +113,10 @@ class AlbumViewController: UICollectionViewController {
         if #available(iOS 14, *) {
             dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
         } 
+    }
+    
+    @IBAction private func showAlbumsPicker() {
+        present(albumsContainerController, animated: true)
     }
 
     // MARK: - Collection View Data Source & Delegate

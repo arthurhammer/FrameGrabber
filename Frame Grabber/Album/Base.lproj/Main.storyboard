@@ -150,7 +150,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="BMP-Sg-jeX" kind="presentation" id="7xg-VI-God"/>
+                                                    <action selector="showAlbumsPicker" destination="z5r-QY-0zg" eventType="touchUpInside" id="kQs-oe-wx8"/>
                                                 </connections>
                                             </button>
                                         </subviews>
