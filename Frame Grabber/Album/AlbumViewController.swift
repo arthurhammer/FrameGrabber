@@ -9,10 +9,18 @@ class AlbumViewController: UICollectionViewController {
     var defaultTitle = UserText.albumDefaultTitle {
         didSet { updateViews(animated: false) }
     }
+    
+    override var title: String? {
+        didSet {
+            navigationItem.title = nil
+            titleButton.setTitle(title, for: .normal, animated: false)
+        }
+    }
 
     /// The most recently selected asset.
     private(set) var selectedAsset: PHAsset?
 
+    @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
     @IBOutlet private var infoBarItem: UIBarButtonItem!
     @IBOutlet private var extendPhotoSelectionBarItem: UIBarButtonItem!
@@ -179,20 +187,19 @@ private extension AlbumViewController {
     // MARK: Configuring
 
     func configureViews() {
-        collectionView.isPrefetchingEnabled = true
-        collectionView.dataSource = dataSource
-        collectionView.prefetchDataSource = dataSource
-        
-        collectionView.alwaysBounceVertical = true
-        collectionView.backgroundView = emptyView
-        clearsSelectionOnViewWillAppear = false
-
         collectionView.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
             self?.dataSource.imageOptions.size = newItemSize.scaledToScreen
         }
         
+        collectionView.isPrefetchingEnabled = true
+        collectionView.dataSource = dataSource
+        collectionView.prefetchDataSource = dataSource
+        collectionView.backgroundView = emptyView
         collectionView.collectionViewLayout.invalidateLayout()
 
+        titleButton.configureDynamicTypeLabel()
+        titleButton.configureTrailingAlignedImage()
+        
         viewSettingsButton.add(to: view)
         updateViews(animated: false)
     }

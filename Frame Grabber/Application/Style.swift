@@ -6,7 +6,6 @@ extension UIColor {
     static let iceCream = UIColor(named: "iceCream")
     static let cellSelection = UIColor(named: "cellSelection")
     static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
-
 }
 
 struct Style {
@@ -36,9 +35,16 @@ extension UIButton {
         titleLabel?.allowsDefaultTighteningForTruncation = true
         titleLabel?.minimumScaleFactor = 0.6
     }
+    
+    func configureTrailingAlignedImage() {
+        // Hack to flip the image to the right side.
+        let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
+        semanticContentAttribute = isRightToLeft ? .forceLeftToRight : .forceRightToLeft
+    }
 }
 
 extension UIView {
+    
     func applyToolbarShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.1
