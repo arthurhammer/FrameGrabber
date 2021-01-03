@@ -4,7 +4,7 @@ class EmptyAlbumView: UIView {
 
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = .preferredFont(forTextStyle: .title1, weight: .semibold)
+        label.font = .preferredFont(forTextStyle: .title3, weight: .semibold)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.textColor = .secondaryLabel
