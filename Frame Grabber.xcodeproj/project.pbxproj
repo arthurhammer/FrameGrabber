@@ -179,6 +179,8 @@
 		00C88FE024B9B3B600E9E192 /* FrameIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 00C88FDF24B9B3B600E9E192 /* FrameIndexer */; };
 		00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA337E25A1DFE500DBD84D /* UIButton.swift */; };
 		00CA338025A1DFE500DBD84D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA337E25A1DFE500DBD84D /* UIButton.swift */; };
+		00CA339025A200DE00DBD84D /* Albums.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00CA339325A200DE00DBD84D /* Albums.storyboard */; };
+		00CA339125A200DE00DBD84D /* Albums.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00CA339325A200DE00DBD84D /* Albums.storyboard */; };
 		00CB8124234CE05400354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CB8125234CE05800354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
@@ -318,6 +320,8 @@
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		00CA337E25A1DFE500DBD84D /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIButton.swift; path = "Frame Grabber/Utilities/UIButton.swift"; sourceTree = SOURCE_ROOT; };
+		00CA339225A200DE00DBD84D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Albums.storyboard; sourceTree = "<group>"; };
+		00CA339525A200E200DBD84D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Albums.strings; sourceTree = "<group>"; };
 		00CB8123234CE05400354E03 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = "Frame Grabber/Application/NavigationController.swift"; sourceTree = SOURCE_ROOT; };
 		00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetResourceManager.swift; sourceTree = "<group>"; };
 		00CF4BC823F208C4006DB612 /* CachingGeocodingLocationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingGeocodingLocationFormatter.swift; sourceTree = "<group>"; };
@@ -457,6 +461,7 @@
 		0020D2F21FB4F277002379D0 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 				00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */,
 				0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */,
 				002B066324B4F9BE005375ED /* AlbumGridContentMode.swift */,
@@ -506,13 +511,13 @@
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				000EA8B52437311700C339DE /* Editor.storyboard */,
 				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
 				00C68E53242B6A3D004135A4 /* EditorTitleView.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
-				000EA8B52437311700C339DE /* Editor.storyboard */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
 			path = Editor;
@@ -551,6 +556,7 @@
 		00A9DF5321273FA400778885 /* Albums */ = {
 			isa = PBXGroup;
 			children = (
+				00CA339325A200DE00DBD84D /* Albums.storyboard */,
 				00A9DF542127635C00778885 /* AlbumCell.swift */,
 				00109CCB23FD239400B79F58 /* AlbumIcons.swift */,
 				00F3867E212AA38E0089A473 /* AlbumsCollectionViewDataSource.swift */,
@@ -564,9 +570,9 @@
 		00AFE4FA202AEF01005E2AA8 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
+				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 				005E2AA6202773F800F731FA /* AuthorizationController.swift */,
 				00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */,
-				0023FC99233911B10046D9F8 /* Authorization.storyboard */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -607,7 +613,6 @@
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
 				001CBD93242BB7CE00625685 /* UserText.swift */,
 				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
-				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -645,8 +650,8 @@
 		00ED22DC24AFDADF0023A973 /* Export Settings */ = {
 			isa = PBXGroup;
 			children = (
-				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
 				008D293524B20F5100813338 /* ExportSettings.storyboard */,
+				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
 			);
 			path = "Export Settings";
 			sourceTree = "<group>";
@@ -654,8 +659,8 @@
 		00EDF97C2340A17A00FA0F48 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				009E1862233DD403008100D5 /* MetadataViewController.swift */,
 				00D9E83523426301009E7AFA /* Metadata.storyboard */,
+				009E1862233DD403008100D5 /* MetadataViewController.swift */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -789,6 +794,7 @@
 				0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */,
 				000EA8B82437311700C339DE /* Editor.storyboard in Resources */,
 				00730EE4214FEA5A001A6EA7 /* Main.storyboard in Resources */,
+				00CA339125A200DE00DBD84D /* Albums.storyboard in Resources */,
 				00730EE5214FEA5A001A6EA7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -805,6 +811,7 @@
 				00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC8F23390D940046D9F8 /* About.storyboard in Resources */,
 				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
+				00CA339025A200DE00DBD84D /* Albums.storyboard in Resources */,
 				000EA8B72437311700C339DE /* Editor.storyboard in Resources */,
 				002F59901FBF3AC400910891 /* Main.storyboard in Resources */,
 				009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */,
@@ -1119,6 +1126,15 @@
 				00AA2020213432B400084B08 /* de */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		00CA339325A200DE00DBD84D /* Albums.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00CA339225A200DE00DBD84D /* Base */,
+				00CA339525A200E200DBD84D /* de */,
+			);
+			name = Albums.storyboard;
 			sourceTree = "<group>";
 		};
 		00D9E83523426301009E7AFA /* Metadata.storyboard */ = {

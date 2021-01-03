@@ -19,6 +19,9 @@
 /* Class = "UILabel"; text = "Duration"; ObjectID = "Rfb-1G-Zgl"; */
 "Rfb-1G-Zgl.text" = "Länge";
 
+/* Class = "UITableViewController"; title = "Metadata"; ObjectID = "umA-xu-G6j"; */
+"umA-xu-G6j.title" = "Metadata";
+
 /* Class = "UILabel"; text = "<Detail>"; ObjectID = "wuC-qx-baV"; */
 "wuC-qx-baV.text" = "<Detail>";
 

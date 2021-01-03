@@ -1,0 +1,21 @@
+/* Class = "UILabel"; text = "<Smart Album>"; ObjectID = "38t-yA-GI0"; */
+"38t-yA-GI0.text" = "<Smart Album>";
+
+/* Class = "UILabel"; text = "<Count>"; ObjectID = "AC7-bh-5Pw"; */
+"AC7-bh-5Pw.text" = "<Count>";
+
+/* Class = "UILabel"; text = "<Count>"; ObjectID = "GSj-h4-xGe"; */
+"GSj-h4-xGe.text" = "<Count>";
+
+/* Class = "UINavigationItem"; title = "Albums"; ObjectID = "nBX-8Q-BwE"; */
+"nBX-8Q-BwE.title" = "Alben";
+
+/* Class = "UILabel"; text = "<Count>"; ObjectID = "OGq-nQ-NRO"; */
+"OGq-nQ-NRO.text" = "<Count>";
+
+/* Class = "UILabel"; text = "<Section>"; ObjectID = "Oz3-Tk-orO"; */
+"Oz3-Tk-orO.text" = "<Section>";
+
+/* Class = "UILabel"; text = "<User Album>"; ObjectID = "r4E-B3-atf"; */
+"r4E-B3-atf.text" = "<User Album>";
+
