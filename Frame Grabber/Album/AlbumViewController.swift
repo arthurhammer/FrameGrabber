@@ -224,7 +224,7 @@ private extension AlbumViewController {
         emptyView.type = dataSource.filter
         emptyView.isEmpty = dataSource.isEmpty
 
-        updateViewSettingsButton(animated: animated)
+        updateViewSettingsButton()
         updateNavigationBar()
     }
     
@@ -268,15 +268,11 @@ private extension AlbumViewController {
 
     // MARK: View Settings Button
 
-    func updateViewSettingsButton(animated: Bool) {
-        let duration = animated ? 0.1 : 0
+    func updateViewSettingsButton() {
         let filter = dataSource.filter
-
-        UIView.animate(withDuration: duration) {
-            self.viewSettingsButton.setTitle(filter.title, for: .normal)
-            self.viewSettingsButton.layoutIfNeeded()
-        }
-
+        
+        viewSettingsButton.setTitle(filter.title, for: .normal, animated: false)
+        
         if #available(iOS 14, *) {
             viewSettingsButton.showsMenuAsPrimaryAction = true
             
@@ -290,7 +286,11 @@ private extension AlbumViewController {
                 }
             )
         } else {
-            viewSettingsButton.addTarget(self, action: #selector(showViewSettingsAlertSheet), for: .touchUpInside)
+            viewSettingsButton.addTarget(
+                self,
+                action: #selector(showViewSettingsAlertSheet),
+                for: .touchUpInside
+            )
         }
     }
 
@@ -321,7 +321,7 @@ private extension AlbumViewController {
             setGridContentModeForVisibleCells(mode, animated: true)
         }
 
-        self.updateViewSettingsButton(animated: true)
+        updateViewSettingsButton()
     }
 
     func updateContentInsetForViewSettingsButton() {
