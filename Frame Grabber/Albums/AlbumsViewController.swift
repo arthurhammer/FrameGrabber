@@ -22,11 +22,6 @@ class AlbumsViewController: UICollectionViewController {
         configureDataSource()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
     @IBAction private func done() {
         presentingViewController?.dismiss(animated: true)
     }
@@ -68,7 +63,7 @@ class AlbumsViewController: UICollectionViewController {
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     private func configureDataSource() {
@@ -156,13 +151,13 @@ extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
         guard searchBar.text?.trimmedOrNil == nil else { return }
 
         searchBar.text = nil
-
-        navigationItem.searchController?.dismiss(animated: true) { [weak self] in
-            // Fix a weird glitch.
-            DispatchQueue.main.async {
-                self?.navigationController?.navigationBar.setNeedsLayout()
-                self?.navigationController?.navigationBar.layoutIfNeeded()
-            }
+        
+        // Setting `isActive` directly tends to dismiss the entire albums view controller.
+        DispatchQueue.main.async {
+            guard let searchController = self.navigationItem.searchController,
+                  searchController.isActive else { return }
+            
+            searchController.isActive = false
         }
     }
 }
