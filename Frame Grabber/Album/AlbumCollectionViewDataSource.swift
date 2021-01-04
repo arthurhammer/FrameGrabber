@@ -17,17 +17,14 @@ class AlbumCollectionViewDataSource: NSObject {
     /// Called when the contents of the album have changed.
     var videosChangedHandler: ((PHFetchResultChangeDetails<PHAsset>?) -> ())?
         
-    /// When setting the filter, the current album is asynchronously refetched with the new filter.
+    /// When setting the filter, the current album is synchronously refetched with the new filter.
     ///
     /// If the authorization status is `notDetermined`, does not perform the fetch.
-    ///
-    /// - Note: The `album` property is updated only after the asynchronous fetch has finished,
-    ///         reported to the callback handlers.
     var filter: VideoTypesFilter {
         get { settings.videoTypesFilter }
         set {
             settings.videoTypesFilter = newValue
-            fetchAlbum()
+            fetchAlbumContents(includingAlbum: false)
         }
     }
     
@@ -60,7 +57,6 @@ class AlbumCollectionViewDataSource: NSObject {
 
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
     private let imageManager: PHCachingImageManager
-    private let fetchQueue: DispatchQueue
     
     /// The source album the data source fetches assets from.
     private var sourceAssetCollection: PHAssetCollection?
@@ -77,7 +73,6 @@ class AlbumCollectionViewDataSource: NSObject {
         imageManager: PHCachingImageManager = .init(),
         imageOptions: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
         settings: UserDefaults = .standard,
-        fetchQueue: DispatchQueue = .init(label: "", qos: .userInteractive, attributes: []),
         cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)
     ) {
         self.sourceAssetCollection = sourceAlbum?.assetCollection
@@ -85,7 +80,6 @@ class AlbumCollectionViewDataSource: NSObject {
         self.imageManager = imageManager
         self.imageOptions = imageOptions
         self.settings = settings
-        self.fetchQueue = fetchQueue
         self.cellProvider = cellProvider
 
         super.init()
@@ -112,20 +106,17 @@ class AlbumCollectionViewDataSource: NSObject {
         
         isAccessingPhotoLibrary = true
         photoLibrary.register(self)
-        fetchAlbum()
+        fetchAlbumContents(includingAlbum: true)
     }
     
     // MARK: Data Access
     
-    /// When setting the album, the receiver asynchronously (re-)fetches its contents.
+    /// When setting the album, the receiver synchronously (re-)fetches its contents.
     ///
     /// If the authorization status is `notDetermined`, does not perform the fetch.
-    ///
-    /// - Note: The `album` property is updated only after the asynchronous fetch has finished,
-    ///         reported to the callback handlers.
     func setSourceAlbum(_ sourceAlbum: AnyAlbum) {
         sourceAssetCollection = sourceAlbum.assetCollection
-        fetchAlbum()
+        fetchAlbumContents(includingAlbum: true)
     }
 
     /// Precondition: `album != nil`.
@@ -169,8 +160,10 @@ class AlbumCollectionViewDataSource: NSObject {
     }
     
     // MARK: Fetching and Updating
-
-    private func fetchAlbum() {
+    
+    /// Synchronously fetches the album's assets.
+    /// - Parameter includingAlbum: True to fetch an update for the album itself (i.e. its metadata).
+    private func fetchAlbumContents(includingAlbum: Bool) {
         guard shouldAccessPhotoLibrary else { return }
         
         guard let sourceAlbum = sourceAssetCollection else {
@@ -179,27 +172,21 @@ class AlbumCollectionViewDataSource: NSObject {
             videosChangedHandler?(nil)
             return
         }
-
-        let filter = self.filter
-
-        fetchQueue.async { [weak self] in
-            let fetchOptions = PHFetchOptions.assets(
-                forAlbumType: sourceAlbum.assetCollectionType,
-                videoFilter: filter
-            )
-            
-            let filteredAlbum = FetchedAlbum.fetchUpdate(
-                for: sourceAlbum,
-                assetFetchOptions: fetchOptions
-            )
-
-            DispatchQueue.main.async {
-                self?.sourceAssetCollection = filteredAlbum?.assetCollection
-                self?.album = filteredAlbum
-                self?.albumChangedHandler?(nil)
-                self?.videosChangedHandler?(nil)
-            }
-        }
+        
+        let fetchOptions = PHFetchOptions.assets(
+            forAlbumType: sourceAlbum.assetCollectionType,
+            videoFilter: filter
+        )
+                
+        let updatedAlbum = includingAlbum
+            ? FetchedAlbum.fetchUpdate(for: sourceAlbum, assetFetchOptions: fetchOptions)
+            : FetchedAlbum.fetchAssets(in: sourceAlbum, options: fetchOptions)
+                    
+        sourceAssetCollection = updatedAlbum?.assetCollection
+        album = updatedAlbum
+        
+        albumChangedHandler?(album)
+        videosChangedHandler?(nil)
     }
     
     private func updateAlbum(with change: PHChange) {
