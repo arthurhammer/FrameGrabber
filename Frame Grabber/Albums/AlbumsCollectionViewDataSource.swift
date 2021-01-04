@@ -77,7 +77,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
     private func configureSearch() {
         $searchTerm
             .dropFirst()
-            .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: true)
+            .throttle(for: 0.25, scheduler: DispatchQueue.main, latest: true)
             .map { $0?.trimmedOrNil }
             .removeDuplicates()
             .sink { [weak self] _ in
