@@ -121,16 +121,12 @@ class AlbumViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let video = dataSource.video(at: indexPath)
-        let sourceImageView = videoCell(at: indexPath)?.imageView
-        
-        let previewProvider = { [weak self] in
-            self?.imagePreviewController(for: sourceImageView)
-        }
+        let thumbnail = videoCell(at: indexPath)?.imageView.image
 
-        return AlbumCellContextMenu.menu(
+        return VideoCellContextMenu.menuConfiguration(
             for: video,
             at: indexPath,
-            previewProvider: previewProvider
+            initialPreviewImage: thumbnail
         ) { [weak self] selection in
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -139,7 +135,7 @@ class AlbumViewController: UICollectionViewController {
         }
     }
     
-    private func handleCellContextMenuSelection(_ selection: AlbumCellContextMenu.Selection, for video: PHAsset) {
+    private func handleCellContextMenuSelection(_ selection: VideoCellContextMenu.Selection, for video: PHAsset) {
         switch selection {
         
         case .favorite:

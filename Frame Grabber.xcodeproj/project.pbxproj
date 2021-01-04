@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		00024F6D23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
 		00024F6E23447EDF00937941 /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6C23447EDF00937941 /* PHAsset.swift */; };
-		00024F70234482EE00937941 /* AlbumCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */; };
-		00024F71234482EE00937941 /* AlbumCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */; };
+		00024F70234482EE00937941 /* VideoCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* VideoCellContextMenu.swift */; };
+		00024F71234482EE00937941 /* VideoCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* VideoCellContextMenu.swift */; };
 		00024F762344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		000BF42A24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */; };
@@ -185,6 +185,8 @@
 		00CA339B25A2521400DBD84D /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA339925A2521400DBD84D /* UIApplication.swift */; };
 		00CA33B525A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33B425A3598400DBD84D /* LimitedAuthorizationMenu.swift */; };
 		00CA33B625A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33B425A3598400DBD84D /* LimitedAuthorizationMenu.swift */; };
+		00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */; };
+		00CA33EA25A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */; };
 		00CB8124234CE05400354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CB8125234CE05800354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
@@ -233,7 +235,7 @@
 
 /* Begin PBXFileReference section */
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
-		00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellContextMenu.swift; sourceTree = "<group>"; };
+		00024F6F234482EE00937941 /* VideoCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellContextMenu.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTimeProvider.swift; sourceTree = "<group>"; };
 		000BF42C24B9B22900AD6F96 /* FrameIndexer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FrameIndexer; path = Packages/FrameIndexer; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 		00CA339525A200E200DBD84D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Albums.strings; sourceTree = "<group>"; };
 		00CA339925A2521400DBD84D /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		00CA33B425A3598400DBD84D /* LimitedAuthorizationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedAuthorizationMenu.swift; sourceTree = "<group>"; };
+		00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContextMenuPreviewController.swift; sourceTree = "<group>"; };
 		00CB8123234CE05400354E03 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = "Frame Grabber/Application/NavigationController.swift"; sourceTree = SOURCE_ROOT; };
 		00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetResourceManager.swift; sourceTree = "<group>"; };
 		00CF4BC823F208C4006DB612 /* CachingGeocodingLocationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingGeocodingLocationFormatter.swift; sourceTree = "<group>"; };
@@ -599,9 +602,10 @@
 		00CA33BA25A3598D00DBD84D /* Menus */ = {
 			isa = PBXGroup;
 			children = (
-				00024F6F234482EE00937941 /* AlbumCellContextMenu.swift */,
 				00B52C8E24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift */,
 				00CA33B425A3598400DBD84D /* LimitedAuthorizationMenu.swift */,
+				00024F6F234482EE00937941 /* VideoCellContextMenu.swift */,
+				00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */,
 			);
 			path = Menus;
 			sourceTree = "<group>";
@@ -876,7 +880,7 @@
 				00730EA8214FEA5A001A6EA7 /* ZoomPushTransition.swift in Sources */,
 				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumsViewController.swift in Sources */,
-				00024F71234482EE00937941 /* AlbumCellContextMenu.swift in Sources */,
+				00024F71234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
 				00AD72C224194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumsHeader.swift in Sources */,
@@ -893,6 +897,7 @@
 				0054936523E5633700F3E684 /* About.swift in Sources */,
 				00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
+				00CA33EA25A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* PhotoAlbums.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
 				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
@@ -967,7 +972,7 @@
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumsViewController.swift in Sources */,
-				00024F70234482EE00937941 /* AlbumCellContextMenu.swift in Sources */,
+				00024F70234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
 				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
 				001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumsHeader.swift in Sources */,
@@ -984,6 +989,7 @@
 				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
+				00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
