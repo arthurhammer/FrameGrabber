@@ -71,16 +71,16 @@ class AlbumViewController: UICollectionViewController {
     }
 
     private func prepareForPlayerSegue(with destination: EditorViewController) {
-        guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
+        guard let selectedAsset = selectedAsset else { fatalError("Segue without selected asset") }
 
         // (todo: Handle this in coordinator/delegate/navigation controller.)
         let transitionController = ZoomTransitionController()
         navigationController?.delegate = transitionController
         destination.transitionController = transitionController
 
-        let selectedAsset = dataSource.video(at: selectedIndexPath)
-        self.selectedAsset = selectedAsset
-        let thumbnail = videoCell(at: selectedIndexPath)?.imageView.image
+        let cell = dataSource.indexPath(of: selectedAsset).flatMap(videoCell)
+        let thumbnail = cell?.imageView.image
+        
         destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
     }
     
@@ -108,6 +108,11 @@ class AlbumViewController: UICollectionViewController {
     }
 
     // MARK: - Collection View Data Source & Delegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedAsset = dataSource.video(at: indexPath)
+        performSegue(withIdentifier: EditorViewController.className, sender: nil)
+    }
 
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoCell else { return }
@@ -123,9 +128,8 @@ class AlbumViewController: UICollectionViewController {
         let video = dataSource.video(at: indexPath)
         let thumbnail = videoCell(at: indexPath)?.imageView.image
 
-        return VideoCellContextMenu.menuConfiguration(
+        return VideoCellContextMenu.configuration(
             for: video,
-            at: indexPath,
             initialPreviewImage: thumbnail
         ) { [weak self] selection in
 
@@ -136,6 +140,8 @@ class AlbumViewController: UICollectionViewController {
     }
     
     private func handleCellContextMenuSelection(_ selection: VideoCellContextMenu.Selection, for video: PHAsset) {
+        guard let video = dataSource.currentVideo(for: video) else { return }
+        
         switch selection {
         
         case .favorite:
@@ -146,22 +152,15 @@ class AlbumViewController: UICollectionViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        guard let indexPath = configuration.identifier as? IndexPath,
-              let cell = videoCell(at: indexPath) else { return nil }
-
-        return UITargetedPreview(view: cell.imageContainer)
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
-    }
-
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        guard let indexPath = configuration.identifier as? IndexPath else { return }
+        // Video might've been deleted or changed during preview.
+        // If the video was removed from the album but not deleted fully, we will still perform the
+        // segue with the video.
+        guard let video = configuration.identifier as? PHAsset,
+              let updatedVideo = dataSource.currentVideo(for: video) else { return }
 
         animator.addAnimations {
-            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.selectedAsset = updatedVideo
             self.performSegue(withIdentifier: EditorViewController.className, sender: nil)
         }
     }

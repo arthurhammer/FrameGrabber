@@ -121,7 +121,6 @@
                                     <outlet property="imageContainerWidthConstraint" destination="If7-vf-47r" id="Szp-lx-e5F"/>
                                     <outlet property="imageView" destination="jRs-Rg-Keq" id="xzW-9s-7m3"/>
                                     <outlet property="livePhotoImageView" destination="2Ab-IV-Yt7" id="RnG-qA-Xwk"/>
-                                    <segue destination="Tyx-Ot-Uwj" kind="show" identifier="EditorViewController" id="wXA-pQ-n5U"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -178,6 +177,7 @@
                         <outlet property="titleButton" destination="Mu7-kP-sfK" id="Gns-y9-fSV"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                         <outlet property="viewSettingsButton" destination="ps3-t8-YlX" id="c09-fI-VfY"/>
+                        <segue destination="Tyx-Ot-Uwj" kind="show" identifier="EditorViewController" id="Pq9-qy-Vi2"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -202,7 +202,7 @@
                 <viewControllerPlaceholder storyboardName="About" id="Q9O-On-eG2" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="auw-b1-LZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="-2143"/>
+            <point key="canvasLocation" x="1572" y="-2094"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">
@@ -230,15 +230,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lbj-A5-gZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="-2077"/>
-        </scene>
-        <!--Albums-->
-        <scene sceneID="FHt-2A-dL1">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Albums" id="BMP-Sg-jeX" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="okA-Qz-7hD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1565" y="-2110"/>
+            <point key="canvasLocation" x="1572" y="-2060"/>
         </scene>
     </scenes>
     <color key="tintColor" name="accent"/>

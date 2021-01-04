@@ -141,6 +141,12 @@ class AlbumCollectionViewDataSource: NSObject {
         guard let index = album?.fetchResult.index(of: video) else { return nil }
         return IndexPath(item: index, section: 0)
     }
+    
+    /// Fetches the current version for the given video.
+    /// - Returns: The updated video or `nil` if it was deleted.
+    func currentVideo(for video: PHAsset) -> PHAsset? {
+        PHAsset.fetchAssets(withLocalIdentifiers: [video.localIdentifier], options: nil).firstObject
+    }
 
     func toggleFavorite(for video: PHAsset) {
         photoLibrary.performChanges({

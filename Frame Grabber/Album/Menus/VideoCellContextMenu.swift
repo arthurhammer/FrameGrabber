@@ -8,10 +8,9 @@ struct VideoCellContextMenu {
         case delete
     }
 
-    /// - Parameter indexPath: Passed as the identifier of the configuration.
-    static func menuConfiguration(
+    /// - Parameter video: Passed as the identifier of the configuration.
+    static func configuration(
         for video: PHAsset,
-        at indexPath: IndexPath,
         initialPreviewImage: UIImage?,
         handler: @escaping (Selection) -> Void
     ) -> UIContextMenuConfiguration {
@@ -25,7 +24,7 @@ struct VideoCellContextMenu {
         }
 
         return UIContextMenuConfiguration(
-            identifier: indexPath as NSIndexPath,
+            identifier: video,
             previewProvider: previewProvider,
             actionProvider: menuProvider
         )
