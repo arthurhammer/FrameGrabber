@@ -1,9 +1,15 @@
 import PhotoAlbums
 import UIKit
 
-class AlbumsViewController: UICollectionViewController {
+protocol AlbumsViewControllerDelegate: class {
+    func controller(_ controller: AlbumsViewController, didSelectAlbum album: AnyAlbum)
+}
 
-    var albumsDataSource: AlbumsDataSource? {
+class AlbumsViewController: UICollectionViewController {
+    
+    weak var delegate: AlbumsViewControllerDelegate?
+
+    var albumsDataSource: AlbumsDataSource? = .default() {
         didSet { configureDataSource() }
     }
 
@@ -16,27 +22,19 @@ class AlbumsViewController: UICollectionViewController {
         configureDataSource()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = true
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? AlbumViewController {
-            prepareForAlbumSegue(with: controller)
-        }
-    }
-
-    private func prepareForAlbumSegue(with destination: AlbumViewController) {
-        guard let selection = collectionView?.indexPathsForSelectedItems?.first else { return }
-
-        let filter = destination.settings.videoTypesFilter
-        // Re-fetch album and contents as selected item can be outdated (i.e. data source
-        // updates are pending in background). Result is nil if album was deleted.
-        destination.album = collectionViewDataSource?.fetchUpdate(forAlbumAt: selection, filter: filter)
+    @IBAction private func done() {
+        presentingViewController?.dismiss(animated: true)
     }
 
     // MARK: - UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let album = collectionViewDataSource?.album(at: indexPath) {
+            delegate?.controller(self, didSelectAlbum: album)
+        }
+        
+        done()
+    }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? AlbumCell else { return }
@@ -53,6 +51,8 @@ class AlbumsViewController: UICollectionViewController {
         collectionView?.collectionViewLayout = AlbumsLayout { [weak self] newItemSize in
             self?.collectionViewDataSource?.imageOptions.size = newItemSize.scaledToScreen
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
 
         configureSearch()
     }
@@ -63,7 +63,7 @@ class AlbumsViewController: UICollectionViewController {
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false  // Expand initially.
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     private func configureDataSource() {
@@ -123,21 +123,15 @@ class AlbumsViewController: UICollectionViewController {
     }
 
     private func sectionHeader(at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.name, for: indexPath) as? AlbumsHeader,
+        guard let header = collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumsHeader.className, for: indexPath) as? AlbumsHeader,
             let section = collectionViewDataSource?.section(at: indexPath.section) else { fatalError("Wrong view identifier or type or no data source.") }
 
         header.titleLabel.text = section.title
         header.detailLabel.text = albumCountFormatter.string(from: section.albumCount as NSNumber)
         header.detailLabel.isHidden = section.isAvailable && section.isLoading
         header.activityIndicator.isHidden = !section.isAvailable || !section.isLoading
-        header.detailButton.isHidden = section.isAvailable
-        header.detailButton.addTarget(self, action: #selector(showAlbumsNotAvailableAlert), for: .touchUpInside)
 
         return header
-    }
-
-    @objc private func showAlbumsNotAvailableAlert() {
-        presentAlert(.albumsNotAvailable())
     }
 }
 
@@ -157,13 +151,13 @@ extension AlbumsViewController: UISearchBarDelegate, UISearchResultsUpdating {
         guard searchBar.text?.trimmedOrNil == nil else { return }
 
         searchBar.text = nil
-
-        navigationItem.searchController?.dismiss(animated: true) { [weak self] in
-            // Fix a weird glitch.
-            DispatchQueue.main.async {
-                self?.navigationController?.navigationBar.setNeedsLayout()
-                self?.navigationController?.navigationBar.layoutIfNeeded()
-            }
+        
+        // Setting `isActive` directly tends to dismiss the entire albums view controller.
+        DispatchQueue.main.async {
+            guard let searchController = self.navigationItem.searchController,
+                  searchController.isActive else { return }
+            
+            searchController.isActive = false
         }
     }
 }

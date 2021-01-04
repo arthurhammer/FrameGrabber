@@ -14,9 +14,11 @@ extension MappedFetchResult {
     /// The fetch result is enumerated (i.e. is contents fetched) and transformed
     /// synchronously .
     init(fetchResult: PHFetchResult<P>, transform: @escaping (P) -> (M)) {
-        self.init(fetchResult: fetchResult,
-                  array: Array(enumerating: fetchResult).map(transform),
-                  transform: transform)
+        self.init(
+            fetchResult: fetchResult,
+            array: Array(enumerating: fetchResult).map(transform),
+            transform: transform
+        )
     }
 }
 

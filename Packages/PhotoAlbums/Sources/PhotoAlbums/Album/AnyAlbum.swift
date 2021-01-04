@@ -10,7 +10,7 @@ public struct AnyAlbum: Album {
 
 extension AnyAlbum {
 
-    /// Initializes album with the given album.
+    /// Initializes the album with the given album.
     ///
     /// - Note: Properties are assigned and not forwarded on each access.
     public init<A>(album: A) where A: Album {
@@ -18,5 +18,13 @@ extension AnyAlbum {
         self.title = album.title
         self.count = album.count
         self.keyAsset = album.keyAsset
+    }
+    
+    /// Initializes the album with the given asset collection.
+    public init(assetCollection: PHAssetCollection) {
+        self.assetCollection = assetCollection
+        self.title = assetCollection.localizedTitle
+        self.count = assetCollection.estimatedAssetCount
+        self.keyAsset = nil
     }
 }

@@ -13,8 +13,8 @@ struct AlbumViewSettingsMenu {
         gridMode: AlbumGridContentMode,
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
-
-        let filterActions = VideoTypesFilter.allCases.map { filter in
+        
+        let filterActions = VideoTypesFilter.allCases.reversed().map { filter in
             UIAction(
                 title: filter.title,
                 image: filter.image,
@@ -23,17 +23,19 @@ struct AlbumViewSettingsMenu {
             )
         }
 
-        let gridAction = UIMenu(title: "", options: .displayInline, children: [
-            UIAction(
-                title: gridMode.toggled.title,
-                image: gridMode.toggled.image,
-                handler: { _ in handler(.gridMode(gridMode.toggled)) }
-            )
-        ])
+        let gridAction = UIAction(
+            title: gridMode.toggled.title,
+            image: gridMode.toggled.image,
+            handler: { _ in handler(.gridMode(gridMode.toggled)) }
+        )
+        
+        let filterMenu = UIMenu(title: "", options: .displayInline, children: filterActions)
+        let gridMenu = UIMenu(title: "", options: .displayInline, children: [gridAction])
 
-        return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [gridAction] + filterActions.reversed())
+        return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [gridMenu, filterMenu])
     }
 
+    @available(iOS, obsoleted: 14, message: "Use context menus")
     static func alertController(
         forCurrentFilter currentFilter: VideoTypesFilter,
         gridMode: AlbumGridContentMode,

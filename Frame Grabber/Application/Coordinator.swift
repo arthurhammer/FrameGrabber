@@ -4,32 +4,30 @@ import UIKit
 class Coordinator: NSObject {
 
     let navigationController: NavigationController
-    let albumsViewController: AlbumsViewController
+    let albumViewController: AlbumViewController
 
     init(navigationController: NavigationController) {
+        guard let albumViewController = navigationController.topViewController as? AlbumViewController else { fatalError("Wrong root controller or type.") }
+        
         self.navigationController = navigationController
-
-        guard let albumsViewController = navigationController.viewControllers.first as? AlbumsViewController else {
-            fatalError("Wrong view controller")
-        }
-
-        self.albumsViewController = albumsViewController
-
+        self.albumViewController = albumViewController
+        
         super.init()
     }
 
     func start() {
-        showEmptyAlbum(animated: false)
-
-        // Defer configuration to avoid triggering premature authorization dialogs.
-        authorizeIfNecessary { [weak self] in
-            self?.configureAlbums()
+        // Show placeholder title until authorized.
+        albumViewController.defaultTitle =  UserText.albumUnauthorizedTitle
+        
+        showAuthorizationIfNecessary { [weak self] in
+            // Defer configuration to avoid triggering premature authorization dialogs.
+            self?.configureAlbum()
         }
     }
 
     // MARK: Authorizing
 
-    private func authorizeIfNecessary(completion: @escaping () -> ()) {
+    private func showAuthorizationIfNecessary(completion: @escaping () -> ()) {
         if AuthorizationController.needsAuthorization {
             DispatchQueue.main.async {
                 self.showAuthorization(animated: true, completion: completion)
@@ -48,26 +46,20 @@ class Coordinator: NSObject {
             self?.navigationController.dismiss(animated: true)
             completion()
         }
-
+        
         authorizationController.isModalInPresentation = true
         navigationController.present(authorizationController, animated: animated)
     }
 
     // MARK: Showing Albums
 
-    private func showEmptyAlbum(animated: Bool) {
-        guard let albumViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: AlbumViewController.name) as? AlbumViewController else { fatalError("Wrong controller id or type") }
-        albumViewController.navigationItem.largeTitleDisplayMode = .always
-        albumViewController.defaultTitle = UserText.albumUnauthorizedTitle
-        navigationController.pushViewController(albumViewController, animated: animated)
-    }
-
-    private func configureAlbums() {
-        albumsViewController.albumsDataSource = AlbumsDataSource.default()
-
-        if let albumViewController = navigationController.topViewController as? AlbumViewController {
-            let filter = albumViewController.settings.videoTypesFilter
-            albumViewController.album = AlbumsDataSource.fetchInitialAlbum(with: filter)
+    private func configureAlbum() {
+        // Show default title again.
+        albumViewController.defaultTitle = UserText.albumDefaultTitle
+        
+        if let initialCollection = AlbumsDataSource.fetchInitialAssetCollection() {
+            let album = AnyAlbum(assetCollection: initialCollection)
+            albumViewController.setSourceAlbum(album)
         }
     }
 }
