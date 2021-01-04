@@ -149,9 +149,6 @@
                                                 <state key="normal" title="&lt;Title&gt;" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="showAlbumsPicker" destination="z5r-QY-0zg" eventType="touchUpInside" id="kQs-oe-wx8"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -164,29 +161,17 @@
                                 </constraints>
                             </view>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem image="info.circle" catalog="system" id="r6g-Iu-tPw">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="plus.rectangle.on.rectangle" catalog="system" id="ED8-sq-tvD">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Extend Photos Selection"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="extendPhotoSelection" destination="z5r-QY-0zg" id="ga7-qk-NWd"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="r6g-Iu-tPw">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
-                        <outlet property="extendPhotoSelectionBarItem" destination="ED8-sq-tvD" id="IP2-9u-ZhP"/>
-                        <outlet property="infoBarItem" destination="r6g-Iu-tPw" id="L1B-b5-YgF"/>
                         <outlet property="titleButton" destination="Mu7-kP-sfK" id="Gns-y9-fSV"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                         <outlet property="viewSettingsButton" destination="ps3-t8-YlX" id="c09-fI-VfY"/>
@@ -260,9 +245,8 @@
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
-        <image name="plus.rectangle.on.rectangle" catalog="system" width="128" height="96"/>
         <namedColor name="accent">
-            <color red="0.27099999785423279" green="0.16099999845027924" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.3449999988079071" green="0.33700001239776611" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

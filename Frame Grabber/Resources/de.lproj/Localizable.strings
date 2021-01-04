@@ -28,6 +28,18 @@
 /* No videos in album message */
 "album.empty.video" = "Keine Videos";
 
+/* Action to open settings in limited authorization menu. */
+"album.limited.menu.opensettings.action" = "Einstellungen ändern";
+
+/* Action to select more photos in limited authorization menu. */
+"album.limited.menu.selectphotos.action" = "Auswahl erweitern";
+
+/* Title for limited authorization menu. */
+"album.limited.menu.title" = "Du hast Frame Grabber einen begrenzten Zugang zu deiner Fotomediathek erteilt.";
+
+/* Title for limited authorization in album view. */
+"album.limited.title" = "Mediathek";
+
 /* Title for missing or deleted albums. */
 "album.missing.title" = "Album";
 
@@ -45,12 +57,6 @@
 
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
-
-/* No comment provided by engineer. */
-"alert.albums.message" = "Fotoalben können nicht angezeigt werden, wenn die Fotoauswahl limitiert ist.";
-
-/* No comment provided by engineer. */
-"alert.albums.title" = "Alben nicht verfügbar";
 
 /* No comment provided by engineer. */
 "alert.frameexport.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";

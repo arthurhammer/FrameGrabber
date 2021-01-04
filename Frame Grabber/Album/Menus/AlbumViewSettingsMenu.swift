@@ -35,6 +35,7 @@ struct AlbumViewSettingsMenu {
         return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [gridMenu, filterMenu])
     }
 
+    @available(iOS, obsoleted: 14, message: "Use context menus")
     static func alertController(
         forCurrentFilter currentFilter: VideoTypesFilter,
         gridMode: AlbumGridContentMode,

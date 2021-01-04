@@ -22,8 +22,6 @@ class AlbumViewController: UICollectionViewController {
 
     @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
-    @IBOutlet private var infoBarItem: UIBarButtonItem!
-    @IBOutlet private var extendPhotoSelectionBarItem: UIBarButtonItem!
 
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -104,14 +102,8 @@ class AlbumViewController: UICollectionViewController {
         let selectedIndexPath = selectedAsset.flatMap { dataSource.indexPath(of: $0) }
         collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
-
-    @IBAction private func extendPhotoSelection() {
-        if #available(iOS 14, *) {
-            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
-        } 
-    }
     
-    @IBAction private func showAlbumsPicker() {
+    @objc private func showAlbumsPicker() {
         present(albumsContainerController, animated: true)
     }
 
@@ -220,9 +212,18 @@ private extension AlbumViewController {
     func updateViews() {
         guard isViewLoaded else { return }
         
-        title = dataSource.album?.title ?? defaultTitle
-        
+        if #available(iOS 14.0, *),
+           dataSource.isAuthorizationLimited {
+
+            title = UserText.albumLimitedAuthorizationTitle
+            titleButton.showsMenuAsPrimaryAction = true
+            
+            titleButton.menu = LimitedAuthorizationMenu.menu { [weak self] selection in
+                self?.handleLimitedAuthorizationMenuSelection(selection)
+            }
         } else {
+            title = dataSource.album?.title ?? defaultTitle
+            titleButton.addTarget(self, action: #selector(showAlbumsPicker), for: .touchUpInside)
         }
 
         emptyView.type = dataSource.filter
@@ -235,16 +236,6 @@ private extension AlbumViewController {
     func updateNavigationBar() {
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.layer.shadowOpacity = 0
-        
-        if dataSource.isAuthorizationLimited == true {
-            navigationItem.rightBarButtonItems = [infoBarItem, extendPhotoSelectionBarItem]
-        } else {
-            navigationItem.rightBarButtonItems = [infoBarItem]
-        }
-
-        // Use the controller's `title` instead.
-        navigationItem.backButtonTitle = nil
-        navigationItem.backBarButtonItem?.title = nil
 
         if #available(iOS 14.0, *) {
             navigationItem.backButtonDisplayMode = .minimal
@@ -267,6 +258,18 @@ private extension AlbumViewController {
             self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: {
                 self?.reconfigure(cellAt: $0)
             })
+        }
+    }
+    
+    @available(iOS 14, *)
+    func handleLimitedAuthorizationMenuSelection(_ selection: LimitedAuthorizationMenu.Selection) {
+        switch selection {
+        
+        case .selectPhotos:
+            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
+            
+        case .openSettings:
+            UIApplication.shared.openSettings()
         }
     }
 
