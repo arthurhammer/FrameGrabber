@@ -75,7 +75,7 @@ class PlaybackController {
         player.play()
     }
 
-    func pause() {
+    @objc func pause() {
         guard isPlaying else { return }
         player.pause()
     }
@@ -108,6 +108,7 @@ class PlaybackController {
 
     private func configureAudioSession() {
         try? audioSession.setCategory(.ambient)
+        notificationCenter.addObserver(self, selector: #selector(pause), name: UIApplication.didEnterBackgroundNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateAudioSession), name: AVAudioSession.silenceSecondaryAudioHintNotification, object: audioSession)
         notificationCenter.addObserver(self, selector: #selector(updateAudioSession), name: UIApplication.willResignActiveNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateAudioSession), name: UIApplication.didBecomeActiveNotification, object: nil)
