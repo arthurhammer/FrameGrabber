@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c2T-Bo-ZgX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jCM-0t-cfA">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -12,8 +12,8 @@
         <!--Albums-->
         <scene sceneID="0Bf-om-HXi">
             <objects>
-                <collectionViewController id="jCM-0t-cfA" customClass="AlbumsViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" id="6vP-YF-mhW">
+                <collectionViewController id="jCM-0t-cfA" customClass="AlbumListViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" id="6vP-YF-mhW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -138,7 +138,7 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AlbumsHeader" id="hr0-Dy-bEF" customClass="AlbumsHeader" customModule="Frame_Grabber" customModuleProvider="target">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AlbumListHeader" id="hr0-Dy-bEF" customClass="AlbumListHeader" customModule="Frame_Grabber" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
@@ -190,31 +190,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Albums" largeTitleDisplayMode="always" id="nBX-8Q-BwE"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gsf-If-Hau" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3007" y="-2196"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="qHL-aK-0NI">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c2T-Bo-ZgX" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO">
-                        <color key="tintColor" name="accent"/>
-                    </simulatedNavigationBarMetrics>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="jfs-fv-NSY">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="jCM-0t-cfA" kind="relationship" relationship="rootViewController" id="XcZ-ny-Alb"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JRE-Za-1sk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2168" y="-2196"/>
         </scene>
     </scenes>
     <color key="tintColor" name="accent"/>

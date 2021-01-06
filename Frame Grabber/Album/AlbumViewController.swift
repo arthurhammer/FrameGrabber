@@ -31,13 +31,7 @@ class AlbumViewController: UICollectionViewController {
         self.cell(for: $1, at: $0)
     }
 
-    private lazy var albumsContainerController: UIViewController = {
-        guard let albumsNavController = UIStoryboard(name: "Albums", bundle: nil).instantiateInitialViewController() as? UINavigationController,
-              let albumsPicker = albumsNavController.topViewController as? AlbumsViewController else { fatalError("Wrong controller type") }
-            
-        albumsPicker.delegate = self
-        return albumsNavController
-    }()
+    private lazy var albumPicker = AlbumPickerViewController(dataSource: .default(), delegate: self)
     
     static let contentModeAnimationDuration: TimeInterval = 0.15
     
@@ -60,18 +54,11 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? UINavigationController,
-           let controller = destination.topViewController as? AlbumsViewController {
-            prepareForAlbumsSegue(with: controller)
-        } else if let destination = segue.destination as? EditorViewController {
+        if let destination = segue.destination as? EditorViewController {
             prepareForPlayerSegue(with: destination)
         }
     }
     
-    private func prepareForAlbumsSegue(with destination: AlbumsViewController) {
-        destination.delegate = self
-    }
-
     private func prepareForPlayerSegue(with destination: EditorViewController) {
         guard let selectedAsset = selectedAsset else { fatalError("Segue without selected asset") }
 
@@ -105,8 +92,8 @@ class AlbumViewController: UICollectionViewController {
         collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
     
-    @objc private func showAlbumsPicker() {
-        present(albumsContainerController, animated: true)
+    @objc private func showAlbumPicker() {
+        present(albumPicker, animated: true)
     }
 
     // MARK: - Collection View Data Source & Delegate
@@ -162,11 +149,12 @@ class AlbumViewController: UICollectionViewController {
     }
 }
 
-// MARK: - AlbumsViewControllerDelegate
+// MARK: - AlbumPickerViewControllerDelegate
 
-extension AlbumViewController: AlbumsViewControllerDelegate {
+extension AlbumViewController: AlbumPickerViewControllerDelegate {
     
-    func controller(_ controller: AlbumsViewController, didSelectAlbum album: AnyAlbum) {
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
+        guard let album = album else { return }
         dataSource.setSourceAlbum(album)
     }
 }
@@ -214,7 +202,7 @@ private extension AlbumViewController {
             }
         } else {
             title = dataSource.album?.title ?? defaultTitle
-            titleButton.addTarget(self, action: #selector(showAlbumsPicker), for: .touchUpInside)
+            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
         }
 
         emptyView.type = dataSource.filter

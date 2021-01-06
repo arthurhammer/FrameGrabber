@@ -3,45 +3,37 @@ import PhotoAlbums
 import Photos
 import UIKit
 
-enum AlbumsSection: Int {
-    case smartAlbum
-    case userAlbum
-}
-
-struct AlbumsSectionInfo: Hashable {
-    let type: AlbumsSection
+struct AlbumListSection: Hashable {
+    
+    enum SectionType: Int {
+        case smartAlbum
+        case userAlbum
+    }
+    
+    let type: SectionType
     let title: String?
     let albumCount: Int
     let isLoading: Bool
-    let isAvailable: Bool
 }
 
-class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsSectionInfo, AnyAlbum> {
+class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumListSection, AnyAlbum> {
 
     @Published var searchTerm: String?
-    var imageOptions: PHImageManager.ImageOptions
+    
+    var imageOptions = PHImageManager.ImageOptions()
 
-    private var isAuthorizationLimited: Bool {
-        if #available(iOS 14, *) {
-            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
-        } else {
-            return false
-        }
-    }
-
-    private let albumsDataSource: AlbumsDataSource
+    private let dataSource: AlbumsDataSource
     private let imageManager: PHImageManager
     private var bindings = Set<AnyCancellable>()
-
-    init(collectionView: UICollectionView,
-         albumsDataSource: AlbumsDataSource,
-         imageConfig: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
-         imageManager: PHImageManager = .default(),
-         sectionHeaderProvider: @escaping SupplementaryViewProvider,
-         cellProvider: @escaping CellProvider) {
-
-        self.albumsDataSource = albumsDataSource
-        self.imageOptions = imageConfig
+    
+    init(
+        collectionView: UICollectionView,
+        albumsDataSource: AlbumsDataSource,
+        imageManager: PHImageManager = .default(),
+        sectionHeaderProvider: @escaping SupplementaryViewProvider,
+        cellProvider: @escaping CellProvider
+    ) {
+        self.dataSource = albumsDataSource
         self.imageManager = imageManager
 
         super.init(collectionView: collectionView, cellProvider: cellProvider)
@@ -58,7 +50,7 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
 
     // MARK: - Accessing Data
 
-    func section(at index: Int) -> AlbumsSectionInfo {
+    func section(at index: Int) -> AlbumListSection {
         snapshot().sectionIdentifiers[index]
     }
 
@@ -69,11 +61,29 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
 
     func thumbnail(for album: AnyAlbum, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
-        return imageManager.requestImage(for: keyAsset, options: imageOptions, completionHandler: completionHandler)
+        
+        return imageManager.requestImage(
+            for: keyAsset,
+            options: imageOptions,
+            completionHandler: completionHandler
+        )
     }
 
     // MARK: - Updating Data
 
+    private func configureDataSource() {
+        dataSource
+            .$smartAlbums
+            .merge(with: dataSource.$userAlbums)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] test in
+                self?.updateSections()
+            }
+            .store(in: &bindings)
+
+        updateSections()
+    }
+    
     private func configureSearch() {
         $searchTerm
             .dropFirst()
@@ -81,52 +91,32 @@ class AlbumsCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumsS
             .map { $0?.trimmedOrNil }
             .removeDuplicates()
             .sink { [weak self] _ in
-                self?.updateData()
+                self?.updateSections()
             }
             .store(in: &bindings)
     }
 
-    private func configureDataSource() {
-        albumsDataSource
-            .$smartAlbums
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.updateData()
-            }.store(in: &bindings)
-
-        albumsDataSource
-            .$userAlbums
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.updateData()
-            }.store(in: &bindings)
-
-        updateData()
-    }
-
-    private func updateData() {
-        let smartAlbums = albumsDataSource.smartAlbums
-        let userAlbums = albumsDataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
+    private func updateSections() {
         let isSearching = searchTerm?.trimmedOrNil != nil
+        let smartAlbums = dataSource.smartAlbums
+        let userAlbums = dataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
 
         let sections = [
-            AlbumsSectionInfo(
+            AlbumListSection(
                 type: .smartAlbum,
                 title: nil,
                 albumCount: smartAlbums.count,
-                isLoading: albumsDataSource.isLoadingSmartAlbums,
-                isAvailable: true
+                isLoading: dataSource.isLoadingSmartAlbums
             ),
-            AlbumsSectionInfo(
+            AlbumListSection(
                 type: .userAlbum,
                 title: UserText.albumsUserAlbumsHeader,
                 albumCount: userAlbums.count,
-                isLoading: albumsDataSource.isLoadingUserAlbums,
-                isAvailable: !isAuthorizationLimited
+                isLoading: dataSource.isLoadingUserAlbums
             )
         ]
 
-        var snapshot = NSDiffableDataSourceSnapshot<AlbumsSectionInfo, AnyAlbum>()
+        var snapshot = NSDiffableDataSourceSnapshot<AlbumListSection, AnyAlbum>()
 
         snapshot.appendSections(sections)
 
@@ -147,8 +137,10 @@ private extension Array {
     func searched(for searchTerm: String?, by key: (Element) -> String?) -> Self {
         guard let searchTerm = searchTerm?.trimmedOrNil else { return self }
 
+        let options: String.CompareOptions = [.diacriticInsensitive, .caseInsensitive]
+        
         return filter {
-            key($0)?.range(of: searchTerm, options: [.diacriticInsensitive, .caseInsensitive]) != nil
+            key($0)?.range(of: searchTerm, options: options) != nil
         }
     }
 }

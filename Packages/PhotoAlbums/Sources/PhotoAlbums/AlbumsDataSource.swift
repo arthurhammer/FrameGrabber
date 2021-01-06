@@ -7,16 +7,17 @@ import Photos
 public class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
     @Published public private(set) var smartAlbums = [AnyAlbum]()
-    @Published public private(set) var isLoadingSmartAlbums = true
     @Published public private(set) var userAlbums = [AnyAlbum]()
+    
+    @Published public private(set) var isLoadingSmartAlbums = true
     @Published public private(set) var isLoadingUserAlbums = true
 
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary
 
     public init(
-        smartAlbumConfig: SmartAlbumConfiguration = .init(),
-        userAlbumConfig: UserAlbumConfiguration = .init(),
+        smartAlbumConfiguration: SmartAlbumConfiguration = .init(),
+        userAlbumConfiguration: UserAlbumConfiguration = .init(),
         updateQueue: DispatchQueue = .init(label: String(describing: AlbumsDataSource.self), qos: .userInitiated),
         photoLibrary: PHPhotoLibrary = .shared()
     ) {
@@ -27,8 +28,8 @@ public class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
         photoLibrary.register(self)
 
-        fetchSmartAlbums(with: smartAlbumConfig)
-        fetchUserAlbums(with: userAlbumConfig)
+        fetchSmartAlbums(with: smartAlbumConfiguration)
+        fetchUserAlbums(with: userAlbumConfiguration)
     }
 
     deinit {

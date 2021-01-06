@@ -23,8 +23,8 @@ extension AlbumsDataSource {
         )
 
         return AlbumsDataSource(
-            smartAlbumConfig: smartAlbumConfig,
-            userAlbumConfig: userAlbumConfig
+            smartAlbumConfiguration: smartAlbumConfig,
+            userAlbumConfiguration: userAlbumConfig
         )
     }
 

@@ -1,11 +1,11 @@
 import UIKit
 
-class AlbumsLayout: UICollectionViewCompositionalLayout {
+class AlbumListLayout: UICollectionViewCompositionalLayout {
 
     init(didUpdateUserAlbumItemSizeHandler: ((CGSize) -> ())? = nil) {
         super.init { index, environment in
 
-            guard let type = AlbumsSection(index) else { fatalError("Unknown section type.") }
+            guard let type = AlbumListSection.SectionType(index) else { fatalError("Unknown section type.") }
 
             switch type {
 
@@ -43,6 +43,6 @@ class AlbumsLayout: UICollectionViewCompositionalLayout {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Storyboard instantiation not supported.")
     }
 }

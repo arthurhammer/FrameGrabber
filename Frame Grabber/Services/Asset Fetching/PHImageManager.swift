@@ -5,9 +5,9 @@ import Combine
 extension PHImageManager {
 
     struct ImageOptions: Equatable {
-        var size: CGSize
-        var mode: PHImageContentMode
-        var requestOptions: PHImageRequestOptions
+        var size: CGSize = .zero
+        var mode: PHImageContentMode = .aspectFill
+        var requestOptions: PHImageRequestOptions = .default()
     }
 
     /// Wrapper for image request info dictionary.
