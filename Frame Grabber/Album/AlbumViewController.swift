@@ -4,6 +4,7 @@ import PhotosUI
 import UIKit
 
 class AlbumViewController: UICollectionViewController {
+    var albumsDataSource: AlbumsDataSource?
         
     /// The title that will be used when album is `nil`.
     var defaultTitle = UserText.albumDefaultTitle {
@@ -31,7 +32,7 @@ class AlbumViewController: UICollectionViewController {
         self.cell(for: $1, at: $0)
     }
 
-    private lazy var albumPicker = AlbumPickerViewController(dataSource: .default(), delegate: self)
+    private lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource ?? .default(), delegate: self)
     
     static let contentModeAnimationDuration: TimeInterval = 0.15
     

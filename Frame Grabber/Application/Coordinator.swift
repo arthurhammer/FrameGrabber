@@ -56,6 +56,7 @@ class Coordinator: NSObject {
     private func configureAlbum() {
         // Show default title again.
         albumViewController.defaultTitle = UserText.albumDefaultTitle
+        albumViewController.albumsDataSource = AlbumsDataSource.default()
         
         if let initialCollection = AlbumsDataSource.fetchInitialAssetCollection() {
             let album = AnyAlbum(assetCollection: initialCollection)
