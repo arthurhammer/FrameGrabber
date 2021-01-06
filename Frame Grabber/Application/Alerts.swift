@@ -1,5 +1,6 @@
 import UIKit
 
+/// Static factories for UIAlertController alerts.
 extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {

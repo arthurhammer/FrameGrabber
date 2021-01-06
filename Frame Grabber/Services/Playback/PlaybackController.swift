@@ -15,22 +15,24 @@ class PlaybackController {
         }
     }
 
-    @Published private(set) var status: AVPlayer.PlayerAndItemStatus = .unknown
-    @Published private(set) var timeControlStatus: AVPlayer.TimeControlStatus = .paused
-    @Published private(set) var isPlaying: Bool = false
-    @Published private(set) var duration: CMTime = .zero
+    @Published private(set) var status = AVPlayer.PlayerAndItemStatus.unknown
+    @Published private(set) var timeControlStatus = AVPlayer.TimeControlStatus.paused
+    @Published private(set) var isPlaying = false
+    @Published private(set) var duration = CMTime.zero
 
     /// The `player`'s current playback time.
     ///
-    /// In contrast to `currentFrameTime`, the player's time can be anywhere between two successive frame start times.
-    @Published private(set) var currentPlaybackTime: CMTime = .zero
+    /// In contrast to `currentFrameTime`, the player's time can be anywhere between two successive
+    /// frame start times.
+    @Published private(set) var currentPlaybackTime = CMTime.zero
 
     /// The start time of the current frame or, if not available, the current playback time.
     ///
-    /// Note that frame-accurate times are not available in all cases. When the receiver cannot provide frame-accurate
-    /// times for any reason, this value corresponds to `currentPlaybackTime`. Otherwise, it corresponds to the closest
-    /// frame start time to `currentPlaybackTime`.
-    @Published private(set) var currentFrameTime: CMTime = .zero
+    /// Note that frame-accurate times are not available in all cases. When the receiver cannot
+    /// provide frame-accurate times for any reason, this value corresponds to
+    /// `currentPlaybackTime`. Otherwise, it corresponds to the closest frame start time to
+    /// `currentPlaybackTime`.
+    @Published private(set) var currentFrameTime = CMTime.zero
 
     // MARK: - Private Properties
 

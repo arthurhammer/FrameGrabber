@@ -15,13 +15,15 @@ extension PHAssetResourceManager {
     ///   - handlerQueue: The queue to call handlers on, default is `main`.
     ///
     /// - Returns: An object that cancels the request if released.
-    func requestAndWriteData(for resource: PHAssetResource,
-                             toFile fileUrl: URL,
-                             options: PHAssetResourceRequestOptions = .init(),
-                             fileManager: FileManager = .default,
-                             handlerQueue: DispatchQueue = .main,
-                             progressHandler: ((Double) -> ())? = nil,
-                             completionHandler: @escaping (Result<URL, Error>) -> Void) -> Cancellable {
+    func requestAndWriteData(
+        for resource: PHAssetResource,
+        toFile fileUrl: URL,
+        options: PHAssetResourceRequestOptions = .init(),
+        fileManager: FileManager = .default,
+        handlerQueue: DispatchQueue = .main,
+        progressHandler: ((Double) -> ())? = nil,
+        completionHandler: @escaping (Result<URL, Error>) -> Void
+    ) -> Cancellable {
 
         options.progressHandler = { progress in
             handlerQueue.async {
@@ -56,8 +58,8 @@ extension PHAssetResourceManager {
                 completion(.failure(error))
             }
 
-            // Handle cancelling between the data request succeeding and the data being
-            // written to disk. Later cancellations are ignored.
+            // Handle cancelling between the data request succeeding and the data being written to
+            // disk. Later cancellations are ignored.
             let didCancel = accessQueue.sync { didCancel }
 
             if didCancel {

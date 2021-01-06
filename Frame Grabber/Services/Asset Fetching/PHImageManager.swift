@@ -4,6 +4,9 @@ import Combine
 
 extension PHImageManager {
 
+    /// Options for an image request.
+    ///
+    /// By default: `zero` size, `aspectFill` content mode, `default()` request options.
     struct ImageOptions: Equatable {
         var size: CGSize = .zero
         var mode: PHImageContentMode = .aspectFill
@@ -12,6 +15,7 @@ extension PHImageManager {
 
     /// Wrapper for image request info dictionary.
     struct Info {
+        
         let info: [AnyHashable: Any]
 
         init(_ info: [AnyHashable: Any]?) {

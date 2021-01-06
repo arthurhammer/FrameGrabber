@@ -343,9 +343,7 @@ private extension AlbumViewController {
         cell.identifier = video.localIdentifier
 
         cell.imageRequest = dataSource.thumbnail(for: video) { image, _ in
-            let isCellRecycled = cell.identifier != video.localIdentifier
-
-            guard !isCellRecycled,
+            guard cell.identifier == video.localIdentifier,
                   let image = image else { return }
 
             cell.imageView.image = image

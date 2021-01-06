@@ -33,7 +33,7 @@ class AlbumCollectionViewDataSource: NSObject {
         set { settings.albumGridContentMode = newValue }
     }
 
-    var imageOptions: PHImageManager.ImageOptions {
+    var imageOptions = PHImageManager.ImageOptions() {
         didSet {
             guard imageOptions != oldValue else { return }
             imageManager.stopCachingImagesForAllAssets()
@@ -71,14 +71,12 @@ class AlbumCollectionViewDataSource: NSObject {
         sourceAlbum: AnyAlbum? = nil,
         photoLibrary: PHPhotoLibrary = .shared(),
         imageManager: PHCachingImageManager = .init(),
-        imageOptions: PHImageManager.ImageOptions = .init(size: .zero, mode: .aspectFill, requestOptions: .default()),
         settings: UserDefaults = .standard,
         cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)
     ) {
         self.sourceAssetCollection = sourceAlbum?.assetCollection
         self.photoLibrary = photoLibrary
         self.imageManager = imageManager
-        self.imageOptions = imageOptions
         self.settings = settings
         self.cellProvider = cellProvider
 
