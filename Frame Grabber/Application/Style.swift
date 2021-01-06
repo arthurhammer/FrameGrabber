@@ -13,7 +13,8 @@ struct Style {
     static let buttonCornerRadius: CGFloat = 18
     static let staticTableViewTopMargin: CGFloat = 12
 
-    static func configureAppearance() {
+    static func configureAppearance(for window: UIWindow?) {
+        window?.tintColor = .accent
         UISwitch.appearance().onTintColor = .accent
     }
 }
