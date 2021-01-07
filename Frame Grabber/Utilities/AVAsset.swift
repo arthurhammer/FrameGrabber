@@ -8,7 +8,8 @@ extension AVAsset {
 
     var dimensions: CGSize? {
         guard let videoTrack = videoTrack else { return .zero }
-        return videoTrack.naturalSize.applying(videoTrack.preferredTransform)
+        let rotated = videoTrack.naturalSize.applying(videoTrack.preferredTransform)
+        return CGSize(width: abs(rotated.width), height: abs(rotated.height))
     }
 
     var frameRate: Float? {
