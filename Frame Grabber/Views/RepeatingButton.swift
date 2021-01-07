@@ -3,7 +3,7 @@ import UIKit
 /// Sends the `touchDown` event in regular intervals while pressed.
 class RepeatingButton: UIButton {
 
-    var repeatInterval: TimeInterval = 0.15
+    var repeatInterval: TimeInterval = 0.2
 
     private var timer: Timer?
 
