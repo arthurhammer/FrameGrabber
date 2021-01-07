@@ -29,6 +29,10 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
     private var imageGenerator: AVAssetImageGenerator?
     private let timeTolerance: CMTime
     private let scaleFactor: CGFloat = 2
+    
+    // Use a fixed 4:3 ratio instead of the video's aspect ratio. Most videos are 16:9 which is a
+    // bit too narrow for the thumbnails.
+    private let landscapeAspectRatio = CGSize(width: 4, height: 3)
 
     public init(
         slider: ThumbnailSlider?,
@@ -48,9 +52,13 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
     }
 
     public func thumbnailAspectRatio(in slider: ThumbnailSlider) -> CGSize {
-        imageGenerator?.asset.dimensions
-            ?? placeholderImage?.size
-            ?? .zero
+        guard let videoSize = (asset?.dimensions ?? placeholderImage?.size) else {
+            return landscapeAspectRatio
+        }
+              
+        return (videoSize.width > videoSize.height)
+            ? landscapeAspectRatio
+            : CGSize(width: landscapeAspectRatio.height, height: landscapeAspectRatio.width)
     }
 
     public func slider(
