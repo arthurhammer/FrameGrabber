@@ -293,6 +293,7 @@ private extension EditorViewController {
 
     func share(urls: [URL]) {
         let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+        shareController.popoverPresentationController?.sourceView = toolbar.shareButton
 
         shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
             guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
