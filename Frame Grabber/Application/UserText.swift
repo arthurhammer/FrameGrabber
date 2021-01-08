@@ -65,6 +65,8 @@ struct UserText {
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
+    
+    static let exifAppInformation = "Extracted with Frame Grabber \(Bundle.main.version)"  // Exif not localized
 }
 
 extension UserText {
