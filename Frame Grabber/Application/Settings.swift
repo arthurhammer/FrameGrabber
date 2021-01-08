@@ -14,7 +14,8 @@ extension UserDefaults {
     }
 
     static var isHeifSupported: Bool {
-        AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
+        let supportedTypes = CGImageDestinationCopyTypeIdentifiers() as NSArray
+        return supportedTypes.contains("public.heic")  // Note: heic, not heif
     }
 
     var videoTypesFilter: VideoTypesFilter {
