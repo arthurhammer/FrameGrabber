@@ -8,7 +8,7 @@ class ExportSettingsViewController: UITableViewController {
         case compressionQuality
     }
 
-    var settings: UserDefaults = .standard
+    let settings: UserDefaults = .standard
 
     @IBOutlet private var includeMetadataSwitch: UISwitch!
     @IBOutlet private var imageFormatControl: UISegmentedControl!
@@ -62,7 +62,7 @@ class ExportSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard Section(section) == .format else { return super.tableView(tableView, titleForFooterInSection: section) }
 
-        return UserDefaults.isHeifSupported
+        return ImageFormat.heif.isEncodingSupported
             ? UserText.exportImageFormatHeifSupportedFooter
             : UserText.exportImageFormatHeifNotSupportedFooter
     }
@@ -84,17 +84,14 @@ class ExportSettingsViewController: UITableViewController {
         let formats = ImageFormat.allCases
         imageFormatControl.removeAllSegments()
         
-        formats.enumerated().forEach {
+        formats.enumerated().forEach { (index, format) in
             imageFormatControl.insertSegment(
-                withTitle: $0.element.displayString,
-                at: $0.offset,
+                withTitle: format.displayString,
+                at: index,
                 animated: false
             )
-        }
-        
-        if let heifIndex = formats.firstIndex(of: .heif) {
-            let isHeifSupported = UserDefaults.isHeifSupported
-            imageFormatControl.setEnabled(isHeifSupported, forSegmentAt: heifIndex)
+            
+            imageFormatControl.setEnabled(format.isEncodingSupported, forSegmentAt: index)
         }
     }
 

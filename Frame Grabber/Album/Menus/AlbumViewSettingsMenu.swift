@@ -17,7 +17,7 @@ struct AlbumViewSettingsMenu {
         let filterActions = VideoTypesFilter.allCases.reversed().map { filter in
             UIAction(
                 title: filter.title,
-                image: filter.image,
+                image: filter.icon,
                 state: (currentFilter == filter) ? .on : .off,
                 handler: { _ in handler(.videosFilter(filter)) }
             )

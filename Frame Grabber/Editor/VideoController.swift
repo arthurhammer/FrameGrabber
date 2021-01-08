@@ -204,7 +204,7 @@ class VideoController {
 
     private func frameRequest(for video: AVAsset, times: [CMTime]) -> FrameExport.Request {
         let metadata = settings.includeMetadata
-            ? CGImage.metadata(for: asset.creationDate, location: asset.location)
+            ? ImageMetadata.metadata(for: asset.creationDate, location: asset.location)
             : nil
 
         let encoding = ImageEncoding(format: settings.imageFormat, compressionQuality: settings.compressionQuality, metadata: metadata)

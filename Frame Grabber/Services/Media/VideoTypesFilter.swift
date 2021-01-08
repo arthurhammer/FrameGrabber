@@ -19,7 +19,7 @@ extension VideoTypesFilter {
         }
     }
 
-    var image: UIImage? {
+    var icon: UIImage? {
         switch self {
         case .all: return UIImage(systemName: "square.grid.2x2")
         case .video: return  UIImage(systemName: "video")
