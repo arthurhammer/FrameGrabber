@@ -208,7 +208,7 @@ private extension EditorViewController {
             .$currentPlaybackTime
             .sink { [weak self] time in
                 guard self?.isScrubbing == false else { return }
-                self?.toolbar.timeSlider.setTime(time, animated: true)
+                self?.toolbar.timeSlider.setTime(time, animated: false)
             }
             .store(in: &bindings)
 

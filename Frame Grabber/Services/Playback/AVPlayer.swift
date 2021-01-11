@@ -4,7 +4,7 @@ import Combine
 extension AVPlayer {
 
     static let defaultPeriodicTimeInterval = CMTime(
-        seconds: 1/30.0,
+        seconds: 1/60.0,
         preferredTimescale: CMTimeScale(NSEC_PER_SEC)
     )
 
