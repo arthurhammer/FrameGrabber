@@ -16,7 +16,6 @@ class EditorViewController: UIViewController {
     private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
 
-    @IBOutlet private var titleView: EditorTitleView!
     @IBOutlet private var toolbar: EditorToolbar!
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
     @IBOutlet private var scrubbingIndicator: ScrubbingIndicatorView!
@@ -179,7 +178,6 @@ private extension EditorViewController {
             .$status
             .map { $0 == .readyToPlay }
             .sink { [weak self] in
-                self?.titleView.setEnabled($0)
                 self?.toolbar.setEnabled($0)
                 self?.navigationItem.rightBarButtonItem?.isEnabled = $0
             }
@@ -223,9 +221,13 @@ private extension EditorViewController {
     }
 
     func updateTimeLabel(withTime time: CMTime) {
-        let showMilliseconds = !playbackController.isPlaying
-        let formattedTime = timeFormatter.string(fromCurrentTime: time, includeMilliseconds: showMilliseconds)
-        titleView.setFormattedTime(formattedTime, animated: true)
+        let isPausedDuringPlayback = (playbackController.status == .readyToPlay)
+            && !playbackController.isPlaying
+        
+        toolbar.timeLabel.text = timeFormatter.string(
+            fromCurrentTime: time,
+            includeMilliseconds: isPausedDuringPlayback
+        )
     }
 
     // MARK: Loading Videos

@@ -33,6 +33,21 @@ public class ThumbnailSlider: UIControl {
     public var handleRect: CGRect {
         track.convert(handle.frame, to: self)
     }
+    
+    /// A layout guide that can be used to anchor views relative to the slider's handle.
+    public private(set) lazy var handleLayoutGuide: UILayoutGuide = {
+        let guide = UILayoutGuide()
+        addLayoutGuide(guide)
+        guide.topAnchor.constraint(equalTo: handle.topAnchor).isActive = true
+        guide.bottomAnchor.constraint(equalTo: handle.bottomAnchor).isActive = true
+        guide.leadingAnchor.constraint(equalTo: handle.leadingAnchor).isActive = true
+        guide.trailingAnchor.constraint(equalTo: handle.trailingAnchor).isActive = true
+        return guide
+    }()
+    
+    override public var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: intrinsicHeight)
+    }
 
     override public var isEnabled: Bool {
         didSet {
@@ -106,10 +121,6 @@ public class ThumbnailSlider: UIControl {
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         configureViews()
-    }
-
-    override public var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: intrinsicHeight)
     }
 
     override public func layoutSubviews() {

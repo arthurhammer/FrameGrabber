@@ -4,6 +4,7 @@ import UIKit
 class EditorToolbar: UIView {
 
     @IBOutlet var timeSlider: ScrubbingThumbnailSlider!
+    @IBOutlet var timeLabel: UILabel!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!
@@ -16,6 +17,7 @@ class EditorToolbar: UIView {
 
     func setEnabled(_ enabled: Bool) {
         timeSlider.isEnabled = enabled
+        timeLabel.isEnabled = enabled
         shareButton.isEnabled = enabled
         playButton.isEnabled = enabled
         nextButton.isEnabled = enabled
@@ -29,6 +31,20 @@ class EditorToolbar: UIView {
         blurView.frame = bounds
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         insertSubview(blurView, at: 0)
+        
+        configureTimeLabel()
+    }
+    
+    private func configureTimeLabel() {
+        timeLabel.font = .monospacedDigitSystemFont(ofSize: 12, weight: .semibold)
+        
+        timeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
+        let handleConstraint = timeLabel.centerXAnchor.constraint(
+            equalTo: timeSlider.handleLayoutGuide.centerXAnchor
+        )
+        handleConstraint.priority = .defaultLow
+        handleConstraint.isActive = true
     }
 }
 

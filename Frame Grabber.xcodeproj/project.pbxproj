@@ -175,8 +175,8 @@
 		00C13CF42404FDCE000193EB /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C13CF22404FDCD000193EB /* ConfettiView.swift */; };
 		00C4476B242AB3DF00976DAF /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C4476A242AB3DF00976DAF /* Combine.swift */; };
 		00C4476C242AB3E600976DAF /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C4476A242AB3DF00976DAF /* Combine.swift */; };
-		00C68E54242B6A3D004135A4 /* EditorTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* EditorTitleView.swift */; };
-		00C68E55242B6A3D004135A4 /* EditorTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* EditorTitleView.swift */; };
+		00C68E54242B6A3D004135A4 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* UILabel.swift */; };
+		00C68E55242B6A3D004135A4 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* UILabel.swift */; };
 		00C88FDE24B9B37D00E9E192 /* FrameIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 00C88FDD24B9B37D00E9E192 /* FrameIndexer */; };
 		00C88FE024B9B3B600E9E192 /* FrameIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 00C88FDF24B9B3B600E9E192 /* FrameIndexer */; };
 		00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA337E25A1DFE500DBD84D /* UIButton.swift */; };
@@ -328,7 +328,7 @@
 		00C098EA1FC477E5000B05FE /* PHImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManager.swift; sourceTree = "<group>"; };
 		00C13CF22404FDCD000193EB /* ConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		00C4476A242AB3DF00976DAF /* Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
-		00C68E53242B6A3D004135A4 /* EditorTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTitleView.swift; sourceTree = "<group>"; };
+		00C68E53242B6A3D004135A4 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		00C8763D1FB60DB600B5D7A3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		00C876431FB9D0F400B5D7A3 /* VideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
@@ -470,6 +470,7 @@
 				007208961FBF7C920046F389 /* UICollectionView.swift */,
 				0054936023E562E200F3E684 /* UIDevice.swift */,
 				00D9E83223424A07009E7AFA /* UIFont.swift */,
+				00C68E53242B6A3D004135A4 /* UILabel.swift */,
 				00CA341B25A5BA4400DBD84D /* UIViewController.swift */,
 			);
 			path = Utilities;
@@ -529,13 +530,12 @@
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				000EA8B52437311700C339DE /* Editor.storyboard */,
 				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
-				00C68E53242B6A3D004135A4 /* EditorTitleView.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
+				000EA8B52437311700C339DE /* Editor.storyboard */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
 			path = Editor;
@@ -948,7 +948,7 @@
 				00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary.swift in Sources */,
 				00D9E83423424A07009E7AFA /* UIFont.swift in Sources */,
 				00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */,
-				00C68E55242B6A3D004135A4 /* EditorTitleView.swift in Sources */,
+				00C68E55242B6A3D004135A4 /* UILabel.swift in Sources */,
 				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
 				001CBD95242BB7CE00625685 /* UserText.swift in Sources */,
 				009E1864233DD40B008100D5 /* MetadataViewController.swift in Sources */,
@@ -1043,7 +1043,7 @@
 				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */,
 				00D9E83323424A07009E7AFA /* UIFont.swift in Sources */,
 				00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */,
-				00C68E54242B6A3D004135A4 /* EditorTitleView.swift in Sources */,
+				00C68E54242B6A3D004135A4 /* UILabel.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
 				001CBD94242BB7CE00625685 /* UserText.swift in Sources */,
 				009E1863233DD403008100D5 /* MetadataViewController.swift in Sources */,

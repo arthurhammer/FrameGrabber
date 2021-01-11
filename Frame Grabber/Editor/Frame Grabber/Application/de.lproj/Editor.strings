@@ -7,11 +7,11 @@
 /* Class = "UIButton"; accessibilityLabel = "Share Frame"; ObjectID = "9KQ-jV-rR8"; */
 "9KQ-jV-rR8.accessibilityLabel" = "Bild teilen.";
 
-/* Class = "UIButton"; accessibilityLabel = "Previous Frame"; ObjectID = "eHg-xr-V48"; */
-"eHg-xr-V48.accessibilityLabel" = "Vorheriger Frame.";
+/* Class = "UINavigationItem"; title = "Choose Frame"; ObjectID = "cLY-f1-ifd"; */
+"cLY-f1-ifd.title" = "Bild Auswählen";
 
-/* Class = "UILabel"; text = "Choose Frame"; ObjectID = "MTO-N1-Rre"; */
-"MTO-N1-Rre.text" = "Bild Auswählen";
+/* Class = "UIButton"; accessibilityLabel = "Previous Frame"; ObjectID = "eHg-xr-V48"; */
+"eHg-xr-V48.accessibilityLabel" = "Vorheriges Bild.";
 
 /* Class = "UILabel"; accessibilityHint = "Video Time"; ObjectID = "mXw-rO-aOk"; */
 "mXw-rO-aOk.accessibilityHint" = "Videozeit";
@@ -20,7 +20,7 @@
 "mXw-rO-aOk.text" = "<Time>";
 
 /* Class = "UIButton"; accessibilityLabel = "Next Frame"; ObjectID = "NnX-Na-6YA"; */
-"NnX-Na-6YA.accessibilityLabel" = "Nächster Frame.";
+"NnX-Na-6YA.accessibilityLabel" = "Nächstes Bild.";
 
 /* Class = "UILabel"; text = "<Exporting…>"; ObjectID = "oGN-ie-szR"; */
 "oGN-ie-szR.text" = "<Exporting…>";
