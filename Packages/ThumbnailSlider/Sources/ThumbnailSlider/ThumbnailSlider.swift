@@ -192,13 +192,16 @@ public class ThumbnailSlider: UIControl {
     }
 
     // MARK: - Tracking Touches
+    
+    override public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Disable any recognizer inside the slider (e.g. the navigation default back swipe gesture)
+        false
+    }
 
     override public func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
 
         let point = touch.location(in: self)
-
-        guard handle.touchTarget.contains(point) else { return false }
 
         initialTrackingTouchLocation = point
         initialTrackingHandleLocation = handle.center
