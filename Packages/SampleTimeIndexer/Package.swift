@@ -4,19 +4,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "FrameIndexer",
+    name: "SampleTimeIndexer",
     platforms: [.iOS(.v13)],
     products: [
         .library(
-            name: "FrameIndexer",
-            targets: ["FrameIndexer"]),
+            name: "SampleTimeIndexer",
+            targets: ["SampleTimeIndexer"]),
     ],
     targets: [
         .target(
-            name: "FrameIndexer",
+            name: "SampleTimeIndexer",
             dependencies: []),
         .testTarget(
-            name: "FrameIndexerTests",
-            dependencies: ["FrameIndexer"]),
+            name: "SampleTimeIndexerTests",
+            dependencies: ["SampleTimeIndexer"]),
     ]
 )

@@ -1,5 +1,5 @@
 import XCTest
-@testable import FrameIndexer
+@testable import SampleTimeIndexer
 
 final class BinarySearchTests: XCTestCase {
     
@@ -55,7 +55,7 @@ final class BinarySearchTests: XCTestCase {
         
         let actual = array.sortedLastIndex(ofElementLessThanOrEqualTo: 4)
         
-        XCTAssertEqual(actual, nil)
+        XCTAssertNil(actual)
     }
     
     func test_indexLessOrEqualOf_beforeFirst_shouldBeNil() {
@@ -63,7 +63,7 @@ final class BinarySearchTests: XCTestCase {
         
         let actual = array.sortedLastIndex(ofElementLessThanOrEqualTo: -1)
         
-        XCTAssertEqual(actual, nil)
+        XCTAssertNil(actual)
     }
     
     func test_indexLessOrEqualOf_afterLast_shouldBeLast() {

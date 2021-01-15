@@ -1,6 +1,6 @@
-public enum FrameIndexError: Error {
+public enum SampleTimeIndexError: Error {
     case cancelled
     case invalidVideo
-    case frameLimitReached
+    case sampleLimitReached
     case readingFailed(_ underlying: Error?)
 }

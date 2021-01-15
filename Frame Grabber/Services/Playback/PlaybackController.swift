@@ -90,12 +90,12 @@ class PlaybackController {
     // MARK: - Seeking
 
     func smoothlySeek(to time: CMTime) {
-        let time = timeProvider.time(for: time)
+        let time = timeProvider.samplePresentationTime(for: time)
         seeker.smoothlySeek(to: time)
     }
 
     func directlySeek(to time: CMTime) {
-        let time = timeProvider.time(for: time)
+        let time = timeProvider.samplePresentationTime(for: time)
         seeker.directlySeek(to: time)
     }
 
@@ -145,7 +145,7 @@ class PlaybackController {
 
         player.periodicTimePublisher()
             .map { [weak self] in
-                self?.timeProvider.time(for: $0) ?? $0
+                self?.timeProvider.samplePresentationTime(for: $0) ?? $0
             }
             .assignWeak(to: \.currentFrameTime, on: self)
             .store(in: &bindings)

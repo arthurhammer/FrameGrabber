@@ -13,6 +13,8 @@
 		00024F71234482EE00937941 /* VideoCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* VideoCellContextMenu.swift */; };
 		00024F762344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
+		0009DBD825B5878F00166703 /* SampleTimeIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 0009DBD725B5878F00166703 /* SampleTimeIndexer */; };
+		0009DBE025B58BB400166703 /* SampleTimeIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 0009DBDF25B58BB400166703 /* SampleTimeIndexer */; };
 		000BF42A24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */; };
 		000BF42B24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */; };
 		000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B12435181D00C339DE /* ThumbnailSlider */; };
@@ -177,8 +179,6 @@
 		00C4476C242AB3E600976DAF /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C4476A242AB3DF00976DAF /* Combine.swift */; };
 		00C68E54242B6A3D004135A4 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* UILabel.swift */; };
 		00C68E55242B6A3D004135A4 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C68E53242B6A3D004135A4 /* UILabel.swift */; };
-		00C88FDE24B9B37D00E9E192 /* FrameIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 00C88FDD24B9B37D00E9E192 /* FrameIndexer */; };
-		00C88FE024B9B3B600E9E192 /* FrameIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 00C88FDF24B9B3B600E9E192 /* FrameIndexer */; };
 		00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA337E25A1DFE500DBD84D /* UIButton.swift */; };
 		00CA338025A1DFE500DBD84D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA337E25A1DFE500DBD84D /* UIButton.swift */; };
 		00CA339025A200DE00DBD84D /* Album Picker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00CA339325A200DE00DBD84D /* Album Picker.storyboard */; };
@@ -367,7 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0073D56424000EA3008CABC3 /* StoreKit.framework in Frameworks */,
-				00C88FE024B9B3B600E9E192 /* FrameIndexer in Frameworks */,
+				0009DBD825B5878F00166703 /* SampleTimeIndexer in Frameworks */,
 				002EDBC2242E0E0B00D7B46D /* PhotoAlbums in Frameworks */,
 				000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */,
 				00ECC742243335F900B95E32 /* InAppPurchase in Frameworks */,
@@ -379,7 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0073D56324000E99008CABC3 /* StoreKit.framework in Frameworks */,
-				00C88FDE24B9B37D00E9E192 /* FrameIndexer in Frameworks */,
+				0009DBE025B58BB400166703 /* SampleTimeIndexer in Frameworks */,
 				002EDBC4242E0E0E00D7B46D /* PhotoAlbums in Frameworks */,
 				000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */,
 				00ECC740243335F200B95E32 /* InAppPurchase in Frameworks */,
@@ -717,7 +717,7 @@
 				002EDBC1242E0E0B00D7B46D /* PhotoAlbums */,
 				00ECC741243335F900B95E32 /* InAppPurchase */,
 				000EA8B12435181D00C339DE /* ThumbnailSlider */,
-				00C88FDF24B9B3B600E9E192 /* FrameIndexer */,
+				0009DBD725B5878F00166703 /* SampleTimeIndexer */,
 			);
 			productName = "Frame Grabber";
 			productReference = 00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */;
@@ -741,7 +741,7 @@
 				002EDBC3242E0E0E00D7B46D /* PhotoAlbums */,
 				00ECC73F243335F200B95E32 /* InAppPurchase */,
 				000EA8B32435182300C339DE /* ThumbnailSlider */,
-				00C88FDD24B9B37D00E9E192 /* FrameIndexer */,
+				0009DBDF25B58BB400166703 /* SampleTimeIndexer */,
 			);
 			productName = "Frame Grabber";
 			productReference = 009C65631FBF32A600DB25A6 /* Frame Grabber.app */;
@@ -1490,6 +1490,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0009DBD725B5878F00166703 /* SampleTimeIndexer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SampleTimeIndexer;
+		};
+		0009DBDF25B58BB400166703 /* SampleTimeIndexer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SampleTimeIndexer;
+		};
 		000EA8B12435181D00C339DE /* ThumbnailSlider */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ThumbnailSlider;
@@ -1505,14 +1513,6 @@
 		002EDBC3242E0E0E00D7B46D /* PhotoAlbums */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PhotoAlbums;
-		};
-		00C88FDD24B9B37D00E9E192 /* FrameIndexer */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FrameIndexer;
-		};
-		00C88FDF24B9B3B600E9E192 /* FrameIndexer */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FrameIndexer;
 		};
 		00ECC73F243335F200B95E32 /* InAppPurchase */ = {
 			isa = XCSwiftPackageProductDependency;
