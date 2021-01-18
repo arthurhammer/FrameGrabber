@@ -32,7 +32,7 @@ public class SampleTimeIndexer {
     ///   - asset: The asset to index. The asset must have a video track to read samples from.
     ///   - limit: The maximum number of samples to read before aborting.
     ///   - completionHandler: Is called on an arbitrary queue.
-    public func indexSamples(
+    public func indexTimes(
         for asset: AVAsset,
         limit: Int = .max,
         completionHandler: @escaping (Result) -> Void

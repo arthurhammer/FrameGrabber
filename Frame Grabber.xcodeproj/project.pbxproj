@@ -15,8 +15,6 @@
 		00024F772344C06F00937941 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F752344C06F00937941 /* AVAsset.swift */; };
 		0009DBD825B5878F00166703 /* SampleTimeIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 0009DBD725B5878F00166703 /* SampleTimeIndexer */; };
 		0009DBE025B58BB400166703 /* SampleTimeIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 0009DBDF25B58BB400166703 /* SampleTimeIndexer */; };
-		000BF42A24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */; };
-		000BF42B24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */; };
 		000EA8B22435181D00C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B12435181D00C339DE /* ThumbnailSlider */; };
 		000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B32435182300C339DE /* ThumbnailSlider */; };
 		000EA8B72437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
@@ -243,7 +241,6 @@
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
 		00024F6F234482EE00937941 /* VideoCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellContextMenu.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
-		000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTimeProvider.swift; sourceTree = "<group>"; };
 		000BF42C24B9B22900AD6F96 /* FrameIndexer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FrameIndexer; path = Packages/FrameIndexer; sourceTree = "<group>"; };
 		000EA8B62437311700C339DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Application/Base.lproj/Editor.storyboard"; sourceTree = "<group>"; };
 		000EA8BA243731CE00C339DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/Application/de.lproj/Editor.strings"; sourceTree = "<group>"; };
@@ -664,7 +661,6 @@
 				00AD72C024194107009D18BA /* AVPlayer.swift */,
 				00B264551FD090B300A6C3C3 /* PlaybackController.swift */,
 				00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */,
-				000BF42924B9B16400AD6F96 /* VideoTimeProvider.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -888,7 +884,6 @@
 				0078A45623F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00730EA7214FEA5A001A6EA7 /* AlbumListLayout.swift in Sources */,
 				0034AFFE240139E30041513F /* PurchaseViewController.swift in Sources */,
-				000BF42B24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */,
 				00730EA8214FEA5A001A6EA7 /* ZoomPushTransition.swift in Sources */,
 				00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00730EAA214FEA5A001A6EA7 /* AlbumListViewController.swift in Sources */,
@@ -983,7 +978,6 @@
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00AA20232136C93100084B08 /* AlbumListLayout.swift in Sources */,
 				0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */,
-				000BF42A24B9B16400AD6F96 /* VideoTimeProvider.swift in Sources */,
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00F85F1023FA8A040037961E /* EmptyAlbumView.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */,
