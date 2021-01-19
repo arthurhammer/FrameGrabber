@@ -353,8 +353,23 @@ private extension EditorViewController {
 extension EditorViewController: ZoomTransitionDelegate {
 
     func zoomTransitionWillBegin(_ transition: ZoomTransition) {
-        guard transition.type == .pop else { return }
+        switch transition.type {
+        case .push: animatePush(transition)
+        case .pop: animatePop(transition)
+        default: break
+        }
+    }
+    
+    private func animatePush(_ transition: ZoomTransition) {
+        let yOffset = toolbar.bounds.height * 0.5
+        toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
 
+        transition.animate(alongsideTransition: { [weak self] _ in
+            self?.toolbar.transform = .identity
+        }, completion:nil)
+    }
+    
+    private func animatePop(_ transition: ZoomTransition) {
         let backgroundColor = view.backgroundColor
 
         transition.animate(alongsideTransition: { [weak self] _ in
@@ -362,9 +377,9 @@ extension EditorViewController: ZoomTransitionDelegate {
             self.view.backgroundColor = .clear
             self.progressView.alpha = 0
             self.toolbar.alpha = 0
-            self.toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: self.toolbar.bounds.height * 1.5)
+            let yOffset = self.toolbar.bounds.height * 1.5
+            self.toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
         }, completion: { [weak self] _ in
-            // Animation interpolates dynamic to fixed color. Restore dynamic color.
             self?.view.backgroundColor = backgroundColor
         })
     }
