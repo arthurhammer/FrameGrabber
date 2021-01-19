@@ -149,6 +149,9 @@
                                                 <state key="normal" title="&lt;Title&gt;" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
                                                 </state>
+                                                <variation key="heightClass=compact">
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                </variation>
                                             </button>
                                         </subviews>
                                     </stackView>
