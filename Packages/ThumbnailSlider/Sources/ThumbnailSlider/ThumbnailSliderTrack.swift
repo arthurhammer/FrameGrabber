@@ -16,7 +16,20 @@ class ThumbnailSliderTrack: UIView {
     }
 
     var disabledTintColor = UIColor.systemBackground.withAlphaComponent(0.4) {
-        didSet { disabledOverlay.backgroundColor = disabledTintColor }
+        didSet { disabledTintView.backgroundColor = disabledTintColor }
+    }
+    
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) == true {
+            updateViews()
+        }
+    }
+    
+    public override func tintColorDidChange() {
+        super.tintColorDidChange()
+        updateViews()
     }
 
     private lazy var thumbnailStack: UIStackView = {
@@ -28,13 +41,23 @@ class ThumbnailSliderTrack: UIView {
         view.spacing = 0
         return view
     }()
+    
+    /// Exact placement is managed by the superview.
+    private(set) lazy var progressTintView: UIView = {
+        let frame = CGRect(x: 0, y: 0, width: 0, height: bounds.height)
+        let view = UIView(frame: frame)
+        view.autoresizingMask = .flexibleHeight
+        return view
+    }()
 
-    private lazy var disabledOverlay: UIView = {
+    private lazy var disabledTintView: UIView = {
         let view = UIView(frame: bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.backgroundColor = disabledTintColor
         return view
     }()
+    
+    private let disabledBorderColor = UIColor.systemGray4
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -98,12 +121,19 @@ class ThumbnailSliderTrack: UIView {
     private func configureViews() {
         isUserInteractionEnabled = false
         clipsToBounds = true
+        
         addSubview(thumbnailStack)
-        addSubview(disabledOverlay)
+        addSubview(progressTintView)
+        addSubview(disabledTintView)
+        
         updateViews()
     }
 
     private func updateViews() {
-        disabledOverlay.isHidden = isEnabled
+        disabledTintView.isHidden = isEnabled
+        progressTintView.isHidden = !isEnabled
+        
+        progressTintView.backgroundColor = tintColor.withAlphaComponent(0.5)
+        layer.borderColor = isEnabled ? tintColor.cgColor : disabledBorderColor.cgColor
     }
 }

@@ -31,7 +31,7 @@ public class ThumbnailSlider: UIControl {
     }
 
     public var handleRect: CGRect {
-        handle.frame
+        track.convert(handle.frame, to: self)
     }
 
     override public var isEnabled: Bool {
@@ -50,49 +50,43 @@ public class ThumbnailSlider: UIControl {
     private var initialTrackingTouchLocation: CGPoint = .zero
     private var initialTrackingHandleLocation: CGPoint = .zero
 
-    private let handleWidth: CGFloat = 10
-    private let handleCornerRadius: CGFloat = 4
+    private let handleWidth: CGFloat = 8
+    private let handleCornerRadius: CGFloat = 2
     private let handleColor: UIColor = .white
-    private let disabledHandleColor: UIColor = .systemGray4
+    private let disabledHandleColor: UIColor = .systemGray3
+    private lazy var verticalHandleInset = trackBorderWidth
 
     private let trackColor: UIColor = .tertiarySystemFill
-    private let trackCornerRadius: CGFloat = 6
-    private let verticalTrackInset: CGFloat = 8
+    private let trackCornerRadius: CGFloat = 8
+    private let trackBorderWidth: CGFloat = 1
+    private let verticalTrackInset: CGFloat = 0
     private let minimumThumbnailWidth: CGFloat = 8
     private let maximumThumbnailWidth: CGFloat = 90
 
-    private let intrinsicHeight: CGFloat = 58
-    private let minimumTouchTarget = CGSize(width: 44, height: 44)
+    private let intrinsicHeight: CGFloat = 54
     private let animationDuration: TimeInterval = 0.2
+    private let accessibilityIncrementPercentage: TimeInterval = 0.05
 
     private lazy var handle: ThumbnailSliderHandle = {
-        let view = ThumbnailSliderHandle(
-            frame: CGRect(x: 0, y: 0, width: handleWidth, height: bounds.height)
-        )
+        let frame = CGRect(x: 0, y: 0, width: handleWidth, height: bounds.height)
+            .insetBy(dx: 0, dy: verticalHandleInset)
+        let view = ThumbnailSliderHandle(frame: frame)
         view.autoresizingMask = .flexibleHeight
         view.handleColor = handleColor
         view.disabledHandleColor = disabledHandleColor
         view.layer.cornerRadius = handleCornerRadius
         view.layer.cornerCurve = .continuous
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.2
-        view.layer.shadowRadius = 6
-        view.layer.shadowOffset = .zero
         return view
     }()
 
     private lazy var track: ThumbnailSliderTrack = {
-        let view = ThumbnailSliderTrack(
-            frame: bounds.insetBy(dx: handleWidth/2, dy: verticalTrackInset)
-        )
+        let view = ThumbnailSliderTrack(frame: bounds.insetBy(dx: 0, dy: verticalTrackInset))
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.backgroundColor = trackColor
         view.layer.cornerRadius = trackCornerRadius
         view.layer.cornerCurve = .continuous
         return view
     }()
-
-    private let accessibilityIncrementPercentage = 0.05
 
     private lazy var accessibilityValueFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -145,7 +139,6 @@ public class ThumbnailSlider: UIControl {
         }
     }
 
-
     // MARK: Accessibility
 
     public override func accessibilityIncrement() {
@@ -164,7 +157,7 @@ public class ThumbnailSlider: UIControl {
 
     /// Reloads thumbnails.
     ///
-    /// The slider calls this automatically when the slider's size, duration or data source changes.
+    /// The slider calls this automatically when the slider's size, duration or data source change.
     public func reloadThumbnails() {
         track.clearThumbnails()
 
@@ -192,12 +185,9 @@ public class ThumbnailSlider: UIControl {
         dataSource?.slider(self, loadThumbnailsForTimes: times, size: size) {
             [weak self] (index, image) in
 
-            let isCurrent = self?.reloadId == currentId
+            guard self?.reloadId == currentId else { return }
 
-            if isCurrent {
-                let imageView = self?.track.thumbnailViews[index]
-                imageView?.setImage(image, animated: false)
-            }
+            self?.track.thumbnailViews[index].setImage(image, animated: true)
         }
     }
 
@@ -236,11 +226,18 @@ public class ThumbnailSlider: UIControl {
     // MARK: - Configuring
 
     private func configureViews() {
-        backgroundColor = nil
+        track.addSubview(handle)
         addSubview(track)
-        addSubview(handle)
         updateHandlePosition()
-
+        
+        backgroundColor = nil
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 6
+        layer.shadowOffset = .zero
+        
+        track.layer.borderWidth = trackBorderWidth
+        
         isAccessibilityElement = true
         accessibilityTraits.insert(.adjustable)
     }
@@ -248,7 +245,18 @@ public class ThumbnailSlider: UIControl {
     // MARK: - Utilities
 
     private func updateHandlePosition() {
-        handle.center.x = trackPosition(for: _time)
+        handle.frame.origin.x = handlePosition(for: _time)
+        track.progressTintView.frame.size.width = trackPosition(for: _time)
+        track.progressTintView.frame.origin = .zero
+    }
+    
+    /// The track position of the current time clamped to the edges.
+    private func handlePosition(for time: CMTime) -> CGFloat {
+        let center = trackPosition(for: _time)
+        let origin = center - handleWidth/2
+        let rightEdge = track.frame.maxX - handleWidth - trackBorderWidth
+        
+        return origin.clamped(to: trackBorderWidth, and: rightEdge)
     }
 
     private func trackPosition(for time: CMTime) -> CGFloat {
