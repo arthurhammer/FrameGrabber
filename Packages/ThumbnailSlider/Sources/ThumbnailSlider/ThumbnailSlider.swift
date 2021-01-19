@@ -25,6 +25,13 @@ public class ThumbnailSlider: UIControl {
             }
         }
     }
+    
+    override public var isEnabled: Bool {
+        didSet {
+            handle.isEnabled = isEnabled
+            track.isEnabled = isEnabled
+        }
+    }
 
     public var trackRect: CGRect {
         track.frame
@@ -45,17 +52,6 @@ public class ThumbnailSlider: UIControl {
         return guide
     }()
     
-    override public var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: intrinsicHeight)
-    }
-
-    override public var isEnabled: Bool {
-        didSet {
-            handle.isEnabled = isEnabled
-            track.isEnabled = isEnabled
-        }
-    }
-
     // MARK: - Private Properties
 
     private var _time: CMTime = .zero
@@ -79,6 +75,7 @@ public class ThumbnailSlider: UIControl {
     private let maximumThumbnailWidth: CGFloat = 90
 
     private let intrinsicHeight: CGFloat = 54
+    private let intrinsicCompactHeight: CGFloat = 38
     private let animationDuration: TimeInterval = 0.2
     private let accessibilityIncrementPercentage: TimeInterval = 0.05
 
@@ -130,6 +127,20 @@ public class ThumbnailSlider: UIControl {
         previousSize = bounds.size
         updateHandlePosition()
         reloadThumbnails()
+    }
+    
+    override public var intrinsicContentSize: CGSize {
+        traitCollection.verticalSizeClass == .compact
+            ? CGSize(width: UIView.noIntrinsicMetric, height: intrinsicCompactHeight)
+            : CGSize(width: UIView.noIntrinsicMetric, height: intrinsicHeight)
+    }
+
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass {
+            invalidateIntrinsicContentSize()
+        }
     }
 
     // MARK: - Setting Time
