@@ -39,6 +39,8 @@ class AlbumViewController: UICollectionViewController {
         return albumsNavController
     }()
     
+    static let contentModeAnimationDuration: TimeInterval = 0.15
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -112,12 +114,6 @@ class AlbumViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedAsset = dataSource.video(at: indexPath)
         performSegue(withIdentifier: EditorViewController.className, sender: nil)
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? VideoCell else { return }
-        
-        setGridContentMode(dataSource.gridContentMode, for: cell, at: indexPath, animated: false)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -310,7 +306,7 @@ private extension AlbumViewController {
             
         case .gridMode(let mode):
             dataSource.gridContentMode = mode
-            setGridContentModeForVisibleCells(mode, animated: true)
+            setGridContentMode(mode, animated: true)
         }
 
         updateViewSettingsButton()
@@ -342,7 +338,8 @@ private extension AlbumViewController {
         cell.durationLabel.isHidden = video.isLivePhoto
         cell.livePhotoImageView.isHidden = !video.isLivePhoto
         cell.favoritedImageView.isHidden = !video.isFavorite
-
+        cell.setGridContentMode(dataSource.gridContentMode, forAspectRatio: video.dimensions)
+        
         loadThumbnail(for: cell, video: video)
     }
 
@@ -366,17 +363,34 @@ private extension AlbumViewController {
         }
     }
 
-    func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath, animated: Bool) {
+    func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath) {
         let video = dataSource.video(at: indexPath)
-        cell.setGridContentMode(mode, forAspectRatio: video.dimensions, animated: animated)
+        cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
 
     }
 
-    func setGridContentModeForVisibleCells(_ mode: AlbumGridContentMode, animated: Bool) {
-        collectionView.indexPathsForVisibleItems.forEach { indexPath in
-            guard let cell = videoCell(at: indexPath) else { return }
-            
-            setGridContentMode(mode, for: cell, at: indexPath, animated: true)
+    func setGridContentMode(_ mode: AlbumGridContentMode, animated: Bool) {
+        guard animated else {
+            collectionView.reloadData()
+            return
         }
+        
+        let animations = {
+            self.collectionView.indexPathsForVisibleItems.forEach { indexPath in
+                guard let cell = self.videoCell(at: indexPath) else { return }
+                self.setGridContentMode(mode, for: cell, at: indexPath)
+            }
+        }
+        
+        // Animate visible cells, then reload off-screen enqueued cells.
+        UIView.animate(
+            withDuration: AlbumViewController.contentModeAnimationDuration,
+            delay: 0,
+            options: [.beginFromCurrentState, .curveEaseInOut],
+            animations: animations,
+            completion: { _ in
+                self.collectionView.reloadData()
+            }
+        )
     }
 }

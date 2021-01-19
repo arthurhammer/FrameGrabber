@@ -17,7 +17,6 @@ class VideoCell: UICollectionViewCell {
     @IBOutlet var imageContainerHeightConstraint: NSLayoutConstraint!
     
     static let fadeOverlaysAnimationDuration: TimeInterval = 0.2
-    static let contentModeAnimationDuration: TimeInterval = 0.15
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,23 +48,10 @@ class VideoCell: UICollectionViewCell {
         }
     }
 
-    func setGridContentMode(_ mode: AlbumGridContentMode, forAspectRatio aspectRatio: CGSize, animated: Bool) {
-        let setMode = {
-            let targetSize = mode.thumbnailSize(for: aspectRatio, in: self.bounds.size)
-            self.imageContainerWidthConstraint.constant = targetSize.width
-            self.imageContainerHeightConstraint.constant = targetSize.height
-            self.imageContainer.layoutIfNeeded()
-        }
-
-        if animated {
-            UIView.animate(
-                withDuration: VideoCell.contentModeAnimationDuration,
-                delay: 0,
-                options: [.beginFromCurrentState, .curveEaseInOut],
-                animations: setMode
-            )
-        } else {
-            setMode()
-        }
+    func setGridContentMode(_ mode: AlbumGridContentMode, forAspectRatio aspectRatio: CGSize) {
+        let targetSize = mode.thumbnailSize(for: aspectRatio, in: bounds.size)
+        imageContainerWidthConstraint.constant = targetSize.width
+        imageContainerHeightConstraint.constant = targetSize.height
+        imageContainer.layoutIfNeeded()
     }
 }
