@@ -31,7 +31,7 @@ class VideoTimeFormatter {
     func string(fromCurrentTime time: CMTime, includeMilliseconds: Bool = false) -> String {
         let hours = (time.seconds >= 3600) ? "HH:" : ""
         let minutesSeconds = "mm:ss"
-        let millis = includeMilliseconds ? ".SS" : ""
+        let millis = includeMilliseconds ? ".SSS" : ""
 
         let format = "\(hours)\(minutesSeconds)\(millis)"
         return string(from: time, localizedFormatTemplate: format)
