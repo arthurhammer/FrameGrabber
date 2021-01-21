@@ -32,7 +32,6 @@ extension SampleTimes {
     /// - Complexity: O(log(n)) where n is the length of `values`.
     public func sampleTiming(for playbackTime: CMTime) -> CMSampleTimingInfo? {
         guard let index = sampleTimingIndex(for: playbackTime) else { return nil }
-
         return values[index]
     }
     
@@ -52,5 +51,42 @@ extension SampleTimes {
         })
         
         return index ?? 0
+    }
+    
+    /// The index of the sample being displayed at `playbackTime` during playback relative to the
+    /// containing second.
+    ///
+    /// Example: For the sample times `[0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8]`, the result for `1.8` is
+    /// `2` because `1.8` is the third sample starting in second `1`.
+    /// 
+    /// `playbackTime` is first snapped to its corresponding sample time similar to
+    /// `sampleTiming(for:)`. Thus, the reference second of the time at the returned index is not
+    /// necessarily the same as the one of `playbackTime`.
+    ///
+    /// Example: For the sample timings `[0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8]`, a query for `1.1`
+    /// returns the index `3` for the time `0.9`.
+    ///
+    /// Similar to `sampleTiming(for:)`, gaps in timings are ignored.
+    ///
+    /// - Complexity: O(log(n)) where n is the length of `values`.
+    public func sampleTimingIndexInSecond(for playbackTime: CMTime) -> Int? {
+        guard let sampleTime = sampleTiming(for: playbackTime) else { return nil }
+        
+        let compareFullSecond = { (lhs: CMSampleTimingInfo, rhs: CMSampleTimingInfo) in
+            // (Don't use `Int` constructor for rounding as it rounds negative values differently.)
+            lhs.presentationTimeStamp.seconds.rounded(.down)
+                < rhs.presentationTimeStamp.seconds.rounded(.down)
+        }
+
+        let left = values.sortedLeftInsertionIndex(for: sampleTime, by: compareFullSecond)
+        let right = values.sortedRightInsertionIndex(for: sampleTime, by: compareFullSecond)
+        let samplesInTargetSecond = values[left..<right]
+                
+        guard let indexInTargetSecond = samplesInTargetSecond.sortedFirstIndex(of: sampleTime, by: {
+            $0.presentationTimeStamp < $1.presentationTimeStamp
+        }) else { return nil }
+
+        // Map slice index to array index.
+        return indexInTargetSecond - samplesInTargetSecond.startIndex
     }
 }
