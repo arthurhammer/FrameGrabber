@@ -33,12 +33,7 @@ class AlbumCollectionViewDataSource: NSObject {
         set { settings.albumGridContentMode = newValue }
     }
 
-    var imageOptions = PHImageManager.ImageOptions() {
-        didSet {
-            guard imageOptions != oldValue else { return }
-            imageManager.stopCachingImagesForAllAssets()
-        }
-    }
+    var imageOptions = PHImageManager.ImageOptions()
     
     var isEmpty: Bool {
         album?.isEmpty ?? true
@@ -56,7 +51,7 @@ class AlbumCollectionViewDataSource: NSObject {
     let photoLibrary: PHPhotoLibrary
 
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
-    private let imageManager: PHCachingImageManager
+    private let imageManager: PHImageManager
     
     /// The source album the data source fetches assets from.
     private var sourceAssetCollection: PHAssetCollection?
@@ -70,7 +65,7 @@ class AlbumCollectionViewDataSource: NSObject {
     init(
         sourceAlbum: AnyAlbum? = nil,
         photoLibrary: PHPhotoLibrary = .shared(),
-        imageManager: PHCachingImageManager = .init(),
+        imageManager: PHImageManager = .default(),
         settings: UserDefaults = .standard,
         cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)
     ) {
@@ -89,7 +84,6 @@ class AlbumCollectionViewDataSource: NSObject {
         if isAccessingPhotoLibrary {
             photoLibrary.unregisterChangeObserver(self)
         }
-        imageManager.stopCachingImagesForAllAssets()
     }
     
     /// Fetches the current album contents and starts observing it for changes, if the photo library
@@ -148,15 +142,7 @@ class AlbumCollectionViewDataSource: NSObject {
             PHAssetChangeRequest.deleteAssets([video] as NSArray)
         }, completionHandler: nil)
     }
-    
-    private func safeVideos(at indexPaths: [IndexPath]) -> [PHAsset] {
-        guard let fetchResult = album?.fetchResult else { return [] }
-        
-        let indexes = IndexSet(indexPaths.map { $0.item })
-        let safeIndexes = indexes.filteredIndexSet { $0 < fetchResult.count }
-        return fetchResult.objects(at: safeIndexes)
-    }
-    
+
     // MARK: Fetching and Updating
     
     /// Synchronously fetches the album's assets.
@@ -196,7 +182,6 @@ class AlbumCollectionViewDataSource: NSObject {
         album = newAlbum
 
         guard newAlbum != nil else {
-            imageManager.stopCachingImagesForAllAssets()
             albumChangedHandler?(nil)
             videosChangedHandler?(nil)
             return
@@ -207,7 +192,6 @@ class AlbumCollectionViewDataSource: NSObject {
         }
 
         if let videoChange = changeDetails.fetchResultChanges {
-            imageManager.stopCachingImagesForAllAssets()
             videosChangedHandler?(videoChange)
         }
     }
@@ -223,22 +207,6 @@ extension AlbumCollectionViewDataSource: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         cellProvider(indexPath, video(at: indexPath))
-    }
-}
-
-// MARK: - UICollectionViewDataSourcePrefetching
-
-extension AlbumCollectionViewDataSource: UICollectionViewDataSourcePrefetching {
-
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        // Index paths might not exist anymore in the model.
-        let videos = safeVideos(at: indexPaths)
-        imageManager.startCachingImages(for: videos, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        let videos = safeVideos(at: indexPaths)
-        imageManager.stopCachingImages(for: videos, targetSize: imageOptions.size, contentMode: imageOptions.mode, options: imageOptions.requestOptions)
     }
 }
 

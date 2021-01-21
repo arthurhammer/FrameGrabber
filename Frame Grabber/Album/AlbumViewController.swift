@@ -171,7 +171,6 @@ private extension AlbumViewController {
         
         collectionView.isPrefetchingEnabled = true
         collectionView.dataSource = dataSource
-        collectionView.prefetchDataSource = dataSource
         collectionView.backgroundView = emptyView
         collectionView.collectionViewLayout.invalidateLayout()
 
