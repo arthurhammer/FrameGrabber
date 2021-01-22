@@ -213,7 +213,7 @@ private extension AlbumViewController {
     }
     
     func updateNavigationBar() {
-        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.layer.shadowOpacity = 0
 
         if #available(iOS 14.0, *) {
