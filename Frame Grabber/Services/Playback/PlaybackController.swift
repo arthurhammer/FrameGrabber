@@ -40,6 +40,7 @@ class PlaybackController {
     private var sampleTimes: SampleTimes?
     private var bindings = Set<AnyCancellable>()
     
+    private let interval = CMTime(seconds: 1/60.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
     private let audioSession: AVAudioSession = .sharedInstance()
     private let notificationCenter: NotificationCenter = .default
 
@@ -130,11 +131,11 @@ class PlaybackController {
             .assignWeak(to: \.isPlaying, on: self)
             .store(in: &bindings)
 
-        player.periodicTimePublisher()
+        player.periodicTimePublisher(forInterval: interval)
             .assignWeak(to: \.currentPlaybackTime, on: self)
             .store(in: &bindings)
 
-        player.periodicTimePublisher()
+        player.periodicTimePublisher(forInterval: interval)
             .map { [weak self] in
                 self?.sampleTime(for: $0)
             }

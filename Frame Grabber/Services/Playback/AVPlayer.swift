@@ -3,16 +3,9 @@ import Combine
 
 extension AVPlayer {
 
-    static let defaultPeriodicTimeInterval = CMTime(
-        seconds: 1/60.0,
-        preferredTimescale: CMTimeScale(NSEC_PER_SEC)
-    )
-
     /// A publisher that publishes the player's changing time periodically (wrapping around
     /// `addPeriodicTimeObserver`).
-    func periodicTimePublisher(
-        forInterval interval: CMTime = AVPlayer.defaultPeriodicTimeInterval
-    ) -> AnyPublisher<CMTime, Never> {
+    func periodicTimePublisher(forInterval interval: CMTime) -> AnyPublisher<CMTime, Never> {
         
         let periodicPublisher = PassthroughSubject<CMTime, Never>()
 
