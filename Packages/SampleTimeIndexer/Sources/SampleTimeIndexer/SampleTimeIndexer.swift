@@ -37,9 +37,12 @@ public class SampleTimeIndexer {
         limit: Int = .max,
         completionHandler: @escaping (Result) -> Void
     ) {
-        let operation = SampleTimeIndexOperation(asset: asset, sampleLimit: limit) { result in
-            completionHandler(result.map(SampleTimes.init))
-        }
+        
+        let operation = SampleTimeIndexOperation(
+            asset: asset,
+            sampleLimit: limit,
+            completionHandler: completionHandler
+        )
 
         queue.addOperation(operation)
     }

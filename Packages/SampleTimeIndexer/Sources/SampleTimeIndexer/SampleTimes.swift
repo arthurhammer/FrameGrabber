@@ -6,14 +6,18 @@ public struct SampleTimes {
 
     /// Sorted by presentation time.
     public let values: [CMSampleTimingInfo]
+    
+    /// The natural time scale of the track the sample times were read from.
+    public let trackTimeScale: CMTimeScale
 
     /// - Parameter values: Precondition: Is sorted by presentation time.
-    public init(values: [CMSampleTimingInfo]) {
+    public init(values: [CMSampleTimingInfo], trackTimeScale: CMTimeScale) {
         self.values = values
+        self.trackTimeScale = trackTimeScale
     }
 }
 
-// MARK: - Convenience
+// MARK: - Finding Sample Times
 
 extension SampleTimes {
     
@@ -24,6 +28,9 @@ extension SampleTimes {
     /// when `playbackTime` exceeds the left or right boundary of the values, returns the smallest
     /// or largest value (even if `playbackTime` is not a valid playback time). If the values are
     /// empty, returns `nil`.
+    ///
+    /// Before any comparisons are done, `playbackTime` is first converted to the track's timescale
+    /// using `trackTime(for:)` to avoid rounding issues.
     ///
     /// Gaps in timings are ignored. Example: If a sample starts at 4 s, ends at 4.5 s and the next
     /// sample starts at 5 s, a query for the playback time 4.8 s still returns the previous sample
@@ -39,14 +46,11 @@ extension SampleTimes {
     public func sampleTimingIndex(for playbackTime: CMTime) -> Int? {
         guard !values.isEmpty else { return nil }
         
-        // We are comparing `CMTime` to `CMSampleTimingInfo`.
-        let reference = CMSampleTimingInfo(
-            duration: .invalid,
-            presentationTimeStamp: playbackTime,  // We only compare this field.
-            decodeTimeStamp: .invalid
-        )
+        // See `SampleTimingsTest` for a test case why first snapping to the track's timescale can
+        // be important. It handles floating point comparisons implicitly.
+        let target = referenceInfo(for: trackTime(for: playbackTime))
         
-        let index = values.sortedLastIndex(ofElementLessThanOrEqualTo: reference, by: {
+        let index = values.sortedLastIndex(ofElementLessThanOrEqualTo: target, by: {
             $0.presentationTimeStamp < $1.presentationTimeStamp
         })
         
@@ -59,9 +63,9 @@ extension SampleTimes {
     /// Example: For the sample times `[0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8]`, the result for `1.8` is
     /// `2` because `1.8` is the third sample starting in second `1`.
     /// 
-    /// `playbackTime` is first snapped to its corresponding sample time similar to
-    /// `sampleTiming(for:)`. Thus, the reference second of the time at the returned index is not
-    /// necessarily the same as the one of `playbackTime`.
+    /// `playbackTime` is first snapped to its corresponding sample time using `sampleTiming(for:)`.
+    /// Thus, the reference second of the time at the returned index is not necessarily the same as
+    ///  the one of `playbackTime`.
     ///
     /// Example: For the sample timings `[0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8]`, a query for `1.1`
     /// returns the index `3` for the time `0.9`.
@@ -88,5 +92,22 @@ extension SampleTimes {
 
         // Map slice index to array index.
         return indexInTargetSecond - samplesInTargetSecond.startIndex
+    }
+    
+    /// The time scale of `playbackTime` converted to the natural time scale of the source track.
+    ///
+    /// The resulting time typically does not have the same seconds value than the given time due to
+    /// rounding. The rounding method used is `CMTimeRoundingMethod.roundHalfAwayFromZero`.
+    public func trackTime(for playbackTime: CMTime) -> CMTime {
+        guard playbackTime.timescale != trackTimeScale else { return playbackTime }
+        return playbackTime.convertScale(trackTimeScale, method: .roundHalfAwayFromZero)
+    }
+    
+    private func referenceInfo(for time: CMTime) -> CMSampleTimingInfo {
+        CMSampleTimingInfo(
+            duration: .invalid,
+            presentationTimeStamp: time,  // We only compare this field.
+            decodeTimeStamp: .invalid
+        )
     }
 }

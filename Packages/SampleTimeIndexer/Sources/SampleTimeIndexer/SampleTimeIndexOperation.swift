@@ -4,21 +4,30 @@ import AVFoundation
 /// sample.
 class SampleTimeIndexOperation: Operation {
 
-    typealias Result = Swift.Result<[CMSampleTimingInfo], SampleTimeIndexError>
+    typealias Result<Success> = Swift.Result<Success, SampleTimeIndexError>
 
     // These property are accessed from multiple threads (`init`, `main`, `completionBlock`).
     // However, access is never concurrent, only strictly sequentially. Skip locking.
     private let asset: AVAsset
     private let sourceTrack: AVAssetTrack?
+    private let naturalTimeScale: CMTimeScale?
     private let sampleLimit: Int
-    private var result: Result
+    private var result: Result<SampleTimes>
 
-    init(asset: AVAsset, sampleLimit: Int = .max, completionHandler: @escaping (Result) -> Void) {
+    init(
+        asset: AVAsset,
+        sampleLimit: Int = .max,
+        completionHandler: @escaping (Result<SampleTimes>
+    ) -> Void) {
+        
         self.asset = asset
-        // todo: AVAsynchronousKeyValueLoading
-        self.sourceTrack = asset.tracks(withMediaType: .video).first
         self.sampleLimit = sampleLimit
         self.result = .failure(.cancelled)  // In case task is cancelled before started.
+        
+        // TODO: Use `AVAsynchronousKeyValueLoading` for accessing the asset's tracks and the
+        // track's timescale.
+        self.sourceTrack = asset.tracks(withMediaType: .video).first
+        self.naturalTimeScale = self.sourceTrack?.naturalTimeScale
 
         super.init()
 
@@ -45,10 +54,25 @@ class SampleTimeIndexOperation: Operation {
 private extension SampleTimeIndexOperation {
     
     typealias ReaderConfiguration = (AVAssetReader, AVAssetReaderTrackOutput)
+        
+    /// The timing infos sorted by their presentation time.
+    func validatedAndSorted(timings: [CMSampleTimingInfo]) -> Result<SampleTimes> {
+        guard let trackTimeScale = sourceTrack?.naturalTimeScale else {
+            return .failure(.invalidVideo)
+        }
+        
+        let sorted = timings.sorted {
+            $0.presentationTimeStamp < $1.presentationTimeStamp
+        }
+        
+        let result = SampleTimes(values: sorted, trackTimeScale: trackTimeScale)
+        
+        return .success(result)
+    }
 
     /// Reads all samples' timing infos from the asset, periodically checking if the receiver has
     /// been cancelled and aborting in that case.
-    func readSamples(using configuration: ReaderConfiguration) -> Result {
+    func readSamples(using configuration: ReaderConfiguration) -> Result<[CMSampleTimingInfo]> {
         let (reader, output) = configuration
         
         defer { reader.cancelReading() }
@@ -83,22 +107,9 @@ private extension SampleTimeIndexOperation {
 
         return .success(timings)
     }
-
-    /// The timing infos sorted by their presentation time if all times are valid.
-    func validatedAndSorted(timings: [CMSampleTimingInfo]) -> Result {
-        if !timings.allSatisfy({ $0.presentationTimeStamp.isNumeric }) {
-            return .failure(.readingFailed(nil))
-        }
-
-        let sorted = timings.sorted {
-            $0.presentationTimeStamp < $1.presentationTimeStamp
-        }
-        
-        return .success(sorted)
-    }
         
     /// On success, a reader and reader output ready to read the track's samples.
-    func preparedReader(for asset: AVAsset) -> Swift.Result<ReaderConfiguration, SampleTimeIndexError> {
+    func preparedReader(for asset: AVAsset) -> Result<ReaderConfiguration> {
         guard let track = sourceTrack else {
             return .failure(.invalidVideo)
         }
