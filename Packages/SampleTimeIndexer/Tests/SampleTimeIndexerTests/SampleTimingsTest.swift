@@ -154,29 +154,125 @@ final class SampleTimingsTest: XCTestCase {
             expected.map { $0.presentationTimeStamp }
         )
     }
+    
+    // MARK: - Timescale Rounding in sampleTiming(for:)/sampleTimingIndex(for:)
+    
+    func test_sampleTiming_closeMatchInDifferentTimescale_shouldReturnMatch() {
+        let sampleTimescale = CMTimeScale(15360)
+        
+        // Subset of the video's samples as read from its track.
+        let timings = SampleTimes(
+            values: [
+                CMTime(value: 2473728, timescale: sampleTimescale),  // 161.05 s
+                CMTime(value: 2473984, timescale: sampleTimescale),  // 161.06666666666666 s
+                CMTime(value: 2474240, timescale: sampleTimescale),  // 161.08333333333334 s
+                CMTime(value: 2474496, timescale: sampleTimescale)   // 161.1 s
+            ].map { info(for: $0) },
+            
+            // Input times are converted to this timescale.
+            trackTimeScale: sampleTimescale
+        )
+        
+        // This time was the `AVPlayer`s current playback item's playback time after calling
+        // `step(byCount: 1)`, i.e. the player stepped to the desired sample but returned this time.
+        let input = CMTime(value: 161083333333, timescale: CMTimeScale(NSEC_PER_SEC))
+        
+        // This is the actual desired sample time.
+        let expected = CMTime(value: 2474240, timescale: sampleTimescale)
+
+        // The difference is miniscule.
+        //
+        // Technically, `input` is indeed smaller than `expected`. Therefore, according to its
+        // specification, `sampleTiming(for:)` should (and did) round down to the previous sample.
+        //
+        // The issue arises because `AVPlayer` steps to the actually expected sample but uses a
+        // timescale of `NSEC_PER_SEC` which loses the exact precision for both times to match.
+        //
+        // We could use an epsilon for comparisons but instead we changed `sampleTiming(for:)` to
+        // first convert to the track's timescale.
+        XCTAssertLessThan(abs(expected.seconds - input.seconds), 0.000000001)
+        
+        let actual = timings.sampleTiming(for: input)?.presentationTimeStamp
+        let actualIndex = timings.sampleTimingIndex(for: input)
+                
+        // Returns the desired sample.
+        XCTAssertEqual(actual, expected)
+        XCTAssertEqual(actualIndex, 2)
+    }
+    
+    /// A witness of the wrong behaviour of `sampleTiming(for:)` before it was fixed. See the
+    /// previous test for the correct behaviour.
+    func test_sampleTiming_closeMatchInDifferentTimescale_didReturnPreviousSample() {
+        let sampleTimescale = CMTimeScale(15360)
+
+        // Subset of the video's samples as read from its track.
+        let timings = SampleTimes(
+            values: [
+                CMTime(value: 2473728, timescale: sampleTimescale),  // 161.05 s
+                CMTime(value: 2473984, timescale: sampleTimescale),  // 161.06666666666666 s
+                CMTime(value: 2474240, timescale: sampleTimescale),  // 161.08333333333334 s
+                CMTime(value: 2474496, timescale: sampleTimescale)   // 161.1 s
+            ].map { info(for: $0) },
+            
+            // Old behaviour: No conversion of input times to the track's timescale.
+            trackTimeScale: CMTimeScale(NSEC_PER_SEC)
+        )
+        
+        // This time was the `AVPlayer`s current playback item's playback time after calling
+        // `step(byCount: 1)`, i.e. the player stepped to the desired sample but returned this time.
+        let input = CMTime(value: 161083333333, timescale: CMTimeScale(NSEC_PER_SEC))
+                
+        // This is the actual desired sample time.
+        let expected = CMTime(value: 2474240, timescale: sampleTimescale)
+        
+        // The directly preceeding sample to the expected one.
+        let notExpected = CMTime(value: 2473984, timescale: sampleTimescale)
+
+        // Input is much closer to the expected sample than the preceding one.
+        XCTAssertLessThan(abs(expected.seconds - input.seconds), 0.000000001)
+        XCTAssertGreaterThan(abs(notExpected.seconds - input.seconds), 0.01)
+        
+        let actual = timings.sampleTiming(for: input)?.presentationTimeStamp
+        let actualIndex = timings.sampleTimingIndex(for: input)
+                
+        // Returns the preceding sample (technically correct but semantically wrong).
+        XCTAssertEqual(actual, notExpected)
+        XCTAssertEqual(actualIndex, 1)
+    }
 }
     
 // MARK: - Utilities
+
+private let defaultTimeScale = CMTimeScale(NSEC_PER_SEC)
     
 private extension SampleTimingsTest {
         
-    func time(forSeconds seconds: Double) -> CMTime {
-        CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+    func time(forSeconds seconds: Double, timeScale: CMTimeScale = defaultTimeScale) -> CMTime {
+        CMTime(seconds: seconds, preferredTimescale: timeScale)
     }
-    
-    func timingInfo(forSeconds seconds: Double, duration: CMTime = .invalid) -> CMSampleTimingInfo {
-        CMSampleTimingInfo(
-            duration: duration,
-            presentationTimeStamp: time(forSeconds: seconds),
-            decodeTimeStamp: .invalid
-        )
-    }
-    
-    func timings(forSeconds seconds: [Double], duration: CMTime = .invalid) -> SampleTimes {
+
+    func timings(
+        forSeconds seconds: [Double],
+        duration: CMTime = .invalid,
+        samplesTimeScale: CMTimeScale = defaultTimeScale,
+        trackTimeScale: CMTimeScale = defaultTimeScale
+    ) -> SampleTimes {
+        
         let timings = seconds.sorted().map {
-            timingInfo(forSeconds: $0, duration: duration)
+            info(
+                for: CMTime(seconds: $0, preferredTimescale: samplesTimeScale),
+                duration: duration
+            )
         }
 
-        return SampleTimes(values: timings)
+        return SampleTimes(values: timings, trackTimeScale: trackTimeScale)
+    }
+    
+    func info(for time: CMTime, duration: CMTime = .invalid) -> CMSampleTimingInfo {
+        CMSampleTimingInfo(
+            duration: duration,
+            presentationTimeStamp: time,
+            decodeTimeStamp: .invalid
+        )
     }
 }
