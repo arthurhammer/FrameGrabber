@@ -366,7 +366,7 @@
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="hare.fill" catalog="system" width="128" height="91"/>
-        <image name="more" width="30" height="30"/>
+        <image name="more" width="16" height="16"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="accent">
