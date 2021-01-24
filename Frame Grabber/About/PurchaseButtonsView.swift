@@ -12,7 +12,7 @@ class PurchaseButtonsView: UIStackView {
 
     private func configureViews() {
         purchaseButton.activityIndicator.color = .white
-        purchaseButton.configureAsActionButton()
+        purchaseButton.configureAsActionButton(minimumWidth: 300)
         restoreButton.configureDynamicTypeLabel()
     }
 }
