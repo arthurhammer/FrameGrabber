@@ -121,7 +121,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3YN-KA-ZZb">
                                                             <rect key="frame" x="177" y="0.0" width="157" height="21.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="&lt;0.95&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzj-e4-l06">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="950" text="&lt;0.95&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzj-e4-l06">
                                                                     <rect key="frame" x="0.0" y="0.5" width="55" height="20.5"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <nil key="highlightedColor"/>
@@ -191,7 +191,7 @@
     <color key="tintColor" name="accent"/>
     <resources>
         <namedColor name="accent">
-            <color red="0.46274509803921571" green="0.37254901960784315" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
