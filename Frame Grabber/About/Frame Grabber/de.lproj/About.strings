@@ -4,6 +4,9 @@
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
 "CWr-Fn-l1m.text" = "Quellcode";
 
+/* Class = "UILabel"; text = "Supporter"; ObjectID = "E1D-mW-5yO"; */
+"E1D-mW-5yO.text" = "Unterstützer";
+
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
 "GkV-0K-xRO.text" = "Kontakt";
 
@@ -11,7 +14,7 @@
 "gsO-Jw-32d.text" = "Frame Grabber ist völlig kostenlos und enthält keine Werbung. Das ist nur möglich mit der Unterstützung von coolen Leuten wie dir.";
 
 /* Class = "UIButton"; normalTitle = "Donate"; ObjectID = "HlA-JS-FBO"; */
-"HlA-JS-FBO.normalTitle" = "Spenden";
+"HlA-JS-FBO.normalTitle" = "Unterstützen";
 
 /* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
 "hSM-a5-Quj.normalTitle" = "Bereits getan?";
@@ -22,6 +25,12 @@
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
+/* Class = "UILabel"; text = "Frame Grabber doesn't have subscriptions, bug you with ads or collect any data about you. And it is open source.\n\nIf you want to support such a project, you can invite me for an ice cream.\n\nThank you,\nArthur 🍦"; ObjectID = "Ltf-rM-h7K"; */
+"Ltf-rM-h7K.text" = "Frame Grabber hat keine Abos, stört dich nicht mit Werbung, sammelt keine Daten über dich und ist Open Source.\n\nFalls du solch ein Projekt unterstützen magst, kannst du mir ein Eis ausgeben. \n\nBesten Dank,\nArthur 🍦";
+
+/* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "MBv-Ck-5UY"; */
+"MBv-Ck-5UY.text" = "Frame Grabber";
+
 /* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "NG4-o2-qF9"; */
 "NG4-o2-qF9.accessibilityLabel" = "Fertig";
 
@@ -30,6 +39,9 @@
 
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */
 "qvE-dH-xjJ.text" = "Datenschutz";
+
+/* Class = "UILabel"; text = "Checking with the App Store…"; ObjectID = "QxU-hU-16W"; */
+"QxU-hU-16W.text" = "App Store kontaktieren…";
 
 /* Class = "UILabel"; text = "I don't collect any data about you."; ObjectID = "QZZ-Gh-i28"; */
 "QZZ-Gh-i28.text" = "Ich sammle keine Daten von dir.";
@@ -42,6 +54,9 @@
 
 /* Class = "UIButton"; normalTitle = "🎉 Rate Frame Grabber 🎉"; ObjectID = "xhq-rN-pTi"; */
 "xhq-rN-pTi.normalTitle" = "🎉 Frame Grabber Bewerten 🎉";
+
+/* Class = "UILabel"; text = "You're a Supporter! \nThank you so much."; ObjectID = "ygf-4Y-CH8"; */
+"ygf-4Y-CH8.text" = "Du bist Unterstützer!\nVielen Dank.";
 
 /* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "YwB-MD-zZ0"; */
 "YwB-MD-zZ0.headerTitle" = "Info";

@@ -28,8 +28,6 @@
 		001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* ProgressView.swift */; };
 		001CBD94242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
 		001CBD95242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
-		001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825F2403D7ED00388E62 /* ActivityButton.swift */; };
-		001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001E825F2403D7ED00388E62 /* ActivityButton.swift */; };
 		0023FC8F23390D940046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
 		0023FC90233910D30046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
 		0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
@@ -52,8 +50,6 @@
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		0034AFFE240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
-		003D1F202503FE3A006107C0 /* PurchaseFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */; };
-		003D1F212503FEA4006107C0 /* PurchaseFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */; };
 		003D1F2725040718006107C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2525040717006107C0 /* InfoPlist.strings */; };
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F2A25040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
@@ -257,7 +253,6 @@
 		001AA1991FB498C700A00BB9 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		001CBD93242BB7CE00625685 /* UserText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserText.swift; sourceTree = "<group>"; };
-		001E825F2403D7ED00388E62 /* ActivityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButton.swift; sourceTree = "<group>"; };
 		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		0023FC8E23390D940046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/About.storyboard"; sourceTree = "<group>"; };
 		0023FC92233910DD0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/About.strings"; sourceTree = "<group>"; };
@@ -271,7 +266,6 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
-		003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseFeaturesView.swift; sourceTree = "<group>"; };
 		003D1F2625040717006107C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
@@ -495,7 +489,6 @@
 			children = (
 				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
 				003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */,
-				003D1F1F2503FE37006107C0 /* PurchaseFeaturesView.swift */,
 				0034AFFC240139E30041513F /* PurchaseViewController.swift */,
 				0023FC8D23390D940046D9F8 /* About.storyboard */,
 			);
@@ -596,7 +589,6 @@
 		00C098E61FC1C9E0000B05FE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				001E825F2403D7ED00388E62 /* ActivityButton.swift */,
 				00C13CF22404FDCD000193EB /* ConfettiView.swift */,
 				00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */,
 				00328A941FC85919004648F9 /* PlayerView.swift */,
@@ -889,7 +881,6 @@
 				00730EAA214FEA5A001A6EA7 /* AlbumListViewController.swift in Sources */,
 				00024F71234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
 				00AD72C224194107009D18BA /* AVPlayer.swift in Sources */,
-				001E82612403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumListHeader.swift in Sources */,
 				00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */,
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
@@ -898,7 +889,6 @@
 				00730EB1214FEA5A001A6EA7 /* Settings.swift in Sources */,
 				00CA339B25A2521400DBD84D /* UIApplication.swift in Sources */,
 				00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
-				003D1F212503FEA4006107C0 /* PurchaseFeaturesView.swift in Sources */,
 				00024F6E23447EDF00937941 /* PHAsset.swift in Sources */,
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
 				0054936523E5633700F3E684 /* About.swift in Sources */,
@@ -983,7 +973,6 @@
 				00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */,
 				00024F70234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
 				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
-				001E82602403D7ED00388E62 /* ActivityButton.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumListHeader.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */,
@@ -992,7 +981,6 @@
 				00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				00CA339A25A2521400DBD84D /* UIApplication.swift in Sources */,
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
-				003D1F202503FE3A006107C0 /* PurchaseFeaturesView.swift in Sources */,
 				00024F6D23447EDF00937941 /* PHAsset.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,

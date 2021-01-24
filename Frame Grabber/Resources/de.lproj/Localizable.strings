@@ -145,41 +145,8 @@
 /* Video pixel size with unit */
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
-/* Purchase screen first message. */
-"iap.feature.first.message" = "Frame Grabber ist komplett kostenfrei und stört dich niemals mit Werbung.";
-
-/* Purchase screen first feature title. */
-"iap.feature.first.title" = "Werbefrei";
-
-/* Purchase screen second message. */
-"iap.feature.second.message" = "Ich stelle den Quellcode allen frei zur Verfügung.";
-
-/* Purchase screen second feature title. */
-"iap.feature.second.title" = "Transparent";
-
-/* Purchase screen third message. */
-"iap.feature.third.message" = "Du unterstützt einen Indie-Entwickler aus Deutschland und seinen Nachschub an Eis.";
-
-/* Purchase screen third feature title. */
-"iap.feature.third.title" = "Made in Germany";
-
-/* Purchase screen message label when not purchased */
-"iap.notpurchased.message" = "Falls dir meine App besonders gut gefällt und du helfen möchtest, kannst du mir ein Eis ausgeben.";
-
-/* Purchase screen title label when not purchased */
-"iap.notpurchased.title" = "Hey 👋";
-
-/* Purchase screen purchase button label without price */
-"iap.purchase.noprice.action" = "Eis Ausgeben";
-
-/* Purchase screen purchase button label with price */
-"iap.purchase.price.action.format" = "Eis Ausgeben – %@";
-
-/* Purchase screen message label when purchased. */
-"iap.purchased.message" = "Da mag wohl jemand auch besonders gern Eis. Vielen Dank, dass du mich und meine App unterstützt!";
-
-/* Purchase screen title label when purchased. */
-"iap.purchased.title" = "Dankeschön ❤️";
+/* Purchase screen purchase button label */
+"iap.purchase.action" = "Eis Ausgeben";
 
 /* Frame generation progress title. */
 "progress.frameExport.title" = "Exportieren…";
