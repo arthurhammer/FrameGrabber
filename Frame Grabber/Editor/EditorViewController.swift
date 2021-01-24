@@ -3,8 +3,6 @@ import Combine
 import ThumbnailSlider
 import UIKit
 
-import Photos
-
 class EditorViewController: UIViewController {
 
     var videoController: VideoController!
@@ -316,13 +314,9 @@ private extension EditorViewController {
             presentOnTop(shareController)
 
         case .saveToPhotos:
-            PHPhotoLibrary.shared().performChanges({
-                urls.forEach {
-                    PHAssetCreationRequest.creationRequestForAssetFromImage(atFileURL: $0)
-                }
-            }, completionHandler: { ok, error in
-                dprint(ok, error)
-            })
+            SaveToPhotosAction(imageUrls: urls, photoAlbum: "Frame Grabber") {
+                [weak self] ok, error in
+            }
         }
     }
 
