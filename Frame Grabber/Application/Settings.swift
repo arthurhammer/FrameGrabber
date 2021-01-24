@@ -11,6 +11,7 @@ extension UserDefaults {
         static let compressionQuality = "CompressionQuality"
         static let purchasedProductIdentifiers = "PurchasedProductIdentifiers"
         static let exportAction = "ExportAction"
+        static let timeFormat = "TimeFormat"
     }
 
     var videoTypesFilter: VideoTypesFilter {
@@ -42,6 +43,11 @@ extension UserDefaults {
     var exportAction: ExportAction {
         get { codableValue(forKey: Key.exportAction) ?? .showShareSheet }
         set { setCodableValue(value: newValue, forKey: Key.exportAction) }
+    }
+    
+    var timeFormat: TimeFormat {
+        get { codableValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
+        set { setCodableValue(value: newValue, forKey: Key.timeFormat) }
     }
 }
 

@@ -61,6 +61,8 @@
 		0045A10C25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
 		0045A11825BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
+		0045A19B25BE3EFE00A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A19A25BE3EFE00A1235A /* TimeFormat.swift */; };
+		0045A19C25BE3EFE00A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A19A25BE3EFE00A1235A /* TimeFormat.swift */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
@@ -279,6 +281,7 @@
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
+		0045A19A25BE3EFE00A1235A /* TimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimeFormat.swift; path = "Frame Grabber/Export Settings/TimeFormat.swift"; sourceTree = SOURCE_ROOT; };
 		00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubbingIndicatorView.swift; sourceTree = "<group>"; };
 		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
@@ -684,6 +687,7 @@
 				0045A0FD25BDE41600A1235A /* ExportAction.swift */,
 				0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */,
 				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
+				0045A19A25BE3EFE00A1235A /* TimeFormat.swift */,
 				008D293524B20F5100813338 /* ExportSettings.storyboard */,
 			);
 			path = "Export Settings";
@@ -954,6 +958,7 @@
 				0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00CA33B625A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */,
 				007F8A1A24B7591C00324014 /* AlbumViewSettingsButton.swift in Sources */,
+				0045A19C25BE3EFE00A1235A /* TimeFormat.swift in Sources */,
 				00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */,
 				00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */,
 				0086A6B32344CD7100989646 /* FileManager.swift in Sources */,
@@ -1049,6 +1054,7 @@
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00CA33B525A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */,
 				007F8A1924B7591C00324014 /* AlbumViewSettingsButton.swift in Sources */,
+				0045A19B25BE3EFE00A1235A /* TimeFormat.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,
 				0086A6B22344CD7100989646 /* FileManager.swift in Sources */,
