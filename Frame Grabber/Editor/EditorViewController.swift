@@ -276,10 +276,11 @@ private extension EditorViewController {
     // MARK: Generating Images
 
     func generateFramesAndShare(for times: [CMTime]) {
-        showProgress(true, forActivity: .export, value: .indeterminate)
+        let activity = Activity(exportAction: settings.exportAction)
+        showProgress(true, forActivity: activity, value: .indeterminate)
 
         videoController.generateAndExportFrames(for: times) { [weak self] status in
-            self?.showProgress(false, forActivity: .export) {
+            self?.showProgress(false, forActivity: activity) {
                 self?.handleFrameGenerationResult(status)
             }
         }
@@ -344,19 +345,28 @@ private extension EditorViewController {
 
     enum Activity {
         case load
-        case export
+        case exportToShareSheet
+        case exportToPhotos
+        
+        init(exportAction: ExportAction) {
+            switch exportAction {
+            case .saveToPhotos: self = .exportToPhotos
+            case .showShareSheet: self = .exportToShareSheet
+            }
+        }
 
         var title: String {
             switch self {
             case .load: return UserText.editorVideoLoadProgress
-            case .export: return UserText.editorExportProgress
+            case .exportToShareSheet: return UserText.editorExportShareSheetProgress
+            case .exportToPhotos: return UserText.editorExportToPhotosProgress
             }
         }
 
         var delay: TimeInterval {
             switch self {
             case .load: return 0.25
-            case .export: return 0.05
+            case .exportToShareSheet, .exportToPhotos: return 0.05
             }
         }
     }
