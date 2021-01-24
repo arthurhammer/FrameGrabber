@@ -1,5 +1,9 @@
 import UIKit
 
+protocol ExportSettingsViewControllerDelegate: class {
+    func controller(_ controller: ExportSettingsViewController, didChangeExportAction: ExportAction)
+}
+
 class ExportSettingsViewController: UITableViewController {
 
     enum Section: Int {
@@ -8,6 +12,8 @@ class ExportSettingsViewController: UITableViewController {
         case compressionQuality
         case exportAction
     }
+    
+    weak var delegate: ExportSettingsViewControllerDelegate?
 
     let settings: UserDefaults = .standard
 
@@ -42,8 +48,10 @@ class ExportSettingsViewController: UITableViewController {
         let controller = ExportActionSettingsViewController(coder: coder)
         controller?.selectedAction = settings.exportAction
         controller?.didSelectAction = { [weak self] action in
-            self?.settings.exportAction = action
-            self?.updateViews()
+            guard let self = self else  { return }
+            self.settings.exportAction = action
+            self.updateViews()
+            self.delegate?.controller(self, didChangeExportAction: action)
         }
         return controller
     }

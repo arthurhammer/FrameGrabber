@@ -52,11 +52,21 @@ class EditorViewController: UIViewController {
 
             prepareForMetadataSegue(with: controller)
         }
+        
+        else if let destination = segue.destination as? UINavigationController,
+           let controller = destination.topViewController as? ExportSettingsViewController {
+         
+            prepareForExportSettingsSegue(with: controller)
+        }
     }
 
     private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
         controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
+    }
+    
+    private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
+        controller.delegate = self
     }
 }
 
@@ -139,6 +149,7 @@ private extension EditorViewController {
             navigationItem.rightBarButtonItem?.target = self
             navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
         }
+        
         toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
 
         configureNavigationBar()
@@ -386,6 +397,15 @@ private extension EditorViewController {
         if let value = value {
             progressView.setProgress(value, animated: animated)
         }
+    }
+}
+
+// MARK: ExportSettingsViewControllerDelegate
+
+extension EditorViewController: ExportSettingsViewControllerDelegate {
+    
+    func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
+        toolbar.shareButton.setImage(action.icon, for: .normal)
     }
 }
 
