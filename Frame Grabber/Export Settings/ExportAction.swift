@@ -15,4 +15,11 @@ extension ExportAction {
         case .saveToPhotos: return UIImage(systemName: "square.and.arrow.down")
         }
     }
+    
+    var displayString: String? {
+        switch self {
+        case .showShareSheet: return UserText.exportShowShareSheetAction
+        case .saveToPhotos: return UserText.exportSaveToPhotosAction
+        }
+    }
 }
