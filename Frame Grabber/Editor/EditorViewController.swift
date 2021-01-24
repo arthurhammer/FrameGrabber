@@ -314,8 +314,10 @@ private extension EditorViewController {
             presentOnTop(shareController)
 
         case .saveToPhotos:
-            SaveToPhotosAction(imageUrls: urls, photoAlbum: "Frame Grabber") {
-                [weak self] ok, error in
+            SaveToPhotosAction(imageUrls: urls, photoAlbum: "Frame Grabber") { [weak self] ok, _ in
+                if !ok {
+                    self?.presentOnTop(UIAlertController.savingToPhotosFailed())
+                }
             }
         }
     }
