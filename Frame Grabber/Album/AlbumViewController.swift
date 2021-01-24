@@ -281,6 +281,7 @@ private extension AlbumViewController {
             }
         )
 
+        controller.popoverPresentationController?.sourceView = viewSettingsButton
         presentAlert(controller)
     }
 

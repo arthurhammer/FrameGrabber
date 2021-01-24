@@ -104,7 +104,8 @@ private extension EditorViewController {
         let alertController = EditorMoreMenu.alertController { [weak self] selection in
             self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
         }
-
+        
+        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         presentOnTop(alertController)
     }
 
