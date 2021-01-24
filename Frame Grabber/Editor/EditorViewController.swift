@@ -15,6 +15,7 @@ class EditorViewController: UIViewController {
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
     private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    private lazy var activityFeedbackGenerator = UINotificationFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
 
     @IBOutlet private var toolbar: EditorToolbar!
@@ -285,24 +286,29 @@ private extension EditorViewController {
     }
 
     func handleFrameGenerationResult(_ status: FrameExport.Status) {
-        let feedbackGenerator = UINotificationFeedbackGenerator()
-
         switch status {
-        case .cancelled, .progressed:
+        
+        case .progressed:
             break
+            
+        case .cancelled:
+            activityFeedbackGenerator.notificationOccurred(.warning)
+            
         case .failed:
+            activityFeedbackGenerator.notificationOccurred(.error)
             presentOnTop(UIAlertController.frameExportFailed())
+            
         case .succeeded(let urls):
             share(urls: urls, using: settings.exportAction)
         }
-
-        status.feedback.flatMap(feedbackGenerator.notificationOccurred)
     }
 
     func share(urls: [URL], using action: ExportAction) {
         switch action {
                 
         case .showShareSheet:
+            activityFeedbackGenerator.notificationOccurred(.success)
+            
             let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
             shareController.popoverPresentationController?.sourceView = toolbar.shareButton
 
@@ -316,9 +322,14 @@ private extension EditorViewController {
         case .saveToPhotos:
             SaveToPhotosAction(imageUrls: urls, photoAlbum: UserText.saveToPhotosAlbumName) {
                 [weak self] ok, _ in
-                if !ok {
+                if ok {
+                    self?.activityFeedbackGenerator.notificationOccurred(.success)
+                } else {
+                    self?.activityFeedbackGenerator.notificationOccurred(.error)
                     self?.presentOnTop(UIAlertController.savingToPhotosFailed())
                 }
+                
+                self?.videoController.deleteExportedFrames()
             }
         }
     }
@@ -406,16 +417,5 @@ extension EditorViewController: ZoomTransitionDelegate {
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
         zoomingPlayerView.playerView
-    }
-}
-
-private extension FrameExport.Status {
-    var feedback: UINotificationFeedbackGenerator.FeedbackType? {
-        switch self {
-        case .cancelled: return .warning
-        case .failed: return .error
-        case .progressed: return nil
-        case .succeeded: return .success
-        }
     }
 }
