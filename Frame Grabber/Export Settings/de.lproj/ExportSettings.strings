@@ -4,7 +4,7 @@
 /* Class = "UITableViewSection"; footerTitle = "<HEIF can result in smaller file sizes. JPEG is most widely supported.>"; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
-/* Class = "UITableViewSection"; footerTitle = "Adds creation date and GPS location to exported frames."; ObjectID = "iHH-Fm-kn8"; */
+/* Class = "UITableViewSection"; footerTitle = "Adds creation date, GPS location and other metadata to exported frames."; ObjectID = "iHH-Fm-kn8"; */
 "iHH-Fm-kn8.footerTitle" = "Fügt Aufnahmedatum, Ort und andere Metadaten zu exportierten Bildern hinzu.";
 
 /* Class = "UILabel"; text = "<0.95>"; ObjectID = "mzj-e4-l06"; */

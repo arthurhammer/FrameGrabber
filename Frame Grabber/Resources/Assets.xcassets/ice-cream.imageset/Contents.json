@@ -9,8 +9,8 @@
       "scale" : "2x"
     },
     {
-      "filename" : "icecream.png",
       "idiom" : "universal",
+      "filename" : "icecream.png",
       "scale" : "3x"
     },
     {
@@ -24,15 +24,15 @@
       "scale" : "2x"
     },
     {
-      "filename" : "icecream-de.png",
-      "idiom" : "universal",
       "locale" : "de",
+      "idiom" : "universal",
+      "filename" : "icecream-de.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   },
   "properties" : {
     "localizable" : true

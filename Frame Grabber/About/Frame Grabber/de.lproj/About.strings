@@ -1,17 +1,17 @@
 /* Class = "UIButton"; accessibilityHint = "In-App Purchase"; ObjectID = "2Cf-Os-zO1"; */
 "2Cf-Os-zO1.accessibilityHint" = "In-App-Kauf";
 
-/* Class = "UIButton"; accessibilityLabel = "Support Frame Grabber"; ObjectID = "8UP-tj-XNX"; */
-"8UP-tj-XNX.accessibilityLabel" = "Frame Grabber unterstützen.";
-
-/* Class = "UILabel"; text = "Save Your Best Moments"; ObjectID = "Ciq-8B-rvv"; */
-"Ciq-8B-rvv.text" = "Sammle die Besten Momente";
-
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
 "CWr-Fn-l1m.text" = "Quellcode";
 
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
 "GkV-0K-xRO.text" = "Kontakt";
+
+/* Class = "UILabel"; text = "Frame Grabber is completely free and will never bug you with ads. All thanks to the support from amazing people like yourself."; ObjectID = "gsO-Jw-32d"; */
+"gsO-Jw-32d.text" = "Frame Grabber ist völlig kostenlos und enthält keine Werbung. Das ist nur möglich mit der Unterstützung von coolen Leuten wie dir.";
+
+/* Class = "UIButton"; normalTitle = "Donate"; ObjectID = "HlA-JS-FBO"; */
+"HlA-JS-FBO.normalTitle" = "Spenden";
 
 /* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
 "hSM-a5-Quj.normalTitle" = "Bereits getan?";
@@ -19,14 +19,8 @@
 /* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "IAE-sF-IVF"; */
 "IAE-sF-IVF.title" = "Frame Grabber";
 
-/* Class = "UILabel"; text = "Hi, I'm Arthur. I hope Frame Grabber helps you capture awesome frames in your videos and Live Photos!"; ObjectID = "IiT-LI-i5k"; */
-"IiT-LI-i5k.text" = "Hi, ich bin Arthur. Ich hoffe, Frame Grabber hilft dir, coole Frames aus deinen Videos und Live Photos festzuhalten!";
-
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
-
-/* Class = "UIButton"; normalTitle = "Rate Frame Grabber"; ObjectID = "lni-tn-UXo"; */
-"lni-tn-UXo.normalTitle" = "App Bewerten";
 
 /* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "NG4-o2-qF9"; */
 "NG4-o2-qF9.accessibilityLabel" = "Fertig";
@@ -35,10 +29,19 @@
 "Q2G-GR-huD.text" = "Für Feedback und Support.";
 
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "qvE-dH-xjJ"; */
-"qvE-dH-xjJ.text" = "Datenschutzerklärung";
+"qvE-dH-xjJ.text" = "Datenschutz";
 
 /* Class = "UILabel"; text = "I don't collect any data about you."; ObjectID = "QZZ-Gh-i28"; */
 "QZZ-Gh-i28.text" = "Ich sammle keine Daten von dir.";
+
+/* Class = "UILabel"; text = "Made by Arthur Hammer in Germany 🇩🇪"; ObjectID = "UNF-JH-2pd"; */
+"UNF-JH-2pd.text" = "Entwickelt von Arthur Hammer in 🇩🇪";
+
+/* Class = "UILabel"; text = "Nice to see you."; ObjectID = "xBV-RG-m2x"; */
+"xBV-RG-m2x.text" = "Schön, dich zu sehen.";
+
+/* Class = "UIButton"; normalTitle = "🎉 Rate Frame Grabber 🎉"; ObjectID = "xhq-rN-pTi"; */
+"xhq-rN-pTi.normalTitle" = "🎉 Frame Grabber Bewerten 🎉";
 
 /* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "YwB-MD-zZ0"; */
 "YwB-MD-zZ0.headerTitle" = "Info";
