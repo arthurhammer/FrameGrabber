@@ -95,6 +95,12 @@
 "alert.playback.title" = "Wiedergabe nicht möglich";
 
 /* No comment provided by engineer. */
+"alert.saveToPhotos.message" = "Das Bild konnte nicht in deiner Fotomediathek gespeichert werden.";
+
+/* No comment provided by engineer. */
+"alert.saveToPhotos.title" = "Speichern nicht möglich.";
+
+/* No comment provided by engineer. */
 "alert.videoload.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
 
 /* No comment provided by engineer. */
@@ -133,11 +139,23 @@
 /* Editor more button metadata button action */
 "editor.more.metadata.action" = "Metadaten";
 
+/* Title for the share sheet export setting. */
+"export.showShareSheet.action" = "Share-Sheet";
+
+/* Title for the save to photo library export setting. */
+"exportsettings.saveToPhotos.action" = "Fotomediathek";
+
+/* Explanation of what the save to photos setting does */
+"exportsettings.saveToPhotos.footer" = "Speichert Bilder in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
+
 /* Explanation of image formats in settings footer when HEIF is not supported */
 "exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
 /* Explanation of image formats in settings footer */
 "exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
+
+/* Explanation of what the share sheet setting does */
+"exportsettings.showShareSheet.footer" = "Öffnet das Share-Sheet zum Exportieren.";
 
 /* Video frame rate with unit */
 "formatter.framerate.format" = "%@ fps";
@@ -148,8 +166,11 @@
 /* Purchase screen purchase button label */
 "iap.purchase.action" = "Eis Ausgeben";
 
-/* Frame generation progress title. */
-"progress.frameExport.title" = "Exportieren…";
+/* Frame generation progress title when saving to Photos. */
+"progress.export.saveToPhotos.title" = "In Fotos speichern…";
+
+/* Frame generation progress title when showing the share sheet. */
+"progress.export.shareSheet.title" = "Exportieren…";
 
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
