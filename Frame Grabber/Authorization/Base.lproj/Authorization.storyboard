@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1xs-ZW-CG9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1xs-ZW-CG9">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgC-6x-dUz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="695"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="690"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v2C-bd-e8C" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="442"/>
@@ -91,18 +91,18 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="QxL-oM-ZOA"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZpT-Z1-rOe">
-                                <rect key="frame" x="0.0" y="739" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="734" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="HFn-iv-N9C"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="afR-qR-TCX"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="rME-8f-Wj1" userLabel="Action Stack">
-                                <rect key="frame" x="20" y="755" width="374" height="91"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rME-8f-Wj1" userLabel="Action Stack">
+                                <rect key="frame" x="86" y="750" width="242.5" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40q-y2-rgZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="242.5" height="53"/>
                                         <color key="backgroundColor" name="accent"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="tintColor" systemColor="systemBackgroundColor"/>
@@ -113,15 +113,15 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-Mv-aL1">
-                                        <rect key="frame" x="0.0" y="65" width="374" height="26"/>
+                                        <rect key="frame" x="0.0" y="69" width="242.5" height="27"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdY-Cc-mGB">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="26"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="242.5" height="27"/>
                                                 <accessibility key="accessibilityConfiguration" hint="Opens privacy policy."/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <inset key="contentEdgeInsets" minX="22" minY="4" maxX="16" maxY="4"/>
                                                 <inset key="imageEdgeInsets" minX="-6" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" title="Your videos remain private." image="checkmark.shield.fill" catalog="system">
+                                                <state key="normal" title="Your videos remain private." image="hand.thumbsup" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     </preferredSymbolConfiguration>
@@ -144,16 +144,17 @@
                             <constraint firstItem="mB5-wO-tQR" firstAttribute="bottom" secondItem="rME-8f-Wj1" secondAttribute="bottom" constant="16" id="NIu-py-dxz">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
-                            <constraint firstAttribute="trailingMargin" secondItem="rME-8f-Wj1" secondAttribute="trailing" id="Rcl-UZ-ide"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="rME-8f-Wj1" secondAttribute="trailing" id="Rcl-UZ-ide"/>
                             <constraint firstItem="ZpT-Z1-rOe" firstAttribute="leading" secondItem="uep-rp-0KY" secondAttribute="leading" id="Xam-sU-BkJ"/>
                             <constraint firstItem="PaK-qv-LjZ" firstAttribute="height" secondItem="uep-rp-0KY" secondAttribute="height" multiplier="0.296912" priority="999" id="cDA-ZE-IRl"/>
+                            <constraint firstItem="rME-8f-Wj1" firstAttribute="centerX" secondItem="uep-rp-0KY" secondAttribute="centerX" id="gkv-yi-cB2"/>
                             <constraint firstAttribute="trailing" secondItem="ZpT-Z1-rOe" secondAttribute="trailing" id="jYu-re-CwI"/>
                             <constraint firstItem="rME-8f-Wj1" firstAttribute="top" secondItem="jgC-6x-dUz" secondAttribute="bottom" constant="16" id="kvc-eO-LoD">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstItem="jgC-6x-dUz" firstAttribute="top" secondItem="mB5-wO-tQR" secondAttribute="top" id="uVe-jS-l85"/>
                             <constraint firstItem="ZpT-Z1-rOe" firstAttribute="top" secondItem="jgC-6x-dUz" secondAttribute="bottom" id="w0r-th-b45"/>
-                            <constraint firstItem="rME-8f-Wj1" firstAttribute="leading" secondItem="uep-rp-0KY" secondAttribute="leadingMargin" id="wUy-uM-LM2"/>
+                            <constraint firstItem="rME-8f-Wj1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uep-rp-0KY" secondAttribute="leadingMargin" id="wUy-uM-LM2"/>
                         </constraints>
                     </view>
                     <connections>
@@ -173,9 +174,9 @@
     <color key="tintColor" name="accent"/>
     <resources>
         <image name="authorization" width="645.33331298828125" height="394.66665649414062"/>
-        <image name="checkmark.shield.fill" catalog="system" width="128" height="118"/>
+        <image name="hand.thumbsup" catalog="system" width="128" height="128"/>
         <namedColor name="accent">
-            <color red="0.27099999785423279" green="0.16099999845027924" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
