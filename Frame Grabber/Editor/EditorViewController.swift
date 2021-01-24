@@ -330,7 +330,7 @@ private extension EditorViewController {
         var delay: TimeInterval {
             switch self {
             case .load: return 0.25
-            case .export: return 0.1
+            case .export: return 0.05
             }
         }
     }
