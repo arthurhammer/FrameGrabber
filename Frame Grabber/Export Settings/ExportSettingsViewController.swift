@@ -6,6 +6,7 @@ class ExportSettingsViewController: UITableViewController {
         case metadata
         case format
         case compressionQuality
+        case exportAction
     }
 
     let settings: UserDefaults = .standard
@@ -15,6 +16,7 @@ class ExportSettingsViewController: UITableViewController {
     @IBOutlet private var compressionQualityStepper: UIStepper!
     @IBOutlet private var compressionQualityLabel: UILabel!
     @IBOutlet private var compressionQualityStack: UIStackView!
+    @IBOutlet private var selectedExportActionLabel: UILabel!
 
     private lazy var compressionFormatter = NumberFormatter.percentFormatter()
 
@@ -36,6 +38,16 @@ class ExportSettingsViewController: UITableViewController {
         }
     }
     
+    @IBSegueAction private func makeActionSettingsController(_ coder: NSCoder) -> ExportActionSettingsViewController? {
+        let controller = ExportActionSettingsViewController(coder: coder)
+        controller?.selectedAction = settings.exportAction
+        controller?.didSelectAction = { [weak self] action in
+            self?.settings.exportAction = action
+            self?.updateViews()
+        }
+        return controller
+    }
+
     @IBAction private func done() {
         dismiss(animated: true)
     }
@@ -103,6 +115,8 @@ class ExportSettingsViewController: UITableViewController {
         
         let formatIndex = ImageFormat.allCases.firstIndex(of: settings.imageFormat)
         imageFormatControl.selectedSegmentIndex = formatIndex ?? 0
+        
+        selectedExportActionLabel.text = settings.exportAction.displayString
     }
     
     private func updateViews(for traitCollection: UITraitCollection) {
