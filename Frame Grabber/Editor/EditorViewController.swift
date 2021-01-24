@@ -3,10 +3,13 @@ import Combine
 import ThumbnailSlider
 import UIKit
 
+import Photos
+
 class EditorViewController: UIViewController {
 
     var videoController: VideoController!
     var transitionController: ZoomTransitionController?
+    let settings: UserDefaults = .standard
 
     // MARK: Private Properties
 
@@ -137,6 +140,7 @@ private extension EditorViewController {
             navigationItem.rightBarButtonItem?.target = self
             navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
         }
+        toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
 
         configureNavigationBar()
         configureGestures()
@@ -291,22 +295,35 @@ private extension EditorViewController {
         case .failed:
             presentOnTop(UIAlertController.frameExportFailed())
         case .succeeded(let urls):
-            share(urls: urls)
+            share(urls: urls, using: settings.exportAction)
         }
 
         status.feedback.flatMap(feedbackGenerator.notificationOccurred)
     }
 
-    func share(urls: [URL]) {
-        let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        shareController.popoverPresentationController?.sourceView = toolbar.shareButton
+    func share(urls: [URL], using action: ExportAction) {
+        switch action {
+                
+        case .showShareSheet:
+            let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+            shareController.popoverPresentationController?.sourceView = toolbar.shareButton
 
-        shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
-            guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
-            self?.videoController.deleteExportedFrames()
+            shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
+                guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
+                self?.videoController.deleteExportedFrames()
+            }
+
+            presentOnTop(shareController)
+
+        case .saveToPhotos:
+            PHPhotoLibrary.shared().performChanges({
+                urls.forEach {
+                    PHAssetCreationRequest.creationRequestForAssetFromImage(atFileURL: $0)
+                }
+            }, completionHandler: { ok, error in
+                dprint(ok, error)
+            })
         }
-
-        presentOnTop(shareController)
     }
 
     func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
