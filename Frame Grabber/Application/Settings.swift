@@ -10,6 +10,7 @@ extension UserDefaults {
         static let imageFormat = "ImageFormat"
         static let compressionQuality = "CompressionQuality"
         static let purchasedProductIdentifiers = "PurchasedProductIdentifiers"
+        static let exportAction = "ExportAction"
     }
 
     var videoTypesFilter: VideoTypesFilter {
@@ -36,6 +37,11 @@ extension UserDefaults {
     var compressionQuality: Double {
         get { (object(forKey: Key.compressionQuality) as? Double) ?? 0.95 }
         set { set(newValue, forKey: Key.compressionQuality) }
+    }
+    
+    var exportAction: ExportAction {
+        get { codableValue(forKey: Key.exportAction) ?? .showShareSheet }
+        set { setCodableValue(value: newValue, forKey: Key.exportAction) }
     }
 }
 
