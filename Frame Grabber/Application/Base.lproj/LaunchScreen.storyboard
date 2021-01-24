@@ -26,10 +26,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hOW-lw-mH5">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="116.33333333333333" height="33"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-YU-qNU">
-                                                <rect key="frame" x="0.0" y="0.66666666666666785" width="200" height="32"/>
+                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalCompressionResistancePriority="950" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-YU-qNU">
+                                                <rect key="frame" x="0.0" y="0.66666666666666785" width="116.33333333333333" height="32"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <inset key="imageEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -47,7 +47,6 @@
                                     <constraint firstItem="hOW-lw-mH5" firstAttribute="top" secondItem="9dK-Fn-CIZ" secondAttribute="top" id="OGH-hQ-ejL"/>
                                     <constraint firstItem="hOW-lw-mH5" firstAttribute="leading" secondItem="9dK-Fn-CIZ" secondAttribute="leading" id="UGg-pB-aEf"/>
                                     <constraint firstAttribute="bottom" secondItem="hOW-lw-mH5" secondAttribute="bottom" id="fgv-2w-I7k"/>
-                                    <constraint firstAttribute="trailing" secondItem="hOW-lw-mH5" secondAttribute="trailing" id="qYA-wL-8DQ"/>
                                 </constraints>
                             </view>
                         </barButtonItem>
@@ -80,7 +79,7 @@
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <namedColor name="accent">
-            <color red="0.46274509803921571" green="0.37254901960784315" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
