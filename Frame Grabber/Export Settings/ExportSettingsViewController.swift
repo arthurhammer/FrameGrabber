@@ -1,12 +1,19 @@
 import UIKit
 
+protocol ExportSettingsViewControllerDelegate: class {
+    func controller(_ controller: ExportSettingsViewController, didChangeExportAction: ExportAction)
+}
+
 class ExportSettingsViewController: UITableViewController {
 
     enum Section: Int {
         case metadata
         case format
         case compressionQuality
+        case exportAction
     }
+    
+    weak var delegate: ExportSettingsViewControllerDelegate?
 
     let settings: UserDefaults = .standard
 
@@ -15,6 +22,7 @@ class ExportSettingsViewController: UITableViewController {
     @IBOutlet private var compressionQualityStepper: UIStepper!
     @IBOutlet private var compressionQualityLabel: UILabel!
     @IBOutlet private var compressionQualityStack: UIStackView!
+    @IBOutlet private var selectedExportActionLabel: UILabel!
 
     private lazy var compressionFormatter = NumberFormatter.percentFormatter()
 
@@ -36,6 +44,18 @@ class ExportSettingsViewController: UITableViewController {
         }
     }
     
+    @IBSegueAction private func makeActionSettingsController(_ coder: NSCoder) -> ExportActionSettingsViewController? {
+        let controller = ExportActionSettingsViewController(coder: coder)
+        controller?.selectedAction = settings.exportAction
+        controller?.didSelectAction = { [weak self] action in
+            guard let self = self else  { return }
+            self.settings.exportAction = action
+            self.updateViews()
+            self.delegate?.controller(self, didChangeExportAction: action)
+        }
+        return controller
+    }
+
     @IBAction private func done() {
         dismiss(animated: true)
     }
@@ -103,6 +123,8 @@ class ExportSettingsViewController: UITableViewController {
         
         let formatIndex = ImageFormat.allCases.firstIndex(of: settings.imageFormat)
         imageFormatControl.selectedSegmentIndex = formatIndex ?? 0
+        
+        selectedExportActionLabel.text = settings.exportAction.displayString
     }
     
     private func updateViews(for traitCollection: UITraitCollection) {

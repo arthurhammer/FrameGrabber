@@ -7,6 +7,9 @@
 /* Class = "UILabel"; text = "Supporter"; ObjectID = "E1D-mW-5yO"; */
 "E1D-mW-5yO.text" = "Unterstützer";
 
+/* Class = "UILabel"; text = "🥳"; ObjectID = "G1f-dH-f7o"; */
+"G1f-dH-f7o.text" = "🥳";
+
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
 "GkV-0K-xRO.text" = "Kontakt";
 

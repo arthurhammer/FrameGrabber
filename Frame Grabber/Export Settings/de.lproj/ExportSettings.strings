@@ -1,6 +1,9 @@
 /* Class = "UITableViewSection"; footerTitle = "A smaller compression quality results in a smaller file size and reduced photo quality."; ObjectID = "6AO-mV-PI8"; */
 "6AO-mV-PI8.footerTitle" = "Eine niedrigere Kompressionsqualität führt zu einer kleineren Dateigröße und schlechteren Bildqualität.";
 
+/* Class = "UINavigationItem"; title = "Export to"; ObjectID = "7g2-vo-8yq"; */
+"7g2-vo-8yq.title" = "Aktion";
+
 /* Class = "UITableViewSection"; footerTitle = "<HEIF can result in smaller file sizes. JPEG is most widely supported.>"; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
@@ -15,6 +18,9 @@
 
 /* Class = "UILabel"; text = "Quality"; ObjectID = "sWo-g3-pni"; */
 "sWo-g3-pni.text" = "Qualität";
+
+/* Class = "UILabel"; text = "Export to"; ObjectID = "V1t-8Q-ajc"; */
+"V1t-8Q-ajc.text" = "Aktion";
 
 /* Class = "UINavigationItem"; title = "Export Settings"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Exporteinstellungen";

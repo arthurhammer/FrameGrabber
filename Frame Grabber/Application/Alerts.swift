@@ -20,6 +20,12 @@ extension UIAlertController {
              message: UserText.alertFrameExportFailedMessage,
              okHandler: okHandler)
     }
+    
+    static func savingToPhotosFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.alertFrameExportFailedTitle,
+             message: UserText.alertFrameExportFailedMessage,
+             okHandler: okHandler)
+    }
 
     static func mailNotAvailable(contactAddress: String, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertMailUnavailableTitle,

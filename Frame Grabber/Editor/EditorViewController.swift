@@ -7,6 +7,7 @@ class EditorViewController: UIViewController {
 
     var videoController: VideoController!
     var transitionController: ZoomTransitionController?
+    let settings: UserDefaults = .standard
 
     // MARK: Private Properties
 
@@ -14,6 +15,7 @@ class EditorViewController: UIViewController {
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
     private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    private lazy var activityFeedbackGenerator = UINotificationFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
 
     @IBOutlet private var toolbar: EditorToolbar!
@@ -50,11 +52,21 @@ class EditorViewController: UIViewController {
 
             prepareForMetadataSegue(with: controller)
         }
+        
+        else if let destination = segue.destination as? UINavigationController,
+           let controller = destination.topViewController as? ExportSettingsViewController {
+         
+            prepareForExportSettingsSegue(with: controller)
+        }
     }
 
     private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
         controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
+    }
+    
+    private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
+        controller.delegate = self
     }
 }
 
@@ -137,6 +149,8 @@ private extension EditorViewController {
             navigationItem.rightBarButtonItem?.target = self
             navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
         }
+        
+        toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
 
         configureNavigationBar()
         configureGestures()
@@ -273,40 +287,63 @@ private extension EditorViewController {
     // MARK: Generating Images
 
     func generateFramesAndShare(for times: [CMTime]) {
-        showProgress(true, forActivity: .export, value: .indeterminate)
+        let activity = Activity(exportAction: settings.exportAction)
+        showProgress(true, forActivity: activity, value: .indeterminate)
 
         videoController.generateAndExportFrames(for: times) { [weak self] status in
-            self?.showProgress(false, forActivity: .export) {
+            self?.showProgress(false, forActivity: activity) {
                 self?.handleFrameGenerationResult(status)
             }
         }
     }
 
     func handleFrameGenerationResult(_ status: FrameExport.Status) {
-        let feedbackGenerator = UINotificationFeedbackGenerator()
-
         switch status {
-        case .cancelled, .progressed:
+        
+        case .progressed:
             break
+            
+        case .cancelled:
+            activityFeedbackGenerator.notificationOccurred(.warning)
+            
         case .failed:
+            activityFeedbackGenerator.notificationOccurred(.error)
             presentOnTop(UIAlertController.frameExportFailed())
+            
         case .succeeded(let urls):
-            share(urls: urls)
+            share(urls: urls, using: settings.exportAction)
         }
-
-        status.feedback.flatMap(feedbackGenerator.notificationOccurred)
     }
 
-    func share(urls: [URL]) {
-        let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-        shareController.popoverPresentationController?.sourceView = toolbar.shareButton
+    func share(urls: [URL], using action: ExportAction) {
+        switch action {
+                
+        case .showShareSheet:
+            activityFeedbackGenerator.notificationOccurred(.success)
+            
+            let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+            shareController.popoverPresentationController?.sourceView = toolbar.shareButton
 
-        shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
-            guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
-            self?.videoController.deleteExportedFrames()
+            shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
+                guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
+                self?.videoController.deleteExportedFrames()
+            }
+
+            presentOnTop(shareController)
+
+        case .saveToPhotos:
+            SaveToPhotosAction(imageUrls: urls, photoAlbum: UserText.saveToPhotosAlbumName) {
+                [weak self] ok, _ in
+                if ok {
+                    self?.activityFeedbackGenerator.notificationOccurred(.success)
+                } else {
+                    self?.activityFeedbackGenerator.notificationOccurred(.error)
+                    self?.presentOnTop(UIAlertController.savingToPhotosFailed())
+                }
+                
+                self?.videoController.deleteExportedFrames()
+            }
         }
-
-        presentOnTop(shareController)
     }
 
     func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
@@ -319,19 +356,28 @@ private extension EditorViewController {
 
     enum Activity {
         case load
-        case export
+        case exportToShareSheet
+        case exportToPhotos
+        
+        init(exportAction: ExportAction) {
+            switch exportAction {
+            case .saveToPhotos: self = .exportToPhotos
+            case .showShareSheet: self = .exportToShareSheet
+            }
+        }
 
         var title: String {
             switch self {
             case .load: return UserText.editorVideoLoadProgress
-            case .export: return UserText.editorExportProgress
+            case .exportToShareSheet: return UserText.editorExportShareSheetProgress
+            case .exportToPhotos: return UserText.editorExportToPhotosProgress
             }
         }
 
         var delay: TimeInterval {
             switch self {
             case .load: return 0.25
-            case .export: return 0.05
+            case .exportToShareSheet, .exportToPhotos: return 0.05
             }
         }
     }
@@ -351,6 +397,15 @@ private extension EditorViewController {
         if let value = value {
             progressView.setProgress(value, animated: animated)
         }
+    }
+}
+
+// MARK: ExportSettingsViewControllerDelegate
+
+extension EditorViewController: ExportSettingsViewControllerDelegate {
+    
+    func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
+        toolbar.shareButton.setImage(action.icon, for: .normal)
     }
 }
 
@@ -392,16 +447,5 @@ extension EditorViewController: ZoomTransitionDelegate {
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
         zoomingPlayerView.playerView
-    }
-}
-
-private extension FrameExport.Status {
-    var feedback: UINotificationFeedbackGenerator.FeedbackType? {
-        switch self {
-        case .cancelled: return .warning
-        case .failed: return .error
-        case .progressed: return nil
-        case .succeeded: return .success
-        }
     }
 }
