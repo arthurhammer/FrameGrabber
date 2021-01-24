@@ -167,7 +167,9 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
+                                <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="r6g-Iu-tPw" id="yrf-sk-izP">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -242,7 +244,7 @@
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
         <namedColor name="accent">
-            <color red="0.46274509803921571" green="0.37254901960784315" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
