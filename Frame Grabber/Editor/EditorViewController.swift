@@ -256,7 +256,7 @@ private extension EditorViewController {
                 toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
             } else {
                 toolbar.timeSpinner.isHidden = false
-                toolbar.timeLabel.text = timeFormatter.string(from: time) + "."  // TODO
+                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"  // TODO
             }
         }
     }

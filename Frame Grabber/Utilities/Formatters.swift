@@ -40,7 +40,7 @@ class VideoTimeFormatter {
     func string(from time: CMTime, frameNumber: Int) -> String {
         let mmss = string(from: time, includeMilliseconds: false)
         let ff = String(format: "%02d", frameNumber)
-        let mmssff = "\(mmss).\(ff)"
+        let mmssff = "\(mmss) / \(ff)"
         return time.isNumeric ? mmssff : mmss
     }
 

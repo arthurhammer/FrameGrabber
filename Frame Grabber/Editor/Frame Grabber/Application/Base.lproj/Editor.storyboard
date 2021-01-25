@@ -20,21 +20,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8St-aq-4oR" customClass="ZoomingPlayerView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="390" height="580"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="584"/>
                                 <accessibility key="accessibilityConfiguration" label="Video">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="149" y="607" width="92" height="41"/>
+                                <rect key="frame" x="148.66666666666666" y="612" width="93" height="40"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="92" height="41"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="93" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="40.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="40"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="40.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="93" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g4t-w4-IEi">
@@ -85,10 +85,10 @@
                                 </connections>
                             </visualEffectView>
                             <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="668" width="390" height="176"/>
+                                <rect key="frame" x="0.0" y="672" width="390" height="172"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls">
-                                        <rect key="frame" x="12" y="36" width="366" height="106"/>
+                                        <rect key="frame" x="12" y="32" width="366" height="106"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-a9-tZe" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="56"/>
@@ -178,7 +178,7 @@
                                         <variation key="widthClass=regular" alignment="center" axis="horizontal"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Z13-bf-dHU" userLabel="Time Label with Spinner">
-                                        <rect key="frame" x="162" y="8" width="66" height="20"/>
+                                        <rect key="frame" x="162" y="6" width="66" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
                                                 <rect key="frame" x="0.0" y="0.0" width="46" height="20"/>
@@ -199,7 +199,7 @@
                                 <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="6gi-a9-tZe" firstAttribute="top" secondItem="Z13-bf-dHU" secondAttribute="bottom" constant="8" id="1BN-pc-04e">
+                                    <constraint firstItem="6gi-a9-tZe" firstAttribute="top" secondItem="Z13-bf-dHU" secondAttribute="bottom" constant="6" id="1BN-pc-04e">
                                         <variation key="heightClass=compact" constant="2"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                     </constraint>
@@ -214,7 +214,7 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="g9o-LJ-bgy" secondAttribute="bottom" id="Q8q-Qr-Vf9"/>
-                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="8" id="hW6-UN-k24">
+                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="6" id="hW6-UN-k24">
                                         <variation key="heightClass=compact" constant="2"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                     </constraint>
