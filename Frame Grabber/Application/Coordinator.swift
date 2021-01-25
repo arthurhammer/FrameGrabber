@@ -47,6 +47,7 @@ class Coordinator: NSObject {
             completion()
         }
         
+        authorizationController.modalPresentationStyle = .formSheet
         authorizationController.isModalInPresentation = true
         navigationController.present(authorizationController, animated: animated)
     }
