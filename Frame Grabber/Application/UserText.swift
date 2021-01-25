@@ -42,7 +42,7 @@ struct UserText {
     static let editorExportToPhotosProgress = NSLocalizedString("progress.export.saveToPhotos.title", value: "Saving to Photos…", comment: "Frame generation progress title when saving to Photos.")
 
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
-    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Export Settings", comment: "Editor more button export settings action")
+    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
     static let saveToPhotosAlbumName = "Frame Grabber"
 
     static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")
@@ -57,6 +57,11 @@ struct UserText {
     static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves images to your photo library and adds them to the “Frame Grabber” photo album.", comment: "Explanation of what the save to photos setting does")
     static let exportShowShareSheetAction = NSLocalizedString("export.showShareSheet.action", value: "Share Sheet", comment: "Title for the share sheet export setting.")
     static let exportSaveToPhotosAction = NSLocalizedString("exportsettings.saveToPhotos.action", value: "Photo Library", comment: "Title for the save to photo library export setting.")
+    static let exportSettingsFrameNumberFormatFooter = NSLocalizedString("exportsettings.frameNumber.footer", value: "Shows the frame number relative to the current seconds. For large videos, it might take a bit longer to determine the frame numbers.", comment: "Explanation of what the frame number time format does.")
+    static let exportMillisecondsFormatTitle = NSLocalizedString("settings.milliseconds.title", value: "Milliseconds", comment: "Title for the milliseconds time format setting.")
+    static let exportMillisecondsFormat = NSLocalizedString("settings.milliseconds.format", value: "mm:ss.SSS", comment: "The milliseconds format, used for display (but not for actual formatting).")
+    static let exportFrameNumberFormatTitle = NSLocalizedString("settings.frameNumber.title", value: "Frames", comment: "Title for the frame number time format setting.")
+    static let exportFrameNumberFormat = NSLocalizedString("settings.frameNumber.format", value: "mm:ss / ff", comment: "The frame number format, used for display (but not for actual formatting).")
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")

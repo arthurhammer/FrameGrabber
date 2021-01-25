@@ -2,6 +2,7 @@ import UIKit
 
 protocol ExportSettingsViewControllerDelegate: class {
     func controller(_ controller: ExportSettingsViewController, didChangeExportAction: ExportAction)
+    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat: TimeFormat)
 }
 
 class ExportSettingsViewController: UITableViewController {
@@ -11,6 +12,7 @@ class ExportSettingsViewController: UITableViewController {
         case format
         case compressionQuality
         case exportAction
+        case timeFormat
     }
     
     weak var delegate: ExportSettingsViewControllerDelegate?
@@ -23,6 +25,7 @@ class ExportSettingsViewController: UITableViewController {
     @IBOutlet private var compressionQualityLabel: UILabel!
     @IBOutlet private var compressionQualityStack: UIStackView!
     @IBOutlet private var selectedExportActionLabel: UILabel!
+    @IBOutlet private var selectedTimeFormatLabel: UILabel!
 
     private lazy var compressionFormatter = NumberFormatter.percentFormatter()
 
@@ -52,6 +55,18 @@ class ExportSettingsViewController: UITableViewController {
             self.settings.exportAction = action
             self.updateViews()
             self.delegate?.controller(self, didChangeExportAction: action)
+        }
+        return controller
+    }
+    
+    @IBSegueAction private func makeTimeFormatSettingsController(_ coder: NSCoder) -> TimeFormatSettingsViewController? {
+        let controller = TimeFormatSettingsViewController(coder: coder)
+        controller?.selectedFormat = settings.timeFormat
+        controller?.didSelectFormat = { [weak self] format in
+            guard let self = self else  { return }
+            self.settings.timeFormat = format
+            self.updateViews()
+            self.delegate?.controller(self, didChangeTimeFormat: format)
         }
         return controller
     }
@@ -125,6 +140,7 @@ class ExportSettingsViewController: UITableViewController {
         imageFormatControl.selectedSegmentIndex = formatIndex ?? 0
         
         selectedExportActionLabel.text = settings.exportAction.displayString
+        selectedTimeFormatLabel.text = settings.timeFormat.displayString
     }
     
     private func updateViews(for traitCollection: UITraitCollection) {

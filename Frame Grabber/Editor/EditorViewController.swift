@@ -239,13 +239,26 @@ private extension EditorViewController {
     }
 
     func updateTimeLabel(withTime time: CMTime) {
-        let isPausedDuringPlayback = (playbackController.status == .readyToPlay)
-            && !playbackController.isPlaying
+        guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
+            toolbar.timeSpinner.isHidden = true
+            toolbar.timeLabel.text = timeFormatter.string(from: time)
+            return
+        }
         
-        toolbar.timeLabel.text = timeFormatter.string(
-            fromCurrentTime: time,
-            includeMilliseconds: isPausedDuringPlayback
-        )
+        switch settings.timeFormat {
+        
+        case .minutesSecondsMilliseconds:
+            toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)
+        
+        case .minutesSecondsFrameNumber:
+            if let frameNumber = playbackController.relativeFrameNumber(for: time) {
+                toolbar.timeSpinner.isHidden = true
+                toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
+            } else {
+                toolbar.timeSpinner.isHidden = false
+                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"  // TODO
+            }
+        }
     }
 
     // MARK: Loading Videos
@@ -406,6 +419,11 @@ extension EditorViewController: ExportSettingsViewControllerDelegate {
     
     func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
         toolbar.shareButton.setImage(action.icon, for: .normal)
+    }
+    
+    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat: TimeFormat) {
+        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
+        updateTimeLabel(withTime: time)
     }
 }
 

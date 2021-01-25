@@ -161,11 +161,15 @@ class PlaybackController {
         sampleIndexer.indexTimes(for: asset) { [weak self] result in
             DispatchQueue.main.async {
                 self?.sampleTimes = try? result.get()  // Ignoring errors
+                self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
         }
     }
     
     private func sampleTime(for playbackTime: CMTime) -> CMTime? {
         sampleTimes?.sampleTiming(for: playbackTime)?.presentationTimeStamp
+    }
+    func relativeFrameNumber(for playbackTime: CMTime) -> Int? {
+        sampleTimes?.sampleTimingIndexInSecond(for: playbackTime)
     }
 }

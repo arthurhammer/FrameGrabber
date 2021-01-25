@@ -5,6 +5,7 @@ class EditorToolbar: UIView {
 
     @IBOutlet var timeSlider: ScrubbingThumbnailSlider!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var timeSpinner: UIActivityIndicatorView!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var previousButton: RepeatingButton!
     @IBOutlet var nextButton: RepeatingButton!
@@ -33,6 +34,8 @@ class EditorToolbar: UIView {
         insertSubview(blurView, at: 0)
         
         configureTimeLabel()
+        
+        timeSpinner.transform = CGAffineTransform.identity.scaledBy(x: 0.75, y: 0.75)
     }
     
     private func configureTimeLabel() {
@@ -40,11 +43,13 @@ class EditorToolbar: UIView {
         
         timeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
-        let handleConstraint = timeLabel.centerXAnchor.constraint(
+        let timeContainer = timeLabel.superview
+        
+        let handleConstraint = timeContainer?.centerXAnchor.constraint(
             equalTo: timeSlider.handleLayoutGuide.centerXAnchor
         )
-        handleConstraint.priority = .defaultLow
-        handleConstraint.isActive = true
+        handleConstraint?.priority = .defaultHigh
+        handleConstraint?.isActive = true
     }
 }
 

@@ -61,6 +61,10 @@
 		0045A10C25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
 		0045A11825BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
+		0045A1A425BE524200A1235A /* TimeFormatSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */; };
+		0045A1A525BE524200A1235A /* TimeFormatSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */; };
+		0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1AF25BE5AF800A1235A /* TimeFormat.swift */; };
+		0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1AF25BE5AF800A1235A /* TimeFormat.swift */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
@@ -279,6 +283,8 @@
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
+		0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatSettingsViewController.swift; sourceTree = "<group>"; };
+		0045A1AF25BE5AF800A1235A /* TimeFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormat.swift; sourceTree = "<group>"; };
 		00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubbingIndicatorView.swift; sourceTree = "<group>"; };
 		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
@@ -429,7 +435,7 @@
 				0020D2F21FB4F277002379D0 /* Album */,
 				0057C5BB1FBDE2CF008B7E08 /* Editor */,
 				00EDF97C2340A17A00FA0F48 /* Metadata */,
-				00ED22DC24AFDADF0023A973 /* Export Settings */,
+				00ED22DC24AFDADF0023A973 /* Settings */,
 				00C098E61FC1C9E0000B05FE /* Views */,
 				00653B41213941860038CB56 /* Transition */,
 				0020D2F11FB4ED95002379D0 /* Utilities */,
@@ -678,15 +684,17 @@
 			path = "Frame Grabber Tests";
 			sourceTree = "<group>";
 		};
-		00ED22DC24AFDADF0023A973 /* Export Settings */ = {
+		00ED22DC24AFDADF0023A973 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				0045A0FD25BDE41600A1235A /* ExportAction.swift */,
 				0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */,
 				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
+				0045A1AF25BE5AF800A1235A /* TimeFormat.swift */,
+				0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */,
 				008D293524B20F5100813338 /* ExportSettings.storyboard */,
 			);
-			path = "Export Settings";
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		00EDF97C2340A17A00FA0F48 /* Metadata */ = {
@@ -919,6 +927,7 @@
 				00730EBC214FEA5A001A6EA7 /* AlbumCell.swift in Sources */,
 				007F8A1424B7580900324014 /* VideoTypesFilter.swift in Sources */,
 				00730EBD214FEA5A001A6EA7 /* EditorViewController.swift in Sources */,
+				0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */,
 				00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */,
 				00CA338025A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00CB8125234CE05800354E03 /* NavigationController.swift in Sources */,
@@ -945,6 +954,7 @@
 				00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */,
 				00730ED0214FEA5A001A6EA7 /* PHPhotoLibrary.swift in Sources */,
 				00D9E83423424A07009E7AFA /* UIFont.swift in Sources */,
+				0045A1A525BE524200A1235A /* TimeFormatSettingsViewController.swift in Sources */,
 				00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */,
 				00C68E55242B6A3D004135A4 /* UILabel.swift in Sources */,
 				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
@@ -1014,6 +1024,7 @@
 				005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */,
 				007F8A1324B7580900324014 /* VideoTypesFilter.swift in Sources */,
 				0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */,
+				0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */,
@@ -1040,6 +1051,7 @@
 				00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */,
 				00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */,
 				00D9E83323424A07009E7AFA /* UIFont.swift in Sources */,
+				0045A1A425BE524200A1235A /* TimeFormatSettingsViewController.swift in Sources */,
 				00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */,
 				00C68E54242B6A3D004135A4 /* UILabel.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
