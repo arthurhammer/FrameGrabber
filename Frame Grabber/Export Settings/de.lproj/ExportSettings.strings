@@ -7,6 +7,12 @@
 /* Class = "UITableViewSection"; footerTitle = "<HEIF can result in smaller file sizes. JPEG is most widely supported.>"; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
 
+/* Class = "UINavigationItem"; title = "Time Format"; ObjectID = "D8n-NF-YRK"; */
+"D8n-NF-YRK.title" = "Zeitformat";
+
+/* Class = "UILabel"; text = "Time Format"; ObjectID = "EqD-Cz-Mrt"; */
+"EqD-Cz-Mrt.text" = "Zeitformat";
+
 /* Class = "UITableViewSection"; footerTitle = "Adds creation date, GPS location and other metadata to exported frames."; ObjectID = "iHH-Fm-kn8"; */
 "iHH-Fm-kn8.footerTitle" = "Fügt Aufnahmedatum, Ort und andere Metadaten zu exportierten Bildern hinzu.";
 
