@@ -108,9 +108,12 @@ class PurchaseViewController: UIViewController {
         supporterBadgeView.layer.cornerRadius = 8
         supporterBadgeView.layer.cornerCurve = .continuous
         
-        updateViews()
-        updateSeparator()
-        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        blurView.frame = view.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blurView, at: 0)
+        view.backgroundColor = .clear
+
         let appIconCornerRadius: CGFloat = 20
         let imageContainer = iconView.superview
         iconView.layer.cornerRadius = appIconCornerRadius
@@ -120,6 +123,9 @@ class PurchaseViewController: UIViewController {
         imageContainer?.layer.borderWidth = 1
         imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         imageContainer?.applyToolbarShadow()
+        
+        updateViews()
+        updateSeparator()
     }
 
     private func updateViews() {

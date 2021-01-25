@@ -49,11 +49,14 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
 
     private func configureViews() {
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        tableView.backgroundColor = .clear
+        
         rateButton.configureAsActionButton(minimumWidth: 150)
 
         purchaseButton.configureAsActionButton()
         purchaseButton.backgroundColor = .secondarySystemFill
-        purchaseButton.setTitleColor(.accent, for: .normal)
+        purchaseButton.setTitleColor(.label, for: .normal)
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, size: 22, weight: .semibold)
 

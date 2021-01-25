@@ -95,7 +95,7 @@
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <segue destination="Q1Q-IQ-Mgh" kind="presentation" id="jS9-OG-2Xz"/>
+                                                                        <segue destination="Q1Q-IQ-Mgh" kind="presentation" modalPresentationStyle="formSheet" id="jS9-OG-2Xz"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -346,10 +346,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="688"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="561"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="541"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
-                                                <rect key="frame" x="20" y="80" width="374" height="461"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
+                                                <rect key="frame" x="20" y="80" width="374" height="441"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gLD-cA-kwm" userLabel="Splash">
                                                         <rect key="frame" x="115.5" y="0.0" width="143.5" height="184.5"/>
@@ -405,7 +405,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
-                                                        <rect key="frame" x="0.0" y="264.5" width="374" height="196.5"/>
+                                                        <rect key="frame" x="0.0" y="244.5" width="374" height="196.5"/>
                                                         <string key="text">Frame Grabber doesn't have subscriptions, bug you with ads or collect any data about you. And it is open source.
 
 If you want to support such a project, you can invite me for an ice cream.
