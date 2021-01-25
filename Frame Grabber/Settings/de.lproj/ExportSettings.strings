@@ -28,8 +28,8 @@
 /* Class = "UILabel"; text = "Export to"; ObjectID = "V1t-8Q-ajc"; */
 "V1t-8Q-ajc.text" = "Aktion";
 
-/* Class = "UINavigationItem"; title = "Export Settings"; ObjectID = "wmB-Os-3eg"; */
-"wmB-Os-3eg.title" = "Exporteinstellungen";
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "wmB-Os-3eg"; */
+"wmB-Os-3eg.title" = "Einstellungen";
 
 /* Class = "UILabel"; text = "Image Format"; ObjectID = "Wrh-C2-4X7"; */
 "Wrh-C2-4X7.text" = "Bildformat";

@@ -42,7 +42,7 @@ struct UserText {
     static let editorExportToPhotosProgress = NSLocalizedString("progress.export.saveToPhotos.title", value: "Saving to Photos…", comment: "Frame generation progress title when saving to Photos.")
 
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
-    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Export Settings", comment: "Editor more button export settings action")
+    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
     static let saveToPhotosAlbumName = "Frame Grabber"
 
     static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")

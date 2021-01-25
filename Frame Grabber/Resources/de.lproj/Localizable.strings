@@ -134,7 +134,7 @@
 "detail.video.videodimensions.title" = "Dimensionen";
 
 /* Editor more button export settings action */
-"editor.more.exportSettings.action" = "Exporteinstellungen";
+"editor.more.exportSettings.action" = "Einstellungen";
 
 /* Editor more button metadata button action */
 "editor.more.metadata.action" = "Metadaten";

@@ -12,6 +12,7 @@ class ExportSettingsViewController: UITableViewController {
         case format
         case compressionQuality
         case exportAction
+        case timeFormat
     }
     
     weak var delegate: ExportSettingsViewControllerDelegate?

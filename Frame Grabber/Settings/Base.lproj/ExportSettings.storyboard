@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Export Settings-->
+        <!--Settings-->
         <scene sceneID="I8b-Xy-zBm">
             <objects>
                 <tableViewController id="fKK-CY-nBn" customClass="ExportSettingsViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
@@ -243,7 +243,7 @@
                             <outlet property="delegate" destination="fKK-CY-nBn" id="y1s-S2-fV2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Export Settings" id="wmB-Os-3eg"/>
+                    <navigationItem key="navigationItem" title="Settings" id="wmB-Os-3eg"/>
                     <connections>
                         <outlet property="compressionQualityLabel" destination="mzj-e4-l06" id="5AX-5F-C7I"/>
                         <outlet property="compressionQualityStack" destination="3YN-KA-ZZb" id="NTO-7G-zNp"/>
