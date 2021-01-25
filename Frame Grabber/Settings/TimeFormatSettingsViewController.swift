@@ -11,6 +11,11 @@ class TimeFormatSettingsViewController: UITableViewController {
     
     var didSelectFormat: ((TimeFormat) -> ())?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fixCellHeight()
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -34,6 +39,12 @@ class TimeFormatSettingsViewController: UITableViewController {
         switch selectedFormat {
         case .minutesSecondsMilliseconds: return nil
         case .minutesSecondsFrameNumber: return UserText.exportSettingsFrameNumberFormatFooter
+        }
+    }
+    
+    private func fixCellHeight() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }
