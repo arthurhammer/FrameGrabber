@@ -420,6 +420,11 @@ extension EditorViewController: ExportSettingsViewControllerDelegate {
     func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
         toolbar.shareButton.setImage(action.icon, for: .normal)
     }
+    
+    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat: TimeFormat) {
+        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
+        updateTimeLabel(withTime: time)
+    }
 }
 
 // MARK: - ZoomTransitionDelegate

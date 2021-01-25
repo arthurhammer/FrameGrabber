@@ -232,7 +232,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WyM-Ui-q3R" kind="show" id="inh-b6-4lP"/>
+                                            <segue destination="WyM-Ui-q3R" kind="show" destinationCreationSelector="makeTimeFormatSettingsController:" id="inh-b6-4lP"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -251,6 +251,7 @@
                         <outlet property="imageFormatControl" destination="ug7-Lr-fy3" id="I2Y-Bk-HNP"/>
                         <outlet property="includeMetadataSwitch" destination="35n-a5-8z9" id="BBf-rc-kkh"/>
                         <outlet property="selectedExportActionLabel" destination="P6U-vf-CNG" id="krn-2B-cwg"/>
+                        <outlet property="selectedTimeFormatLabel" destination="kI9-E0-w2r" id="nMF-ds-B2A"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M99-aw-FoP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
