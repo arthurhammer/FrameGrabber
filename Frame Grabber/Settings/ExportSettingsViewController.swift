@@ -39,6 +39,11 @@ class ExportSettingsViewController: UITableViewController {
         fixCellHeight()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateExpandedPreferredContentSize()        
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         

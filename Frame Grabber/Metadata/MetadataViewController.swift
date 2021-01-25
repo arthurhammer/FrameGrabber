@@ -34,6 +34,11 @@ class MetadataViewController: UITableViewController {
         super.viewDidLoad()
         configureViews()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateExpandedPreferredContentSize()
+    }
 
     @IBAction private func done() {
         dismiss(animated: true)

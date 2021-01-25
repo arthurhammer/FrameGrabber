@@ -23,7 +23,12 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         super.viewDidLoad()
         configureViews()
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateExpandedPreferredContentSize()
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
