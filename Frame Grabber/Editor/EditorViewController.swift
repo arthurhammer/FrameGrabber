@@ -240,6 +240,7 @@ private extension EditorViewController {
 
     func updateTimeLabel(withTime time: CMTime) {
         guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
+            toolbar.timeSpinner.isHidden = true
             toolbar.timeLabel.text = timeFormatter.string(from: time)
             return
         }
@@ -251,9 +252,11 @@ private extension EditorViewController {
         
         case .minutesSecondsFrameNumber:
             if let frameNumber = playbackController.relativeFrameNumber(for: time) {
+                toolbar.timeSpinner.isHidden = true
                 toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
             } else {
-                toolbar.timeLabel.text = timeFormatter.string(from: time)
+                toolbar.timeSpinner.isHidden = false
+                toolbar.timeLabel.text = timeFormatter.string(from: time) + "."  // TODO
             }
         }
     }

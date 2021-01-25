@@ -20,21 +20,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8St-aq-4oR" customClass="ZoomingPlayerView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="390" height="584.33333333333337"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="580"/>
                                 <accessibility key="accessibilityConfiguration" label="Video">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="148.33333333333334" y="612" width="93.333333333333343" height="40.333333333333371"/>
+                                <rect key="frame" x="149" y="607" width="92" height="41"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="92" height="41"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="40.333333333333336"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="40.666666666666664"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="40.666666666666664"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g4t-w4-IEi">
@@ -45,7 +45,7 @@
                                                                 <imageReference key="image" image="hare.fill" catalog="system" symbolScale="small"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
-                                                                <rect key="frame" x="22.333333333333314" y="2.3333333333333703" width="55" height="15.666666666666664"/>
+                                                                <rect key="frame" x="22.333333333333343" y="2.3333333333333703" width="55" height="15.666666666666664"/>
                                                                 <accessibility key="accessibilityConfiguration">
                                                                     <bool key="isElement" value="NO"/>
                                                                 </accessibility>
@@ -85,10 +85,10 @@
                                 </connections>
                             </visualEffectView>
                             <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="672.33333333333337" width="390" height="171.66666666666663"/>
+                                <rect key="frame" x="0.0" y="668" width="390" height="176"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls">
-                                        <rect key="frame" x="12" y="31.666666666666629" width="366" height="106"/>
+                                        <rect key="frame" x="12" y="36" width="366" height="106"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-a9-tZe" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="56"/>
@@ -177,36 +177,44 @@
                                         <variation key="heightClass=compact" alignment="center" axis="horizontal"/>
                                         <variation key="widthClass=regular" alignment="center" axis="horizontal"/>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
-                                        <rect key="frame" x="172" y="7.9999999999999991" width="46" height="15.666666666666664"/>
-                                        <accessibility key="accessibilityConfiguration" hint="Video Time">
-                                            <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
-                                        </accessibility>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <size key="shadowOffset" width="0.0" height="0.0"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Z13-bf-dHU" userLabel="Time Label with Spinner">
+                                        <rect key="frame" x="162" y="8" width="66" height="20"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
+                                                <rect key="frame" x="0.0" y="0.0" width="46" height="20"/>
+                                                <accessibility key="accessibilityConfiguration" hint="Video Time">
+                                                    <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
+                                                </accessibility>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="S1J-RK-cfT">
+                                                <rect key="frame" x="46" y="0.0" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="mXw-rO-aOk" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="6gi-a9-tZe" secondAttribute="trailing" id="210-U8-Rmx"/>
+                                    <constraint firstItem="6gi-a9-tZe" firstAttribute="top" secondItem="Z13-bf-dHU" secondAttribute="bottom" constant="8" id="1BN-pc-04e">
+                                        <variation key="heightClass=compact" constant="2"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="12"/>
+                                    </constraint>
+                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="6gi-a9-tZe" secondAttribute="trailing" id="34d-YK-DKX"/>
+                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6gi-a9-tZe" secondAttribute="leading" id="6VJ-W1-ffe"/>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="12" id="Agc-Fw-vDC">
                                         <variation key="heightClass=compact" constant="16"/>
                                         <variation key="widthClass=regular" constant="16"/>
-                                    </constraint>
-                                    <constraint firstItem="6gi-a9-tZe" firstAttribute="top" secondItem="mXw-rO-aOk" secondAttribute="bottom" constant="8" id="Hie-rK-I63">
-                                        <variation key="heightClass=compact" constant="2"/>
-                                        <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="g9o-LJ-bgy" secondAttribute="bottom" priority="999" constant="12" id="IGR-kM-In7">
                                         <variation key="heightClass=compact" constant="8"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
                                     <constraint firstItem="nnt-It-hLc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="g9o-LJ-bgy" secondAttribute="bottom" id="Q8q-Qr-Vf9"/>
-                                    <constraint firstItem="mXw-rO-aOk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6gi-a9-tZe" secondAttribute="leading" id="aRs-UG-3l5"/>
-                                    <constraint firstItem="mXw-rO-aOk" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="8" id="hj3-ah-PBA">
+                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="8" id="hW6-UN-k24">
                                         <variation key="heightClass=compact" constant="2"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                     </constraint>
@@ -214,7 +222,7 @@
                                         <variation key="heightClass=compact" constant="16"/>
                                         <variation key="widthClass=regular" constant="16"/>
                                     </constraint>
-                                    <constraint firstItem="mXw-rO-aOk" firstAttribute="centerX" secondItem="6gi-a9-tZe" secondAttribute="centerX" priority="750" placeholder="YES" id="tIr-kb-HCx"/>
+                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="centerX" secondItem="6gi-a9-tZe" secondAttribute="centerX" priority="750" placeholder="YES" id="oSS-TZ-bhw"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="nextButton" destination="NnX-Na-6YA" id="9ZS-3S-Vcz"/>
@@ -223,6 +231,7 @@
                                     <outlet property="shareButton" destination="9KQ-jV-rR8" id="KmQ-jT-Q0l"/>
                                     <outlet property="timeLabel" destination="mXw-rO-aOk" id="5Tp-nx-KwS"/>
                                     <outlet property="timeSlider" destination="6gi-a9-tZe" id="Bcm-H6-aoc"/>
+                                    <outlet property="timeSpinner" destination="S1J-RK-cfT" id="RoK-OO-FgF"/>
                                 </connections>
                             </view>
                         </subviews>
