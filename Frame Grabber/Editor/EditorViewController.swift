@@ -239,13 +239,23 @@ private extension EditorViewController {
     }
 
     func updateTimeLabel(withTime time: CMTime) {
-        let isPausedDuringPlayback = (playbackController.status == .readyToPlay)
-            && !playbackController.isPlaying
+        guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
+            toolbar.timeLabel.text = timeFormatter.string(from: time)
+            return
+        }
         
-        toolbar.timeLabel.text = timeFormatter.string(
-            fromCurrentTime: time,
-            includeMilliseconds: isPausedDuringPlayback
-        )
+        switch settings.timeFormat {
+        
+        case .minutesSecondsMilliseconds:
+            toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)
+        
+        case .minutesSecondsFrameNumber:
+            if let frameNumber = playbackController.relativeFrameNumber(for: time) {
+                toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
+            } else {
+                toolbar.timeLabel.text = timeFormatter.string(from: time)
+            }
+        }
     }
 
     // MARK: Loading Videos

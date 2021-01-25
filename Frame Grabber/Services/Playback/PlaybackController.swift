@@ -168,4 +168,7 @@ class PlaybackController {
     private func sampleTime(for playbackTime: CMTime) -> CMTime? {
         sampleTimes?.sampleTiming(for: playbackTime)?.presentationTimeStamp
     }
+    func relativeFrameNumber(for playbackTime: CMTime) -> Int? {
+        sampleTimes?.sampleTimingIndexInSecond(for: playbackTime)
+    }
 }

@@ -28,13 +28,20 @@ class VideoTimeFormatter {
         return formatter
     }()
 
-    func string(fromCurrentTime time: CMTime, includeMilliseconds: Bool = false) -> String {
+    func string(from time: CMTime, includeMilliseconds: Bool = false) -> String {
         let hours = (time.seconds >= 3600) ? "HH:" : ""
         let minutesSeconds = "mm:ss"
         let millis = includeMilliseconds ? ".SSS" : ""
 
         let format = "\(hours)\(minutesSeconds)\(millis)"
         return string(from: time, localizedFormatTemplate: format)
+    }
+    
+    func string(from time: CMTime, frameNumber: Int) -> String {
+        let mmss = string(from: time, includeMilliseconds: false)
+        let ff = String(format: "%02d", frameNumber)
+        let mmssff = "\(mmss).\(ff)"
+        return time.isNumeric ? mmssff : mmss
     }
 
     func string(from time: CMTime, localizedFormatTemplate: String) -> String {
