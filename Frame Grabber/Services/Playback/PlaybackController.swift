@@ -161,6 +161,7 @@ class PlaybackController {
         sampleIndexer.indexTimes(for: asset) { [weak self] result in
             DispatchQueue.main.async {
                 self?.sampleTimes = try? result.get()  // Ignoring errors
+                self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
         }
     }
