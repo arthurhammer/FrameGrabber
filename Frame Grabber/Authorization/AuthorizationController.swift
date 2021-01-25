@@ -34,7 +34,7 @@ class AuthorizationController: UIViewController {
         PHPhotoLibrary.requestReadWriteAuthorization(openingSettingsIfNeeded: true) { status, _ in
             self.updateViews()
 
-            if status == .authorized {
+            if status.isAuthorizedOrLimited {
                 self.didAuthorizeHandler?()
             }
         }
@@ -84,5 +84,19 @@ extension AuthorizationController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateSeparator()
+    }
+}
+
+// MARK: - Util
+
+
+private extension PHAuthorizationStatus {
+    
+    var isAuthorizedOrLimited: Bool {
+        if #available(iOS 14, *) {
+            return (self == .authorized) || (self == .limited)
+        } else {
+            return self == .authorized
+        }
     }
 }
