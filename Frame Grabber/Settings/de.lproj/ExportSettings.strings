@@ -26,7 +26,7 @@
 "sWo-g3-pni.text" = "Qualität";
 
 /* Class = "UILabel"; text = "Export to"; ObjectID = "V1t-8Q-ajc"; */
-"V1t-8Q-ajc.text" = "Aktion";
+"V1t-8Q-ajc.text" = "Zielort";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Einstellungen";

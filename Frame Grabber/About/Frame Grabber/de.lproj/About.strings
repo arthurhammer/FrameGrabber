@@ -5,7 +5,7 @@
 "CWr-Fn-l1m.text" = "Quellcode";
 
 /* Class = "UILabel"; text = "Supporter"; ObjectID = "E1D-mW-5yO"; */
-"E1D-mW-5yO.text" = "Unterstützer";
+"E1D-mW-5yO.text" = "Supporter";
 
 /* Class = "UILabel"; text = "🥳"; ObjectID = "G1f-dH-f7o"; */
 "G1f-dH-f7o.text" = "🥳";
@@ -17,7 +17,7 @@
 "gsO-Jw-32d.text" = "Frame Grabber ist völlig kostenlos und enthält keine Werbung. Das ist nur möglich mit der Unterstützung von coolen Leuten wie dir.";
 
 /* Class = "UIButton"; normalTitle = "Donate"; ObjectID = "HlA-JS-FBO"; */
-"HlA-JS-FBO.normalTitle" = "Unterstützen";
+"HlA-JS-FBO.normalTitle" = "Spenden";
 
 /* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
 "hSM-a5-Quj.normalTitle" = "Bereits getan?";
@@ -59,7 +59,7 @@
 "xhq-rN-pTi.normalTitle" = "🎉 Frame Grabber Bewerten 🎉";
 
 /* Class = "UILabel"; text = "You're a Supporter! \nThank you so much."; ObjectID = "ygf-4Y-CH8"; */
-"ygf-4Y-CH8.text" = "Du bist Unterstützer!\nVielen Dank.";
+"ygf-4Y-CH8.text" = "Du bist Supporter!\nVielen Dank.";
 
 /* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "YwB-MD-zZ0"; */
 "YwB-MD-zZ0.headerTitle" = "Info";
