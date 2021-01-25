@@ -74,7 +74,7 @@ class PlayerSeeker {
     }
 
     private func startNextSeek() {
-        guard let next = nextSeek else { fatalError("No next seek to start") }
+        guard let next = nextSeek else { return }
 
         currentSeek = next
         nextSeek = nil

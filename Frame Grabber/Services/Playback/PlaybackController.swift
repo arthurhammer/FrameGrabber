@@ -1,5 +1,6 @@
 import AVFoundation
 import Combine
+import SampleTimeIndexer
 import UIKit
 
 /// Manages playback for assets.
@@ -11,49 +12,44 @@ class PlaybackController {
         didSet {
             seeker.cancelPendingSeeks()
             player.replaceCurrentItem(with: asset.map(AVPlayerItem.init))
-            timeProvider.asset = asset
+            indexSampleTimes()
         }
     }
 
-    @Published private(set) var status: AVPlayer.PlayerAndItemStatus = .unknown
-    @Published private(set) var timeControlStatus: AVPlayer.TimeControlStatus = .paused
-    @Published private(set) var isPlaying: Bool = false
-    @Published private(set) var duration: CMTime = .zero
-
-    /// The `player`'s current playback time.
+    @Published private(set) var status = AVPlayer.PlayerAndItemStatus.unknown
+    @Published private(set) var timeControlStatus = AVPlayer.TimeControlStatus.paused
+    @Published private(set) var isPlaying = false
+    @Published private(set) var duration = CMTime.zero
+    
+    /// The current playback time of `player`.
+    @Published private(set) var currentPlaybackTime = CMTime.zero
+    
+    /// The start time of the sample that corresponds to the current playback time.
     ///
-    /// In contrast to `currentFrameTime`, the player's time can be anywhere between two successive frame start times.
-    @Published private(set) var currentPlaybackTime: CMTime = .zero
-
-    /// The start time of the current frame or, if not available, the current playback time.
+    /// The controller indexes the asset's samples in the background. The sample times are therefore
+    /// not immediately available. In addition, indexing can fail. In these cases, returns `nil`.
     ///
-    /// Note that frame-accurate times are not available in all cases. When the receiver cannot provide frame-accurate
-    /// times for any reason, this value corresponds to `currentPlaybackTime`. Otherwise, it corresponds to the closest
-    /// frame start time to `currentPlaybackTime`.
-    @Published private(set) var currentFrameTime: CMTime = .zero
+    /// The publisher emits values whenever the current playback time changes. If sample times are
+    /// not available, repeatedly emits `nil`.
+    @Published private(set) var currentSampleTime: CMTime?
 
     // MARK: - Private Properties
 
-    private let timeProvider: VideoTimeProvider
     private let seeker: PlayerSeeker
-    private let audioSession: AVAudioSession
-    private let notificationCenter: NotificationCenter
+    private let sampleIndexer: SampleTimeIndexer
+    private var sampleTimes: SampleTimes?
     private var bindings = Set<AnyCancellable>()
+    
+    private let interval = CMTime(seconds: 1/60.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+    private let audioSession: AVAudioSession = .sharedInstance()
+    private let notificationCenter: NotificationCenter = .default
 
-    init(
-        asset: AVAsset? = nil,
-        timeProvider: VideoTimeProvider = .init(),
-        audioSession: AVAudioSession = .sharedInstance(),
-        notificationCenter: NotificationCenter = .default
-    ) {
-        self.player = AVPlayer(playerItem: asset.map(AVPlayerItem.init))
+    init(player: AVPlayer = .init(), sampleIndexer: SampleTimeIndexer = .init()) {
+        self.player = player
         self.player.actionAtItemEnd = .pause
-        self.timeProvider = timeProvider
-        self.seeker = PlayerSeeker(player: self.player)
-        self.audioSession = audioSession
-        self.notificationCenter = notificationCenter
+        self.seeker = PlayerSeeker(player: player)
+        self.sampleIndexer = sampleIndexer
 
-        timeProvider.asset = asset
         bindPlayer()
         configureAudioSession()
     }
@@ -75,7 +71,7 @@ class PlaybackController {
         player.play()
     }
 
-    func pause() {
+    @objc func pause() {
         guard isPlaying else { return }
         player.pause()
     }
@@ -88,12 +84,10 @@ class PlaybackController {
     // MARK: - Seeking
 
     func smoothlySeek(to time: CMTime) {
-        let time = timeProvider.time(for: time)
         seeker.smoothlySeek(to: time)
     }
 
     func directlySeek(to time: CMTime) {
-        let time = timeProvider.time(for: time)
         seeker.directlySeek(to: time)
     }
 
@@ -108,6 +102,7 @@ class PlaybackController {
 
     private func configureAudioSession() {
         try? audioSession.setCategory(.ambient)
+        notificationCenter.addObserver(self, selector: #selector(pause), name: UIApplication.didEnterBackgroundNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateAudioSession), name: AVAudioSession.silenceSecondaryAudioHintNotification, object: audioSession)
         notificationCenter.addObserver(self, selector: #selector(updateAudioSession), name: UIApplication.willResignActiveNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateAudioSession), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -136,15 +131,15 @@ class PlaybackController {
             .assignWeak(to: \.isPlaying, on: self)
             .store(in: &bindings)
 
-        player.periodicTimePublisher()
+        player.periodicTimePublisher(forInterval: interval)
             .assignWeak(to: \.currentPlaybackTime, on: self)
             .store(in: &bindings)
 
-        player.periodicTimePublisher()
+        player.periodicTimePublisher(forInterval: interval)
             .map { [weak self] in
-                self?.timeProvider.time(for: $0) ?? $0
+                self?.sampleTime(for: $0)
             }
-            .assignWeak(to: \.currentFrameTime, on: self)
+            .assignWeak(to: \.currentSampleTime, on: self)
             .store(in: &bindings)
 
         player.publisher(for: \.currentItem?.duration)
@@ -152,5 +147,29 @@ class PlaybackController {
             .removeDuplicates()
             .assignWeak(to: \.duration, on: self)
             .store(in: &bindings)
+    }
+    
+    // MARK: - Sample Times
+    
+    private func indexSampleTimes() {
+        currentSampleTime = nil
+        sampleTimes = nil
+        sampleIndexer.cancel()
+        
+        guard let asset = asset else { return }
+        
+        sampleIndexer.indexTimes(for: asset) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.sampleTimes = try? result.get()  // Ignoring errors
+                self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
+            }
+        }
+    }
+    
+    private func sampleTime(for playbackTime: CMTime) -> CMTime? {
+        sampleTimes?.sampleTiming(for: playbackTime)?.presentationTimeStamp
+    }
+    func relativeFrameNumber(for playbackTime: CMTime) -> Int? {
+        sampleTimes?.sampleTimingIndexInSecond(for: playbackTime)
     }
 }

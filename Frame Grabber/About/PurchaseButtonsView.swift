@@ -2,7 +2,7 @@ import UIKit
 
 class PurchaseButtonsView: UIStackView {
 
-    @IBOutlet var purchaseButton: ActivityButton!
+    @IBOutlet var purchaseButton: UIButton!
     @IBOutlet var restoreButton: UIButton!
 
     override func awakeFromNib() {
@@ -11,8 +11,7 @@ class PurchaseButtonsView: UIStackView {
     }
 
     private func configureViews() {
-        purchaseButton.activityIndicator.color = .white
-        purchaseButton.configureAsActionButton()
+        purchaseButton.configureAsActionButton(minimumWidth: 300)
         restoreButton.configureDynamicTypeLabel()
     }
 }
@@ -22,27 +21,20 @@ class PurchaseButtonsView: UIStackView {
 extension PurchaseButtonsView {
 
     func configure(with state: PurchaseViewController.State, price: String?) {
-        switch state {
-
-        case .fetchingProducts, .purchasing, .restoring:
-            isHidden = false
-            purchaseButton.isShowingActivity = true
-            restoreButton.isEnabled = false
-
-        case .productsNotFetched, .readyToPurchase:
-            isHidden = false
-            purchaseButton.isShowingActivity = false
-            restoreButton.isEnabled = true
-
-            if let price = price {
-                purchaseButton.dormantTitle = String.localizedStringWithFormat(UserText.IAPActionWithPriceFormat, price)
-            } else {
-                purchaseButton.dormantTitle = UserText.IAPActionWithoutPrice
-            }
-
-        case .purchased:
-            isHidden = true
-            purchaseButton.dormantTitle = nil
+        
+        if let price = price {
+            let text = NSMutableAttributedString(string: UserText.IAPAction)
+            let spacer = NSAttributedString(string: "   ")
+            
+            let price = NSAttributedString(string: price, attributes: [
+                .font: UIFont.preferredFont(forTextStyle: .headline, weight: .regular)
+            ])
+            
+            text.append(spacer)
+            text.append(price)
+            purchaseButton.setAttributedTitle(text, for: .normal)
+        } else {
+            purchaseButton.setTitle(UserText.IAPAction, for: .normal)
         }
     }
 }

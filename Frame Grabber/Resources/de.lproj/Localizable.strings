@@ -95,6 +95,12 @@
 "alert.playback.title" = "Wiedergabe nicht möglich";
 
 /* No comment provided by engineer. */
+"alert.saveToPhotos.message" = "Das Bild konnte nicht in deiner Fotomediathek gespeichert werden.";
+
+/* No comment provided by engineer. */
+"alert.saveToPhotos.title" = "Speichern nicht möglich.";
+
+/* No comment provided by engineer. */
 "alert.videoload.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
 
 /* No comment provided by engineer. */
@@ -128,10 +134,22 @@
 "detail.video.videodimensions.title" = "Dimensionen";
 
 /* Editor more button export settings action */
-"editor.more.exportSettings.action" = "Exporteinstellungen";
+"editor.more.exportSettings.action" = "Einstellungen";
 
 /* Editor more button metadata button action */
 "editor.more.metadata.action" = "Metadaten";
+
+/* Title for the share sheet export setting. */
+"export.showShareSheet.action" = "Share-Sheet";
+
+/* Explanation of what the frame number time format does. */
+"exportsettings.frameNumber.footer" = "Zeigt die Framenummer relativ zu der aktuellen Sekunde an. Für größere Videos kann es etwas dauern, bis die Framenummern zu Verfügung stehen.";
+
+/* Title for the save to photo library export setting. */
+"exportsettings.saveToPhotos.action" = "Fotomediathek";
+
+/* Explanation of what the save to photos setting does */
+"exportsettings.saveToPhotos.footer" = "Speichert Bilder in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
 
 /* Explanation of image formats in settings footer when HEIF is not supported */
 "exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
@@ -139,53 +157,38 @@
 /* Explanation of image formats in settings footer */
 "exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
 
+/* Explanation of what the share sheet setting does */
+"exportsettings.showShareSheet.footer" = "Öffnet das Share-Sheet zum Exportieren.";
+
 /* Video frame rate with unit */
 "formatter.framerate.format" = "%@ fps";
 
 /* Video pixel size with unit */
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
-/* Purchase screen first message. */
-"iap.feature.first.message" = "Frame Grabber ist komplett kostenfrei und stört dich niemals mit Werbung.";
+/* Purchase screen purchase button label */
+"iap.purchase.action" = "Eis Ausgeben";
 
-/* Purchase screen first feature title. */
-"iap.feature.first.title" = "Werbefrei";
+/* Frame generation progress title when saving to Photos. */
+"progress.export.saveToPhotos.title" = "In Fotos speichern…";
 
-/* Purchase screen second message. */
-"iap.feature.second.message" = "Ich stelle den Quellcode allen frei zur Verfügung.";
-
-/* Purchase screen second feature title. */
-"iap.feature.second.title" = "Transparent";
-
-/* Purchase screen third message. */
-"iap.feature.third.message" = "Du unterstützt einen Indie-Entwickler aus Deutschland und seinen Nachschub an Eis.";
-
-/* Purchase screen third feature title. */
-"iap.feature.third.title" = "Made in Germany";
-
-/* Purchase screen message label when not purchased */
-"iap.notpurchased.message" = "Falls dir meine App besonders gut gefällt und du helfen möchtest, kannst du mir ein Eis ausgeben.";
-
-/* Purchase screen title label when not purchased */
-"iap.notpurchased.title" = "Hey 👋";
-
-/* Purchase screen purchase button label without price */
-"iap.purchase.noprice.action" = "Eis Ausgeben";
-
-/* Purchase screen purchase button label with price */
-"iap.purchase.price.action.format" = "Eis Ausgeben – %@";
-
-/* Purchase screen message label when purchased. */
-"iap.purchased.message" = "Da mag wohl jemand auch besonders gern Eis. Vielen Dank, dass du mich und meine App unterstützt!";
-
-/* Purchase screen title label when purchased. */
-"iap.purchased.title" = "Dankeschön ❤️";
-
-/* Frame generation progress title. */
-"progress.frameExport.title" = "Exportieren…";
+/* Frame generation progress title when showing the share sheet. */
+"progress.export.shareSheet.title" = "Exportieren…";
 
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
+
+/* The frame number format, used for display (but not for actual formatting). */
+"settings.frameNumber.format" = "mm:ss / ff";
+
+/* Title for the frame number time format setting. */
+"settings.frameNumber.title" = "Frames";
+
+/* The milliseconds format, used for display (but not for actual formatting). */
+"settings.milliseconds.format" = "mm:ss,SSS";
+
+/* Title for the milliseconds time format setting. */
+"settings.milliseconds.title" = "Millisekunden";
 
 /* Video filter title, all items */
 "videofilter.all" = "Alles";

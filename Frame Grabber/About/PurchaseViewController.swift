@@ -18,15 +18,20 @@ class PurchaseViewController: UIViewController {
 
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var scrollViewSeparator: UIView!
-    @IBOutlet private var featuresView: PurchaseFeaturesView!
-    @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
     @IBOutlet private var closeButton: UIButton!
+    @IBOutlet private var iconView: UIImageView!
+    @IBOutlet private var supporterBadgeView: UIView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
+    @IBOutlet private var purchasingView: UIView!
+    @IBOutlet private var purchasedView: UIView!
     @IBOutlet private var confettiView: ConfettiView!
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         configureStoreManagers()
         configureViews()
         fetchProductsIfNeeded()
@@ -98,9 +103,27 @@ class PurchaseViewController: UIViewController {
     private func configureViews() {
         scrollView.delegate = self
         confettiView.confettiImage = UIImage(named: "confetti")
-        featuresView.mainFeatureView.titleLabel.font = .preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
-        closeButton.overrideUserInterfaceStyle = .light
+        titleLabel.font = .preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
+                
+        supporterBadgeView.layer.cornerRadius = 8
+        supporterBadgeView.layer.cornerCurve = .continuous
+        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        blurView.frame = view.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blurView, at: 0)
+        view.backgroundColor = .clear
 
+        let appIconCornerRadius: CGFloat = 20
+        let imageContainer = iconView.superview
+        iconView.layer.cornerRadius = appIconCornerRadius
+        iconView.layer.cornerCurve = .continuous
+        imageContainer?.layer.cornerRadius = appIconCornerRadius
+        imageContainer?.layer.cornerCurve = .continuous
+        imageContainer?.layer.borderWidth = 1
+        imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        imageContainer?.applyToolbarShadow()
+        
         updateViews()
         updateSeparator()
     }
@@ -108,8 +131,13 @@ class PurchaseViewController: UIViewController {
     private func updateViews() {
         let state = self.state()
         let price = fetchedProduct.flatMap(formattedPrice)
+        
         purchaseButtonsView.configure(with: state, price: price)
-        featuresView.configure(with: state)
+                
+        purchasingView.isHidden =
+            !([.fetchingProducts, .purchasing, .restoring].contains(state))
+        
+        purchasedView.isHidden = state != .purchased
     }
 
     private func updateSeparator() {

@@ -27,7 +27,7 @@ class ProgressView: UIView {
     /// - Note: `minimumShowDuration` is added on top of `showDelay`, i.e. between
     /// calling `show` and the view hiding later there is, in the general case, at least a
     /// time of `showDelay + minimumShowDuration`.
-    var minimumShowDuration: TimeInterval = 0.45 {
+    var minimumShowDuration: TimeInterval = 0.35 {
         didSet { minimumShowDuration = max(0, minimumShowDuration) }
     }
 

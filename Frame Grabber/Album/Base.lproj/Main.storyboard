@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -121,7 +120,6 @@
                                     <outlet property="imageContainerWidthConstraint" destination="If7-vf-47r" id="Szp-lx-e5F"/>
                                     <outlet property="imageView" destination="jRs-Rg-Keq" id="xzW-9s-7m3"/>
                                     <outlet property="livePhotoImageView" destination="2Ab-IV-Yt7" id="RnG-qA-Xwk"/>
-                                    <segue destination="Tyx-Ot-Uwj" kind="show" identifier="EditorViewController" id="wXA-pQ-n5U"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -149,6 +147,9 @@
                                                 <state key="normal" title="&lt;Title&gt;" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
                                                 </state>
+                                                <variation key="heightClass=compact">
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                </variation>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -166,7 +167,9 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <segue destination="Q9O-On-eG2" kind="presentation" id="yrf-sk-izP"/>
+                                <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="r6g-Iu-tPw" id="yrf-sk-izP">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -175,6 +178,7 @@
                         <outlet property="titleButton" destination="Mu7-kP-sfK" id="Gns-y9-fSV"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                         <outlet property="viewSettingsButton" destination="ps3-t8-YlX" id="c09-fI-VfY"/>
+                        <segue destination="Tyx-Ot-Uwj" kind="show" identifier="EditorViewController" id="Pq9-qy-Vi2"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -182,12 +186,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="235" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                    <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
-                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-8" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="&lt;All Items&gt;">
+                    <inset key="contentEdgeInsets" minX="16" minY="10" maxX="16" maxY="10"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="&lt;All Items&gt;" image="line.horizontal.3.decrease.circle" catalog="system">
                         <color key="titleColor" systemColor="labelColor"/>
-                        <imageReference key="image" image="line.horizontal.3.decrease.circle" catalog="system" symbolScale="large"/>
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="medium">
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        </preferredSymbolConfiguration>
                     </state>
                 </button>
             </objects>
@@ -199,7 +205,7 @@
                 <viewControllerPlaceholder storyboardName="About" id="Q9O-On-eG2" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="auw-b1-LZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="-2143"/>
+            <point key="canvasLocation" x="1572" y="-2094"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">
@@ -227,15 +233,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lbj-A5-gZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="-2077"/>
-        </scene>
-        <!--Albums-->
-        <scene sceneID="FHt-2A-dL1">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Albums" id="BMP-Sg-jeX" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="okA-Qz-7hD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1565" y="-2110"/>
+            <point key="canvasLocation" x="1572" y="-2060"/>
         </scene>
     </scenes>
     <color key="tintColor" name="accent"/>
@@ -246,7 +244,7 @@
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
         <namedColor name="accent">
-            <color red="0.3449999988079071" green="0.33700001239776611" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

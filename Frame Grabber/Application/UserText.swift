@@ -15,18 +15,7 @@ struct UserText {
     static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "Version %@", comment: "Version label with numerical version")
     static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
 
-    static let IAPPurchasedTitle = NSLocalizedString("iap.purchased.title", value: "Thank You ❤️", comment: "Purchase screen title label when purchased.")
-    static let IAPPurchasedMessage = NSLocalizedString("iap.purchased.message", value: "Ah, another ice cream lover. Thank you so much for supporting me and my app!", comment: "Purchase screen message label when purchased.")
-    static let IAPNotPurchasedTitle = NSLocalizedString("iap.notpurchased.title", value: "Hey 👋", comment: "Purchase screen title label when not purchased")
-    static let IAPNotPurchasedMessage = NSLocalizedString("iap.notpurchased.message", value: "If my app is useful to you and you want to help out, sending me ice cream would be really sweet.", comment: "Purchase screen message label when not purchased")
-    static let IAPFirstFeatureTitle = NSLocalizedString("iap.feature.first.title", value: "Ad-free", comment: "Purchase screen first feature title.")
-    static let IAPFirstFeatureMessage = NSLocalizedString("iap.feature.first.message", value: "Frame Grabber is completely free and doesn't bug you with ads.", comment: "Purchase screen first message.")
-    static let IAPSecondFeatureTitle = NSLocalizedString("iap.feature.second.title", value: "Transparent", comment: "Purchase screen second feature title.")
-    static let IAPSecondFeatureMessage = NSLocalizedString("iap.feature.second.message", value: "The code is open source and your data is yours. No weird stuff.", comment: "Purchase screen second message.")
-    static let IAPThirdFeatureTitle = NSLocalizedString("iap.feature.third.title", value: "Support Indies", comment: "Purchase screen third feature title.")
-    static let IAPThirdFeatureMessage = NSLocalizedString("iap.feature.third.message", value: "You ensure the mission-critical supply of ice cream for this indie developer keeps coming.", comment: "Purchase screen third message.")
-    static let IAPActionWithPriceFormat = NSLocalizedString("iap.purchase.price.action.format", value: "Send Ice Cream – %@", comment: "Purchase screen purchase button label with price")
-    static let IAPActionWithoutPrice = NSLocalizedString("iap.purchase.noprice.action", value: "Send Ice Cream", comment: "Purchase screen purchase button label without price")
+    static let IAPAction = NSLocalizedString("iap.purchase.action", value: "Send Ice Cream", comment: "Purchase screen purchase button label")
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
@@ -49,10 +38,12 @@ struct UserText {
     static let videoFilterLivePhotos = NSLocalizedString("videofilter.livePhoto", value: "Live Photos", comment: "Video filter title, only Live Photos")
 
     static let editorVideoLoadProgress = NSLocalizedString("progress.videoLoad.title", value: "Loading…", comment: "Video loading (iCloud or otherwise) progress title.")
-    static let editorExportProgress = NSLocalizedString("progress.frameExport.title", value: "Exporting…", comment: "Frame generation progress title.")
+    static let editorExportShareSheetProgress = NSLocalizedString("progress.export.shareSheet.title", value: "Exporting…", comment: "Frame generation progress title when showing the share sheet.")
+    static let editorExportToPhotosProgress = NSLocalizedString("progress.export.saveToPhotos.title", value: "Saving to Photos…", comment: "Frame generation progress title when saving to Photos.")
 
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
-    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Export Settings", comment: "Editor more button export settings action")
+    static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
+    static let saveToPhotosAlbumName = "Frame Grabber"
 
     static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")
     static let detailLivePhotoTitle = NSLocalizedString("detail.livephoto.title", value: "Live Photo", comment: "Detail view title for live photos")
@@ -62,9 +53,20 @@ struct UserText {
 
     static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in smaller file sizes. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")
+    static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Opens the share sheet for exporting.", comment: "Explanation of what the share sheet setting does")
+    static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves images to your photo library and adds them to the “Frame Grabber” photo album.", comment: "Explanation of what the save to photos setting does")
+    static let exportShowShareSheetAction = NSLocalizedString("export.showShareSheet.action", value: "Share Sheet", comment: "Title for the share sheet export setting.")
+    static let exportSaveToPhotosAction = NSLocalizedString("exportsettings.saveToPhotos.action", value: "Photo Library", comment: "Title for the save to photo library export setting.")
+    static let exportSettingsFrameNumberFormatFooter = NSLocalizedString("exportsettings.frameNumber.footer", value: "Shows the frame number relative to the current seconds. For large videos, it might take a bit longer to determine the frame numbers.", comment: "Explanation of what the frame number time format does.")
+    static let exportMillisecondsFormatTitle = NSLocalizedString("settings.milliseconds.title", value: "Milliseconds", comment: "Title for the milliseconds time format setting.")
+    static let exportMillisecondsFormat = NSLocalizedString("settings.milliseconds.format", value: "mm:ss.SSS", comment: "The milliseconds format, used for display (but not for actual formatting).")
+    static let exportFrameNumberFormatTitle = NSLocalizedString("settings.frameNumber.title", value: "Frames", comment: "Title for the frame number time format setting.")
+    static let exportFrameNumberFormat = NSLocalizedString("settings.frameNumber.format", value: "mm:ss / ff", comment: "The frame number format, used for display (but not for actual formatting).")
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
+    
+    static let exifAppInformation = "Extracted with Frame Grabber \(Bundle.main.version)"  // Exif not localized
 }
 
 extension UserText {
@@ -77,6 +79,9 @@ extension UserText {
     static let alertFrameExportFailedTitle = NSLocalizedString("alert.frameexport.title", value: "Unable to Export Image", comment: "")
     static let alertFrameExportFailedMessage = NSLocalizedString("alert.frameexport.message", value: "There was an error while generating the image.", comment: "")
 
+    static let alertSavingToPhotosFailedTitle = NSLocalizedString("alert.saveToPhotos.title", value: "Unable to Save Image", comment: "")
+    static let alertSavingToPhotosFailedMessage = NSLocalizedString("alert.saveToPhotos.message", value: "There was an error saving the image to Photos.", comment: "")
+    
     static let alertMailUnavailableTitle = NSLocalizedString("alert.mail.title", value: "This Device Can't Send Emails", comment: "")
     static let alertMailUnavailableMessageFormat = NSLocalizedString("alert.mail.message", value: "You can reach me at %@", comment: "E-mail address")
 

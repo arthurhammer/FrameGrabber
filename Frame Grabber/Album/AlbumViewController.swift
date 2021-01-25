@@ -4,6 +4,7 @@ import PhotosUI
 import UIKit
 
 class AlbumViewController: UICollectionViewController {
+    var albumsDataSource: AlbumsDataSource?
         
     /// The title that will be used when album is `nil`.
     var defaultTitle = UserText.albumDefaultTitle {
@@ -31,13 +32,9 @@ class AlbumViewController: UICollectionViewController {
         self.cell(for: $1, at: $0)
     }
 
-    private lazy var albumsContainerController: UIViewController = {
-        guard let albumsNavController = UIStoryboard(name: "Albums", bundle: nil).instantiateInitialViewController() as? UINavigationController,
-              let albumsPicker = albumsNavController.topViewController as? AlbumsViewController else { fatalError("Wrong controller type") }
-            
-        albumsPicker.delegate = self
-        return albumsNavController
-    }()
+    private lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource ?? .default(), delegate: self)
+    
+    static let contentModeAnimationDuration: TimeInterval = 0.15
     
     // MARK: - Lifecycle
 
@@ -58,29 +55,22 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? UINavigationController,
-           let controller = destination.topViewController as? AlbumsViewController {
-            prepareForAlbumsSegue(with: controller)
-        } else if let destination = segue.destination as? EditorViewController {
+        if let destination = segue.destination as? EditorViewController {
             prepareForPlayerSegue(with: destination)
         }
     }
     
-    private func prepareForAlbumsSegue(with destination: AlbumsViewController) {
-        destination.delegate = self
-    }
-
     private func prepareForPlayerSegue(with destination: EditorViewController) {
-        guard let selectedIndexPath = collectionView?.indexPathsForSelectedItems?.first else { fatalError("Segue without selection or asset") }
+        guard let selectedAsset = selectedAsset else { fatalError("Segue without selected asset") }
 
         // (todo: Handle this in coordinator/delegate/navigation controller.)
         let transitionController = ZoomTransitionController()
         navigationController?.delegate = transitionController
         destination.transitionController = transitionController
 
-        let selectedAsset = dataSource.video(at: selectedIndexPath)
-        self.selectedAsset = selectedAsset
-        let thumbnail = videoCell(at: selectedIndexPath)?.imageView.image
+        let cell = dataSource.indexPath(of: selectedAsset).flatMap(videoCell)
+        let thumbnail = cell?.imageView.image
+        
         destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
     }
     
@@ -103,16 +93,15 @@ class AlbumViewController: UICollectionViewController {
         collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
     }
     
-    @objc private func showAlbumsPicker() {
-        present(albumsContainerController, animated: true)
+    @objc private func showAlbumPicker() {
+        present(albumPicker, animated: true)
     }
 
     // MARK: - Collection View Data Source & Delegate
-
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? VideoCell else { return }
-        
-        setGridContentMode(dataSource.gridContentMode, for: cell, at: indexPath, animated: false)
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedAsset = dataSource.video(at: indexPath)
+        performSegue(withIdentifier: EditorViewController.className, sender: nil)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -121,16 +110,11 @@ class AlbumViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let video = dataSource.video(at: indexPath)
-        let sourceImageView = videoCell(at: indexPath)?.imageView
-        
-        let previewProvider = { [weak self] in
-            self?.imagePreviewController(for: sourceImageView)
-        }
+        let thumbnail = videoCell(at: indexPath)?.imageView.image
 
-        return AlbumCellContextMenu.menu(
+        return VideoCellContextMenu.configuration(
             for: video,
-            at: indexPath,
-            previewProvider: previewProvider
+            initialPreviewImage: thumbnail
         ) { [weak self] selection in
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -139,7 +123,9 @@ class AlbumViewController: UICollectionViewController {
         }
     }
     
-    private func handleCellContextMenuSelection(_ selection: AlbumCellContextMenu.Selection, for video: PHAsset) {
+    private func handleCellContextMenuSelection(_ selection: VideoCellContextMenu.Selection, for video: PHAsset) {
+        guard let video = dataSource.currentVideo(for: video) else { return }
+        
         switch selection {
         
         case .favorite:
@@ -150,32 +136,26 @@ class AlbumViewController: UICollectionViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        guard let indexPath = configuration.identifier as? IndexPath,
-              let cell = videoCell(at: indexPath) else { return nil }
-
-        return UITargetedPreview(view: cell.imageContainer)
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
-    }
-
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        guard let indexPath = configuration.identifier as? IndexPath else { return }
+        // Video might've been deleted or changed during preview.
+        // If the video was removed from the album but not deleted fully, we will still perform the
+        // segue with the video.
+        guard let video = configuration.identifier as? PHAsset,
+              let updatedVideo = dataSource.currentVideo(for: video) else { return }
 
         animator.addAnimations {
-            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.selectedAsset = updatedVideo
             self.performSegue(withIdentifier: EditorViewController.className, sender: nil)
         }
     }
 }
 
-// MARK: - AlbumsViewControllerDelegate
+// MARK: - AlbumPickerViewControllerDelegate
 
-extension AlbumViewController: AlbumsViewControllerDelegate {
+extension AlbumViewController: AlbumPickerViewControllerDelegate {
     
-    func controller(_ controller: AlbumsViewController, didSelectAlbum album: AnyAlbum) {
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
+        guard let album = album else { return }
         dataSource.setSourceAlbum(album)
     }
 }
@@ -191,7 +171,6 @@ private extension AlbumViewController {
         
         collectionView.isPrefetchingEnabled = true
         collectionView.dataSource = dataSource
-        collectionView.prefetchDataSource = dataSource
         collectionView.backgroundView = emptyView
         collectionView.collectionViewLayout.invalidateLayout()
 
@@ -223,7 +202,7 @@ private extension AlbumViewController {
             }
         } else {
             title = dataSource.album?.title ?? defaultTitle
-            titleButton.addTarget(self, action: #selector(showAlbumsPicker), for: .touchUpInside)
+            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
         }
 
         emptyView.type = dataSource.filter
@@ -234,7 +213,7 @@ private extension AlbumViewController {
     }
     
     func updateNavigationBar() {
-        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.layer.shadowOpacity = 0
 
         if #available(iOS 14.0, *) {
@@ -302,6 +281,7 @@ private extension AlbumViewController {
             }
         )
 
+        controller.popoverPresentationController?.sourceView = viewSettingsButton
         presentAlert(controller)
     }
 
@@ -315,7 +295,7 @@ private extension AlbumViewController {
             
         case .gridMode(let mode):
             dataSource.gridContentMode = mode
-            setGridContentModeForVisibleCells(mode, animated: true)
+            setGridContentMode(mode, animated: true)
         }
 
         updateViewSettingsButton()
@@ -347,7 +327,8 @@ private extension AlbumViewController {
         cell.durationLabel.isHidden = video.isLivePhoto
         cell.livePhotoImageView.isHidden = !video.isLivePhoto
         cell.favoritedImageView.isHidden = !video.isFavorite
-
+        cell.setGridContentMode(dataSource.gridContentMode, forAspectRatio: video.dimensions)
+        
         loadThumbnail(for: cell, video: video)
     }
 
@@ -362,26 +343,41 @@ private extension AlbumViewController {
         cell.identifier = video.localIdentifier
 
         cell.imageRequest = dataSource.thumbnail(for: video) { image, _ in
-            let isCellRecycled = cell.identifier != video.localIdentifier
-
-            guard !isCellRecycled,
+            guard cell.identifier == video.localIdentifier,
                   let image = image else { return }
 
             cell.imageView.image = image
         }
     }
 
-    func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath, animated: Bool) {
+    func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath) {
         let video = dataSource.video(at: indexPath)
-        cell.setGridContentMode(mode, forAspectRatio: video.dimensions, animated: animated)
+        cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
 
     }
 
-    func setGridContentModeForVisibleCells(_ mode: AlbumGridContentMode, animated: Bool) {
-        collectionView.indexPathsForVisibleItems.forEach { indexPath in
-            guard let cell = videoCell(at: indexPath) else { return }
-            
-            setGridContentMode(mode, for: cell, at: indexPath, animated: true)
+    func setGridContentMode(_ mode: AlbumGridContentMode, animated: Bool) {
+        guard animated else {
+            collectionView.reloadData()
+            return
         }
+        
+        let animations = {
+            self.collectionView.indexPathsForVisibleItems.forEach { indexPath in
+                guard let cell = self.videoCell(at: indexPath) else { return }
+                self.setGridContentMode(mode, for: cell, at: indexPath)
+            }
+        }
+        
+        // Animate visible cells, then reload off-screen enqueued cells.
+        UIView.animate(
+            withDuration: AlbumViewController.contentModeAnimationDuration,
+            delay: 0,
+            options: [.beginFromCurrentState, .curveEaseInOut],
+            animations: animations,
+            completion: { _ in
+                self.collectionView.reloadData()
+            }
+        )
     }
 }

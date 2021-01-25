@@ -16,12 +16,19 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
 
     @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var purchaseButton: UIButton!
+    @IBOutlet private var featuredTitleLabel: UILabel!
+    @IBOutlet private var versionLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateExpandedPreferredContentSize()
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -42,24 +49,28 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
 
     private func configureViews() {
-        rateButton.configureAsActionButton()
-        purchaseButton.configureAsActionButton()
-        purchaseButton.backgroundColor = UIColor.accent?.withAlphaComponent(0.1)
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        tableView.backgroundColor = .clear
         
+        rateButton.configureAsActionButton(minimumWidth: 150)
+
+        purchaseButton.configureAsActionButton()
+        purchaseButton.backgroundColor = .secondarySystemFill
+        purchaseButton.setTitleColor(.label, for: .normal)
+        
+        featuredTitleLabel.font = .preferredFont(forTextStyle: .body, size: 22, weight: .semibold)
+
+        versionLabel.font = .preferredFont(forTextStyle: .footnote, weight: .semibold)
+        versionLabel.text = String.localizedStringWithFormat(
+            UserText.aboutVersionFormat,
+            bundle.shortFormattedVersion
+        )
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
-    }
-
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        switch Section(section) {
-        case .about:
-            return String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
-        default:
-            return nil
-        }
     }
 }
 

@@ -14,10 +14,10 @@ class MetadataViewController: UITableViewController {
         didSet { updateAssetMetadata() }
     }
 
-    var settings = UserDefaults.standard
-
-    private lazy var locationFormatter = CachingGeocodingLocationFormatter.shared
-    private let notAvailablePlaceholder = "—"
+    private lazy var geocoder = CachingGeocoder.shared
+    private lazy var locationFormatter = LocationFormatter()
+    
+    private let unavailablePlaceholder = "—"
 
     @IBOutlet private var assetTypeLabel: UILabel!
     @IBOutlet private var frameDimensionsTitleLabel: UILabel!
@@ -33,6 +33,11 @@ class MetadataViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateExpandedPreferredContentSize()
     }
 
     @IBAction private func done() {
@@ -90,6 +95,8 @@ class MetadataViewController: UITableViewController {
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         tableView.backgroundColor = .clear
         
+        mapView.isUserInteractionEnabled = false
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
 
         updateAssetMetadata()
@@ -111,35 +118,41 @@ class MetadataViewController: UITableViewController {
         frameDimensionsTitleLabel.text = isLivePhoto ? UserText.detailFrameDimensionsForLivePhotoTitle : UserText.detailFrameDimensionsForVideoTitle
         livePhotoDimensionsLabel.superview?.isHidden = !isLivePhoto
 
-        frameDimensionsLabel.text = video?.dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
-        livePhotoDimensionsLabel.text = (asset?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? notAvailablePlaceholder
-        frameRateLabel.text = video?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? notAvailablePlaceholder
-        durationLabel.text = (video?.duration.seconds).flatMap(durationFormatter.string) ?? notAvailablePlaceholder
-        dateCreatedLabel.text = asset?.creationDate.flatMap(dateFormatter.string) ?? notAvailablePlaceholder
+        frameDimensionsLabel.text = video?.dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? unavailablePlaceholder
+        livePhotoDimensionsLabel.text = (asset?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? unavailablePlaceholder
+        frameRateLabel.text = video?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? unavailablePlaceholder
+        durationLabel.text = (video?.duration.seconds).flatMap(durationFormatter.string) ?? unavailablePlaceholder
+        dateCreatedLabel.text = asset?.creationDate.flatMap(dateFormatter.string) ?? unavailablePlaceholder
 
         updateLocation()
     }
 
     private func updateLocation() {
         tableView.reloadData()  // Show/hide location cells.
-        mapView.isUserInteractionEnabled = false
 
         guard let location = videoController?.asset.location else {
-            locationLabel.text = notAvailablePlaceholder
+            locationLabel.text = unavailablePlaceholder
             return
         }
 
         let point = MKPointAnnotation()
         point.coordinate = location.coordinate
-        mapView.addAnnotation(point)
-
+        
         mapView.removeAnnotations(mapView.annotations)
         mapView.showAnnotations([point], animated: false)
-
-        locationFormatter.string(from: location) { [weak self] string in
-            guard let string = string else { return }
-            self?.locationLabel.text = string
-            self?.tableView.reloadData()  // Update cell height for new text.
+        
+        let text = locationFormatter.string(fromCoordinate: location.coordinate)
+        updateLocationLabel(with: text)
+                
+        geocoder.reverseGeocodeLocation(location) { [weak self] address in
+            guard let address = address?.postalAddress else { return }
+            let text = self?.locationFormatter.string(from: address)
+            self?.updateLocationLabel(with: text)
         }
+    }
+    
+    private func updateLocationLabel(with text: String?) {
+        locationLabel.text = text
+        tableView.reloadData()
     }
 }

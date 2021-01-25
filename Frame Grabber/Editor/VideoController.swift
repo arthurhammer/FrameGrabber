@@ -204,11 +204,55 @@ class VideoController {
 
     private func frameRequest(for video: AVAsset, times: [CMTime]) -> FrameExport.Request {
         let metadata = settings.includeMetadata
-            ? CGImage.metadata(for: asset.creationDate, location: asset.location)
+            ? self.metadata(for: video, asset: asset)
             : nil
+        
+        let encoding = ImageEncoding(
+            format: settings.imageFormat,
+            compressionQuality: settings.compressionQuality,
+            metadata: metadata
+        )
 
-        let encoding = ImageEncoding(format: settings.imageFormat, compressionQuality: settings.compressionQuality, metadata: metadata)
-
-        return FrameExport.Request(video: video, times: times, encoding: encoding, directory: nil, chunkSize: 5)
+        return FrameExport.Request(
+            video: video,
+            times: times,
+            encoding: encoding,
+            directory: nil,
+            chunkSize: 5
+        )
+    }
+    
+    
+    /// Combined metadata from the asset's photo library metadata and the video file itself.
+    ///
+    /// - Note: Video metadata is loaded synchronously and can block.
+    ///
+    /// - TODO: Load video metadata asynchronously using `AVAsynchronousKeyValueLoading`.   
+    private func metadata(for video: AVAsset, asset: PHAsset) -> ImageMetadata {
+        let comment = UserText.exifAppInformation
+        
+        // Location and date from photo library metadata
+        let location = asset.location
+        let creationDate = asset.creationDate
+        
+        // Rest from video metadata directly
+        let videoMetadata = video.commonMetadata
+        
+        let make = metadataString(for: .commonIdentifierMake, in: videoMetadata)
+        let model = metadataString(for: .commonIdentifierModel, in: videoMetadata)
+        let software = metadataString(for: .commonIdentifierSoftware, in: videoMetadata)
+                
+        return ImageMetadata.metadata(
+            forCreationDate: creationDate,
+            location: location,
+            make: make,
+            model: model,
+            software: software,
+            userComment: comment
+        )
+    }
+    
+    private func metadataString(for id: AVMetadataIdentifier, in metadata: [AVMetadataItem]) -> String? {
+        AVMetadataItem.metadataItems(from: metadata, filteredByIdentifier: id).first?.stringValue
     }
 }

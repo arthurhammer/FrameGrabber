@@ -1,5 +1,6 @@
 import UIKit
 
+/// Static factories for UIAlertController alerts.
 extension UIAlertController {
 
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
@@ -15,6 +16,12 @@ extension UIAlertController {
     }
 
     static func frameExportFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.alertFrameExportFailedTitle,
+             message: UserText.alertFrameExportFailedMessage,
+             okHandler: okHandler)
+    }
+    
+    static func savingToPhotosFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertFrameExportFailedTitle,
              message: UserText.alertFrameExportFailedMessage,
              okHandler: okHandler)
