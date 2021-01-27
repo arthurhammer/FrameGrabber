@@ -29,7 +29,7 @@
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
 /* Class = "UILabel"; text = "Frame Grabber doesn't have subscriptions, bug you with ads or collect any data about you. And it is open source.\n\nIf you want to support such a project, you can invite me for an ice cream.\n\nThank you,\nArthur 🍦"; ObjectID = "Ltf-rM-h7K"; */
-"Ltf-rM-h7K.text" = "Frame Grabber hat keine Abos, stört dich nicht mit Werbung, sammelt keine Daten über dich und ist Open Source.\n\nFalls du solch ein Projekt unterstützen magst, kannst du mir ein Eis ausgeben. \n\nBesten Dank,\nArthur 🍦";
+"Ltf-rM-h7K.text" = "Frame Grabber hat keine Abos, stört dich nicht mit Werbung, sammelt keine Daten über dich und ist Open Source.\n\nFalls du solch ein Projekt unterstützen magst, kannst du mir ein Eis ausgeben. Danke. \n\nArthur";
 
 /* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "MBv-Ck-5UY"; */
 "MBv-Ck-5UY.text" = "Frame Grabber";
@@ -50,13 +50,13 @@
 "QZZ-Gh-i28.text" = "Ich sammle keine Daten von dir.";
 
 /* Class = "UILabel"; text = "Made by Arthur Hammer in Germany 🇩🇪"; ObjectID = "UNF-JH-2pd"; */
-"UNF-JH-2pd.text" = "Entwickelt von Arthur Hammer in 🇩🇪";
+"UNF-JH-2pd.text" = "Entwickelt von Arthur Hammer";
 
 /* Class = "UILabel"; text = "Nice to see you."; ObjectID = "xBV-RG-m2x"; */
 "xBV-RG-m2x.text" = "Schön, dich zu sehen.";
 
 /* Class = "UIButton"; normalTitle = "🎉 Rate Frame Grabber 🎉"; ObjectID = "xhq-rN-pTi"; */
-"xhq-rN-pTi.normalTitle" = "🎉 Frame Grabber Bewerten 🎉";
+"xhq-rN-pTi.normalTitle" = "Bewertung schreiben 🥳";
 
 /* Class = "UILabel"; text = "You're a Supporter! \nThank you so much."; ObjectID = "ygf-4Y-CH8"; */
 "ygf-4Y-CH8.text" = "Du bist Supporter!\nVielen Dank.";

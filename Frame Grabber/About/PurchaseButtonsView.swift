@@ -24,7 +24,7 @@ extension PurchaseButtonsView {
         
         if let price = price {
             let text = NSMutableAttributedString(string: UserText.IAPAction)
-            let spacer = NSAttributedString(string: "   ")
+            let spacer = NSAttributedString(string: "  ")
             
             let price = NSAttributedString(string: price, attributes: [
                 .font: UIFont.preferredFont(forTextStyle: .headline, weight: .regular)

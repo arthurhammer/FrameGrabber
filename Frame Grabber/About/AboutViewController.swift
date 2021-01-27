@@ -56,7 +56,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
 
         purchaseButton.configureAsActionButton()
         purchaseButton.backgroundColor = .secondarySystemFill
-        purchaseButton.setTitleColor(.label, for: .normal)
+        purchaseButton.setTitleColor(.secondaryLabel, for: .normal)
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, size: 22, weight: .semibold)
 
@@ -66,7 +66,15 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
             bundle.shortFormattedVersion
         )
 
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.barTintColor = .clear
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
