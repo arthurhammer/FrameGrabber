@@ -84,11 +84,11 @@ class PlaybackController {
     // MARK: - Seeking
 
     func smoothlySeek(to time: CMTime) {
-        seeker.smoothlySeek(to: time)
+        seeker.smoothlySeek(to: seekTime(for: time))
     }
 
     func directlySeek(to time: CMTime) {
-        seeker.directlySeek(to: time)
+        seeker.directlySeek(to: seekTime(for: time))
     }
 
     private func seekToStartIfNecessary() {
@@ -149,7 +149,27 @@ class PlaybackController {
             .store(in: &bindings)
     }
     
-    // MARK: - Sample Times
+    // MARK: - Sample-Level Timing
+
+    /// The time of the sample at `playbackTime` if `playbackTime` is smaller or equal to the last
+    /// sample. Otherwise, `playbackTime` itself.
+    ///
+    /// When seeking beyond the last sample, do not snap to the last sample or the player won't
+    /// be able to reach the end of the playback via seeking.
+    private func seekTime(for playbackTime: CMTime) -> CMTime {
+        guard let sampleTime = sampleTime(for: playbackTime),
+              let lastSample = sampleTimes?.values.last?.presentationTimeStamp else { return playbackTime }
+        
+        return (playbackTime > lastSample) ? playbackTime : sampleTime
+    }
+ 
+    private func sampleTime(for playbackTime: CMTime) -> CMTime? {
+        sampleTimes?.sampleTiming(for: playbackTime)?.presentationTimeStamp
+    }
+    
+    func relativeFrameNumber(for playbackTime: CMTime) -> Int? {
+        sampleTimes?.sampleTimingIndexInSecond(for: playbackTime)
+    }
     
     private func indexSampleTimes() {
         currentSampleTime = nil
@@ -164,12 +184,5 @@ class PlaybackController {
                 self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
         }
-    }
-    
-    private func sampleTime(for playbackTime: CMTime) -> CMTime? {
-        sampleTimes?.sampleTiming(for: playbackTime)?.presentationTimeStamp
-    }
-    func relativeFrameNumber(for playbackTime: CMTime) -> Int? {
-        sampleTimes?.sampleTimingIndexInSecond(for: playbackTime)
     }
 }
