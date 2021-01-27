@@ -135,6 +135,18 @@ class AlbumViewController: UICollectionViewController {
             dataSource.delete(video)
         }
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        guard let video = configuration.identifier as? PHAsset,
+              let indexPath = dataSource.indexPath(of: video),
+              let cell = videoCell(at: indexPath) else { return nil }
+
+        return UITargetedPreview(view: cell.imageContainer)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
 
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         // Video might've been deleted or changed during preview.
