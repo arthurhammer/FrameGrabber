@@ -143,10 +143,13 @@
 "export.showShareSheet.action" = "Share-Sheet";
 
 /* Explanation of what the frame number time format does. */
-"exportsettings.frameNumber.footer" = "Zeigt die Framenummer relativ zu der aktuellen Sekunde an. Für größere Videos kann es etwas dauern, bis die Framenummern zu Verfügung stehen.";
+"exportsettings.frameNumber.footer" = "Minuten, Sekunden und Framenummer relativ zu der aktuellen Sekunde. \n\nFür größere Videos kann es etwas dauern, bis die Framenummern verfügbar sind.";
+
+/* Explanation of what the milliseconds time format does. */
+"exportsettings.milliseconds.footer" = "Minuten, Sekunden und Millisekunden.";
 
 /* Title for the save to photo library export setting. */
-"exportsettings.saveToPhotos.action" = "Fotomediathek";
+"exportsettings.saveToPhotos.action" = "Fotos";
 
 /* Explanation of what the save to photos setting does */
 "exportsettings.saveToPhotos.footer" = "Speichert Bilder in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";

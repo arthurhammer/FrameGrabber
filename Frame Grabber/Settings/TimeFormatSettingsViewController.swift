@@ -37,7 +37,7 @@ class TimeFormatSettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch selectedFormat {
-        case .minutesSecondsMilliseconds: return nil
+        case .minutesSecondsMilliseconds: return UserText.exportSettingsMillisecondsFormatFooter
         case .minutesSecondsFrameNumber: return UserText.exportSettingsFrameNumberFormatFooter
         }
     }
