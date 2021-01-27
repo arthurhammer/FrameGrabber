@@ -35,7 +35,7 @@ struct VideoCellContextMenu {
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
         
-        UIMenu(children: [
+        UIMenu(title: menuTitle(for: video), children: [
             UIAction(
                 title: video.isFavorite ? UserText.unfavoriteAction : UserText.favoriteAction,
                 image: UIImage(systemName: video.isFavorite ? "heart.slash" : "heart"),
@@ -48,5 +48,13 @@ struct VideoCellContextMenu {
                 handler: { _ in handler(.delete) }
             )
         ])
+    }
+    
+    private static func menuTitle(for video: PHAsset) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        formatter.doesRelativeDateFormatting = true
+        return video.creationDate.flatMap(formatter.string(from:)) ?? ""
     }
 }
