@@ -97,6 +97,10 @@ class Coordinator: NSObject {
     private func showEditor(for source: VideoSource, previewImage: UIImage?) {
         guard let editor = UIStoryboard(name: "Editor", bundle: nil).instantiateInitialViewController() as? EditorViewController else { return }
         
+        let transitionController = ZoomTransitionController()
+        navigationController.delegate = transitionController
+        editor.transitionController = transitionController
+        
         editor.videoController = VideoController(source: source, previewImage: previewImage)
         navigationController.show(editor, sender: self)
     }
