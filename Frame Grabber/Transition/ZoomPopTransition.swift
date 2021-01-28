@@ -5,8 +5,14 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
 
     let type: TransitionType = .pop
 
-    weak var fromDelegate: ZoomTransitionDelegate?
-    weak var toDelegate: ZoomTransitionDelegate?
+    private(set) weak var fromDelegate: ZoomTransitionDelegate?
+    private(set) weak var toDelegate: ZoomTransitionDelegate?
+    
+    init(from: ZoomTransitionDelegate?, to: ZoomTransitionDelegate?) {
+        self.fromDelegate = from
+        self.toDelegate = to
+        super.init()
+    }
 
     /// You can use this flag to track whether the transition should be started
     /// interactively.
