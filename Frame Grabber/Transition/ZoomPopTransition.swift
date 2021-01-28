@@ -159,6 +159,11 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
         let durationFactor = CGFloat(foregroundAnimator.duration / backgroundAnimator.duration)
 
         foregroundAnimator.startAnimation()
+        
+        // Is still inactive for non-interactive transitions. Activate keeping current progress.
+        let fractionComplete = backgroundAnimator.fractionComplete
+        backgroundAnimator.fractionComplete = fractionComplete
+        
         backgroundAnimator.isReversed = transitionContext.transitionWasCancelled
         backgroundAnimator.continueAnimation(withTimingParameters: nil, durationFactor: durationFactor)
     }
