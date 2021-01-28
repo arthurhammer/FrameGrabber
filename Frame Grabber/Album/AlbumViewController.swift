@@ -30,6 +30,7 @@ class AlbumViewController: UICollectionViewController {
 
     @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
+    @IBOutlet private var aboutBarItem: UIBarButtonItem!
 
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -206,6 +207,8 @@ private extension AlbumViewController {
         } else {
             let action = #selector(showViewSettingsAlertSheet)
             viewSettingsButton.addTarget(self, action: action, for: .touchUpInside)
+            
+            navigationItem.rightBarButtonItems = [aboutBarItem]
         }
         
         viewSettingsButton.add(to: view)

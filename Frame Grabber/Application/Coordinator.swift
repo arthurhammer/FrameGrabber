@@ -65,13 +65,16 @@ class Coordinator: NSObject {
             albumViewController.setSourceAlbum(album)
         }
     }
+}
 
 // MARK: - AlbumViewControllerDelegate
 
 extension Coordinator: AlbumViewControllerDelegate {
     
     func controllerDidSelectFilePicker(_ controller: AlbumViewController) {
-        showFilePicker()
+        if #available(iOS 14.0, *) {
+            showFilePicker()
+        }
     }
 }
 
@@ -79,16 +82,16 @@ extension Coordinator: AlbumViewControllerDelegate {
 
 extension Coordinator: UIDocumentPickerDelegate {
     
+    @available(iOS 14.0, *)
     private func showFilePicker() {
-        if #available(iOS 14.0, *) {
-            let picker = UIDocumentPickerViewController(
-                forOpeningContentTypes: [.movie],
-                asCopy: true
-            )
-            picker.shouldShowFileExtensions = true
-            picker.delegate = self
-            navigationController.showDetailViewController(picker, sender: nil)
-        }
+        let picker = UIDocumentPickerViewController(
+            forOpeningContentTypes: [.movie],
+            asCopy: true
+        )
+        picker.shouldShowFileExtensions = true
+        picker.delegate = self
+    
+        navigationController.showDetailViewController(picker, sender: nil)
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {

@@ -181,6 +181,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="aboutBarItem" destination="r6g-Iu-tPw" id="pJA-SP-PV7"/>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
                         <outlet property="titleButton" destination="Mu7-kP-sfK" id="Gns-y9-fSV"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
