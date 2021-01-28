@@ -3,10 +3,15 @@ import Combine
 import ThumbnailSlider
 import UIKit
 
+protocol EditorViewControllerDelegate: class {
+    func controller(_ controller: EditorViewController, handleSlideToPopGesture gesture: UIPanGestureRecognizer)
+}
+
 class EditorViewController: UIViewController {
+    
+    weak var delegate: EditorViewControllerDelegate?
 
     var videoController: VideoController!
-    var transitionController: ZoomTransitionController?
     let settings: UserDefaults = .standard
 
     // MARK: Private Properties
@@ -75,10 +80,6 @@ class EditorViewController: UIViewController {
 private extension EditorViewController {
 
     // MARK: Actions
-
-    func done() {
-        navigationController?.popViewController(animated: true)
-    }
 
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
@@ -164,8 +165,6 @@ private extension EditorViewController {
     }
 
     func configureGestures() {
-        guard transitionController != nil else { return }
-
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
         zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
 
@@ -175,14 +174,11 @@ private extension EditorViewController {
     }
 
     @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
-        let hasVideoOrPoster = zoomingPlayerView.playerView.bounds.size != .zero
+        let canSlide = zoomingPlayerView.playerView.bounds.size != .zero
 
-        guard !isScrubbing,
-            hasVideoOrPoster else { return }
+        guard !isScrubbing, canSlide else { return }
 
-        transitionController?.handleSlideToPopGesture(gesture, performTransition: {
-            done()
-        })
+        delegate?.controller(self, handleSlideToPopGesture: gesture)
     }
 
     func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {

@@ -6,7 +6,8 @@ class Coordinator: NSObject {
 
     let navigationController: NavigationController
     let libraryViewController: AlbumViewController
-        
+    let transitionController: ZoomTransitionController
+    
     private(set) lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource)
     
     private(set) lazy var albumsDataSource: AlbumsDataSource = {
@@ -23,6 +24,7 @@ class Coordinator: NSObject {
         
         self.navigationController = navigationController
         self.libraryViewController = albumViewController
+        self.transitionController = ZoomTransitionController(navigationController: navigationController)
         
         super.init()
     }
@@ -97,11 +99,9 @@ class Coordinator: NSObject {
     private func showEditor(for source: VideoSource, previewImage: UIImage?) {
         guard let editor = UIStoryboard(name: "Editor", bundle: nil).instantiateInitialViewController() as? EditorViewController else { return }
         
-        let transitionController = ZoomTransitionController()
-        navigationController.delegate = transitionController
-        editor.transitionController = transitionController
-        
+        editor.delegate = self
         editor.videoController = VideoController(source: source, previewImage: previewImage)
+        
         navigationController.show(editor, sender: self)
     }
 }
@@ -122,6 +122,15 @@ extension Coordinator: AlbumViewControllerDelegate {
     
     func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(for: .photoLibrary(asset), previewImage: previewImage)
+    }
+}
+
+// MARK: - EditorViewControllerDelegate
+
+extension Coordinator: EditorViewControllerDelegate {
+    
+    func controller(_ controller: EditorViewController, handleSlideToPopGesture gesture: UIPanGestureRecognizer) {
+        transitionController.handleSlideToPopGesture(gesture)
     }
 }
 
