@@ -97,10 +97,12 @@ class Coordinator: NSObject {
     }
     
     private func showEditor(for source: VideoSource, previewImage: UIImage?) {
-        guard let editor = UIStoryboard(name: "Editor", bundle: nil).instantiateInitialViewController() as? EditorViewController else { return }
+        let storyboard = UIStoryboard(name: "Editor", bundle: nil)
+        let videoController = VideoController(source: source, previewImage: previewImage)
         
-        editor.delegate = self
-        editor.videoController = VideoController(source: source, previewImage: previewImage)
+        guard let editor = storyboard.instantiateInitialViewController(creator: {
+            EditorViewController(videoController: videoController, delegate: self, coder: $0)
+        }) else { return }
         
         navigationController.show(editor, sender: self)
     }

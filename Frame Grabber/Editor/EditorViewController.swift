@@ -11,12 +11,30 @@ class EditorViewController: UIViewController {
     
     weak var delegate: EditorViewControllerDelegate?
 
-    var videoController: VideoController!
-    let settings: UserDefaults = .standard
-
+    let videoController: VideoController
+    let playbackController: PlaybackController
+    let settings: UserDefaults
+    
+    init?(
+        videoController: VideoController,
+        playbackController: PlaybackController = .init(),
+        settings: UserDefaults = .standard,
+        delegate: EditorViewControllerDelegate? = nil,
+        coder: NSCoder
+    ) {
+        self.videoController = videoController
+        self.playbackController = playbackController
+        self.settings = settings
+        self.delegate = delegate
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Dependencies must be injected")
+    }
+    
     // MARK: Private Properties
 
-    private lazy var playbackController = PlaybackController()
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
     private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
