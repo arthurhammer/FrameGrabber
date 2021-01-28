@@ -16,6 +16,7 @@ class Coordinator: NSObject {
     }
 
     func start() {
+        albumViewController.delegate = self
         // Show placeholder title until authorized.
         albumViewController.defaultTitle =  UserText.albumUnauthorizedTitle
         
@@ -64,4 +65,35 @@ class Coordinator: NSObject {
             albumViewController.setSourceAlbum(album)
         }
     }
+
+// MARK: - AlbumViewControllerDelegate
+
+extension Coordinator: AlbumViewControllerDelegate {
+    
+    func controllerDidSelectFilePicker(_ controller: AlbumViewController) {
+        showFilePicker()
+    }
+}
+
+// MARK: - File Picker
+
+extension Coordinator: UIDocumentPickerDelegate {
+    
+    private func showFilePicker() {
+        if #available(iOS 14.0, *) {
+            let picker = UIDocumentPickerViewController(
+                forOpeningContentTypes: [.movie],
+                asCopy: true
+            )
+            picker.shouldShowFileExtensions = true
+            picker.delegate = self
+            navigationController.showDetailViewController(picker, sender: nil)
+        }
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let editor = UIStoryboard(name: "Editor", bundle: nil).instantiateInitialViewController() as? EditorViewController else { return }
+        guard let url = urls.first else { return }
+        editor.videoController = VideoController(source: .url(url), previewImage: nil)
+        navigationController.show(editor, sender: nil)
 }

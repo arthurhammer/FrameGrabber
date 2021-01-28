@@ -3,7 +3,14 @@ import Photos
 import PhotosUI
 import UIKit
 
+protocol AlbumViewControllerDelegate: class {
+    func controllerDidSelectFilePicker(_ controller: AlbumViewController)
+}
+
 class AlbumViewController: UICollectionViewController {
+    
+    weak var delegate: AlbumViewControllerDelegate?
+    
     var albumsDataSource: AlbumsDataSource?
         
     /// The title that will be used when album is `nil`.
@@ -96,6 +103,10 @@ class AlbumViewController: UICollectionViewController {
     
     @objc private func showAlbumPicker() {
         present(albumPicker, animated: true)
+    }
+    
+    @IBAction private func showFilePicker() {
+        delegate?.controllerDidSelectFilePicker(self)
     }
 
     // MARK: - Collection View Data Source & Delegate

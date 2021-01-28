@@ -30,6 +30,9 @@ class VideoController {
     private var videoRequest: Cancellable?
     private var imageRequest: Cancellable?
 
+    /// - Parameters:
+    ///   - source: If the source type is `.url`, the controller takes ownership of the file and,
+    ///     upon deinitialization, deletes it. If necessary, create a local copy of of the file.
     init(
         source: VideoSource,
         video: AVAsset? = nil,
