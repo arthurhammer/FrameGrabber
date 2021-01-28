@@ -1,35 +1,45 @@
 import PhotoAlbums
+import Photos
 import UIKit
 
 class Coordinator: NSObject {
 
     let navigationController: NavigationController
-    let albumViewController: AlbumViewController
+    let libraryViewController: AlbumViewController
+        
+    private(set) lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource)
+    
+    private(set) lazy var albumsDataSource: AlbumsDataSource = {
+        assert(!needsAuthorization, "Photo library access before authorization")
+        return AlbumsDataSource.default()
+    }()
+    
+    private var needsAuthorization: Bool {
+        AuthorizationController.needsAuthorization
+    }
 
     init(navigationController: NavigationController) {
         guard let albumViewController = navigationController.topViewController as? AlbumViewController else { fatalError("Wrong root controller or type.") }
         
         self.navigationController = navigationController
-        self.albumViewController = albumViewController
+        self.libraryViewController = albumViewController
         
         super.init()
     }
 
     func start() {
-        albumViewController.delegate = self
-        // Show placeholder title until authorized.
-        albumViewController.defaultTitle =  UserText.albumUnauthorizedTitle
+        libraryViewController.delegate = self
+        libraryViewController.defaultTitle =  UserText.albumUnauthorizedTitle
         
-        showAuthorizationIfNecessary { [weak self] in
-            // Defer configuration to avoid triggering premature authorization dialogs.
-            self?.configureAlbum()
+        showAuthorizationIfNeeded { [weak self] in
+            self?.configureLibrary()
         }
     }
 
-    // MARK: Authorizing
+    // MARK: Screens
 
-    private func showAuthorizationIfNecessary(completion: @escaping () -> ()) {
-        if AuthorizationController.needsAuthorization {
+    private func showAuthorizationIfNeeded(completion: @escaping () -> ()) {
+        if needsAuthorization {
             DispatchQueue.main.async {
                 self.showAuthorization(animated: true, completion: completion)
             }
@@ -52,35 +62,25 @@ class Coordinator: NSObject {
         authorizationController.isModalInPresentation = true
         navigationController.present(authorizationController, animated: animated)
     }
-
-    // MARK: Showing Albums
-
-    private func configureAlbum() {
-        // Show default title again.
-        albumViewController.defaultTitle = UserText.albumDefaultTitle
-        albumViewController.albumsDataSource = AlbumsDataSource.default()
-        
-        if let initialCollection = AlbumsDataSource.fetchInitialAssetCollection() {
-            let album = AnyAlbum(assetCollection: initialCollection)
-            albumViewController.setSourceAlbum(album)
-        }
-    }
-}
-
-// MARK: - AlbumViewControllerDelegate
-
-extension Coordinator: AlbumViewControllerDelegate {
     
-    func controllerDidSelectFilePicker(_ controller: AlbumViewController) {
-        if #available(iOS 14.0, *) {
-            showFilePicker()
+    private func configureLibrary() {
+        assert(!needsAuthorization, "Photo library access before authorization")
+        
+        libraryViewController.defaultTitle = UserText.albumDefaultTitle
+        
+        if let initialAlbum = AlbumsDataSource.fetchInitialAssetCollection() {
+            libraryViewController.setSourceAlbum(AnyAlbum(assetCollection: initialAlbum))
         }
+        
+        _ = albumsDataSource  // Preload albums.
     }
-}
-
-// MARK: - File Picker
-
-extension Coordinator: UIDocumentPickerDelegate {
+    
+    private func showAlbumPicker() {
+        assert(!needsAuthorization, "Photo library access before authorization")
+        
+        albumPicker.delegate = self
+        navigationController.showDetailViewController(albumPicker, sender: self)
+    }
     
     @available(iOS 14.0, *)
     private func showFilePicker() {
@@ -91,12 +91,52 @@ extension Coordinator: UIDocumentPickerDelegate {
         picker.shouldShowFileExtensions = true
         picker.delegate = self
     
-        navigationController.showDetailViewController(picker, sender: nil)
+        navigationController.showDetailViewController(picker, sender: self)
     }
     
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+    private func showEditor(for source: VideoSource, previewImage: UIImage?) {
         guard let editor = UIStoryboard(name: "Editor", bundle: nil).instantiateInitialViewController() as? EditorViewController else { return }
+        
+        editor.videoController = VideoController(source: source, previewImage: previewImage)
+        navigationController.show(editor, sender: self)
+    }
+}
+
+// MARK: - AlbumViewControllerDelegate
+
+extension Coordinator: AlbumViewControllerDelegate {
+    
+    func controllerDidSelectAlbumPicker(_ controller: AlbumViewController) {
+        showAlbumPicker()
+    }
+    
+    func controllerDidSelectFilePicker(_ controller: AlbumViewController) {
+        if #available(iOS 14.0, *) {
+            showFilePicker()
+        }
+    }
+    
+    func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
+        showEditor(for: .photoLibrary(asset), previewImage: previewImage)
+    }
+}
+
+// MARK: - AlbumPickerViewControllerDelegate
+
+extension Coordinator: AlbumPickerViewControllerDelegate {
+    
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
+        guard let album = album else { return }
+        libraryViewController.setSourceAlbum(album)
+    }
+}
+
+// MARK: - File Picker
+
+extension Coordinator: UIDocumentPickerDelegate {
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
-        editor.videoController = VideoController(source: .url(url), previewImage: nil)
-        navigationController.show(editor, sender: nil)
+        showEditor(for: .url(url), previewImage: nil)
+    }
 }
