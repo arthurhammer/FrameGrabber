@@ -62,7 +62,7 @@ class EditorViewController: UIViewController {
 
     private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
-        controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
+        controller.videoController = VideoController(source: videoController.source, video: videoController.video)
     }
     
     private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {

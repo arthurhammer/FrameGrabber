@@ -13,7 +13,7 @@ class VideoController {
 
     typealias VideoResult = Result<AVAsset, Error?>
 
-    let asset: PHAsset
+    let source: VideoSource
     private(set) var video: AVAsset?
     private(set) var previewImage: UIImage?
 
@@ -30,15 +30,16 @@ class VideoController {
     private var videoRequest: Cancellable?
     private var imageRequest: Cancellable?
 
-    init(asset: PHAsset,
-         video: AVAsset? = nil,
-         previewImage: UIImage? = nil,
-         settings: UserDefaults = .standard,
-         imageManager: PHImageManager = .default(),
-         resourceManager: PHAssetResourceManager = .default(),
-         fileManager: FileManager = .default) {
-
-        self.asset = asset
+    init(
+        source: VideoSource,
+        video: AVAsset? = nil,
+        previewImage: UIImage? = nil,
+        settings: UserDefaults = .standard,
+        imageManager: PHImageManager = .default(),
+        resourceManager: PHAssetResourceManager = .default(),
+        fileManager: FileManager = .default
+    ) {
+        self.source = source
         self.video = video
         self.previewImage = previewImage
         self.settings = settings
@@ -69,9 +70,11 @@ class VideoController {
     ///
     /// Handlers are called on the main thread.
     func loadPreviewImage(with size: CGSize, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) {
+        guard case let .photoLibrary(libraryAsset) = source else { return }
+        
         let options = PHImageManager.ImageOptions(size: size, mode: .aspectFit, requestOptions: .default())
 
-        imageRequest = imageManager.requestImage(for: asset, options: options) { [weak self] image, info in
+        imageRequest = imageManager.requestImage(for: libraryAsset, options: options) { [weak self] image, info in
             if let image = image {
                 self?.previewImage = image
             }
@@ -96,10 +99,28 @@ class VideoController {
     ///
     /// Handlers are called on the main thread.
     func loadVideo(progressHandler: @escaping (Double) -> (), completionHandler: @escaping (VideoResult) -> ()) {
-        if asset.isLivePhoto {
-            loadVideoForLivePhoto(progressHandler: progressHandler, completionHandler: completionHandler)
-        } else {
-            loadVideoForVideo(progressHandler: progressHandler, completionHandler: completionHandler)
+        switch source {
+        
+        case .url(let url):
+            let video = AVAsset(url: url)
+            self.video = video
+            completionHandler(.success(video))
+        
+            
+        case .photoLibrary(let asset) where asset.isVideo:
+            loadVideoForVideo(
+                progressHandler: progressHandler,
+                completionHandler: completionHandler
+            )
+                
+        case .photoLibrary(let asset) where asset.isLivePhoto:
+            loadVideoForLivePhoto(
+                progressHandler: progressHandler,
+                completionHandler: completionHandler
+            )
+            
+        default:
+            assertionFailure("Unknown video source")
         }
     }
 
@@ -108,7 +129,9 @@ class VideoController {
                            progressHandler: @escaping (Double) -> (),
                            completionHandler: @escaping (VideoResult) -> ()) {
 
-        videoRequest = imageManager.requestAVAsset(for: asset, options: options, progressHandler: progressHandler) { [weak self] video, _, info in
+        guard case let .photoLibrary(libraryAsset) = source else { return }
+
+        videoRequest = imageManager.requestAVAsset(for: libraryAsset, options: options, progressHandler: progressHandler) { [weak self] video, _, info in
             self?.video = video
             self?.videoRequest = nil
 
@@ -127,6 +150,8 @@ class VideoController {
                                progressHandler: @escaping (Double) -> (),
                                completionHandler: @escaping (VideoResult) -> ()) {
 
+        guard case let .photoLibrary(libraryAsset) = source else { return }
+        
         videoRequest = nil
         deleteExportedVideo()
 
@@ -138,7 +163,7 @@ class VideoController {
             completionHandler(videoResult)
         }
 
-        guard let videoResource = PHAssetResource.videoResource(forLivePhoto: asset) else {
+        guard let videoResource = PHAssetResource.videoResource(forLivePhoto: libraryAsset) else {
             completion(.failure(nil))
             return
         }
@@ -188,7 +213,7 @@ class VideoController {
             return
         }
 
-        frameExport = FrameExport(request: frameRequest(for: video, times: times), fileManager: fileManager, updateHandler: completion)
+        frameExport = FrameExport(request: frameRequest(for: video, from: source, times: times), fileManager: fileManager, updateHandler: completion)
         frameExport?.start()
     }
 
@@ -202,9 +227,9 @@ class VideoController {
         exportedFrameURLs = nil
     }
 
-    private func frameRequest(for video: AVAsset, times: [CMTime]) -> FrameExport.Request {
+    private func frameRequest(for video: AVAsset, from source: VideoSource, times: [CMTime]) -> FrameExport.Request {
         let metadata = settings.includeMetadata
-            ? self.metadata(for: video, asset: asset)
+            ? self.metadata(for: video, from: source)
             : nil
         
         let encoding = ImageEncoding(
@@ -222,29 +247,29 @@ class VideoController {
         )
     }
     
-    
     /// Combined metadata from the asset's photo library metadata and the video file itself.
     ///
     /// - Note: Video metadata is loaded synchronously and can block.
     ///
     /// - TODO: Load video metadata asynchronously using `AVAsynchronousKeyValueLoading`.   
-    private func metadata(for video: AVAsset, asset: PHAsset) -> ImageMetadata {
-        let comment = UserText.exifAppInformation
+    private func metadata(for video: AVAsset, from source: VideoSource) -> ImageMetadata {
+        // Prefer photo library data over video data.
+        let photoLibraryLocation = source.asset?.location
+        let photoLibraryCreationDate = source.asset?.creationDate
         
-        // Location and date from photo library metadata
-        let location = asset.location
-        let creationDate = asset.creationDate
-        
-        // Rest from video metadata directly
+        // Rest from video metadata directly.
         let videoMetadata = video.commonMetadata
         
         let make = metadataString(for: .commonIdentifierMake, in: videoMetadata)
         let model = metadataString(for: .commonIdentifierModel, in: videoMetadata)
         let software = metadataString(for: .commonIdentifierSoftware, in: videoMetadata)
-                
+        
+        let creationDate = photoLibraryCreationDate ?? video.creationDate?.dateValue
+        let comment = UserText.exifAppInformation
+                        
         return ImageMetadata.metadata(
             forCreationDate: creationDate,
-            location: location,
+            location: photoLibraryLocation,
             make: make,
             model: model,
             software: software,

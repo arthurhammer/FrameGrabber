@@ -71,7 +71,8 @@ class AlbumViewController: UICollectionViewController {
         let cell = dataSource.indexPath(of: selectedAsset).flatMap(videoCell)
         let thumbnail = cell?.imageView.image
         
-        destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
+        let source = VideoSource.photoLibrary(selectedAsset)
+        destination.videoController = VideoController(source: source, previewImage: thumbnail)
     }
     
     // MARK: - Setting Albums
