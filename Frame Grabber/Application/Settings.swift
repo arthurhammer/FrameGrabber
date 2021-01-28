@@ -46,7 +46,7 @@ extension UserDefaults {
     }
     
     var timeFormat: TimeFormat {
-        get { codableValue(forKey: Key.timeFormat) ?? .minutesSecondsFrameNumber }
+        get { codableValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
         set { setCodableValue(value: newValue, forKey: Key.timeFormat) }
     }
 }
