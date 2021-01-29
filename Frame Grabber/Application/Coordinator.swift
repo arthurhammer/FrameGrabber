@@ -42,24 +42,13 @@ class Coordinator: NSObject {
     
     func open(videoUrl: URL) -> Bool {
         guard !needsAuthorization else { return false }
-        
-        dismissAllScreens(animated: true) {
-            self.showEditor(for: .url(videoUrl), previewImage: nil)
-        }
-        
+
+        navigationController.dismiss(animated: true)  // Animated.
+        showEditor(with: .url(videoUrl), previewImage: nil, animated: false)  // Not animated.
+
         return true
     }
-    
-    private func dismissAllScreens(animated: Bool, completion: (() -> ())? = nil) {
-        navigationController.dismiss(animated: animated) {
-            self.navigationController.popToRootViewController(animated: animated)
-            
-            DispatchQueue.main.async {
-                completion?()
-            }
-        }
-    }
-    
+
     // MARK: Screens
 
     private func showAuthorizationIfNeeded(completion: @escaping () -> ()) {
@@ -99,6 +88,15 @@ class Coordinator: NSObject {
         _ = albumsDataSource  // Preload albums.
     }
     
+    private func showEditor(with source: VideoSource, previewImage: UIImage?, animated: Bool) {
+        libraryViewController.transitionAsset = source.asset
+        let editor = makeEditor(with: source, previewImage: previewImage)
+        
+        // Let nav controller decide which animation to show. Also supports the correct "open in"
+        // animation.
+        navigationController.setViewControllers([libraryViewController, editor], animated: animated)
+    }
+    
     private func showAlbumPicker() {
         assert(!needsAuthorization, "Photo library access before authorization")
         
@@ -118,15 +116,17 @@ class Coordinator: NSObject {
         navigationController.showDetailViewController(picker, sender: self)
     }
     
-    private func showEditor(for source: VideoSource, previewImage: UIImage?) {
+    // MARK: - Controller Factories
+    
+    private func makeEditor(with source: VideoSource, previewImage: UIImage?) -> EditorViewController {
         let storyboard = UIStoryboard(name: "Editor", bundle: nil)
         let videoController = VideoController(source: source, previewImage: previewImage)
         
-        guard let editor = storyboard.instantiateInitialViewController(creator: {
+        guard let controller = storyboard.instantiateInitialViewController(creator: {
             EditorViewController(videoController: videoController, delegate: self, coder: $0)
-        }) else { return }
+        }) else { fatalError("Could not instantiate controller.") }
         
-        navigationController.show(editor, sender: self)
+        return controller
     }
 }
 
@@ -145,7 +145,7 @@ extension Coordinator: AlbumViewControllerDelegate {
     }
     
     func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
-        showEditor(for: .photoLibrary(asset), previewImage: previewImage)
+        showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
 }
 
@@ -174,6 +174,6 @@ extension Coordinator: UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
-        showEditor(for: .url(url), previewImage: nil)
+        showEditor(with: .url(url), previewImage: nil, animated: true)
     }
 }
