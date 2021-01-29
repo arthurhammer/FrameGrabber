@@ -28,6 +28,8 @@ class Coordinator: NSObject {
         
         super.init()
     }
+    
+    // MARK: - Start
 
     func start() {
         libraryViewController.delegate = self
@@ -37,7 +39,27 @@ class Coordinator: NSObject {
             self?.configureLibrary()
         }
     }
-
+    
+    func open(videoUrl: URL) -> Bool {
+        guard !needsAuthorization else { return false }
+        
+        dismissAllScreens(animated: true) {
+            self.showEditor(for: .url(videoUrl), previewImage: nil)
+        }
+        
+        return true
+    }
+    
+    private func dismissAllScreens(animated: Bool, completion: (() -> ())? = nil) {
+        navigationController.dismiss(animated: animated) {
+            self.navigationController.popToRootViewController(animated: animated)
+            
+            DispatchQueue.main.async {
+                completion?()
+            }
+        }
+    }
+    
     // MARK: Screens
 
     private func showAuthorizationIfNeeded(completion: @escaping () -> ()) {

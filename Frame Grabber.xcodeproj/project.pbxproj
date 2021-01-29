@@ -56,6 +56,8 @@
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F2A25040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Configuration.storekit */; };
+		0041729825C3F81F00DDBB55 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0041729725C3F81F00DDBB55 /* AppFileManager.swift */; };
+		0041729925C3F81F00DDBB55 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0041729725C3F81F00DDBB55 /* AppFileManager.swift */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A0FF25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10325BDE42000A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
@@ -283,6 +285,7 @@
 		003D1F2625040717006107C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		0041729725C3F81F00DDBB55 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
@@ -648,6 +651,7 @@
 				0054936323E5631B00F3E684 /* About.swift */,
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				001AA1781FB4977100A00BB9 /* AppDelegate.swift */,
+				0041729725C3F81F00DDBB55 /* AppFileManager.swift */,
 				00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */,
 				00CB8123234CE05400354E03 /* NavigationController.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
@@ -918,6 +922,7 @@
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
 				0054936523E5633700F3E684 /* About.swift in Sources */,
 				00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */,
+				0041729925C3F81F00DDBB55 /* AppFileManager.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				0025B2F225A8B3630075CCBC /* ImageMetadata.swift in Sources */,
 				00CA33EA25A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
@@ -1016,6 +1021,7 @@
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
+				0041729825C3F81F00DDBB55 /* AppFileManager.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */,
 				00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
