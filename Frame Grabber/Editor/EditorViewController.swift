@@ -280,7 +280,7 @@ private extension EditorViewController {
     func loadPreviewImage() {
         let size = zoomingPlayerView.bounds.size.scaledToScreen
 
-        videoController.loadPreviewImage(with: size) { [weak self] image, _ in
+        videoController.loadPreviewImage(with: size) { [weak self] image in
             guard let image = image else { return }
             self?.zoomingPlayerView.posterImage = image
         }
@@ -353,7 +353,7 @@ private extension EditorViewController {
 
             shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
                 guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
-                self?.videoController.deleteExportedFrames()
+                try? self?.videoController.deleteExportedFrames()
             }
 
             presentOnTop(shareController)
@@ -368,7 +368,7 @@ private extension EditorViewController {
                     self?.presentOnTop(UIAlertController.savingToPhotosFailed())
                 }
                 
-                self?.videoController.deleteExportedFrames()
+                try? self?.videoController.deleteExportedFrames()
             }
         }
     }
