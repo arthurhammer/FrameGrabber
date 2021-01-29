@@ -25,8 +25,11 @@ class AlbumViewController: UICollectionViewController {
         }
     }
 
-    /// The most recently selected asset.
-    private(set) var selectedAsset: PHAsset?
+    /// The asset that is the the source/target for the zoom push/pop transition, typically the last
+    /// selected asset.
+    var transitionAsset: PHAsset? {
+        didSet { select(asset: transitionAsset, animated: false) }
+    }
 
     @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
@@ -53,7 +56,6 @@ class AlbumViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateNavigationBar()
-        selectedAsset = nil
     }
 
     override func viewWillLayoutSubviews() {
@@ -74,10 +76,9 @@ class AlbumViewController: UICollectionViewController {
 
     // MARK: - Actions
 
-    /// Selects `selectedAsset` in the collection view.
-    func restoreSelection(animated: Bool) {
-        let selectedIndexPath = selectedAsset.flatMap { dataSource.indexPath(of: $0) }
-        collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
+    func select(asset: PHAsset?, animated: Bool) {
+        let indexPath = asset.flatMap { dataSource.indexPath(of: $0) }
+        collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: [])
     }
     
     @objc private func showAlbumPicker() {
@@ -93,7 +94,6 @@ class AlbumViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = dataSource.video(at: indexPath)
         let thumbnail = videoCell(at: indexPath)?.imageView.image
-        selectedAsset = asset
         delegate?.controller(self, didSelectEditorForAsset: asset, previewImage: thumbnail)
     }
 
@@ -148,7 +148,6 @@ class AlbumViewController: UICollectionViewController {
               let indexPath = dataSource.indexPath(of: updatedVideo) else { return }
 
         animator.addAnimations {
-            self.selectedAsset = updatedVideo
             let thumbnail = self.videoCell(at: indexPath)?.imageView.image
             
             self.delegate?.controller(
