@@ -178,11 +178,23 @@ class PlaybackController {
         
         guard let asset = asset else { return }
         
-        sampleIndexer.indexTimes(for: asset) { [weak self] result in
+        sampleIndexer.indexTimes(for: asset, shouldRetry: { $0.isInterrupted }) {
+            [weak self] result in
+            
             DispatchQueue.main.async {
                 self?.sampleTimes = try? result.get()  // Ignoring errors
                 self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
+        }
+    }
+}
+
+private extension SampleTimeIndexError {
+    
+    var isInterrupted: Bool {
+        switch self {
+        case .interrupted: return true
+        default: return false
         }
     }
 }
