@@ -252,7 +252,9 @@ private extension EditorViewController {
             .store(in: &bindings)
     }
 
+    // TODO: Clean up
     func updateTimeLabel(withTime time: CMTime) {
+        // Loading or playing.
         guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
             toolbar.timeSpinner.isHidden = true
             toolbar.timeLabel.text = timeFormatter.string(from: time)
@@ -265,12 +267,18 @@ private extension EditorViewController {
             toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)
         
         case .minutesSecondsFrameNumber:
+            // Succeeded indexing.
             if let frameNumber = playbackController.relativeFrameNumber(for: time) {
                 toolbar.timeSpinner.isHidden = true
                 toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
-            } else {
+            // Still indexing.
+            } else if playbackController._isIndexingSampleTimes {
                 toolbar.timeSpinner.isHidden = false
-                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"  // TODO
+                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"
+            // Failed indexing.
+            } else {
+                toolbar.timeSpinner.isHidden = true
+                toolbar.timeLabel.text = timeFormatter.string(from: time)
             }
         }
     }
