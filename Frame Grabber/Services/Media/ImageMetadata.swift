@@ -93,14 +93,16 @@ extension ImageMetadata {
 private extension DateFormatter {
 
     static func exifDateTimeFormatter() -> DateFormatter {
-        let formatter = DateFormatter()
+        let formatter = GPSTimeStampFormatter()
         // Exif dates are in "local" time without any timezone (whatever that means…).
-        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+        formatter.timeZone = .current
         return formatter
     }
 
     static func GPSTimeStampFormatter() -> DateFormatter {
         let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_POSIX_US")
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
         return formatter
