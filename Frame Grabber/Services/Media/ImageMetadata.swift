@@ -46,10 +46,10 @@ extension ImageMetadata {
     ) -> Properties {
         
         var properties = Properties()
-        let exifDate = date.flatMap(DateFormatter.exifDateTimeFormatter().string)
-            
-        properties.setIfNotNil(kCGImagePropertyExifDateTimeOriginal, exifDate as CFString?)
-        properties.setIfNotNil(kCGImagePropertyExifDateTimeDigitized, exifDate as CFString?)
+        let dateString = date.flatMap(ImageMetadataDateFormatter().exifTimestamp)
+
+        properties.setIfNotNil(kCGImagePropertyExifDateTimeOriginal, dateString as CFString?)
+        properties.setIfNotNil(kCGImagePropertyExifDateTimeDigitized, dateString as CFString?)
         properties.setIfNotNil(kCGImagePropertyExifUserComment, userComment as CFString?)
             
         return properties
@@ -63,9 +63,9 @@ extension ImageMetadata {
     ) -> Properties {
         
         var properties = Properties()
-        let exifDate = date.flatMap(DateFormatter.exifDateTimeFormatter().string)
+        let dateString = date.flatMap(ImageMetadataDateFormatter().tiffTimestamp)
         
-        properties.setIfNotNil(kCGImagePropertyTIFFDateTime, exifDate as CFString?)
+        properties.setIfNotNil(kCGImagePropertyTIFFDateTime, dateString as CFString?)
         properties.setIfNotNil(kCGImagePropertyTIFFMake, make as CFString?)
         properties.setIfNotNil(kCGImagePropertyTIFFModel, model as CFString?)
         properties.setIfNotNil(kCGImagePropertyTIFFSoftware, software as CFString?)
@@ -74,38 +74,17 @@ extension ImageMetadata {
     }
 
     static func gpsProperties(for location: CLLocation) -> Properties {
-        let gpsDateString = DateFormatter.GPSTimeStampFormatter().string(from: location.timestamp)
+        let dateString = ImageMetadataDateFormatter().gpsTimestamp(from: location.timestamp)
         let coordinate = location.coordinate
 
         return [
-            kCGImagePropertyGPSTimeStamp: gpsDateString as CFString,
+            kCGImagePropertyGPSTimeStamp: dateString as CFString,
             kCGImagePropertyGPSLatitude: abs(coordinate.latitude),  // Note: not CFString
             kCGImagePropertyGPSLatitudeRef: (coordinate.latitude >= 0 ? "N" : "S") as CFString,
             kCGImagePropertyGPSLongitude: abs(coordinate.longitude),
             kCGImagePropertyGPSLongitudeRef: (coordinate.longitude >= 0 ? "E" : "W") as CFString,
             kCGImagePropertyGPSHPositioningError: location.horizontalAccuracy
         ]
-    }
-}
-
-// MARK: - Formatters
-
-private extension DateFormatter {
-
-    static func exifDateTimeFormatter() -> DateFormatter {
-        let formatter = GPSTimeStampFormatter()
-        // Exif dates are in "local" time without any timezone (whatever that means…).
-        formatter.timeZone = .current
-        return formatter
-    }
-
-    static func GPSTimeStampFormatter() -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.locale = Locale(identifier: "en_POSIX_US")
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
-        return formatter
     }
 }
 

@@ -216,6 +216,8 @@
 		00D9E83823426301009E7AFA /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D9E83523426301009E7AFA /* Metadata.storyboard */; };
 		00E273502416A77F007FE0C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2734F2416A77F007FE0C6 /* Result.swift */; };
 		00E273512416A77F007FE0C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2734F2416A77F007FE0C6 /* Result.swift */; };
+		00E69C3725C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */; };
+		00E69C3825C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */; };
 		00E7135A2125E2940052EAF8 /* CGImage+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* CGImage+Encoding.swift */; };
 		00EAFD9A205ED32B0031F8A2 /* EditorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */; };
 		00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */; };
@@ -363,6 +365,7 @@
 		00D9E83623426301009E7AFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/Metadata.storyboard"; sourceTree = "<group>"; };
 		00D9E83A2342639C009E7AFA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/Metadata.strings"; sourceTree = "<group>"; };
 		00E2734F2416A77F007FE0C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Result.swift; path = "Frame Grabber/Utilities/Result.swift"; sourceTree = SOURCE_ROOT; };
+		00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadataDateFormatter.swift; sourceTree = "<group>"; };
 		00E713592125E2940052EAF8 /* CGImage+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Encoding.swift"; sourceTree = "<group>"; };
 		00E82088214FEBC000460FD1 /* Info-Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dev.plist"; sourceTree = "<group>"; };
 		00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbar.swift; sourceTree = "<group>"; };
@@ -527,6 +530,7 @@
 				008A48D623479D7300CEAA26 /* ImageEncoding.swift */,
 				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
 				0025B2F025A8B3630075CCBC /* ImageMetadata.swift */,
+				00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */,
 				007F8A1224B7580900324014 /* VideoTypesFilter.swift */,
 			);
 			path = Media;
@@ -936,6 +940,7 @@
 				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
 				00730EB8214FEA5A001A6EA7 /* ZoomTransitionController.swift in Sources */,
 				00730EB9214FEA5A001A6EA7 /* Coordinator.swift in Sources */,
+				00E69C3825C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */,
 				00730EBA214FEA5A001A6EA7 /* AuthorizationController.swift in Sources */,
 				00730EBC214FEA5A001A6EA7 /* AlbumCell.swift in Sources */,
 				007F8A1424B7580900324014 /* VideoTypesFilter.swift in Sources */,
@@ -1036,6 +1041,7 @@
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
 				0023FC9F233A0E4C0046D9F8 /* ExportSettingsViewController.swift in Sources */,
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
+				00E69C3725C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */,
 				005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */,
 				007F8A1324B7580900324014 /* VideoTypesFilter.swift in Sources */,
