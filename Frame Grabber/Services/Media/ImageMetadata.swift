@@ -1,4 +1,3 @@
-import CoreGraphics
 import CoreLocation
 import Foundation
 import ImageIO
