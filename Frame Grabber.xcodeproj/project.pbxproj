@@ -52,7 +52,6 @@
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		0034AFFE240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
-		003D1F2725040718006107C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F2525040717006107C0 /* InfoPlist.strings */; };
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F2A25040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Configuration.storekit */; };
@@ -60,7 +59,6 @@
 		0041729925C3F81F00DDBB55 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0041729725C3F81F00DDBB55 /* AppFileManager.swift */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A0FF25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
-		0045A10325BDE42000A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10B25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A10C25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
@@ -224,7 +222,6 @@
 		00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ECC734242E5BCC00B95E32 /* Frame_Grabber_Tests.swift */; };
 		00ECC740243335F200B95E32 /* InAppPurchase in Frameworks */ = {isa = PBXBuildFile; productRef = 00ECC73F243335F200B95E32 /* InAppPurchase */; };
 		00ECC742243335F900B95E32 /* InAppPurchase in Frameworks */ = {isa = PBXBuildFile; productRef = 00ECC741243335F900B95E32 /* InAppPurchase */; };
-		00ED22DD24AFDAF00023A973 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */; };
 		00EDF97F2340A28900FA0F48 /* RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EDF97E2340A28900FA0F48 /* RawRepresentable.swift */; };
 		00EDF9802340A2CC00FA0F48 /* RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EDF97E2340A28900FA0F48 /* RawRepresentable.swift */; };
 		00EDF98223422B5A00FA0F48 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EDF98123422B5A00FA0F48 /* NSObject.swift */; };
@@ -286,7 +283,6 @@
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
-		003D1F2625040717006107C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		0041729725C3F81F00DDBB55 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
@@ -695,7 +691,6 @@
 			children = (
 				00ECC734242E5BCC00B95E32 /* Frame_Grabber_Tests.swift */,
 				00ECC736242E5BCC00B95E32 /* Info.plist */,
-				003D1F2525040717006107C0 /* InfoPlist.strings */,
 			);
 			path = "Frame Grabber Tests";
 			sourceTree = "<group>";
@@ -880,7 +875,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				008D293324B20F5100813338 /* ExportSettings.storyboard in Resources */,
-				003D1F2725040718006107C0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,8 +1105,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */,
-				0045A10325BDE42000A1235A /* ExportAction.swift in Sources */,
-				00ED22DD24AFDAF00023A973 /* ExportSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1175,14 +1167,6 @@
 				0023FC9B233911BA0046D9F8 /* de */,
 			);
 			name = Authorization.storyboard;
-			sourceTree = "<group>";
-		};
-		003D1F2525040717006107C0 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				003D1F2625040717006107C0 /* de */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		008D293524B20F5100813338 /* ExportSettings.storyboard */ = {
@@ -1449,6 +1433,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "Frame Grabber Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1471,6 +1456,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "Frame Grabber Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
