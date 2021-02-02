@@ -9,11 +9,19 @@ public struct SampleTimes {
     
     /// The natural time scale of the track the sample times were read from.
     public let trackTimeScale: CMTimeScale
-
+    
+    /// The id of the track the samples were read from.
+    public let trackID: CMPersistentTrackID?
+    
     /// - Parameter values: Precondition: Is sorted by presentation time.
-    public init(values: [CMSampleTimingInfo], trackTimeScale: CMTimeScale) {
+    public init(
+        values: [CMSampleTimingInfo],
+        trackTimeScale: CMTimeScale,
+        trackID: CMPersistentTrackID
+    ) {
         self.values = values
         self.trackTimeScale = trackTimeScale
+        self.trackID = trackID
     }
 }
 

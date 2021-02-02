@@ -57,15 +57,23 @@ private extension SampleTimeIndexOperation {
         
     /// The timing infos sorted by their presentation time.
     func validatedAndSorted(timings: [CMSampleTimingInfo]) -> Result<SampleTimes> {
-        guard let trackTimeScale = sourceTrack?.naturalTimeScale else {
+        guard let track = sourceTrack else {
             return .failure(.invalidVideo)
         }
         
-        let sorted = timings.sorted {
-            $0.presentationTimeStamp < $1.presentationTimeStamp
+        var timings = timings
+        
+        if track.requiresFrameReordering {
+            timings.sort {
+                $0.presentationTimeStamp < $1.presentationTimeStamp
+            }
         }
         
-        let result = SampleTimes(values: sorted, trackTimeScale: trackTimeScale)
+        let result = SampleTimes(
+            values: timings,
+            trackTimeScale: track.naturalTimeScale,
+            trackID: track.trackID
+        )
         
         return .success(result)
     }
