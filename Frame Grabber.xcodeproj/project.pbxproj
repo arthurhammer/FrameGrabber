@@ -253,7 +253,6 @@
 		00024F6C23447EDF00937941 /* PHAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
 		00024F6F234482EE00937941 /* VideoCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellContextMenu.swift; sourceTree = "<group>"; };
 		00024F752344C06F00937941 /* AVAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
-		000BF42C24B9B22900AD6F96 /* FrameIndexer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FrameIndexer; path = Packages/FrameIndexer; sourceTree = "<group>"; };
 		000EA8B62437311700C339DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Application/Base.lproj/Editor.storyboard"; sourceTree = "<group>"; };
 		000EA8BA243731CE00C339DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/Application/de.lproj/Editor.strings"; sourceTree = "<group>"; };
 		00109CCB23FD239400B79F58 /* AlbumIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumIcons.swift; sourceTree = "<group>"; };
@@ -574,7 +573,6 @@
 			isa = PBXGroup;
 			children = (
 				0073D56224000E99008CABC3 /* StoreKit.framework */,
-				000BF42C24B9B22900AD6F96 /* FrameIndexer */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
