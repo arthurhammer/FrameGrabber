@@ -88,9 +88,10 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
             DispatchQueue.main.async {
                 index += 1
 
-                guard status != .cancelled else { return }
-
                 let image = image.flatMap(UIImage.init) ?? self?.placeholderImage
+                self?.placeholderImage = self?.placeholderImage ?? image  // Cache first image.
+
+                guard status != .cancelled else { return }
 
                 provider(index, image)
             }
