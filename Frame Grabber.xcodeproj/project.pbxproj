@@ -194,6 +194,9 @@
 		00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
 		00BCB4B825C961D40005192F /* VideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4B725C961D40005192F /* VideoCodecs.swift */; };
 		00BCB4B925C961D40005192F /* VideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4B725C961D40005192F /* VideoCodecs.swift */; };
+		00BCB4D925C99CE80005192F /* ISO6709LocationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */; };
+		00BCB4DA25C99CE80005192F /* ISO6709LocationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */; };
+		00BCB4DE25C99D380005192F /* ISO6709LocationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */; };
 		00C098D51FC1A7C2000B05FE /* PHPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */; };
 		00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098D81FC1A7D3000B05FE /* CGSize.swift */; };
 		00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
@@ -366,6 +369,7 @@
 		00B52C8E24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewSettingsMenu.swift; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		00BCB4B725C961D40005192F /* VideoCodecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCodecs.swift; sourceTree = "<group>"; };
+		00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO6709LocationParser.swift; sourceTree = "<group>"; };
 		00C098D41FC1A7C2000B05FE /* PHPhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPhotoLibrary.swift; sourceTree = "<group>"; };
 		00C098D81FC1A7D3000B05FE /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		00C098EA1FC477E5000B05FE /* PHImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManager.swift; sourceTree = "<group>"; };
@@ -573,6 +577,7 @@
 				005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */,
 				006C0FE525C67E25007E50B0 /* AVAsynchronousKeyValueLoading.swift */,
 				005748AF25C9242900F64621 /* FileMetadata.swift */,
+				00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */,
 				00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */,
 				00FA914A25C933F0007EB7DC /* VideoAssetMetadata.swift */,
 				00BCB4B725C961D40005192F /* VideoCodecs.swift */,
@@ -982,6 +987,7 @@
 				0025B2F225A8B3630075CCBC /* ImageMetadata.swift in Sources */,
 				00CA33EA25A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
 				00730EB6214FEA5A001A6EA7 /* PhotoAlbums.swift in Sources */,
+				00BCB4DA25C99CE80005192F /* ISO6709LocationParser.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
 				00CA341D25A5BA4400DBD84D /* UIViewController.swift in Sources */,
 				0057487B25C873FA00F64621 /* AVAsset+MetadataLoading.swift in Sources */,
@@ -1093,6 +1099,7 @@
 				0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */,
 				00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */,
+				00BCB4D925C99CE80005192F /* ISO6709LocationParser.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
 				00CA341C25A5BA4400DBD84D /* UIViewController.swift in Sources */,
 				0057487725C873F900F64621 /* AVAsset+MetadataLoading.swift in Sources */,
@@ -1176,6 +1183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0057489F25C87CC800F64621 /* CGImage+Encoding.swift in Sources */,
+				00BCB4DE25C99D380005192F /* ISO6709LocationParser.swift in Sources */,
 				00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */,
 				005748A325C87CDB00F64621 /* ImageEncoding.swift in Sources */,
 				005748AB25C87CEA00F64621 /* ImageFormat.swift in Sources */,

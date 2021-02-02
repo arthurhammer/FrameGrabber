@@ -91,12 +91,15 @@ extension AVAsset {
             .compactMap(commonMetadataItem)
             .forEach { $0._assertIsLoadingCompleted() }
                 
+        let locationString = commonMetadataItem(for: .commonIdentifierLocation)?.stringValue
+        let location = locationString.flatMap(ISO6709LocationParser().location)
+        
         return VideoCommonMetadata(
             make: commonMetadataItem(for: .commonIdentifierMake)?.stringValue,
             model: commonMetadataItem(for: .commonIdentifierModel)?.stringValue,
             software: commonMetadataItem(for: .commonIdentifierSoftware)?.stringValue,
-            locationString: commonMetadataItem(for: .commonIdentifierLocation)?.stringValue,
-            location: nil  // TODO: parse location
+            locationString: locationString,
+            location: location
         )
     }
     
