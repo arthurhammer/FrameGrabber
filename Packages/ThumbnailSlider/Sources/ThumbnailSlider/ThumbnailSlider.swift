@@ -67,7 +67,7 @@ public class ThumbnailSlider: UIControl {
     private let disabledHandleColor: UIColor = .systemGray3
     private lazy var verticalHandleInset = trackBorderWidth
 
-    private let trackColor: UIColor = .tertiarySystemFill
+    private let trackColor: UIColor = .secondarySystemFill
     private let trackCornerRadius: CGFloat = 8
     private let trackBorderWidth: CGFloat = 1
     private let verticalTrackInset: CGFloat = 0

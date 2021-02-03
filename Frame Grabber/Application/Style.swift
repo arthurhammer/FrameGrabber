@@ -43,7 +43,7 @@ extension UIButton {
         titleLabel?.adjustsFontForContentSizeCategory = true
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.allowsDefaultTighteningForTruncation = true
-        titleLabel?.minimumScaleFactor = 0.5
+        titleLabel?.minimumScaleFactor = 0.6
         titleLabel?.lineBreakMode = .byTruncatingTail
     }
     
