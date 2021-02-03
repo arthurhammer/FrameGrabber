@@ -28,6 +28,14 @@
 		001CBD95242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
 		001F7E2625CB44AF0075AFC2 /* UITraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E2525CB44AF0075AFC2 /* UITraitCollection.swift */; };
 		001F7E2725CB44AF0075AFC2 /* UITraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E2525CB44AF0075AFC2 /* UITraitCollection.swift */; };
+		001F7E3225CB48EA0075AFC2 /* VideoDurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E3125CB48EA0075AFC2 /* VideoDurationFormatter.swift */; };
+		001F7E3325CB48EA0075AFC2 /* VideoDurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E3125CB48EA0075AFC2 /* VideoDurationFormatter.swift */; };
+		001F7E4225CB49260075AFC2 /* VideoTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E4125CB49260075AFC2 /* VideoTimeFormatter.swift */; };
+		001F7E4325CB49260075AFC2 /* VideoTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E4125CB49260075AFC2 /* VideoTimeFormatter.swift */; };
+		001F7E4B25CB49470075AFC2 /* LocationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E4A25CB49470075AFC2 /* LocationFormatter.swift */; };
+		001F7E4C25CB49470075AFC2 /* LocationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E4A25CB49470075AFC2 /* LocationFormatter.swift */; };
+		001F7E5225CB498C0075AFC2 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E5125CB498C0075AFC2 /* NumberFormatter.swift */; };
+		001F7E5325CB498C0075AFC2 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E5125CB498C0075AFC2 /* NumberFormatter.swift */; };
 		0020F04925C2D29F009C0C8F /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F04825C2D29F009C0C8F /* VideoSource.swift */; };
 		0020F04A25C2D29F009C0C8F /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F04825C2D29F009C0C8F /* VideoSource.swift */; };
 		0023FC8F23390D940046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
@@ -137,7 +145,7 @@
 		00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* TransitionUtilities.swift */; };
 		00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
-		00730EDB214FEA5A001A6EA7 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020D2ED1FB4E512002379D0 /* Formatters.swift */; };
+		00730EDB214FEA5A001A6EA7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020D2ED1FB4E512002379D0 /* DateFormatter.swift */; };
 		00730EDC214FEA5A001A6EA7 /* AlbumViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */; };
 		00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
 		00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201F213432B400084B08 /* Localizable.strings */; };
@@ -177,7 +185,7 @@
 		009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
 		009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoController.swift */; };
 		009C65871FBF33A300DB25A6 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763D1FB60DB600B5D7A3 /* Style.swift */; };
-		009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020D2ED1FB4E512002379D0 /* Formatters.swift */; };
+		009C65891FBF33A300DB25A6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020D2ED1FB4E512002379D0 /* DateFormatter.swift */; };
 		009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17F1FB4977100A00BB9 /* Assets.xcassets */; };
 		009E1863233DD403008100D5 /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009E1862233DD403008100D5 /* MetadataViewController.swift */; };
 		009E1864233DD40B008100D5 /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009E1862233DD403008100D5 /* MetadataViewController.swift */; };
@@ -298,7 +306,11 @@
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		001CBD93242BB7CE00625685 /* UserText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserText.swift; sourceTree = "<group>"; };
 		001F7E2525CB44AF0075AFC2 /* UITraitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITraitCollection.swift; sourceTree = "<group>"; };
-		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		001F7E3125CB48EA0075AFC2 /* VideoDurationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDurationFormatter.swift; sourceTree = "<group>"; };
+		001F7E4125CB49260075AFC2 /* VideoTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTimeFormatter.swift; sourceTree = "<group>"; };
+		001F7E4A25CB49470075AFC2 /* LocationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFormatter.swift; sourceTree = "<group>"; };
+		001F7E5125CB498C0075AFC2 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		0020D2ED1FB4E512002379D0 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		0020F04825C2D29F009C0C8F /* VideoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSource.swift; sourceTree = "<group>"; };
 		0023FC8E23390D940046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/About.storyboard"; sourceTree = "<group>"; };
 		0023FC92233910DD0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/About.strings"; sourceTree = "<group>"; };
@@ -506,6 +518,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		001F7E3725CB48F30075AFC2 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				0020D2ED1FB4E512002379D0 /* DateFormatter.swift */,
+				001F7E4A25CB49470075AFC2 /* LocationFormatter.swift */,
+				001F7E5125CB498C0075AFC2 /* NumberFormatter.swift */,
+				001F7E3125CB48EA0075AFC2 /* VideoDurationFormatter.swift */,
+				001F7E4125CB49260075AFC2 /* VideoTimeFormatter.swift */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
 		0020D2F11FB4ED95002379D0 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,7 +538,6 @@
 				00C4476A242AB3DF00976DAF /* Combine.swift */,
 				009BEA48234E243D00C284FA /* dprint.swift */,
 				0086A6B12344CD7100989646 /* FileManager.swift */,
-				0020D2ED1FB4E512002379D0 /* Formatters.swift */,
 				00EDF98123422B5A00FA0F48 /* NSObject.swift */,
 				00024F6C23447EDF00937941 /* PHAsset.swift */,
 				00EDF97E2340A28900FA0F48 /* RawRepresentable.swift */,
@@ -701,6 +724,7 @@
 			children = (
 				00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */,
 				00E273532416BBD7007FE0C6 /* Asset Fetching */,
+				001F7E3725CB48F30075AFC2 /* Formatters */,
 				003EC973234B9A2200EA8035 /* Frame Export */,
 				0026620A212BFCC900786797 /* Media */,
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
@@ -974,6 +998,7 @@
 				00BCB4B925C961D40005192F /* VideoCodecs.swift in Sources */,
 				00024F71234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
 				00AD72C224194107009D18BA /* AVPlayer.swift in Sources */,
+				001F7E4325CB49260075AFC2 /* VideoTimeFormatter.swift in Sources */,
 				00730EAD214FEA5A001A6EA7 /* AlbumListHeader.swift in Sources */,
 				00730EAE214FEA5A001A6EA7 /* Bundle.swift in Sources */,
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
@@ -1051,7 +1076,9 @@
 				00FA915225C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
 				00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */,
 				00FA914325C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */,
+				001F7E3325CB48EA0075AFC2 /* VideoDurationFormatter.swift in Sources */,
 				0086A6B32344CD7100989646 /* FileManager.swift in Sources */,
+				001F7E4C25CB49470075AFC2 /* LocationFormatter.swift in Sources */,
 				0045A0FF25BDE41700A1235A /* ExportAction.swift in Sources */,
 				001F7E2725CB44AF0075AFC2 /* UITraitCollection.swift in Sources */,
 				0010CF47240783DA00DE0C31 /* String.swift in Sources */,
@@ -1060,9 +1087,10 @@
 				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
 				00B52C9024B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				0045A11825BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
-				00730EDB214FEA5A001A6EA7 /* Formatters.swift in Sources */,
 				00FA914C25C933F0007EB7DC /* VideoAssetMetadata.swift in Sources */,
+				00730EDB214FEA5A001A6EA7 /* DateFormatter.swift in Sources */,
 				00730EDC214FEA5A001A6EA7 /* AlbumViewController+Transition.swift in Sources */,
+				001F7E5325CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
 				00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */,
 				009BEA44234E152E00C284FA /* FrameExport.swift in Sources */,
 				009BEA4A234E243D00C284FA /* dprint.swift in Sources */,
@@ -1087,6 +1115,7 @@
 				00BCB4B825C961D40005192F /* VideoCodecs.swift in Sources */,
 				00024F70234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
 				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
+				001F7E4225CB49260075AFC2 /* VideoTimeFormatter.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumListHeader.swift in Sources */,
 				0096E813212F2EF8008395CA /* Bundle.swift in Sources */,
 				00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */,
@@ -1164,7 +1193,9 @@
 				00FA915125C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,
 				00FA914225C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */,
+				001F7E3225CB48EA0075AFC2 /* VideoDurationFormatter.swift in Sources */,
 				0086A6B22344CD7100989646 /* FileManager.swift in Sources */,
+				001F7E4B25CB49470075AFC2 /* LocationFormatter.swift in Sources */,
 				0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */,
 				001F7E2625CB44AF0075AFC2 /* UITraitCollection.swift in Sources */,
 				0010CF46240783DA00DE0C31 /* String.swift in Sources */,
@@ -1173,9 +1204,10 @@
 				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
 				00B52C8F24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
-				009C65891FBF33A300DB25A6 /* Formatters.swift in Sources */,
 				00FA914B25C933F0007EB7DC /* VideoAssetMetadata.swift in Sources */,
+				009C65891FBF33A300DB25A6 /* DateFormatter.swift in Sources */,
 				00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */,
+				001F7E5225CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,
 				009BEA43234E152E00C284FA /* FrameExport.swift in Sources */,
 				009BEA49234E243D00C284FA /* dprint.swift in Sources */,
