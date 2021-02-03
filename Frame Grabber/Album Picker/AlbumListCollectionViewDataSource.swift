@@ -88,7 +88,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
         $searchTerm
             .dropFirst()
             .throttle(for: 0.25, scheduler: DispatchQueue.main, latest: true)
-            .map { $0?.trimmedOrNil }
+            .map { $0?.trimmed.nilIfEmpty }
             .removeDuplicates()
             .sink { [weak self] _ in
                 self?.updateSections()
@@ -97,7 +97,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
     }
 
     private func updateSections() {
-        let isSearching = searchTerm?.trimmedOrNil != nil
+        let isSearching = searchTerm?.trimmed.nilIfEmpty != nil
         let smartAlbums = dataSource.smartAlbums
         let userAlbums = dataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
 
@@ -135,7 +135,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
 private extension Array {
 
     func searched(for searchTerm: String?, by key: (Element) -> String?) -> Self {
-        guard let searchTerm = searchTerm?.trimmedOrNil else { return self }
+        guard let searchTerm = searchTerm?.trimmed.nilIfEmpty else { return self }
 
         let options: String.CompareOptions = [.diacriticInsensitive, .caseInsensitive]
         
