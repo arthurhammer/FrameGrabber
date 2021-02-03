@@ -20,10 +20,10 @@ class AlbumCollectionViewDataSource: NSObject {
     /// When setting the filter, the current album is synchronously refetched with the new filter.
     ///
     /// If the authorization status is `notDetermined`, does not perform the fetch.
-    var filter: VideoTypesFilter {
-        get { settings.videoTypesFilter }
+    var filter: PhotoLibraryFilter {
+        get { settings.photoLibraryFilter }
         set {
-            settings.videoTypesFilter = newValue
+            settings.photoLibraryFilter = newValue
             fetchAlbumContents(includingAlbum: false)
         }
     }
@@ -159,7 +159,7 @@ class AlbumCollectionViewDataSource: NSObject {
         
         let fetchOptions = PHFetchOptions.assets(
             forAlbumType: sourceAlbum.assetCollectionType,
-            videoFilter: filter
+            filter: filter
         )
                 
         let updatedAlbum = includingAlbum

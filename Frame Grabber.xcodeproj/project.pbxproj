@@ -168,8 +168,8 @@
 		0073D56424000EA3008CABC3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0073D56224000E99008CABC3 /* StoreKit.framework */; };
 		0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
 		0078A45623F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
-		007F8A1324B7580900324014 /* VideoTypesFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1224B7580900324014 /* VideoTypesFilter.swift */; };
-		007F8A1424B7580900324014 /* VideoTypesFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1224B7580900324014 /* VideoTypesFilter.swift */; };
+		007F8A1324B7580900324014 /* PhotoLibraryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */; };
+		007F8A1424B7580900324014 /* PhotoLibraryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */; };
 		007F8A1924B7591C00324014 /* AlbumViewSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1824B7591C00324014 /* AlbumViewSettingsButton.swift */; };
 		007F8A1A24B7591C00324014 /* AlbumViewSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1824B7591C00324014 /* AlbumViewSettingsButton.swift */; };
 		008426991FD5CAC300F4119D /* ZoomingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */; };
@@ -367,7 +367,7 @@
 		00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0073D56224000E99008CABC3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0078A45423F4AD700033E81C /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
-		007F8A1224B7580900324014 /* VideoTypesFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTypesFilter.swift; sourceTree = "<group>"; };
+		007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryFilter.swift; sourceTree = "<group>"; };
 		007F8A1824B7591C00324014 /* AlbumViewSettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewSettingsButton.swift; sourceTree = "<group>"; };
 		008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingPlayerView.swift; sourceTree = "<group>"; };
 		0086A6B12344CD7100989646 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
@@ -638,8 +638,8 @@
 				00E713592125E2940052EAF8 /* CGImage+Encoding.swift */,
 				008A48D623479D7300CEAA26 /* ImageEncoding.swift */,
 				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
+				007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */,
 				0020F04825C2D29F009C0C8F /* VideoSource.swift */,
-				007F8A1224B7580900324014 /* VideoTypesFilter.swift */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -1072,7 +1072,7 @@
 				00E69C3825C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */,
 				00730EBA214FEA5A001A6EA7 /* AuthorizationController.swift in Sources */,
 				00730EBC214FEA5A001A6EA7 /* AlbumCell.swift in Sources */,
-				007F8A1424B7580900324014 /* VideoTypesFilter.swift in Sources */,
+				007F8A1424B7580900324014 /* PhotoLibraryFilter.swift in Sources */,
 				0057488625C8740F00F64621 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				00730EBD214FEA5A001A6EA7 /* EditorViewController.swift in Sources */,
 				0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */,
@@ -1192,7 +1192,7 @@
 				00E69C3725C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */,
 				005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */,
-				007F8A1324B7580900324014 /* VideoTypesFilter.swift in Sources */,
+				007F8A1324B7580900324014 /* PhotoLibraryFilter.swift in Sources */,
 				0057488225C8740900F64621 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */,
 				0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */,
