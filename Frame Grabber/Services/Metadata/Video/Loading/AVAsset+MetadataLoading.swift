@@ -31,12 +31,14 @@ extension AVAsset {
     /// reference to itself until the handler is called.
     func loadMetadata(completion: @escaping (VideoMetadata) -> ()) {
         loadValuesAsynchronously(forKeys: assetKeys) {
-            let assetMetadata = self.loadAssetMetadata()
-            let commonMetadata = self.loadCommonMetadata()
+            let assetMetadata = self.loadedAssetMetadata()
+            let commonMetadata = self.loadedCommonMetadata()
             
             self.loadTrackMetadata() { trackMetadata in
                 let completeMetadata = VideoMetadata(
-                    asset: assetMetadata,
+                    duration: assetMetadata.0,
+                    creationDate: assetMetadata.1,
+                    creationDateString: assetMetadata.2,
                     track: trackMetadata,
                     common: commonMetadata
                 )
@@ -47,7 +49,7 @@ extension AVAsset {
     }
     
     /// The `duration` and `creationDate` keys should be loaded before calling this.
-    private func loadAssetMetadata() -> VideoAssetMetadata {
+    private func loadedAssetMetadata() -> (CMTime?, Date?, String?) {
         let durationKey = #keyPath(AVAsset.duration)
         let creationDateKey = #keyPath(AVAsset.creationDate)
         
@@ -59,10 +61,10 @@ extension AVAsset {
      
         creationDate?._assertIsLoadingCompleted()
                 
-        return VideoAssetMetadata(
-            duration: duration,
-            creationDateString: creationDate?.stringValue,
-            creationDate: creationDate?.dateValue
+        return (
+            duration,
+            creationDate?.dateValue,
+            creationDate?.stringValue
         )
     }
     
@@ -81,7 +83,7 @@ extension AVAsset {
     }
     
     /// The `commonMetadata` key should be loaded before calling this.
-    private func loadCommonMetadata() -> VideoCommonMetadata? {
+    private func loadedCommonMetadata() -> VideoCommonMetadata? {
         let commonMetadataKey = #keyPath(AVAsset.commonMetadata)
         assert(isLoadingCompleted(commonMetadataKey))
         

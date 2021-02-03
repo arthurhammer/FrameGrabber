@@ -36,6 +36,7 @@
 		001F7E4C25CB49470075AFC2 /* LocationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E4A25CB49470075AFC2 /* LocationFormatter.swift */; };
 		001F7E5225CB498C0075AFC2 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E5125CB498C0075AFC2 /* NumberFormatter.swift */; };
 		001F7E5325CB498C0075AFC2 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E5125CB498C0075AFC2 /* NumberFormatter.swift */; };
+		001F7E6325CB51E10075AFC2 /* AVAsynchronousKeyValueLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C0FE525C67E25007E50B0 /* AVAsynchronousKeyValueLoading.swift */; };
 		0020F04925C2D29F009C0C8F /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F04825C2D29F009C0C8F /* VideoSource.swift */; };
 		0020F04A25C2D29F009C0C8F /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F04825C2D29F009C0C8F /* VideoSource.swift */; };
 		0023FC8F23390D940046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
@@ -260,8 +261,6 @@
 		00F85F1123FA8A040037961E /* EmptyAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */; };
 		00FA914225C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA914125C9336D007EB7DC /* VideoTrackMetadata.swift */; };
 		00FA914325C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA914125C9336D007EB7DC /* VideoTrackMetadata.swift */; };
-		00FA914B25C933F0007EB7DC /* VideoAssetMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA914A25C933F0007EB7DC /* VideoAssetMetadata.swift */; };
-		00FA914C25C933F0007EB7DC /* VideoAssetMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA914A25C933F0007EB7DC /* VideoAssetMetadata.swift */; };
 		00FA915125C93445007EB7DC /* VideoCommonMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA915025C93445007EB7DC /* VideoCommonMetadata.swift */; };
 		00FA915225C93445007EB7DC /* VideoCommonMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA915025C93445007EB7DC /* VideoCommonMetadata.swift */; };
 		00FA916025C934B1007EB7DC /* PhotoLibraryMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */; };
@@ -423,7 +422,6 @@
 		00F3C254213046CD0030B7EC /* AlbumListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListHeader.swift; sourceTree = "<group>"; };
 		00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyAlbumView.swift; path = "Frame Grabber/Album/EmptyAlbumView.swift"; sourceTree = SOURCE_ROOT; };
 		00FA914125C9336D007EB7DC /* VideoTrackMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTrackMetadata.swift; sourceTree = "<group>"; };
-		00FA914A25C933F0007EB7DC /* VideoAssetMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAssetMetadata.swift; sourceTree = "<group>"; };
 		00FA915025C93445007EB7DC /* VideoCommonMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCommonMetadata.swift; sourceTree = "<group>"; };
 		00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryMetadata.swift; sourceTree = "<group>"; };
 		00FA916525C934E9007EB7DC /* VideoSourceMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSourceMetadata.swift; sourceTree = "<group>"; };
@@ -518,6 +516,24 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		001F7E1125CAA6BE0075AFC2 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				006C0FD925C5F560007E50B0 /* AVAsset+MetadataLoading.swift */,
+				005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */,
+				006C0FE525C67E25007E50B0 /* AVAsynchronousKeyValueLoading.swift */,
+				00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		001F7E2425CB44360075AFC2 /* file photo source */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "file photo source";
+			sourceTree = "<group>";
+		};
 		001F7E3725CB48F30075AFC2 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +544,35 @@
 				001F7E4125CB49260075AFC2 /* VideoTimeFormatter.swift */,
 			);
 			path = Formatters;
+			sourceTree = "<group>";
+		};
+		001F7E6D25CB52B40075AFC2 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				0025B2F025A8B3630075CCBC /* ImageMetadata.swift */,
+				00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		001F7E7A25CB52D20075AFC2 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				001F7E6D25CB52B40075AFC2 /* Image */,
+				001F7E7B25CB53100075AFC2 /* Other */,
+				002BFA6025C744BF00CACB18 /* Video */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		001F7E7B25CB53100075AFC2 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				005748AF25C9242900F64621 /* FileMetadata.swift */,
+				00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */,
+				00FA916525C934E9007EB7DC /* VideoSourceMetadata.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		0020D2F11FB4ED95002379D0 /* Utilities */ = {
@@ -589,31 +634,22 @@
 				00E713592125E2940052EAF8 /* CGImage+Encoding.swift */,
 				008A48D623479D7300CEAA26 /* ImageEncoding.swift */,
 				0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */,
-				0025B2F025A8B3630075CCBC /* ImageMetadata.swift */,
-				00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */,
+				0020F04825C2D29F009C0C8F /* VideoSource.swift */,
 				007F8A1224B7580900324014 /* VideoTypesFilter.swift */,
-				002BFA6025C744BF00CACB18 /* Video Metadata */,
 			);
 			path = Media;
 			sourceTree = "<group>";
 		};
-		002BFA6025C744BF00CACB18 /* Video Metadata */ = {
+		002BFA6025C744BF00CACB18 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				006C0FD925C5F560007E50B0 /* AVAsset+MetadataLoading.swift */,
-				005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */,
-				006C0FE525C67E25007E50B0 /* AVAsynchronousKeyValueLoading.swift */,
-				005748AF25C9242900F64621 /* FileMetadata.swift */,
-				00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */,
-				00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */,
-				00FA914A25C933F0007EB7DC /* VideoAssetMetadata.swift */,
 				00BCB4B725C961D40005192F /* VideoCodecs.swift */,
 				00FA915025C93445007EB7DC /* VideoCommonMetadata.swift */,
 				002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */,
-				00FA916525C934E9007EB7DC /* VideoSourceMetadata.swift */,
 				00FA914125C9336D007EB7DC /* VideoTrackMetadata.swift */,
+				001F7E1125CAA6BE0075AFC2 /* Loading */,
 			);
-			path = "Video Metadata";
+			path = Video;
 			sourceTree = "<group>";
 		};
 		003EC973234B9A2200EA8035 /* Frame Export */ = {
@@ -635,7 +671,6 @@
 				0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
-				0020F04825C2D29F009C0C8F /* VideoSource.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
@@ -723,10 +758,11 @@
 			isa = PBXGroup;
 			children = (
 				00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */,
-				00E273532416BBD7007FE0C6 /* Asset Fetching */,
 				001F7E3725CB48F30075AFC2 /* Formatters */,
 				003EC973234B9A2200EA8035 /* Frame Export */,
 				0026620A212BFCC900786797 /* Media */,
+				001F7E7A25CB52D20075AFC2 /* Metadata */,
+				00E273532416BBD7007FE0C6 /* Photo Library */,
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Services;
@@ -751,13 +787,13 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		00E273532416BBD7007FE0C6 /* Asset Fetching */ = {
+		00E273532416BBD7007FE0C6 /* Photo Library */ = {
 			isa = PBXGroup;
 			children = (
 				00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */,
 				00C098EA1FC477E5000B05FE /* PHImageManager.swift */,
 			);
-			path = "Asset Fetching";
+			path = "Photo Library";
 			sourceTree = "<group>";
 		};
 		00EAFDA0205FB42E0031F8A2 /* Playback */ = {
@@ -1087,7 +1123,6 @@
 				0054936223E562E600F3E684 /* UIDevice.swift in Sources */,
 				00B52C9024B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				0045A11825BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
-				00FA914C25C933F0007EB7DC /* VideoAssetMetadata.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* DateFormatter.swift in Sources */,
 				00730EDC214FEA5A001A6EA7 /* AlbumViewController+Transition.swift in Sources */,
 				001F7E5325CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
@@ -1204,7 +1239,6 @@
 				0054936123E562E200F3E684 /* UIDevice.swift in Sources */,
 				00B52C8F24B71C9F00FDD427 /* AlbumViewSettingsMenu.swift in Sources */,
 				0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
-				00FA914B25C933F0007EB7DC /* VideoAssetMetadata.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* DateFormatter.swift in Sources */,
 				00653B452139E1680038CB56 /* AlbumViewController+Transition.swift in Sources */,
 				001F7E5225CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
@@ -1225,6 +1259,7 @@
 				00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */,
 				005748A325C87CDB00F64621 /* ImageEncoding.swift in Sources */,
 				005748AB25C87CEA00F64621 /* ImageFormat.swift in Sources */,
+				001F7E6325CB51E10075AFC2 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				005748A725C87CDF00F64621 /* ImageMetadata.swift in Sources */,
 				0057486725C8736600F64621 /* ImageMetadataDateFormatter.swift in Sources */,
 			);

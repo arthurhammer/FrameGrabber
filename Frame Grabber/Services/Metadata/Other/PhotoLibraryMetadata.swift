@@ -3,7 +3,7 @@ import CoreLocation
 import Photos
 
 /// Metadata read from an asset in the photo library.
-struct PhotoLibraryMetadata {
+struct PhotoLibraryMetadata: Equatable {
     /// The local identifier ot the `PHAsset`.
     let assetID: String
     let creationDate: Date?

@@ -13,7 +13,7 @@ extension AVAsynchronousKeyValueLoading {
         [.loaded, .failed, .cancelled].contains(statusOfValue(forKey: key))
     }
     
-    /// Executes the closure only if the key is loaded and returns its result.
+    /// Executes the closure only if the value for the key is loaded and returns its result.
     @discardableResult
     func ifLoaded<Value>(_ key: String, then accessor: (Self) -> Value) -> Value? {
         isLoaded(key) ? accessor(self) : nil
