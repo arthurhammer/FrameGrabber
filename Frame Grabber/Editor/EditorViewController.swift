@@ -70,6 +70,8 @@ class EditorViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        playbackController.pause()
+        
         if let destination = segue.destination as? UINavigationController,
             let controller = destination.topViewController as? MetadataViewController {
 
@@ -84,8 +86,9 @@ class EditorViewController: UIViewController {
     }
 
     private func prepareForMetadataSegue(with controller: MetadataViewController) {
-        playbackController.pause()
-        controller.videoController = VideoController(source: videoController.source, video: videoController.video)
+        guard let video = videoController.video else { return }
+        // TODO: Inject view model somewhere else.
+        controller.viewModel = MetadataViewModel(video: video, source: videoController.source)
     }
     
     private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
