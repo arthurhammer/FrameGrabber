@@ -65,9 +65,10 @@ class LocationFormatter {
         return formatter
     }()
 
-    /// Formats as a single line address.
-    func string(from address: CNPostalAddress) -> String {
-        addressFormatter.string(from: address).replacingOccurrences(of: "\n", with: ", ")
+    /// Formats the address as a multi- or single-line string.
+    func string(from address: CNPostalAddress, multiline: Bool = true) -> String {
+        let string = addressFormatter.string(from: address)
+        return multiline ? string : string.replacingOccurrences(of: "\n", with: ", ")
     }
 
     /// Formats as latitude and longitude decimal degree values.
