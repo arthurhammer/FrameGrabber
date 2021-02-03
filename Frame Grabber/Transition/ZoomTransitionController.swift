@@ -25,21 +25,11 @@ class ZoomTransitionController: NSObject {
     /// When the gesture is deemed to start the transition, initiates the pop transition via
     /// `navigationController.popViewController`.
     @objc func handleSlideToPopGesture(_ gesture: UIPanGestureRecognizer) {
-        let movingDown = gesture.velocity(in: gesture.view).y > 0
-
         switch gesture.state {
-
-        case .began where movingDown:
+        case .began:
             startInteractiveTransition()
-
-        // Moving down for the first time after moving elsewhere.
-        case .changed where movingDown && !wantsInteractiveStart:
-            startInteractiveTransition()
-            gesture.setTranslation(.zero, in: gesture.view)
-
         case .changed:
             break
-
         default:
             // Allow for the non-interactive back button transition until the next swipe attempt.
             wantsInteractiveStart = false
