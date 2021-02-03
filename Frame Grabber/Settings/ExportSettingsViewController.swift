@@ -47,7 +47,7 @@ class ExportSettingsViewController: UITableViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+        if traitCollection.hasDifferentContentSize(comparedTo: previousTraitCollection) {
             updateViews(for: traitCollection)
         }
     }
@@ -149,8 +149,7 @@ class ExportSettingsViewController: UITableViewController {
     }
     
     private func updateViews(for traitCollection: UITraitCollection) {
-        let isHuge = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
-        compressionQualityStack.axis = isHuge ? .vertical : .horizontal
+        compressionQualityStack.axis = traitCollection.hasHugeContentSize ? .vertical : .horizontal
     }
 
     private var firstAppereance = true
