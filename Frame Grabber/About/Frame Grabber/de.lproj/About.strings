@@ -22,13 +22,10 @@
 /* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
 "hSM-a5-Quj.normalTitle" = "Bereits getan?";
 
-/* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "IAE-sF-IVF"; */
-"IAE-sF-IVF.title" = "Frame Grabber";
-
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
-/* Class = "UILabel"; text = "Frame Grabber doesn't have subscriptions, bug you with ads or collect any data about you. And it is open source.\n\nIf you want to support such a project, you can invite me for an ice cream.\n\nThank you,\nArthur 🍦"; ObjectID = "Ltf-rM-h7K"; */
+/* Class = "UILabel"; text = "Frame Grabber doesn't have subscriptions, bug you with ads or collect any data about you. And it is open source. \n\nIf you want to support such a project, you can invite me for an ice cream. Thank you.\n\nArthur"; ObjectID = "Ltf-rM-h7K"; */
 "Ltf-rM-h7K.text" = "Frame Grabber hat keine Abos, stört dich nicht mit Werbung, sammelt keine Daten über dich und ist Open Source.\n\nFalls du solch ein Projekt unterstützen magst, kannst du mir ein Eis ausgeben. Danke. \n\nArthur";
 
 /* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "MBv-Ck-5UY"; */
@@ -49,13 +46,13 @@
 /* Class = "UILabel"; text = "I don't collect any data about you."; ObjectID = "QZZ-Gh-i28"; */
 "QZZ-Gh-i28.text" = "Ich sammle keine Daten von dir.";
 
-/* Class = "UILabel"; text = "Made by Arthur Hammer in Germany 🇩🇪"; ObjectID = "UNF-JH-2pd"; */
+/* Class = "UILabel"; text = "Created by Arthur Hammer"; ObjectID = "UNF-JH-2pd"; */
 "UNF-JH-2pd.text" = "Entwickelt von Arthur Hammer";
 
 /* Class = "UILabel"; text = "Nice to see you."; ObjectID = "xBV-RG-m2x"; */
 "xBV-RG-m2x.text" = "Schön, dich zu sehen.";
 
-/* Class = "UIButton"; normalTitle = "🎉 Rate Frame Grabber 🎉"; ObjectID = "xhq-rN-pTi"; */
+/* Class = "UIButton"; normalTitle = "Leave a Review 🥳"; ObjectID = "xhq-rN-pTi"; */
 "xhq-rN-pTi.normalTitle" = "Bewertung schreiben 🥳";
 
 /* Class = "UILabel"; text = "You're a Supporter! \nThank you so much."; ObjectID = "ygf-4Y-CH8"; */
