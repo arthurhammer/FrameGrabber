@@ -17,39 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ofp-8x-rjr">
-                        <barButtonItem key="leftBarButtonItem" id="ISo-vl-HXz">
-                            <view key="customView" contentMode="scaleToFill" id="9dK-Fn-CIZ">
-                                <rect key="frame" x="16" y="5.6666666666666679" width="200" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hOW-lw-mH5">
-                                        <rect key="frame" x="0.0" y="0.0" width="116.33333333333333" height="33"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalCompressionResistancePriority="950" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-YU-qNU">
-                                                <rect key="frame" x="0.0" y="0.66666666666666785" width="116.33333333333333" height="32"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" title="Recents" image="chevron.down" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
-                                                </state>
-                                                <variation key="heightClass=compact">
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                                </variation>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="hOW-lw-mH5" firstAttribute="top" secondItem="9dK-Fn-CIZ" secondAttribute="top" id="OGH-hQ-ejL"/>
-                                    <constraint firstItem="hOW-lw-mH5" firstAttribute="leading" secondItem="9dK-Fn-CIZ" secondAttribute="leading" id="UGg-pB-aEf"/>
-                                    <constraint firstAttribute="bottom" secondItem="hOW-lw-mH5" secondAttribute="bottom" id="fgv-2w-I7k"/>
-                                </constraints>
-                            </view>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="info.circle" catalog="system" id="6E7-Ir-ebi"/>
+                            <barButtonItem title="Item" image="folder.circle" catalog="system" id="buo-5F-Kgz"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -77,15 +51,13 @@
     </scenes>
     <color key="tintColor" name="accent"/>
     <resources>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <image name="folder.circle" catalog="system" width="128" height="121"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
         <namedColor name="accent">
-            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31372549019607843" green="0.26666666666666666" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
