@@ -17,8 +17,6 @@
 		000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B32435182300C339DE /* ThumbnailSlider */; };
 		000EA8B72437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
 		000EA8B82437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
-		00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
-		00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00109CCB23FD239400B79F58 /* AlbumIcons.swift */; };
 		0010CF46240783DA00DE0C31 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF45240783DA00DE0C31 /* String.swift */; };
 		0010CF47240783DA00DE0C31 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CF45240783DA00DE0C31 /* String.swift */; };
 		00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */; };
@@ -299,7 +297,6 @@
 		00024F6F234482EE00937941 /* VideoCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellContextMenu.swift; sourceTree = "<group>"; };
 		000EA8B62437311700C339DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Application/Base.lproj/Editor.storyboard"; sourceTree = "<group>"; };
 		000EA8BA243731CE00C339DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/Application/de.lproj/Editor.strings"; sourceTree = "<group>"; };
-		00109CCB23FD239400B79F58 /* AlbumIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumIcons.swift; sourceTree = "<group>"; };
 		0010CF45240783DA00DE0C31 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = "Frame Grabber/Utilities/String.swift"; sourceTree = SOURCE_ROOT; };
 		00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPopTransition.swift; sourceTree = "<group>"; };
 		001A6C4B20600E1A00B91F3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -714,7 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				00A9DF542127635C00778885 /* AlbumCell.swift */,
-				00109CCB23FD239400B79F58 /* AlbumIcons.swift */,
 				00F3867E212AA38E0089A473 /* AlbumListCollectionViewDataSource.swift */,
 				00F3C254213046CD0030B7EC /* AlbumListHeader.swift */,
 				00AA20222136C93100084B08 /* AlbumListLayout.swift */,
@@ -1056,7 +1052,6 @@
 				00024F6E23447EDF00937941 /* PHAsset.swift in Sources */,
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
 				0054936523E5633700F3E684 /* About.swift in Sources */,
-				00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				0041729925C3F81F00DDBB55 /* AppFileManager.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				0025B2F225A8B3630075CCBC /* ImageMetadata.swift in Sources */,
@@ -1175,7 +1170,6 @@
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
 				00024F6D23447EDF00937941 /* PHAsset.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
-				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				0041729825C3F81F00DDBB55 /* AppFileManager.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,

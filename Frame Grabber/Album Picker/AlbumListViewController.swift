@@ -1,4 +1,5 @@
 import PhotoAlbums
+import Photos
 import UIKit
 
 protocol AlbumListViewControllerDelegate: class {
@@ -33,6 +34,24 @@ class AlbumListViewController: UICollectionViewController {
         super.viewDidLoad()
         configureViews()        
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.hasDifferentContentSize(comparedTo: previousTraitCollection) {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
 
     @objc private func done() {
         delegate?.controllerDidSelectDone(self)
@@ -54,8 +73,8 @@ class AlbumListViewController: UICollectionViewController {
     private func configureViews() {
         collectionView.dataSource = collectionViewDataSource
         
-        collectionView?.collectionViewLayout = AlbumListLayout { [weak self] newItemSize in
-            self?.collectionViewDataSource.imageOptions.size = newItemSize.scaledToScreen
+        collectionView?.collectionViewLayout = AlbumListLayout { [weak self] index in
+            self?.collectionViewDataSource.section(at: index).type ?? .userAlbum
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -94,8 +113,10 @@ class AlbumListViewController: UICollectionViewController {
     // MARK: - Cells
 
     private func cell(for album: AnyAlbum, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let section = AlbumListSection.SectionType(indexPath.section),
-            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: section.cellIdentifier, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type or unknown section.") }
+        let section = collectionViewDataSource.section(at: indexPath.section).type
+        let id = section.cellIdentifier
+        
+        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? AlbumCell else { fatalError("Wrong cell identifier or type or unknown section.") }
 
         configure(cell: cell, for: album, section: section)
         
@@ -103,32 +124,27 @@ class AlbumListViewController: UICollectionViewController {
     }
 
     private func configure(cell: AlbumCell, for album: AnyAlbum, section: AlbumListSection.SectionType) {
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = album.title
+
         cell.identifier = album.id
         cell.titleLabel.text = album.title
         cell.detailLabel.text = albumCountFormatter.string(from: album.count as NSNumber)
-        cell.imageView.image = album.icon
+        cell.selectedBackgroundView?.backgroundColor = (section == .userAlbum) ? .cellSelection : nil
 
-        switch section {
-        
-        case .smartAlbum:
-            cell.imageView.tintColor = .accent
-        
-        case .userAlbum:
-            loadThumbnail(for: cell, album: album)
-        }
-
-        cell.isAccessibilityElement = true
-        cell.accessibilityLabel = album.title
+        loadThumbnail(for: cell, album: album)
     }
 
     private func loadThumbnail(for cell: AlbumCell, album: AnyAlbum) {
         cell.identifier = album.id
+        let size = cell.imageView.bounds.size.scaledToScreen
+        let options = PHImageManager.ImageOptions(size: size)
 
-        cell.imageRequest = collectionViewDataSource.thumbnail(for: album) { image, _ in
+        cell.imageRequest = collectionViewDataSource.thumbnail(for: album, options: options) {
+            image, _ in
             guard cell.identifier == album.id,
                   let image = image else { return }
 
-            cell.imageView.contentMode = .scaleAspectFill
             cell.imageView.image = image
         }
     }
@@ -156,10 +172,10 @@ extension AlbumListViewController: UISearchBarDelegate, UISearchResultsUpdating 
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        stopSearchingWhenSearchBarEmpty(searchBar)
+        stopSearchingIfSearchBarEmpty(searchBar)
     }
 
-    private func stopSearchingWhenSearchBarEmpty(_ searchBar: UISearchBar) {
+    private func stopSearchingIfSearchBarEmpty(_ searchBar: UISearchBar) {
         guard searchBar.text?.trimmed.nilIfEmpty == nil else { return }
 
         searchBar.text = nil
