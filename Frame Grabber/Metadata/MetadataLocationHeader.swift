@@ -49,7 +49,21 @@ class MetadataLocationHeader: UITableViewHeaderFooterView {
         mapView.removeAnnotations(mapView.annotations)
         
         if let pin = mapPin {
+            let distance = 5000.0
+            
+            let region = MKCoordinateRegion(
+                center: pin.coordinate,
+                latitudinalMeters: distance,
+                longitudinalMeters: distance
+            )
+            
+            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: distance)
+            
+            mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
+            mapView.setCameraZoomRange(zoomRange, animated: false)
             mapView.showAnnotations([pin], animated: false)
         }
+        
+        mapView.layoutIfNeeded()
     }
 }

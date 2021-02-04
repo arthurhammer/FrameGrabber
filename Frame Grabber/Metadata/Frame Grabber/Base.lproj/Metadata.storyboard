@@ -122,7 +122,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w3A-A9-uTu" userLabel="Map Container">
                                     <rect key="frame" x="0.0" y="0.0" width="339" height="206"/>
                                     <subviews>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="hybrid" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEg-nT-ZiN">
+                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEg-nT-ZiN">
                                             <rect key="frame" x="0.0" y="0.0" width="339" height="206"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="999" constant="220" id="VYh-Di-xU7"/>
