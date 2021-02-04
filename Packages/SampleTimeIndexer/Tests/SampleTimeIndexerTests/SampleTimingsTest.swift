@@ -170,7 +170,8 @@ final class SampleTimingsTest: XCTestCase {
             ].map { info(for: $0) },
             
             // Input times are converted to this timescale.
-            trackTimeScale: sampleTimescale
+            trackTimeScale: sampleTimescale,
+            trackID: -1
         )
         
         // This time was the `AVPlayer`s current playback item's playback time after calling
@@ -215,7 +216,8 @@ final class SampleTimingsTest: XCTestCase {
             ].map { info(for: $0) },
             
             // Old behaviour: No conversion of input times to the track's timescale.
-            trackTimeScale: CMTimeScale(NSEC_PER_SEC)
+            trackTimeScale: CMTimeScale(NSEC_PER_SEC),
+            trackID: -1
         )
         
         // This time was the `AVPlayer`s current playback item's playback time after calling
@@ -265,7 +267,7 @@ private extension SampleTimingsTest {
             )
         }
 
-        return SampleTimes(values: timings, trackTimeScale: trackTimeScale)
+        return SampleTimes(values: timings, trackTimeScale: trackTimeScale, trackID: -1)
     }
     
     func info(for time: CMTime, duration: CMTime = .invalid) -> CMSampleTimingInfo {
