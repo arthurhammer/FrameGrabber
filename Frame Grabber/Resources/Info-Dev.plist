@@ -71,5 +71,9 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>To take selfies and videos and grab the perfect moment!</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To take selfies and videos and grab the perfect moment!</string>
 </dict>
 </plist>

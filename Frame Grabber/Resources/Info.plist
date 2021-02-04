@@ -69,5 +69,9 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Record videos and export video frames.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Record videos and export video frames.</string>
 </dict>
 </plist>
