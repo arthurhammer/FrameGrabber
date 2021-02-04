@@ -306,7 +306,7 @@ class VideoController {
     ) {
         cancelFrameExport()
         try? deleteExportedFrames()
-
+        
         let completion = { [weak self] (status: FrameExport.Status) in
             DispatchQueue.main.async {
                 self?.exportedFrameURLs = status.urls
@@ -318,15 +318,27 @@ class VideoController {
             completion(.failed(nil))
             return
         }
-        
-        let request = frameRequest(for: video, from: source, times: times)
+                
+        video.loadMetadata { [weak self] metadata in
+            DispatchQueue.main.async {  // Sync property access.
+                guard let self = self else { return }
+                
+                let request = self.frameRequest(
+                    for: video,
+                    at: times,
+                    source: self.source,
+                    metadata: metadata
+                )
 
-        frameExport = FrameExport(
-            request: request,
-            fileManager: fileManager,
-            updateHandler: completion
-        )
-        frameExport?.start()
+                self.frameExport = FrameExport(
+                    request: request,
+                    fileManager: self.fileManager,
+                    updateHandler: completion
+                )
+
+                self.frameExport?.start()
+            }
+        }
     }
 
     func cancelFrameExport() {
@@ -341,12 +353,13 @@ class VideoController {
 
     private func frameRequest(
         for video: AVAsset,
-        from source: VideoSource,
-        times: [CMTime]
+        at times: [CMTime],
+        source: VideoSource,
+        metadata: VideoMetadata
     ) -> FrameExport.Request {
         
         let metadata = settings.includeMetadata
-            ? self.metadata(for: video, from: source)
+            ? self.metadata(for: metadata, from: source)
             : nil
         
         let encoding = ImageEncoding(
@@ -365,32 +378,18 @@ class VideoController {
     }
     
     /// Combined metadata from the asset's photo library metadata and the video file itself.
-    ///
-    /// - Note: Video metadata is loaded synchronously and can block.
-    ///
-    /// - TODO: Load video metadata asynchronously using `AVAsynchronousKeyValueLoading`.   
-    private func metadata(for video: AVAsset, from source: VideoSource) -> ImageMetadata {
+    private func metadata(for videoMetadata: VideoMetadata, from source: VideoSource) -> ImageMetadata {
         // Prefer photo library data over video data.
-        let photoLibraryLocation = source.photoLibraryAsset?.location
-        let photoLibraryCreationDate = source.photoLibraryAsset?.creationDate
-        
-        // Rest from video metadata directly.
-        let videoMetadata = video.commonMetadata
-        
-        let make = metadataString(for: .commonIdentifierMake, in: videoMetadata)
-        let model = metadataString(for: .commonIdentifierModel, in: videoMetadata)
-        let software = metadataString(for: .commonIdentifierSoftware, in: videoMetadata)
-        
-        let creationDate = photoLibraryCreationDate ?? video.creationDate?.dateValue
-        let comment = UserText.exifAppInformation
-                        
+        let location = (source.photoLibraryAsset?.location) ?? (videoMetadata.common?.location)
+        let creationDate = (source.photoLibraryAsset?.creationDate) ?? (videoMetadata.creationDate)
+
         return ImageMetadata.metadata(
             forCreationDate: creationDate,
-            location: photoLibraryLocation,
-            make: make,
-            model: model,
-            software: software,
-            userComment: comment
+            location: location,
+            make: videoMetadata.common?.make,
+            model: videoMetadata.common?.model,
+            software: videoMetadata.common?.software,
+            userComment: UserText.exifAppInformation
         )
     }
     
