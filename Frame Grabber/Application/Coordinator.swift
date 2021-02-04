@@ -89,7 +89,7 @@ class Coordinator: NSObject {
     }
     
     private func showEditor(with source: VideoSource, previewImage: UIImage?, animated: Bool) {
-        libraryViewController.transitionAsset = source.asset
+        libraryViewController.transitionAsset = source.photoLibraryAsset
         let editor = makeEditor(with: source, previewImage: previewImage)
         
         // Let nav controller decide which animation to show. Also supports the correct "open in"

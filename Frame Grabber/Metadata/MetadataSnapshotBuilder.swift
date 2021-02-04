@@ -13,7 +13,7 @@ struct MetadataSnapshotBuilder {
     init(video: AVAsset, source: VideoSource, videoMetadata: VideoMetadata? = nil) {
         let fileURL = (video as? AVURLAsset)?.url ?? source.url
         let fileMetadata = fileURL.flatMap(FileMetadata.init)
-        let photoMetadata = source.asset.flatMap(PhotoLibraryMetadata.init)
+        let photoMetadata = source.photoLibraryAsset.flatMap(PhotoLibraryMetadata.init)
                 
         self.metadata = VideoSourceMetadata(
             video: videoMetadata,

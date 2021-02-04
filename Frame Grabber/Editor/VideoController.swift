@@ -371,8 +371,8 @@ class VideoController {
     /// - TODO: Load video metadata asynchronously using `AVAsynchronousKeyValueLoading`.   
     private func metadata(for video: AVAsset, from source: VideoSource) -> ImageMetadata {
         // Prefer photo library data over video data.
-        let photoLibraryLocation = source.asset?.location
-        let photoLibraryCreationDate = source.asset?.creationDate
+        let photoLibraryLocation = source.photoLibraryAsset?.location
+        let photoLibraryCreationDate = source.photoLibraryAsset?.creationDate
         
         // Rest from video metadata directly.
         let videoMetadata = video.commonMetadata
