@@ -24,8 +24,8 @@ public class SampleTimeIndexer {
         return queue
     }()
     
-    @available(iOS 14.0, *)
-    private lazy var logger: Logger? = .module
+//    @available(iOS 14.0, *)
+//    private lazy var logger: Logger? = .module
 
     public init() {}
 
@@ -67,7 +67,7 @@ public class SampleTimeIndexer {
     }
     
     private func perform(request: Request) {
-        if #available(iOS 14.0, *) { logger?.debug("Enqueuing operation.") }
+//        if #available(iOS 14.0, *) { logger?.debug("Enqueuing operation.") }
         
         let operation = SampleTimeIndexOperation(
             asset: request.asset,
@@ -84,19 +84,19 @@ public class SampleTimeIndexer {
     private func handleResult(_ result: Result, for request: Request) {
         switch result {
         case .failure(let error):
-            if #available(iOS 14.0, *) { logger?.info("Finished with error: \(String(describing: error))") }
+//            if #available(iOS 14.0, *) { logger?.info("Finished with error: \(String(describing: error))") }
             
             if request.shouldRetry(error) {
                 DispatchQueue.main.async {
-                    if #available(iOS 14.0, *) { self.logger?.info("Retrying.") }
+//                    if #available(iOS 14.0, *) { self.logger?.info("Retrying.") }
                     self.perform(request: request)
                 }
             } else {
                 request.completionHandler(result)
             }
         case .success(let times):
-            if #available(iOS 14.0, *) { logger?.info("Finished successfully.") }
-            if #available(iOS 14.0, *) { logger?.info("\t\(times.values.count) samples.") }
+//            if #available(iOS 14.0, *) { logger?.info("Finished successfully.") }
+//            if #available(iOS 14.0, *) { logger?.info("\t\(times.values.count) samples.") }
 
             request.completionHandler(result)
         }
