@@ -7,8 +7,8 @@ extension AlbumsDataSource {
     static let smartAlbumTypes: [PHAssetCollectionSubtype] = [
         .smartAlbumUserLibrary,
         .smartAlbumFavorites,
-        .smartAlbumTimelapses,
-        .smartAlbumSlomoVideos
+        .smartAlbumSlomoVideos,
+        .smartAlbumTimelapses
     ]
 
     static func `default`() -> AlbumsDataSource {
