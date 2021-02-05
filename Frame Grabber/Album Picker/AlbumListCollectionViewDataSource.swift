@@ -16,7 +16,7 @@ struct AlbumListSection: Hashable {
     let isLoading: Bool
 }
 
-class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumListSection, AnyAlbum> {
+class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<AlbumListSection, PhotoAlbum> {
 
     @Published var searchTerm: String?
     
@@ -52,13 +52,13 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
         snapshot().sectionIdentifiers[index]
     }
 
-    func album(at indexPath: IndexPath) -> AnyAlbum {
+    func album(at indexPath: IndexPath) -> PhotoAlbum {
         guard let album = itemIdentifier(for: indexPath) else { fatalError("Invalid index path.") }
         return album
     }
 
     func thumbnail(
-        for album: AnyAlbum,
+        for album: PhotoAlbum,
         options: PHImageManager.ImageOptions,
         completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()
     ) -> Cancellable? {
@@ -117,7 +117,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
             isLoading: dataSource.isLoadingUserAlbums
         )
 
-        var snapshot = NSDiffableDataSourceSnapshot<AlbumListSection, AnyAlbum>()
+        var snapshot = NSDiffableDataSourceSnapshot<AlbumListSection, PhotoAlbum>()
 
         if !isSearching {
             snapshot.appendSections([smartAlbumsSection])

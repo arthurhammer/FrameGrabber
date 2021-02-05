@@ -1,13 +1,15 @@
 import Combine
 import Photos
 
+public typealias PhotoAlbum = AnyAlbum
+
 /// Data source for smart albums and user albums in the user's photo library.
 ///
 /// Asynchronously fetches, filters and updates albums in response to photo library changes.
 public class AlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
-    @Published public private(set) var smartAlbums = [AnyAlbum]()
-    @Published public private(set) var userAlbums = [AnyAlbum]()
+    @Published public private(set) var smartAlbums = [PhotoAlbum]()
+    @Published public private(set) var userAlbums = [PhotoAlbum]()
     
     @Published public private(set) var isLoadingSmartAlbums = true
     @Published public private(set) var isLoadingUserAlbums = true

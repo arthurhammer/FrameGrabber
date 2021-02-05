@@ -162,7 +162,7 @@ extension Coordinator: EditorViewControllerDelegate {
 
 extension Coordinator: AlbumPickerViewControllerDelegate {
     
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?) {
         guard let album = album else { return }
         libraryViewController.setAlbum(album.assetCollection)
     }
