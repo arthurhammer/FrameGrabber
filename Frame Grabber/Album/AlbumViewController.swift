@@ -159,16 +159,6 @@ class AlbumViewController: UICollectionViewController {
     }
 }
 
-// MARK: - AlbumPickerViewControllerDelegate
-
-extension AlbumViewController: AlbumPickerViewControllerDelegate {
-    
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
-        guard let album = album else { return }
-        dataSource.setSourceAlbum(album)
-    }
-}
-
 private extension AlbumViewController {
     
     // MARK: Configuring
