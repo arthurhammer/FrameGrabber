@@ -117,7 +117,6 @@
 		006C0FD125C5B2B6007E50B0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C0FD025C5B2B6007E50B0 /* Logger.swift */; };
 		006C0FD225C5B2B6007E50B0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C0FD025C5B2B6007E50B0 /* Logger.swift */; };
 		006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */; };
-		007208971FBF7C920046F389 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007208961FBF7C920046F389 /* UICollectionView.swift */; };
 		0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */; };
 		00730EA6214FEA5A001A6EA7 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */; };
 		00730EA7214FEA5A001A6EA7 /* AlbumListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA20222136C93100084B08 /* AlbumListLayout.swift */; };
@@ -143,7 +142,6 @@
 		00730EC4214FEA5A001A6EA7 /* ZoomTransitionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */; };
 		00730EC6214FEA5A001A6EA7 /* EditorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */; };
 		00730EC9214FEA5A001A6EA7 /* AlbumGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* AlbumGridLayout.swift */; };
-		00730ECA214FEA5A001A6EA7 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007208961FBF7C920046F389 /* UICollectionView.swift */; };
 		00730ECB214FEA5A001A6EA7 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1991FB498C700A00BB9 /* AlbumViewController.swift */; };
 		00730ECC214FEA5A001A6EA7 /* CGImage+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* CGImage+Encoding.swift */; };
 		00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763D1FB60DB600B5D7A3 /* Style.swift */; };
@@ -359,7 +357,6 @@
 		006C0FD925C5F560007E50B0 /* AVAsset+MetadataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+MetadataLoading.swift"; sourceTree = "<group>"; };
 		006C0FE525C67E25007E50B0 /* AVAsynchronousKeyValueLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAsynchronousKeyValueLoading.swift; sourceTree = "<group>"; };
 		006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingButton.swift; sourceTree = "<group>"; };
-		007208961FBF7C920046F389 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0073D56224000E99008CABC3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -591,7 +588,6 @@
 				0010CF45240783DA00DE0C31 /* String.swift */,
 				00CA339925A2521400DBD84D /* UIApplication.swift */,
 				00CA337E25A1DFE500DBD84D /* UIButton.swift */,
-				007208961FBF7C920046F389 /* UICollectionView.swift */,
 				0054936023E562E200F3E684 /* UIDevice.swift */,
 				00D9E83223424A07009E7AFA /* UIFont.swift */,
 				00C68E53242B6A3D004135A4 /* UILabel.swift */,
@@ -1092,7 +1088,6 @@
 				00730EC9214FEA5A001A6EA7 /* AlbumGridLayout.swift in Sources */,
 				00CA341425A515A800DBD84D /* AlbumPickerViewController.swift in Sources */,
 				0057486F25C8739100F64621 /* MetadataViewModel.swift in Sources */,
-				00730ECA214FEA5A001A6EA7 /* UICollectionView.swift in Sources */,
 				00730ECB214FEA5A001A6EA7 /* AlbumViewController.swift in Sources */,
 				0023FCA0233A17250046D9F8 /* ExportSettingsViewController.swift in Sources */,
 				00730ECC214FEA5A001A6EA7 /* CGImage+Encoding.swift in Sources */,
@@ -1212,7 +1207,6 @@
 				00CA341325A515A800DBD84D /* AlbumPickerViewController.swift in Sources */,
 				0057486B25C8739100F64621 /* MetadataViewModel.swift in Sources */,
 				005E2AA320273C5800F731FA /* AlbumGridLayout.swift in Sources */,
-				007208971FBF7C920046F389 /* UICollectionView.swift in Sources */,
 				009C657A1FBF338900DB25A6 /* AlbumViewController.swift in Sources */,
 				00E7135A2125E2940052EAF8 /* CGImage+Encoding.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,

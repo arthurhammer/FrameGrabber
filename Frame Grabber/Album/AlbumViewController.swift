@@ -239,15 +239,7 @@ private extension AlbumViewController {
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
             self?.updateViews()
-
-            guard let changeDetails = changeDetails else {
-                self?.collectionView?.reloadData()
-                return
-            }
-
-            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: {
-                self?.reconfigure(cellAt: $0)
-            })
+            self?.collectionView.reloadSections([0])
         }
     }
     
