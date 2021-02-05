@@ -11,24 +11,21 @@ extension AlbumsDataSource {
         .smartAlbumTimelapses
     ]
 
-    static func `default`() -> AlbumsDataSource {
-        let smartAlbumConfig = SmartAlbumConfiguration(
-            types: AlbumsDataSource.smartAlbumTypes,
-            assetFetchOptions: .assets(forAlbumType: .smartAlbum, filter: .videoAndLivePhoto)
-        )
-
-        let userAlbumConfig = UserAlbumConfiguration(
-            albumFetchOptions: .userAlbums(),
-            assetFetchOptions: .assets(forAlbumType: .album, filter: .videoAndLivePhoto)
-        )
-
-        return AlbumsDataSource(
-            smartAlbumConfiguration: smartAlbumConfig,
-            userAlbumConfiguration: userAlbumConfig
+    static func makeDefaultDataSource() -> AlbumsDataSource {
+        AlbumsDataSource(
+            smartAlbumConfiguration: .init(
+                types: AlbumsDataSource.smartAlbumTypes,
+                assetFetchOptions: .assets(filteredBy: .videoAndLivePhoto)
+            ),
+            userAlbumConfiguration: .init(
+                albumFetchOptions: .userAlbums(),
+                assetFetchOptions: .assets(filteredBy: .videoAndLivePhoto)
+            )
         )
     }
 
-    static func fetchInitialAssetCollection() -> PHAssetCollection? {
+    /// The "Recents" smart album to display initially.
+    static func fetchFirstAlbum() -> PHAssetCollection? {
         guard let type = smartAlbumTypes.first else { return nil }
         
         return PHAssetCollection.fetchAssetCollections(
@@ -41,8 +38,15 @@ extension AlbumsDataSource {
 
 extension PHFetchOptions {
 
-    static func assets(forAlbumType albumType: PHAssetCollectionType, filter: PhotoLibraryFilter) -> PHFetchOptions {
-        let options = PHFetchOptions.assets(forAlbumType: albumType)
+    /// Default fetch options for user albums, i.e. sorted by title.
+    public static func userAlbums() -> PHFetchOptions {
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: true)]
+        return options
+    }
+    
+    static func assets(filteredBy filter: PhotoLibraryFilter) -> PHFetchOptions {
+        let options = PHFetchOptions()
         options.predicate = filter.photoLibraryFetchPredicate
         return options
     }

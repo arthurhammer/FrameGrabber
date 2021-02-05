@@ -163,10 +163,7 @@ class AlbumCollectionViewDataSource: NSObject {
         updateQueue.async { [weak self, filter = self.filter] in
             guard let self = self else { return }
             
-            let fetchOptions = PHFetchOptions.assets(
-                forAlbumType: sourceAlbum.assetCollectionType,
-                filter: filter
-            )
+            let fetchOptions = PHFetchOptions.assets(filteredBy: filter)
                     
             let updatedAlbum = includingAlbum
                 ? FetchedAlbum.fetchUpdate(for: sourceAlbum, assetFetchOptions: fetchOptions)

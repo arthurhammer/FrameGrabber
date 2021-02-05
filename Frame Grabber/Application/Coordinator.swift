@@ -12,7 +12,7 @@ class Coordinator: NSObject {
     
     private(set) lazy var albumsDataSource: AlbumsDataSource = {
         assert(!needsAuthorization, "Photo library access before authorization")
-        return AlbumsDataSource.default()
+        return AlbumsDataSource.makeDefaultDataSource()
     }()
     
     private var needsAuthorization: Bool {
@@ -81,7 +81,7 @@ class Coordinator: NSObject {
         
         libraryViewController.defaultTitle = UserText.albumDefaultTitle
         
-        if let initialAlbum = AlbumsDataSource.fetchInitialAssetCollection() {
+        if let initialAlbum = AlbumsDataSource.fetchFirstAlbum() {
             libraryViewController.setSourceAlbum(AnyAlbum(assetCollection: initialAlbum))
         }
         
