@@ -65,13 +65,8 @@ class AlbumViewController: UICollectionViewController {
     
     // MARK: - Setting Albums
     
-    /// Sets the current photo album.
-    ///
-    /// - Note: Upon first call, the receiver will start accessing the user's photo library. If
-    ///         the authorization is `notDetermined`, this will trigger an authorization dialog.
-    func setSourceAlbum(_ sourceAlbum: AnyAlbum) {
-        dataSource.startAccessingPhotoLibrary()
-        dataSource.setSourceAlbum(sourceAlbum)
+    func setAlbum(_ album: PHAssetCollection) {
+        dataSource.setAlbum(album)
     }
 
     // MARK: - Actions
@@ -202,7 +197,7 @@ private extension AlbumViewController {
                 self?.handleLimitedAuthorizationMenuSelection(selection)
             }
         } else {
-            title = dataSource.album?.title ?? defaultTitle
+            title = dataSource.album?.localizedTitle ?? defaultTitle
             titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
         }
 
@@ -227,7 +222,7 @@ private extension AlbumViewController {
             self?.updateViews()
         }
 
-        dataSource.videosChangedHandler = { [weak self] changeDetails in
+        dataSource.videosChangedHandler = { [weak self] in
             self?.updateViews()
             self?.collectionView.reloadDataAnimated()
         }

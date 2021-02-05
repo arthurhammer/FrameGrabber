@@ -81,8 +81,8 @@ class Coordinator: NSObject {
         
         libraryViewController.defaultTitle = UserText.albumDefaultTitle
         
-        if let initialAlbum = AlbumsDataSource.fetchFirstAlbum() {
-            libraryViewController.setSourceAlbum(AnyAlbum(assetCollection: initialAlbum))
+        if let recents = AlbumsDataSource.fetchFirstAlbum() {
+            libraryViewController.setAlbum(recents)
         }
         
         _ = albumsDataSource  // Preload albums.
@@ -164,7 +164,7 @@ extension Coordinator: AlbumPickerViewControllerDelegate {
     
     func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
         guard let album = album else { return }
-        libraryViewController.setSourceAlbum(album)
+        libraryViewController.setAlbum(album.assetCollection)
     }
 }
 
