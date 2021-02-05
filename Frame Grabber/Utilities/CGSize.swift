@@ -16,6 +16,14 @@ extension CGSize {
 }
 
 extension CGSize {
+    
+    /// The receiver with absolute width and height values.
+    var abs: CGSize {
+        CGSize(width: Swift.abs(width), height: Swift.abs(height))
+    }
+}
+
+extension CGSize {
 
     /// A rect scaled such that it maintains the receiver's aspect ratio inside another
     /// rect.

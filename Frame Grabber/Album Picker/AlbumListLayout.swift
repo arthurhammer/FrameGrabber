@@ -1,44 +1,59 @@
 import UIKit
 
+/// The layout lays out its content against the layout margins of the collection view. Cells and
+/// views can therefore pin to the superview's edges and not its layout margins.
 class AlbumListLayout: UICollectionViewCompositionalLayout {
+    
+    private static let smartAlbumWidth: CGFloat = 140
+    private static let fallbackLayoutMargins: CGFloat = 20
 
-    init(didUpdateUserAlbumItemSizeHandler: ((CGSize) -> ())? = nil) {
+    init(sectionTypeProvider: @escaping (Int) -> (AlbumListSection.SectionType)) {
         super.init { index, environment in
-
-            guard let type = AlbumListSection.SectionType(index) else { fatalError("Unknown section type.") }
-
-            switch type {
-
+            
+            let sectionType = sectionTypeProvider(index)
+            var section: NSCollectionLayoutSection!
+            
+            switch sectionType {
+                    
             case .smartAlbum:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+                let width = AlbumListLayout.smartAlbumWidth
+                let estimatedHeight: CGFloat = width + 50
+                
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(estimatedHeight))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(46))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-
-                let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0)
-
-                return section
-
-            case .userAlbum:
-                let itemHeight: CGFloat = 80
-
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(itemHeight))
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .estimated(estimatedHeight))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(44))
+                section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .continuous
+                section.interGroupSpacing = 12
+                section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0)
+                
+            case .userAlbum:
+                let estimatedHeight: CGFloat = 80
+
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(estimatedHeight))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(estimatedHeight))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(estimatedHeight))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
 
-                let section = NSCollectionLayoutSection(group: group)
+                section = NSCollectionLayoutSection(group: group)
                 section.boundarySupplementaryItems = [sectionHeader]
-
-                didUpdateUserAlbumItemSizeHandler?(CGSize(width: itemHeight, height: itemHeight))
-                return section
             }
+            
+            if #available(iOS 14.0, *) {
+                section.contentInsetsReference = .layoutMargins
+            } else {
+                section.contentInsets.leading = AlbumListLayout.fallbackLayoutMargins
+                section.contentInsets.trailing = AlbumListLayout.fallbackLayoutMargins
+            }
+
+            return section
         }
     }
 

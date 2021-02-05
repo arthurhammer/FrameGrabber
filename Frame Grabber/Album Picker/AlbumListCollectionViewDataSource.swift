@@ -20,8 +20,6 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
 
     @Published var searchTerm: String?
     
-    var imageOptions = PHImageManager.ImageOptions()
-
     private let dataSource: AlbumsDataSource
     private let imageManager: PHImageManager
     private var bindings = Set<AnyCancellable>()
@@ -59,12 +57,16 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
         return album
     }
 
-    func thumbnail(for album: AnyAlbum, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable? {
+    func thumbnail(
+        for album: AnyAlbum,
+        options: PHImageManager.ImageOptions,
+        completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()
+    ) -> Cancellable? {
         guard let keyAsset = album.keyAsset else { return nil }
         
         return imageManager.requestImage(
             for: keyAsset,
-            options: imageOptions,
+            options: options,
             completionHandler: completionHandler
         )
     }
@@ -88,7 +90,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
         $searchTerm
             .dropFirst()
             .throttle(for: 0.25, scheduler: DispatchQueue.main, latest: true)
-            .map { $0?.trimmedOrNil }
+            .map { $0?.trimmed.nilIfEmpty }
             .removeDuplicates()
             .sink { [weak self] _ in
                 self?.updateSections()
@@ -97,35 +99,34 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
     }
 
     private func updateSections() {
-        let isSearching = searchTerm?.trimmedOrNil != nil
+        let isSearching = searchTerm?.trimmed.nilIfEmpty != nil
         let smartAlbums = dataSource.smartAlbums
         let userAlbums = dataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
 
-        let sections = [
-            AlbumListSection(
-                type: .smartAlbum,
-                title: nil,
-                albumCount: smartAlbums.count,
-                isLoading: dataSource.isLoadingSmartAlbums
-            ),
-            AlbumListSection(
-                type: .userAlbum,
-                title: UserText.albumsUserAlbumsHeader,
-                albumCount: userAlbums.count,
-                isLoading: dataSource.isLoadingUserAlbums
-            )
-        ]
+        let smartAlbumsSection = AlbumListSection(
+            type: .smartAlbum,
+            title: nil,
+            albumCount: smartAlbums.count,
+            isLoading: dataSource.isLoadingSmartAlbums
+        )
+        
+        let userAlbumsSection = AlbumListSection(
+            type: .userAlbum,
+            title: UserText.albumsUserAlbumsHeader,
+            albumCount: userAlbums.count,
+            isLoading: dataSource.isLoadingUserAlbums
+        )
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumListSection, AnyAlbum>()
 
-        snapshot.appendSections(sections)
-
         if !isSearching {
-            snapshot.appendItems(smartAlbums, toSection: sections[0])
+            snapshot.appendSections([smartAlbumsSection])
+            snapshot.appendItems(smartAlbums, toSection: smartAlbumsSection)
         }
         
-        snapshot.appendItems(userAlbums, toSection: sections[1])
-
+        snapshot.appendSections([userAlbumsSection])
+        snapshot.appendItems(userAlbums, toSection: userAlbumsSection)
+        
         apply(snapshot, animatingDifferences: true)
     }
 }
@@ -135,7 +136,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
 private extension Array {
 
     func searched(for searchTerm: String?, by key: (Element) -> String?) -> Self {
-        guard let searchTerm = searchTerm?.trimmedOrNil else { return self }
+        guard let searchTerm = searchTerm?.trimmed.nilIfEmpty else { return self }
 
         let options: String.CompareOptions = [.diacriticInsensitive, .caseInsensitive]
         

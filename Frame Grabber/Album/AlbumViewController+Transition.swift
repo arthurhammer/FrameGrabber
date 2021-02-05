@@ -1,10 +1,15 @@
 import UIKit
 
 extension AlbumViewController: ZoomTransitionDelegate {
+    
+    func wantsZoomTransition(for type: TransitionType) -> Bool {
+        // Only push if we have a source view. Always allow pop.
+        (type == .pop) || (transitionAsset != nil)
+    }
 
     func zoomTransitionWillBegin(_ transition: ZoomTransition) {
         if transition.type == .pop {
-            restoreSelection(animated: false)
+            select(asset: transitionAsset, animated: false)
             collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
         }
 
@@ -13,7 +18,7 @@ extension AlbumViewController: ZoomTransitionDelegate {
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
         // Might have once more been removed during interactive gesture.
-        restoreSelection(animated: false)
+        select(asset: transitionAsset, animated: false)
         collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
 
         return (collectionView?.selectedCell as? VideoCell)?.imageView

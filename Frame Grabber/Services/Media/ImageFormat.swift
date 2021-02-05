@@ -1,4 +1,5 @@
-import AVFoundation
+import Foundation
+import ImageIO
 
 enum ImageFormat: String {
     case heif

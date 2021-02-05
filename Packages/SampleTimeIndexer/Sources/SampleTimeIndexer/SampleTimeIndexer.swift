@@ -1,8 +1,16 @@
 import AVKit
+import os.log
 
 /// Indexes a video's samples to provide accurate timing information for each sample.
 public class SampleTimeIndexer {
 
+    private struct Request {
+        let asset: AVAsset
+        let sampleLimit: Int
+        let shouldRetry: (SampleTimeIndexError) -> Bool
+        let completionHandler: (Result) -> Void
+    }
+    
     public typealias Result = Swift.Result<SampleTimes, SampleTimeIndexError>
 
     public var qualityOfService: QualityOfService = .userInitiated {
@@ -15,6 +23,9 @@ public class SampleTimeIndexer {
         queue.qualityOfService = qualityOfService
         return queue
     }()
+    
+//    @available(iOS 14.0, *)
+//    private lazy var logger: Logger? = .module
 
     public init() {}
 
@@ -25,25 +36,69 @@ public class SampleTimeIndexer {
     public func cancel() {
         queue.cancelAllOperations()
     }
-
+    
     /// Indexes the video's samples to provide accurate timing information for each sample.
+    ///
+    /// The app must remain in the foreground while indexing or it will fail with an `.interrupted`
+    /// error. If so, the indexer offers to retry the operation. Retrying starts from the beginning
+    /// and any samples indexed so far are discarded.
     ///
     /// - Parameters:
     ///   - asset: The asset to index. The asset must have a video track to read samples from.
     ///   - limit: The maximum number of samples to read before aborting.
-    ///   - completionHandler: Is called on an arbitrary queue.
+    ///   - shouldRetry: Whether to retry the operation in case of error. Is called on an arbitrary
+    ///     queue.
+    ///   - completionHandler: Is called after completing any potential retries. Is called on an
+    ///     arbitrary queue.
     public func indexTimes(
         for asset: AVAsset,
-        limit: Int = .max,
+        sampleLimit: Int = .max,
+        shouldRetry: @escaping (SampleTimeIndexError) -> Bool = { _ in false },
         completionHandler: @escaping (Result) -> Void
     ) {
+        let request = Request(
+            asset: asset,
+            sampleLimit: sampleLimit,
+            shouldRetry: shouldRetry,
+            completionHandler: completionHandler
+        )
+        
+        perform(request: request)
+    }
+    
+    private func perform(request: Request) {
+//        if #available(iOS 14.0, *) { logger?.debug("Enqueuing operation.") }
         
         let operation = SampleTimeIndexOperation(
-            asset: asset,
-            sampleLimit: limit,
-            completionHandler: completionHandler
+            asset: request.asset,
+            sampleLimit: request.sampleLimit,
+            completionHandler: { [weak self] result in
+                self?.handleResult(result, for: request)
+            }
         )
 
         queue.addOperation(operation)
+    }
+    
+    // todo: enhance to resume from the last aborted sample instead of re-starting fully.
+    private func handleResult(_ result: Result, for request: Request) {
+        switch result {
+        case .failure(let error):
+//            if #available(iOS 14.0, *) { logger?.info("Finished with error: \(String(describing: error))") }
+            
+            if request.shouldRetry(error) {
+                DispatchQueue.main.async {
+//                    if #available(iOS 14.0, *) { self.logger?.info("Retrying.") }
+                    self.perform(request: request)
+                }
+            } else {
+                request.completionHandler(result)
+            }
+        case .success(let times):
+//            if #available(iOS 14.0, *) { logger?.info("Finished successfully.") }
+//            if #available(iOS 14.0, *) { logger?.info("\t\(times.values.count) samples.") }
+
+            request.completionHandler(result)
+        }
     }
 }

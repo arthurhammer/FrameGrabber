@@ -2,13 +2,23 @@ import CoreLocation
 import Contacts
 import UIKit
 
+protocol ReverseGeocoder {
+    func reverseGeocodeLocation(_ location: CLLocation, completion: @escaping (CLPlacemark?) -> ())
+    func cancelGeocode()
+    var isGeocoding: Bool { get }
+}
+
 /// Reverse geocodes locations and caches the results.
 ///
 /// The cache is cleared on low memory warnings.
-class CachingGeocoder {
+class CachingGeocoder: ReverseGeocoder {
     
     /// An instance that can be used for a shared location cache.
     static let shared = CachingGeocoder()
+    
+    var isGeocoding: Bool {
+        geocoder.isGeocoding
+    }
     
     private lazy var geocoder = CLGeocoder()
     private lazy var cache = [CLLocation: CLPlacemark]()

@@ -150,12 +150,12 @@ private extension UIScrollView {
     }
 
     var widthScale: CGFloat {
-        guard unzoomedContentSize.width != 0 else { return 0 }
+        guard unzoomedContentSize.width != 0 else { return 1 }
         return bounds.width / unzoomedContentSize.width
     }
 
     var heightScale: CGFloat {
-        guard unzoomedContentSize.height != 0 else { return 0 }
+        guard unzoomedContentSize.height != 0 else { return 1 }
         return bounds.height / unzoomedContentSize.height
     }
 

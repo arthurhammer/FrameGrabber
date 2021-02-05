@@ -2,10 +2,10 @@ import UIKit
 
 extension UIViewController {
     
-    /// Set's the controller's preferred content height to an expanded size. The width is not
+    /// Sets the controller's preferred content height to an expanded size. The width is not
     /// specified.
     ///
-    /// This can be used to expand view controller's in popovers or other containers.
+    /// This can be used to expand view controllers in popovers or other containers.
     func updateExpandedPreferredContentSize() {
         let expandedHeight = view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
         let expandedSize = CGSize(width: UIView.noIntrinsicMetric, height: expandedHeight)

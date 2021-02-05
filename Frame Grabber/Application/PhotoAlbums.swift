@@ -7,19 +7,19 @@ extension AlbumsDataSource {
     static let smartAlbumTypes: [PHAssetCollectionSubtype] = [
         .smartAlbumUserLibrary,
         .smartAlbumFavorites,
-        .smartAlbumTimelapses,
-        .smartAlbumSlomoVideos
+        .smartAlbumSlomoVideos,
+        .smartAlbumTimelapses
     ]
 
     static func `default`() -> AlbumsDataSource {
         let smartAlbumConfig = SmartAlbumConfiguration(
             types: AlbumsDataSource.smartAlbumTypes,
-            assetFetchOptions: .assets(forAlbumType: .smartAlbum, videoFilter: .all)
+            assetFetchOptions: .assets(forAlbumType: .smartAlbum, filter: .videoAndLivePhoto)
         )
 
         let userAlbumConfig = UserAlbumConfiguration(
             albumFetchOptions: .userAlbums(),
-            assetFetchOptions: .assets(forAlbumType: .album, videoFilter: .all)
+            assetFetchOptions: .assets(forAlbumType: .album, filter: .videoAndLivePhoto)
         )
 
         return AlbumsDataSource(
@@ -41,9 +41,9 @@ extension AlbumsDataSource {
 
 extension PHFetchOptions {
 
-    static func assets(forAlbumType albumType: PHAssetCollectionType, videoFilter: VideoTypesFilter) -> PHFetchOptions {
+    static func assets(forAlbumType albumType: PHAssetCollectionType, filter: PhotoLibraryFilter) -> PHFetchOptions {
         let options = PHFetchOptions.assets(forAlbumType: albumType)
-        options.predicate = videoFilter.photoLibraryFetchPredicate
+        options.predicate = filter.photoLibraryFetchPredicate
         return options
     }
 }

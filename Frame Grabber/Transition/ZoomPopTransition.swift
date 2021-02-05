@@ -5,8 +5,14 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
 
     let type: TransitionType = .pop
 
-    weak var fromDelegate: ZoomTransitionDelegate?
-    weak var toDelegate: ZoomTransitionDelegate?
+    private(set) weak var fromDelegate: ZoomTransitionDelegate?
+    private(set) weak var toDelegate: ZoomTransitionDelegate?
+    
+    init(from: ZoomTransitionDelegate?, to: ZoomTransitionDelegate?) {
+        self.fromDelegate = from
+        self.toDelegate = to
+        super.init()
+    }
 
     /// You can use this flag to track whether the transition should be started
     /// interactively.
@@ -153,6 +159,11 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
         let durationFactor = CGFloat(foregroundAnimator.duration / backgroundAnimator.duration)
 
         foregroundAnimator.startAnimation()
+        
+        // Is still inactive for non-interactive transitions. Activate keeping current progress.
+        let fractionComplete = backgroundAnimator.fractionComplete
+        backgroundAnimator.fractionComplete = fractionComplete
+        
         backgroundAnimator.isReversed = transitionContext.transitionWasCancelled
         backgroundAnimator.continueAnimation(withTimingParameters: nil, durationFactor: durationFactor)
     }

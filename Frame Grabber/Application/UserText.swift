@@ -1,6 +1,9 @@
 import Foundation
 
 struct UserText {
+    static let saveToPhotosAlbumName = "Frame Grabber"
+    static let exifAppInformation = "Frame Grabber \(Bundle.main.version)"
+
     static let okAction = NSLocalizedString("action.ok", value: "OK", comment: "Ok action")
     static let cancelAction = NSLocalizedString("action.cancel", value: "Cancel", comment: "Cancel action")
     static let deleteAction = NSLocalizedString("action.delete", value: "Delete", comment: "Delete context action")
@@ -40,17 +43,9 @@ struct UserText {
     static let editorVideoLoadProgress = NSLocalizedString("progress.videoLoad.title", value: "Loading…", comment: "Video loading (iCloud or otherwise) progress title.")
     static let editorExportShareSheetProgress = NSLocalizedString("progress.export.shareSheet.title", value: "Exporting…", comment: "Frame generation progress title when showing the share sheet.")
     static let editorExportToPhotosProgress = NSLocalizedString("progress.export.saveToPhotos.title", value: "Saving to Photos…", comment: "Frame generation progress title when saving to Photos.")
-
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
     static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
-    static let saveToPhotosAlbumName = "Frame Grabber"
-
-    static let detailVideoTitle = NSLocalizedString("detail.video.title", value: "Video", comment: "Detail view title for videos")
-    static let detailLivePhotoTitle = NSLocalizedString("detail.livephoto.title", value: "Live Photo", comment: "Detail view title for live photos")
-    static let detailFrameDimensionsForVideoTitle = NSLocalizedString("detail.video.videodimensions.title", value: "Dimensions", comment: "Dimensions label title for videos")
-    static let detailFrameDimensionsForLivePhotoTitle = NSLocalizedString("detail.livephoto.videodimensions.title", value: "Dimensions (Video)", comment: "Dimensions label title for the Live Photo video component")
-    static let detailMapItem = NSLocalizedString("detail.map.item.title", value: "Location of Photo", comment: "Title of map item opened in Maps app.")
-
+    
     static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in smaller file sizes. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")
     static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Opens the share sheet for exporting.", comment: "Explanation of what the share sheet setting does")
@@ -66,8 +61,28 @@ struct UserText {
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
-    
-    static let exifAppInformation = "Extracted with Frame Grabber \(Bundle.main.version)"  // Exif not localized
+        
+    struct Metadata {
+        static let typeTitle = NSLocalizedString("metadata.type.title", value: "Type", comment: "Title for the video type metadata.")
+        static let typeVideoValue = NSLocalizedString("metadata.type.video", value: "Video", comment: "Video: Value for the video type metadata item.")
+        static let typeLivePhotoValue = NSLocalizedString("metadata.type.livePhoto", value: "Live Photo", comment: "Live Photo: Value for the video type metadata.")
+        
+        static let dimensionsTitle = NSLocalizedString("metadata.dimensions.title", value: "Dimensions", comment: "Video: Title for the dimensions metadata.")
+        static let dimensionsLivePhotoVideoTitle = NSLocalizedString("metadata.dimensions.video.title", value: "Video Dimensions", comment: "Live Photo: Title for the dimensions metadata of the video component.")
+        static let dimensionsLivePhotoPictureTitle = NSLocalizedString("metadata.dimensions.livePhoto.title", value: "Photo Dimensions", comment: "Live Photo: Title for the dimensions metadata of the picture component")
+        
+        static let creationDateTitle = NSLocalizedString("metadata.creationDate.title", value: "Created", comment: "Title for the creation date metadata.")
+        static let cameraMakeTitle = NSLocalizedString("metadata.make.title", value: "Device Make", comment: "Title for the camera make metadata.")
+        static let cameraModelTitle = NSLocalizedString("metadata.model.title", value: "Device Model", comment: "Title for the camera model metadata.")
+        static let softwareTitle = NSLocalizedString("metadata.software.title", value: "Software", comment: "Title for the software metadata.")
+        static let frameRateTitle = NSLocalizedString("metadata.frameRate.title", value: "Frame Rate", comment: "Title for the frame rate metadata.")
+        static let durationTitle = NSLocalizedString("metadata.duration.title", value: "Duration", comment: "Title for the duration metadata.")
+        static let formatTitle = NSLocalizedString("metadata.format.title", value: "Kind", comment: "Title for the file format metadata.")
+        static let codecTitle = NSLocalizedString("metadata.codec.title", value: "Codec", comment: "Title for the codec metadata.")
+        static let fileSizeTitle = NSLocalizedString("metadata.size.title", value: "Size", comment: "Title for the file size metadata.")
+        
+        static let mapItemTitle = NSLocalizedString("metadata.mapItem.title", value: "Location of Video", comment: "Title of map item to be opened in Maps app.")
+    }
 }
 
 extension UserText {

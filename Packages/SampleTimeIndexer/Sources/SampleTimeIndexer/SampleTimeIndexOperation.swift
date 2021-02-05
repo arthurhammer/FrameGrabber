@@ -57,15 +57,23 @@ private extension SampleTimeIndexOperation {
         
     /// The timing infos sorted by their presentation time.
     func validatedAndSorted(timings: [CMSampleTimingInfo]) -> Result<SampleTimes> {
-        guard let trackTimeScale = sourceTrack?.naturalTimeScale else {
+        guard let track = sourceTrack else {
             return .failure(.invalidVideo)
         }
         
-        let sorted = timings.sorted {
-            $0.presentationTimeStamp < $1.presentationTimeStamp
+        var timings = timings
+        
+        if track.requiresFrameReordering {
+            timings.sort {
+                $0.presentationTimeStamp < $1.presentationTimeStamp
+            }
         }
         
-        let result = SampleTimes(values: sorted, trackTimeScale: trackTimeScale)
+        let result = SampleTimes(
+            values: timings,
+            trackTimeScale: track.naturalTimeScale,
+            trackID: track.trackID
+        )
         
         return .success(result)
     }
@@ -92,7 +100,7 @@ private extension SampleTimeIndexOperation {
                     timings.append(contentsOf: bufferTimings)
                 }
             } catch {
-                return .failure(.readingFailed(error))
+                return .failure(.init(underlying: error))
             }
 
             if timings.count > sampleLimit {
@@ -102,7 +110,7 @@ private extension SampleTimeIndexOperation {
         } while buffer != nil
 
         guard reader.status == .completed else {
-            return .failure(.readingFailed(reader.error))
+            return .failure(.init(underlying: reader.error))
         }
 
         return .success(timings)
@@ -121,17 +129,17 @@ private extension SampleTimeIndexOperation {
         do {
             reader = try AVAssetReader(asset: asset)
         } catch {
-            return .failure(.readingFailed(error))
+            return .failure(.init(underlying: error))
         }
 
         guard reader.canAdd(output) else {
-            return .failure(.readingFailed(nil))
+            return .failure(.init(underlying: nil))
         }
 
         reader.add(output)
 
         guard reader.startReading() else {
-            return .failure(.readingFailed(reader.error))
+            return .failure(.init(underlying: reader.error))
         }
 
         return .success((reader, output))
