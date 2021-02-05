@@ -173,7 +173,7 @@
                                     </segue>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="folder.circle" catalog="system" id="Mk7-wD-Kfs">
+                            <barButtonItem image="folder.circle" catalog="system" id="Mk7-wD-Kfs">
                                 <connections>
                                     <action selector="showFilePicker" destination="z5r-QY-0zg" id="l8k-KV-Is6"/>
                                 </connections>
@@ -242,7 +242,7 @@
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
         <namedColor name="accent">
-            <color red="0.83137254901960789" green="0.26666666666666666" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31372549019607843" green="0.26666666666666666" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

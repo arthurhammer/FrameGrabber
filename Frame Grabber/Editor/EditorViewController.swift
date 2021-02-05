@@ -70,6 +70,8 @@ class EditorViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        playbackController.pause()
+        
         if let destination = segue.destination as? UINavigationController,
             let controller = destination.topViewController as? MetadataViewController {
 
@@ -84,8 +86,9 @@ class EditorViewController: UIViewController {
     }
 
     private func prepareForMetadataSegue(with controller: MetadataViewController) {
-        playbackController.pause()
-        controller.videoController = VideoController(source: videoController.source, video: videoController.video)
+        guard let video = videoController.video else { return }
+        // TODO: Inject view model somewhere else.
+        controller.viewModel = MetadataViewModel(video: video, source: videoController.source)
     }
     
     private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
@@ -252,7 +255,9 @@ private extension EditorViewController {
             .store(in: &bindings)
     }
 
+    // TODO: Clean up
     func updateTimeLabel(withTime time: CMTime) {
+        // Loading or playing.
         guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
             toolbar.timeSpinner.isHidden = true
             toolbar.timeLabel.text = timeFormatter.string(from: time)
@@ -265,12 +270,18 @@ private extension EditorViewController {
             toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)
         
         case .minutesSecondsFrameNumber:
+            // Succeeded indexing.
             if let frameNumber = playbackController.relativeFrameNumber(for: time) {
                 toolbar.timeSpinner.isHidden = true
                 toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
-            } else {
+            // Still indexing.
+            } else if playbackController._isIndexingSampleTimes {
                 toolbar.timeSpinner.isHidden = false
-                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"  // TODO
+                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"
+            // Failed indexing.
+            } else {
+                toolbar.timeSpinner.isHidden = true
+                toolbar.timeLabel.text = timeFormatter.string(from: time)
             }
         }
     }

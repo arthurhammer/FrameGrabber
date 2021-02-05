@@ -1,161 +1,165 @@
-import UIKit
-import AVFoundation
-import Photos
+import Combine
 import MapKit
+import UIKit
 
 class MetadataViewController: UITableViewController {
-
-    enum Section: Int, CaseIterable {
-        case location
-        case metadata
-    }
-
-    var videoController: VideoController? {
-        didSet {
-//            updateAssetMetadata()
-            
-        }
-    }
-
-    private lazy var geocoder = CachingGeocoder.shared
-    private lazy var locationFormatter = LocationFormatter()
     
-    private let unavailablePlaceholder = "—"
+    typealias DataSource = UITableViewDiffableDataSource<MetadataViewModel.Section, MetadataViewModel.Item>
 
-    @IBOutlet private var assetTypeLabel: UILabel!
-    @IBOutlet private var frameDimensionsTitleLabel: UILabel!
-    @IBOutlet private var frameDimensionsLabel: UILabel!
-    @IBOutlet private var livePhotoDimensionsLabel: UILabel!
-    @IBOutlet private var frameRateLabel: UILabel!
-    @IBOutlet private var durationLabel: UILabel!
-    @IBOutlet private var dateCreatedLabel: UILabel!
-    @IBOutlet private var locationCell: UITableViewCell!
-    @IBOutlet private var locationLabel: UILabel!
-    @IBOutlet private var mapView: MKMapView!
-
+    var viewModel: MetadataViewModel!
+        
+    private lazy var tableDataSource = DataSource(tableView: tableView) {
+        [weak self] _, indexPath, item in self?.cell(for: indexPath, item: item)
+    }
+    
+    @IBOutlet private var locationHeader: MetadataLocationHeader!
+    private var bindings = Set<AnyCancellable>()
+    
+    private var loadingView: UIView? {
+        navigationItem.leftBarButtonItem?.customView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configureViews()
+        
+        DispatchQueue.main.async {
+            self.configureViews()
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        updateExpandedPreferredContentSize()
-    }
 
+        if preferredContentSize != tableView.contentSize {
+            preferredContentSize = tableView.contentSize
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        DispatchQueue.main.async {
+            self.tableView.updateHeaderLayout(animated: false)
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.hasDifferentContentSize(comparedTo: previousTraitCollection) {
+            DispatchQueue.main.async {
+                self.tableView.updateHeaderLayout(animated: false)
+                self.tableView.reloadData()  // Cells don't seem to shrink back on their own.
+            }
+        }
+    }
+    
     @IBAction private func done() {
         dismiss(animated: true)
     }
+    
+    @IBAction private func openInMaps() {
+        viewModel.location?.mapItem?.openInMaps()
+    }
+        
+    private func configureViews() {
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        tableView.backgroundColor = .clear
+        
+        tableDataSource.defaultRowAnimation = .fade
+        tableView.reloadData()  // Required.
+        tableView.dataSource = tableDataSource
 
-//    func openLocationInMaps() {
-//        guard let location = videoController?.asset.location else { return }
-//        let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
-//        item.name = UserText.detailMapItem
-//        item.openInMaps(launchOptions: nil)
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let hasLocation = videoController?.asset.location != nil
-//        let hideRows = !hasLocation && (Section(section) == .location)
-//
-//        return hideRows ? 0 : super.tableView(tableView, numberOfRowsInSection: section)
-//    }
-//
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//
-//        if Section(indexPath.section) == .location {
-//            openLocationInMaps()
-//        }
-//    }
-//
-//    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-//        guard let row = tableView.cellForRow(at: indexPath) else { return false }
-//        return row.accessoryType != .none
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        let hasFirstSection = videoController?.asset.location != nil
-//
-//        // Remove space if section hidden, otherwise default margin from the top
-//        if (section == 0) {
-//            return hasFirstSection ? Style.staticTableViewTopMargin : 0
-//        }
-//
-//        // If first section is hidden, the second section becomes the first
-//        if (section == 1) {
-//            return hasFirstSection ? UITableView.automaticDimension : Style.staticTableViewTopMargin
-//        }
-//
-//        return UITableView.automaticDimension
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        0
-//    }
-//
-//    private func configureViews() {
-//        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-//        tableView.backgroundColor = .clear
-//
-//        mapView.isUserInteractionEnabled = false
-//
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
-//
-//        updateAssetMetadata()
-//    }
-//
-//    private func updateAssetMetadata() {
-//        guard isViewLoaded else { return }
-//
-//        let frameRateFormatter = NumberFormatter.frameRateFormatter()
-//        let dimensionsFormatter = NumberFormatter()
-//        let dateFormatter = DateFormatter.default()
-//        let durationFormatter = VideoDurationFormatter()
-//
-//        let asset = videoController?.asset
-//        let video = videoController?.video
-//        let isLivePhoto = asset?.isLivePhoto == true
-//
-//        assetTypeLabel.text = isLivePhoto ? UserText.detailLivePhotoTitle : UserText.detailVideoTitle
-//        frameDimensionsTitleLabel.text = isLivePhoto ? UserText.detailFrameDimensionsForLivePhotoTitle : UserText.detailFrameDimensionsForVideoTitle
-//        livePhotoDimensionsLabel.superview?.isHidden = !isLivePhoto
-//
-//        frameDimensionsLabel.text = video?.dimensions.flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? unavailablePlaceholder
-//        livePhotoDimensionsLabel.text = (asset?.dimensions).flatMap(dimensionsFormatter.string(fromPixelDimensions:)) ?? unavailablePlaceholder
-//        frameRateLabel.text = video?.frameRate.flatMap(frameRateFormatter.string(fromFrameRate:)) ?? unavailablePlaceholder
-//        durationLabel.text = (video?.duration.seconds).flatMap(durationFormatter.string) ?? unavailablePlaceholder
-//        dateCreatedLabel.text = asset?.creationDate.flatMap(dateFormatter.string) ?? unavailablePlaceholder
-//
-//        updateLocation()
-//    }
-//
-//    private func updateLocation() {
-//        tableView.reloadData()  // Show/hide location cells.
-//
-//        guard let location = videoController?.asset.location else {
-//            locationLabel.text = unavailablePlaceholder
-//            return
-//        }
-//
-//        let point = MKPointAnnotation()
-//        point.coordinate = location.coordinate
-//
-//        mapView.removeAnnotations(mapView.annotations)
-//        mapView.showAnnotations([point], animated: false)
-//
-//        let text = locationFormatter.string(fromCoordinate: location.coordinate)
-//        updateLocationLabel(with: text)
-//
-//        geocoder.reverseGeocodeLocation(location) { [weak self] address in
-//            guard let address = address?.postalAddress else { return }
-//            let text = self?.locationFormatter.string(from: address)
-//            self?.updateLocationLabel(with: text)
-//        }
-//    }
-//
-//    private func updateLocationLabel(with text: String?) {
-//        locationLabel.text = text
-//        tableView.reloadData()
-//    }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(done)
+        )
+
+        configureHeader()
+        configureBindings()
+    }
+
+    private func configureHeader() {
+        locationHeader.translatesAutoresizingMaskIntoConstraints = false
+        tableView.tableHeaderView = locationHeader
+
+        locationHeader.widthAnchor.constraint(equalTo: tableView.widthAnchor).isActive = true
+        locationHeader.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+        locationHeader.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+        
+        updateHeader(animated: false)
+    }
+    
+    private func updateHeader(animated: Bool) {
+        if let location = viewModel.location {
+            locationHeader.mapPin = location.mapPin
+            locationHeader.addressLabel.text = location.address
+            locationHeader.setHeaderHidden(false)
+        } else {
+            locationHeader.setHeaderHidden(true)
+        }
+                
+        tableView.updateHeaderLayout(animated: animated)
+    }
+    
+    private func configureBindings() {
+        viewModel
+            .$isLoading
+            .map { !$0 }
+            .assignWeak(to: \.isHidden, on: loadingView)
+            .store(in: &bindings)
+        
+        var initialLoad = true
+
+        viewModel
+            .$snapshot
+            .sink { [weak self] snapshot in
+                self?.tableDataSource.apply(snapshot, animatingDifferences: !initialLoad)
+                initialLoad = false
+            }
+            .store(in: &bindings)
+        
+        viewModel
+            .$location
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateHeader(animated: true)
+            }
+            .store(in: &bindings)
+    }
+
+    private func cell(for indexPath: IndexPath, item: MetadataViewModel.Item) -> UITableViewCell {
+        let id = MetadataCell.className
+        let _cell = self.tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
+        
+        guard let cell = _cell as? MetadataCell else { fatalError("Wrong cell id or type.") }
+        
+        cell.titleLabel?.text = item.title
+        cell.detailLabel?.text = item.detail
+                    
+        return cell
+    }
+}
+
+private extension UITableView {
+
+    /// Resizes the table header view according to its Auto Layout constraints.
+    ///
+    /// `UITableView` does not auto-size header or footers. Any change in the header affecting its
+    /// layout needs to be updated manually.
+    func updateHeaderLayout(animated: Bool, animationDuration: TimeInterval = 0.15) {
+        let update = {
+            let header = self.tableHeaderView
+            header?.layoutIfNeeded()
+            self.tableHeaderView = header  // Needs to be reset.
+        }
+        
+        if animated {
+            UIView.animate(withDuration: animationDuration, animations: update)
+        } else {
+            update()
+        }
+    }
 }

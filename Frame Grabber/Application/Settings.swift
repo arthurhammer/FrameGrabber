@@ -4,7 +4,7 @@ import InAppPurchase
 extension UserDefaults {
 
     private struct Key {
-        static let videoTypesFilter = "VideoTypesFilter"
+        static let photoLibraryFilter = "PhotoLibraryFilter"
         static let albumGridContentMode = "AlbumGridContentMode"
         static let includeMetadata = "IncludeMetadata"
         static let imageFormat = "ImageFormat"
@@ -14,9 +14,9 @@ extension UserDefaults {
         static let timeFormat = "TimeFormat"
     }
 
-    var videoTypesFilter: VideoTypesFilter {
-        get { codableValue(forKey: Key.videoTypesFilter) ?? .all }
-        set { setCodableValue(value: newValue, forKey: Key.videoTypesFilter) }
+    var photoLibraryFilter: PhotoLibraryFilter {
+        get { codableValue(forKey: Key.photoLibraryFilter) ?? .videoAndLivePhoto }
+        set { setCodableValue(value: newValue, forKey: Key.photoLibraryFilter) }
     }
 
     var albumGridContentMode: AlbumGridContentMode {

@@ -1,19 +1,19 @@
 import Photos
 import UIKit
 
-enum VideoTypesFilter: Int {
-    case all
+enum PhotoLibraryFilter: Int {
+    case videoAndLivePhoto
     case video
     case livePhoto
 }
 
-extension VideoTypesFilter: CaseIterable, Hashable, Codable {}
+extension PhotoLibraryFilter: CaseIterable, Hashable, Codable {}
 
-extension VideoTypesFilter {
+extension PhotoLibraryFilter {
 
     var title: String {
         switch self {
-        case .all: return UserText.videoFilterAllItems
+        case .videoAndLivePhoto: return UserText.videoFilterAllItems
         case .video: return UserText.videoFilterVideos
         case .livePhoto: return UserText.videoFilterLivePhotos
         }
@@ -21,7 +21,7 @@ extension VideoTypesFilter {
 
     var icon: UIImage? {
         switch self {
-        case .all: return UIImage(systemName: "square.grid.2x2")
+        case .videoAndLivePhoto: return UIImage(systemName: "square.grid.2x2")
         case .video: return  UIImage(systemName: "video")
         case .livePhoto: return  UIImage(systemName: "livephoto")
         }
@@ -30,10 +30,10 @@ extension VideoTypesFilter {
     var photoLibraryFetchPredicate: NSPredicate {
         switch self  {
 
-        case .all:
+        case .videoAndLivePhoto:
             return NSCompoundPredicate(orPredicateWithSubpredicates: [
-                VideoTypesFilter.video.photoLibraryFetchPredicate,
-                VideoTypesFilter.livePhoto.photoLibraryFetchPredicate
+                PhotoLibraryFilter.video.photoLibraryFetchPredicate,
+                PhotoLibraryFilter.livePhoto.photoLibraryFetchPredicate
             ])
 
         case .video:

@@ -3,23 +3,23 @@ import UIKit
 struct AlbumViewSettingsMenu {
 
     enum Selection {
-        case videosFilter(VideoTypesFilter)
+        case filter(PhotoLibraryFilter)
         case gridMode(AlbumGridContentMode)
     }
 
     @available(iOS 14, *)
     static func menu(
-        forCurrentFilter currentFilter: VideoTypesFilter,
+        forCurrentFilter currentFilter: PhotoLibraryFilter,
         gridMode: AlbumGridContentMode,
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
         
-        let filterActions = VideoTypesFilter.allCases.reversed().map { filter in
+        let filterActions = PhotoLibraryFilter.allCases.reversed().map { filter in
             UIAction(
                 title: filter.title,
                 image: filter.icon,
                 state: (currentFilter == filter) ? .on : .off,
-                handler: { _ in handler(.videosFilter(filter)) }
+                handler: { _ in handler(.filter(filter)) }
             )
         }
 
@@ -37,7 +37,7 @@ struct AlbumViewSettingsMenu {
 
     @available(iOS, obsoleted: 14, message: "Use context menus")
     static func alertController(
-        forCurrentFilter currentFilter: VideoTypesFilter,
+        forCurrentFilter currentFilter: PhotoLibraryFilter,
         gridMode: AlbumGridContentMode,
         handler: @escaping (Selection) -> Void
     ) -> UIAlertController {
@@ -48,11 +48,11 @@ struct AlbumViewSettingsMenu {
             preferredStyle: .actionSheet
         )
 
-        let filterActions = VideoTypesFilter.allCases.map { filter -> UIAlertAction in
+        let filterActions = PhotoLibraryFilter.allCases.map { filter -> UIAlertAction in
             let action = UIAlertAction(
                 title: filter.title,
                 style: .default,
-                handler: { _ in handler(.videosFilter(filter)) }
+                handler: { _ in handler(.filter(filter)) }
             )
 
             action.setValue(currentFilter == filter, forKey: "checked")

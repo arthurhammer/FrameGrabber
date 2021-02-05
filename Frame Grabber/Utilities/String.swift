@@ -1,7 +1,11 @@
 extension String {
-    /// Nil if the string is only whitespace, otherwise the string trimmed from whitespace.
-    var trimmedOrNil: String? {
-        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
+
+    var trimmed: String {
+        trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var nilIfEmpty: String? {
+        let trimmed = self.trimmed
         return (trimmed != "") ? trimmed : nil
     }
 }

@@ -160,7 +160,7 @@ extension AlbumListViewController: UISearchBarDelegate, UISearchResultsUpdating 
     }
 
     private func stopSearchingWhenSearchBarEmpty(_ searchBar: UISearchBar) {
-        guard searchBar.text?.trimmedOrNil == nil else { return }
+        guard searchBar.text?.trimmed.nilIfEmpty == nil else { return }
 
         searchBar.text = nil
         

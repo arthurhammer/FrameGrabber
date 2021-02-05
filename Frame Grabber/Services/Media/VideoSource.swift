@@ -8,7 +8,7 @@ enum VideoSource {
 extension VideoSource {
     
     /// The asset if the receiver is `.photoLibrary`.
-    var asset: PHAsset? {
+    var photoLibraryAsset: PHAsset? {
         switch self {
         case .photoLibrary(let asset): return asset
         case .url: return nil

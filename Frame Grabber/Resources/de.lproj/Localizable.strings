@@ -118,21 +118,6 @@
 /* Photo library authorization default message */
 "authorization.undetermined.message" = "Frame Grabber arbeitet mit Videos und Fotos in deiner Fotomediathek. Los geht's, indem du den Zugriff erlaubst.";
 
-/* Detail view title for live photos */
-"detail.livephoto.title" = "Live Photo";
-
-/* Dimensions label title for the Live Photo video component */
-"detail.livephoto.videodimensions.title" = "Dimensionen (Video)";
-
-/* Title of map item opened in Maps app. */
-"detail.map.item.title" = "Aufnahmeort des Fotos";
-
-/* Detail view title for videos */
-"detail.video.title" = "Video";
-
-/* Dimensions label title for videos */
-"detail.video.videodimensions.title" = "Dimensionen";
-
 /* Editor more button export settings action */
 "editor.more.exportSettings.action" = "Einstellungen";
 
@@ -171,6 +156,54 @@
 
 /* Purchase screen purchase button label */
 "iap.purchase.action" = "Eis Ausgeben";
+
+/* Title for the codec metadata. */
+"metadata.codec.title" = "Codec";
+
+/* Title for the creation date metadata. */
+"metadata.creationDate.title" = "Erstellt";
+
+/* Live Photo: Title for the dimensions metadata of the picture component */
+"metadata.dimensions.livePhoto.title" = "Größe Foto";
+
+/* Video: Title for the dimensions metadata. */
+"metadata.dimensions.title" = "Größe";
+
+/* Live Photo: Title for the dimensions metadata of the video component. */
+"metadata.dimensions.video.title" = "Größe Video";
+
+/* Title for the duration metadata. */
+"metadata.duration.title" = "Länge";
+
+/* Title for the file format metadata. */
+"metadata.format.title" = "Art";
+
+/* Title for the frame rate metadata. */
+"metadata.frameRate.title" = "Bildrate";
+
+/* Title for the camera make metadata. */
+"metadata.make.title" = "Gerätemarke";
+
+/* Title of map item to be opened in Maps app. */
+"metadata.mapItem.title" = "Aufnahmeort";
+
+/* Title for the camera model metadata. */
+"metadata.model.title" = "Gerätemodell";
+
+/* Title for the file size metadata. */
+"metadata.size.title" = "Dateigröße";
+
+/* Title for the software metadata. */
+"metadata.software.title" = "Software";
+
+/* Live Photo: Value for the video type metadata. */
+"metadata.type.livePhoto" = "Live Photo";
+
+/* Title for the video type metadata. */
+"metadata.type.title" = "Typ";
+
+/* Video: Value for the video type metadata item. */
+"metadata.type.video" = "Video";
 
 /* Frame generation progress title when saving to Photos. */
 "progress.export.saveToPhotos.title" = "In Fotos speichern…";

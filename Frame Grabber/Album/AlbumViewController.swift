@@ -301,7 +301,7 @@ private extension AlbumViewController {
 
         switch selection {
         
-        case .videosFilter(let filter):
+        case .filter(let filter):
             dataSource.filter = filter
             
         case .gridMode(let mode):

@@ -32,6 +32,9 @@ class PlaybackController {
     /// The publisher emits values whenever the current playback time changes. If sample times are
     /// not available, repeatedly emits `nil`.
     @Published private(set) var currentSampleTime: CMTime?
+    
+    /// TODO: This is a quick hack.
+    @Published private(set) var _isIndexingSampleTimes: Bool = false
 
     // MARK: - Private Properties
 
@@ -178,11 +181,28 @@ class PlaybackController {
         
         guard let asset = asset else { return }
         
-        sampleIndexer.indexTimes(for: asset) { [weak self] result in
+        // TODO: Currently resides on the assumption that `asset` is set only once. If it isn't, the
+        // of completion handlers and the value of this flag are not guaranteed.
+        _isIndexingSampleTimes = true
+        
+        sampleIndexer.indexTimes(for: asset, shouldRetry: { $0.isInterrupted }) {
+            [weak self] result in
+            
             DispatchQueue.main.async {
+                self?._isIndexingSampleTimes = false
                 self?.sampleTimes = try? result.get()  // Ignoring errors
                 self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
+        }
+    }
+}
+
+private extension SampleTimeIndexError {
+    
+    var isInterrupted: Bool {
+        switch self {
+        case .interrupted: return true
+        default: return false
         }
     }
 }
