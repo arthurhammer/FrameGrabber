@@ -160,6 +160,8 @@
 		00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
 		00730EE4214FEA5A001A6EA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00730EE5214FEA5A001A6EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17F1FB4977100A00BB9 /* Assets.xcassets */; };
+		00733A9A25CDB8590060085E /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00733A9925CDB8590060085E /* UICollectionView.swift */; };
+		00733A9B25CDB8590060085E /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00733A9925CDB8590060085E /* UICollectionView.swift */; };
 		0073D56324000E99008CABC3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0073D56224000E99008CABC3 /* StoreKit.framework */; };
 		0073D56424000EA3008CABC3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0073D56224000E99008CABC3 /* StoreKit.framework */; };
 		0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
@@ -359,6 +361,7 @@
 		006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingButton.swift; sourceTree = "<group>"; };
 		0072089A1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		00730EEA214FEA5A001A6EA7 /* Frame Grabber Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00733A9925CDB8590060085E /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		0073D56224000E99008CABC3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0078A45423F4AD700033E81C /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryFilter.swift; sourceTree = "<group>"; };
@@ -588,6 +591,7 @@
 				0010CF45240783DA00DE0C31 /* String.swift */,
 				00CA339925A2521400DBD84D /* UIApplication.swift */,
 				00CA337E25A1DFE500DBD84D /* UIButton.swift */,
+				00733A9925CDB8590060085E /* UICollectionView.swift */,
 				0054936023E562E200F3E684 /* UIDevice.swift */,
 				00D9E83223424A07009E7AFA /* UIFont.swift */,
 				00C68E53242B6A3D004135A4 /* UILabel.swift */,
@@ -1109,6 +1113,7 @@
 				0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00CA33B625A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */,
 				002BFA6F25C8219800CACB18 /* MetadataViewController.swift in Sources */,
+				00733A9B25CDB8590060085E /* UICollectionView.swift in Sources */,
 				007F8A1A24B7591C00324014 /* AlbumViewSettingsButton.swift in Sources */,
 				00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */,
 				00FA915225C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
@@ -1227,6 +1232,7 @@
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00CA33B525A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */,
 				002BFA6E25C8219800CACB18 /* MetadataViewController.swift in Sources */,
+				00733A9A25CDB8590060085E /* UICollectionView.swift in Sources */,
 				007F8A1924B7591C00324014 /* AlbumViewSettingsButton.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				00FA915125C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,

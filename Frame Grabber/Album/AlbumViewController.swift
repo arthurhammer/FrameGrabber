@@ -239,7 +239,7 @@ private extension AlbumViewController {
 
         dataSource.videosChangedHandler = { [weak self] changeDetails in
             self?.updateViews()
-            self?.collectionView.reloadSections([0])
+            self?.collectionView.reloadDataAnimated()
         }
     }
     
