@@ -5,8 +5,8 @@ class ZoomPushTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTran
 
     let type: TransitionType = .push
     
-    weak var fromDelegate: ZoomTransitionDelegate?
-    weak var toDelegate: ZoomTransitionDelegate?
+    private(set) weak var fromDelegate: ZoomTransitionDelegate?
+    private(set) weak var toDelegate: ZoomTransitionDelegate?
 
     private var transitionContext: UIViewControllerContextTransitioning?
     private var animator: UIViewPropertyAnimator?

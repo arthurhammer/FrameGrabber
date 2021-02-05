@@ -1,51 +1,52 @@
 import UIKit
 
-/// Coordinates the overall zoom transition by vending push and pop transition animators
-/// for the navigation controller.
+/// Coordinates the overall zoom transition by vending push and pop transition animators for the
+/// navigation controller.
 ///
-/// To use the transition, set the relevant navigation controller's delegate to an instance
-/// of this class and adopt the `ZoomTransitionDelegate` protocol in participating view
-/// controllers on the navigation stack.
+/// To use the transition:
+///   - Assign the navigation controller to the `navigationController` property.
+///   - Adopt the `ZoomTransitionDelegate` protocol in participating view controllers on the
+///     navigation stack.
 class ZoomTransitionController: NSObject {
-
-    /// Handles both interactive (slide to pop) and non-interactive transition (back button).
-    /// (todo: Refactor this into a fresh instance every time?)
-    private lazy var popTransition: ZoomPopTransition = {
-        let transition = ZoomPopTransition()
-        // The transition is non-interactive so it can handle the back button transition.
-        // When the user swipes downward for the first time, it becomes interactive.
-        transition.wantsInteractiveStart = false
-        return transition
-    }()
-
-    /// Handles the slide to pop gesture, typically from the top view controller, and
-    /// initiates the pop transition if certain criteria are met (gesture moves downwards).
-    @objc func handleSlideToPopGesture(_ gesture: UIPanGestureRecognizer, performTransition: () -> ()) {
-        let movingDown = gesture.velocity(in: gesture.view).y > 0
-
+        
+    /// The navigation controller for which to manage the zoom transition. The receiver assigns
+    /// itself as the delegate of the navigation controller.
+    weak var navigationController: UINavigationController? {
+        didSet { navigationController?.delegate = self }
+    }
+    
+    init(navigationController: UINavigationController? = nil) {
+        self.navigationController = navigationController
+        super.init()
+        navigationController?.delegate = self
+    }
+    
+    /// Handles the slide to pop gesture, typically called from the view controller to be popped.
+    /// When the gesture is deemed to start the transition, initiates the pop transition via
+    /// `navigationController.popViewController`.
+    @objc func handleSlideToPopGesture(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
-
-        // Initially moving downwards, start transition.
-        case .began where movingDown:
-            popTransition.wantsInteractiveStart = true
-            performTransition()
-
-        // If now moving downwards where not before, start transition.
-        case .changed where movingDown && !popTransition.wantsInteractiveStart:
-            popTransition.wantsInteractiveStart = true
-            performTransition()
-            gesture.setTranslation(.zero, in: gesture.view)
-
+        case .began:
+            startInteractiveTransition()
         case .changed:
             break
-
         default:
-            // Non-interactive to handle back button until next swipe attempt.
-            popTransition.wantsInteractiveStart = false
+            // Allow for the non-interactive back button transition until the next swipe attempt.
+            wantsInteractiveStart = false
         }
 
-        // Rest handled by the transition instance (animation, lifecycle etc.).
-        popTransition.updateInteractiveTransition(for: gesture)
+        // Rest handled by the transition instance after the transition started.
+        popTransition?.updateInteractiveTransition(for: gesture)
+    }
+        
+    // The transition is non-interactive initially to allow the non-interactive back button
+    // transition. When the user swipes downward for the first time, it becomes interactive.
+    private var wantsInteractiveStart = false
+    private var popTransition: ZoomPopTransition?
+    
+    private func startInteractiveTransition() {
+        wantsInteractiveStart = true
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -53,20 +54,21 @@ extension ZoomTransitionController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let from = fromVC as? ZoomTransitionDelegate,
-            let to = toVC as? ZoomTransitionDelegate else { return nil }
-
-        if operation == .push  {
-            return ZoomPushTransition(from: from, to: to)
-        }
-
-        popTransition.fromDelegate = from
-        popTransition.toDelegate = to
-        return popTransition
+            let to = toVC as? ZoomTransitionDelegate,
+            from.wantsZoomTransition(for: operation),
+            to.wantsZoomTransition(for: operation) else { return nil }
+        
+        return (operation == .push)
+            ? ZoomPushTransition(from: from, to: to)
+            : ZoomPopTransition(from: from, to: to)
     }
 
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        guard let popTransition = animationController as? ZoomPopTransition else { return nil }
-
-        return popTransition.wantsInteractiveStart ? popTransition : nil
+        guard let popTransition = animationController as? ZoomPopTransition,
+              wantsInteractiveStart else { return nil }
+            
+        self.popTransition = popTransition
+        popTransition.wantsInteractiveStart = true  // This is key.
+        return popTransition
     }
 }

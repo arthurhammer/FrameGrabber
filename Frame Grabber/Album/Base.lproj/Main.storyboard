@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -163,23 +162,30 @@
                                 </constraints>
                             </view>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="info.circle" catalog="system" id="r6g-Iu-tPw">
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="r6g-Iu-tPw" id="yrf-sk-izP">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="info.circle" catalog="system" id="r6g-Iu-tPw">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="r6g-Iu-tPw" id="yrf-sk-izP">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="folder.circle" catalog="system" id="Mk7-wD-Kfs">
+                                <connections>
+                                    <action selector="showFilePicker" destination="z5r-QY-0zg" id="l8k-KV-Is6"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="aboutBarItem" destination="r6g-Iu-tPw" id="pJA-SP-PV7"/>
                         <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
                         <outlet property="titleButton" destination="Mu7-kP-sfK" id="Gns-y9-fSV"/>
                         <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
                         <outlet property="viewSettingsButton" destination="ps3-t8-YlX" id="c09-fI-VfY"/>
-                        <segue destination="Tyx-Ot-Uwj" kind="show" identifier="EditorViewController" id="Pq9-qy-Vi2"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -206,7 +212,7 @@
                 <viewControllerPlaceholder storyboardName="About" id="Q9O-On-eG2" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="auw-b1-LZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1572" y="-2094"/>
+            <point key="canvasLocation" x="1570" y="-2077"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">
@@ -226,26 +232,17 @@
             </objects>
             <point key="canvasLocation" x="-97" y="-2076"/>
         </scene>
-        <!--Editor-->
-        <scene sceneID="qbs-rr-SWB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Editor" id="Tyx-Ot-Uwj" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="XXr-O7-4fk"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lbj-A5-gZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1572" y="-2060"/>
-        </scene>
     </scenes>
     <color key="tintColor" name="accent"/>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <image name="folder.circle" catalog="system" width="128" height="121"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
         <namedColor name="accent">
-            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.83137254901960789" green="0.26666666666666666" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

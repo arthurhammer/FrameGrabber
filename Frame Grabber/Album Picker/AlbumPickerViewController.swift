@@ -24,7 +24,7 @@ class AlbumPickerViewController: UIViewController {
         }!
     }()
     
-    init(dataSource: AlbumsDataSource, delegate: AlbumPickerViewControllerDelegate?) {
+    init(dataSource: AlbumsDataSource, delegate: AlbumPickerViewControllerDelegate? = nil) {
         self.dataSource = dataSource
         self.delegate = delegate
 

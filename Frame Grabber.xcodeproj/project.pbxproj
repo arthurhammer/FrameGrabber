@@ -28,6 +28,8 @@
 		001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* ProgressView.swift */; };
 		001CBD94242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
 		001CBD95242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
+		0020F04925C2D29F009C0C8F /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F04825C2D29F009C0C8F /* VideoSource.swift */; };
+		0020F04A25C2D29F009C0C8F /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020F04825C2D29F009C0C8F /* VideoSource.swift */; };
 		0023FC8F23390D940046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
 		0023FC90233910D30046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
 		0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
@@ -54,6 +56,8 @@
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F2A25040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Configuration.storekit */; };
+		0041729825C3F81F00DDBB55 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0041729725C3F81F00DDBB55 /* AppFileManager.swift */; };
+		0041729925C3F81F00DDBB55 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0041729725C3F81F00DDBB55 /* AppFileManager.swift */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A0FF25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10325BDE42000A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
@@ -265,6 +269,7 @@
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		001CBD93242BB7CE00625685 /* UserText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserText.swift; sourceTree = "<group>"; };
 		0020D2ED1FB4E512002379D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		0020F04825C2D29F009C0C8F /* VideoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSource.swift; sourceTree = "<group>"; };
 		0023FC8E23390D940046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/About.storyboard"; sourceTree = "<group>"; };
 		0023FC92233910DD0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/About.strings"; sourceTree = "<group>"; };
 		0023FC98233911B10046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authorization.storyboard; sourceTree = "<group>"; };
@@ -280,6 +285,7 @@
 		003D1F2625040717006107C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		0041729725C3F81F00DDBB55 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
@@ -542,6 +548,7 @@
 				0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
+				0020F04825C2D29F009C0C8F /* VideoSource.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
@@ -644,6 +651,7 @@
 				0054936323E5631B00F3E684 /* About.swift */,
 				00AFE4F820289AD6005E2AA8 /* Alerts.swift */,
 				001AA1781FB4977100A00BB9 /* AppDelegate.swift */,
+				0041729725C3F81F00DDBB55 /* AppFileManager.swift */,
 				00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */,
 				00CB8123234CE05400354E03 /* NavigationController.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
@@ -914,6 +922,7 @@
 				00730EB4214FEA5A001A6EA7 /* PlayerSeeker.swift in Sources */,
 				0054936523E5633700F3E684 /* About.swift in Sources */,
 				00109CCD23FD239400B79F58 /* AlbumIcons.swift in Sources */,
+				0041729925C3F81F00DDBB55 /* AppFileManager.swift in Sources */,
 				00730EB5214FEA5A001A6EA7 /* Alerts.swift in Sources */,
 				0025B2F225A8B3630075CCBC /* ImageMetadata.swift in Sources */,
 				00CA33EA25A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
@@ -934,6 +943,7 @@
 				00730EC2214FEA5A001A6EA7 /* AlbumListCollectionViewDataSource.swift in Sources */,
 				00CF4BCA23F208C4006DB612 /* CachingGeocoder.swift in Sources */,
 				00C4476C242AB3E600976DAF /* Combine.swift in Sources */,
+				0020F04A25C2D29F009C0C8F /* VideoSource.swift in Sources */,
 				00730EC3214FEA5A001A6EA7 /* ZoomingPlayerView.swift in Sources */,
 				00730EC4214FEA5A001A6EA7 /* ZoomTransitionTypes.swift in Sources */,
 				00EDF98323422B5A00FA0F48 /* NSObject.swift in Sources */,
@@ -1011,6 +1021,7 @@
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
 				00109CCC23FD239400B79F58 /* AlbumIcons.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
+				0041729825C3F81F00DDBB55 /* AppFileManager.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */,
 				00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
@@ -1031,6 +1042,7 @@
 				00CB8124234CE05400354E03 /* NavigationController.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
 				00CF4BC923F208C4006DB612 /* CachingGeocoder.swift in Sources */,
+				0020F04925C2D29F009C0C8F /* VideoSource.swift in Sources */,
 				00C4476B242AB3DF00976DAF /* Combine.swift in Sources */,
 				00F3867F212AA38E0089A473 /* AlbumListCollectionViewDataSource.swift in Sources */,
 				00EDF98223422B5A00FA0F48 /* NSObject.swift in Sources */,

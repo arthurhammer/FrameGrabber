@@ -7,18 +7,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var coordinator: Coordinator?
     let paymentsManager: StorePaymentsManager = .shared
+    let fileManager = AppFileManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         configureInAppPurchases()
         Style.configureAppearance(for: window)
         configureCoordinator()
-        clearTemporaryDirectory()
+        
+        if launchOptions?[.url] == nil {
+            try? fileManager.clearTemporaryDirectories()
+        }
 
         return true
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let openInPlace = options[.openInPlace] as? Bool == true
+        let _url = try? fileManager.importVideo(at: url, asCopy: true, deletingSource: !openInPlace)
+        
+        guard let url = _url,
+              let coordinator = coordinator else { return false }
+        
+        return coordinator.open(videoUrl: url)
+    }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        clearTemporaryDirectory()
+        try? fileManager.clearTemporaryDirectories()
         paymentsManager.stopObservingPayments()
     }
 
@@ -30,15 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         coordinator = Coordinator(navigationController: navigationController)
         coordinator?.start()
     }
-
+    
     private func configureInAppPurchases() {
         paymentsManager.purchasedProductsStore = UserDefaults.standard
         paymentsManager.startObservingPayments()
         paymentsManager.flushFinishedTransactions()
-    }
-
-    /// Clear any remaining temporary frames or live photo data exports.
-    private func clearTemporaryDirectory() {
-        try? FileManager.default.clearTemporaryDirectory()
     }
 }

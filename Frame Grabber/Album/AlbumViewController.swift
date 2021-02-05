@@ -3,9 +3,16 @@ import Photos
 import PhotosUI
 import UIKit
 
+protocol AlbumViewControllerDelegate: class {
+    func controllerDidSelectAlbumPicker(_ controller: AlbumViewController)
+    func controllerDidSelectFilePicker(_ controller: AlbumViewController)
+    func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?)
+}
+
 class AlbumViewController: UICollectionViewController {
-    var albumsDataSource: AlbumsDataSource?
-        
+    
+    weak var delegate: AlbumViewControllerDelegate?
+            
     /// The title that will be used when album is `nil`.
     var defaultTitle = UserText.albumDefaultTitle {
         didSet { updateViews() }
@@ -18,11 +25,15 @@ class AlbumViewController: UICollectionViewController {
         }
     }
 
-    /// The most recently selected asset.
-    private(set) var selectedAsset: PHAsset?
+    /// The asset that is the the source/target for the zoom push/pop transition, typically the last
+    /// selected asset.
+    var transitionAsset: PHAsset? {
+        didSet { select(asset: transitionAsset, animated: false) }
+    }
 
     @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
+    @IBOutlet private var aboutBarItem: UIBarButtonItem!
 
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
@@ -32,8 +43,6 @@ class AlbumViewController: UICollectionViewController {
         self.cell(for: $1, at: $0)
     }
 
-    private lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource ?? .default(), delegate: self)
-    
     static let contentModeAnimationDuration: TimeInterval = 0.15
     
     // MARK: - Lifecycle
@@ -53,26 +62,6 @@ class AlbumViewController: UICollectionViewController {
         super.viewWillLayoutSubviews()
         updateContentInsetForViewSettingsButton()
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? EditorViewController {
-            prepareForPlayerSegue(with: destination)
-        }
-    }
-    
-    private func prepareForPlayerSegue(with destination: EditorViewController) {
-        guard let selectedAsset = selectedAsset else { fatalError("Segue without selected asset") }
-
-        // (todo: Handle this in coordinator/delegate/navigation controller.)
-        let transitionController = ZoomTransitionController()
-        navigationController?.delegate = transitionController
-        destination.transitionController = transitionController
-
-        let cell = dataSource.indexPath(of: selectedAsset).flatMap(videoCell)
-        let thumbnail = cell?.imageView.image
-        
-        destination.videoController = VideoController(asset: selectedAsset, previewImage: thumbnail)
-    }
     
     // MARK: - Setting Albums
     
@@ -87,21 +76,25 @@ class AlbumViewController: UICollectionViewController {
 
     // MARK: - Actions
 
-    /// Selects `selectedAsset` in the collection view.
-    func restoreSelection(animated: Bool) {
-        let selectedIndexPath = selectedAsset.flatMap { dataSource.indexPath(of: $0) }
-        collectionView.selectItem(at: selectedIndexPath, animated: animated, scrollPosition: [])
+    func select(asset: PHAsset?, animated: Bool) {
+        let indexPath = asset.flatMap { dataSource.indexPath(of: $0) }
+        collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: [])
     }
     
     @objc private func showAlbumPicker() {
-        present(albumPicker, animated: true)
+        delegate?.controllerDidSelectAlbumPicker(self)
+    }
+    
+    @IBAction private func showFilePicker() {
+        delegate?.controllerDidSelectFilePicker(self)
     }
 
     // MARK: - Collection View Data Source & Delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedAsset = dataSource.video(at: indexPath)
-        performSegue(withIdentifier: EditorViewController.className, sender: nil)
+        let asset = dataSource.video(at: indexPath)
+        let thumbnail = videoCell(at: indexPath)?.imageView.image
+        delegate?.controller(self, didSelectEditorForAsset: asset, previewImage: thumbnail)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -150,14 +143,18 @@ class AlbumViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         // Video might've been deleted or changed during preview.
-        // If the video was removed from the album but not deleted fully, we will still perform the
-        // segue with the video.
         guard let video = configuration.identifier as? PHAsset,
-              let updatedVideo = dataSource.currentVideo(for: video) else { return }
+              let updatedVideo = dataSource.currentVideo(for: video),
+              let indexPath = dataSource.indexPath(of: updatedVideo) else { return }
 
         animator.addAnimations {
-            self.selectedAsset = updatedVideo
-            self.performSegue(withIdentifier: EditorViewController.className, sender: nil)
+            let thumbnail = self.videoCell(at: indexPath)?.imageView.image
+            
+            self.delegate?.controller(
+                self,
+                didSelectEditorForAsset: updatedVideo,
+                previewImage: thumbnail
+            )
         }
     }
 }
@@ -194,6 +191,8 @@ private extension AlbumViewController {
         } else {
             let action = #selector(showViewSettingsAlertSheet)
             viewSettingsButton.addTarget(self, action: action, for: .touchUpInside)
+            
+            navigationItem.rightBarButtonItems = [aboutBarItem]
         }
         
         viewSettingsButton.add(to: view)

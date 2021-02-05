@@ -3,15 +3,38 @@ import Combine
 import ThumbnailSlider
 import UIKit
 
+protocol EditorViewControllerDelegate: class {
+    func controller(_ controller: EditorViewController, handleSlideToPopGesture gesture: UIPanGestureRecognizer)
+}
+
 class EditorViewController: UIViewController {
+    
+    weak var delegate: EditorViewControllerDelegate?
 
-    var videoController: VideoController!
-    var transitionController: ZoomTransitionController?
-    let settings: UserDefaults = .standard
-
+    let videoController: VideoController
+    let playbackController: PlaybackController
+    let settings: UserDefaults
+    
+    init?(
+        videoController: VideoController,
+        playbackController: PlaybackController = .init(),
+        settings: UserDefaults = .standard,
+        delegate: EditorViewControllerDelegate? = nil,
+        coder: NSCoder
+    ) {
+        self.videoController = videoController
+        self.playbackController = playbackController
+        self.settings = settings
+        self.delegate = delegate
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Dependencies must be injected")
+    }
+    
     // MARK: Private Properties
 
-    private lazy var playbackController = PlaybackController()
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
     private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
@@ -62,7 +85,7 @@ class EditorViewController: UIViewController {
 
     private func prepareForMetadataSegue(with controller: MetadataViewController) {
         playbackController.pause()
-        controller.videoController = VideoController(asset: videoController.asset, video: videoController.video)
+        controller.videoController = VideoController(source: videoController.source, video: videoController.video)
     }
     
     private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
@@ -75,10 +98,6 @@ class EditorViewController: UIViewController {
 private extension EditorViewController {
 
     // MARK: Actions
-
-    func done() {
-        navigationController?.popViewController(animated: true)
-    }
 
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
@@ -164,8 +183,6 @@ private extension EditorViewController {
     }
 
     func configureGestures() {
-        guard transitionController != nil else { return }
-
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
         zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
 
@@ -175,14 +192,11 @@ private extension EditorViewController {
     }
 
     @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
-        let hasVideoOrPoster = zoomingPlayerView.playerView.bounds.size != .zero
+        let canSlide = zoomingPlayerView.playerView.bounds.size != .zero
 
-        guard !isScrubbing,
-            hasVideoOrPoster else { return }
+        guard !isScrubbing, canSlide else { return }
 
-        transitionController?.handleSlideToPopGesture(gesture, performTransition: {
-            done()
-        })
+        delegate?.controller(self, handleSlideToPopGesture: gesture)
     }
 
     func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
@@ -266,7 +280,7 @@ private extension EditorViewController {
     func loadPreviewImage() {
         let size = zoomingPlayerView.bounds.size.scaledToScreen
 
-        videoController.loadPreviewImage(with: size) { [weak self] image, _ in
+        videoController.loadPreviewImage(with: size) { [weak self] image in
             guard let image = image else { return }
             self?.zoomingPlayerView.posterImage = image
         }
@@ -339,7 +353,7 @@ private extension EditorViewController {
 
             shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
                 guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
-                self?.videoController.deleteExportedFrames()
+                try? self?.videoController.deleteExportedFrames()
             }
 
             presentOnTop(shareController)
@@ -354,7 +368,7 @@ private extension EditorViewController {
                     self?.presentOnTop(UIAlertController.savingToPhotosFailed())
                 }
                 
-                self?.videoController.deleteExportedFrames()
+                try? self?.videoController.deleteExportedFrames()
             }
         }
     }
