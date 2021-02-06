@@ -78,21 +78,9 @@ class VideoController {
     }
     
     func deleteAllResources() throws {
-        var _error: Error? = nil
-
-        // Proceed deleting the remaining resources in case of error.
-        do { try deleteVideoResource() }
-        catch { _error = error }
-        
-        do { try deleteLivePhotoResource() }
-        catch { _error = error }
-
-        do { try deleteExportedFrames() }
-        catch { _error = error }
-
-        if let error = _error {
-            throw error
-        }
+        try deleteVideoResource()
+        try deleteLivePhotoResource()
+        try deleteExportedFrames()
     }
     
     func deleteVideoResource() throws {
