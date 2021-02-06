@@ -22,6 +22,10 @@ public struct SmartAlbumsOptions {
     ///     date added, in chronological order.
     ///   - includesEmpty: Whether to include albums that don't contain any of the specified asset
     ///     types. The default is `true`.
+    ///
+    /// - Limitation: The returned key asset is always the last of the fetched ones. If no sort
+    ///   order is specified, this corresponds to the most recently added asset. However, if a sort
+    ///   order is specified, it will still be the last one according to that order.
     public init(
         types: [PHAssetCollectionSubtype] = [.smartAlbumUserLibrary],
         assetOptions: PHFetchOptions? = nil,
@@ -46,6 +50,8 @@ public struct UserAlbumsOptions {
     ///     the user's custom order in the photo library.
     ///   - includesEmpty: Whether to include albums that don't contain any of the specified asset
     ///     types. The default is `false`.
+    ///
+    /// The returned key asset is the first of the fetched assets.
     public init(
         albumOptions: PHFetchOptions? = nil,
         assetOptions: PHFetchOptions? = nil,

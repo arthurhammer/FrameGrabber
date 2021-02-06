@@ -8,7 +8,10 @@ public protocol FetchedAlbumProtocol: Album {
 extension FetchedAlbumProtocol {
 
     public var keyAsset: PHAsset? {
-        fetchResult.firstObject
+        switch assetCollection.assetCollectionType {
+        case .smartAlbum: return fetchResult.lastObject
+        default: return fetchResult.firstObject
+        }
     }
 
     public var count: Int {
