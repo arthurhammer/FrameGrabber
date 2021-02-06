@@ -22,8 +22,7 @@ struct UserText {
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
-    static let albumDefaultTitle = NSLocalizedString("album.missing.title", value: "Album", comment: "Title for missing or deleted albums.")
-    static let albumUnauthorizedTitle = NSLocalizedString("album.unauthorized.title", value: "Recents", comment: "Title for the initial placeholder album until the user authorizes.")
+    static let albumFallbackTitle = albumLimitedAuthorizationTitle
     static let albumLimitedAuthorizationTitle = NSLocalizedString("album.limited.title", value: "Library", comment: "Title for limited authorization in album view.")
     static let albumEmptyAny = NSLocalizedString("album.empty.any", value: "No Videos or Live Photos", comment: "Empty album message")
     static let albumEmptyVideos = NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")

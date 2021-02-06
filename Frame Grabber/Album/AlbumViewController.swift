@@ -1,4 +1,4 @@
-import PhotoAlbums
+import Combine
 import Photos
 import PhotosUI
 import UIKit
@@ -13,16 +13,8 @@ class AlbumViewController: UICollectionViewController {
     
     weak var delegate: AlbumViewControllerDelegate?
             
-    /// The title that will be used when album is `nil`.
-    var defaultTitle = UserText.albumDefaultTitle {
-        didSet { updateViews() }
-    }
-    
     override var title: String? {
-        didSet {
-            navigationItem.title = nil
-            titleButton.setTitle(title, for: .normal, animated: false)
-        }
+        didSet { titleButton.setTitle(title, for: .normal, animated: false) }
     }
 
     /// The asset that is the the source/target for the zoom push/pop transition, typically the last
@@ -37,6 +29,7 @@ class AlbumViewController: UICollectionViewController {
 
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
+    private var bindings = Set<AnyCancellable>()
     
     private lazy var dataSource: AlbumCollectionViewDataSource = AlbumCollectionViewDataSource {
         [unowned self] in
@@ -169,7 +162,11 @@ private extension AlbumViewController {
         collectionView.collectionViewLayout.invalidateLayout()
 
         titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()
+        titleButton.configureTrailingAlignedImage()        
+        navigationItem.titleView = UIView()
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonDisplayMode = .minimal
+        }
         
         if #available(iOS 14, *) {
             viewSettingsButton.showsMenuAsPrimaryAction = true
@@ -197,12 +194,12 @@ private extension AlbumViewController {
                 self?.handleLimitedAuthorizationMenuSelection(selection)
             }
         } else {
-            title = dataSource.album?.localizedTitle ?? defaultTitle
+            title = dataSource.album?.localizedTitle ?? UserText.albumFallbackTitle
             titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
         }
 
         emptyView.type = dataSource.filter
-        emptyView.isEmpty = dataSource.isEmpty
+        emptyView.isEmpty = dataSource.isEmpty && !dataSource.isUpdating
 
         updateViewSettingsButton()
         updateNavigationBar()
@@ -218,14 +215,21 @@ private extension AlbumViewController {
     }
         
     func configureDataSource() {
-        dataSource.albumChangedHandler = { [weak self] _ in
-            self?.updateViews()
-        }
+        dataSource.$album
+            .combineLatest(
+                dataSource.$isUpdating.removeDuplicates(),
+                dataSource.$assetsChanged
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateViews()
+            }.store(in: &bindings)
 
-        dataSource.videosChangedHandler = { [weak self] in
-            self?.updateViews()
-            self?.collectionView.reloadDataAnimated()
-        }
+        dataSource.$assetsChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.collectionView.reloadDataAnimated()
+            }.store(in: &bindings)
     }
     
     @available(iOS 14, *)

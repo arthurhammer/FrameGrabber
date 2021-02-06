@@ -2,19 +2,15 @@ import Combine
 import Photos
 import UIKit
 
-class AlbumCollectionViewDataSource: NSObject {
-        
-    private(set) var album: PHAssetCollection?
-    private var assets: ReversibleFetchResult?
+class AlbumCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
+    
+    @Published private(set) var album: PHAssetCollection?
+    @Published private(set) var assetsChanged: Void = ()
+    /// Whether the data source is loading updates for the album or its contents.
+    @Published private(set) var isUpdating: Bool = false
 
-    /// Called when the album itself (its metadata) has changed.
-    var albumChangedHandler: ((PHAssetCollection?) -> ())?
-    
-    /// Called when the contents of the album have changed.
-    var videosChangedHandler: (() -> ())?
-    
     /// When setting the filter, the album contents are updated asynchronously. During the update
-    /// the data source keeps reporting the old data to the collection view. See also: `setAlbum()`.
+    /// the data source keeps reporting the old assets to the collection view. See also: `setAlbum()`.
     var filter: PhotoLibraryFilter {
         get { settings.photoLibraryFilter }
         set {
@@ -42,22 +38,21 @@ class AlbumCollectionViewDataSource: NSObject {
         }
     }
         
-    let settings: UserDefaults
-    let photoLibrary: PHPhotoLibrary
-
+    private var assets: ReversibleFetchResult? {
+        didSet { assetsChanged = () }
+    }
+    
     private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
+    private let settings: UserDefaults
     private let updateQueue: DispatchQueue
-    private let imageManager: PHImageManager
+    private let imageManager: PHImageManager = .default()
+    let photoLibrary: PHPhotoLibrary = .shared()
     
     init(
-        photoLibrary: PHPhotoLibrary = .shared(),
-        imageManager: PHImageManager = .default(),
         settings: UserDefaults = .standard,
         updateQueue: DispatchQueue = .init(label: "", qos: .userInitiated),
         cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)
     ) {
-        self.photoLibrary = photoLibrary
-        self.imageManager = imageManager
         self.settings = settings
         self.updateQueue = updateQueue
         self.cellProvider = cellProvider
@@ -95,13 +90,10 @@ class AlbumCollectionViewDataSource: NSObject {
     /// When the data source is created and the photo library authorization status is
     /// `.notDetermined`, it holds off accessing the photo library until this method is called for
     /// the first time. This avoids triggering premature authorization dialogs.
-    func setAlbum(_ album: PHAssetCollection) {
+    func setAlbum(_ newAlbum: PHAssetCollection) {
         startAccessingPhotoLibraryIfNeeded()
-        
-        self.album = album
-        albumChangedHandler?(album)  // Propagate current state.
-        fetchAlbum()  // Fetch new state.
-        fetchAssets()
+        album = fetchUpdate(for: newAlbum)  // Synchronous. This is the new source of truth.
+        fetchAssets()  // Asynchronous.
     }
 
     func video(at indexPath: IndexPath) -> PHAsset? {
@@ -135,44 +127,71 @@ class AlbumCollectionViewDataSource: NSObject {
         }, completionHandler: nil)
     }
 
-    // MARK: Fetching
+    // MARK: Fetching and Updating
+    
+    // todo: Extract the fetching logic.
+    
+    private func fetchUpdate(for album: PHAssetCollection?) -> PHAssetCollection? {
+        guard let id = album?.localIdentifier else { return nil }
+        return PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [id], options: nil)
+            .firstObject
+    }
+    
+    private var tasks = 0 {
+        didSet { isUpdating = tasks > 0 }
+    }
 
-    private func fetchAlbum() {
+    private func fetchAssets() {
         guard isAccessingPhotoLibrary else { return }
-            
-        guard let albumID = album?.localIdentifier else {
-            albumChangedHandler?(nil)
-            return
-        }
+
+        tasks += 1
         
         updateQueue.async { [weak self] in
-            let result = PHAssetCollection.fetchAssetCollections(
-                withLocalIdentifiers: [albumID],
-                options: nil
-            ).firstObject
+            guard let self = self else { return }
+            
+            // Get the actual current state.
+            let (album, filter) = DispatchQueue.main.sync { (self.album, self.filter) }
+            
+            guard let sourceAlbum = album else {
+                DispatchQueue.main.sync {
+                    self.tasks -= 1
+                    self.assets = nil
+                }
+                return
+            }
+            
+            let fetchResult = PHAsset.fetchAssets(in: sourceAlbum, options: .assets(filteredBy: filter))
+            let isSmartAlbum = (sourceAlbum.assetCollectionType == .smartAlbum)
+            let assets = ReversibleFetchResult(fetchResult: fetchResult, isReversed: isSmartAlbum)
          
-            DispatchQueue.main.async {
-                self?.album = result
-                self?.albumChangedHandler?(result)
+            // Block until the new state is committed.
+            DispatchQueue.main.sync {
+                self.tasks -= 1
+                // Ditch outdated results.
+                guard sourceAlbum.localIdentifier == self.album?.localIdentifier else { return }
+                self.assets = assets
             }
         }
     }
     
-    private func fetchAssets() {
-        guard isAccessingPhotoLibrary else { return }
-        
-        guard let album = album else {
-            videosChangedHandler?()
-            return
-        }
-        
-        updateQueue.async { [weak self, filter = self.filter] in
-            let result = PHAsset.fetchAssets(in: album, options: .assets(filteredBy: filter))
-            let isSmartAlbum = album.assetCollectionType == .smartAlbum
-         
-            DispatchQueue.main.async {
-                self?.assets = ReversibleFetchResult(fetchResult: result, isReversed: isSmartAlbum)
-                self?.videosChangedHandler?()
+    func photoLibraryDidChange(_ change: PHChange) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            var albumWasDeleted = false
+            
+            if let currentAlbum = self.album,
+               change.changeDetails(for: currentAlbum) != nil {
+                
+                // Manually refetch the current state.
+                self.album = self.fetchUpdate(for: currentAlbum)
+                albumWasDeleted = self.album == nil
+            }
+            
+            let assetsChanged = (self.assets?.getFetchResult()).flatMap(change.changeDetails) != nil
+            
+            if albumWasDeleted || assetsChanged {
+                self.fetchAssets()
             }
         }
     }
@@ -189,28 +208,5 @@ extension AlbumCollectionViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let video = video(at: indexPath) else { preconditionFailure("Invalid index.") }
         return cellProvider(indexPath, video)
-    }
-}
-
-// MARK: - PHPhotoLibraryChangeObserver
-
-extension AlbumCollectionViewDataSource: PHPhotoLibraryChangeObserver {
-
-    func photoLibraryDidChange(_ change: PHChange) {
-        DispatchQueue.main.async { [weak self] in
-            // All updates go through the queue. Enqueue a new fetch instead of taking the values
-            // provided by the change details directly. This ensures proper update serialization.
-            if let oldAlbum = self?.album,
-               change.changeDetails(for: oldAlbum) != nil {
-                
-                self?.fetchAlbum()
-            }
-            
-            if let fetchResult = self?.assets?.getFetchResult(),
-               change.changeDetails(for: fetchResult) != nil {
-                
-                self?.fetchAssets()
-            }
-        }
     }
 }
