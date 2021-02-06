@@ -87,9 +87,9 @@ class AlbumViewController: UICollectionViewController {
     // MARK: - Collection View Data Source & Delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = dataSource.video(at: indexPath)
+        guard let video = dataSource.video(at: indexPath) else { return }
         let thumbnail = videoCell(at: indexPath)?.imageView.image
-        delegate?.controller(self, didSelectEditorForAsset: asset, previewImage: thumbnail)
+        delegate?.controller(self, didSelectEditorForAsset: video, previewImage: thumbnail)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -97,7 +97,7 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let video = dataSource.video(at: indexPath)
+        guard let video = dataSource.video(at: indexPath) else { return nil}
         let thumbnail = videoCell(at: indexPath)?.imageView.image
 
         return VideoCellContextMenu.configuration(
@@ -321,9 +321,9 @@ private extension AlbumViewController {
     }
 
     func reconfigure(cellAt indexPath: IndexPath) {
-        guard let cell = videoCell(at: indexPath)  else { return }
+        guard let cell = videoCell(at: indexPath),
+              let video = dataSource.video(at: indexPath) else { return }
               
-        let video = dataSource.video(at: indexPath)
         configure(cell: cell, for: video)
     }
 
@@ -339,7 +339,7 @@ private extension AlbumViewController {
     }
 
     func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath) {
-        let video = dataSource.video(at: indexPath)
+        guard let video = dataSource.video(at: indexPath) else { return }
         cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
 
     }

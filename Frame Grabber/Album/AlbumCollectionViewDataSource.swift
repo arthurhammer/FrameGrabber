@@ -104,9 +104,8 @@ class AlbumCollectionViewDataSource: NSObject {
         fetchAssets()
     }
 
-    /// Precondition: `indexPath` is valid according to `numberOfItemsInSection`.
-    func video(at indexPath: IndexPath) -> PHAsset {
-        assets!.asset(at: indexPath.item)!
+    func video(at indexPath: IndexPath) -> PHAsset? {
+        assets?.asset(at: indexPath.item)
     }
 
     func thumbnail(for video: PHAsset, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable {
@@ -188,7 +187,8 @@ extension AlbumCollectionViewDataSource: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        cellProvider(indexPath, video(at: indexPath))
+        guard let video = video(at: indexPath) else { preconditionFailure("Invalid index.") }
+        return cellProvider(indexPath, video)
     }
 }
 
