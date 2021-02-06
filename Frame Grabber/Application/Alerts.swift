@@ -14,6 +14,12 @@ extension UIAlertController {
              message: UserText.alertPlaybackFailedMessage,
              okHandler: okHandler)
     }
+    
+    static func filePickingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.alertFilePickingFailedTitle,
+             message: UserText.alertFilePickingFailedMessage,
+             okHandler: okHandler)
+    }
 
     static func frameExportFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertFrameExportFailedTitle,

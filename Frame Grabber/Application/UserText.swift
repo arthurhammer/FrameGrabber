@@ -85,6 +85,9 @@ struct UserText {
 }
 
 extension UserText {
+    static let alertFilePickingFailedTitle = NSLocalizedString("alert.filePicker.title", value: "Could not Open Video", comment: "")
+    static let alertFilePickingFailedMessage = NSLocalizedString("alert.filePicker.message", value: "There was an error importing the file.", comment: "")
+    
     static let alertVideoLoadFailedTitle = NSLocalizedString("alert.videoload.title", value: "Unable to Load Item", comment: "")
     static let alertVideoLoadFailedMessage = NSLocalizedString("alert.videoload.message", value: "Please check your network settings and make sure the format is supported on this device.", comment: "")
 

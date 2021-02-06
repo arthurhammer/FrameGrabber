@@ -7,6 +7,7 @@ class Coordinator: NSObject {
     let navigationController: NavigationController
     let libraryViewController: AlbumViewController
     let transitionController: ZoomTransitionController
+    let fileManager = FileManager.default
     
     private(set) lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource)
     
@@ -169,7 +170,13 @@ extension Coordinator: AlbumPickerViewControllerDelegate {
 extension Coordinator: UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let url = urls.first else { return }
-        showEditor(with: .url(url), previewImage: nil, animated: true)
+        guard let url = urls.first,
+              let newURL = try? fileManager.importFile(at: url, asCopy: true, deletingSource: true)
+        else {
+            navigationController.presentAlert(.filePickingFailed())
+            return
+        }
+        
+        showEditor(with: .url(newURL), previewImage: nil, animated: true)
     }
 }
