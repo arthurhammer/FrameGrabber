@@ -1,4 +1,4 @@
-import PhotoAlbums
+import Combine
 import Photos
 import PhotosUI
 import UIKit
@@ -13,16 +13,8 @@ class AlbumViewController: UICollectionViewController {
     
     weak var delegate: AlbumViewControllerDelegate?
             
-    /// The title that will be used when album is `nil`.
-    var defaultTitle = UserText.albumDefaultTitle {
-        didSet { updateViews() }
-    }
-    
     override var title: String? {
-        didSet {
-            navigationItem.title = nil
-            titleButton.setTitle(title, for: .normal, animated: false)
-        }
+        didSet { titleButton.setTitle(title, for: .normal, animated: false) }
     }
 
     /// The asset that is the the source/target for the zoom push/pop transition, typically the last
@@ -37,6 +29,7 @@ class AlbumViewController: UICollectionViewController {
 
     private lazy var emptyView = EmptyAlbumView()
     private lazy var durationFormatter = VideoDurationFormatter()
+    private var bindings = Set<AnyCancellable>()
     
     private lazy var dataSource: AlbumCollectionViewDataSource = AlbumCollectionViewDataSource {
         [unowned self] in
@@ -65,13 +58,8 @@ class AlbumViewController: UICollectionViewController {
     
     // MARK: - Setting Albums
     
-    /// Sets the current photo album.
-    ///
-    /// - Note: Upon first call, the receiver will start accessing the user's photo library. If
-    ///         the authorization is `notDetermined`, this will trigger an authorization dialog.
-    func setSourceAlbum(_ sourceAlbum: AnyAlbum) {
-        dataSource.startAccessingPhotoLibrary()
-        dataSource.setSourceAlbum(sourceAlbum)
+    func setAlbum(_ album: PHAssetCollection) {
+        dataSource.setAlbum(album)
     }
 
     // MARK: - Actions
@@ -92,9 +80,9 @@ class AlbumViewController: UICollectionViewController {
     // MARK: - Collection View Data Source & Delegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = dataSource.video(at: indexPath)
+        guard let video = dataSource.video(at: indexPath) else { return }
         let thumbnail = videoCell(at: indexPath)?.imageView.image
-        delegate?.controller(self, didSelectEditorForAsset: asset, previewImage: thumbnail)
+        delegate?.controller(self, didSelectEditorForAsset: video, previewImage: thumbnail)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -102,7 +90,7 @@ class AlbumViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let video = dataSource.video(at: indexPath)
+        guard let video = dataSource.video(at: indexPath) else { return nil}
         let thumbnail = videoCell(at: indexPath)?.imageView.image
 
         return VideoCellContextMenu.configuration(
@@ -159,16 +147,6 @@ class AlbumViewController: UICollectionViewController {
     }
 }
 
-// MARK: - AlbumPickerViewControllerDelegate
-
-extension AlbumViewController: AlbumPickerViewControllerDelegate {
-    
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
-        guard let album = album else { return }
-        dataSource.setSourceAlbum(album)
-    }
-}
-
 private extension AlbumViewController {
     
     // MARK: Configuring
@@ -184,7 +162,11 @@ private extension AlbumViewController {
         collectionView.collectionViewLayout.invalidateLayout()
 
         titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()
+        titleButton.configureTrailingAlignedImage()        
+        navigationItem.titleView = UIView()
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonDisplayMode = .minimal
+        }
         
         if #available(iOS 14, *) {
             viewSettingsButton.showsMenuAsPrimaryAction = true
@@ -212,12 +194,12 @@ private extension AlbumViewController {
                 self?.handleLimitedAuthorizationMenuSelection(selection)
             }
         } else {
-            title = dataSource.album?.title ?? defaultTitle
+            title = dataSource.album?.localizedTitle ?? UserText.albumFallbackTitle
             titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
         }
 
         emptyView.type = dataSource.filter
-        emptyView.isEmpty = dataSource.isEmpty
+        emptyView.isEmpty = dataSource.isEmpty && !dataSource.isUpdating
 
         updateViewSettingsButton()
         updateNavigationBar()
@@ -233,22 +215,21 @@ private extension AlbumViewController {
     }
         
     func configureDataSource() {
-        dataSource.albumChangedHandler = { [weak self] _ in
-            self?.updateViews()
-        }
+        dataSource.$album
+            .combineLatest(
+                dataSource.$isUpdating.removeDuplicates(),
+                dataSource.$assetsChanged
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateViews()
+            }.store(in: &bindings)
 
-        dataSource.videosChangedHandler = { [weak self] changeDetails in
-            self?.updateViews()
-
-            guard let changeDetails = changeDetails else {
-                self?.collectionView?.reloadData()
-                return
-            }
-
-            self?.collectionView?.applyPhotoLibraryChanges(for: changeDetails, cellConfigurator: {
-                self?.reconfigure(cellAt: $0)
-            })
-        }
+        dataSource.$assetsChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.collectionView.reloadDataAnimated()
+            }.store(in: &bindings)
     }
     
     @available(iOS 14, *)
@@ -344,9 +325,9 @@ private extension AlbumViewController {
     }
 
     func reconfigure(cellAt indexPath: IndexPath) {
-        guard let cell = videoCell(at: indexPath)  else { return }
+        guard let cell = videoCell(at: indexPath),
+              let video = dataSource.video(at: indexPath) else { return }
               
-        let video = dataSource.video(at: indexPath)
         configure(cell: cell, for: video)
     }
 
@@ -362,7 +343,7 @@ private extension AlbumViewController {
     }
 
     func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath) {
-        let video = dataSource.video(at: indexPath)
+        guard let video = dataSource.video(at: indexPath) else { return }
         cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
 
     }

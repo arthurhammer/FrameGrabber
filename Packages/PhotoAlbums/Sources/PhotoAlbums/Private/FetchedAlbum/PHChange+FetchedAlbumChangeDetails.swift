@@ -4,7 +4,7 @@ extension PHChange {
 
     /// Returns detailed changes for the album's asset collection and fetch result. Returns nil if
     /// nothing changed.
-    public func changeDetails(for album: FetchedAlbum) -> FetchedAlbum.ChangeDetails? {
+    func changeDetails(for album: FetchedAlbum) -> FetchedAlbum.ChangeDetails? {
         let albumChanges = changeDetails(for: album.assetCollection)
         let assetChanges = changeDetails(for: album.fetchResult)
         let didChange = (albumChanges, assetChanges) != (nil, nil)

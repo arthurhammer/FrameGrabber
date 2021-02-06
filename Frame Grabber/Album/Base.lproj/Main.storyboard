@@ -130,7 +130,6 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="T1c-VB-q52">
-                        <barButtonItem key="backBarButtonItem" title=" " id="a5R-LE-pLO"/>
                         <barButtonItem key="leftBarButtonItem" id="PG2-Xm-2wu">
                             <view key="customView" contentMode="scaleToFill" id="Wk6-dR-MUk">
                                 <rect key="frame" x="20" y="5.5" width="120" height="33"/>
@@ -242,7 +241,7 @@
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
         <namedColor name="accent">
-            <color red="0.31372549019607843" green="0.26666666666666666" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

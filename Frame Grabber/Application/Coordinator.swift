@@ -12,7 +12,7 @@ class Coordinator: NSObject {
     
     private(set) lazy var albumsDataSource: AlbumsDataSource = {
         assert(!needsAuthorization, "Photo library access before authorization")
-        return AlbumsDataSource.default()
+        return AlbumsDataSource.makeDefaultDataSource()
     }()
     
     private var needsAuthorization: Bool {
@@ -33,10 +33,10 @@ class Coordinator: NSObject {
 
     func start() {
         libraryViewController.delegate = self
-        libraryViewController.defaultTitle =  UserText.albumUnauthorizedTitle
         
         showAuthorizationIfNeeded { [weak self] in
-            self?.configureLibrary()
+            self?.showRecentsAlbum()
+            _ = self?.albumsDataSource  // Preload albums.
         }
     }
     
@@ -76,16 +76,12 @@ class Coordinator: NSObject {
         navigationController.present(authorizationController, animated: animated)
     }
     
-    private func configureLibrary() {
+    private func showRecentsAlbum() {
         assert(!needsAuthorization, "Photo library access before authorization")
-        
-        libraryViewController.defaultTitle = UserText.albumDefaultTitle
-        
-        if let initialAlbum = AlbumsDataSource.fetchInitialAssetCollection() {
-            libraryViewController.setSourceAlbum(AnyAlbum(assetCollection: initialAlbum))
+
+        if let recents = AlbumsDataSource.fetchFirstAlbum() {
+            libraryViewController.setAlbum(recents)
         }
-        
-        _ = albumsDataSource  // Preload albums.
     }
     
     private func showEditor(with source: VideoSource, previewImage: UIImage?, animated: Bool) {
@@ -143,7 +139,7 @@ extension Coordinator: AlbumViewControllerDelegate {
             showFilePicker()
         }
     }
-    
+
     func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
@@ -162,9 +158,9 @@ extension Coordinator: EditorViewControllerDelegate {
 
 extension Coordinator: AlbumPickerViewControllerDelegate {
     
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: AnyAlbum?) {
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?) {
         guard let album = album else { return }
-        libraryViewController.setSourceAlbum(album)
+        libraryViewController.setAlbum(album.assetCollection)
     }
 }
 
