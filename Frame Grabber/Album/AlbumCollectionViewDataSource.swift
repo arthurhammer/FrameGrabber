@@ -2,11 +2,10 @@ import Combine
 import Photos
 import UIKit
 
-
 class AlbumCollectionViewDataSource: NSObject {
         
     private(set) var album: PHAssetCollection?
-    private var assets: PHFetchResult<PHAsset>?
+    private var assets: ReversibleFetchResult?
 
     /// Called when the album itself (its metadata) has changed.
     var albumChangedHandler: ((PHAssetCollection?) -> ())?
@@ -32,7 +31,7 @@ class AlbumCollectionViewDataSource: NSObject {
     var imageOptions = PHImageManager.ImageOptions()
     
     var isEmpty: Bool {
-        (assets?.count ?? 0) == 0
+        assets?.isEmpty ?? true
     }
 
     var isAuthorizationLimited: Bool {
@@ -107,7 +106,7 @@ class AlbumCollectionViewDataSource: NSObject {
 
     /// Precondition: `indexPath` is valid according to `numberOfItemsInSection`.
     func video(at indexPath: IndexPath) -> PHAsset {
-        assets!.object(at: indexPath.item)
+        assets!.asset(at: indexPath.item)!
     }
 
     func thumbnail(for video: PHAsset, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable {
@@ -170,9 +169,10 @@ class AlbumCollectionViewDataSource: NSObject {
         
         updateQueue.async { [weak self, filter = self.filter] in
             let result = PHAsset.fetchAssets(in: album, options: .assets(filteredBy: filter))
+            let isSmartAlbum = album.assetCollectionType == .smartAlbum
          
             DispatchQueue.main.async {
-                self?.assets = result
+                self?.assets = ReversibleFetchResult(fetchResult: result, isReversed: isSmartAlbum)
                 self?.videosChangedHandler?()
             }
         }
@@ -206,8 +206,8 @@ extension AlbumCollectionViewDataSource: PHPhotoLibraryChangeObserver {
                 self?.fetchAlbum()
             }
             
-            if let assets = self?.assets,
-               change.changeDetails(for: assets) != nil {
+            if let fetchResult = self?.assets?.getFetchResult(),
+               change.changeDetails(for: fetchResult) != nil {
                 
                 self?.fetchAssets()
             }

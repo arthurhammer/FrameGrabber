@@ -67,6 +67,8 @@
 		002F59901FBF3AC400910891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17C1FB4977100A00BB9 /* Main.storyboard */; };
 		00328A951FC85919004648F9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A941FC85919004648F9 /* PlayerView.swift */; };
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
+		0034A83725CDFF31009238E4 /* ReversibleFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034A83625CDFF31009238E4 /* ReversibleFetchResult.swift */; };
+		0034A83825CDFF31009238E4 /* ReversibleFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034A83625CDFF31009238E4 /* ReversibleFetchResult.swift */; };
 		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		0034AFFE240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
@@ -332,6 +334,7 @@
 		002BFA6D25C8219800CACB18 /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		0034A83625CDFF31009238E4 /* ReversibleFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversibleFetchResult.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
@@ -611,6 +614,7 @@
 				00653B442139E1680038CB56 /* AlbumViewController+Transition.swift */,
 				007F8A1824B7591C00324014 /* AlbumViewSettingsButton.swift */,
 				00F85F0F23FA8A040037961E /* EmptyAlbumView.swift */,
+				0034A83625CDFF31009238E4 /* ReversibleFetchResult.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 				00CA33BA25A3598D00DBD84D /* Menus */,
@@ -1109,6 +1113,7 @@
 				00FA916125C934B1007EB7DC /* PhotoLibraryMetadata.swift in Sources */,
 				00730ED2214FEA5A001A6EA7 /* VideoController.swift in Sources */,
 				001CBD95242BB7CE00625685 /* UserText.swift in Sources */,
+				0034A83825CDFF31009238E4 /* ReversibleFetchResult.swift in Sources */,
 				00730ED4214FEA5A001A6EA7 /* AlbumCollectionViewDataSource.swift in Sources */,
 				0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00CA33B625A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */,
@@ -1228,6 +1233,7 @@
 				00FA916025C934B1007EB7DC /* PhotoLibraryMetadata.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
 				001CBD94242BB7CE00625685 /* UserText.swift in Sources */,
+				0034A83725CDFF31009238E4 /* ReversibleFetchResult.swift in Sources */,
 				0072089B1FBF87B20046F389 /* AlbumCollectionViewDataSource.swift in Sources */,
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00CA33B525A3598400DBD84D /* LimitedAuthorizationMenu.swift in Sources */,
