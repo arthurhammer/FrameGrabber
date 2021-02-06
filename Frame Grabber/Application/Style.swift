@@ -59,7 +59,7 @@ extension UIView {
     func applyToolbarShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.1
-        layer.shadowRadius = 10
+        layer.shadowRadius = 12
         layer.shadowOffset = .zero
     }
 }

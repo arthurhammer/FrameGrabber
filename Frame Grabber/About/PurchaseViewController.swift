@@ -124,6 +124,11 @@ class PurchaseViewController: UIViewController {
         imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         imageContainer?.applyToolbarShadow()
         
+        purchasingView.alpha = 0
+        purchasingView.isHidden = false
+        purchasedView.isHidden = false
+        purchasedView.alpha = 0
+        
         updateViews()
         updateSeparator()
     }
@@ -133,11 +138,9 @@ class PurchaseViewController: UIViewController {
         let price = fetchedProduct.flatMap(formattedPrice)
         
         purchaseButtonsView.configure(with: state, price: price)
-                
-        purchasingView.isHidden =
-            !([.fetchingProducts, .purchasing, .restoring].contains(state))
-        
-        purchasedView.isHidden = state != .purchased
+        purchasingView.fade(in: [.fetchingProducts, .purchasing].contains(state))
+
+        purchasedView.fade(in: state == .purchased)
     }
 
     private func updateSeparator() {
@@ -254,5 +257,18 @@ extension PurchaseViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateSeparator()
+    }
+}
+
+private extension UIView {
+    
+    func fade(in fadeIn: Bool) {
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .beginFromCurrentState,
+            animations: {
+                self.alpha = fadeIn ? 1 : 0
+            }, completion: nil)
     }
 }

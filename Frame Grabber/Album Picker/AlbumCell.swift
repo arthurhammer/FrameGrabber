@@ -25,12 +25,12 @@ class AlbumCell: UICollectionViewCell {
     }
 
     private func configureViews() {
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 12
         imageView.layer.cornerCurve = .continuous
 
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .cellSelection
-        selectedBackgroundView?.layer.cornerRadius = 8
+        selectedBackgroundView?.layer.cornerRadius = 12
         selectedBackgroundView?.layer.cornerCurve = .continuous
         
         // Allow the selection to spill over.

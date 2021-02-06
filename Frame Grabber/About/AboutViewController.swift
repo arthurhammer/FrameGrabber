@@ -6,8 +6,9 @@ import UIKit
 class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
     enum Section: Int {
-        case featured
         case about
+        case featured
+        case version
     }
 
     let app = UIApplication.shared
@@ -32,9 +33,10 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let contactPath = IndexPath(row: 0, section: 1)
-        let privacyPolicyPath = IndexPath(row: 1, section: 1)
-        let showSourceCodePath = IndexPath(row: 2, section: 1)
+        let aboutSection = Section.about.rawValue
+        let contactPath = IndexPath(row: 0, section: aboutSection)
+        let privacyPolicyPath = IndexPath(row: 1, section: aboutSection)
+        let showSourceCodePath = IndexPath(row: 2, section: aboutSection)
 
         switch indexPath {
         case contactPath: contact()
@@ -66,19 +68,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
             bundle.shortFormattedVersion
         )
 
-        configureNavigationBar()
-    }
-    
-    private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barTintColor = .clear
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
     }
 }
 
