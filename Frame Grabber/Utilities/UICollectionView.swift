@@ -16,7 +16,7 @@ extension UICollectionView {
     /// - Precondition: You are responsible for ensuring that it is safe to modify the superview's
     ///   view hierarchy by temporarily inserting a snapshot view.
     func reloadDataAnimated(
-        withDuration duration: TimeInterval = 0.35,
+        withDuration duration: TimeInterval = 0.25,
         completion: ((Bool) -> Void)? = nil
     ) {
         guard let snapshot = snapshotView(afterScreenUpdates: false),  // `false` is key.

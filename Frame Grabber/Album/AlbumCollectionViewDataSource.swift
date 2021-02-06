@@ -92,8 +92,8 @@ class AlbumCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
     /// the first time. This avoids triggering premature authorization dialogs.
     func setAlbum(_ newAlbum: PHAssetCollection) {
         startAccessingPhotoLibraryIfNeeded()
-        album = fetchUpdate(for: newAlbum)  // Synchronous. This is the new source of truth.
-        fetchAssets()  // Asynchronous.
+        album = newAlbum
+        fetchAssets()
     }
 
     func video(at indexPath: IndexPath) -> PHAsset? {
