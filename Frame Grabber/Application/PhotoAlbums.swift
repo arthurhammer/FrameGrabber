@@ -13,13 +13,13 @@ extension AlbumsDataSource {
 
     static func makeDefaultDataSource() -> AlbumsDataSource {
         AlbumsDataSource(
-            smartAlbumConfiguration: .init(
+            smartAlbumsOptions: .init(
                 types: AlbumsDataSource.smartAlbumTypes,
-                assetFetchOptions: .assets(filteredBy: .videoAndLivePhoto)
+                assetOptions: .assets(filteredBy: .videoAndLivePhoto)
             ),
-            userAlbumConfiguration: .init(
-                albumFetchOptions: .userAlbums(),
-                assetFetchOptions: .assets(filteredBy: .videoAndLivePhoto)
+            userAlbumsOptions: .init(
+                albumOptions: .userAlbums(),
+                assetOptions: .assets(filteredBy: .videoAndLivePhoto)
             )
         )
     }
