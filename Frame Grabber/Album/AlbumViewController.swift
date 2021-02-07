@@ -164,9 +164,6 @@ private extension AlbumViewController {
         titleButton.configureDynamicTypeLabel()
         titleButton.configureTrailingAlignedImage()        
         navigationItem.titleView = UIView()
-        if #available(iOS 14.0, *) {
-            navigationItem.backButtonDisplayMode = .minimal
-        }
         
         if #available(iOS 14, *) {
             viewSettingsButton.showsMenuAsPrimaryAction = true

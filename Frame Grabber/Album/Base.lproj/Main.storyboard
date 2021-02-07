@@ -216,7 +216,7 @@
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Aa-pW-rx6" customClass="NavigationController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Aa-pW-rx6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9SS-7U-qiD">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

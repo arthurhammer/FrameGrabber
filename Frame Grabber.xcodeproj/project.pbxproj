@@ -237,8 +237,6 @@
 		00CA341425A515A800DBD84D /* AlbumPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */; };
 		00CA341C25A5BA4400DBD84D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA341B25A5BA4400DBD84D /* UIViewController.swift */; };
 		00CA341D25A5BA4400DBD84D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA341B25A5BA4400DBD84D /* UIViewController.swift */; };
-		00CB8124234CE05400354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
-		00CB8125234CE05800354E03 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB8123234CE05400354E03 /* NavigationController.swift */; };
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
 		00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
 		00CF4BC923F208C4006DB612 /* CachingGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */; };
@@ -410,7 +408,6 @@
 		00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContextMenuPreviewController.swift; sourceTree = "<group>"; };
 		00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerViewController.swift; sourceTree = "<group>"; };
 		00CA341B25A5BA4400DBD84D /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		00CB8123234CE05400354E03 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = "Frame Grabber/Application/NavigationController.swift"; sourceTree = SOURCE_ROOT; };
 		00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetResourceManager.swift; sourceTree = "<group>"; };
 		00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingGeocoder.swift; sourceTree = "<group>"; };
 		00D9E83223424A07009E7AFA /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -777,7 +774,6 @@
 				001AA1781FB4977100A00BB9 /* AppDelegate.swift */,
 				00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */,
 				006C0FD025C5B2B6007E50B0 /* Logger.swift */,
-				00CB8123234CE05400354E03 /* NavigationController.swift */,
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
@@ -1072,7 +1068,6 @@
 				0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */,
 				00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */,
 				00CA338025A1DFE500DBD84D /* UIButton.swift in Sources */,
-				00CB8125234CE05800354E03 /* NavigationController.swift in Sources */,
 				00730EC2214FEA5A001A6EA7 /* AlbumListCollectionViewDataSource.swift in Sources */,
 				005748B125C9242A00F64621 /* FileMetadata.swift in Sources */,
 				00CF4BCA23F208C4006DB612 /* CachingGeocoder.swift in Sources */,
@@ -1192,7 +1187,6 @@
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */,
-				00CB8124234CE05400354E03 /* NavigationController.swift in Sources */,
 				005748B025C9242A00F64621 /* FileMetadata.swift in Sources */,
 				009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */,
 				00CF4BC923F208C4006DB612 /* CachingGeocoder.swift in Sources */,

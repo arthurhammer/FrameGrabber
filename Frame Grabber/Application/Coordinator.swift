@@ -4,7 +4,7 @@ import UIKit
 
 class Coordinator: NSObject {
 
-    let navigationController: NavigationController
+    let navigationController: UINavigationController
     let libraryViewController: AlbumViewController
     let transitionController: ZoomTransitionController
     let fileManager = FileManager.default
@@ -20,7 +20,7 @@ class Coordinator: NSObject {
         AuthorizationController.needsAuthorization
     }
 
-    init(navigationController: NavigationController) {
+    init(navigationController: UINavigationController) {
         guard let albumViewController = navigationController.topViewController as? AlbumViewController else { fatalError("Wrong root controller or type.") }
         
         self.navigationController = navigationController

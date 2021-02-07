@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func configureCoordinator() {
-        guard let navigationController = window?.rootViewController as? NavigationController else {
+        guard let navigationController = window?.rootViewController as? UINavigationController else {
             fatalError("Wrong root view controller")
         }
 
