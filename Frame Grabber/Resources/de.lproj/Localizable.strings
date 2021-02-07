@@ -40,12 +40,6 @@
 /* Title for limited authorization in album view. */
 "album.limited.title" = "Mediathek";
 
-/* Title for missing or deleted albums. */
-"album.missing.title" = "Album";
-
-/* Title for the initial placeholder album until the user authorizes. */
-"album.unauthorized.title" = "Zuletzt";
-
 /* Title of album view as aspect ratio settings menu item */
 "album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
 
@@ -57,6 +51,12 @@
 
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
+
+/* No comment provided by engineer. */
+"alert.filePicker.message" = "Beim Importieren ist ein Fehler aufgetreten.";
+
+/* No comment provided by engineer. */
+"alert.filePicker.title" = "Video konnte nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
 "alert.frameexport.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
@@ -137,7 +137,7 @@
 "exportsettings.saveToPhotos.action" = "Fotos";
 
 /* Explanation of what the save to photos setting does */
-"exportsettings.saveToPhotos.footer" = "Speichert Bilder in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
+"exportsettings.saveToPhotos.footer" = "Speichert Fotos in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
 
 /* Explanation of image formats in settings footer when HEIF is not supported */
 "exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
@@ -146,7 +146,7 @@
 "exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
 
 /* Explanation of what the share sheet setting does */
-"exportsettings.showShareSheet.footer" = "Öffnet das Share-Sheet zum Exportieren.";
+"exportsettings.showShareSheet.footer" = "Sende Fotos direkt an AirDrop, Instagram, WhatsApp und viele weitere Apps.";
 
 /* Video frame rate with unit */
 "formatter.framerate.format" = "%@ fps";

@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
-                            <tableViewSection headerTitle="" footerTitle="Adds creation date, GPS location and other metadata to exported frames." id="iHH-Fm-kn8">
+                            <tableViewSection headerTitle="" footerTitle="Adds creation date, GPS location and other metadata to exported frames, if available." id="iHH-Fm-kn8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="2lV-7c-Xqf">
                                         <rect key="frame" x="20" y="39.5" width="374" height="44"/>
@@ -101,7 +101,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="" footerTitle="A smaller compression quality results in a smaller file size and reduced photo quality." id="6AO-mV-PI8">
+                            <tableViewSection headerTitle="" footerTitle="A smaller compression quality results in a smaller file size with a slightly reduced photo quality." id="6AO-mV-PI8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="u7N-Xf-5fC">
                                         <rect key="frame" x="20" y="278.5" width="374" height="44"/>

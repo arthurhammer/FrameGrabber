@@ -1,5 +1,5 @@
-/* Class = "UITableViewSection"; footerTitle = "A smaller compression quality results in a smaller file size and reduced photo quality."; ObjectID = "6AO-mV-PI8"; */
-"6AO-mV-PI8.footerTitle" = "Eine niedrigere Kompressionsqualität führt zu einer kleineren Dateigröße und schlechteren Bildqualität.";
+/* Class = "UITableViewSection"; footerTitle = "A smaller compression quality results in a smaller file size with a slightly reduced photo quality."; ObjectID = "6AO-mV-PI8"; */
+"6AO-mV-PI8.footerTitle" = "Eine niedrigere Kompressionsqualität führt zu einer kleineren Dateigröße mit einer leicht geringeren Bildqualität.";
 
 /* Class = "UINavigationItem"; title = "Export to"; ObjectID = "7g2-vo-8yq"; */
 "7g2-vo-8yq.title" = "Zielort";
@@ -13,8 +13,8 @@
 /* Class = "UILabel"; text = "Time Format"; ObjectID = "EqD-Cz-Mrt"; */
 "EqD-Cz-Mrt.text" = "Zeitformat";
 
-/* Class = "UITableViewSection"; footerTitle = "Adds creation date, GPS location and other metadata to exported frames."; ObjectID = "iHH-Fm-kn8"; */
-"iHH-Fm-kn8.footerTitle" = "Fügt Aufnahmedatum, Ort und andere Metadaten zu exportierten Bildern hinzu.";
+/* Class = "UITableViewSection"; footerTitle = "Adds creation date, GPS location and other metadata to exported frames, if available."; ObjectID = "iHH-Fm-kn8"; */
+"iHH-Fm-kn8.footerTitle" = "Fügt Aufnahmedatum, Ort und andere Metadaten zu exportierten Bildern hinzu, falls verfügbar.";
 
 /* Class = "UILabel"; text = "<0.95>"; ObjectID = "mzj-e4-l06"; */
 "mzj-e4-l06.text" = "<0.95>";

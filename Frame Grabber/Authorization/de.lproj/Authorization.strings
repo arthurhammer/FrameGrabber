@@ -5,7 +5,7 @@
 "jve-4i-sJx.text" = "Willkommen zu";
 
 /* Class = "UIButton"; accessibilityHint = "Opens privacy policy."; ObjectID = "YdY-Cc-mGB"; */
-"YdY-Cc-mGB.accessibilityHint" = "Öffnet Datenschutzerklärung.";
+"YdY-Cc-mGB.accessibilityHint" = "Öffnet die Datenschutzerklärung.";
 
 /* Class = "UIButton"; normalTitle = "Your videos remain private."; ObjectID = "YdY-Cc-mGB"; */
 "YdY-Cc-mGB.normalTitle" = "Deine Videos bleiben privat.";
