@@ -225,7 +225,7 @@ private extension LibraryViewController {
         dataSource.$assetsChanged
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.collectionView.reloadDataAnimated()
+                self?.collectionView.reloadData(animated: true)
             }.store(in: &bindings)
     }
     
