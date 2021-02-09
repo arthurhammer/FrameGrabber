@@ -588,6 +588,7 @@
 				00733A9925CDB8590060085E /* UICollectionView.swift */,
 				0054936023E562E200F3E684 /* UIDevice.swift */,
 				00D9E83223424A07009E7AFA /* UIFont.swift */,
+				0067B4E625D2D682008F3E69 /* UIImagePickerController.swift */,
 				00C68E53242B6A3D004135A4 /* UILabel.swift */,
 				001F7E2525CB44AF0075AFC2 /* UITraitCollection.swift */,
 				00CA341B25A5BA4400DBD84D /* UIViewController.swift */,

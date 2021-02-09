@@ -1,27 +1,70 @@
 import MobileCoreServices
 import UIKit
 
-extension UIImagePickerController {
+/// Static factory for view controllers.
+struct ViewControllerFactory {
     
-    typealias CameraDelegate = UIImagePickerControllerDelegate & UINavigationControllerDelegate
+    static func makeAuthorization(
+        withSuccessHandler success: @escaping () -> ()
+    ) -> AuthorizationController {
+        
+        let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
+        
+        guard let controller = storyboard.instantiateInitialViewController() as? AuthorizationController else {
+            fatalError("Could not instantiate controller.")
+        }
+
+        controller.didAuthorizeHandler = success
+        controller.modalPresentationStyle = .formSheet
+        controller.isModalInPresentation = true
+
+        return controller
+    }
     
-    static var canRecordVideos: Bool {
-        isSourceTypeAvailable(.camera)
-            && (availableMediaTypes(for: .camera) ?? []).contains(kUTTypeMovie as String)
-            && isCameraDeviceAvailable(.rear) || isCameraDeviceAvailable(.front)
+    static func makeEditor(
+        with source: VideoSource,
+        previewImage: UIImage?,
+        delegate: EditorViewControllerDelegate?
+    ) -> EditorViewController {
+        
+        let storyboard = UIStoryboard(name: "Editor", bundle: nil)
+        let videoController = VideoController(source: source, previewImage: previewImage)
+        
+        guard let controller = storyboard.instantiateInitialViewController(creator: {
+            EditorViewController(videoController: videoController, delegate: delegate, coder: $0)
+        }) else { fatalError("Could not instantiate controller.") }
+        
+        return controller
+    }
+    
+    @available(iOS 14.0, *)
+    static func makeFilePicker(
+        withDelegate delegate: UIDocumentPickerDelegate?
+    ) -> UIDocumentPickerViewController {
+        
+        let picker = UIDocumentPickerViewController(
+            forOpeningContentTypes: [.movie],
+            asCopy: true
+        )
+        picker.shouldShowFileExtensions = true
+        picker.delegate = delegate
+        return picker
     }
     
     /// A picker configured to record videos if the device can record videos, otherwise `nil`.
     ///
     /// If the preferred camera is not available, falls back to `.rear`.
-    static func videoController(
-        with preferredCamera: CameraDevice,
-        delegate: CameraDelegate? = nil
+    static func makeCamera(
+        with preferredCamera: UIImagePickerController.CameraDevice,
+        delegate: UIImagePickerController.Delegate? = nil
     ) -> UIImagePickerController? {
         
-        guard canRecordVideos else { return nil }
+        guard UIImagePickerController.canRecordVideos else { return nil }
         
-        let camera = isCameraDeviceAvailable(preferredCamera) ? preferredCamera : .rear
+        let camera = UIImagePickerController.isCameraDeviceAvailable(preferredCamera)
+            ? preferredCamera
+            : .rear
+        
         let picker = UIImagePickerController()
         
         picker.delegate = delegate
@@ -31,6 +74,19 @@ extension UIImagePickerController {
         picker.cameraDevice = camera
         picker.videoQuality = .typeHigh
         
+        picker.modalPresentationStyle = .fullScreen
+        
         return picker
+    }
+}
+
+extension UIImagePickerController {
+    
+    typealias Delegate = UIImagePickerControllerDelegate & UINavigationControllerDelegate
+    
+    static var canRecordVideos: Bool {
+        isSourceTypeAvailable(.camera)
+            && (availableMediaTypes(for: .camera) ?? []).contains(kUTTypeMovie as String)
+            && isCameraDeviceAvailable(.rear) || isCameraDeviceAvailable(.front)
     }
 }

@@ -63,17 +63,11 @@ class Coordinator: NSObject {
     }
 
     private func showAuthorization(animated: Bool, completion: @escaping () -> ()) {
-        let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
-
-        guard let authorizationController = storyboard.instantiateInitialViewController() as? AuthorizationController else { fatalError("Wrong controller type") }
-
-        authorizationController.didAuthorizeHandler = { [weak self] in
+        let authorizationController = ViewControllerFactory.makeAuthorization { [weak self] in
             self?.navigationController.dismiss(animated: true)
             completion()
         }
         
-        authorizationController.modalPresentationStyle = .formSheet
-        authorizationController.isModalInPresentation = true
         navigationController.present(authorizationController, animated: animated)
     }
     
@@ -87,8 +81,12 @@ class Coordinator: NSObject {
     
     private func showEditor(with source: VideoSource, previewImage: UIImage?, animated: Bool) {
         libraryViewController.transitionAsset = source.photoLibraryAsset
-        let editor = makeEditor(with: source, previewImage: previewImage)
         
+        let editor = ViewControllerFactory.makeEditor(
+            with: source,
+            previewImage: previewImage,
+            delegate: self
+        )
         // Let nav controller decide which animation to show. Also supports the correct "open in"
         // animation.
         navigationController.setViewControllers([libraryViewController, editor], animated: animated)
@@ -96,41 +94,21 @@ class Coordinator: NSObject {
     
     private func showAlbumPicker() {
         assert(!needsAuthorization, "Photo library access before authorization")
-        
         albumPicker.delegate = self
         navigationController.showDetailViewController(albumPicker, sender: self)
     }
     
     @available(iOS 14.0, *)
     private func showFilePicker() {
-        let picker = UIDocumentPickerViewController(
-            forOpeningContentTypes: [.movie],
-            asCopy: true
-        )
-        picker.shouldShowFileExtensions = true
-        picker.delegate = self
-    
+        let picker = ViewControllerFactory.makeFilePicker(withDelegate: self)
         navigationController.showDetailViewController(picker, sender: self)
     }
     
     private func showCamera() {
-        guard let camera = UIImagePickerController.videoController(with: .front, delegate: self) else {
+        guard let camera = ViewControllerFactory.makeCamera(with: .front, delegate: self) else {
             fatalError("TODO: Implement alert")
         }
         navigationController.present(camera, animated: true)
-    }
-    
-    // MARK: - Controller Factories
-    
-    private func makeEditor(with source: VideoSource, previewImage: UIImage?) -> EditorViewController {
-        let storyboard = UIStoryboard(name: "Editor", bundle: nil)
-        let videoController = VideoController(source: source, previewImage: previewImage)
-        
-        guard let controller = storyboard.instantiateInitialViewController(creator: {
-            EditorViewController(videoController: videoController, delegate: self, coder: $0)
-        }) else { fatalError("Could not instantiate controller.") }
-        
-        return controller
     }
 }
 
@@ -194,7 +172,7 @@ extension Coordinator: UIDocumentPickerDelegate {
 
 // MARK: - UIImagePickerControllerDelegate
 
-extension Coordinator: UIImagePickerController.CameraDelegate {
+extension Coordinator: UIImagePickerController.Delegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         navigationController.dismiss(animated: true)
