@@ -114,6 +114,10 @@ class Coordinator: NSObject {
     }
     
     private func showCamera() {
+        guard let camera = UIImagePickerController.videoController(with: .front, delegate: self) else {
+            fatalError("TODO: Implement alert")
+        }
+        navigationController.present(camera, animated: true)
     }
     
     // MARK: - Controller Factories
@@ -185,5 +189,26 @@ extension Coordinator: UIDocumentPickerDelegate {
         }
         
         showEditor(with: .url(newURL), previewImage: nil, animated: true)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension Coordinator: UIImagePickerController.CameraDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        navigationController.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let url = info[.mediaURL] as? URL else {
+            fatalError("TODO: Show alert")
+        }
+
+        dprint("Opening editor with video source:", url)
+        
+        navigationController.dismiss(animated: true)  {
+            self.showEditor(with: .url(url), previewImage: nil, animated: true)
+        }
     }
 }
