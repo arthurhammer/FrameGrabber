@@ -493,18 +493,12 @@
 			isa = PBXGroup;
 			children = (
 				00D9E83E234349C2009E7AFA /* Application */,
+				001AA1981FB497E900A00BB9 /* Resources */,
+				00CB133625D2A2D100361581 /* Scenes */,
 				00CD76FD23F6C0F600F78C56 /* Services */,
-				00AFE4FA202AEF01005E2AA8 /* Authorization */,
-				00229DBB212E0B1A00848CE8 /* About */,
-				00A9DF5321273FA400778885 /* Album Picker */,
-				0020D2F21FB4F277002379D0 /* Library */,
-				0057C5BB1FBDE2CF008B7E08 /* Editor */,
-				00EDF97C2340A17A00FA0F48 /* Metadata */,
-				00ED22DC24AFDADF0023A973 /* Settings */,
-				00C098E61FC1C9E0000B05FE /* Views */,
 				00653B41213941860038CB56 /* Transition */,
 				0020D2F11FB4ED95002379D0 /* Utilities */,
-				001AA1981FB497E900A00BB9 /* Resources */,
+				00C098E61FC1C9E0000B05FE /* Views */,
 			);
 			path = "Frame Grabber";
 			sourceTree = "<group>";
@@ -749,6 +743,20 @@
 				00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */,
 			);
 			path = Menus;
+			sourceTree = "<group>";
+		};
+		00CB133625D2A2D100361581 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				00229DBB212E0B1A00848CE8 /* About */,
+				00A9DF5321273FA400778885 /* Album Picker */,
+				00AFE4FA202AEF01005E2AA8 /* Authorization */,
+				0057C5BB1FBDE2CF008B7E08 /* Editor */,
+				0020D2F21FB4F277002379D0 /* Library */,
+				00EDF97C2340A17A00FA0F48 /* Metadata */,
+				00ED22DC24AFDADF0023A973 /* Settings */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		00CD76FD23F6C0F600F78C56 /* Services */ = {
