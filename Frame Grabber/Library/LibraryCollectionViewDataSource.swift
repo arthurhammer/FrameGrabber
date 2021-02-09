@@ -2,7 +2,7 @@ import Combine
 import Photos
 import UIKit
 
-class AlbumCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
+class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
     
     @Published private(set) var album: PHAssetCollection?
     @Published private(set) var assetsChanged: Void = ()
@@ -19,7 +19,7 @@ class AlbumCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
         }
     }
     
-    var gridContentMode: AlbumGridContentMode {
+    var gridContentMode: LibraryGridMode {
         get { settings.albumGridContentMode }
         set { settings.albumGridContentMode = newValue }
     }
@@ -199,7 +199,7 @@ class AlbumCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
 
 // MARK: - UICollectionViewDataSource
 
-extension AlbumCollectionViewDataSource: UICollectionViewDataSource {
+extension LibraryCollectionViewDataSource: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         assets?.count ?? 0

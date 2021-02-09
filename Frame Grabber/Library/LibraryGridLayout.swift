@@ -1,6 +1,6 @@
 import UIKit
 
-class AlbumGridLayout: UICollectionViewCompositionalLayout {
+class LibraryGridLayout: UICollectionViewCompositionalLayout {
 
     init(preferredItemSize: CGFloat = 120, minimumItemsPerRow: Int = 3, spacing: CGFloat = 2, didUpdateItemSizeHandler: ((CGSize) -> ())? = nil) {
         super.init { _, environment in

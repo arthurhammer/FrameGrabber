@@ -4,13 +4,13 @@ struct AlbumViewSettingsMenu {
 
     enum Selection {
         case filter(PhotoLibraryFilter)
-        case gridMode(AlbumGridContentMode)
+        case gridMode(LibraryGridMode)
     }
 
     @available(iOS 14, *)
     static func menu(
         forCurrentFilter currentFilter: PhotoLibraryFilter,
-        gridMode: AlbumGridContentMode,
+        gridMode: LibraryGridMode,
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
         
@@ -38,7 +38,7 @@ struct AlbumViewSettingsMenu {
     @available(iOS, obsoleted: 14, message: "Use context menus")
     static func alertController(
         forCurrentFilter currentFilter: PhotoLibraryFilter,
-        gridMode: AlbumGridContentMode,
+        gridMode: LibraryGridMode,
         handler: @escaping (Selection) -> Void
     ) -> UIAlertController {
 

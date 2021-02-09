@@ -19,7 +19,7 @@ extension UserDefaults {
         set { setCodableValue(value: newValue, forKey: Key.photoLibraryFilter) }
     }
 
-    var albumGridContentMode: AlbumGridContentMode {
+    var albumGridContentMode: LibraryGridMode {
         get { codableValue(forKey: Key.albumGridContentMode) ?? .square }
         set { setCodableValue(value: newValue, forKey: Key.albumGridContentMode) }
     }

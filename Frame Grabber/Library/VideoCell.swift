@@ -48,7 +48,7 @@ class VideoCell: UICollectionViewCell {
         }
     }
 
-    func setGridContentMode(_ mode: AlbumGridContentMode, forAspectRatio aspectRatio: CGSize) {
+    func setGridContentMode(_ mode: LibraryGridMode, forAspectRatio aspectRatio: CGSize) {
         let targetSize = mode.thumbnailSize(for: aspectRatio, in: bounds.size)
         imageContainerWidthConstraint.constant = targetSize.width
         imageContainerHeightConstraint.constant = targetSize.height
