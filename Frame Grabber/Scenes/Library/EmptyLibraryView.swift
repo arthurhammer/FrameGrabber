@@ -1,6 +1,6 @@
 import UIKit
 
-class EmptyAlbumView: UIView {
+class EmptyLibraryView: UIView {
 
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -37,7 +37,7 @@ class EmptyAlbumView: UIView {
     }
 
     private func updateViews() {
-        titleLabel.text = isEmpty ? type.emptyAlbumMessage : nil
+        titleLabel.text = isEmpty ? type.emptyMessage : nil
     }
 
     private func configureConstraints() {
@@ -54,7 +54,7 @@ class EmptyAlbumView: UIView {
 
 private extension PhotoLibraryFilter {
 
-    var emptyAlbumMessage: String {
+    var emptyMessage: String {
         switch self {
         case .videoAndLivePhoto: return UserText.albumEmptyAny
         case .video: return UserText.albumEmptyVideos

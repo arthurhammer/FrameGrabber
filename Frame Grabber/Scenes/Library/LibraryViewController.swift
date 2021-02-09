@@ -4,12 +4,12 @@ import PhotosUI
 import UIKit
 
 protocol AlbumViewControllerDelegate: class {
-    func controllerDidSelectAlbumPicker(_ controller: AlbumViewController)
-    func controllerDidSelectFilePicker(_ controller: AlbumViewController)
-    func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?)
+    func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
+    func controllerDidSelectFilePicker(_ controller: LibraryViewController)
+    func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?)
 }
 
-class AlbumViewController: UICollectionViewController {
+class LibraryViewController: UICollectionViewController {
     
     weak var delegate: AlbumViewControllerDelegate?
             
@@ -24,14 +24,14 @@ class AlbumViewController: UICollectionViewController {
     }
 
     @IBOutlet private var titleButton: UIButton!
-    @IBOutlet private var viewSettingsButton: AlbumViewSettingsButton!
+    @IBOutlet private var filterButton: LibraryFilterButton!
     @IBOutlet private var aboutBarItem: UIBarButtonItem!
 
-    private lazy var emptyView = EmptyAlbumView()
+    private lazy var emptyView = EmptyLibraryView()
     private lazy var durationFormatter = VideoDurationFormatter()
     private var bindings = Set<AnyCancellable>()
     
-    private lazy var dataSource: AlbumCollectionViewDataSource = AlbumCollectionViewDataSource {
+    private lazy var dataSource: LibraryCollectionViewDataSource = LibraryCollectionViewDataSource {
         [unowned self] in
         self.cell(for: $1, at: $0)
     }
@@ -147,12 +147,12 @@ class AlbumViewController: UICollectionViewController {
     }
 }
 
-private extension AlbumViewController {
+private extension LibraryViewController {
     
     // MARK: Configuring
 
     func configureViews() {
-        collectionView.collectionViewLayout = AlbumGridLayout { [weak self] newItemSize in
+        collectionView.collectionViewLayout = LibraryGridLayout { [weak self] newItemSize in
             self?.dataSource.imageOptions.size = newItemSize.scaledToScreen
         }
         
@@ -166,15 +166,15 @@ private extension AlbumViewController {
         navigationItem.titleView = UIView()
         
         if #available(iOS 14, *) {
-            viewSettingsButton.showsMenuAsPrimaryAction = true
+            filterButton.showsMenuAsPrimaryAction = true
         } else {
             let action = #selector(showViewSettingsAlertSheet)
-            viewSettingsButton.addTarget(self, action: action, for: .touchUpInside)
+            filterButton.addTarget(self, action: action, for: .touchUpInside)
             
             navigationItem.rightBarButtonItems = [aboutBarItem]
         }
         
-        viewSettingsButton.add(to: view)
+        filterButton.add(to: view)
         updateViews()
     }
 
@@ -244,12 +244,12 @@ private extension AlbumViewController {
     // MARK: View Settings Button
 
     func updateViewSettingsButton() {
-        viewSettingsButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
+        filterButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
         
         if #available(iOS 14, *) {
-            viewSettingsButton.menu = AlbumViewSettingsMenu.menu(
-                forCurrentFilter: dataSource.filter,
-                gridMode: dataSource.gridContentMode,
+            filterButton.menu = LibraryFilterMenu.menu(
+                with: dataSource.filter,
+                gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
                     DispatchQueue.main.async {
                         self?.handleViewSettingsMenuSelection(selection)
@@ -260,9 +260,9 @@ private extension AlbumViewController {
     }
 
     @objc func showViewSettingsAlertSheet() {
-        let controller = AlbumViewSettingsMenu.alertController(
-            forCurrentFilter: dataSource.filter,
-            gridMode: dataSource.gridContentMode,
+        let controller = LibraryFilterMenu.alertController(
+            with: dataSource.filter,
+            gridMode: dataSource.gridMode,
             handler: { [weak self] selection in
                 DispatchQueue.main.async {
                     self?.handleViewSettingsMenuSelection(selection)
@@ -270,11 +270,11 @@ private extension AlbumViewController {
             }
         )
 
-        controller.popoverPresentationController?.sourceView = viewSettingsButton
+        controller.popoverPresentationController?.sourceView = filterButton
         presentAlert(controller)
     }
 
-    func handleViewSettingsMenuSelection(_ selection: AlbumViewSettingsMenu.Selection) {
+    func handleViewSettingsMenuSelection(_ selection: LibraryFilterMenu.Selection) {
         UISelectionFeedbackGenerator().selectionChanged()
 
         switch selection {
@@ -283,8 +283,8 @@ private extension AlbumViewController {
             dataSource.filter = filter
             
         case .gridMode(let mode):
-            dataSource.gridContentMode = mode
-            setGridContentMode(mode, animated: true)
+            dataSource.gridMode = mode
+            setGridMode(mode, animated: true)
         }
 
         updateViewSettingsButton()
@@ -292,7 +292,7 @@ private extension AlbumViewController {
 
     func updateContentInsetForViewSettingsButton() {
         let topMargin: CGFloat = 8
-        let bottomInset = viewSettingsButton.bounds.height + topMargin
+        let bottomInset = filterButton.bounds.height + topMargin
 
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
@@ -316,7 +316,7 @@ private extension AlbumViewController {
         cell.durationLabel.isHidden = video.isLivePhoto
         cell.livePhotoImageView.isHidden = !video.isLivePhoto
         cell.favoritedImageView.isHidden = !video.isFavorite
-        cell.setGridContentMode(dataSource.gridContentMode, forAspectRatio: video.dimensions)
+        cell.setGridContentMode(dataSource.gridMode, forAspectRatio: video.dimensions)
         
         loadThumbnail(for: cell, video: video)
     }
@@ -339,13 +339,13 @@ private extension AlbumViewController {
         }
     }
 
-    func setGridContentMode(_ mode: AlbumGridContentMode, for cell: VideoCell, at indexPath: IndexPath) {
+    func setGridMode(_ mode: LibraryGridMode, for cell: VideoCell, at indexPath: IndexPath) {
         guard let video = dataSource.video(at: indexPath) else { return }
         cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
 
     }
 
-    func setGridContentMode(_ mode: AlbumGridContentMode, animated: Bool) {
+    func setGridMode(_ mode: LibraryGridMode, animated: Bool) {
         guard animated else {
             collectionView.reloadData()
             return
@@ -354,13 +354,13 @@ private extension AlbumViewController {
         let animations = {
             self.collectionView.indexPathsForVisibleItems.forEach { indexPath in
                 guard let cell = self.videoCell(at: indexPath) else { return }
-                self.setGridContentMode(mode, for: cell, at: indexPath)
+                self.setGridMode(mode, for: cell, at: indexPath)
             }
         }
         
         // Animate visible cells, then reload off-screen enqueued cells.
         UIView.animate(
-            withDuration: AlbumViewController.contentModeAnimationDuration,
+            withDuration: LibraryViewController.contentModeAnimationDuration,
             delay: 0,
             options: [.beginFromCurrentState, .curveEaseInOut],
             animations: animations,

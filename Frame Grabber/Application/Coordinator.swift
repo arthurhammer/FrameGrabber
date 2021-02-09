@@ -5,7 +5,7 @@ import UIKit
 class Coordinator: NSObject {
 
     let navigationController: UINavigationController
-    let libraryViewController: AlbumViewController
+    let libraryViewController: LibraryViewController
     let transitionController: ZoomTransitionController
     let fileManager = FileManager.default
     
@@ -21,7 +21,7 @@ class Coordinator: NSObject {
     }
 
     init(navigationController: UINavigationController) {
-        guard let albumViewController = navigationController.topViewController as? AlbumViewController else { fatalError("Wrong root controller or type.") }
+        guard let albumViewController = navigationController.topViewController as? LibraryViewController else { fatalError("Wrong root controller or type.") }
         
         self.navigationController = navigationController
         self.libraryViewController = albumViewController
@@ -131,17 +131,17 @@ class Coordinator: NSObject {
 
 extension Coordinator: AlbumViewControllerDelegate {
     
-    func controllerDidSelectAlbumPicker(_ controller: AlbumViewController) {
+    func controllerDidSelectAlbumPicker(_ controller: LibraryViewController) {
         showAlbumPicker()
     }
     
-    func controllerDidSelectFilePicker(_ controller: AlbumViewController) {
+    func controllerDidSelectFilePicker(_ controller: LibraryViewController) {
         if #available(iOS 14.0, *) {
             showFilePicker()
         }
     }
 
-    func controller(_ controller: AlbumViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
+    func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
 }

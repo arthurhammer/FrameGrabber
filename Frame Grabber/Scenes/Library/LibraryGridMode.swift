@@ -1,16 +1,16 @@
 import Photos
 import UIKit
 
-enum AlbumGridContentMode: Int {
+enum LibraryGridMode: Int {
     case fit
     case square
 }
 
-extension AlbumGridContentMode: Hashable, Codable {}
+extension LibraryGridMode: Hashable, Codable {}
 
-extension AlbumGridContentMode {
+extension LibraryGridMode {
 
-    var toggled: AlbumGridContentMode {
+    var toggled: LibraryGridMode {
         switch self {
         case .fit: return .square
         case .square: return .fit
@@ -24,7 +24,7 @@ extension AlbumGridContentMode {
         }
     }
 
-    var image: UIImage? {
+    var icon: UIImage? {
         if #available(iOS 14, *) {
             switch self {
             case .fit: return UIImage(systemName: "rectangle.arrowtriangle.2.inward")

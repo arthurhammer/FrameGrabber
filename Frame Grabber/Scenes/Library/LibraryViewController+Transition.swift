@@ -1,6 +1,6 @@
 import UIKit
 
-extension AlbumViewController: ZoomTransitionDelegate {
+extension LibraryViewController: ZoomTransitionDelegate {
     
     func wantsZoomTransition(for type: TransitionType) -> Bool {
         // Only push if we have a source view. Always allow pop.

@@ -1,6 +1,6 @@
 import UIKit
 
-class AlbumViewSettingsButton: UIButton {
+class LibraryFilterButton: UIButton {
     
     static let superviewMargin: CGFloat = 16
 
@@ -39,7 +39,7 @@ class AlbumViewSettingsButton: UIButton {
     
     /// Adds the receiver to the given view and sets up constraints.
     func add(to view: UIView) {
-        let margin = AlbumViewSettingsButton.superviewMargin
+        let margin = LibraryFilterButton.superviewMargin
 
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
