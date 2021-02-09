@@ -3,29 +3,23 @@ import UIKit
 extension LibraryViewController: ZoomTransitionDelegate {
     
     func wantsZoomTransition(for type: TransitionType) -> Bool {
-        // Only push if we have a source view. Always allow pop.
         (type == .pop) || (transitionAsset != nil)
     }
 
     func zoomTransitionWillBegin(_ transition: ZoomTransition) {
-        if transition.type == .pop {
-            select(asset: transitionAsset, animated: false)
-            collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
-        }
-
+        select(asset: transitionAsset, animated: false)
+        collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
         collectionView?.selectedCell?.isHidden = true
     }
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
-        // Might have once more been removed during interactive gesture.
         select(asset: transitionAsset, animated: false)
         collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
-
         return (collectionView?.selectedCell as? VideoCell)?.imageView
     }
 
     func zoomTransitionDidEnd(_ transition: ZoomTransition) {
-        // Also unhide after presentation in case we'll use fallback animation later.
+        // Also unhide after push in case we'll use fallback animation later.
         collectionView?.selectedCell?.isHidden = false
 
         if transition.type == .pop {
@@ -42,20 +36,21 @@ private extension UICollectionView {
         indexPathsForSelectedItems?.first.flatMap(cellForItem)
     }
 
-    func clearSelection(animated: Bool = false) {
-        selectItem(at: nil, animated: animated, scrollPosition: .top)
-    }
-
     func scrollSelectedCellIntoViewIfNeeded(animated: Bool) {
-        guard let selectedIndexPath = indexPathsForSelectedItems?.first,
-            let position = closestScrollPosition(for: selectedIndexPath) else { return }
-
-        scrollToItem(at: selectedIndexPath, at: position, animated: animated)
+        guard let selection = indexPathsForSelectedItems?.first else { return }
+        scrollCellIntoViewIfNeeded(at: selection, animated: animated)
+    }
+    
+    func scrollCellIntoViewIfNeeded(at indexPath: IndexPath, animated: Bool) {
+        guard let position = closestScrollPosition(for: indexPath) else { return }
+        scrollToItem(at: indexPath, at: position, animated: animated)
         layoutIfNeeded()
     }
 
-    /// nil for fully visible cells, otherwise `top` or `bottom` whichever is closer,
-    /// taking into account the receiver's safe area.
+    /// `nil` for fully visible cells, otherwise `top` or `bottom` whichever is closer, taking into
+    /// account the receiver's safe area.
+    ///
+    /// Assumes a vertical layout with an ordering between items, like a standard grid-column layout.
     func closestScrollPosition(for indexPath: IndexPath) -> UICollectionView.ScrollPosition? {
         // Partially visible cells.
         if let cell = cellForItem(at: indexPath) {
