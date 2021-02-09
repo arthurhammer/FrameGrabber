@@ -247,7 +247,7 @@ private extension LibraryViewController {
         filterButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
         
         if #available(iOS 14, *) {
-            filterButton.menu = AlbumViewSettingsMenu.menu(
+            filterButton.menu = LibraryFilterMenu.menu(
                 forCurrentFilter: dataSource.filter,
                 gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
@@ -260,7 +260,7 @@ private extension LibraryViewController {
     }
 
     @objc func showViewSettingsAlertSheet() {
-        let controller = AlbumViewSettingsMenu.alertController(
+        let controller = LibraryFilterMenu.alertController(
             forCurrentFilter: dataSource.filter,
             gridMode: dataSource.gridMode,
             handler: { [weak self] selection in
@@ -274,7 +274,7 @@ private extension LibraryViewController {
         presentAlert(controller)
     }
 
-    func handleViewSettingsMenuSelection(_ selection: AlbumViewSettingsMenu.Selection) {
+    func handleViewSettingsMenuSelection(_ selection: LibraryFilterMenu.Selection) {
         UISelectionFeedbackGenerator().selectionChanged()
 
         switch selection {

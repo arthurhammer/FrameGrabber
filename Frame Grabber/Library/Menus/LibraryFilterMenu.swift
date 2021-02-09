@@ -1,6 +1,6 @@
 import UIKit
 
-struct AlbumViewSettingsMenu {
+struct LibraryFilterMenu {
 
     enum Selection {
         case filter(PhotoLibraryFilter)
