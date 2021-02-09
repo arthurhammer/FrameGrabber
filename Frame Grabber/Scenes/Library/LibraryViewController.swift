@@ -179,8 +179,6 @@ private extension LibraryViewController {
         } else {
             let action = #selector(showViewSettingsAlertSheet)
             filterButton.addTarget(self, action: action, for: .touchUpInside)
-            
-            navigationItem.rightBarButtonItems = [aboutBarItem]
         }
         
         filterButton.add(to: view)

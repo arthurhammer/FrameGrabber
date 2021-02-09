@@ -98,7 +98,6 @@ class Coordinator: NSObject {
         navigationController.showDetailViewController(albumPicker, sender: self)
     }
     
-    @available(iOS 14.0, *)
     private func showFilePicker() {
         let picker = ViewControllerFactory.makeFilePicker(withDelegate: self)
         navigationController.showDetailViewController(picker, sender: self)
@@ -128,9 +127,7 @@ extension Coordinator: AlbumViewControllerDelegate {
     }
     
     func controllerDidSelectFilePicker(_ controller: LibraryViewController) {
-        if #available(iOS 14.0, *) {
-            showFilePicker()
-        }
+        showFilePicker()
     }
     
     func controllerDidSelectCamera(_ controller: LibraryViewController) {

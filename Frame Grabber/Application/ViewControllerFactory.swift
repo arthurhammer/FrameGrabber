@@ -37,15 +37,24 @@ struct ViewControllerFactory {
         return controller
     }
     
-    @available(iOS 14.0, *)
     static func makeFilePicker(
         withDelegate delegate: UIDocumentPickerDelegate?
     ) -> UIDocumentPickerViewController {
         
-        let picker = UIDocumentPickerViewController(
-            forOpeningContentTypes: [.movie],
-            asCopy: true
-        )
+        let picker: UIDocumentPickerViewController
+        
+        if #available(iOS 14.0, *) {
+            picker = UIDocumentPickerViewController(
+                forOpeningContentTypes: [.movie],
+                asCopy: true
+            )
+        } else {
+            picker = UIDocumentPickerViewController(
+                documentTypes: [kUTTypeMovie as String],
+                in: .import
+            )
+        }
+        
         picker.shouldShowFileExtensions = true
         picker.delegate = delegate
         return picker
