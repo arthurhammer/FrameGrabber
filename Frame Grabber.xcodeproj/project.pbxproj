@@ -61,6 +61,8 @@
 		002BFA5C25C6FC4E00CACB18 /* VideoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */; };
 		002BFA6E25C8219800CACB18 /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BFA6D25C8219800CACB18 /* MetadataViewController.swift */; };
 		002BFA6F25C8219800CACB18 /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BFA6D25C8219800CACB18 /* MetadataViewController.swift */; };
+		002E51EA25D2E61500508EB2 /* LibraryGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002E51E925D2E61500508EB2 /* LibraryGridViewController.swift */; };
+		002E51EB25D2E61500508EB2 /* LibraryGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002E51E925D2E61500508EB2 /* LibraryGridViewController.swift */; };
 		002EDBC2242E0E0B00D7B46D /* PhotoAlbums in Frameworks */ = {isa = PBXBuildFile; productRef = 002EDBC1242E0E0B00D7B46D /* PhotoAlbums */; };
 		002EDBC4242E0E0E00D7B46D /* PhotoAlbums in Frameworks */ = {isa = PBXBuildFile; productRef = 002EDBC3242E0E0E00D7B46D /* PhotoAlbums */; };
 		002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
@@ -332,6 +334,7 @@
 		002B066324B4F9BE005375ED /* LibraryGridMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridMode.swift; sourceTree = "<group>"; };
 		002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadata.swift; sourceTree = "<group>"; };
 		002BFA6D25C8219800CACB18 /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
+		002E51E925D2E61500508EB2 /* LibraryGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridViewController.swift; sourceTree = "<group>"; };
 		00328A941FC85919004648F9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034A83625CDFF31009238E4 /* ReversibleFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversibleFetchResult.swift; sourceTree = "<group>"; };
@@ -602,16 +605,12 @@
 		0020D2F21FB4F277002379D0 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				00CE254D25D29F170005D21C /* EmptyLibraryView.swift */,
-				0072089A1FBF87B20046F389 /* LibraryCollectionViewDataSource.swift */,
 				007F8A1824B7591C00324014 /* LibraryFilterButton.swift */,
-				005E2AA220273C5800F731FA /* LibraryGridLayout.swift */,
-				002B066324B4F9BE005375ED /* LibraryGridMode.swift */,
 				001AA1991FB498C700A00BB9 /* LibraryViewController.swift */,
 				00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */,
-				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 				00CA33BA25A3598D00DBD84D /* Menus */,
+				002E51F225D2E67200508EB2 /* Video Grid */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -649,6 +648,19 @@
 				001F7E1125CAA6BE0075AFC2 /* Loading */,
 			);
 			path = Video;
+			sourceTree = "<group>";
+		};
+		002E51F225D2E67200508EB2 /* Video Grid */ = {
+			isa = PBXGroup;
+			children = (
+				00CE254D25D29F170005D21C /* EmptyLibraryView.swift */,
+				0072089A1FBF87B20046F389 /* LibraryCollectionViewDataSource.swift */,
+				005E2AA220273C5800F731FA /* LibraryGridLayout.swift */,
+				002B066324B4F9BE005375ED /* LibraryGridMode.swift */,
+				002E51E925D2E61500508EB2 /* LibraryGridViewController.swift */,
+				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
+			);
+			path = "Video Grid";
 			sourceTree = "<group>";
 		};
 		003EC973234B9A2200EA8035 /* Frame Export */ = {
@@ -1146,6 +1158,7 @@
 				0045A11825BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* DateFormatter.swift in Sources */,
 				00730EDC214FEA5A001A6EA7 /* LibraryViewController+Transition.swift in Sources */,
+				002E51EB25D2E61500508EB2 /* LibraryGridViewController.swift in Sources */,
 				001F7E5325CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
 				00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */,
 				009BEA44234E152E00C284FA /* FrameExport.swift in Sources */,
@@ -1266,6 +1279,7 @@
 				0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* DateFormatter.swift in Sources */,
 				00653B452139E1680038CB56 /* LibraryViewController+Transition.swift in Sources */,
+				002E51EA25D2E61500508EB2 /* LibraryGridViewController.swift in Sources */,
 				001F7E5225CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,
 				009BEA43234E152E00C284FA /* FrameExport.swift in Sources */,
