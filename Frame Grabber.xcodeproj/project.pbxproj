@@ -667,7 +667,6 @@
 				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
-				0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */,
 				00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
@@ -771,6 +770,7 @@
 			children = (
 				00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */,
 				0086A6B12344CD7100989646 /* FileManager.swift */,
+				0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */,
 				001F7E3725CB48F30075AFC2 /* Formatters */,
 				003EC973234B9A2200EA8035 /* Frame Export */,
 				0026620A212BFCC900786797 /* Media */,

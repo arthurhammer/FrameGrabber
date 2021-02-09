@@ -1,8 +1,9 @@
 import Foundation
 
 struct UserText {
-    static let saveToPhotosAlbumName = "Frame Grabber"
-    static let exifAppInformation = "Frame Grabber \(Bundle.main.version)"
+    static let appName = "Frame Grabber"
+    static let photoLibraryAppAlbum = appName
+    static let exifAppInformation = "\(appName) \(Bundle.main.version)"
 
     static let okAction = NSLocalizedString("action.ok", value: "OK", comment: "Ok action")
     static let cancelAction = NSLocalizedString("action.cancel", value: "Cancel", comment: "Cancel action")

@@ -370,7 +370,7 @@ private extension EditorViewController {
             presentOnTop(shareController)
 
         case .saveToPhotos:
-            SaveToPhotosAction(imageUrls: urls, photoAlbum: UserText.saveToPhotosAlbumName) {
+            SaveToPhotosAction().save(urls.map { .image($0) }, addingToAlbums: [.appAlbum]) {
                 [weak self] ok, _ in
                 if ok {
                     self?.activityFeedbackGenerator.notificationOccurred(.success)
