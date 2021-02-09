@@ -2,6 +2,8 @@ import Combine
 import Photos
 import UIKit
 
+import PhotoAlbums
+
 protocol LibraryGridViewControllerDelegate: class {
     func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
 }
@@ -24,6 +26,17 @@ class LibraryGridViewController: UICollectionViewController {
     private lazy var dataSource: LibraryCollectionViewDataSource = LibraryCollectionViewDataSource {
         [unowned self] in
         self.cell(for: $1, at: $0)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureDataSource()
+        configureViews()
+        
+        // TODO
+        if let recents = AlbumsDataSource.fetchFirstAlbum() {
+            dataSource.setAlbum(recents)
+        }
     }
     
     func select(asset: PHAsset?, animated: Bool) {
@@ -115,12 +128,14 @@ class LibraryGridViewController: UICollectionViewController {
         updateViews()
     }
 
+    // can inline this
     func updateViews() {
         guard isViewLoaded else { return }
         
         emptyView.type = dataSource.filter
         emptyView.isEmpty = dataSource.isEmpty && !dataSource.isUpdating
     }
+    
     func configureDataSource() {
         dataSource.$album
             .combineLatest(
@@ -157,7 +172,7 @@ class LibraryGridViewController: UICollectionViewController {
         cell.durationLabel.isHidden = video.isLivePhoto
         cell.livePhotoImageView.isHidden = !video.isLivePhoto
         cell.favoritedImageView.isHidden = !video.isFavorite
-        cell.setGridContentMode(dataSource.gridMode, forAspectRatio: video.dimensions)
+        cell.setGridMode(dataSource.gridMode, forAspectRatio: video.dimensions)
         
         loadThumbnail(for: cell, video: video)
     }
@@ -179,11 +194,12 @@ class LibraryGridViewController: UICollectionViewController {
             cell.imageView.image = image
         }
     }
+    
+    // MARK: - Grid Mode
 
     func setGridMode(_ mode: LibraryGridMode, for cell: VideoCell, at indexPath: IndexPath) {
         guard let video = dataSource.video(at: indexPath) else { return }
-        cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
-
+        cell.setGridMode(mode, forAspectRatio: video.dimensions)
     }
 
     func setGridMode(_ mode: LibraryGridMode, animated: Bool) {

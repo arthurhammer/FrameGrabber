@@ -118,9 +118,9 @@ class Coordinator: NSObject {
     }
 }
 
-// MARK: - AlbumViewControllerDelegate
+// MARK: - LibraryViewControllerDelegate
 
-extension Coordinator: LibraryViewControllerDelegate {
+extension Coordinator: LibraryViewController.Delegate {
     
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController) {
         showAlbumPicker()
@@ -134,7 +134,7 @@ extension Coordinator: LibraryViewControllerDelegate {
         showCamera()
     }
 
-    func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
+    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
 }

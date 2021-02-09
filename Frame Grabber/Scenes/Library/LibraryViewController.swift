@@ -7,12 +7,17 @@ protocol LibraryViewControllerDelegate: class {
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
     func controllerDidSelectCamera(_ controller: LibraryViewController)
-    func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?)
 }
 
 class LibraryViewController: UIViewController {
     
-    weak var delegate: LibraryViewControllerDelegate?
+    typealias Delegate = LibraryViewControllerDelegate & LibraryGridViewControllerDelegate
+    
+    weak var delegate: Delegate? {
+        didSet {
+            // set grid delegate
+        }
+    }
             
     override var title: String? {
         didSet { titleButton.setTitle(title, for: .normal, animated: false) }
@@ -45,7 +50,6 @@ class LibraryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDataSource()
         configureViews()
     }
 
@@ -85,14 +89,14 @@ private extension LibraryViewController {
     // MARK: Configuring
 
     func configureViews() {
-        titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()        
         navigationItem.titleView = UIView()
+        titleButton.configureDynamicTypeLabel()
+        titleButton.configureTrailingAlignedImage()
         
         if #available(iOS 14, *) {
             filterButton.showsMenuAsPrimaryAction = true
         } else {
-            let action = #selector(showViewSettingsAlertSheet)
+            let action = #selector(showFilterMenuAsSheet)
             filterButton.addTarget(self, action: action, for: .touchUpInside)
         }
         
@@ -118,7 +122,7 @@ private extension LibraryViewController {
             titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
         }
 
-        updateViewSettingsButton()
+        updateFilterButton()
         updateNavigationBar()
     }
     
@@ -130,11 +134,7 @@ private extension LibraryViewController {
             navigationItem.backButtonDisplayMode = .minimal
         }
     }
-        
-    func configureDataSource() {
-        
-    }
-    
+
     @available(iOS 14, *)
     func handleLimitedAuthorizationMenuSelection(_ selection: LimitedAuthorizationMenu.Selection) {
         switch selection {
@@ -148,9 +148,9 @@ private extension LibraryViewController {
         }
     }
 
-    // MARK: View Settings Button
+    // MARK: Filter Button
 
-    func updateViewSettingsButton() {
+    func updateFilterButton() {
         filterButton.setTitle(filter.title, for: .normal, animated: false)
         
         if #available(iOS 14, *) {
@@ -166,7 +166,7 @@ private extension LibraryViewController {
         }
     }
 
-    @objc func showViewSettingsAlertSheet() {
+    @objc func showFilterMenuAsSheet() {
         let controller = LibraryFilterMenu.alertController(
             with: filter,
             gridMode: gridMode,
@@ -194,7 +194,7 @@ private extension LibraryViewController {
             // Set mode on grid vs
         }
 
-        updateViewSettingsButton()
+        updateFilterButton()
     }
 
     func updateContentInsetForViewSettingsButton() {

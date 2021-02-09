@@ -607,9 +607,9 @@
 			children = (
 				007F8A1824B7591C00324014 /* LibraryFilterButton.swift */,
 				001AA1991FB498C700A00BB9 /* LibraryViewController.swift */,
+				002E51F225D2E67200508EB2 /* Grid */,
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 				00CA33BA25A3598D00DBD84D /* Menus */,
-				002E51F225D2E67200508EB2 /* Video Grid */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -649,7 +649,7 @@
 			path = Video;
 			sourceTree = "<group>";
 		};
-		002E51F225D2E67200508EB2 /* Video Grid */ = {
+		002E51F225D2E67200508EB2 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
 				00CE254D25D29F170005D21C /* EmptyLibraryView.swift */,
@@ -660,7 +660,7 @@
 				00653B442139E1680038CB56 /* LibraryGridViewController+Transition.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 			);
-			path = "Video Grid";
+			path = Grid;
 			sourceTree = "<group>";
 		};
 		003EC973234B9A2200EA8035 /* Frame Export */ = {
