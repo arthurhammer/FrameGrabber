@@ -176,7 +176,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RzZ-6r-66b">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
-                                    <segue destination="z5r-QY-0zg" kind="embed" id="B2Q-IX-CgT"/>
+                                    <segue destination="z5r-QY-0zg" kind="embed" destinationCreationSelector="makeGridController:" id="B2Q-IX-CgT"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps3-t8-YlX" customClass="LibraryFilterButton" customModule="Frame_Grabber" customModuleProvider="target">

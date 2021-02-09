@@ -2,41 +2,38 @@ import Combine
 import Photos
 import UIKit
 
-import PhotoAlbums
-
 protocol LibraryGridViewControllerDelegate: class {
-    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
+    func controller(
+        _ controller: LibraryGridViewController,
+        didSelectAsset asset: PHAsset,
+        previewImage: UIImage?
+    )
 }
 
 class LibraryGridViewController: UICollectionViewController {
-    
-    static let contentModeAnimationDuration: TimeInterval = 0.15
-    
+        
     weak var delegate: LibraryGridViewControllerDelegate?
-    
-    // todo
+
     var transitionAsset: PHAsset? {
         didSet { select(asset: transitionAsset, animated: false) }
     }
     
+    init?(dataSource: LibraryDataSource, coder: NSCoder) {
+        self.dataSource = dataSource
+        super.init(coder: coder)
+    }
+    
+    private let dataSource: LibraryDataSource
     private lazy var emptyView = EmptyLibraryView()
     private lazy var durationFormatter = VideoDurationFormatter()
     private var bindings = Set<AnyCancellable>()
     
-    private lazy var dataSource: LibraryCollectionViewDataSource = LibraryCollectionViewDataSource {
-        [unowned self] in
-        self.cell(for: $1, at: $0)
-    }
-    
+    static let contentModeAnimationDuration: TimeInterval = 0.15
+    static let contextMenuActionDelay: TimeInterval = 0.2
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDataSource()
         configureViews()
-        
-        // TODO
-        if let recents = AlbumsDataSource.fetchFirstAlbum() {
-            dataSource.setAlbum(recents)
-        }
     }
     
     func select(asset: PHAsset?, animated: Bool) {
@@ -46,10 +43,23 @@ class LibraryGridViewController: UICollectionViewController {
     
     // MARK: - Collection View Data Source & Delegate
     
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        dataSource.numberOfAssets
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCell.className, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
+        guard let asset = dataSource.asset(at: indexPath) else { return cell }
+        
+        configure(cell: cell, for: asset)
+        
+        return cell
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let video = dataSource.video(at: indexPath) else { return }
+        guard let asset = dataSource.asset(at: indexPath) else { return }
         let thumbnail = videoCell(at: indexPath)?.imageView.image
-        delegate?.controller(self, didSelectAsset: video, previewImage: thumbnail)
+        delegate?.controller(self, didSelectAsset: asset, previewImage: thumbnail)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -57,36 +67,37 @@ class LibraryGridViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let video = dataSource.video(at: indexPath) else { return nil}
+        guard let asset = dataSource.asset(at: indexPath) else { return nil}
         let thumbnail = videoCell(at: indexPath)?.imageView.image
 
         return VideoCellContextMenu.configuration(
-            for: video,
+            for: asset,
             initialPreviewImage: thumbnail
         ) { [weak self] selection in
+            let delay = LibraryGridViewController.contextMenuActionDelay
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self?.handleCellContextMenuSelection(selection, for: video)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self?.handleCellContextMenuSelection(selection, for: asset)
             }
         }
     }
     
-    private func handleCellContextMenuSelection(_ selection: VideoCellContextMenu.Selection, for video: PHAsset) {
-        guard let video = dataSource.currentVideo(for: video) else { return }
+    private func handleCellContextMenuSelection(_ selection: VideoCellContextMenu.Selection, for asset: PHAsset) {
+        guard let asset = dataSource.currentAsset(for: asset) else { return }
         
         switch selection {
         
         case .favorite:
-            dataSource.toggleFavorite(for: video)
+            dataSource.toggleFavorite(for: asset)
             
         case .delete:
-            dataSource.delete(video)
+            dataSource.delete(asset)
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        guard let video = configuration.identifier as? PHAsset,
-              let indexPath = dataSource.indexPath(of: video),
+        guard let asset = configuration.identifier as? PHAsset,
+              let indexPath = dataSource.indexPath(of: asset),
               let cell = videoCell(at: indexPath) else { return nil }
 
         return UITargetedPreview(view: cell.imageContainer)
@@ -97,98 +108,81 @@ class LibraryGridViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        // Video might've been deleted or changed during preview.
-        guard let video = configuration.identifier as? PHAsset,
-              let updatedVideo = dataSource.currentVideo(for: video),
-              let indexPath = dataSource.indexPath(of: updatedVideo) else { return }
+        // Asset might've been deleted or changed during preview.
+        guard let asset = configuration.identifier as? PHAsset,
+              let updatedAsset = dataSource.currentAsset(for: asset),
+              let indexPath = dataSource.indexPath(of: updatedAsset) else { return }
 
         animator.addAnimations {
             let thumbnail = self.videoCell(at: indexPath)?.imageView.image
-            
-            self.delegate?.controller(
-                self,
-                didSelectAsset: updatedVideo,
-                previewImage: thumbnail
-            )
+            self.delegate?.controller(self, didSelectAsset: updatedAsset, previewImage: thumbnail)
         }
     }
     
     // MARK: - Configuring
     
-    func configureViews() {
-        collectionView.collectionViewLayout = LibraryGridLayout { [weak self] newItemSize in
-            self?.dataSource.imageOptions.size = newItemSize.scaledToScreen
-        }
-        
+    private func configureViews() {
         collectionView.isPrefetchingEnabled = true
-        collectionView.dataSource = dataSource
         collectionView.backgroundView = emptyView
+        collectionView.collectionViewLayout = LibraryGridLayout()
         collectionView.collectionViewLayout.invalidateLayout()
 
+        configureBindings()
         updateViews()
     }
 
-    // can inline this
-    func updateViews() {
-        guard isViewLoaded else { return }
-        
+    private func updateViews() {
         emptyView.type = dataSource.filter
         emptyView.isEmpty = dataSource.isEmpty && !dataSource.isUpdating
     }
     
-    func configureDataSource() {
+    private func configureBindings() {
         dataSource.$album
             .combineLatest(
                 dataSource.$isUpdating.removeDuplicates(),
-                dataSource.$assetsChanged
+                dataSource.$assets
             )
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.updateViews()
             }.store(in: &bindings)
 
-        dataSource.$assetsChanged
+        dataSource.$assets
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
+            .sink { [weak self] _ in
                 self?.collectionView.reloadData(animated: true)
+            }.store(in: &bindings)
+        
+        dataSource.$gridMode
+            .sink { [weak self] mode in
+                self?.setGridMode(mode, animated: true)
             }.store(in: &bindings)
     }
     
     // MARK: Cell Handling
     
-    func videoCell(at indexPath: IndexPath) -> VideoCell? {
+    private func videoCell(at indexPath: IndexPath) -> VideoCell? {
         collectionView.cellForItem(at: indexPath) as? VideoCell
     }
 
-    func cell(for video: PHAsset, at indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: VideoCell.className, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
+    private func configure(cell: VideoCell, for asset: PHAsset) {
+        cell.durationLabel.text = durationFormatter.string(from: asset.duration)
+        cell.durationLabel.isHidden = asset.isLivePhoto
+        cell.livePhotoImageView.isHidden = !asset.isLivePhoto
+        cell.favoritedImageView.isHidden = !asset.isFavorite
+        cell.setGridMode(dataSource.gridMode, forAspectRatio: asset.dimensions)
         
-        configure(cell: cell, for: video)
-        return cell
+        loadThumbnail(for: cell, asset: asset)
     }
 
-    func configure(cell: VideoCell, for video: PHAsset) {
-        cell.durationLabel.text = durationFormatter.string(from: video.duration)
-        cell.durationLabel.isHidden = video.isLivePhoto
-        cell.livePhotoImageView.isHidden = !video.isLivePhoto
-        cell.favoritedImageView.isHidden = !video.isFavorite
-        cell.setGridMode(dataSource.gridMode, forAspectRatio: video.dimensions)
+    private func loadThumbnail(for cell: VideoCell, asset: PHAsset) {
+        cell.identifier = asset.localIdentifier
+        let size = cell.imageView.bounds.size.scaledToScreen
         
-        loadThumbnail(for: cell, video: video)
-    }
-
-    func reconfigure(cellAt indexPath: IndexPath) {
-        guard let cell = videoCell(at: indexPath),
-              let video = dataSource.video(at: indexPath) else { return }
-              
-        configure(cell: cell, for: video)
-    }
-
-    func loadThumbnail(for cell: VideoCell, video: PHAsset) {
-        cell.identifier = video.localIdentifier
-
-        cell.imageRequest = dataSource.thumbnail(for: video) { image, _ in
-            guard cell.identifier == video.localIdentifier,
+        cell.imageRequest = dataSource.thumbnail(for: asset, options: .init(size: size)) {
+            (image, _) in
+            
+            guard cell.identifier == asset.localIdentifier,
                   let image = image else { return }
 
             cell.imageView.image = image
@@ -197,33 +191,35 @@ class LibraryGridViewController: UICollectionViewController {
     
     // MARK: - Grid Mode
 
-    func setGridMode(_ mode: LibraryGridMode, for cell: VideoCell, at indexPath: IndexPath) {
-        guard let video = dataSource.video(at: indexPath) else { return }
-        cell.setGridMode(mode, forAspectRatio: video.dimensions)
-    }
-
-    func setGridMode(_ mode: LibraryGridMode, animated: Bool) {
-        guard animated else {
+    private func setGridMode(_ mode: LibraryGridMode, animated: Bool) {
+        if !animated {
             collectionView.reloadData()
             return
         }
-        
-        let animations = {
-            self.collectionView.indexPathsForVisibleItems.forEach { indexPath in
-                guard let cell = self.videoCell(at: indexPath) else { return }
-                self.setGridMode(mode, for: cell, at: indexPath)
-            }
-        }
-        
-        // Animate visible cells, then reload off-screen enqueued cells.
+
         UIView.animate(
             withDuration: LibraryGridViewController.contentModeAnimationDuration,
             delay: 0,
             options: [.beginFromCurrentState, .curveEaseInOut],
-            animations: animations,
+            animations: {
+                self.setGridModeForVisibleCells(mode)
+            },
             completion: { _ in
-                self.collectionView.reloadData()
+                self.collectionView.reloadData()  // Update already configured, off-screen cells.
             }
         )
+    }
+    
+    private func setGridModeForVisibleCells(_ mode: LibraryGridMode) {
+        collectionView.indexPathsForVisibleItems.forEach { indexPath in
+            guard let cell = videoCell(at: indexPath),
+                  let asset = dataSource.asset(at: indexPath) else { return }
+            
+            cell.setGridMode(mode, forAspectRatio: asset.dimensions)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("A data source is required.")
     }
 }

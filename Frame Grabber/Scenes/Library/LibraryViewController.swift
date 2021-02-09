@@ -14,37 +14,27 @@ class LibraryViewController: UIViewController {
     typealias Delegate = LibraryViewControllerDelegate & LibraryGridViewControllerDelegate
     
     weak var delegate: Delegate? {
-        didSet {
-            // set grid delegate
-        }
+        didSet { gridController?.delegate = delegate }
     }
+    
+    let dataSource = LibraryDataSource()
+    
+    private(set) var gridController: LibraryGridViewController?
             
     override var title: String? {
         didSet { titleButton.setTitle(title, for: .normal, animated: false) }
     }
     
-    var album: PHAssetCollection? {
-        nil
-//        dataSource.album
-    }
-
+    // TODO
     /// The asset that is the the source/target for the zoom push/pop transition, typically the last
     /// selected asset.
     var transitionAsset: PHAsset? {
-        didSet {
-//            select(asset: transitionAsset, animated: false) 
-        }
+        didSet { gridController?.transitionAsset = transitionAsset }
     }
     
-    // view model for settings?
-    var filter: PhotoLibraryFilter = .videoAndLivePhoto
-    // forward
-    var gridMode: LibraryGridMode = .square
-    
-    var isAuthorizationLimited = false //
-
     @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var filterButton: LibraryFilterButton!
+    private var bindings = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
 
@@ -60,13 +50,13 @@ class LibraryViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        updateContentInsetForViewSettingsButton()
+        updateGridSafeArea()
     }
     
-    // MARK: - Setting Albums
-    
-    func setAlbum(_ album: PHAssetCollection) {
-//        dataSource.setAlbum(album)
+    @IBSegueAction private func makeGridController(_ coder: NSCoder) -> LibraryGridViewController? {
+        gridController = LibraryGridViewController(dataSource: dataSource, coder: coder)
+        gridController?.delegate = delegate
+        return gridController
     }
 
     // MARK: - Actions
@@ -82,13 +72,10 @@ class LibraryViewController: UIViewController {
     @IBAction private func showCamera() {
         delegate?.controllerDidSelectCamera(self)
     }
-}
-
-private extension LibraryViewController {
     
     // MARK: Configuring
 
-    func configureViews() {
+    private func configureViews() {
         navigationItem.titleView = UIView()
         titleButton.configureDynamicTypeLabel()
         titleButton.configureTrailingAlignedImage()
@@ -100,33 +87,40 @@ private extension LibraryViewController {
             filterButton.addTarget(self, action: action, for: .touchUpInside)
         }
         
-        filterButton.add(to: view)
+        configureBindings()
         updateViews()
     }
 
-    func updateViews() {
-        guard isViewLoaded else { return }
-        
-        if #available(iOS 14.0, *),
-           isAuthorizationLimited {
-
-            title = UserText.albumLimitedAuthorizationTitle
-            titleButton.showsMenuAsPrimaryAction = true
-            
-            titleButton.menu = LimitedAuthorizationMenu.menu { [weak self] selection in
-                self?.handleLimitedAuthorizationMenuSelection(selection)
-            }
-        } else {
-            // todo: title
-//            title = dataSource.album?.localizedTitle ?? UserText.albumFallbackTitle
-            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
-        }
-
+    private func updateViews() {
+        updateTitle()
         updateFilterButton()
         updateNavigationBar()
     }
     
-    func updateNavigationBar() {
+    private func updateTitle() {
+        if dataSource.isAuthorizationLimited,
+           #available(iOS 14.0, *) {
+            
+            title = UserText.albumLimitedAuthorizationTitle
+            titleButton.showsMenuAsPrimaryAction = true
+            titleButton.menu = LimitedAuthorizationMenu.menu { [weak self] selection in
+                self?.handleLimitedAuthorizationMenuSelection(selection)
+            }
+        } else {
+            title = dataSource.album?.localizedTitle ?? UserText.libraryDefaultTitle
+            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
+        }
+    }
+    
+    private func configureBindings() {
+        dataSource.$album
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateTitle()
+            }.store(in: &bindings)
+    }
+    
+    private func updateNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.layer.shadowOpacity = 0
 
@@ -134,45 +128,39 @@ private extension LibraryViewController {
             navigationItem.backButtonDisplayMode = .minimal
         }
     }
-
-    @available(iOS 14, *)
-    func handleLimitedAuthorizationMenuSelection(_ selection: LimitedAuthorizationMenu.Selection) {
-        switch selection {
-        
-        case .selectPhotos:
-//            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
-            break
-            
-        case .openSettings:
-            UIApplication.shared.openSettings()
-        }
+    
+    private func updateGridSafeArea() {
+        let spacing: CGFloat = 8
+        let buttonTop = view.safeAreaLayoutGuide.layoutFrame.maxY - filterButton.frame.minY
+        gridController?.additionalSafeAreaInsets.bottom = buttonTop + spacing
     }
 
-    // MARK: Filter Button
+    // MARK: Handling Menus
 
-    func updateFilterButton() {
-        filterButton.setTitle(filter.title, for: .normal, animated: false)
+    private func updateFilterButton() {
+        filterButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
         
         if #available(iOS 14, *) {
             filterButton.menu = LibraryFilterMenu.menu(
-                with: filter,
-                gridMode: gridMode,
+                with: dataSource.filter,
+                gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
                     DispatchQueue.main.async {
-                        self?.handleViewSettingsMenuSelection(selection)
+                        self?.handleFilterMenuSelection(selection)
                     }
                 }
             )
         }
     }
 
-    @objc func showFilterMenuAsSheet() {
+    @available(iOS, obsoleted: 14, message: "Use context menus")
+    @objc private  func showFilterMenuAsSheet() {
         let controller = LibraryFilterMenu.alertController(
-            with: filter,
-            gridMode: gridMode,
+            with: dataSource.filter,
+            gridMode: dataSource.gridMode,
             handler: { [weak self] selection in
                 DispatchQueue.main.async {
-                    self?.handleViewSettingsMenuSelection(selection)
+                    self?.handleFilterMenuSelection(selection)
                 }
             }
         )
@@ -181,28 +169,28 @@ private extension LibraryViewController {
         presentAlert(controller)
     }
 
-    func handleViewSettingsMenuSelection(_ selection: LibraryFilterMenu.Selection) {
+    private func handleFilterMenuSelection(_ selection: LibraryFilterMenu.Selection) {
         UISelectionFeedbackGenerator().selectionChanged()
 
         switch selection {
-        
         case .filter(let filter):
-            self.filter = filter
-            
+            dataSource.filter = filter
         case .gridMode(let mode):
-            gridMode = mode
-            // Set mode on grid vs
+            dataSource.gridMode = mode
         }
 
         updateFilterButton()
     }
-
-    func updateContentInsetForViewSettingsButton() {
-        let topMargin: CGFloat = 8
-        let bottomInset = filterButton.bounds.height + topMargin
-
-        // Update
-//        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
-//        collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
+    
+    @available(iOS 14, *)
+    private func handleLimitedAuthorizationMenuSelection(_ selection: LimitedAuthorizationMenu.Selection) {
+        switch selection {
+        
+        case .selectPhotos:
+            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
+            
+        case .openSettings:
+            UIApplication.shared.openSettings()
+        }
     }
 }

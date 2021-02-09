@@ -75,7 +75,7 @@ class Coordinator: NSObject {
         assert(!needsAuthorization, "Photo library access before authorization")
 
         if let recents = AlbumsDataSource.fetchFirstAlbum() {
-            libraryViewController.setAlbum(recents)
+            libraryViewController.dataSource.album = recents
         }
     }
     
@@ -154,7 +154,7 @@ extension Coordinator: AlbumPickerViewControllerDelegate {
     
     func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?) {
         guard let album = album else { return }
-        libraryViewController.setAlbum(album.assetCollection)
+        libraryViewController.dataSource.album = album.assetCollection
     }
 }
 
@@ -195,7 +195,7 @@ extension Coordinator: UIImagePickerController.Delegate {
     }
     
     private func saveVideoToPhotoLibrary(_ url: URL) {
-        let currentAlbum = libraryViewController.album
+        let currentAlbum = libraryViewController.dataSource.album
 
         SaveToPhotosAction().save(
             [.video(url)],
