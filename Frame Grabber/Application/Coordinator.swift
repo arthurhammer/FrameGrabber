@@ -75,12 +75,12 @@ class Coordinator: NSObject {
         assert(!needsAuthorization, "Photo library access before authorization")
 
         if let recents = AlbumsDataSource.fetchFirstAlbum() {
-            libraryViewController.setAlbum(recents)
+            libraryViewController.dataSource.album = recents
         }
     }
     
     private func showEditor(with source: VideoSource, previewImage: UIImage?, animated: Bool) {
-        libraryViewController.transitionAsset = source.photoLibraryAsset
+        libraryViewController.zoomTransitionAsset = source.photoLibraryAsset
         
         let editor = ViewControllerFactory.makeEditor(
             with: source,
@@ -118,9 +118,9 @@ class Coordinator: NSObject {
     }
 }
 
-// MARK: - AlbumViewControllerDelegate
+// MARK: - LibraryViewControllerDelegate
 
-extension Coordinator: AlbumViewControllerDelegate {
+extension Coordinator: LibraryViewController.Delegate {
     
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController) {
         showAlbumPicker()
@@ -134,7 +134,7 @@ extension Coordinator: AlbumViewControllerDelegate {
         showCamera()
     }
 
-    func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {
+    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
 }
@@ -154,7 +154,7 @@ extension Coordinator: AlbumPickerViewControllerDelegate {
     
     func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?) {
         guard let album = album else { return }
-        libraryViewController.setAlbum(album.assetCollection)
+        libraryViewController.dataSource.album = album.assetCollection
     }
 }
 
@@ -195,7 +195,7 @@ extension Coordinator: UIImagePickerController.Delegate {
     }
     
     private func saveVideoToPhotoLibrary(_ url: URL) {
-        let currentAlbum = libraryViewController.album
+        let currentAlbum = libraryViewController.dataSource.album
 
         SaveToPhotosAction().save(
             [.video(url)],

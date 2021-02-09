@@ -2,32 +2,45 @@ import Combine
 import Photos
 import UIKit
 
-class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
+class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
     
-    @Published private(set) var album: PHAssetCollection?
-    @Published private(set) var assetsChanged: Void = ()
     /// Whether the data source is loading updates for the album or its contents.
     @Published private(set) var isUpdating: Bool = false
-
-    /// When setting the filter, the album contents are updated asynchronously. During the update
-    /// the data source keeps reporting the old assets to the collection view. See also: `setAlbum()`.
-    var filter: PhotoLibraryFilter {
-        get { settings.photoLibraryFilter }
-        set {
-            settings.photoLibraryFilter = newValue
+    
+    /// The current photo album.
+    ///
+    /// When setting the album, the data source asynchronously fetches the assets in the album.
+    /// While the update is in progress, the data source still keeps reporting the old album
+    /// contents in `assets`, `video(at:)`, `indexPath(of:)` and related functions. This is to allow
+    /// a seamless transition between both states in the view. You can use `isLoading` to track
+    /// when `album` and `assets` are synchronized again. The same happens from internal updates
+    /// such as when the photo library changes.
+    ///
+    /// When the data source is created and the photo library authorization status is
+    /// `.notDetermined`, it holds off accessing the photo library until an album is set for
+    /// the first time.
+    ///
+    /// The album becomes `nil` when it was deleted in the photo library.
+    @Published var album: PHAssetCollection? {
+        didSet {
+            startAccessingPhotoLibraryIfNeeded()
             fetchAssets()
         }
     }
     
-    var gridMode: LibraryGridMode {
-        get { settings.libraryGridMode }
-        set { settings.libraryGridMode = newValue }
+    /// When setting the filter, the album contents are updated asynchronously. See: `album`.
+    @Published var filter: PhotoLibraryFilter {
+        didSet {
+            guard filter != oldValue else { return }
+            settings.photoLibraryFilter = filter
+            fetchAssets()
+        }
     }
-
-    var imageOptions = PHImageManager.ImageOptions()
     
-    var isEmpty: Bool {
-        assets?.isEmpty ?? true
+    @Published private(set) var assets: ReversibleFetchResult?
+    
+    @Published var gridMode: LibraryGridMode {
+        didSet { settings.libraryGridMode = gridMode }
     }
 
     var isAuthorizationLimited: Bool {
@@ -38,24 +51,20 @@ class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
         }
     }
         
-    private var assets: ReversibleFetchResult? {
-        didSet { assetsChanged = () }
-    }
+    let photoLibrary: PHPhotoLibrary = .shared()
     
-    private let cellProvider: (IndexPath, PHAsset) -> (UICollectionViewCell)
     private let settings: UserDefaults
     private let updateQueue: DispatchQueue
     private let imageManager: PHImageManager = .default()
-    let photoLibrary: PHPhotoLibrary = .shared()
     
     init(
         settings: UserDefaults = .standard,
-        updateQueue: DispatchQueue = .init(label: "", qos: .userInitiated),
-        cellProvider: @escaping (IndexPath, PHAsset) -> (UICollectionViewCell)
+        updateQueue: DispatchQueue = .init(label: "", qos: .userInitiated)
     ) {
         self.settings = settings
+        self.gridMode = settings.libraryGridMode
+        self.filter = settings.photoLibraryFilter
         self.updateQueue = updateQueue
-        self.cellProvider = cellProvider
 
         super.init()
         
@@ -81,49 +90,52 @@ class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
     }
     
     // MARK: Data Access
-
-    /// When setting the album, the data source asynchronously fetches the assets in the album.
-    /// While the update is in progress, the data source still keeps reporting the old album
-    /// contents in the collection view data source methods and functions such as `video(at:)`,
-    /// `indexPath(of:)`. This is to allow a seamless transition between both states in the view.
-    ///
-    /// When the data source is created and the photo library authorization status is
-    /// `.notDetermined`, it holds off accessing the photo library until this method is called for
-    /// the first time. This avoids triggering premature authorization dialogs.
-    func setAlbum(_ newAlbum: PHAssetCollection) {
-        startAccessingPhotoLibraryIfNeeded()
-        album = newAlbum
-        fetchAssets()
+    
+    var isEmpty: Bool {
+        numberOfAssets == 0
+    }
+    
+    var numberOfAssets: Int {
+        assets?.count ?? 0
     }
 
-    func video(at indexPath: IndexPath) -> PHAsset? {
+    func asset(at indexPath: IndexPath) -> PHAsset? {
         assets?.asset(at: indexPath.item)
     }
 
-    func thumbnail(for video: PHAsset, completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()) -> Cancellable {
-        imageManager.requestImage(for: video, options: imageOptions, completionHandler: completionHandler)
+    func thumbnail(
+        for asset: PHAsset,
+        options: PHImageManager.ImageOptions,
+        completionHandler: @escaping (UIImage?, PHImageManager.Info) -> ()
+    ) -> Cancellable {
+        
+        imageManager.requestImage(
+            for: asset,
+            options: options,
+            completionHandler: completionHandler
+        )
     }
 
-    func indexPath(of video: PHAsset) -> IndexPath? {
-        guard let index = assets?.index(of: video) else { return nil }
+    func indexPath(of asset: PHAsset) -> IndexPath? {
+        guard let index = assets?.index(of: asset) else { return nil }
         return IndexPath(item: index, section: 0)
     }
     
-    /// Synchronously fetches the current version for the given video.
-    /// - Returns: The updated video or `nil` if it was deleted.
-    func currentVideo(for video: PHAsset) -> PHAsset? {
-        PHAsset.fetchAssets(withLocalIdentifiers: [video.localIdentifier], options: nil).firstObject
+    /// Synchronously fetches the current version for the given asset.
+    /// - Returns: The updated asset or `nil` if it was deleted.
+    func currentAsset(for asset: PHAsset) -> PHAsset? {
+        PHAsset.fetchAssets(withLocalIdentifiers: [asset.localIdentifier], options: nil).firstObject
     }
 
-    func toggleFavorite(for video: PHAsset) {
+    func toggleFavorite(for asset: PHAsset) {
         photoLibrary.performChanges({
-            PHAssetChangeRequest(for: video).isFavorite = !video.isFavorite
+            PHAssetChangeRequest(for: asset).isFavorite = !asset.isFavorite
         }, completionHandler: nil)
     }
 
-    func delete(_ video: PHAsset) {
+    func delete(_ asset: PHAsset) {
         photoLibrary.performChanges({
-            PHAssetChangeRequest.deleteAssets([video] as NSArray)
+            PHAssetChangeRequest.deleteAssets([asset] as NSArray)
         }, completionHandler: nil)
     }
 
@@ -160,7 +172,8 @@ class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
                 return
             }
             
-            let fetchResult = PHAsset.fetchAssets(in: sourceAlbum, options: .assets(filteredBy: filter))
+            let options = PHFetchOptions.assets(filteredBy: filter)
+            let fetchResult = PHAsset.fetchAssets(in: sourceAlbum, options: options)
             let isSmartAlbum = (sourceAlbum.assetCollectionType == .smartAlbum)
             let assets = ReversibleFetchResult(fetchResult: fetchResult, isReversed: isSmartAlbum)
          
@@ -194,19 +207,5 @@ class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
                 self.fetchAssets()
             }
         }
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension LibraryCollectionViewDataSource: UICollectionViewDataSource {
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        assets?.count ?? 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let video = video(at: indexPath) else { preconditionFailure("Invalid index.") }
-        return cellProvider(indexPath, video)
     }
 }

@@ -12,7 +12,7 @@ protocol AlbumPickerViewControllerDelegate: class {
 /// modally.
 class AlbumPickerViewController: UIViewController {
     
-    var delegate: AlbumPickerViewControllerDelegate?
+    weak var delegate: AlbumPickerViewControllerDelegate?
     
     private let dataSource: AlbumsDataSource
     

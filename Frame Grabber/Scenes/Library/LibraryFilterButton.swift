@@ -12,7 +12,7 @@ class LibraryFilterButton: UIButton {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) == true {
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             updateViews()
         }
     }
@@ -35,36 +35,5 @@ class LibraryFilterButton: UIButton {
     private func updateViews() {
         layer.borderWidth = 1
         layer.borderColor = UIColor.systemGray6.cgColor
-    }
-    
-    /// Adds the receiver to the given view and sets up constraints.
-    func add(to view: UIView) {
-        let margin = LibraryFilterButton.superviewMargin
-
-        view.addSubview(self)
-        translatesAutoresizingMaskIntoConstraints = false
-
-        view.safeAreaLayoutGuide
-            .leadingAnchor
-            .constraint(lessThanOrEqualTo: leadingAnchor, constant: -margin)
-            .isActive = true
-
-        view.safeAreaLayoutGuide
-            .trailingAnchor
-            .constraint(equalTo: trailingAnchor, constant: margin)
-            .isActive = true
-
-        // 0 for notched phones, `margin` for non-notched phones.
-        view.safeAreaLayoutGuide
-            .bottomAnchor
-            .constraint(greaterThanOrEqualTo: bottomAnchor, constant: 0)
-            .isActive = true
-
-        let bottomConstraint = view
-            .bottomAnchor
-            .constraint(equalTo: bottomAnchor, constant: margin)
-
-        bottomConstraint.priority = .init(rawValue: 999)
-        bottomConstraint.isActive = true
     }
 }

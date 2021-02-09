@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3Aa-pW-rx6">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Library View Controller-->
+        <!--Library Grid View Controller-->
         <scene sceneID="VUp-D9-yHz">
             <objects>
-                <collectionViewController storyboardIdentifier="AlbumViewController" clearsSelectionOnViewWillAppear="NO" id="z5r-QY-0zg" customClass="LibraryViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="AlbumViewController" clearsSelectionOnViewWillAppear="NO" id="z5r-QY-0zg" customClass="LibraryGridViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="7In-rZ-jOJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="2" maxX="0.0" maxY="2"/>
@@ -127,16 +130,91 @@
                             <outlet property="prefetchDataSource" destination="z5r-QY-0zg" id="E2j-7q-Uz8"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="T1c-VB-q52">
-                        <barButtonItem key="leftBarButtonItem" id="PG2-Xm-2wu">
-                            <view key="customView" contentMode="scaleToFill" id="Wk6-dR-MUk">
+                    <connections>
+                        <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
+                        <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1206" y="-2063"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="uJH-bb-cEY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="About" id="Q9O-On-eG2" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="auw-b1-LZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="433" y="-1655"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="S8y-te-9wv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Aa-pW-rx6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9SS-7U-qiD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ooc-mi-fO9" kind="relationship" relationship="rootViewController" id="wVz-qg-L5w"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GPJ-uT-q3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-371" y="-2069"/>
+        </scene>
+        <!--Library View Controller-->
+        <scene sceneID="Jla-Ab-FGw">
+            <objects>
+                <viewController id="ooc-mi-fO9" customClass="LibraryViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3v0-dz-T36">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RzZ-6r-66b">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <segue destination="z5r-QY-0zg" kind="embed" destinationCreationSelector="makeGridController:" id="B2Q-IX-CgT"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps3-t8-YlX" customClass="LibraryFilterButton" customModule="Frame_Grabber" customModuleProvider="target">
+                                <rect key="frame" x="251" y="798" width="143" height="44"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="16" minY="10" maxX="16" maxY="10"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="&lt;All Items&gt;" image="line.horizontal.3.decrease.circle" catalog="system">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="medium">
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    </preferredSymbolConfiguration>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="24K-Y6-tJv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RzZ-6r-66b" firstAttribute="top" secondItem="3v0-dz-T36" secondAttribute="top" id="1JW-Xr-oH9"/>
+                            <constraint firstItem="RzZ-6r-66b" firstAttribute="trailing" secondItem="3v0-dz-T36" secondAttribute="trailing" id="BqC-Aq-gH2"/>
+                            <constraint firstAttribute="bottom" secondItem="RzZ-6r-66b" secondAttribute="bottom" id="Fjv-H8-ttl"/>
+                            <constraint firstItem="24K-Y6-tJv" firstAttribute="trailing" secondItem="ps3-t8-YlX" secondAttribute="trailing" constant="20" id="JFF-yo-uxu"/>
+                            <constraint firstItem="24K-Y6-tJv" firstAttribute="bottom" secondItem="ps3-t8-YlX" secondAttribute="bottom" constant="20" id="aPh-nf-YjW"/>
+                            <constraint firstItem="ps3-t8-YlX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="24K-Y6-tJv" secondAttribute="leading" constant="20" id="hCd-eX-e0V"/>
+                            <constraint firstItem="RzZ-6r-66b" firstAttribute="leading" secondItem="3v0-dz-T36" secondAttribute="leading" id="th6-5Q-jWz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="QXR-Ao-DMK">
+                        <barButtonItem key="leftBarButtonItem" id="EBt-kK-uHv">
+                            <view key="customView" contentMode="scaleToFill" id="ul7-0T-ba6">
                                 <rect key="frame" x="20" y="5.5" width="120" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vV-oc-qCp">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYS-go-O2a">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="33"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mu7-kP-sfK">
+                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5U-uu-PJT">
                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="33"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                 <inset key="imageEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -152,82 +230,37 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="4vV-oc-qCp" secondAttribute="trailing" id="08I-9v-Wi6"/>
-                                    <constraint firstItem="4vV-oc-qCp" firstAttribute="leading" secondItem="Wk6-dR-MUk" secondAttribute="leading" id="2Ly-S2-TDA"/>
-                                    <constraint firstItem="4vV-oc-qCp" firstAttribute="top" secondItem="Wk6-dR-MUk" secondAttribute="top" id="l9p-IP-0hX"/>
-                                    <constraint firstAttribute="bottom" secondItem="4vV-oc-qCp" secondAttribute="bottom" id="pfh-Nm-Him"/>
+                                    <constraint firstItem="pYS-go-O2a" firstAttribute="leading" secondItem="ul7-0T-ba6" secondAttribute="leading" id="3IK-Y4-Aup"/>
+                                    <constraint firstAttribute="trailing" secondItem="pYS-go-O2a" secondAttribute="trailing" id="PJB-4T-HU7"/>
+                                    <constraint firstAttribute="bottom" secondItem="pYS-go-O2a" secondAttribute="bottom" id="b66-GH-Nyq"/>
+                                    <constraint firstItem="pYS-go-O2a" firstAttribute="top" secondItem="ul7-0T-ba6" secondAttribute="top" id="gnk-K4-cGO"/>
                                 </constraints>
                             </view>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="info.circle" catalog="system" id="r6g-Iu-tPw">
+                            <barButtonItem image="info.circle" catalog="system" id="tGr-t6-Jjk">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="r6g-Iu-tPw" id="yrf-sk-izP">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="Q9O-On-eG2" kind="presentation" id="Rdw-Fi-nc6"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="folder.circle" catalog="system" id="Mk7-wD-Kfs">
+                            <barButtonItem image="folder.circle" catalog="system" id="OO5-IZ-Y4X">
                                 <connections>
-                                    <action selector="showFilePicker" destination="z5r-QY-0zg" id="l8k-KV-Is6"/>
+                                    <action selector="showFilePicker" destination="ooc-mi-fO9" id="F7G-Yh-tXd"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="aboutBarItem" destination="r6g-Iu-tPw" id="pJA-SP-PV7"/>
-                        <outlet property="collectionView" destination="7In-rZ-jOJ" id="x9l-ws-BQ7"/>
-                        <outlet property="filterButton" destination="ps3-t8-YlX" id="c09-fI-VfY"/>
-                        <outlet property="titleButton" destination="Mu7-kP-sfK" id="Gns-y9-fSV"/>
-                        <outlet property="view" destination="7In-rZ-jOJ" id="s0n-ws-CgP"/>
+                        <outlet property="filterButton" destination="ps3-t8-YlX" id="vfA-de-7NL"/>
+                        <outlet property="titleButton" destination="o5U-uu-PJT" id="hSK-9I-LKy"/>
                     </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZCm-bR-OzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ps3-t8-YlX" customClass="LibraryFilterButton" customModule="Frame_Grabber" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="235" height="51"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                    <inset key="contentEdgeInsets" minX="16" minY="10" maxX="16" maxY="10"/>
-                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="&lt;All Items&gt;" image="line.horizontal.3.decrease.circle" catalog="system">
-                        <color key="titleColor" systemColor="labelColor"/>
-                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="medium">
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        </preferredSymbolConfiguration>
-                    </state>
-                </button>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gLp-8G-IVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="-2077"/>
-        </scene>
-        <!--About-->
-        <scene sceneID="uJH-bb-cEY">
-            <objects>
-                <viewControllerPlaceholder storyboardName="About" id="Q9O-On-eG2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="auw-b1-LZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1570" y="-2077"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="S8y-te-9wv">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Aa-pW-rx6" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9SS-7U-qiD">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="z5r-QY-0zg" kind="relationship" relationship="rootViewController" id="ise-ym-Xqy"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GPJ-uT-q3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-97" y="-2076"/>
+            <point key="canvasLocation" x="433" y="-2069"/>
         </scene>
     </scenes>
     <color key="tintColor" name="accent"/>
