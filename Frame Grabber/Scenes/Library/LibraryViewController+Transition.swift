@@ -1,46 +1,50 @@
 import UIKit
 
-extension LibraryGridViewController: ZoomTransitionDelegate {
+extension LibraryViewController: ZoomTransitionDelegate {
     
     func wantsZoomTransition(for type: TransitionType) -> Bool {
-        (type == .pop) || (transitionAsset != nil)
+        (type == .pop) || (zoomTransitionAsset != nil)
     }
 
     func zoomTransitionWillBegin(_ transition: ZoomTransition) {
-        select(asset: transitionAsset, animated: false)
-        collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
-        collectionView?.selectedCell?.isHidden = true
+        scrollToTransitionCell()
+        transitionCell?.isHidden = true
     }
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
-        select(asset: transitionAsset, animated: false)
-        collectionView?.scrollSelectedCellIntoViewIfNeeded(animated: false)
-        return (collectionView?.selectedCell as? VideoCell)?.imageView
+        scrollToTransitionCell()
+        return (transitionCell as? VideoCell)?.imageView
     }
 
     func zoomTransitionDidEnd(_ transition: ZoomTransition) {
-        // Also unhide after push in case we'll use fallback animation later.
-        collectionView?.selectedCell?.isHidden = false
+        transitionCell?.isHidden = false
 
         if transition.type == .pop {
-            (collectionView.selectedCell as? VideoCell)?.fadeInOverlays()
+            (transitionCell as? VideoCell)?.fadeInOverlays()
         }
     }
 }
 
 // MARK: - Util
+    
+private extension LibraryViewController {
+    
+    var transitionCell: UICollectionViewCell? {
+        transitionIndexPath.flatMap { gridController?.collectionView?.cellForItem(at: $0) }
+    }
+    
+    var transitionIndexPath: IndexPath? {
+        zoomTransitionAsset.flatMap(dataSource.indexPath(of:))
+    }
+    
+    func scrollToTransitionCell() {
+        guard let indexPath = transitionIndexPath else { return }
+        gridController?.collectionView?.scrollCellIntoViewIfNeeded(at: indexPath, animated: false)
+    }
+}
 
 private extension UICollectionView {
 
-    var selectedCell: UICollectionViewCell? {
-        indexPathsForSelectedItems?.first.flatMap(cellForItem)
-    }
-
-    func scrollSelectedCellIntoViewIfNeeded(animated: Bool) {
-        guard let selection = indexPathsForSelectedItems?.first else { return }
-        scrollCellIntoViewIfNeeded(at: selection, animated: animated)
-    }
-    
     func scrollCellIntoViewIfNeeded(at indexPath: IndexPath, animated: Bool) {
         guard let position = closestScrollPosition(for: indexPath) else { return }
         scrollToItem(at: indexPath, at: position, animated: animated)

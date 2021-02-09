@@ -80,7 +80,7 @@ class Coordinator: NSObject {
     }
     
     private func showEditor(with source: VideoSource, previewImage: UIImage?, animated: Bool) {
-        libraryViewController.transitionAsset = source.photoLibraryAsset
+        libraryViewController.zoomTransitionAsset = source.photoLibraryAsset
         
         let editor = ViewControllerFactory.makeEditor(
             with: source,

@@ -13,10 +13,6 @@ protocol LibraryGridViewControllerDelegate: class {
 class LibraryGridViewController: UICollectionViewController {
         
     weak var delegate: LibraryGridViewControllerDelegate?
-
-    var transitionAsset: PHAsset? {
-        didSet { select(asset: transitionAsset, animated: false) }
-    }
     
     init?(dataSource: LibraryDataSource, coder: NSCoder) {
         self.dataSource = dataSource
@@ -34,11 +30,6 @@ class LibraryGridViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-    
-    func select(asset: PHAsset?, animated: Bool) {
-        let indexPath = asset.flatMap { dataSource.indexPath(of: $0) }
-        collectionView.selectItem(at: indexPath, animated: animated, scrollPosition: [])
     }
     
     // MARK: - Collection View Data Source & Delegate

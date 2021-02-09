@@ -25,12 +25,11 @@ class LibraryViewController: UIViewController {
         didSet { titleButton.setTitle(title, for: .normal, animated: false) }
     }
     
-    // TODO
-    /// The asset that is the the source/target for the zoom push/pop transition, typically the last
-    /// selected asset.
-    var transitionAsset: PHAsset? {
-        didSet { gridController?.transitionAsset = transitionAsset }
-    }
+    /// The asset that is the source/target for the zoom push/pop transition.
+    ///
+    /// The asset must be set explicitly, the controller does not set it automatically such as when
+    /// a cell is selected.
+    var zoomTransitionAsset: PHAsset?
     
     @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var filterButton: LibraryFilterButton!
