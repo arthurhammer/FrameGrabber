@@ -61,12 +61,8 @@ private extension SampleTimeIndexOperation {
             return .failure(.invalidVideo)
         }
         
-        var timings = timings
-        
-        if track.requiresFrameReordering {
-            timings.sort {
-                $0.presentationTimeStamp < $1.presentationTimeStamp
-            }
+        let timings = timings.sorted {
+            $0.presentationTimeStamp < $1.presentationTimeStamp
         }
         
         let result = SampleTimes(
