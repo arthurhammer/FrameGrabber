@@ -248,7 +248,7 @@ private extension LibraryViewController {
         
         if #available(iOS 14, *) {
             filterButton.menu = LibraryFilterMenu.menu(
-                forCurrentFilter: dataSource.filter,
+                with: dataSource.filter,
                 gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
                     DispatchQueue.main.async {
@@ -261,7 +261,7 @@ private extension LibraryViewController {
 
     @objc func showViewSettingsAlertSheet() {
         let controller = LibraryFilterMenu.alertController(
-            forCurrentFilter: dataSource.filter,
+            with: dataSource.filter,
             gridMode: dataSource.gridMode,
             handler: { [weak self] selection in
                 DispatchQueue.main.async {

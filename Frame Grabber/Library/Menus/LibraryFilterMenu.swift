@@ -9,7 +9,7 @@ struct LibraryFilterMenu {
 
     @available(iOS 14, *)
     static func menu(
-        forCurrentFilter currentFilter: PhotoLibraryFilter,
+        with currentFilter: PhotoLibraryFilter,
         gridMode: LibraryGridMode,
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
@@ -37,7 +37,7 @@ struct LibraryFilterMenu {
 
     @available(iOS, obsoleted: 14, message: "Use context menus")
     static func alertController(
-        forCurrentFilter currentFilter: PhotoLibraryFilter,
+        with currentFilter: PhotoLibraryFilter,
         gridMode: LibraryGridMode,
         handler: @escaping (Selection) -> Void
     ) -> UIAlertController {
