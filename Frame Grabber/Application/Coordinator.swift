@@ -113,6 +113,9 @@ class Coordinator: NSObject {
         navigationController.showDetailViewController(picker, sender: self)
     }
     
+    private func showCamera() {
+    }
+    
     // MARK: - Controller Factories
     
     private func makeEditor(with source: VideoSource, previewImage: UIImage?) -> EditorViewController {
@@ -139,6 +142,10 @@ extension Coordinator: AlbumViewControllerDelegate {
         if #available(iOS 14.0, *) {
             showFilePicker()
         }
+    }
+    
+    func controllerDidSelectCamera(_ controller: LibraryViewController) {
+        showCamera()
     }
 
     func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?) {

@@ -6,6 +6,7 @@ import UIKit
 protocol AlbumViewControllerDelegate: class {
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
+    func controllerDidSelectCamera(_ controller: LibraryViewController)
     func controller(_ controller: LibraryViewController, didSelectEditorForAsset asset: PHAsset, previewImage: UIImage?)
 }
 
@@ -75,6 +76,10 @@ class LibraryViewController: UICollectionViewController {
     
     @IBAction private func showFilePicker() {
         delegate?.controllerDidSelectFilePicker(self)
+    }
+    
+    @IBAction private func showCamera() {
+        delegate?.controllerDidSelectCamera(self)
     }
 
     // MARK: - Collection View Data Source & Delegate
