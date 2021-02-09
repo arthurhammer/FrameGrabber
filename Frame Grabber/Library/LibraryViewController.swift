@@ -24,7 +24,7 @@ class LibraryViewController: UICollectionViewController {
     }
 
     @IBOutlet private var titleButton: UIButton!
-    @IBOutlet private var viewSettingsButton: LibraryFilterButton!
+    @IBOutlet private var filterButton: LibraryFilterButton!
     @IBOutlet private var aboutBarItem: UIBarButtonItem!
 
     private lazy var emptyView = EmptyLibraryView()
@@ -166,15 +166,15 @@ private extension LibraryViewController {
         navigationItem.titleView = UIView()
         
         if #available(iOS 14, *) {
-            viewSettingsButton.showsMenuAsPrimaryAction = true
+            filterButton.showsMenuAsPrimaryAction = true
         } else {
             let action = #selector(showViewSettingsAlertSheet)
-            viewSettingsButton.addTarget(self, action: action, for: .touchUpInside)
+            filterButton.addTarget(self, action: action, for: .touchUpInside)
             
             navigationItem.rightBarButtonItems = [aboutBarItem]
         }
         
-        viewSettingsButton.add(to: view)
+        filterButton.add(to: view)
         updateViews()
     }
 
@@ -244,12 +244,12 @@ private extension LibraryViewController {
     // MARK: View Settings Button
 
     func updateViewSettingsButton() {
-        viewSettingsButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
+        filterButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
         
         if #available(iOS 14, *) {
-            viewSettingsButton.menu = AlbumViewSettingsMenu.menu(
+            filterButton.menu = AlbumViewSettingsMenu.menu(
                 forCurrentFilter: dataSource.filter,
-                gridMode: dataSource.gridContentMode,
+                gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
                     DispatchQueue.main.async {
                         self?.handleViewSettingsMenuSelection(selection)
@@ -262,7 +262,7 @@ private extension LibraryViewController {
     @objc func showViewSettingsAlertSheet() {
         let controller = AlbumViewSettingsMenu.alertController(
             forCurrentFilter: dataSource.filter,
-            gridMode: dataSource.gridContentMode,
+            gridMode: dataSource.gridMode,
             handler: { [weak self] selection in
                 DispatchQueue.main.async {
                     self?.handleViewSettingsMenuSelection(selection)
@@ -270,7 +270,7 @@ private extension LibraryViewController {
             }
         )
 
-        controller.popoverPresentationController?.sourceView = viewSettingsButton
+        controller.popoverPresentationController?.sourceView = filterButton
         presentAlert(controller)
     }
 
@@ -283,8 +283,8 @@ private extension LibraryViewController {
             dataSource.filter = filter
             
         case .gridMode(let mode):
-            dataSource.gridContentMode = mode
-            setGridContentMode(mode, animated: true)
+            dataSource.gridMode = mode
+            setGridMode(mode, animated: true)
         }
 
         updateViewSettingsButton()
@@ -292,7 +292,7 @@ private extension LibraryViewController {
 
     func updateContentInsetForViewSettingsButton() {
         let topMargin: CGFloat = 8
-        let bottomInset = viewSettingsButton.bounds.height + topMargin
+        let bottomInset = filterButton.bounds.height + topMargin
 
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         collectionView.verticalScrollIndicatorInsets = collectionView.contentInset
@@ -316,7 +316,7 @@ private extension LibraryViewController {
         cell.durationLabel.isHidden = video.isLivePhoto
         cell.livePhotoImageView.isHidden = !video.isLivePhoto
         cell.favoritedImageView.isHidden = !video.isFavorite
-        cell.setGridContentMode(dataSource.gridContentMode, forAspectRatio: video.dimensions)
+        cell.setGridContentMode(dataSource.gridMode, forAspectRatio: video.dimensions)
         
         loadThumbnail(for: cell, video: video)
     }
@@ -339,13 +339,13 @@ private extension LibraryViewController {
         }
     }
 
-    func setGridContentMode(_ mode: LibraryGridMode, for cell: VideoCell, at indexPath: IndexPath) {
+    func setGridMode(_ mode: LibraryGridMode, for cell: VideoCell, at indexPath: IndexPath) {
         guard let video = dataSource.video(at: indexPath) else { return }
         cell.setGridContentMode(mode, forAspectRatio: video.dimensions)
 
     }
 
-    func setGridContentMode(_ mode: LibraryGridMode, animated: Bool) {
+    func setGridMode(_ mode: LibraryGridMode, animated: Bool) {
         guard animated else {
             collectionView.reloadData()
             return
@@ -354,7 +354,7 @@ private extension LibraryViewController {
         let animations = {
             self.collectionView.indexPathsForVisibleItems.forEach { indexPath in
                 guard let cell = self.videoCell(at: indexPath) else { return }
-                self.setGridContentMode(mode, for: cell, at: indexPath)
+                self.setGridMode(mode, for: cell, at: indexPath)
             }
         }
         

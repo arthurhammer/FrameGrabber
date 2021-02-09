@@ -25,7 +25,7 @@ struct AlbumViewSettingsMenu {
 
         let gridAction = UIAction(
             title: gridMode.toggled.title,
-            image: gridMode.toggled.image,
+            image: gridMode.toggled.icon,
             handler: { _ in handler(.gridMode(gridMode.toggled)) }
         )
         

@@ -19,9 +19,9 @@ class LibraryCollectionViewDataSource: NSObject, PHPhotoLibraryChangeObserver {
         }
     }
     
-    var gridContentMode: LibraryGridMode {
-        get { settings.albumGridContentMode }
-        set { settings.albumGridContentMode = newValue }
+    var gridMode: LibraryGridMode {
+        get { settings.libraryGridMode }
+        set { settings.libraryGridMode = newValue }
     }
 
     var imageOptions = PHImageManager.ImageOptions()

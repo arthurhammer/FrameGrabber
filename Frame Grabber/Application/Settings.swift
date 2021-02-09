@@ -4,13 +4,13 @@ import InAppPurchase
 extension UserDefaults {
 
     private struct Key {
-        static let photoLibraryFilter = "PhotoLibraryFilter"
-        static let albumGridContentMode = "AlbumGridContentMode"
+        static let compressionQuality = "CompressionQuality"
+        static let exportAction = "ExportAction"
         static let includeMetadata = "IncludeMetadata"
         static let imageFormat = "ImageFormat"
-        static let compressionQuality = "CompressionQuality"
+        static let libraryGridMode = "LibraryGridMode"
+        static let photoLibraryFilter = "PhotoLibraryFilter"
         static let purchasedProductIdentifiers = "PurchasedProductIdentifiers"
-        static let exportAction = "ExportAction"
         static let timeFormat = "TimeFormat"
     }
 
@@ -19,9 +19,9 @@ extension UserDefaults {
         set { setCodableValue(value: newValue, forKey: Key.photoLibraryFilter) }
     }
 
-    var albumGridContentMode: LibraryGridMode {
-        get { codableValue(forKey: Key.albumGridContentMode) ?? .square }
-        set { setCodableValue(value: newValue, forKey: Key.albumGridContentMode) }
+    var libraryGridMode: LibraryGridMode {
+        get { codableValue(forKey: Key.libraryGridMode) ?? .square }
+        set { setCodableValue(value: newValue, forKey: Key.libraryGridMode) }
     }
 
     var includeMetadata: Bool {
