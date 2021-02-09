@@ -32,6 +32,25 @@ extension UIAlertController {
              message: UserText.alertFrameExportFailedMessage,
              okHandler: okHandler)
     }
+    
+    
+    static func videoRecordingUnavailable(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.videoRecordingUnavailableTitle,
+             message: UserText.videoRecordingUnavailableMessage,
+             okHandler: okHandler)
+    }
+    
+    static func videoRecordingDenied(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.videoRecordingDeniedTitle,
+             message: UserText.videoRecordingDeniedMessage,
+             okHandler: okHandler)
+    }
+    
+    static func recordingVideoFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.videoRecordingFailedTitle,
+             message: UserText.videoRecordingFailedMessage,
+             okHandler: okHandler)
+    }
 
     static func mailNotAvailable(contactAddress: String, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertMailUnavailableTitle,

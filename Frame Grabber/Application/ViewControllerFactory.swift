@@ -79,14 +79,3 @@ struct ViewControllerFactory {
         return picker
     }
 }
-
-extension UIImagePickerController {
-    
-    typealias Delegate = UIImagePickerControllerDelegate & UINavigationControllerDelegate
-    
-    static var canRecordVideos: Bool {
-        isSourceTypeAvailable(.camera)
-            && (availableMediaTypes(for: .camera) ?? []).contains(kUTTypeMovie as String)
-            && isCameraDeviceAvailable(.rear) || isCameraDeviceAvailable(.front)
-    }
-}

@@ -106,8 +106,15 @@ class Coordinator: NSObject {
     
     private func showCamera() {
         guard let camera = ViewControllerFactory.makeCamera(with: .front, delegate: self) else {
-            fatalError("TODO: Implement alert")
+            navigationController.presentAlert(.videoRecordingUnavailable())
+            return
         }
+        
+        guard UIImagePickerController.videoRecordingAuthorizationDenied else {
+            navigationController.presentAlert(.videoRecordingDenied())
+            return
+        }
+        
         navigationController.present(camera, animated: true)
     }
 }
@@ -180,10 +187,9 @@ extension Coordinator: UIImagePickerController.Delegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let url = info[.mediaURL] as? URL else {
-            fatalError("TODO: Show alert")
+            navigationController.presentAlert(.recordingVideoFailed())
+            return
         }
-
-        dprint("Opening editor with video source:", url)
         
         navigationController.dismiss(animated: true)  {
             self.showEditor(with: .url(url), previewImage: nil, animated: true)

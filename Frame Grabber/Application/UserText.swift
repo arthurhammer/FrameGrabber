@@ -90,6 +90,13 @@ extension UserText {
     
     static let alertVideoLoadFailedTitle = NSLocalizedString("alert.videoload.title", value: "Unable to Load Item", comment: "")
     static let alertVideoLoadFailedMessage = NSLocalizedString("alert.videoload.message", value: "Please check your network settings and make sure the format is supported on this device.", comment: "")
+    
+    static let videoRecordingUnavailableTitle = NSLocalizedString("alert.camera.unavailable.title", value: "Video Recording Unavailable", comment: "Alert title when the current device cannot record videos.")
+    static let videoRecordingUnavailableMessage = NSLocalizedString("alert.camera.unavailable.message", value: "This device cannot record videos.", comment: "Alert message when the current device cannot record videos.")
+    static let videoRecordingDeniedTitle = NSLocalizedString("alert.camera.denied.title", value: "No Camera Access", comment: "Alert title when the recording authorization is denied or restricted.")
+    static let videoRecordingDeniedMessage = NSLocalizedString("alert.camera.denied.message", value: "You have denied Frame Grabber the access to your camera.", comment: "Alert message when the recording authorization is denied or restricted..")
+    static let videoRecordingFailedTitle = NSLocalizedString("alert.camera.failed.title", value: "Cannot Open Video", comment: "Alert title when the video recording failed for any reason.")
+    static let videoRecordingFailedMessage = NSLocalizedString("alert.camera.failed.message", value: "There was an error during the recording.", comment: "Alert message when the video recording failed for any reason")
 
     static let alertPlaybackFailedTitle = NSLocalizedString("alert.playback.title", value: "Cannot Play Item", comment: "")
     static let alertPlaybackFailedMessage = NSLocalizedString("alert.playback.message", value: "There was an error during playback.", comment: "")
