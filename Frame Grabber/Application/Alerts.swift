@@ -33,17 +33,27 @@ extension UIAlertController {
              okHandler: okHandler)
     }
     
-    
     static func videoRecordingUnavailable(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.videoRecordingUnavailableTitle,
              message: UserText.videoRecordingUnavailableMessage,
              okHandler: okHandler)
     }
     
-    static func videoRecordingDenied(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: UserText.videoRecordingDeniedTitle,
-             message: UserText.videoRecordingDeniedMessage,
-             okHandler: okHandler)
+    /// By default, the open settings action opens the app's Settings.
+    static func videoRecordingDenied(
+        okHandler: ((UIAlertAction) -> ())? = nil,
+        openSettingsHandler: ((UIAlertAction) -> ())? = { _ in UIApplication.shared.openSettings() }
+    ) -> UIAlertController {
+        let alert = UIAlertController(
+            title: UserText.videoRecordingDeniedTitle,
+            message: UserText.videoRecordingDeniedMessage,
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(.openSettings(handler: openSettingsHandler))
+        alert.addAction(.ok())
+        
+        return alert
     }
     
     static func recordingVideoFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
@@ -116,6 +126,10 @@ extension UIAlertAction {
 
     static func cancel(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
         UIAlertAction(title: UserText.cancelAction, style: .cancel, handler: handler) 
+    }
+    
+    static func openSettings(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
+        UIAlertAction(title: UserText.authorizationDeniedAction, style: .default, handler: handler)
     }
 }
 

@@ -9,9 +9,10 @@ struct UserText {
     static let deleteAction = NSLocalizedString("action.delete", value: "Delete", comment: "Delete context action")
     static let favoriteAction = NSLocalizedString("action.favorite", value: "Favorite", comment: "Favorite context action")
     static let unfavoriteAction = NSLocalizedString("action.unfavorite", value: "Unfavorite", comment: "Unfavorite context action")
+    static let openSettingsAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Generic authorization denied action (photo library or camera)")
 
     static let authorizationDeniedMessage = NSLocalizedString("authorization.denied.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access in Settings.", comment: "Photo library authorization denied message")
-    static let authorizationDeniedAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Photo library authorization denied action")
+    static let authorizationDeniedAction = openSettingsAction
     static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
     static let authorizationUndeterminedAction = NSLocalizedString("authorization.undetermined.action", value: "Get Started", comment: "Photo library authorization default action")
 

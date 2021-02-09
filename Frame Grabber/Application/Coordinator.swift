@@ -110,7 +110,7 @@ class Coordinator: NSObject {
             return
         }
         
-        guard UIImagePickerController.videoRecordingAuthorizationDenied else {
+        guard !UIImagePickerController.videoRecordingAuthorizationDenied else {
             navigationController.presentAlert(.videoRecordingDenied())
             return
         }
