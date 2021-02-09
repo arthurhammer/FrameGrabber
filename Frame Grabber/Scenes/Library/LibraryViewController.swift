@@ -17,6 +17,10 @@ class LibraryViewController: UICollectionViewController {
     override var title: String? {
         didSet { titleButton.setTitle(title, for: .normal, animated: false) }
     }
+    
+    var album: PHAssetCollection? {
+        dataSource.album
+    }
 
     /// The asset that is the the source/target for the zoom push/pop transition, typically the last
     /// selected asset.

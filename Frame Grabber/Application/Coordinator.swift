@@ -193,6 +193,20 @@ extension Coordinator: UIImagePickerController.Delegate {
         
         navigationController.dismiss(animated: true)  {
             self.showEditor(with: .url(url), previewImage: nil, animated: true)
+            self.saveVideoToPhotoLibrary(url)
         }
+    }
+    
+    private func saveVideoToPhotoLibrary(_ url: URL) {
+        let currentAlbum = libraryViewController.album
+
+        SaveToPhotosAction().save(
+            [.video(url)],
+            addingToAlbums: [
+                .appAlbum,
+                currentAlbum.flatMap { .existing($0) }
+            ].compactMap { $0 },
+            completion: nil
+        )
     }
 }
