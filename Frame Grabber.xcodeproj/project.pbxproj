@@ -115,7 +115,7 @@
 		005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA6202773F800F731FA /* AuthorizationController.swift */; };
 		00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
 		00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B42213941A20038CB56 /* ZoomPushTransition.swift */; };
-		00653B452139E1680038CB56 /* LibraryViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */; };
+		00653B452139E1680038CB56 /* LibraryGridViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* LibraryGridViewController+Transition.swift */; };
 		0067B4DB25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */; };
 		0067B4DC25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */; };
 		0067B4E725D2D682008F3E69 /* UIImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0067B4E625D2D682008F3E69 /* UIImagePickerController.swift */; };
@@ -159,7 +159,7 @@
 		00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* TransitionUtilities.swift */; };
 		00730EDA214FEA5A001A6EA7 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
 		00730EDB214FEA5A001A6EA7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0020D2ED1FB4E512002379D0 /* DateFormatter.swift */; };
-		00730EDC214FEA5A001A6EA7 /* LibraryViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */; };
+		00730EDC214FEA5A001A6EA7 /* LibraryGridViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* LibraryGridViewController+Transition.swift */; };
 		00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
 		00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201F213432B400084B08 /* Localizable.strings */; };
 		00730EE2214FEA5A001A6EA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */; };
@@ -358,7 +358,7 @@
 		005E2AA6202773F800F731FA /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		00653B3F213923460038CB56 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
 		00653B42213941A20038CB56 /* ZoomPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPushTransition.swift; sourceTree = "<group>"; };
-		00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryViewController+Transition.swift"; sourceTree = "<group>"; };
+		00653B442139E1680038CB56 /* LibraryGridViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryGridViewController+Transition.swift"; sourceTree = "<group>"; };
 		0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0067B4E625D2D682008F3E69 /* UIImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImagePickerController.swift; path = "Frame Grabber/Utilities/UIImagePickerController.swift"; sourceTree = SOURCE_ROOT; };
 		006C0FCA25C49BC1007E50B0 /* MetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewModel.swift; sourceTree = "<group>"; };
@@ -607,7 +607,6 @@
 			children = (
 				007F8A1824B7591C00324014 /* LibraryFilterButton.swift */,
 				001AA1991FB498C700A00BB9 /* LibraryViewController.swift */,
-				00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */,
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
 				00CA33BA25A3598D00DBD84D /* Menus */,
 				002E51F225D2E67200508EB2 /* Video Grid */,
@@ -658,6 +657,7 @@
 				005E2AA220273C5800F731FA /* LibraryGridLayout.swift */,
 				002B066324B4F9BE005375ED /* LibraryGridMode.swift */,
 				002E51E925D2E61500508EB2 /* LibraryGridViewController.swift */,
+				00653B442139E1680038CB56 /* LibraryGridViewController+Transition.swift */,
 				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
 			);
 			path = "Video Grid";
@@ -1157,7 +1157,7 @@
 				00B52C9024B71C9F00FDD427 /* LibraryFilterMenu.swift in Sources */,
 				0045A11825BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
 				00730EDB214FEA5A001A6EA7 /* DateFormatter.swift in Sources */,
-				00730EDC214FEA5A001A6EA7 /* LibraryViewController+Transition.swift in Sources */,
+				00730EDC214FEA5A001A6EA7 /* LibraryGridViewController+Transition.swift in Sources */,
 				002E51EB25D2E61500508EB2 /* LibraryGridViewController.swift in Sources */,
 				001F7E5325CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
 				00730EDE214FEA5A001A6EA7 /* PlaybackController.swift in Sources */,
@@ -1278,7 +1278,7 @@
 				00B52C8F24B71C9F00FDD427 /* LibraryFilterMenu.swift in Sources */,
 				0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* DateFormatter.swift in Sources */,
-				00653B452139E1680038CB56 /* LibraryViewController+Transition.swift in Sources */,
+				00653B452139E1680038CB56 /* LibraryGridViewController+Transition.swift in Sources */,
 				002E51EA25D2E61500508EB2 /* LibraryGridViewController.swift in Sources */,
 				001F7E5225CB498C0075AFC2 /* NumberFormatter.swift in Sources */,
 				00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */,

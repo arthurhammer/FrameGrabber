@@ -1,6 +1,6 @@
 import UIKit
 
-extension LibraryViewController: ZoomTransitionDelegate {
+extension LibraryGridViewController: ZoomTransitionDelegate {
     
     func wantsZoomTransition(for type: TransitionType) -> Bool {
         (type == .pop) || (transitionAsset != nil)

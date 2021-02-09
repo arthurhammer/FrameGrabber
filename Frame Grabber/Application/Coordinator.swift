@@ -120,7 +120,7 @@ class Coordinator: NSObject {
 
 // MARK: - AlbumViewControllerDelegate
 
-extension Coordinator: AlbumViewControllerDelegate {
+extension Coordinator: LibraryViewControllerDelegate {
     
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController) {
         showAlbumPicker()
