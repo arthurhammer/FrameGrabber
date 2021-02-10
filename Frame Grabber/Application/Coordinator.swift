@@ -37,7 +37,7 @@ class Coordinator: NSObject {
         
         showAuthorizationIfNeeded { [weak self] in
             self?.showRecentsAlbum()
-            _ = self?.albumsDataSource  // Preload albums.
+            self?.preloadAlbums()
         }
     }
     
@@ -76,6 +76,12 @@ class Coordinator: NSObject {
 
         if let recents = AlbumsDataSource.fetchFirstAlbum() {
             libraryViewController.dataSource.album = recents
+        }
+    }
+    
+    private func preloadAlbums() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            _ = self.albumsDataSource
         }
     }
     
