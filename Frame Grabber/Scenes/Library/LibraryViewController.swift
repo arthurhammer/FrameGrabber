@@ -76,27 +76,32 @@ class LibraryViewController: UIViewController {
     // MARK: Configuring
 
     private func configureViews() {
-        navigationItem.titleView = UIView()
-        titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()
-        
+        configureTitleButton()
         configureImportMenu()
         configureBindings()
-        updateViews()
-    }
-
-    private func updateViews() {
-        updateTitleAndMenu()
-        updateFilterMenu()
         updateNavigationBar()
     }
     
+    private func configureTitleButton() {
+        navigationItem.titleView = UIView()
+        titleButton.configureDynamicTypeLabel()
+        titleButton.configureTrailingAlignedImage()
+
+        if dataSource.isAuthorizationLimited {
+            // Disable albums.
+            titleButton.setImage(nil, for: .normal)
+            titleButton.isUserInteractionEnabled = false
+        } else {
+            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
+        }
+    }
+
     private func configureBindings() {
         dataSource.$album
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.updateTitleAndMenu()
-            }.store(in: &bindings)
+            .map { $0?.localizedTitle }
+            .replaceNil(with: UserText.libraryDefaultTitle)
+            .assignWeak(to: \.title, on: self)
+            .store(in: &bindings)
         
         dataSource.$filter
             .combineLatest(dataSource.$gridMode)
@@ -123,33 +128,30 @@ class LibraryViewController: UIViewController {
 
     // MARK: Filter Menu
 
-    // @available(iOS 14, *)
     private func updateFilterMenu() {
         if #available(iOS 14, *) {
             filterBarItem.menu = LibraryFilterMenu.menu(
                 with: dataSource.filter,
                 gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
-                    DispatchQueue.main.async {
-                        self?.handleFilterMenuSelection(selection)
-                        self?.updateFilterMenu()
-                    }
+                    self?.handleFilterMenuSelection(selection)
                 }
             )
+        } else {
+            filterBarItem.target = self
+            filterBarItem.action = #selector(showFilterMenuAsAlert)
         }
     }
 
     @available(iOS, obsoleted: 14, message: "Use context menus.")
-    @objc private  func showFilterMenuAsAlert() {
+    @objc private func showFilterMenuAsAlert() {
         LibraryFilterMenu.presentAsAlert(
             from: self,
             currentFilter: dataSource.filter,
             gridMode: dataSource.gridMode,
             barItem: filterBarItem,
             selection: { [weak self] selection in
-                DispatchQueue.main.async {
-                    self?.handleFilterMenuSelection(selection)
-                }
+                self?.handleFilterMenuSelection(selection)
             }
         )
     }
@@ -169,10 +171,11 @@ class LibraryViewController: UIViewController {
     
     private func configureImportMenu() {
         if #available(iOS 14, *) {
-            toolbar.importButton.menu = LibraryImportMenu.menu { [weak self] in
-                self?.handleImportMenuSelection($0)
-            }
+            let isLimited = dataSource.isAuthorizationLimited
             toolbar.importButton.showsMenuAsPrimaryAction = true
+            toolbar.importButton.menu = LibraryImportMenu.menu(isLibraryLimited: isLimited) {
+                [weak self] in self?.handleImportMenuSelection($0)
+            }
         } else {
             let action = #selector(showImportMenuAsAlert)
             toolbar.importButton.addTarget(self, action: action, for: .touchUpInside)
@@ -182,46 +185,22 @@ class LibraryViewController: UIViewController {
     @available(iOS, obsoleted: 14, message: "Use context menus.")
     @objc private  func showImportMenuAsAlert() {
         LibraryImportMenu.presentAsAlert(from: self, sourceView: toolbar.importButton) {
-            [weak self] in
-            self?.handleImportMenuSelection($0)
+            [weak self] in self?.handleImportMenuSelection($0)
         }
     }
     
     private func handleImportMenuSelection(_ selection: LibraryImportMenu.Selection) {
+        UISelectionFeedbackGenerator().selectionChanged()
+        
         switch selection {
         case .file:
             delegate?.controllerDidSelectFilePicker(self)
         case .camera:
             delegate?.controllerDidSelectCamera(self)
-        }
-    }
-    
-    // MARK: - Title & Authorization Menu
-    
-    private func updateTitleAndMenu() {
-        if dataSource.isAuthorizationLimited,
-           #available(iOS 14.0, *) {
-            
-            title = UserText.albumLimitedAuthorizationTitle
-            titleButton.showsMenuAsPrimaryAction = true
-            titleButton.menu = LimitedAuthorizationMenu.menu { [weak self] selection in
-                self?.handleLimitedAuthorizationMenuSelection(selection)
+        case .addMorePhotos:
+            if #available(iOS 14, *) {
+                dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
             }
-        } else {
-            title = dataSource.album?.localizedTitle ?? UserText.libraryDefaultTitle
-            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
-        }
-    }
-    
-    @available(iOS 14, *)
-    private func handleLimitedAuthorizationMenuSelection(_ selection: LimitedAuthorizationMenu.Selection) {
-        switch selection {
-        
-        case .selectPhotos:
-            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
-            
-        case .openSettings:
-            UIApplication.shared.openSettings()
         }
     }
 }

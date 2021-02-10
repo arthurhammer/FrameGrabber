@@ -14,7 +14,7 @@ struct LibraryFilterMenu {
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
         
-        let filterActions = PhotoLibraryFilter.allCases.reversed().map { filter in
+        let filterActions = PhotoLibraryFilter.allCases.map { filter in
             UIAction(
                 title: filter.title,
                 image: filter.icon,
@@ -29,10 +29,10 @@ struct LibraryFilterMenu {
             handler: { _ in handler(.gridMode(gridMode.toggled)) }
         )
         
-        let filterMenu = UIMenu(title: "", options: .displayInline, children: filterActions)
-        let gridMenu = UIMenu(title: "", options: .displayInline, children: [gridAction])
+        let filterMenu = UIMenu(options: .displayInline, children: filterActions)
+        let gridMenu = UIMenu(options: .displayInline, children: [gridAction])
 
-        return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [gridMenu, filterMenu])
+        return UIMenu(title: UserText.albumViewSettingsMenuTitle, children: [filterMenu, gridMenu])
     }
 
     @available(iOS, obsoleted: 14, message: "Use context menus")
