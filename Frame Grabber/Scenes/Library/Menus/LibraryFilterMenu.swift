@@ -69,4 +69,17 @@ struct LibraryFilterMenu {
 
         return controller
     }
+    
+    @available(iOS, obsoleted: 14, message: "Use context menus.")
+    static func presentAsAlert(
+        from presenter: UIViewController,
+        currentFilter: PhotoLibraryFilter,
+        gridMode: LibraryGridMode,
+        barItem: UIBarButtonItem,
+        selection: @escaping (Selection) -> Void
+    ) {
+        let alert = alertController(with: currentFilter, gridMode: gridMode, handler: selection)
+        alert.popoverPresentationController?.barButtonItem = barItem
+        presenter.present(alert, animated: true)
+    }
 }

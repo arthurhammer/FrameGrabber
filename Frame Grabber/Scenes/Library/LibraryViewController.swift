@@ -80,43 +80,29 @@ class LibraryViewController: UIViewController {
         titleButton.configureDynamicTypeLabel()
         titleButton.configureTrailingAlignedImage()
         
-        if #available(iOS 14, *) {
-            toolbar.importButton.showsMenuAsPrimaryAction = true
-        } else {
-            let action = #selector(showFilterMenuAsSheet)
-            toolbar.importButton.addTarget(self, action: action, for: .touchUpInside)
-        }
-        
+        configureImportMenu()
         configureBindings()
         updateViews()
     }
 
     private func updateViews() {
-        updateTitle()
-        updateFilterButton()
+        updateTitleAndMenu()
+        updateFilterMenu()
         updateNavigationBar()
-    }
-    
-    private func updateTitle() {
-        if dataSource.isAuthorizationLimited,
-           #available(iOS 14.0, *) {
-            
-            title = UserText.albumLimitedAuthorizationTitle
-            titleButton.showsMenuAsPrimaryAction = true
-            titleButton.menu = LimitedAuthorizationMenu.menu { [weak self] selection in
-                self?.handleLimitedAuthorizationMenuSelection(selection)
-            }
-        } else {
-            title = dataSource.album?.localizedTitle ?? UserText.libraryDefaultTitle
-            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
-        }
     }
     
     private func configureBindings() {
         dataSource.$album
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.updateTitle()
+                self?.updateTitleAndMenu()
+            }.store(in: &bindings)
+        
+        dataSource.$filter
+            .combineLatest(dataSource.$gridMode)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateFilterMenu()
             }.store(in: &bindings)
     }
     
@@ -135,9 +121,10 @@ class LibraryViewController: UIViewController {
         gridController?.additionalSafeAreaInsets.bottom = toolbarTop + spacing
     }
 
-    // MARK: Handling Menus
+    // MARK: Filter Menu
 
-    private func updateFilterButton() {
+    // @available(iOS 14, *)
+    private func updateFilterMenu() {
         if #available(iOS 14, *) {
             filterBarItem.menu = LibraryFilterMenu.menu(
                 with: dataSource.filter,
@@ -145,26 +132,26 @@ class LibraryViewController: UIViewController {
                 handler: { [weak self] selection in
                     DispatchQueue.main.async {
                         self?.handleFilterMenuSelection(selection)
+                        self?.updateFilterMenu()
                     }
                 }
             )
         }
     }
 
-    @available(iOS, obsoleted: 14, message: "Use context menus")
-    @objc private  func showFilterMenuAsSheet() {
-        let controller = LibraryFilterMenu.alertController(
-            with: dataSource.filter,
+    @available(iOS, obsoleted: 14, message: "Use context menus.")
+    @objc private  func showFilterMenuAsAlert() {
+        LibraryFilterMenu.presentAsAlert(
+            from: self,
+            currentFilter: dataSource.filter,
             gridMode: dataSource.gridMode,
-            handler: { [weak self] selection in
+            barItem: filterBarItem,
+            selection: { [weak self] selection in
                 DispatchQueue.main.async {
                     self?.handleFilterMenuSelection(selection)
                 }
             }
         )
-
-        controller.popoverPresentationController?.barButtonItem = filterBarItem
-        presentAlert(controller)
     }
 
     private func handleFilterMenuSelection(_ selection: LibraryFilterMenu.Selection) {
@@ -176,8 +163,54 @@ class LibraryViewController: UIViewController {
         case .gridMode(let mode):
             dataSource.gridMode = mode
         }
-
-        updateFilterButton()
+    }
+    
+    // MARK: Import Menu
+    
+    private func configureImportMenu() {
+        if #available(iOS 14, *) {
+            toolbar.importButton.menu = LibraryImportMenu.menu { [weak self] in
+                self?.handleImportMenuSelection($0)
+            }
+            toolbar.importButton.showsMenuAsPrimaryAction = true
+        } else {
+            let action = #selector(showImportMenuAsAlert)
+            toolbar.importButton.addTarget(self, action: action, for: .touchUpInside)
+        }
+    }
+    
+    @available(iOS, obsoleted: 14, message: "Use context menus.")
+    @objc private  func showImportMenuAsAlert() {
+        LibraryImportMenu.presentAsAlert(from: self, sourceView: toolbar.importButton) {
+            [weak self] in
+            self?.handleImportMenuSelection($0)
+        }
+    }
+    
+    private func handleImportMenuSelection(_ selection: LibraryImportMenu.Selection) {
+        switch selection {
+        case .file:
+            delegate?.controllerDidSelectFilePicker(self)
+        case .camera:
+            delegate?.controllerDidSelectCamera(self)
+        }
+    }
+    
+    // MARK: - Title & Authorization Menu
+    
+    private func updateTitleAndMenu() {
+        if dataSource.isAuthorizationLimited,
+           #available(iOS 14.0, *) {
+            
+            title = UserText.albumLimitedAuthorizationTitle
+            titleButton.showsMenuAsPrimaryAction = true
+            titleButton.menu = LimitedAuthorizationMenu.menu { [weak self] selection in
+                self?.handleLimitedAuthorizationMenuSelection(selection)
+            }
+        } else {
+            title = dataSource.album?.localizedTitle ?? UserText.libraryDefaultTitle
+            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
+        }
     }
     
     @available(iOS 14, *)

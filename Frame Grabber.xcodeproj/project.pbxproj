@@ -88,6 +88,8 @@
 		0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1AF25BE5AF800A1235A /* TimeFormat.swift */; };
 		00487D4123FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
 		00487D4223FD94A200CE8FAF /* ScrubbingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */; };
+		0050CF4725D415A400E94F95 /* LibraryImportMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */; };
+		0050CF4825D415A400E94F95 /* LibraryImportMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */; };
 		0054936123E562E200F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
 		0054936223E562E600F3E684 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936023E562E200F3E684 /* UIDevice.swift */; };
 		0054936423E5631B00F3E684 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936323E5631B00F3E684 /* About.swift */; };
@@ -347,6 +349,7 @@
 		0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatSettingsViewController.swift; sourceTree = "<group>"; };
 		0045A1AF25BE5AF800A1235A /* TimeFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormat.swift; sourceTree = "<group>"; };
 		00487D4023FD94A200CE8FAF /* ScrubbingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubbingIndicatorView.swift; sourceTree = "<group>"; };
+		0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryImportMenu.swift; sourceTree = "<group>"; };
 		0054936023E562E200F3E684 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "Frame Grabber/Utilities/UIDevice.swift"; sourceTree = SOURCE_ROOT; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
 		005748AF25C9242900F64621 /* FileMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetadata.swift; sourceTree = "<group>"; };
@@ -756,6 +759,7 @@
 			isa = PBXGroup;
 			children = (
 				00B52C8E24B71C9F00FDD427 /* LibraryFilterMenu.swift */,
+				0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */,
 				00CA33B425A3598400DBD84D /* LimitedAuthorizationMenu.swift */,
 				00024F6F234482EE00937941 /* VideoCellContextMenu.swift */,
 				00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */,
@@ -1082,6 +1086,7 @@
 				00BCB4DA25C99CE80005192F /* ISO6709LocationParser.swift in Sources */,
 				00730EB7214FEA5A001A6EA7 /* PHImageManager.swift in Sources */,
 				00CA341D25A5BA4400DBD84D /* UIViewController.swift in Sources */,
+				0050CF4825D415A400E94F95 /* LibraryImportMenu.swift in Sources */,
 				00CE254F25D29F170005D21C /* EmptyLibraryView.swift in Sources */,
 				0057487B25C873FA00F64621 /* AVAsset+MetadataLoading.swift in Sources */,
 				0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */,
@@ -1203,6 +1208,7 @@
 				00BCB4D925C99CE80005192F /* ISO6709LocationParser.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
 				00CA341C25A5BA4400DBD84D /* UIViewController.swift in Sources */,
+				0050CF4725D415A400E94F95 /* LibraryImportMenu.swift in Sources */,
 				00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */,
 				0057487725C873F900F64621 /* AVAsset+MetadataLoading.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,

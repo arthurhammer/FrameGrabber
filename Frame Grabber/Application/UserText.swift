@@ -32,6 +32,8 @@ struct UserText {
     static let albumViewSettingsMenuTitle = NSLocalizedString("album.viewSettings.menu.title", value: "View", comment: "Title of album view settings button menu")
     static let albumViewSettingsSquareGridTitle = NSLocalizedString("album.viewSettings.squareGrid.title", value: "Square Grid", comment: "Title of album view as squares settings menu item")
     static let albumViewSettingsFitGridTitle = NSLocalizedString("album.viewSettings.fitGrid.title", value: "Aspect Ratio Grid", comment: "Title of album view as aspect ratio settings menu item")
+    static let libraryImportFileMenuTitle = NSLocalizedString("library.menu.import.file.title", value: "Open a File", comment: "Title of import menu, open file picker action.")
+    static let libraryImportCameraMenuTitle = NSLocalizedString("library.menu.import.camera.title", value: "Record a Video", comment: "Title of import menu, open camera action.")
     
     static let limitedAuthorizationMenuTitle = NSLocalizedString("album.limited.menu.title", value: "You've given Frame Grabber access to a limited number of videos and Live Photos.", comment: "Title for limited authorization menu.")
     static let limitedAuthorizationMenuSelectPhotosAction = NSLocalizedString("album.limited.menu.selectphotos.action", value: "Select More Items", comment: "Action to select more photos in limited authorization menu.")
