@@ -32,7 +32,8 @@ class LibraryViewController: UIViewController {
     var zoomTransitionAsset: PHAsset?
     
     @IBOutlet private var titleButton: UIButton!
-    @IBOutlet private var filterButton: LibraryFilterButton!
+    @IBOutlet private var filterBarItem: UIBarButtonItem!
+    @IBOutlet private var toolbar: LibraryToolbar!
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
@@ -80,10 +81,10 @@ class LibraryViewController: UIViewController {
         titleButton.configureTrailingAlignedImage()
         
         if #available(iOS 14, *) {
-            filterButton.showsMenuAsPrimaryAction = true
+            toolbar.importButton.showsMenuAsPrimaryAction = true
         } else {
             let action = #selector(showFilterMenuAsSheet)
-            filterButton.addTarget(self, action: action, for: .touchUpInside)
+            toolbar.importButton.addTarget(self, action: action, for: .touchUpInside)
         }
         
         configureBindings()
@@ -130,17 +131,15 @@ class LibraryViewController: UIViewController {
     
     private func updateGridSafeArea() {
         let spacing: CGFloat = 8
-        let buttonTop = view.safeAreaLayoutGuide.layoutFrame.maxY - filterButton.frame.minY
-        gridController?.additionalSafeAreaInsets.bottom = buttonTop + spacing
+        let toolbarTop = view.safeAreaLayoutGuide.layoutFrame.maxY - toolbar.frame.minY
+        gridController?.additionalSafeAreaInsets.bottom = toolbarTop + spacing
     }
 
     // MARK: Handling Menus
 
     private func updateFilterButton() {
-        filterButton.setTitle(dataSource.filter.title, for: .normal, animated: false)
-        
         if #available(iOS 14, *) {
-            filterButton.menu = LibraryFilterMenu.menu(
+            filterBarItem.menu = LibraryFilterMenu.menu(
                 with: dataSource.filter,
                 gridMode: dataSource.gridMode,
                 handler: { [weak self] selection in
@@ -164,7 +163,7 @@ class LibraryViewController: UIViewController {
             }
         )
 
-        controller.popoverPresentationController?.sourceView = filterButton
+        controller.popoverPresentationController?.barButtonItem = filterBarItem
         presentAlert(controller)
     }
 

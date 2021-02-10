@@ -179,19 +179,50 @@
                                     <segue destination="z5r-QY-0zg" kind="embed" destinationCreationSelector="makeGridController:" id="B2Q-IX-CgT"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps3-t8-YlX" customClass="LibraryFilterButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="251" y="798" width="143" height="44"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                <inset key="contentEdgeInsets" minX="16" minY="10" maxX="16" maxY="10"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="&lt;All Items&gt;" image="line.horizontal.3.decrease.circle" catalog="system">
-                                    <color key="titleColor" systemColor="labelColor"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="medium">
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    </preferredSymbolConfiguration>
-                                </state>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JII-vh-LMD" customClass="LibraryToolbar" customModule="Frame_Grabber" customModuleProvider="target">
+                                <rect key="frame" x="311" y="793" width="83" height="49"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vs1-bY-hZh">
+                                        <rect key="frame" x="0.0" y="0.0" width="83" height="49"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GGp-uR-H5n">
+                                            <rect key="frame" x="0.0" y="0.0" width="83" height="49"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps3-t8-YlX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="83" height="49"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="tintColor" systemColor="labelColor"/>
+                                                    <inset key="contentEdgeInsets" minX="16" minY="14" maxX="16" maxY="14"/>
+                                                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="Add" image="plus" catalog="system">
+                                                        <color key="titleColor" systemColor="labelColor"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="default">
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                        </preferredSymbolConfiguration>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ps3-t8-YlX" firstAttribute="leading" secondItem="GGp-uR-H5n" secondAttribute="leading" id="IHm-HI-Kx4"/>
+                                                <constraint firstItem="ps3-t8-YlX" firstAttribute="top" secondItem="GGp-uR-H5n" secondAttribute="top" id="Whb-5f-UCP"/>
+                                                <constraint firstAttribute="bottom" secondItem="ps3-t8-YlX" secondAttribute="bottom" id="cm4-YK-tl2"/>
+                                                <constraint firstAttribute="trailing" secondItem="ps3-t8-YlX" secondAttribute="trailing" id="ecP-bK-amb"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="vs1-bY-hZh" firstAttribute="top" secondItem="JII-vh-LMD" secondAttribute="top" id="MQj-iC-aur"/>
+                                    <constraint firstAttribute="trailing" secondItem="vs1-bY-hZh" secondAttribute="trailing" id="Ns7-y1-qgu"/>
+                                    <constraint firstAttribute="bottom" secondItem="vs1-bY-hZh" secondAttribute="bottom" id="XAj-qz-Esk"/>
+                                    <constraint firstItem="vs1-bY-hZh" firstAttribute="leading" secondItem="JII-vh-LMD" secondAttribute="leading" id="YQq-Dk-Bsw"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="importButton" destination="ps3-t8-YlX" id="jox-yJ-DoM"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="24K-Y6-tJv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -199,10 +230,10 @@
                             <constraint firstItem="RzZ-6r-66b" firstAttribute="top" secondItem="3v0-dz-T36" secondAttribute="top" id="1JW-Xr-oH9"/>
                             <constraint firstItem="RzZ-6r-66b" firstAttribute="trailing" secondItem="3v0-dz-T36" secondAttribute="trailing" id="BqC-Aq-gH2"/>
                             <constraint firstAttribute="bottom" secondItem="RzZ-6r-66b" secondAttribute="bottom" id="Fjv-H8-ttl"/>
-                            <constraint firstItem="24K-Y6-tJv" firstAttribute="trailing" secondItem="ps3-t8-YlX" secondAttribute="trailing" constant="20" id="JFF-yo-uxu"/>
-                            <constraint firstItem="24K-Y6-tJv" firstAttribute="bottom" secondItem="ps3-t8-YlX" secondAttribute="bottom" constant="20" id="aPh-nf-YjW"/>
-                            <constraint firstItem="ps3-t8-YlX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="24K-Y6-tJv" secondAttribute="leading" constant="20" id="hCd-eX-e0V"/>
+                            <constraint firstItem="24K-Y6-tJv" firstAttribute="bottom" secondItem="JII-vh-LMD" secondAttribute="bottom" constant="20" id="XPS-BZ-tGZ"/>
+                            <constraint firstItem="JII-vh-LMD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="24K-Y6-tJv" secondAttribute="leading" constant="20" id="kEp-aK-aX3"/>
                             <constraint firstItem="RzZ-6r-66b" firstAttribute="leading" secondItem="3v0-dz-T36" secondAttribute="leading" id="th6-5Q-jWz"/>
+                            <constraint firstItem="24K-Y6-tJv" firstAttribute="trailing" secondItem="JII-vh-LMD" secondAttribute="trailing" constant="20" id="yZv-8v-61B"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="QXR-Ao-DMK">
@@ -246,16 +277,13 @@
                                     <segue destination="Q9O-On-eG2" kind="presentation" id="Rdw-Fi-nc6"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="folder.circle" catalog="system" id="OO5-IZ-Y4X">
-                                <connections>
-                                    <action selector="showFilePicker" destination="ooc-mi-fO9" id="F7G-Yh-tXd"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem image="line.horizontal.3.decrease.circle" catalog="system" id="OO5-IZ-Y4X"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="filterButton" destination="ps3-t8-YlX" id="vfA-de-7NL"/>
+                        <outlet property="filterBarItem" destination="OO5-IZ-Y4X" id="qva-mI-H3g"/>
                         <outlet property="titleButton" destination="o5U-uu-PJT" id="hSK-9I-LKy"/>
+                        <outlet property="toolbar" destination="JII-vh-LMD" id="zcQ-3j-Lim"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gLp-8G-IVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -266,11 +294,11 @@
     <color key="tintColor" name="accent"/>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="folder.circle" catalog="system" width="128" height="121"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="accent">
             <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
