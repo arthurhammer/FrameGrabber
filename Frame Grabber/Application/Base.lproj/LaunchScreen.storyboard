@@ -22,7 +22,7 @@
                     <navigationItem key="navigationItem" id="Ofp-8x-rjr">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="info.circle" catalog="system" id="6E7-Ir-ebi"/>
-                            <barButtonItem title="Item" image="folder.circle" catalog="system" id="buo-5F-Kgz"/>
+                            <barButtonItem title="Item" image="line.horizontal.3.decrease.circle" catalog="system" id="buo-5F-Kgz"/>
                         </rightBarButtonItems>
                     </navigationItem>
                 </viewController>
@@ -51,8 +51,8 @@
     </scenes>
     <color key="tintColor" name="accent"/>
     <resources>
-        <image name="folder.circle" catalog="system" width="128" height="121"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <namedColor name="accent">
             <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
