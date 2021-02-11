@@ -17,13 +17,13 @@ extension UserDefaults {
     }
 
     var photoLibraryFilter: PhotoLibraryFilter {
-        get { codableValue(forKey: Key.photoLibraryFilter) ?? .videoAndLivePhoto }
-        set { setCodableValue(value: newValue, forKey: Key.photoLibraryFilter) }
+        get { decodedValue(forKey: Key.photoLibraryFilter) ?? .videoAndLivePhoto }
+        set { setEncodedValue(newValue, forKey: Key.photoLibraryFilter) }
     }
 
     var libraryGridMode: LibraryGridMode {
-        get { codableValue(forKey: Key.libraryGridMode) ?? .square }
-        set { setCodableValue(value: newValue, forKey: Key.libraryGridMode) }
+        get { decodedValue(forKey: Key.libraryGridMode) ?? .square }
+        set { setEncodedValue(newValue, forKey: Key.libraryGridMode) }
     }
 
     var includeMetadata: Bool {
@@ -33,8 +33,8 @@ extension UserDefaults {
 
     /// When setting or getting an unsupported format, sets or gets a fallback format (jpeg).
     var imageFormat: ImageFormat {
-        get { (codableValue(forKey: Key.imageFormat) ?? ImageFormat.jpeg).fallbackFormat }
-        set { setCodableValue(value: newValue.fallbackFormat, forKey: Key.imageFormat) }
+        get { (decodedValue(forKey: Key.imageFormat) ?? ImageFormat.jpeg).fallbackFormat }
+        set { setEncodedValue(newValue.fallbackFormat, forKey: Key.imageFormat) }
     }
 
     var compressionQuality: Double {
@@ -43,13 +43,14 @@ extension UserDefaults {
     }
     
     var exportAction: ExportAction {
-        get { codableValue(forKey: Key.exportAction) ?? .showShareSheet }
-        set { setCodableValue(value: newValue, forKey: Key.exportAction) }
+        get { decodedValue(forKey: Key.exportAction) ?? .showShareSheet }
+        set { setEncodedValue(newValue, forKey: Key.exportAction) }
     }
     
     var timeFormat: TimeFormat {
-        get { codableValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
-        set { setCodableValue(value: newValue, forKey: Key.timeFormat) }
+        get { decodedValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
+        set { setEncodedValue(newValue, forKey: Key.timeFormat) }
+    }
     
     var camera: UIImagePickerController.CameraDevice {
         get { valueForRawValue(forKey: Key.camera) ?? .front }
@@ -66,12 +67,12 @@ extension UserDefaults: PurchasedProductsStore {
 
 extension UserDefaults {
 
-    func codableValue<T: Codable>(forKey key: String) -> T? {
+    func decodedValue<T: Codable>(forKey key: String) -> T? {
         guard let data = data(forKey: key) else { return nil }
         return try? JSONDecoder().decode(T.self, from: data)
     }
 
-    func setCodableValue<T: Codable>(value: T?, forKey key: String) {
+    func setEncodedValue<T: Codable>(_ value: T?, forKey key: String) {
         let data = try? value.flatMap(JSONEncoder().encode)
         set(data, forKey: key)
     }
