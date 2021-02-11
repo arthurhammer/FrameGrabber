@@ -13,6 +13,7 @@ class EditorViewController: UIViewController {
 
     let videoController: VideoController
     let playbackController: PlaybackController
+    var toolbarController: EditorToolbarController!
     let settings: UserDefaults
     
     init?(
@@ -33,21 +34,10 @@ class EditorViewController: UIViewController {
         fatalError("Dependencies must be injected")
     }
     
-    // MARK: Private Properties
-
-    private lazy var timeFormatter = VideoTimeFormatter()
-    private var sliderDataSource: AVAssetThumbnailSliderDataSource?
-    private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-    private lazy var activityFeedbackGenerator = UINotificationFeedbackGenerator()
-    private lazy var bindings = Set<AnyCancellable>()
-
-    @IBOutlet private var toolbar: EditorToolbar!
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
     @IBOutlet private var progressView: ProgressView!
-
-    private var isScrubbing: Bool {
-        toolbar.timeSlider.isTracking
-    }
+    private lazy var activityFeedbackGenerator = UINotificationFeedbackGenerator()
+    private lazy var bindings = Set<AnyCancellable>()
 
     // MARK: Life Cycle
 
@@ -69,9 +59,12 @@ class EditorViewController: UIViewController {
     }
     
     @IBSegueAction func makeToolbarController(_ coder: NSCoder) -> EditorToolbarController? {
-        let controller = EditorToolbarController(playbackController: playbackController, coder: coder)
-//        controller?.delegate = self
-        return controller
+        self.toolbarController = EditorToolbarController(
+            playbackController: playbackController,
+            delegate: self,
+            coder: coder
+        )
+        return toolbarController
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,70 +94,14 @@ class EditorViewController: UIViewController {
     }
 }
 
-// MARK: - Private
+// MARK: - Configuring
 
 private extension EditorViewController {
-
-    // MARK: Actions
-
-    @IBAction func playOrPause() {
-        guard !isScrubbing else { return }
-        playSelectionFeedback()
-        playbackController.playOrPause()
-    }
-
-    @IBAction func stepBackward() {
-        guard !isScrubbing else { return }
-        playSelectionFeedback()
-        playbackController.step(byCount: -1)
-    }
-
-    @IBAction func stepForward() {
-        guard !isScrubbing else { return }
-        playSelectionFeedback()
-        playbackController.step(byCount: 1)
-    }
-
-    @IBAction func shareFrames() {
-        guard !isScrubbing else { return }
-
-        playSelectionFeedback()
-        playbackController.pause()
-        
-        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
-        generateFramesAndShare(for: [time])
-    }
-
-    @IBAction func scrub(_ sender: ScrubbingThumbnailSlider) {
-        playbackController.smoothlySeek(to: sender.time)
-    }
-
-    @objc func showMoreMenuAsAlertSheet() {
-        let alertController = EditorMoreMenu.alertController { [weak self] selection in
-            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-        }
-        
-        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        presentOnTop(alertController)
-    }
-
-    private func playSelectionFeedback() {
-        selectionFeedbackGenerator.selectionChanged()
-        selectionFeedbackGenerator.prepare()
-    }
-
-    // MARK: Configuring
 
     func configureViews() {
         zoomingPlayerView.clipsToBounds = false
         zoomingPlayerView.player = playbackController.player
         zoomingPlayerView.posterImage = videoController.previewImage
-
-        sliderDataSource = AVAssetThumbnailSliderDataSource(
-            slider: toolbar.timeSlider,
-            asset: videoController.video,
-            placeholderImage: videoController.previewImage
-        )
 
         if #available(iOS 14.0, *) {
             navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
@@ -174,38 +111,16 @@ private extension EditorViewController {
             navigationItem.rightBarButtonItem?.target = self
             navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
         }
-        
-        toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
-        
-        if #available(iOS 14.0, *) {
-            toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultScrubbingSpeed]
-            toolbar.speedButton.showsMenuAsPrimaryAction = true
-            updateSpeedButton()
-        } else {
-            // Use the old vertical sliding speed configuration.
-            toolbar.speedButton.isHidden = true
-        }
 
         configureNavigationBar()
         configureGestures()
-        bindPlayer()
+        configureBindings()
     }
 
     func configureNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.applyToolbarShadow()
-        toolbar.applyToolbarShadow()
-    }
-    
-    @available(iOS 14, *)
-    func updateSpeedButton() {
-        let current = toolbar.timeSlider.currentScrubbingSpeed
-                    
-        toolbar.speedButton.menu = EditorSpeedMenu.menu(withCurrentSpeed: current) {
-            [weak self] selection in
-            self?.toolbar.timeSlider.scrubbingSpeeds = [selection.scrubbingSpeed]
-            self?.updateSpeedButton()
-        }
+        toolbarController.toolbar.applyToolbarShadow()
     }
 
     func configureGestures() {
@@ -220,7 +135,8 @@ private extension EditorViewController {
     @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
         let canSlide = zoomingPlayerView.playerView.bounds.size != .zero
 
-        guard !isScrubbing, canSlide else { return }
+        guard !toolbarController.isScrubbing,
+              canSlide else { return }
 
         delegate?.controller(self, handleSlideToPopGesture: gesture)
     }
@@ -230,16 +146,7 @@ private extension EditorViewController {
         presenter.present(viewController, animated: animated)
     }
 
-    func bindPlayer() {
-        playbackController
-            .$status
-            .map { $0 == .readyToPlay }
-            .sink { [weak self] in
-                self?.toolbar.setEnabled($0)
-                self?.navigationItem.rightBarButtonItem?.isEnabled = $0
-            }
-            .store(in: &bindings)
-
+    func configureBindings() {
         playbackController
             .$status
             .filter { $0 == .failed }
@@ -248,65 +155,15 @@ private extension EditorViewController {
                 self?.presentOnTop(UIAlertController.playbackFailed())
             }
             .store(in: &bindings)
-
-        playbackController
-            .$duration
-            .assignWeak(to: \.duration, on: toolbar.timeSlider)
-            .store(in: &bindings)
-
-        playbackController
-            .$currentPlaybackTime
-            .sink { [weak self] time in
-                guard self?.isScrubbing == false else { return }
-                self?.toolbar.timeSlider.setTime(time, animated: false)
-            }
-            .store(in: &bindings)
-        
-        playbackController
-            .$currentSampleTime
-            .sink { [weak self] time in
-                let time = time ?? self?.playbackController.currentPlaybackTime ?? .zero
-                self?.updateTimeLabel(withTime: time)
-            }
-            .store(in: &bindings)
-
-        playbackController
-            .$timeControlStatus
-            .sink { [weak self] in
-                self?.toolbar.playButton.setTimeControlStatus($0)
-            }
-            .store(in: &bindings)
     }
-
-    // TODO: Clean up
-    func updateTimeLabel(withTime time: CMTime) {
-        // Loading or playing.
-        guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
-            toolbar.timeSpinner.isHidden = true
-            toolbar.timeLabel.text = timeFormatter.string(from: time)
-            return
+    
+    @objc func showMoreMenuAsAlertSheet() {
+        let alertController = EditorMoreMenu.alertController { [weak self] selection in
+            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
         }
         
-        switch settings.timeFormat {
-        
-        case .minutesSecondsMilliseconds:
-            toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)
-        
-        case .minutesSecondsFrameNumber:
-            // Succeeded indexing.
-            if let frameNumber = playbackController.relativeFrameNumber(for: time) {
-                toolbar.timeSpinner.isHidden = true
-                toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
-            // Still indexing.
-            } else if playbackController._isIndexingSampleTimes {
-                toolbar.timeSpinner.isHidden = false
-                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"
-            // Failed indexing.
-            } else {
-                toolbar.timeSpinner.isHidden = true
-                toolbar.timeLabel.text = timeFormatter.string(from: time)
-            }
-        }
+        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        presentOnTop(alertController)
     }
 
     // MARK: Loading Videos
@@ -341,14 +198,14 @@ private extension EditorViewController {
         case .success(let video):
             playbackController.asset = video
             startPlaying(from: videoController.source)
-            sliderDataSource?.asset = video
         }
     }
     
+    // TODO: Fix this hack. This shouldn't be the the editor's responsibility.
+    //
     // When the camera is dismissed, it disables all active video playback after a delay for some
     // reason :( However, we don't want to open the editor only after the camera is dismissed, we
     // want it to be ready right away. Just delay the playback for now.
-    // TODO: Fix this hack. This shouldn't be the the editor's responsibility.
     func startPlaying(from source: VideoSource) {
         if case .camera = videoController.source {
             let delay = 0.5
@@ -391,6 +248,7 @@ private extension EditorViewController {
         }
     }
 
+    // todo: clean this up.
     func share(urls: [URL], using action: ExportAction) {
         switch action {
                 
@@ -398,7 +256,8 @@ private extension EditorViewController {
             activityFeedbackGenerator.notificationOccurred(.success)
             
             let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-            shareController.popoverPresentationController?.sourceView = toolbar.shareButton
+            let shareButton = toolbarController.toolbar.shareButton
+            shareController.popoverPresentationController?.sourceView = shareButton
 
             shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
                 guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
@@ -503,24 +362,27 @@ extension EditorViewController: ZoomTransitionDelegate {
     }
     
     private func animatePush(_ transition: ZoomTransition) {
+        let toolbar = toolbarController.toolbar!
         let yOffset = toolbar.bounds.height * 0.5
         toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
 
-        transition.animate(alongsideTransition: { [weak self] _ in
-            self?.toolbar.transform = .identity
+        transition.animate(alongsideTransition: { _ in
+            toolbar.transform = .identity
         }, completion:nil)
     }
     
     private func animatePop(_ transition: ZoomTransition) {
         let backgroundColor = view.backgroundColor
+        let toolbar = toolbarController.toolbar!
 
         transition.animate(alongsideTransition: { [weak self] _ in
             guard let self = self else { return }
             self.view.backgroundColor = .clear
             self.progressView.alpha = 0
-            self.toolbar.alpha = 0
-            let yOffset = self.toolbar.bounds.height * 1.5
-            self.toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
+            
+            let yOffset = toolbar.bounds.height * 1.0
+            toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
+            toolbar.alpha = 0
         }, completion: { [weak self] _ in
             self?.view.backgroundColor = backgroundColor
         })
