@@ -12,7 +12,18 @@ class EditorToolbarController: UIViewController {
     weak var delegate: EditorToolbarControllerDelegate?
         
     let playbackController: PlaybackController
-    let settings: UserDefaults = .standard
+
+    var placeholderImage: UIImage? {
+        didSet { updateViews() }
+    }
+    
+    var timeFormat: TimeFormat = .minutesSecondsMilliseconds {
+        didSet { updateViews()  }
+    }
+    
+    var exportAction: ExportAction = .showShareSheet {
+        didSet { updateViews() }
+    }
     
     var isScrubbing: Bool {
         toolbar.timeSlider.isTracking
@@ -25,8 +36,13 @@ class EditorToolbarController: UIViewController {
     private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
     
-    init?(playbackController: PlaybackController, coder: NSCoder) {
+    init?(
+        playbackController: PlaybackController,
+        delegate: EditorToolbarControllerDelegate? = nil,
+        coder: NSCoder
+    ) {
         self.playbackController = playbackController
+        self.delegate = delegate
         super.init(coder: coder)
     }
     
@@ -101,6 +117,17 @@ class EditorToolbarController: UIViewController {
         }
         
         configureBindings()
+        updateViews()
+    }
+    
+    func updateViews() {
+        guard isViewLoaded else { return }
+        
+        sliderDataSource?.placeholderImage = placeholderImage
+        toolbar.shareButton.setImage(exportAction.icon, for: .normal)
+        
+        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
+        updateTimeLabel(withTime: time)
     }
     
     func configureBindings() {
@@ -167,7 +194,7 @@ class EditorToolbarController: UIViewController {
             return
         }
         
-        switch settings.timeFormat {
+        switch timeFormat {
         
         case .minutesSecondsMilliseconds:
             toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)

@@ -64,6 +64,9 @@ class EditorViewController: UIViewController {
             delegate: self,
             coder: coder
         )
+        toolbarController.placeholderImage = videoController.previewImage
+        toolbarController.timeFormat = settings.timeFormat
+        toolbarController.exportAction = settings.exportAction
         return toolbarController
     }
 
@@ -174,6 +177,7 @@ private extension EditorViewController {
         videoController.loadPreviewImage(with: size) { [weak self] image in
             guard let image = image else { return }
             self?.zoomingPlayerView.posterImage = image
+            self?.toolbarController.placeholderImage = image
         }
     }
 
@@ -335,17 +339,25 @@ private extension EditorViewController {
     }
 }
 
+// MARK: - EditorToolbarControllerDelegate
+
+extension EditorViewController: EditorToolbarControllerDelegate {
+ 
+    func controller(_ controller: EditorToolbarController, didSelectShareFrameAt time: CMTime) {
+        generateFramesAndShare(for: [time])
+    }
+}
+
 // MARK: ExportSettingsViewControllerDelegate
 
 extension EditorViewController: ExportSettingsViewControllerDelegate {
     
     func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
-        toolbar.shareButton.setImage(action.icon, for: .normal)
+        toolbarController.exportAction = action
     }
     
-    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat: TimeFormat) {
-        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
-        updateTimeLabel(withTime: time)
+    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat format: TimeFormat) {
+        toolbarController.timeFormat = format
     }
 }
 
