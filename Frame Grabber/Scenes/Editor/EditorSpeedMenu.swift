@@ -12,11 +12,11 @@ struct EditorSpeedMenu {
         
         var title: String {
             switch self {
-            case .normal: return "<Normal>"
-            case .half: return "Half"
-            case .quarter: return "Quarter"
-            case .fine: return "Fine"
-            case .veryFine: return "Crawl"
+            case .normal: return UserText.speedMenuNormalSpeedAction
+            case .half: return UserText.speedMenuHalfSpeedAction
+            case .quarter: return UserText.speedMenuQuarterSpeedAction
+            case .fine: return UserText.speedMenuFineSpeedAction
+            case .veryFine: return UserText.speedMenuVeryFineSpeedAction
             }
         }
         
@@ -25,10 +25,10 @@ struct EditorSpeedMenu {
             
             switch self {
             case .normal: return nil
-            case .half: icon = UIImage(systemName: "50.square")
-            case .quarter: icon = UIImage(systemName: "25.square")
-            case .fine: icon = UIImage(systemName: "10.square")
-            case .veryFine: icon = UIImage(systemName: "01.square")
+            case .half: icon = UIImage(systemName: "50.circle")
+            case .quarter: icon = UIImage(systemName: "25.circle")
+            case .fine: icon = UIImage(systemName: "10.circle")
+            case .veryFine: icon = UIImage(systemName: "01.circle")
             }
             
             return icon?.applyingSymbolConfiguration(.init(scale: .large))
@@ -61,7 +61,7 @@ struct EditorSpeedMenu {
             )
         }
         
-        return UIMenu(title: "<TODO>", children: options)
+        return UIMenu(title: UserText.speedMenuTitle, children: options)
     }
     
     @available(iOS 14, *)

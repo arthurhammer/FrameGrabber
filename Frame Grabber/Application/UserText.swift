@@ -48,6 +48,13 @@ struct UserText {
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
     static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
     
+    static let speedMenuTitle = NSLocalizedString("editor.menu.speed.title", value: "Set the speed for scrubbing through the video.", comment: "Title for the speed menu.")
+    static let speedMenuNormalSpeedAction = NSLocalizedString("editor.menu.speed.normal.action", value: "Normal", comment: "Title for the normal speed in the speed menu.")
+    static let speedMenuHalfSpeedAction = NSLocalizedString("editor.menu.speed.half.action", value: "Half", comment: "Title for the half speed in the speed menu.")
+    static let speedMenuQuarterSpeedAction = NSLocalizedString("editor.menu.speed.quarter.action", value: "Quarter", comment: "Title for the quarter speed in the speed menu.")
+    static let speedMenuFineSpeedAction = NSLocalizedString("editor.menu.speed.fine.action", value: "Fine", comment: "Title for the fine speed in the speed menu.")
+    static let speedMenuVeryFineSpeedAction = NSLocalizedString("editor.menu.speed.veryFine.action", value: "Crawl", comment: "Title for the very fine speed in the speed menu.")
+    
     static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in a smaller file size. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")
     static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Directly send your photos to AirDrop, Instagram, WhatsApp and many other apps.", comment: "Explanation of what the share sheet setting does")

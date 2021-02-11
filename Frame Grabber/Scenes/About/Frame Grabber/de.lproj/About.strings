@@ -55,7 +55,7 @@
 /* Class = "UILabel"; text = "Nice to see you."; ObjectID = "xBV-RG-m2x"; */
 "xBV-RG-m2x.text" = "Schön, dich zu sehen.";
 
-/* Class = "UIButton"; normalTitle = "Leave a Review 🎉"; ObjectID = "xhq-rN-pTi"; */
+/* Class = "UIButton"; normalTitle = "Leave a Review  🥳"; ObjectID = "xhq-rN-pTi"; */
 "xhq-rN-pTi.normalTitle" = "Bewertung schreiben 🥳";
 
 /* Class = "UILabel"; text = "You're a Supporter! \nThank you so much."; ObjectID = "ygf-4Y-CH8"; */
