@@ -1,6 +1,5 @@
 import AVFoundation
 import Combine
-import ThumbnailSlider
 import UIKit
 
 protocol EditorViewControllerDelegate: class {
@@ -58,7 +57,7 @@ class EditorViewController: UIViewController {
         videoController.cancelFrameExport()
     }
     
-    @IBSegueAction func makeToolbarController(_ coder: NSCoder) -> EditorToolbarController? {
+    @IBSegueAction private func makeToolbarController(_ coder: NSCoder) -> EditorToolbarController? {
         self.toolbarController = EditorToolbarController(
             playbackController: playbackController,
             delegate: self,
@@ -95,13 +94,10 @@ class EditorViewController: UIViewController {
     private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
         controller.delegate = self
     }
-}
 
-// MARK: - Configuring
+    // MARK: - Configuring
 
-private extension EditorViewController {
-
-    func configureViews() {
+    private func configureViews() {
         zoomingPlayerView.clipsToBounds = false
         zoomingPlayerView.player = playbackController.player
         zoomingPlayerView.posterImage = videoController.previewImage
@@ -120,13 +116,13 @@ private extension EditorViewController {
         configureBindings()
     }
 
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.applyToolbarShadow()
         toolbarController.toolbar.applyToolbarShadow()
     }
 
-    func configureGestures() {
+    private func configureGestures() {
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
         zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
 
@@ -135,7 +131,7 @@ private extension EditorViewController {
         }
     }
 
-    @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
+    @objc private func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
         let canSlide = zoomingPlayerView.playerView.bounds.size != .zero
 
         guard !toolbarController.isScrubbing,
@@ -144,12 +140,12 @@ private extension EditorViewController {
         delegate?.controller(self, handleSlideToPopGesture: gesture)
     }
 
-    func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
+    private func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
         let presenter = navigationController ?? presentedViewController ?? self
         presenter.present(viewController, animated: animated)
     }
 
-    func configureBindings() {
+    private func configureBindings() {
         playbackController
             .$status
             .filter { $0 == .failed }
@@ -160,7 +156,7 @@ private extension EditorViewController {
             .store(in: &bindings)
     }
     
-    @objc func showMoreMenuAsAlertSheet() {
+    @objc private func showMoreMenuAsAlertSheet() {
         let alertController = EditorMoreMenu.alertController { [weak self] selection in
             self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
         }
@@ -171,7 +167,7 @@ private extension EditorViewController {
 
     // MARK: Loading Videos
 
-    func loadPreviewImage() {
+    private func loadPreviewImage() {
         let size = zoomingPlayerView.bounds.size.scaledToScreen
 
         videoController.loadPreviewImage(with: size) { [weak self] image in
@@ -181,7 +177,7 @@ private extension EditorViewController {
         }
     }
 
-    func loadVideo() {
+    private func loadVideo() {
         showProgress(true, forActivity: .load, value: .determinate(0))
 
         videoController.loadVideo(progressHandler: { [weak self] progress in
@@ -192,7 +188,7 @@ private extension EditorViewController {
         })
     }
 
-    func handleVideoLoadingResult(_ result: VideoController.VideoResult) {
+    private func handleVideoLoadingResult(_ result: VideoController.VideoResult) {
         switch result {
 
         case .failure(let error):
@@ -210,7 +206,7 @@ private extension EditorViewController {
     // When the camera is dismissed, it disables all active video playback after a delay for some
     // reason :( However, we don't want to open the editor only after the camera is dismissed, we
     // want it to be ready right away. Just delay the playback for now.
-    func startPlaying(from source: VideoSource) {
+    private func startPlaying(from source: VideoSource) {
         if case .camera = videoController.source {
             let delay = 0.5
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -223,7 +219,7 @@ private extension EditorViewController {
 
     // MARK: Generating Images
 
-    func generateFramesAndShare(for times: [CMTime]) {
+    private func generateFramesAndShare(for times: [CMTime]) {
         let activity = Activity(exportAction: settings.exportAction)
         showProgress(true, forActivity: activity, value: .indeterminate)
 
@@ -234,7 +230,7 @@ private extension EditorViewController {
         }
     }
 
-    func handleFrameGenerationResult(_ status: FrameExport.Status) {
+    private func handleFrameGenerationResult(_ status: FrameExport.Status) {
         switch status {
         
         case .progressed:
@@ -253,7 +249,7 @@ private extension EditorViewController {
     }
 
     // todo: clean this up.
-    func share(urls: [URL], using action: ExportAction) {
+    private func share(urls: [URL], using action: ExportAction) {
         switch action {
                 
         case .showShareSheet:
@@ -285,7 +281,7 @@ private extension EditorViewController {
         }
     }
 
-    func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
+    private func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
         let wasDismissed = (shareActivity == nil) && !completed
         let didFinish = (shareActivity != nil) && completed
         return wasDismissed || didFinish
@@ -293,7 +289,7 @@ private extension EditorViewController {
 
     // MARK: Showing Progress
 
-    enum Activity {
+    private enum Activity {
         case load
         case exportToShareSheet
         case exportToPhotos
@@ -321,7 +317,7 @@ private extension EditorViewController {
         }
     }
 
-    func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
+    private func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
         view.isUserInteractionEnabled = !show 
 
         progressView.showDelay = activity.delay

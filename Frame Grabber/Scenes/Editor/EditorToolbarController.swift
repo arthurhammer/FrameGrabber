@@ -29,11 +29,11 @@ class EditorToolbarController: UIViewController {
         toolbar.timeSlider.isTracking
     }
     
-    @IBOutlet var toolbar: EditorToolbar!
+    @IBOutlet private(set) var toolbar: EditorToolbar!
     
     private lazy var timeFormatter = VideoTimeFormatter()
     private var sliderDataSource: AVAssetThumbnailSliderDataSource?
-    private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
     
     init?(
@@ -48,6 +48,7 @@ class EditorToolbarController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.translatesAutoresizingMaskIntoConstraints = false
         configureViews()
     }
     
@@ -60,26 +61,26 @@ class EditorToolbarController: UIViewController {
     
     @IBAction func playOrPause() {
         guard !isScrubbing else { return }
-        playSelectionFeedback()
+        playFeedback()
         playbackController.playOrPause()
     }
 
     @IBAction func stepBackward() {
         guard !isScrubbing else { return }
-        playSelectionFeedback()
+        playFeedback()
         playbackController.step(byCount: -1)
     }
 
     @IBAction func stepForward() {
         guard !isScrubbing else { return }
-        playSelectionFeedback()
+        playFeedback()
         playbackController.step(byCount: 1)
     }
 
     @IBAction func shareFrames() {
         guard !isScrubbing else { return }
 
-        playSelectionFeedback()
+        playFeedback()
         playbackController.pause()
         
         let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
@@ -90,22 +91,19 @@ class EditorToolbarController: UIViewController {
         playbackController.smoothlySeek(to: sender.time)
     }
     
-    private func playSelectionFeedback() {
-        selectionFeedbackGenerator.selectionChanged()
-        selectionFeedbackGenerator.prepare()
+    private func playFeedback() {
+        feedbackGenerator.selectionChanged()
+        feedbackGenerator.prepare()
     }
     
     // MARK: - Configuring
     
     private func configureViews() {
-        // TODO: place holder image
         sliderDataSource = AVAssetThumbnailSliderDataSource(
             slider: toolbar.timeSlider,
-            asset: nil,
-            placeholderImage: nil // videoController.previewImage
+            asset: nil,  // Set in binding, avoid triggering work twice.
+            placeholderImage: placeholderImage
         )
-        
-        toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
         
         if #available(iOS 14.0, *) {
             toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultScrubbingSpeed]

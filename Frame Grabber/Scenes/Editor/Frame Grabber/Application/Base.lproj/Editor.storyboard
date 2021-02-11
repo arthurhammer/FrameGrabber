@@ -24,183 +24,8 @@
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
+                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="172" translatesAutoresizingMaskIntoConstraints="NO" id="emT-pt-NxW">
                                 <rect key="frame" x="0.0" y="672" width="390" height="172"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls">
-                                        <rect key="frame" x="12" y="32" width="366" height="106"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" verticalHuggingPriority="500" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-a9-tZe" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="56"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuN-1e-8jU">
-                                                        <rect key="frame" x="322" y="10" width="36" height="36"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="QuN-1e-8jU" secondAttribute="height" id="XwI-Ps-scg"/>
-                                                            <constraint firstAttribute="height" constant="36" id="tiM-h0-qLj"/>
-                                                        </constraints>
-                                                        <state key="normal" image="speedometer" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="medium"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="tintColor" name="accent"/>
-                                                <accessibility key="accessibilityConfiguration" label="Video Time">
-                                                    <accessibilityTraits key="traits" adjustable="YES"/>
-                                                    <bool key="isElement" value="YES"/>
-                                                </accessibility>
-                                                <constraints>
-                                                    <constraint firstItem="QuN-1e-8jU" firstAttribute="centerY" secondItem="6gi-a9-tZe" secondAttribute="centerY" id="DFr-8r-L2F"/>
-                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="QuN-1e-8jU" secondAttribute="trailing" priority="999" constant="8" id="fho-yE-JE4">
-                                                        <variation key="heightClass=compact" constant="1"/>
-                                                    </constraint>
-                                                    <constraint firstAttribute="trailing" secondItem="QuN-1e-8jU" secondAttribute="trailing" priority="500" constant="8" id="kAJ-fq-cbQ">
-                                                        <variation key="heightClass=compact" constant="1"/>
-                                                    </constraint>
-                                                </constraints>
-                                                <connections>
-                                                    <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="0gC-uX-7Gc"/>
-                                                </connections>
-                                            </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7vZ-h2-pIt" userLabel="Buttons">
-                                                <rect key="frame" x="0.0" y="62" width="366" height="44"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="umm-NT-gvM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1" height="44"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="1" id="er2-8Y-65E"/>
-                                                        </constraints>
-                                                        <variation key="heightClass=compact" hidden="YES"/>
-                                                    </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k1-G4-5en">
-                                                        <rect key="frame" x="38.666666666666664" y="0.0" width="43.999999999999993" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
-                                                        </accessibility>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="1k1-G4-5en" secondAttribute="height" id="bPS-Ht-Zpk"/>
-                                                            <constraint firstAttribute="width" priority="999" constant="44" id="zhT-Tn-16H"/>
-                                                        </constraints>
-                                                        <color key="tintColor" name="secondaryAccent"/>
-                                                        <state key="normal" image="play.fill" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="playOrPause" destination="1Cw-ag-d47" eventType="touchUpInside" id="REK-2a-Wzc"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHg-xr-V48" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                        <rect key="frame" x="120.33333333333334" y="0.0" width="44" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration" label="Previous Frame"/>
-                                                        <color key="tintColor" name="secondaryAccent"/>
-                                                        <state key="normal" image="arrow.left" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="stepBackward" destination="1Cw-ag-d47" eventType="touchDown" id="WxM-MS-EXU"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnX-Na-6YA" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                        <rect key="frame" x="201.66666666666666" y="0.0" width="44" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration" label="Next Frame"/>
-                                                        <color key="tintColor" name="secondaryAccent"/>
-                                                        <state key="normal" image="arrow.right" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="stepForward" destination="1Cw-ag-d47" eventType="touchDown" id="kOp-9v-zCZ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KQ-jV-rR8">
-                                                        <rect key="frame" x="283.33333333333331" y="0.0" width="44" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration" label="Share Frame"/>
-                                                        <state key="normal" image="square.and.arrow.up" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="shareFrames" destination="1Cw-ag-d47" eventType="touchUpInside" id="R56-CA-VL6"/>
-                                                        </connections>
-                                                    </button>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="c9y-JL-pbF">
-                                                        <rect key="frame" x="365" y="0.0" width="1" height="44"/>
-                                                        <variation key="heightClass=compact" hidden="YES"/>
-                                                    </view>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="NnX-Na-6YA" firstAttribute="width" secondItem="1k1-G4-5en" secondAttribute="width" id="7Ne-A7-zYg"/>
-                                                    <constraint firstItem="9KQ-jV-rR8" firstAttribute="width" secondItem="1k1-G4-5en" secondAttribute="width" id="FlO-rg-zAf"/>
-                                                    <constraint firstItem="eHg-xr-V48" firstAttribute="width" secondItem="1k1-G4-5en" secondAttribute="width" id="nC3-aa-t8L"/>
-                                                    <constraint firstItem="c9y-JL-pbF" firstAttribute="width" secondItem="umm-NT-gvM" secondAttribute="width" id="pGq-2y-FOj"/>
-                                                </constraints>
-                                            </stackView>
-                                        </subviews>
-                                        <variation key="heightClass=compact" alignment="center" axis="horizontal"/>
-                                        <variation key="widthClass=regular" alignment="center" axis="horizontal"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Z13-bf-dHU" userLabel="Time Label with Spinner">
-                                        <rect key="frame" x="162" y="6" width="66" height="20"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXw-rO-aOk">
-                                                <rect key="frame" x="0.0" y="0.0" width="46" height="20"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Video Time">
-                                                    <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                                            </label>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="S1J-RK-cfT">
-                                                <rect key="frame" x="46" y="0.0" width="20" height="20"/>
-                                            </activityIndicatorView>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <viewLayoutGuide key="safeArea" id="nnt-It-hLc"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="6gi-a9-tZe" firstAttribute="top" secondItem="Z13-bf-dHU" secondAttribute="bottom" constant="6" id="1BN-pc-04e">
-                                        <variation key="heightClass=compact" constant="2"/>
-                                        <variation key="heightClass=regular-widthClass=regular" constant="8"/>
-                                    </constraint>
-                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="6gi-a9-tZe" secondAttribute="trailing" id="34d-YK-DKX"/>
-                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6gi-a9-tZe" secondAttribute="leading" id="6VJ-W1-ffe"/>
-                                    <constraint firstItem="nnt-It-hLc" firstAttribute="trailing" secondItem="g9o-LJ-bgy" secondAttribute="trailing" constant="12" id="Agc-Fw-vDC">
-                                        <variation key="heightClass=compact" constant="16"/>
-                                        <variation key="widthClass=regular" constant="16"/>
-                                    </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="g9o-LJ-bgy" secondAttribute="bottom" priority="999" constant="12" id="IGR-kM-In7">
-                                        <variation key="heightClass=compact" constant="8"/>
-                                        <variation key="heightClass=regular-widthClass=regular" constant="32"/>
-                                    </constraint>
-                                    <constraint firstItem="nnt-It-hLc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="g9o-LJ-bgy" secondAttribute="bottom" id="Q8q-Qr-Vf9"/>
-                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="top" secondItem="nnt-It-hLc" secondAttribute="top" constant="6" id="hW6-UN-k24">
-                                        <variation key="heightClass=compact" constant="2"/>
-                                        <variation key="heightClass=regular-widthClass=regular" constant="8"/>
-                                    </constraint>
-                                    <constraint firstItem="g9o-LJ-bgy" firstAttribute="leading" secondItem="nnt-It-hLc" secondAttribute="leading" constant="12" id="kcW-li-BEn">
-                                        <variation key="heightClass=compact" constant="16"/>
-                                        <variation key="widthClass=regular" constant="16"/>
-                                    </constraint>
-                                    <constraint firstItem="Z13-bf-dHU" firstAttribute="centerX" secondItem="6gi-a9-tZe" secondAttribute="centerX" priority="750" placeholder="YES" id="oSS-TZ-bhw"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="nextButton" destination="NnX-Na-6YA" id="9ZS-3S-Vcz"/>
-                                    <outlet property="playButton" destination="1k1-G4-5en" id="QhG-6q-C2t"/>
-                                    <outlet property="previousButton" destination="eHg-xr-V48" id="nph-Q1-Vg8"/>
-                                    <outlet property="shareButton" destination="9KQ-jV-rR8" id="KmQ-jT-Q0l"/>
-                                    <outlet property="speedButton" destination="QuN-1e-8jU" id="LQ8-M7-ALr"/>
-                                    <outlet property="timeLabel" destination="mXw-rO-aOk" id="5Tp-nx-KwS"/>
-                                    <outlet property="timeSlider" destination="6gi-a9-tZe" id="Bcm-H6-aoc"/>
-                                    <outlet property="timeSpinner" destination="S1J-RK-cfT" id="RoK-OO-FgF"/>
-                                </connections>
-                            </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emT-pt-NxW">
-                                <rect key="frame" x="0.0" y="672" width="390" height="172"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="172" id="B99-u3-xxg"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="BL9-Ma-ehO" kind="embed" destinationCreationSelector="makeToolbarController:" id="5DG-dS-vS9"/>
                                 </connections>
@@ -211,15 +36,12 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="emT-pt-NxW" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="7Yj-Nr-PMA"/>
-                            <constraint firstItem="GAW-h9-8hv" firstAttribute="top" secondItem="8St-aq-4oR" secondAttribute="bottom" id="Fa8-43-abj"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="trailing" secondItem="mzG-VC-6dc" secondAttribute="trailing" id="Fqu-0H-Rii"/>
-                            <constraint firstItem="GAW-h9-8hv" firstAttribute="trailing" secondItem="mzG-VC-6dc" secondAttribute="trailing" id="LSb-i7-41x"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="Mmt-iF-qiO"/>
-                            <constraint firstItem="GAW-h9-8hv" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="gao-1Y-aJG"/>
                             <constraint firstAttribute="bottom" secondItem="emT-pt-NxW" secondAttribute="bottom" id="mpZ-Xc-ucW"/>
                             <constraint firstItem="emT-pt-NxW" firstAttribute="trailing" secondItem="mzG-VC-6dc" secondAttribute="trailing" id="oCH-KC-HeK"/>
+                            <constraint firstItem="emT-pt-NxW" firstAttribute="top" secondItem="8St-aq-4oR" secondAttribute="bottom" id="oiT-Ou-G8Y"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="top" secondItem="J1y-Hs-CrT" secondAttribute="top" id="vzv-9g-mBa"/>
-                            <constraint firstAttribute="bottom" secondItem="GAW-h9-8hv" secondAttribute="bottom" id="zFz-sB-APZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose Frame" largeTitleDisplayMode="never" id="cLY-f1-ifd">
@@ -232,7 +54,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="progressView" destination="j77-MA-S24" id="z8p-cQ-aYI"/>
-                        <outlet property="toolbar" destination="GAW-h9-8hv" id="YKJ-8K-sBN"/>
                         <outlet property="view" destination="mzG-VC-6dc" id="9z2-of-GuI"/>
                         <outlet property="zoomingPlayerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
                         <segue destination="yGt-Ul-rBh" kind="popoverPresentation" identifier="ExportSettings" popoverAnchorBarButtonItem="ON1-SU-aKj" id="aQw-im-yKm">
