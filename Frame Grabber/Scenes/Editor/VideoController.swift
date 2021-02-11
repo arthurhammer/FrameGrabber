@@ -106,7 +106,7 @@ class VideoController {
         case .photoLibrary(let asset):
             loadPhotoLibraryPreviewImage(for: asset, with: size, completionHandler: completionHandler)
             
-        case .url:
+        case .url, .camera:
             assert(video != nil)
             generateVideoPreviewImage(for: video!, with: size, completionHandler: completionHandler)
         }

@@ -8,6 +8,7 @@ class Coordinator: NSObject {
     let libraryViewController: LibraryViewController
     let transitionController: ZoomTransitionController
     let fileManager = FileManager.default
+    let settings = UserDefaults.standard
     
     private(set) lazy var albumPicker = AlbumPickerViewController(dataSource: albumsDataSource)
     
@@ -110,7 +111,7 @@ class Coordinator: NSObject {
     }
     
     private func showCamera() {
-        guard let camera = ViewControllerFactory.makeCamera(with: .front, delegate: self) else {
+        guard let camera = ViewControllerFactory.makeCamera(with: settings.camera, delegate: self) else {
             navigationController.presentAlert(.videoRecordingUnavailable())
             return
         }
@@ -185,17 +186,21 @@ extension Coordinator: UIDocumentPickerDelegate {
 extension Coordinator: UIImagePickerController.Delegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        settings.camera = picker.cameraDevice
         navigationController.dismiss(animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        settings.camera = picker.cameraDevice
+        
         guard let url = info[.mediaURL] as? URL else {
             navigationController.presentAlert(.recordingVideoFailed())
             return
         }
         
+        showEditor(with: .camera(url), previewImage: nil, animated: false)
+
         navigationController.dismiss(animated: true)  {
-            self.showEditor(with: .url(url), previewImage: nil, animated: true)
             self.saveVideoToPhotoLibrary(url)
         }
     }

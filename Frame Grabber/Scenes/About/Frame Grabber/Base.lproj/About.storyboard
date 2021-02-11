@@ -225,15 +225,15 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="950" axis="vertical" distribution="fillEqually" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vJR-EM-th4">
-                                                            <rect key="frame" x="73" y="60" width="188" height="12"/>
+                                                            <rect key="frame" x="71" y="60" width="192" height="12"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhq-rN-pTi">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="188" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="192" height="0.0"/>
                                                                     <color key="backgroundColor" name="accent"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                     <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                     <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                                                                    <state key="normal" title="Leave a Review 🎉"/>
+                                                                    <state key="normal" title="Leave a Review  🥳"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                             <integer key="value" value="18"/>
@@ -244,7 +244,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlA-JS-FBO">
-                                                                    <rect key="frame" x="49" y="12" width="90" height="0.0"/>
+                                                                    <rect key="frame" x="51" y="12" width="90" height="0.0"/>
                                                                     <color key="backgroundColor" name="accent"/>
                                                                     <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                     <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
@@ -412,11 +412,11 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="p2l-cR-txs"/>
                                                         </constraints>
-                                                        <mutableString key="text">I hope this small app is useful to you. I created it for myself because I always had a need to grab those frames. And now I'm creating it for you.
+                                                        <string key="text">I hope this small app is useful to you. I created it for myself because I always had a need to grab those frames. And now I'm creating it for you.
 
 If you want to support small, open projects like this, you can invite me for an ice cream. I love ice cream.
 
-Arthur 🍨🍧🍦</mutableString>
+Arthur 🍨🍧🍦</string>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -628,7 +628,7 @@ Thank you so much.</string>
         <image name="about-appIcon" width="100" height="100"/>
         <image name="hand.thumbsup" catalog="system" width="128" height="128"/>
         <image name="keyboard" catalog="system" width="128" height="79"/>
-        <image name="paperplane" catalog="system" width="32" height="32"/>
+        <image name="paperplane" catalog="system" width="128" height="118"/>
         <namedColor name="accent">
             <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

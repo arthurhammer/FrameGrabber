@@ -10,10 +10,10 @@ struct UserText {
     static let deleteAction = NSLocalizedString("action.delete", value: "Delete", comment: "Delete context action")
     static let favoriteAction = NSLocalizedString("action.favorite", value: "Favorite", comment: "Favorite context action")
     static let unfavoriteAction = NSLocalizedString("action.unfavorite", value: "Unfavorite", comment: "Unfavorite context action")
-    static let openSettingsAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Generic authorization denied action (photo library or camera)")
+    static let openSettingsAction = NSLocalizedString("action.settings", value: "Settings", comment: "Open settings action")
 
     static let authorizationDeniedMessage = NSLocalizedString("authorization.denied.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access in Settings.", comment: "Photo library authorization denied message")
-    static let authorizationDeniedAction = openSettingsAction
+    static let authorizationDeniedAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Photo library authorization denied action.")
     static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
     static let authorizationUndeterminedAction = NSLocalizedString("authorization.undetermined.action", value: "Get Started", comment: "Photo library authorization default action")
 
@@ -29,14 +29,15 @@ struct UserText {
     static let albumEmptyAny = NSLocalizedString("album.empty.any", value: "No Videos or Live Photos", comment: "Empty album message")
     static let albumEmptyVideos = NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")
     static let albumEmptyLive = NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
-    static let albumViewSettingsMenuTitle = NSLocalizedString("album.viewSettings.menu.title", value: "View", comment: "Title of album view settings button menu")
+    static let albumViewSettingsMenuTitle = NSLocalizedString("album.viewSettings.menu.title", value: "Show", comment: "Title of album view settings button menu")
     static let albumViewSettingsSquareGridTitle = NSLocalizedString("album.viewSettings.squareGrid.title", value: "Square Grid", comment: "Title of album view as squares settings menu item")
     static let albumViewSettingsFitGridTitle = NSLocalizedString("album.viewSettings.fitGrid.title", value: "Aspect Ratio Grid", comment: "Title of album view as aspect ratio settings menu item")
     
-    static let limitedAuthorizationMenuTitle = NSLocalizedString("album.limited.menu.title", value: "You've given Frame Grabber access to a limited number of videos and Live Photos.", comment: "Title for limited authorization menu.")
-    static let limitedAuthorizationMenuSelectPhotosAction = NSLocalizedString("album.limited.menu.selectphotos.action", value: "Select More Items", comment: "Action to select more photos in limited authorization menu.")
-    static let limitedAuthorizationMenuOpenSettingsAction = NSLocalizedString("album.limited.menu.opensettings.action", value: "Change Settings", comment: "Action to open settings in limited authorization menu.")
-
+    static let libraryImportFileMenuAction = NSLocalizedString("library.menu.import.file.action", value: "Open a File", comment: "Action of import menu: Open file picker action.")
+    static let libraryImportCameraMenuAction = NSLocalizedString("library.menu.import.camera.action", value: "Record a Video", comment: "Action of import menu: Open camera action.")
+    static let libraryImportSelectMorePhotosMenuAction = NSLocalizedString("library.menu.import.selectPhotos.action", value: "Select More Videos", comment: "Action of import menu: Select more photos in limited authorization.")
+    static let libraryImportLimitedAuthorizationTitle = NSLocalizedString("library.menu.import.limited.title", value: "You've given Frame Grabber access to a limited number of videos.", comment: "Title for limited authorization menu.")
+    
     static let videoFilterAllItems = NSLocalizedString("videofilter.all", value: "All Items", comment: "Video filter title, all items")
     static let videoFilterVideos = NSLocalizedString("videofilter.video", value: "Videos", comment: "Video filter title, only videos")
     static let videoFilterLivePhotos = NSLocalizedString("videofilter.livePhoto", value: "Live Photos", comment: "Video filter title, only Live Photos")
@@ -93,7 +94,7 @@ extension UserText {
     static let alertVideoLoadFailedTitle = NSLocalizedString("alert.videoload.title", value: "Unable to Load Item", comment: "")
     static let alertVideoLoadFailedMessage = NSLocalizedString("alert.videoload.message", value: "Please check your network settings and make sure the format is supported on this device.", comment: "")
     
-    static let videoRecordingUnavailableTitle = NSLocalizedString("alert.camera.unavailable.title", value: "Video Recording Unavailable", comment: "Alert title when the current device cannot record videos.")
+    static let videoRecordingUnavailableTitle = NSLocalizedString("alert.camera.unavailable.title", value: "Camera Unavailable", comment: "Alert title when the current device cannot record videos.")
     static let videoRecordingUnavailableMessage = NSLocalizedString("alert.camera.unavailable.message", value: "This device cannot record videos.", comment: "Alert message when the current device cannot record videos.")
     static let videoRecordingDeniedTitle = NSLocalizedString("alert.camera.denied.title", value: "No Camera Access", comment: "Alert title when the recording authorization is denied or restricted.")
     static let videoRecordingDeniedMessage = NSLocalizedString("alert.camera.denied.message", value: "You have denied Frame Grabber the access to your camera.", comment: "Alert message when the recording authorization is denied or restricted..")
