@@ -206,6 +206,8 @@
 		00A18B3C25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */; };
 		00A18B4425D5E46200330B1F /* EditorToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B4325D5E46200330B1F /* EditorToolbarController.swift */; };
 		00A18B4525D5E46200330B1F /* EditorToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B4325D5E46200330B1F /* EditorToolbarController.swift */; };
+		00A18B5D25D5F90300330B1F /* EditorViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */; };
+		00A18B5E25D5F90300330B1F /* EditorViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */; };
 		00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF5121273FA000778885 /* AlbumListViewController.swift */; };
 		00A9DF552127635C00778885 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF542127635C00778885 /* AlbumCell.swift */; };
 		00AA201E213432B400084B08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
@@ -389,6 +391,7 @@
 		009C65631FBF32A600DB25A6 /* Frame Grabber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSpeedMenu.swift; sourceTree = "<group>"; };
 		00A18B4325D5E46200330B1F /* EditorToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbarController.swift; sourceTree = "<group>"; };
+		00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EditorViewController+Transition.swift"; path = "Frame Grabber/Scenes/Editor/EditorViewController+Transition.swift"; sourceTree = SOURCE_ROOT; };
 		00A9DF5121273FA000778885 /* AlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		00A9DF542127635C00778885 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		00AA201A213426AD00084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -682,6 +685,7 @@
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00A18B4325D5E46200330B1F /* EditorToolbarController.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
+				00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
 				00A18B5525D5F8EA00330B1F /* Menus */,
@@ -1123,6 +1127,7 @@
 				009BEA47234E17E900C284FA /* FrameExportOperation.swift in Sources */,
 				006C0FD225C5B2B6007E50B0 /* Logger.swift in Sources */,
 				0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */,
+				00A18B5E25D5F90300330B1F /* EditorViewController+Transition.swift in Sources */,
 				008A48D823479D7300CEAA26 /* ImageEncoding.swift in Sources */,
 				001F7E2025CAFABF0075AFC2 /* MetadataLocationHeader.swift in Sources */,
 				00730EC9214FEA5A001A6EA7 /* LibraryGridLayout.swift in Sources */,
@@ -1245,6 +1250,7 @@
 				0058E354213D645900BE28DD /* ZoomTransitionTypes.swift in Sources */,
 				006C0FD125C5B2B6007E50B0 /* Logger.swift in Sources */,
 				009BEA46234E17E900C284FA /* FrameExportOperation.swift in Sources */,
+				00A18B5D25D5F90300330B1F /* EditorViewController+Transition.swift in Sources */,
 				00EAFD9A205ED32B0031F8A2 /* EditorToolbar.swift in Sources */,
 				001F7E1F25CAFABE0075AFC2 /* MetadataLocationHeader.swift in Sources */,
 				008A48D723479D7300CEAA26 /* ImageEncoding.swift in Sources */,

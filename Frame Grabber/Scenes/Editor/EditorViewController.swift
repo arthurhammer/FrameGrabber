@@ -33,8 +33,8 @@ class EditorViewController: UIViewController {
         fatalError("Dependencies must be injected")
     }
     
-    @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
-    @IBOutlet private var progressView: ProgressView!
+    @IBOutlet private(set) var zoomingPlayerView: ZoomingPlayerView!
+    @IBOutlet private(set)  var progressView: ProgressView!
     private lazy var activityFeedbackGenerator = UINotificationFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
 
@@ -354,49 +354,5 @@ extension EditorViewController: ExportSettingsViewControllerDelegate {
     
     func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat format: TimeFormat) {
         toolbarController.timeFormat = format
-    }
-}
-
-// MARK: - ZoomTransitionDelegate
-
-extension EditorViewController: ZoomTransitionDelegate {
-
-    func zoomTransitionWillBegin(_ transition: ZoomTransition) {
-        switch transition.type {
-        case .push: animatePush(transition)
-        case .pop: animatePop(transition)
-        default: break
-        }
-    }
-    
-    private func animatePush(_ transition: ZoomTransition) {
-        let toolbar = toolbarController.toolbar!
-        let yOffset = toolbar.bounds.height * 0.5
-        toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
-
-        transition.animate(alongsideTransition: { _ in
-            toolbar.transform = .identity
-        }, completion:nil)
-    }
-    
-    private func animatePop(_ transition: ZoomTransition) {
-        let backgroundColor = view.backgroundColor
-        let toolbar = toolbarController.toolbar!
-
-        transition.animate(alongsideTransition: { [weak self] _ in
-            guard let self = self else { return }
-            self.view.backgroundColor = .clear
-            self.progressView.alpha = 0
-            
-            let yOffset = toolbar.bounds.height * 1.0
-            toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
-            toolbar.alpha = 0
-        }, completion: { [weak self] _ in
-            self?.view.backgroundColor = backgroundColor
-        })
-    }
-
-    func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
-        zoomingPlayerView.playerView
     }
 }
