@@ -317,8 +317,23 @@ private extension EditorViewController {
 
         case .success(let video):
             playbackController.asset = video
-            playbackController.play()
+            startPlaying(from: videoController.source)
             sliderDataSource?.asset = video
+        }
+    }
+    
+    // When the camera is dismissed, it disables all active video playback after a delay for some
+    // reason :( However, we don't want to open the editor only after the camera is dismissed, we
+    // want it to be ready right away. Just delay the playback for now.
+    // TODO: Fix this hack. This shouldn't be the the editor's responsibility.
+    func startPlaying(from source: VideoSource) {
+        if case .camera = videoController.source {
+            let delay = 0.5
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self.playbackController.play()
+            }
+        } else {
+            playbackController.play()
         }
     }
 

@@ -198,8 +198,9 @@ extension Coordinator: UIImagePickerController.Delegate {
             return
         }
         
+        showEditor(with: .camera(url), previewImage: nil, animated: false)
+
         navigationController.dismiss(animated: true)  {
-            self.showEditor(with: .url(url), previewImage: nil, animated: true)
             self.saveVideoToPhotoLibrary(url)
         }
     }
