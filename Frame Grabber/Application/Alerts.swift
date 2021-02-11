@@ -129,7 +129,7 @@ extension UIAlertAction {
     }
     
     static func openSettings(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
-        UIAlertAction(title: UserText.authorizationDeniedAction, style: .default, handler: handler)
+        UIAlertAction(title: UserText.openSettingsAction, style: .default, handler: handler)
     }
 }
 

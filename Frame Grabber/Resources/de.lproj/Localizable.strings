@@ -16,6 +16,9 @@
 /* Ok action */
 "action.ok" = "OK";
 
+/* Open settings action */
+"action.settings" = "Einstellungen";
+
 /* Unfavorite context action */
 "action.unfavorite" = "Kein Favorit";
 
@@ -28,18 +31,6 @@
 /* No videos in album message */
 "album.empty.video" = "Keine Videos";
 
-/* Action to open settings in limited authorization menu. */
-"album.limited.menu.opensettings.action" = "Einstellungen ändern";
-
-/* Action to select more photos in limited authorization menu. */
-"album.limited.menu.selectphotos.action" = "Auswahl erweitern";
-
-/* Title for limited authorization menu. */
-"album.limited.menu.title" = "Du hast Frame Grabber einen begrenzten Zugang zu deiner Fotomediathek erteilt.";
-
-/* Title for limited authorization in album view. */
-"album.limited.title" = "Mediathek";
-
 /* Title of album view as aspect ratio settings menu item */
 "album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
 
@@ -51,6 +42,24 @@
 
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
+
+/* Alert message when the recording authorization is denied or restricted.. */
+"alert.camera.denied.message" = "Du hast Frame Grabber den Zugriff auf deine Kamera nicht erlaubt.";
+
+/* Alert title when the recording authorization is denied or restricted. */
+"alert.camera.denied.title" = "Kein Kamerazugriff";
+
+/* Alert message when the video recording failed for any reason */
+"alert.camera.failed.message" = "Bei der Aufnahme ist ein Fehler aufgetreten.";
+
+/* Alert title when the video recording failed for any reason. */
+"alert.camera.failed.title" = "Kein Video";
+
+/* Alert message when the current device cannot record videos. */
+"alert.camera.unavailable.message" = "Dieses Gerät kann keine Videos aufnehmen.";
+
+/* Alert title when the current device cannot record videos. */
+"alert.camera.unavailable.title" = "Kamera nicht verfügbar";
 
 /* No comment provided by engineer. */
 "alert.filePicker.message" = "Beim Importieren ist ein Fehler aufgetreten.";
@@ -106,7 +115,7 @@
 /* No comment provided by engineer. */
 "alert.videoload.title" = "Laden nicht möglich";
 
-/* Photo library authorization denied action */
+/* Photo library authorization denied action. */
 "authorization.denied.action" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
@@ -156,6 +165,21 @@
 
 /* Purchase screen purchase button label */
 "iap.purchase.action" = "Eis Ausgeben";
+
+/* Title for the library when no specific album is selected. */
+"library.default.title" = "Mediathek";
+
+/* Action of import menu: Open camera action. */
+"library.menu.import.camera.action" = "Video aufnehmen";
+
+/* Action of import menu: Open file picker action. */
+"library.menu.import.file.action" = "Datei öffnen";
+
+/* Title for limited authorization menu. */
+"library.menu.import.limited.title" = "Du hast Frame Grabber einen begrenzten Zugang zu deinen Videos erteilt.";
+
+/* Action of import menu: Select more photos in limited authorization. */
+"library.menu.import.selectPhotos.action" = "Weitere Videos auswählen";
 
 /* Title for the codec metadata. */
 "metadata.codec.title" = "Codec";
