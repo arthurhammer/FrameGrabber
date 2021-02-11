@@ -1,9 +1,11 @@
 import Foundation
 import InAppPurchase
+import UIKit
 
 extension UserDefaults {
 
     private struct Key {
+        static let camera = "Camera"
         static let compressionQuality = "CompressionQuality"
         static let exportAction = "ExportAction"
         static let includeMetadata = "IncludeMetadata"
@@ -48,6 +50,10 @@ extension UserDefaults {
     var timeFormat: TimeFormat {
         get { codableValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
         set { setCodableValue(value: newValue, forKey: Key.timeFormat) }
+    
+    var camera: UIImagePickerController.CameraDevice {
+        get { valueForRawValue(forKey: Key.camera) ?? .front }
+        set { setRawValue(newValue, forKey: Key.camera) }
     }
 }
 
@@ -68,5 +74,18 @@ extension UserDefaults {
     func setCodableValue<T: Codable>(value: T?, forKey key: String) {
         let data = try? value.flatMap(JSONEncoder().encode)
         set(data, forKey: key)
+    }
+    
+    /// Sets the raw value for the specified key.
+    ///
+    /// The raw value must be one of the property list types as specified by `UserDefaults`.
+    /// Otherwise, you should archive the data to `Data`, e.g. using `setEncodedValue`.
+    func setRawValue<R: RawRepresentable>(_ value: R, forKey key: String) {
+        set(value.rawValue, forKey: key)
+    }
+    
+    func valueForRawValue<R: RawRepresentable>(forKey key: String) -> R? {
+        guard let value = object(forKey: key) as? R.RawValue else { return nil }
+        return R(value)
     }
 }
