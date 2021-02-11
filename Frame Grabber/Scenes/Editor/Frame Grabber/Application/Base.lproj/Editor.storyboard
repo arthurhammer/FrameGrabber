@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -25,65 +24,6 @@
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TC-O5-Rin" userLabel="Scrubbing Indicator" customClass="ScrubbingIndicatorView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="148" y="612" width="94" height="40"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0VV-Wk-bY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnn-3x-Dm8">
-                                            <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
-                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xio-Qn-6z3">
-                                                <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g4t-w4-IEi">
-                                                        <rect key="frame" x="8" y="9.9999999999999982" width="77.333333333333329" height="20.333333333333329"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ZR-Hl-Ovz">
-                                                                <rect key="frame" x="0.0" y="1.6666666666666643" width="22.333333333333332" height="16.333333333333336"/>
-                                                                <imageReference key="image" image="hare.fill" catalog="system" symbolScale="small"/>
-                                                            </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Speed&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOU-XQ-SBc">
-                                                                <rect key="frame" x="22.333333333333343" y="2.3333333333333703" width="55" height="15.666666666666664"/>
-                                                                <accessibility key="accessibilityConfiguration">
-                                                                    <bool key="isElement" value="NO"/>
-                                                                </accessibility>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="kHc-hE-41m"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="g4t-w4-IEi" firstAttribute="top" secondItem="xio-Qn-6z3" secondAttribute="top" constant="10" id="5JF-am-QTK"/>
-                                                    <constraint firstAttribute="bottom" secondItem="g4t-w4-IEi" secondAttribute="bottom" constant="10" id="6A4-EQ-Olb"/>
-                                                    <constraint firstAttribute="trailing" secondItem="g4t-w4-IEi" secondAttribute="trailing" constant="8" id="GfE-FE-IWu"/>
-                                                    <constraint firstItem="g4t-w4-IEi" firstAttribute="leading" secondItem="xio-Qn-6z3" secondAttribute="leading" constant="8" id="c0K-wq-zd7"/>
-                                                </constraints>
-                                            </view>
-                                            <vibrancyEffect style="label">
-                                                <blurEffect style="systemMaterialDark"/>
-                                            </vibrancyEffect>
-                                        </visualEffectView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="tnn-3x-Dm8" secondAttribute="bottom" id="0qw-gI-LMG"/>
-                                        <constraint firstItem="tnn-3x-Dm8" firstAttribute="leading" secondItem="0VV-Wk-bY8" secondAttribute="leading" id="Dwr-dp-eLU"/>
-                                        <constraint firstAttribute="trailing" secondItem="tnn-3x-Dm8" secondAttribute="trailing" id="gNK-oU-OOY"/>
-                                        <constraint firstItem="tnn-3x-Dm8" firstAttribute="top" secondItem="0VV-Wk-bY8" secondAttribute="top" id="yGb-dN-LWy"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="systemMaterialDark"/>
-                                <connections>
-                                    <outlet property="icon" destination="7ZR-Hl-Ovz" id="vxl-Bi-fLV"/>
-                                    <outlet property="speedLabel" destination="OOU-XQ-SBc" id="u4S-qb-DJy"/>
-                                </connections>
-                            </visualEffectView>
                             <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-h9-8hv" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="672" width="390" height="172"/>
                                 <subviews>
@@ -239,16 +179,11 @@
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="4TC-O5-Rin" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J1y-Hs-CrT" secondAttribute="top" constant="16" id="AXd-Mi-ZiB"/>
                             <constraint firstItem="GAW-h9-8hv" firstAttribute="top" secondItem="8St-aq-4oR" secondAttribute="bottom" id="Fa8-43-abj"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="trailing" secondItem="mzG-VC-6dc" secondAttribute="trailing" id="Fqu-0H-Rii"/>
-                            <constraint firstItem="4TC-O5-Rin" firstAttribute="centerX" secondItem="mzG-VC-6dc" secondAttribute="centerX" id="LOG-yL-Dgj"/>
                             <constraint firstItem="GAW-h9-8hv" firstAttribute="trailing" secondItem="mzG-VC-6dc" secondAttribute="trailing" id="LSb-i7-41x"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="Mmt-iF-qiO"/>
-                            <constraint firstItem="J1y-Hs-CrT" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4TC-O5-Rin" secondAttribute="trailing" constant="16" id="WcZ-28-K3H"/>
                             <constraint firstItem="GAW-h9-8hv" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="gao-1Y-aJG"/>
-                            <constraint firstItem="4TC-O5-Rin" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J1y-Hs-CrT" secondAttribute="leading" constant="16" id="lDY-ao-2xG"/>
-                            <constraint firstItem="GAW-h9-8hv" firstAttribute="top" secondItem="4TC-O5-Rin" secondAttribute="bottom" constant="20" id="o1Z-L5-wUu"/>
                             <constraint firstItem="8St-aq-4oR" firstAttribute="top" secondItem="J1y-Hs-CrT" secondAttribute="top" id="vzv-9g-mBa"/>
                             <constraint firstAttribute="bottom" secondItem="GAW-h9-8hv" secondAttribute="bottom" id="zFz-sB-APZ"/>
                         </constraints>
@@ -263,7 +198,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="progressView" destination="j77-MA-S24" id="z8p-cQ-aYI"/>
-                        <outlet property="scrubbingIndicator" destination="4TC-O5-Rin" id="VS6-pU-FgJ"/>
                         <outlet property="toolbar" destination="GAW-h9-8hv" id="YKJ-8K-sBN"/>
                         <outlet property="view" destination="mzG-VC-6dc" id="9z2-of-GuI"/>
                         <outlet property="zoomingPlayerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
@@ -386,7 +320,6 @@
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
-        <image name="hare.fill" catalog="system" width="128" height="91"/>
         <image name="more" width="16" height="16"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>

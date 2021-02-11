@@ -43,7 +43,6 @@ class EditorViewController: UIViewController {
 
     @IBOutlet private var toolbar: EditorToolbar!
     @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
-    @IBOutlet private var scrubbingIndicator: ScrubbingIndicatorView!
     @IBOutlet private var progressView: ProgressView!
 
     private var isScrubbing: Bool {
@@ -154,8 +153,6 @@ private extension EditorViewController {
         zoomingPlayerView.clipsToBounds = false
         zoomingPlayerView.player = playbackController.player
         zoomingPlayerView.posterImage = videoController.previewImage
-
-        scrubbingIndicator.configure(for: toolbar.timeSlider)
 
         sliderDataSource = AVAssetThumbnailSliderDataSource(
             slider: toolbar.timeSlider,
