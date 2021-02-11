@@ -170,6 +170,15 @@ private extension EditorViewController {
         }
         
         toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
+        
+        if #available(iOS 14.0, *) {
+            toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultScrubbingSpeed]
+            toolbar.speedButton.showsMenuAsPrimaryAction = true
+            updateSpeedButton()
+        } else {
+            // Use the old vertical sliding speed configuration.
+            toolbar.speedButton.isHidden = true
+        }
 
         configureNavigationBar()
         configureGestures()
@@ -180,6 +189,17 @@ private extension EditorViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.applyToolbarShadow()
         toolbar.applyToolbarShadow()
+    }
+    
+    @available(iOS 14, *)
+    func updateSpeedButton() {
+        let current = toolbar.timeSlider.currentScrubbingSpeed
+                    
+        toolbar.speedButton.menu = EditorSpeedMenu.menu(withCurrentSpeed: current) {
+            [weak self] selection in
+            self?.toolbar.timeSlider.scrubbingSpeeds = [selection.scrubbingSpeed]
+            self?.updateSpeedButton()
+        }
     }
 
     func configureGestures() {

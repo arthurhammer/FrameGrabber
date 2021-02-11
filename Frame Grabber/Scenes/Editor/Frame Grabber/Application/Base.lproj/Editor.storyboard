@@ -30,14 +30,35 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-LJ-bgy" userLabel="Controls">
                                         <rect key="frame" x="12" y="32" width="366" height="106"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-a9-tZe" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="500" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-a9-tZe" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="56"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuN-1e-8jU">
+                                                        <rect key="frame" x="322" y="10" width="36" height="36"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="QuN-1e-8jU" secondAttribute="height" id="XwI-Ps-scg"/>
+                                                            <constraint firstAttribute="height" constant="36" id="tiM-h0-qLj"/>
+                                                        </constraints>
+                                                        <state key="normal" image="speedometer" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="medium"/>
+                                                        </state>
+                                                    </button>
+                                                </subviews>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="accent"/>
                                                 <accessibility key="accessibilityConfiguration" label="Video Time">
                                                     <accessibilityTraits key="traits" adjustable="YES"/>
                                                     <bool key="isElement" value="YES"/>
                                                 </accessibility>
+                                                <constraints>
+                                                    <constraint firstItem="QuN-1e-8jU" firstAttribute="centerY" secondItem="6gi-a9-tZe" secondAttribute="centerY" id="DFr-8r-L2F"/>
+                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="QuN-1e-8jU" secondAttribute="trailing" priority="999" constant="8" id="fho-yE-JE4">
+                                                        <variation key="heightClass=compact" constant="1"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="QuN-1e-8jU" secondAttribute="trailing" priority="500" constant="8" id="kAJ-fq-cbQ">
+                                                        <variation key="heightClass=compact" constant="1"/>
+                                                    </constraint>
+                                                </constraints>
                                                 <connections>
                                                     <action selector="scrub:" destination="1Cw-ag-d47" eventType="valueChanged" id="0gC-uX-7Gc"/>
                                                 </connections>
@@ -169,6 +190,7 @@
                                     <outlet property="playButton" destination="1k1-G4-5en" id="QhG-6q-C2t"/>
                                     <outlet property="previousButton" destination="eHg-xr-V48" id="nph-Q1-Vg8"/>
                                     <outlet property="shareButton" destination="9KQ-jV-rR8" id="KmQ-jT-Q0l"/>
+                                    <outlet property="speedButton" destination="QuN-1e-8jU" id="LQ8-M7-ALr"/>
                                     <outlet property="timeLabel" destination="mXw-rO-aOk" id="5Tp-nx-KwS"/>
                                     <outlet property="timeSlider" destination="6gi-a9-tZe" id="Bcm-H6-aoc"/>
                                     <outlet property="timeSpinner" destination="S1J-RK-cfT" id="RoK-OO-FgF"/>
@@ -322,6 +344,7 @@
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="more" width="16" height="16"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="speedometer" catalog="system" width="128" height="121"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="accent">
             <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
