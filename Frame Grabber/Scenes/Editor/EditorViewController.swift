@@ -67,6 +67,12 @@ class EditorViewController: UIViewController {
         super.viewWillDisappear(animated)
         videoController.cancelFrameExport()
     }
+    
+    @IBSegueAction func makeToolbarController(_ coder: NSCoder) -> EditorToolbarController? {
+        let controller = EditorToolbarController(playbackController: playbackController, coder: coder)
+//        controller?.delegate = self
+        return controller
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         playbackController.pause()

@@ -204,6 +204,8 @@
 		009C658B1FBF33AC00DB25A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AA17F1FB4977100A00BB9 /* Assets.xcassets */; };
 		00A18B3B25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */; };
 		00A18B3C25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */; };
+		00A18B4425D5E46200330B1F /* EditorToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B4325D5E46200330B1F /* EditorToolbarController.swift */; };
+		00A18B4525D5E46200330B1F /* EditorToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B4325D5E46200330B1F /* EditorToolbarController.swift */; };
 		00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF5121273FA000778885 /* AlbumListViewController.swift */; };
 		00A9DF552127635C00778885 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF542127635C00778885 /* AlbumCell.swift */; };
 		00AA201E213432B400084B08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
@@ -386,6 +388,7 @@
 		009BEA48234E243D00C284FA /* dprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dprint.swift; sourceTree = "<group>"; };
 		009C65631FBF32A600DB25A6 /* Frame Grabber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Grabber.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSpeedMenu.swift; sourceTree = "<group>"; };
+		00A18B4325D5E46200330B1F /* EditorToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbarController.swift; sourceTree = "<group>"; };
 		00A9DF5121273FA000778885 /* AlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		00A9DF542127635C00778885 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		00AA201A213426AD00084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -679,6 +682,7 @@
 				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
 				00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
+				00A18B4325D5E46200330B1F /* EditorToolbarController.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
@@ -1141,6 +1145,7 @@
 				0067B4DC25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */,
 				00730ED6214FEA5A001A6EA7 /* PlayerView.swift in Sources */,
 				00FA915225C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
+				00A18B4525D5E46200330B1F /* EditorToolbarController.swift in Sources */,
 				00730ED7214FEA5A001A6EA7 /* TransitionUtilities.swift in Sources */,
 				00FA914325C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */,
 				0067B4E825D2D682008F3E69 /* UIImagePickerController.swift in Sources */,
@@ -1262,6 +1267,7 @@
 				0067B4DB25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				00FA915125C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
+				00A18B4425D5E46200330B1F /* EditorToolbarController.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,
 				00FA914225C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */,
 				0067B4E725D2D682008F3E69 /* UIImagePickerController.swift in Sources */,
