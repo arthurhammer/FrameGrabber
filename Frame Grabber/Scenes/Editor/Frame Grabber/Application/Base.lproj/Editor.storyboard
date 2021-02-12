@@ -171,14 +171,14 @@
                             <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="5e4-vf-d0o" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="172"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="TKw-XQ-klh" userLabel="Controls">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TKw-XQ-klh" userLabel="Controls">
                                         <rect key="frame" x="12" y="71.666666666666686" width="366" height="88.333333333333314"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" verticalHuggingPriority="500" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="dyS-Pe-J8M" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="38.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="32.333333333333336"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-Dr-flg">
-                                                        <rect key="frame" x="322" y="1.3333333333333286" width="36" height="36"/>
+                                                        <rect key="frame" x="322" y="-1.6666666666666714" width="36" height="36"/>
                                                         <accessibility key="accessibilityConfiguration" label="Scrubbing Speed"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="BnD-Dr-flg" secondAttribute="height" id="aZC-yy-o9W"/>
