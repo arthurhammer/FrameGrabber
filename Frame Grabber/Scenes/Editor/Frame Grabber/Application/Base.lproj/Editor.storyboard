@@ -32,7 +32,7 @@
                             </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J1y-Hs-CrT"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" name="editorBackground"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="emT-pt-NxW" firstAttribute="leading" secondItem="mzG-VC-6dc" secondAttribute="leading" id="7Yj-Nr-PMA"/>
@@ -381,12 +381,12 @@
         <namedColor name="accent">
             <color red="0.46666666666666667" green="0.27843137254901962" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="editorBackground">
+            <color red="0.94901960784313721" green="0.96078431372549022" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="secondaryAccent">
             <color red="0.23000000417232513" green="0.18000000715255737" blue="0.23000000417232513" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
