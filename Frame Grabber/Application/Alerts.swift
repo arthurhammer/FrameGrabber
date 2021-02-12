@@ -14,6 +14,12 @@ extension UIAlertController {
              message: UserText.alertPlaybackFailedMessage,
              okHandler: okHandler)
     }
+    
+    static func filePickingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.alertFilePickingFailedTitle,
+             message: UserText.alertFilePickingFailedMessage,
+             okHandler: okHandler)
+    }
 
     static func frameExportFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertFrameExportFailedTitle,
@@ -24,6 +30,35 @@ extension UIAlertController {
     static func savingToPhotosFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         with(title: UserText.alertFrameExportFailedTitle,
              message: UserText.alertFrameExportFailedMessage,
+             okHandler: okHandler)
+    }
+    
+    static func videoRecordingUnavailable(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.videoRecordingUnavailableTitle,
+             message: UserText.videoRecordingUnavailableMessage,
+             okHandler: okHandler)
+    }
+    
+    /// By default, the open settings action opens the app's Settings.
+    static func videoRecordingDenied(
+        okHandler: ((UIAlertAction) -> ())? = nil,
+        openSettingsHandler: ((UIAlertAction) -> ())? = { _ in UIApplication.shared.openSettings() }
+    ) -> UIAlertController {
+        let alert = UIAlertController(
+            title: UserText.videoRecordingDeniedTitle,
+            message: UserText.videoRecordingDeniedMessage,
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(.openSettings(handler: openSettingsHandler))
+        alert.addAction(.ok())
+        
+        return alert
+    }
+    
+    static func recordingVideoFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
+        with(title: UserText.videoRecordingFailedTitle,
+             message: UserText.videoRecordingFailedMessage,
              okHandler: okHandler)
     }
 
@@ -91,6 +126,10 @@ extension UIAlertAction {
 
     static func cancel(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
         UIAlertAction(title: UserText.cancelAction, style: .cancel, handler: handler) 
+    }
+    
+    static func openSettings(handler: ((UIAlertAction) -> ())? = nil) -> UIAlertAction {
+        UIAlertAction(title: UserText.openSettingsAction, style: .default, handler: handler)
     }
 }
 

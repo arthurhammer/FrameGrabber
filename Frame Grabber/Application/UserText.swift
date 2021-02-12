@@ -1,17 +1,19 @@
 import Foundation
 
 struct UserText {
-    static let saveToPhotosAlbumName = "Frame Grabber"
-    static let exifAppInformation = "Frame Grabber \(Bundle.main.version)"
+    static let appName = "Frame Grabber"
+    static let photoLibraryAppAlbum = appName
+    static let exifAppInformation = "\(appName) \(Bundle.main.version)"
 
     static let okAction = NSLocalizedString("action.ok", value: "OK", comment: "Ok action")
     static let cancelAction = NSLocalizedString("action.cancel", value: "Cancel", comment: "Cancel action")
     static let deleteAction = NSLocalizedString("action.delete", value: "Delete", comment: "Delete context action")
     static let favoriteAction = NSLocalizedString("action.favorite", value: "Favorite", comment: "Favorite context action")
     static let unfavoriteAction = NSLocalizedString("action.unfavorite", value: "Unfavorite", comment: "Unfavorite context action")
+    static let openSettingsAction = NSLocalizedString("action.settings", value: "Settings", comment: "Open settings action")
 
     static let authorizationDeniedMessage = NSLocalizedString("authorization.denied.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access in Settings.", comment: "Photo library authorization denied message")
-    static let authorizationDeniedAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Photo library authorization denied action")
+    static let authorizationDeniedAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Photo library authorization denied action.")
     static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
     static let authorizationUndeterminedAction = NSLocalizedString("authorization.undetermined.action", value: "Get Started", comment: "Photo library authorization default action")
 
@@ -22,20 +24,20 @@ struct UserText {
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
-    static let albumDefaultTitle = NSLocalizedString("album.missing.title", value: "Album", comment: "Title for missing or deleted albums.")
-    static let albumUnauthorizedTitle = NSLocalizedString("album.unauthorized.title", value: "Recents", comment: "Title for the initial placeholder album until the user authorizes.")
-    static let albumLimitedAuthorizationTitle = NSLocalizedString("album.limited.title", value: "Library", comment: "Title for limited authorization in album view.")
+    static let libraryDefaultTitle = NSLocalizedString("library.default.title", value: "Library", comment: "Title for the library when no specific album is selected.")
+    static let albumLimitedAuthorizationTitle = libraryDefaultTitle
     static let albumEmptyAny = NSLocalizedString("album.empty.any", value: "No Videos or Live Photos", comment: "Empty album message")
     static let albumEmptyVideos = NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")
     static let albumEmptyLive = NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
-    static let albumViewSettingsMenuTitle = NSLocalizedString("album.viewSettings.menu.title", value: "View", comment: "Title of album view settings button menu")
+    static let albumViewSettingsMenuTitle = NSLocalizedString("album.viewSettings.menu.title", value: "Show", comment: "Title of album view settings button menu")
     static let albumViewSettingsSquareGridTitle = NSLocalizedString("album.viewSettings.squareGrid.title", value: "Square Grid", comment: "Title of album view as squares settings menu item")
     static let albumViewSettingsFitGridTitle = NSLocalizedString("album.viewSettings.fitGrid.title", value: "Aspect Ratio Grid", comment: "Title of album view as aspect ratio settings menu item")
     
-    static let limitedAuthorizationMenuTitle = NSLocalizedString("album.limited.menu.title", value: "You've given Frame Grabber access to a limited number of videos and Live Photos.", comment: "Title for limited authorization menu.")
-    static let limitedAuthorizationMenuSelectPhotosAction = NSLocalizedString("album.limited.menu.selectphotos.action", value: "Select More Items", comment: "Action to select more photos in limited authorization menu.")
-    static let limitedAuthorizationMenuOpenSettingsAction = NSLocalizedString("album.limited.menu.opensettings.action", value: "Change Settings", comment: "Action to open settings in limited authorization menu.")
-
+    static let libraryImportFileMenuAction = NSLocalizedString("library.menu.import.file.action", value: "Open a File", comment: "Action of import menu: Open file picker action.")
+    static let libraryImportCameraMenuAction = NSLocalizedString("library.menu.import.camera.action", value: "Record a Video", comment: "Action of import menu: Open camera action.")
+    static let libraryImportSelectMorePhotosMenuAction = NSLocalizedString("library.menu.import.selectPhotos.action", value: "Select More Videos", comment: "Action of import menu: Select more photos in limited authorization.")
+    static let libraryImportLimitedAuthorizationTitle = NSLocalizedString("library.menu.import.limited.title", value: "You've given Frame Grabber access to a limited number of videos.", comment: "Title for limited authorization menu.")
+    
     static let videoFilterAllItems = NSLocalizedString("videofilter.all", value: "All Items", comment: "Video filter title, all items")
     static let videoFilterVideos = NSLocalizedString("videofilter.video", value: "Videos", comment: "Video filter title, only videos")
     static let videoFilterLivePhotos = NSLocalizedString("videofilter.livePhoto", value: "Live Photos", comment: "Video filter title, only Live Photos")
@@ -46,10 +48,20 @@ struct UserText {
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
     static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
     
-    static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in smaller file sizes. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
+    static let speedMenuTitle = NSLocalizedString("editor.menu.speed.title", value: "Set the speed for scrubbing through the video.", comment: "Title for the speed menu.")
+    static let speedMenuNormalSpeedAction = NSLocalizedString("editor.menu.speed.normal.action", value: "Normal", comment: "Title for the normal speed in the speed menu.")
+    static let speedMenuHalfSpeedAction = NSLocalizedString("editor.menu.speed.half.action", value: "Half", comment: "Title for the half speed in the speed menu.")
+    static let speedMenuQuarterSpeedAction = NSLocalizedString("editor.menu.speed.quarter.action", value: "Quarter", comment: "Title for the quarter speed in the speed menu.")
+    static let speedMenuFineSpeedAction = NSLocalizedString("editor.menu.speed.fine.action", value: "Fine", comment: "Title for the fine speed in the speed menu.")
+    static let speedMenuVeryFineSpeedAction = NSLocalizedString("editor.menu.speed.veryFine.action", value: "Snail", comment: "Title for the very fine speed in the speed menu.")
+    
+    static let editorDetailSettingsSectionTitle = NSLocalizedString("editor.detail.settings.title", value: "Settings", comment: "Title for the settings section.")
+    static let editorDetailMetadataSectionTitle = NSLocalizedString("editor.detail.metadata.title", value: "Metadata", comment: "Title for the metadata section.")
+    
+    static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in a smaller file size. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")
-    static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Opens the share sheet for exporting.", comment: "Explanation of what the share sheet setting does")
-    static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves images to your photo library and adds them to the “Frame Grabber” photo album.", comment: "Explanation of what the save to photos setting does")
+    static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Directly send your photos to AirDrop, Instagram, Messages and many other apps.", comment: "Explanation of what the share sheet setting does")
+    static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves photos to your photo library and adds them to the “Frame Grabber” album.", comment: "Explanation of what the save to photos setting does")
     static let exportShowShareSheetAction = NSLocalizedString("export.showShareSheet.action", value: "Share Sheet", comment: "Title for the share sheet export setting.")
     static let exportSettingsFrameNumberFormatFooter = NSLocalizedString("exportsettings.frameNumber.footer", value: "Minutes, seconds and the frame number relative to the current second.\n\nFor large videos, it might take a bit longer to determine the frame numbers.", comment: "Explanation of what the frame number time format does.")
     static let exportSaveToPhotosAction = NSLocalizedString("exportsettings.saveToPhotos.action", value: "Photos", comment: "Title for the save to photo library export setting.")
@@ -86,8 +98,18 @@ struct UserText {
 }
 
 extension UserText {
+    static let alertFilePickingFailedTitle = NSLocalizedString("alert.filePicker.title", value: "Could not Open Video", comment: "")
+    static let alertFilePickingFailedMessage = NSLocalizedString("alert.filePicker.message", value: "There was an error importing the file.", comment: "")
+    
     static let alertVideoLoadFailedTitle = NSLocalizedString("alert.videoload.title", value: "Unable to Load Item", comment: "")
     static let alertVideoLoadFailedMessage = NSLocalizedString("alert.videoload.message", value: "Please check your network settings and make sure the format is supported on this device.", comment: "")
+    
+    static let videoRecordingUnavailableTitle = NSLocalizedString("alert.camera.unavailable.title", value: "Camera Unavailable", comment: "Alert title when the current device cannot record videos.")
+    static let videoRecordingUnavailableMessage = NSLocalizedString("alert.camera.unavailable.message", value: "This device cannot record videos.", comment: "Alert message when the current device cannot record videos.")
+    static let videoRecordingDeniedTitle = NSLocalizedString("alert.camera.denied.title", value: "No Camera Access", comment: "Alert title when the recording authorization is denied or restricted.")
+    static let videoRecordingDeniedMessage = NSLocalizedString("alert.camera.denied.message", value: "You have denied Frame Grabber the access to your camera.", comment: "Alert message when the recording authorization is denied or restricted..")
+    static let videoRecordingFailedTitle = NSLocalizedString("alert.camera.failed.title", value: "Cannot Open Video", comment: "Alert title when the video recording failed for any reason.")
+    static let videoRecordingFailedMessage = NSLocalizedString("alert.camera.failed.message", value: "There was an error during the recording.", comment: "Alert message when the video recording failed for any reason")
 
     static let alertPlaybackFailedTitle = NSLocalizedString("alert.playback.title", value: "Cannot Play Item", comment: "")
     static let alertPlaybackFailedMessage = NSLocalizedString("alert.playback.message", value: "There was an error during playback.", comment: "")

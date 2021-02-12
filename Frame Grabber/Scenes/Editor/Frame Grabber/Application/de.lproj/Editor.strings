@@ -1,0 +1,27 @@
+/* Class = "UIView"; accessibilityLabel = "Video"; ObjectID = "8St-aq-4oR"; */
+"8St-aq-4oR.accessibilityLabel" = "Video";
+
+/* Class = "UIButton"; accessibilityLabel = "Scrubbing Speed"; ObjectID = "BnD-Dr-flg"; */
+"BnD-Dr-flg.accessibilityLabel" = "Video-Wischgeschwindigkeit";
+
+/* Class = "UINavigationItem"; title = "Choose Frame"; ObjectID = "cLY-f1-ifd"; */
+"cLY-f1-ifd.title" = "Bild Auswählen";
+
+/* Class = "UIButton"; accessibilityLabel = "Next Frame"; ObjectID = "DkK-Al-W1l"; */
+"DkK-Al-W1l.accessibilityLabel" = "Nächstes Bild";
+
+/* Class = "UIView"; accessibilityLabel = "Video Time"; ObjectID = "dyS-Pe-J8M"; */
+"dyS-Pe-J8M.accessibilityLabel" = "Videozeit";
+
+/* Class = "UILabel"; accessibilityHint = "Video Time"; ObjectID = "ILv-8M-cLD"; */
+"ILv-8M-cLD.accessibilityHint" = "Videozeit";
+
+/* Class = "UIButton"; accessibilityLabel = "Previous Frame"; ObjectID = "k63-cd-ILB"; */
+"k63-cd-ILB.accessibilityLabel" = "Vorheriges Bild";
+
+/* Class = "UIButton"; accessibilityLabel = "Share Frame"; ObjectID = "L9G-NA-8mP"; */
+"L9G-NA-8mP.accessibilityLabel" = "Bild teilen";
+
+/* Class = "UILabel"; text = "<Exporting…>"; ObjectID = "oGN-ie-szR"; */
+"oGN-ie-szR.text" = "<Exporting…>";
+

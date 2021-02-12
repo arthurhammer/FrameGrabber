@@ -30,6 +30,7 @@ public class ThumbnailSlider: UIControl {
         didSet {
             handle.isEnabled = isEnabled
             track.isEnabled = isEnabled
+            updateViews()
         }
     }
 
@@ -61,15 +62,17 @@ public class ThumbnailSlider: UIControl {
     private var initialTrackingTouchLocation: CGPoint = .zero
     private var initialTrackingHandleLocation: CGPoint = .zero
 
+    private let borderWidth: CGFloat = 1
+    private let disabledBorderColor = UIColor.systemGray4
+    
     private let handleWidth: CGFloat = 8
     private let handleCornerRadius: CGFloat = 2
     private let handleColor: UIColor = .white
     private let disabledHandleColor: UIColor = .systemGray3
-    private lazy var verticalHandleInset = trackBorderWidth
+    private lazy var verticalHandleInset = borderWidth
 
     private let trackColor: UIColor = .secondarySystemFill
-    private let trackCornerRadius: CGFloat = 8
-    private let trackBorderWidth: CGFloat = 1
+    private let trackCornerRadius: CGFloat = 12
     private let verticalTrackInset: CGFloat = 0
     private let minimumThumbnailWidth: CGFloat = 8
     private let maximumThumbnailWidth: CGFloat = 90
@@ -141,13 +144,17 @@ public class ThumbnailSlider: UIControl {
         if traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass {
             invalidateIntrinsicContentSize()
         }
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            updateViews()
+        }
     }
 
     // MARK: - Setting Time
 
     public func setTime(_ time: CMTime, animated: Bool) {
         _time = time.numericOrZero.clamped(to: .zero, and: duration)
-        accessibilityValue = accessibilityValueFormatter.string(from: time.seconds.rounded())
+        accessibilityValue = accessibilityValueFormatter.string(from: _time.seconds.rounded())
 
         if animated {
             UIView.animate(
@@ -251,6 +258,8 @@ public class ThumbnailSlider: UIControl {
     // MARK: - Configuring
 
     private func configureViews() {
+        clipsToBounds = true
+        
         track.addSubview(handle)
         addSubview(track)
         updateHandlePosition()
@@ -261,10 +270,17 @@ public class ThumbnailSlider: UIControl {
         layer.shadowRadius = 6
         layer.shadowOffset = .zero
         
-        track.layer.borderWidth = trackBorderWidth
+        layer.cornerRadius = trackCornerRadius
+        layer.cornerCurve = .continuous
+        layer.borderWidth = borderWidth
+        layer.borderColor = tintColor.cgColor
         
         isAccessibilityElement = true
         accessibilityTraits.insert(.adjustable)
+    }
+    
+    private func updateViews() {
+        layer.borderColor = isEnabled ? tintColor.cgColor : disabledBorderColor.cgColor
     }
 
     // MARK: - Utilities
@@ -279,9 +295,10 @@ public class ThumbnailSlider: UIControl {
     private func handlePosition(for time: CMTime) -> CGFloat {
         let center = trackPosition(for: _time)
         let origin = center - handleWidth/2
-        let rightEdge = track.frame.maxX - handleWidth - trackBorderWidth
+        let leftEdge = borderWidth
+        let rightEdge = track.frame.maxX - handleWidth - borderWidth
         
-        return origin.clamped(to: trackBorderWidth, and: rightEdge)
+        return origin.clamped(to: leftEdge, and: rightEdge)
     }
 
     private func trackPosition(for time: CMTime) -> CGFloat {

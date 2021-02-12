@@ -220,19 +220,13 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
                 sourceView.frame = containerView.convert(targetFrame, to: sourceView.superview)
                 transitionView.frame = targetFrame
             }
-        // Completed but no target view exists (e.g. cell deleted): Animate off-screen.
+        // Completed but no target view exists (e.g. cell deleted): Shrink into its center.
         } else {
             parameters = fallbackParameters
-
-            let currentFrame = sourceView.currentFrameWithoutTransform
-            let targetFrame = fallbackTargetFrame(in: containerView)
-
-            sourceView.transform = .identity
-            sourceView.frame = currentFrame
-            sourceView.layoutIfNeeded()
-
+            
             animations = {
-                sourceView.frame = containerView.convert(targetFrame, to: sourceView.superview)
+                sourceView.transform = sourceView.transform.scaledBy(x: 0.01, y: 0.01)
+                sourceView.alpha = 0
             }
         }
 
@@ -286,11 +280,5 @@ private extension ZoomPopTransition {
 
     func transitionImageScaleFor(percentageComplete: CGFloat, minimumScale: CGFloat) -> CGFloat {
         1 - (1 - minimumScale) * percentageComplete
-    }
-
-    /// A tiny frame at the mid-bottom of the container view.
-    func fallbackTargetFrame(in containerView: UIView) -> CGRect {
-        let frame = containerView.frame
-        return CGRect(x: frame.midX, y: frame.maxY, width: 1, height: 1)  // Zero size doesn't seem to work.
     }
 }

@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var coordinator: Coordinator?
     let paymentsManager: StorePaymentsManager = .shared
-    let fileManager = AppFileManager()
+    let fileManager = FileManager.default
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         configureInAppPurchases()
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let openInPlace = options[.openInPlace] as? Bool == true
-        let _url = try? fileManager.importVideo(at: url, asCopy: true, deletingSource: !openInPlace)
+        let _url = try? fileManager.importFile(at: url, asCopy: true, deletingSource: !openInPlace)
         
         guard let url = _url,
               let coordinator = coordinator else { return false }
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func configureCoordinator() {
-        guard let navigationController = window?.rootViewController as? NavigationController else {
+        guard let navigationController = window?.rootViewController as? UINavigationController else {
             fatalError("Wrong root view controller")
         }
 

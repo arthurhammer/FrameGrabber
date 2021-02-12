@@ -1,0 +1,12 @@
+/* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "1Mm-ug-fL0"; */
+"1Mm-ug-fL0.text" = "Frame Grabber";
+
+/* Class = "UILabel"; text = "Welcome to"; ObjectID = "jve-4i-sJx"; */
+"jve-4i-sJx.text" = "Willkommen zu";
+
+/* Class = "UIButton"; accessibilityHint = "Opens privacy policy."; ObjectID = "YdY-Cc-mGB"; */
+"YdY-Cc-mGB.accessibilityHint" = "Öffnet die Datenschutzerklärung.";
+
+/* Class = "UIButton"; normalTitle = "Your videos remain private."; ObjectID = "YdY-Cc-mGB"; */
+"YdY-Cc-mGB.normalTitle" = "Deine Videos bleiben privat.";
+

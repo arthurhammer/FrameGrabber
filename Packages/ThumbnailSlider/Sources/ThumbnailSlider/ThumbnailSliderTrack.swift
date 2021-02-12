@@ -18,15 +18,7 @@ class ThumbnailSliderTrack: UIView {
     var disabledTintColor = UIColor.systemBackground.withAlphaComponent(0.4) {
         didSet { disabledTintView.backgroundColor = disabledTintColor }
     }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) == true {
-            updateViews()
-        }
-    }
-    
+
     public override func tintColorDidChange() {
         super.tintColorDidChange()
         updateViews()
@@ -56,8 +48,6 @@ class ThumbnailSliderTrack: UIView {
         view.backgroundColor = disabledTintColor
         return view
     }()
-    
-    private let disabledBorderColor = UIColor.systemGray4
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -132,8 +122,6 @@ class ThumbnailSliderTrack: UIView {
     private func updateViews() {
         disabledTintView.isHidden = isEnabled
         progressTintView.isHidden = !isEnabled
-        
         progressTintView.backgroundColor = tintColor.withAlphaComponent(0.5)
-        layer.borderColor = isEnabled ? tintColor.cgColor : disabledBorderColor.cgColor
     }
 }

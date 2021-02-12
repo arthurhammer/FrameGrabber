@@ -19,12 +19,4 @@ extension AnyAlbum {
         self.count = album.count
         self.keyAsset = album.keyAsset
     }
-    
-    /// Initializes the album with the given asset collection.
-    public init(assetCollection: PHAssetCollection) {
-        self.assetCollection = assetCollection
-        self.title = assetCollection.localizedTitle
-        self.count = assetCollection.estimatedAssetCount
-        self.keyAsset = nil
-    }
 }

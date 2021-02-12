@@ -56,10 +56,10 @@ extension UIButton {
 
 extension UIView {
     
-    func applyToolbarShadow() {
+    func applyDefaultShadow() {
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.1
-        layer.shadowRadius = 10
+        layer.shadowOpacity = 0.12
+        layer.shadowRadius = 14
         layer.shadowOffset = .zero
     }
 }
