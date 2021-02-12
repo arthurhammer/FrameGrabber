@@ -243,7 +243,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="stepBackward" destination="BL9-Ma-ehO" eventType="touchUpInside" id="k2n-U5-VLI"/>
+                                                            <action selector="stepBackward" destination="BL9-Ma-ehO" eventType="touchDown" id="4hK-Ew-58m"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DkK-Al-W1l" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
@@ -254,7 +254,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="stepForward" destination="BL9-Ma-ehO" eventType="touchUpInside" id="CPO-kB-URn"/>
+                                                            <action selector="stepForward" destination="BL9-Ma-ehO" eventType="touchDown" id="bqp-Zz-sxi"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9G-NA-8mP">
