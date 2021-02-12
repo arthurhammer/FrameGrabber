@@ -105,13 +105,11 @@ class EditorToolbarController: UIViewController {
             placeholderImage: placeholderImage
         )
         
+        // On iOS 13, hide the button and use the old vertical scrubbing speeds.
         if #available(iOS 14.0, *) {
             toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultSpeed.scrubbingSpeed]
             toolbar.speedButton.showsMenuAsPrimaryAction = true
             updateSpeedButton()
-        } else {
-            // Use the old vertical sliding speed configuration.
-            toolbar.speedButton.isHidden = true
         }
         
         configureBindings()
