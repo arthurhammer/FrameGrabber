@@ -73,10 +73,10 @@ class EditorDetailViewController: UIViewController {
     }
     
     private func updateContentSize() {
-        guard let page = currentPage,
-              preferredContentSize != page.preferredContentSize else { return }
-        
         DispatchQueue.main.async {
+            guard let page = self.currentPage,
+                  self.preferredContentSize != page.preferredContentSize else { return }
+
             // In popovers, reducing the content size does not seem to shrink the popover unless it
             // is set on the containing navigation controller.
             let container = self.navigationController ?? self
