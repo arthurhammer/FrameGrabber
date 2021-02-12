@@ -45,8 +45,8 @@ class Coordinator: NSObject {
     func open(videoUrl: URL) -> Bool {
         guard !needsAuthorization else { return false }
 
-        navigationController.dismiss(animated: true)  // Animated.
-        showEditor(with: .url(videoUrl), previewImage: nil, animated: false)  // Not animated.
+        showEditor(with: .url(videoUrl), previewImage: nil, animated: true)
+        navigationController.dismiss(animated: true)
 
         return true
     }

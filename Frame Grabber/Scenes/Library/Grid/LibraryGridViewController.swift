@@ -95,7 +95,8 @@ class LibraryGridViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        guard let asset = configuration.identifier as? PHAsset,
+        guard view.window != nil,
+              let asset = configuration.identifier as? PHAsset,
               let indexPath = dataSource.indexPath(of: asset),
               let cell = videoCell(at: indexPath) else { return nil }
 
