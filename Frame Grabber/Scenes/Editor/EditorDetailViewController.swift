@@ -65,6 +65,23 @@ class EditorDetailViewController: UIViewController {
         configureViews()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateContentSize()
+    }
+    
+    private func updateContentSize() {
+        guard let page = currentPage,
+              preferredContentSize != page.preferredContentSize else { return }
+        
+        DispatchQueue.main.async {
+            // In popovers, reducing the content size does not seem to shrink the popover unless it
+            // is set on the containing navigation controller.
+            let container = self.navigationController ?? self
+            container.preferredContentSize = page.preferredContentSize
+        }
+    }
+    
     @objc private func done() {
         dismiss(animated: true)
     }
@@ -88,6 +105,7 @@ class EditorDetailViewController: UIViewController {
     private func updateViews() {
         title = currentPage?.navigationItem.title
         titleSegments.selectedSegmentIndex = currentIndex ?? 0
+        updateContentSize()
     }
     
     @objc private func selectionChanged(_ sender: UISegmentedControl) {
@@ -101,7 +119,7 @@ class EditorDetailViewController: UIViewController {
     }
     
     private var currentIndex: Int? {
-        // Don't trigger lazy load of metadata if not needed.
+        // Don't trigger lazy load of metadata.
         guard currentPage != nil else { return nil }
         return (currentPage == settingsController) ? 0 : 1
     }
@@ -109,13 +127,16 @@ class EditorDetailViewController: UIViewController {
     private func setPage(at index: Int, animated: Bool) {
         guard index != currentIndex else { return }
         
-        // Don't trigger lazy load of metadata if not needed.
+        // Don't trigger lazy load of metadata.
         let page = (index == 0) ? settingsController : metadataController
 
         pageController.setViewControllers(
             [page],
             direction: (index == 0) ? .reverse : .forward,
-            animated: animated
+            animated: animated,
+            completion: { _ in
+                self.updateContentSize()
+            }
         )
     }
 }
