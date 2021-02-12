@@ -273,7 +273,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Q9O-On-eG2" kind="presentation" id="Rdw-Fi-nc6"/>
+                                    <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="tGr-t6-Jjk" id="Rdw-Fi-nc6">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="line.horizontal.3.decrease.circle" catalog="system" id="OO5-IZ-Y4X"/>
