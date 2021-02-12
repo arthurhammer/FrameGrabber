@@ -56,16 +56,30 @@ class EditorToolbar: UIView {
     }
     
     private func configureSpeedButton() {
-        speedButton.superview?.bringSubviewToFront(speedButton)
-        
         speedButton.leadingAnchor.constraint(
             greaterThanOrEqualTo: timeSlider.handleLayoutGuide.trailingAnchor,
             constant: 8
         ).isActive = true
         
-        speedButton.layer.cornerCurve = .continuous
-        speedButton.layer.cornerRadius = 12
-        speedButton.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
+        speedButton.tintColor = .label
+        timeSlider.bringSubviewToFront(speedButton)
+        
+        configureSpeedButtonBlurView()
+    }
+    
+    private func configureSpeedButtonBlurView() {
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        blurView.layer.cornerRadius = timeSlider.layer.cornerRadius - timeSlider.layer.borderWidth
+        blurView.layer.cornerCurve = .continuous
+        blurView.clipsToBounds = true
+
+        timeSlider.insertSubview(blurView, belowSubview: speedButton)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        
+        blurView.leadingAnchor.constraint(equalTo: speedButton.leadingAnchor).isActive = true
+        blurView.trailingAnchor.constraint(equalTo: speedButton.trailingAnchor).isActive = true
+        blurView.topAnchor.constraint(equalTo: speedButton.topAnchor).isActive = true
+        blurView.bottomAnchor.constraint(equalTo: speedButton.bottomAnchor).isActive = true
     }
 }
 

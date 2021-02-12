@@ -20,39 +20,46 @@ struct EditorSpeedMenu {
             }
         }
         
-        var icon: UIImage? {
-            let icon: UIImage?
-            
+        var menuIcon: UIImage? {
             switch self {
             case .normal: return nil
-            case .half: icon = UIImage(systemName: "50.circle")
-            case .quarter: icon = UIImage(systemName: "25.circle")
-            case .fine: icon = UIImage(systemName: "10.circle")
-            case .veryFine: icon = UIImage(systemName: "01.circle")
+            default: return buttonIcon?.applyingSymbolConfiguration(.init(scale: .large))
             }
-            
-            return icon?.applyingSymbolConfiguration(.init(scale: .large))
+        }
+        
+        var buttonIcon: UIImage? {
+            switch self {
+            case .normal: return UIImage(systemName: "speedometer")
+            case .half: return UIImage(systemName: "50.circle")
+            case .quarter: return UIImage(systemName: "25.circle")
+            case .fine: return UIImage(systemName: "10.circle")
+            case .veryFine: return UIImage(systemName: "01.circle")
+            }
         }
         
         var scrubbingSpeed: ScrubbingThumbnailSlider.Speed {
             .init(speed: rawValue, verticalDistance: 0)
         }
+        
+        init(_ scrubbingSpeed: ScrubbingThumbnailSlider.Speed) {
+            self = Selection(scrubbingSpeed.speed) ?? .normal
+        }
     }
-    
-    static var defaultScrubbingSpeed: ScrubbingThumbnailSlider.Speed {
-        Selection.allCases.first!.scrubbingSpeed
+
+    static var defaultSpeed: Selection {
+        Selection.allCases.first!
     }
-    
+
     @available(iOS 14, *)
     static func menu(
-        withCurrentSelection current: Selection,
+        with current: Selection,
         handler: @escaping (Selection) -> Void
     ) -> UIMenu {
         
         let options = Selection.allCases.reversed().map { option in
             UIAction(
                 title: option.title,
-                image: option.icon,
+                image: option.menuIcon,
                 state: (current == option) ? .on : .off,
                 handler: { _ in
                     UISelectionFeedbackGenerator().selectionChanged()
@@ -62,14 +69,5 @@ struct EditorSpeedMenu {
         }
         
         return UIMenu(title: UserText.speedMenuTitle, children: options)
-    }
-    
-    @available(iOS 14, *)
-    static func menu(
-        withCurrentSpeed current: ScrubbingThumbnailSlider.Speed,
-        handler: @escaping (Selection) -> Void
-    ) -> UIMenu {
-        let selection = Selection(current.speed) ?? .normal
-        return menu(withCurrentSelection: selection, handler: handler)
     }
 }

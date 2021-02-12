@@ -106,7 +106,7 @@ class EditorToolbarController: UIViewController {
         )
         
         if #available(iOS 14.0, *) {
-            toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultScrubbingSpeed]
+            toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultSpeed.scrubbingSpeed]
             toolbar.speedButton.showsMenuAsPrimaryAction = true
             updateSpeedButton()
         } else {
@@ -174,9 +174,10 @@ class EditorToolbarController: UIViewController {
     
     @available(iOS 14, *)
     func updateSpeedButton() {
-        let current = toolbar.timeSlider.currentScrubbingSpeed
+        let current = EditorSpeedMenu.Selection(toolbar.timeSlider.currentScrubbingSpeed)
+        toolbar.speedButton.setImage(current.buttonIcon, for: .normal)
                     
-        toolbar.speedButton.menu = EditorSpeedMenu.menu(withCurrentSpeed: current) {
+        toolbar.speedButton.menu = EditorSpeedMenu.menu(with: current) {
             [weak self] selection in
             self?.toolbar.timeSlider.scrubbingSpeeds = [selection.scrubbingSpeed]
             self?.updateSpeedButton()
