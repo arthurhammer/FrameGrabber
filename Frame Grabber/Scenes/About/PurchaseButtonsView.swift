@@ -11,6 +11,7 @@ class PurchaseButtonsView: UIStackView {
     }
 
     private func configureViews() {
+        purchaseButton.applyDefaultShadow()
         purchaseButton.configureAsActionButton(minimumWidth: 300)
         restoreButton.configureDynamicTypeLabel()
     }

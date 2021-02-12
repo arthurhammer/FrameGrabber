@@ -118,8 +118,8 @@ class EditorViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.applyToolbarShadow()
-        toolbarController.toolbar.applyToolbarShadow()
+        navigationController?.navigationBar.applyDefaultShadow()
+        toolbarController.toolbar.applyDefaultShadow()
     }
 
     private func configureGestures() {

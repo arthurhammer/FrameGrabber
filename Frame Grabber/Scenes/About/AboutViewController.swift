@@ -55,7 +55,8 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         tableView.backgroundColor = .clear
         
         rateButton.configureAsActionButton(minimumWidth: 150)
-
+        rateButton.applyDefaultShadow()
+        
         purchaseButton.configureAsActionButton()
         purchaseButton.backgroundColor = .secondarySystemFill
         purchaseButton.setTitleColor(.secondaryLabel, for: .normal)
