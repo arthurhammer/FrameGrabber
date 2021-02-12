@@ -34,7 +34,10 @@ class EditorDetailViewController: UIViewController {
     }()
     
     private lazy var titleSegments: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["<Settings>", "<Metadata>"])
+        let control = UISegmentedControl(items: [
+            UserText.editorDetailSettingsSectionTitle,
+            UserText.editorDetailMetadataSectionTitle
+        ])
         control.addTarget(self, action: #selector(selectionChanged), for: .valueChanged)
         return control
     }()
