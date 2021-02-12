@@ -1,11 +1,11 @@
 import UIKit
 
-protocol ExportSettingsViewControllerDelegate: class {
-    func controller(_ controller: ExportSettingsViewController, didChangeExportAction: ExportAction)
-    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat: TimeFormat)
+protocol SettingsViewControllerDelegate: class {
+    func controller(_ controller: SettingsViewController, didChangeExportAction: ExportAction)
+    func controller(_ controller: SettingsViewController, didChangeTimeFormat: TimeFormat)
 }
 
-class ExportSettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController {
 
     enum Section: Int {
         case metadata
@@ -15,7 +15,7 @@ class ExportSettingsViewController: UITableViewController {
         case timeFormat
     }
     
-    weak var delegate: ExportSettingsViewControllerDelegate?
+    weak var delegate: SettingsViewControllerDelegate?
 
     let settings: UserDefaults = .standard
 
@@ -108,9 +108,6 @@ class ExportSettingsViewController: UITableViewController {
     }
 
     private func configureViews() {
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-        tableView.backgroundColor = .clear
-
         compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))

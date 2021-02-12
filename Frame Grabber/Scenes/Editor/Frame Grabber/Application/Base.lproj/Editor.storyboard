@@ -49,6 +49,9 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="More"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="showSettingsAndMetadata:" destination="1Cw-ag-d47" id="iJZ-PC-GMJ"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -56,12 +59,6 @@
                         <outlet property="progressView" destination="j77-MA-S24" id="z8p-cQ-aYI"/>
                         <outlet property="view" destination="mzG-VC-6dc" id="9z2-of-GuI"/>
                         <outlet property="zoomingPlayerView" destination="8St-aq-4oR" id="juD-Kz-COW"/>
-                        <segue destination="yGt-Ul-rBh" kind="popoverPresentation" identifier="ExportSettings" popoverAnchorBarButtonItem="ON1-SU-aKj" id="aQw-im-yKm">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
-                        <segue destination="iXB-0o-ofd" kind="popoverPresentation" identifier="Metadata" popoverAnchorBarButtonItem="ON1-SU-aKj" id="sdq-i6-83Y">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buo-a7-9ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,16 +146,6 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="2205.7971014492755" y="-2077.2321428571427"/>
-        </scene>
-        <!--ExportSettings-->
-        <scene sceneID="ek0-jz-mt7">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ExportSettings" id="yGt-Ul-rBh" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="CfG-3f-kff"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tj3-6E-j4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2887" y="-2077"/>
         </scene>
         <!--Editor Toolbar Controller-->
         <scene sceneID="qoN-Pk-IxM">
@@ -357,17 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kNs-CB-cdR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3092" y="-1873"/>
-        </scene>
-        <!--Metadata-->
-        <scene sceneID="5Hw-4e-7Bh">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Metadata" id="iXB-0o-ofd" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="5hh-0X-9mT"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="psk-Eu-bfr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2862" y="-2129"/>
+            <point key="canvasLocation" x="3028" y="-1838"/>
         </scene>
     </scenes>
     <color key="tintColor" name="accent"/>

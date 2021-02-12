@@ -63,9 +63,6 @@ class MetadataViewController: UITableViewController {
     }
         
     private func configureViews() {
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-        tableView.backgroundColor = .clear
-        
         tableDataSource.defaultRowAnimation = .fade
         tableView.reloadData()  // Required.
         tableView.dataSource = tableDataSource

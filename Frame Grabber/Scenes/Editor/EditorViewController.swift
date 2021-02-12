@@ -68,31 +68,18 @@ class EditorViewController: UIViewController {
         toolbarController.exportAction = settings.exportAction
         return toolbarController
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        playbackController.pause()
-        
-        if let destination = segue.destination as? UINavigationController,
-            let controller = destination.topViewController as? MetadataViewController {
-
-            prepareForMetadataSegue(with: controller)
-        }
-        
-        else if let destination = segue.destination as? UINavigationController,
-           let controller = destination.topViewController as? ExportSettingsViewController {
-         
-            prepareForExportSettingsSegue(with: controller)
-        }
-    }
-
-    private func prepareForMetadataSegue(with controller: MetadataViewController) {
-        guard let video = videoController.video else { return }
-        // TODO: Inject view model somewhere else.
-        controller.viewModel = MetadataViewModel(video: video, source: videoController.source)
-    }
     
-    private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
-        controller.delegate = self
+    @IBAction func showSettingsAndMetadata(_ sender: UIBarButtonItem) {
+        guard let video = videoController.video else { return }
+        
+        let source = videoController.source
+        let detail = EditorDetailViewController(video: video, source: source, delegate: self)
+        let container = UINavigationController(rootViewController: detail)
+        container.modalPresentationStyle = .popover
+        container.popoverPresentationController?.barButtonItem = sender
+
+        playbackController.pause()
+        showDetailViewController(container, sender: self)
     }
 
     // MARK: - Configuring
@@ -102,15 +89,8 @@ class EditorViewController: UIViewController {
         zoomingPlayerView.player = playbackController.player
         zoomingPlayerView.posterImage = videoController.previewImage
 
-        if #available(iOS 14.0, *) {
-            navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
-                self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-            }
-        } else {
-            navigationItem.rightBarButtonItem?.target = self
-            navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
-        }
-
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        
         configureNavigationBar()
         configureGestures()
         configureBindings()
@@ -155,15 +135,6 @@ class EditorViewController: UIViewController {
             }
             .store(in: &bindings)
     }
-    
-    @objc private func showMoreMenuAsAlertSheet() {
-        let alertController = EditorMoreMenu.alertController { [weak self] selection in
-            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-        }
-        
-        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        presentOnTop(alertController)
-    }
 
     // MARK: Loading Videos
 
@@ -198,6 +169,7 @@ class EditorViewController: UIViewController {
         case .success(let video):
             playbackController.asset = video
             startPlaying(from: videoController.source)
+            navigationItem.rightBarButtonItem?.isEnabled = true
         }
     }
     
@@ -344,15 +316,15 @@ extension EditorViewController: EditorToolbarControllerDelegate {
     }
 }
 
-// MARK: ExportSettingsViewControllerDelegate
+// MARK: EditorDetailViewControllerDelegate
 
-extension EditorViewController: ExportSettingsViewControllerDelegate {
+extension EditorViewController: EditorDetailViewControllerDelegate {
     
-    func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
+    func controller(_ controller: SettingsViewController, didChangeExportAction action: ExportAction) {
         toolbarController.exportAction = action
     }
     
-    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat format: TimeFormat) {
+    func controller(_ controller: SettingsViewController, didChangeTimeFormat format: TimeFormat) {
         toolbarController.timeFormat = format
     }
 }

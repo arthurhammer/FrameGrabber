@@ -55,6 +55,9 @@ struct UserText {
     static let speedMenuFineSpeedAction = NSLocalizedString("editor.menu.speed.fine.action", value: "Fine", comment: "Title for the fine speed in the speed menu.")
     static let speedMenuVeryFineSpeedAction = NSLocalizedString("editor.menu.speed.veryFine.action", value: "Crawl", comment: "Title for the very fine speed in the speed menu.")
     
+    static let editorDetailSettingsSectionTitle = NSLocalizedString("editor.detail.settings.title", value: "Settings", comment: "Title for the settings section.")
+    static let editorDetailMetadataSectionTitle = NSLocalizedString("editor.detail.metadata.title", value: "Metadata", comment: "Title for the metadata section.")
+    
     static let exportImageFormatHeifSupportedFooter = NSLocalizedString("exportsettings.section.format.heifSupported.footer", value: "HEIF can result in a smaller file size. JPEG is most widely supported.", comment: "Explanation of image formats in settings footer")
     static let exportImageFormatHeifNotSupportedFooter = NSLocalizedString("exportsettings.section.format.heifNotSupported.footer", value: "The HEIF format is not supported on this device.", comment: "Explanation of image formats in settings footer when HEIF is not supported")
     static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Directly send your photos to AirDrop, Instagram, Messages and many other apps.", comment: "Explanation of what the share sheet setting does")

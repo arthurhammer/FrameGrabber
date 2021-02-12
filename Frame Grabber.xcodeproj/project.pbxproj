@@ -47,14 +47,16 @@
 		0023FC90233910D30046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
 		0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
 		0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
-		0023FC9F233A0E4C0046D9F8 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */; };
-		0023FCA0233A17250046D9F8 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */; };
+		0023FC9F233A0E4C0046D9F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */; };
+		0023FCA0233A17250046D9F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */; };
 		0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
 		0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
 		0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
 		0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
 		0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025B2F025A8B3630075CCBC /* ImageMetadata.swift */; };
 		0025B2F225A8B3630075CCBC /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025B2F025A8B3630075CCBC /* ImageMetadata.swift */; };
+		0028C8A525D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */; };
+		0028C8A625D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */; };
 		002B066424B4F9BE005375ED /* LibraryGridMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B066324B4F9BE005375ED /* LibraryGridMode.swift */; };
 		002B066524B4FAB7005375ED /* LibraryGridMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B066324B4F9BE005375ED /* LibraryGridMode.swift */; };
 		002BFA5B25C6FC4E00CACB18 /* VideoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */; };
@@ -109,8 +111,6 @@
 		005748BD25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */; };
 		0058E354213D645900BE28DD /* ZoomTransitionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */; };
 		0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* TransitionUtilities.swift */; };
-		005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMoreMenu.swift */; };
-		005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMoreMenu.swift */; };
 		005E2AA320273C5800F731FA /* LibraryGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* LibraryGridLayout.swift */; };
 		005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA6202773F800F731FA /* AuthorizationController.swift */; };
 		00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
@@ -183,9 +183,9 @@
 		0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */; };
 		008A48D723479D7300CEAA26 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008A48D623479D7300CEAA26 /* ImageEncoding.swift */; };
 		008A48D823479D7300CEAA26 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008A48D623479D7300CEAA26 /* ImageEncoding.swift */; };
-		008D293124B20F5100813338 /* ExportSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* ExportSettings.storyboard */; };
-		008D293224B20F5100813338 /* ExportSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* ExportSettings.storyboard */; };
-		008D293324B20F5100813338 /* ExportSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* ExportSettings.storyboard */; };
+		008D293124B20F5100813338 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* Settings.storyboard */; };
+		008D293224B20F5100813338 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* Settings.storyboard */; };
+		008D293324B20F5100813338 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* Settings.storyboard */; };
 		0096E813212F2EF8008395CA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E812212F2EF8008395CA /* Bundle.swift */; };
 		0096E815212F2FA7008395CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E814212F2FA7008395CA /* Settings.swift */; };
 		009BEA43234E152E00C284FA /* FrameExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA42234E152E00C284FA /* FrameExport.swift */; };
@@ -331,10 +331,11 @@
 		0023FC92233910DD0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/About.strings"; sourceTree = "<group>"; };
 		0023FC98233911B10046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authorization.storyboard; sourceTree = "<group>"; };
 		0023FC9B233911BA0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Authorization.strings; sourceTree = "<group>"; };
-		0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingsViewController.swift; sourceTree = "<group>"; };
+		0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		0023FCA4233A42150046D9F8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0025B2F025A8B3630075CCBC /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
+		0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorDetailViewController.swift; sourceTree = "<group>"; };
 		002B066324B4F9BE005375ED /* LibraryGridMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridMode.swift; sourceTree = "<group>"; };
 		002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadata.swift; sourceTree = "<group>"; };
 		002BFA6D25C8219800CACB18 /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
@@ -357,7 +358,6 @@
 		005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAssetTrack+MetadataLoading.swift"; sourceTree = "<group>"; };
 		0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionTypes.swift; sourceTree = "<group>"; };
 		0058E355213D9AE900BE28DD /* TransitionUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionUtilities.swift; sourceTree = "<group>"; };
-		005B22B624B246350006EE4A /* EditorMoreMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorMoreMenu.swift; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* LibraryGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridLayout.swift; sourceTree = "<group>"; };
 		005E2AA6202773F800F731FA /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		00653B3F213923460038CB56 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
@@ -381,8 +381,8 @@
 		0086A6B12344CD7100989646 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAssetImageGenerator.swift; sourceTree = "<group>"; };
 		008A48D623479D7300CEAA26 /* ImageEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoding.swift; sourceTree = "<group>"; };
-		008D293624B20F6200813338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ExportSettings.storyboard; sourceTree = "<group>"; };
-		008D293724B20F7200813338 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ExportSettings.strings; sourceTree = "<group>"; };
+		008D293624B20F6200813338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		008D293724B20F7200813338 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Settings.strings; sourceTree = "<group>"; };
 		0096E812212F2EF8008395CA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		0096E814212F2FA7008395CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		009BEA42234E152E00C284FA /* FrameExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExport.swift; sourceTree = "<group>"; };
@@ -682,13 +682,14 @@
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */,
+				00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00A18B4325D5E46200330B1F /* EditorToolbarController.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
-				00A18B5525D5F8EA00330B1F /* Menus */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
 			path = Editor;
@@ -721,15 +722,6 @@
 				001A6C5020623B0000B91F3A /* ProgressView.swift */,
 			);
 			path = Progress;
-			sourceTree = "<group>";
-		};
-		00A18B5525D5F8EA00330B1F /* Menus */ = {
-			isa = PBXGroup;
-			children = (
-				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
-				00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */,
-			);
-			path = Menus;
 			sourceTree = "<group>";
 		};
 		00A9DF5321273FA400778885 /* Album Picker */ = {
@@ -860,10 +852,10 @@
 			children = (
 				0045A0FD25BDE41600A1235A /* ExportAction.swift */,
 				0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */,
-				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
+				0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */,
 				0045A1AF25BE5AF800A1235A /* TimeFormat.swift */,
 				0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */,
-				008D293524B20F5100813338 /* ExportSettings.storyboard */,
+				008D293524B20F5100813338 /* Settings.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1005,7 +997,7 @@
 				00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */,
 				00730EE2214FEA5A001A6EA7 /* LaunchScreen.storyboard in Resources */,
 				00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */,
-				008D293224B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				008D293224B20F5100813338 /* Settings.storyboard in Resources */,
 				00D9E83823426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC90233910D30046D9F8 /* About.storyboard in Resources */,
 				0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */,
@@ -1024,7 +1016,7 @@
 				003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
-				008D293124B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				008D293124B20F5100813338 /* Settings.storyboard in Resources */,
 				00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC8F23390D940046D9F8 /* About.storyboard in Resources */,
 				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
@@ -1039,7 +1031,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				008D293324B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				008D293324B20F5100813338 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,7 +1077,6 @@
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
 				00730EB0214FEA5A001A6EA7 /* ProgressView.swift in Sources */,
 				001F7DE625C9E91E0075AFC2 /* MetadataCell.swift in Sources */,
-				005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00730EB1214FEA5A001A6EA7 /* Settings.swift in Sources */,
 				00CA339B25A2521400DBD84D /* UIApplication.swift in Sources */,
 				00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
@@ -1112,6 +1103,7 @@
 				0057488625C8740F00F64621 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				00730EBD214FEA5A001A6EA7 /* EditorViewController.swift in Sources */,
 				0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */,
+				0028C8A625D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */,
 				00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */,
 				00CA338025A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00730EC2214FEA5A001A6EA7 /* AlbumListCollectionViewDataSource.swift in Sources */,
@@ -1134,7 +1126,7 @@
 				00CA341425A515A800DBD84D /* AlbumPickerViewController.swift in Sources */,
 				0057486F25C8739100F64621 /* MetadataViewModel.swift in Sources */,
 				00730ECB214FEA5A001A6EA7 /* LibraryViewController.swift in Sources */,
-				0023FCA0233A17250046D9F8 /* ExportSettingsViewController.swift in Sources */,
+				0023FCA0233A17250046D9F8 /* SettingsViewController.swift in Sources */,
 				00730ECC214FEA5A001A6EA7 /* CGImage+Encoding.swift in Sources */,
 				00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */,
 				00730ECF214FEA5A001A6EA7 /* RepeatingButton.swift in Sources */,
@@ -1208,7 +1200,6 @@
 				00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */,
 				001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */,
 				001F7DE525C9E91E0075AFC2 /* MetadataCell.swift in Sources */,
-				005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				00CA339A25A2521400DBD84D /* UIApplication.swift in Sources */,
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
@@ -1226,7 +1217,7 @@
 				00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */,
 				0057487725C873F900F64621 /* AVAsset+MetadataLoading.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
-				0023FC9F233A0E4C0046D9F8 /* ExportSettingsViewController.swift in Sources */,
+				0023FC9F233A0E4C0046D9F8 /* SettingsViewController.swift in Sources */,
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
 				00E69C3725C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */,
@@ -1235,6 +1226,7 @@
 				0057488225C8740900F64621 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */,
 				0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */,
+				0028C8A525D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */,
@@ -1385,13 +1377,13 @@
 			name = Authorization.storyboard;
 			sourceTree = "<group>";
 		};
-		008D293524B20F5100813338 /* ExportSettings.storyboard */ = {
+		008D293524B20F5100813338 /* Settings.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				008D293624B20F6200813338 /* Base */,
 				008D293724B20F7200813338 /* de */,
 			);
-			name = ExportSettings.storyboard;
+			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		00AA201C213432B400084B08 /* InfoPlist.strings */ = {
