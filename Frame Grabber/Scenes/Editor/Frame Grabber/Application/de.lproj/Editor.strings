@@ -1,26 +1,26 @@
-/* Class = "UIView"; accessibilityLabel = "Video Time"; ObjectID = "6gi-a9-tZe"; */
-"6gi-a9-tZe.accessibilityLabel" = "Videozeit";
-
 /* Class = "UIView"; accessibilityLabel = "Video"; ObjectID = "8St-aq-4oR"; */
 "8St-aq-4oR.accessibilityLabel" = "Video";
 
-/* Class = "UIButton"; accessibilityLabel = "Share Frame"; ObjectID = "9KQ-jV-rR8"; */
-"9KQ-jV-rR8.accessibilityLabel" = "Bild teilen.";
+/* Class = "UIButton"; accessibilityLabel = "Scrubbing Speed"; ObjectID = "BnD-Dr-flg"; */
+"BnD-Dr-flg.accessibilityLabel" = "Video-Wischgeschwindigkeit";
 
 /* Class = "UINavigationItem"; title = "Choose Frame"; ObjectID = "cLY-f1-ifd"; */
 "cLY-f1-ifd.title" = "Bild Auswählen";
 
-/* Class = "UIButton"; accessibilityLabel = "Previous Frame"; ObjectID = "eHg-xr-V48"; */
-"eHg-xr-V48.accessibilityLabel" = "Vorheriges Bild.";
+/* Class = "UIButton"; accessibilityLabel = "Next Frame"; ObjectID = "DkK-Al-W1l"; */
+"DkK-Al-W1l.accessibilityLabel" = "Nächstes Bild";
 
-/* Class = "UILabel"; accessibilityHint = "Video Time"; ObjectID = "mXw-rO-aOk"; */
-"mXw-rO-aOk.accessibilityHint" = "Videozeit";
+/* Class = "UIView"; accessibilityLabel = "Video Time"; ObjectID = "dyS-Pe-J8M"; */
+"dyS-Pe-J8M.accessibilityLabel" = "Videozeit";
 
-/* Class = "UILabel"; text = "<Time>"; ObjectID = "mXw-rO-aOk"; */
-"mXw-rO-aOk.text" = "<Time>";
+/* Class = "UILabel"; accessibilityHint = "Video Time"; ObjectID = "ILv-8M-cLD"; */
+"ILv-8M-cLD.accessibilityHint" = "Videozeit";
 
-/* Class = "UIButton"; accessibilityLabel = "Next Frame"; ObjectID = "NnX-Na-6YA"; */
-"NnX-Na-6YA.accessibilityLabel" = "Nächstes Bild.";
+/* Class = "UIButton"; accessibilityLabel = "Previous Frame"; ObjectID = "k63-cd-ILB"; */
+"k63-cd-ILB.accessibilityLabel" = "Vorheriges Bild";
+
+/* Class = "UIButton"; accessibilityLabel = "Share Frame"; ObjectID = "L9G-NA-8mP"; */
+"L9G-NA-8mP.accessibilityLabel" = "Bild teilen";
 
 /* Class = "UILabel"; text = "<Exporting…>"; ObjectID = "oGN-ie-szR"; */
 "oGN-ie-szR.text" = "<Exporting…>";
