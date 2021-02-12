@@ -55,6 +55,8 @@
 		0023FCA6233A44B20046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
 		0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025B2F025A8B3630075CCBC /* ImageMetadata.swift */; };
 		0025B2F225A8B3630075CCBC /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025B2F025A8B3630075CCBC /* ImageMetadata.swift */; };
+		0028C8A525D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */; };
+		0028C8A625D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */; };
 		002B066424B4F9BE005375ED /* LibraryGridMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B066324B4F9BE005375ED /* LibraryGridMode.swift */; };
 		002B066524B4FAB7005375ED /* LibraryGridMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B066324B4F9BE005375ED /* LibraryGridMode.swift */; };
 		002BFA5B25C6FC4E00CACB18 /* VideoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */; };
@@ -335,6 +337,7 @@
 		0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		0023FCA4233A42150046D9F8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0025B2F025A8B3630075CCBC /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
+		0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorDetailViewController.swift; sourceTree = "<group>"; };
 		002B066324B4F9BE005375ED /* LibraryGridMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridMode.swift; sourceTree = "<group>"; };
 		002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadata.swift; sourceTree = "<group>"; };
 		002BFA6D25C8219800CACB18 /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
@@ -682,6 +685,7 @@
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00A18B4325D5E46200330B1F /* EditorToolbarController.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
@@ -1112,6 +1116,7 @@
 				0057488625C8740F00F64621 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				00730EBD214FEA5A001A6EA7 /* EditorViewController.swift in Sources */,
 				0045A1B125BE5AF800A1235A /* TimeFormat.swift in Sources */,
+				0028C8A625D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */,
 				00730EBE214FEA5A001A6EA7 /* AppDelegate.swift in Sources */,
 				00CA338025A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00730EC2214FEA5A001A6EA7 /* AlbumListCollectionViewDataSource.swift in Sources */,
@@ -1235,6 +1240,7 @@
 				0057488225C8740900F64621 /* AVAsynchronousKeyValueLoading.swift in Sources */,
 				0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */,
 				0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */,
+				0028C8A525D69B2100AC3A9B /* EditorDetailViewController.swift in Sources */,
 				00A9DF552127635C00778885 /* AlbumCell.swift in Sources */,
 				00CA337F25A1DFE500DBD84D /* UIButton.swift in Sources */,
 				00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */,
