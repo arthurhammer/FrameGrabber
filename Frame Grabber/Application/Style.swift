@@ -23,11 +23,15 @@ extension UIButton {
 
     func configureAsActionButton(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) {
         if let height = height {
-            heightAnchor.constraint(equalToConstant: height).isActive = true
+            let constraint = heightAnchor.constraint(equalToConstant: height)
+            constraint.priority = .init(999)
+            constraint.isActive = true
         }
         
         if let minimumWidth = minimumWidth {
-            widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth).isActive = true
+            let constraint = widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth)
+            constraint.priority = .init(999)
+            constraint.isActive = true
         }
         
         contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
