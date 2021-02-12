@@ -32,6 +32,14 @@ class LibraryGridViewController: UICollectionViewController {
         configureViews()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+
     // MARK: - Collection View Data Source & Delegate
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

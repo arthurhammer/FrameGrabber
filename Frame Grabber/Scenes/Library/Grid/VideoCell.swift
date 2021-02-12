@@ -32,6 +32,8 @@ class VideoCell: UICollectionViewCell {
         durationLabel.text = nil
         favoritedImageView.isHidden = true
         livePhotoImageView.isHidden = true
+        imageContainerWidthConstraint.constant = bounds.width
+        imageContainerHeightConstraint.constant = bounds.height
     }
 
     private func configureViews() {
