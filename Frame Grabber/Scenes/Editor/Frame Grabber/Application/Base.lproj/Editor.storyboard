@@ -150,15 +150,15 @@
             </objects>
             <point key="canvasLocation" x="2205.7971014492755" y="-2077.2321428571427"/>
         </scene>
-        <!--ExportSettings-->
+        <!--Settings-->
         <scene sceneID="ek0-jz-mt7">
             <objects>
-                <viewControllerPlaceholder storyboardName="ExportSettings" id="yGt-Ul-rBh" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Settings" id="yGt-Ul-rBh" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="CfG-3f-kff"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tj3-6E-j4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2887" y="-2077"/>
+            <point key="canvasLocation" x="2862" y="-2077"/>
         </scene>
         <!--Editor Toolbar Controller-->
         <scene sceneID="qoN-Pk-IxM">

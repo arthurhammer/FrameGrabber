@@ -47,8 +47,8 @@
 		0023FC90233910D30046D9F8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC8D23390D940046D9F8 /* About.storyboard */; };
 		0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
 		0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0023FC99233911B10046D9F8 /* Authorization.storyboard */; };
-		0023FC9F233A0E4C0046D9F8 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */; };
-		0023FCA0233A17250046D9F8 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */; };
+		0023FC9F233A0E4C0046D9F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */; };
+		0023FCA0233A17250046D9F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */; };
 		0023FCA2233A25DC0046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
 		0023FCA3233A26060046D9F8 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
 		0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA4233A42150046D9F8 /* AboutViewController.swift */; };
@@ -183,9 +183,9 @@
 		0086A6B623450DD100989646 /* AVAssetImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */; };
 		008A48D723479D7300CEAA26 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008A48D623479D7300CEAA26 /* ImageEncoding.swift */; };
 		008A48D823479D7300CEAA26 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008A48D623479D7300CEAA26 /* ImageEncoding.swift */; };
-		008D293124B20F5100813338 /* ExportSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* ExportSettings.storyboard */; };
-		008D293224B20F5100813338 /* ExportSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* ExportSettings.storyboard */; };
-		008D293324B20F5100813338 /* ExportSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* ExportSettings.storyboard */; };
+		008D293124B20F5100813338 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* Settings.storyboard */; };
+		008D293224B20F5100813338 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* Settings.storyboard */; };
+		008D293324B20F5100813338 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 008D293524B20F5100813338 /* Settings.storyboard */; };
 		0096E813212F2EF8008395CA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E812212F2EF8008395CA /* Bundle.swift */; };
 		0096E815212F2FA7008395CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096E814212F2FA7008395CA /* Settings.swift */; };
 		009BEA43234E152E00C284FA /* FrameExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA42234E152E00C284FA /* FrameExport.swift */; };
@@ -331,7 +331,7 @@
 		0023FC92233910DD0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/About.strings"; sourceTree = "<group>"; };
 		0023FC98233911B10046D9F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authorization.storyboard; sourceTree = "<group>"; };
 		0023FC9B233911BA0046D9F8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Authorization.strings; sourceTree = "<group>"; };
-		0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingsViewController.swift; sourceTree = "<group>"; };
+		0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		0023FCA4233A42150046D9F8 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0025B2F025A8B3630075CCBC /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
@@ -381,8 +381,8 @@
 		0086A6B12344CD7100989646 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAssetImageGenerator.swift; sourceTree = "<group>"; };
 		008A48D623479D7300CEAA26 /* ImageEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoding.swift; sourceTree = "<group>"; };
-		008D293624B20F6200813338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ExportSettings.storyboard; sourceTree = "<group>"; };
-		008D293724B20F7200813338 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ExportSettings.strings; sourceTree = "<group>"; };
+		008D293624B20F6200813338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		008D293724B20F7200813338 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Settings.strings; sourceTree = "<group>"; };
 		0096E812212F2EF8008395CA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		0096E814212F2FA7008395CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		009BEA42234E152E00C284FA /* FrameExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExport.swift; sourceTree = "<group>"; };
@@ -860,10 +860,10 @@
 			children = (
 				0045A0FD25BDE41600A1235A /* ExportAction.swift */,
 				0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */,
-				0023FC9E233A0E4C0046D9F8 /* ExportSettingsViewController.swift */,
+				0023FC9E233A0E4C0046D9F8 /* SettingsViewController.swift */,
 				0045A1AF25BE5AF800A1235A /* TimeFormat.swift */,
 				0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */,
-				008D293524B20F5100813338 /* ExportSettings.storyboard */,
+				008D293524B20F5100813338 /* Settings.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1005,7 +1005,7 @@
 				00730EE1214FEA5A001A6EA7 /* Localizable.strings in Resources */,
 				00730EE2214FEA5A001A6EA7 /* LaunchScreen.storyboard in Resources */,
 				00730EE3214FEA5A001A6EA7 /* InfoPlist.strings in Resources */,
-				008D293224B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				008D293224B20F5100813338 /* Settings.storyboard in Resources */,
 				00D9E83823426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC90233910D30046D9F8 /* About.storyboard in Resources */,
 				0023FC97233911B10046D9F8 /* Authorization.storyboard in Resources */,
@@ -1024,7 +1024,7 @@
 				003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
-				008D293124B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				008D293124B20F5100813338 /* Settings.storyboard in Resources */,
 				00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC8F23390D940046D9F8 /* About.storyboard in Resources */,
 				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
@@ -1039,7 +1039,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				008D293324B20F5100813338 /* ExportSettings.storyboard in Resources */,
+				008D293324B20F5100813338 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1134,7 +1134,7 @@
 				00CA341425A515A800DBD84D /* AlbumPickerViewController.swift in Sources */,
 				0057486F25C8739100F64621 /* MetadataViewModel.swift in Sources */,
 				00730ECB214FEA5A001A6EA7 /* LibraryViewController.swift in Sources */,
-				0023FCA0233A17250046D9F8 /* ExportSettingsViewController.swift in Sources */,
+				0023FCA0233A17250046D9F8 /* SettingsViewController.swift in Sources */,
 				00730ECC214FEA5A001A6EA7 /* CGImage+Encoding.swift in Sources */,
 				00730ECE214FEA5A001A6EA7 /* Style.swift in Sources */,
 				00730ECF214FEA5A001A6EA7 /* RepeatingButton.swift in Sources */,
@@ -1226,7 +1226,7 @@
 				00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */,
 				0057487725C873F900F64621 /* AVAsset+MetadataLoading.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
-				0023FC9F233A0E4C0046D9F8 /* ExportSettingsViewController.swift in Sources */,
+				0023FC9F233A0E4C0046D9F8 /* SettingsViewController.swift in Sources */,
 				00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */,
 				00E69C3725C8669400B69D4D /* ImageMetadataDateFormatter.swift in Sources */,
 				00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */,
@@ -1385,13 +1385,13 @@
 			name = Authorization.storyboard;
 			sourceTree = "<group>";
 		};
-		008D293524B20F5100813338 /* ExportSettings.storyboard */ = {
+		008D293524B20F5100813338 /* Settings.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				008D293624B20F6200813338 /* Base */,
 				008D293724B20F7200813338 /* de */,
 			);
-			name = ExportSettings.storyboard;
+			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		00AA201C213432B400084B08 /* InfoPlist.strings */ = {

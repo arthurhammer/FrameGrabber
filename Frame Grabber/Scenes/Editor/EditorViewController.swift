@@ -79,7 +79,7 @@ class EditorViewController: UIViewController {
         }
         
         else if let destination = segue.destination as? UINavigationController,
-           let controller = destination.topViewController as? ExportSettingsViewController {
+           let controller = destination.topViewController as? SettingsViewController {
          
             prepareForExportSettingsSegue(with: controller)
         }
@@ -91,7 +91,7 @@ class EditorViewController: UIViewController {
         controller.viewModel = MetadataViewModel(video: video, source: videoController.source)
     }
     
-    private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
+    private func prepareForExportSettingsSegue(with controller: SettingsViewController) {
         controller.delegate = self
     }
 
@@ -346,13 +346,13 @@ extension EditorViewController: EditorToolbarControllerDelegate {
 
 // MARK: ExportSettingsViewControllerDelegate
 
-extension EditorViewController: ExportSettingsViewControllerDelegate {
+extension EditorViewController: SettingsViewControllerDelegate {
     
-    func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
+    func controller(_ controller: SettingsViewController, didChangeExportAction action: ExportAction) {
         toolbarController.exportAction = action
     }
     
-    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat format: TimeFormat) {
+    func controller(_ controller: SettingsViewController, didChangeTimeFormat format: TimeFormat) {
         toolbarController.timeFormat = format
     }
 }
