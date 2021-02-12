@@ -69,17 +69,16 @@ class EditorViewController: UIViewController {
         return toolbarController
     }
     
-    // TODO: settings delegate
     @IBAction func showSettingsAndMetadata(_ sender: UIBarButtonItem) {
         guard let video = videoController.video else { return }
-        playbackController.pause()
         
-        let detail = EditorDetailViewController()
-        detail.video = video
-        detail.videoSource = videoController.source
+        let source = videoController.source
+        let detail = EditorDetailViewController(video: video, source: source, delegate: self)
         let container = UINavigationController(rootViewController: detail)
         container.modalPresentationStyle = .popover
         container.popoverPresentationController?.barButtonItem = sender
+
+        playbackController.pause()
         showDetailViewController(container, sender: self)
     }
 
@@ -317,9 +316,9 @@ extension EditorViewController: EditorToolbarControllerDelegate {
     }
 }
 
-// MARK: ExportSettingsViewControllerDelegate
+// MARK: EditorDetailViewControllerDelegate
 
-extension EditorViewController: SettingsViewControllerDelegate {
+extension EditorViewController: EditorDetailViewControllerDelegate {
     
     func controller(_ controller: SettingsViewController, didChangeExportAction action: ExportAction) {
         toolbarController.exportAction = action

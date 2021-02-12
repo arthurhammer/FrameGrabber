@@ -1,12 +1,28 @@
 import AVFoundation
 import UIKit
 
+typealias EditorDetailViewControllerDelegate = SettingsViewControllerDelegate
+
 /// Manages the presentation of the settings and metadata controllers in a paged view.
 class EditorDetailViewController: UIViewController {
     
-    // TODO: injection
-    var video: AVAsset?
-    var videoSource: VideoSource?
+    weak var delegate: EditorDetailViewControllerDelegate? {
+        didSet { settingsController.delegate = delegate }
+    }
+    
+    let video: AVAsset
+    let videoSource: VideoSource
+    
+    init(video: AVAsset, source: VideoSource, delegate: EditorDetailViewControllerDelegate? = nil) {
+        self.video = video
+        self.videoSource = source
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var pageController: UIPageViewController = {
         let controller = UIPageViewController(
@@ -22,14 +38,16 @@ class EditorDetailViewController: UIViewController {
     private lazy var settingsController: SettingsViewController = {
         let storyboard = UIStoryboard(name: "Settings", bundle: nil)
         let id = SettingsViewController.className
-        return storyboard.instantiateViewController(withIdentifier: id) as! SettingsViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: id) as! SettingsViewController
+        controller.delegate = delegate
+        return controller
     }()
     
     private lazy var metadataController: MetadataViewController = {
         let storyboard = UIStoryboard(name: "Metadata", bundle: nil)
         let id = MetadataViewController.className
         let controller = storyboard.instantiateViewController(withIdentifier: id) as! MetadataViewController
-        controller.viewModel = .init(video: video!, source: videoSource!)
+        controller.viewModel = .init(video: video, source: videoSource)
         return controller
     }()
     
