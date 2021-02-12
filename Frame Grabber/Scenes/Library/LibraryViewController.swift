@@ -97,6 +97,15 @@ class LibraryViewController: UIViewController {
     }
 
     private func configureBindings() {
+        // React to initial authorization if status is `notDetermined`.
+        dataSource.$isAuthorizationLimited
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.configureTitleButton()
+                self?.configureImportMenu()
+            }
+            .store(in: &bindings)
+        
         dataSource.$album
             .map { $0?.localizedTitle }
             .replaceNil(with: UserText.libraryDefaultTitle)

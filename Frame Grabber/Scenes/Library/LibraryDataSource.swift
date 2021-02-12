@@ -42,14 +42,11 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
     @Published var gridMode: LibraryGridMode {
         didSet { settings.libraryGridMode = gridMode }
     }
-
-    var isAuthorizationLimited: Bool {
-        if #available(iOS 14, *) {
-            return PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
-        } else {
-            return false
-        }
-    }
+    
+    /// Whether the authorization is limited. When the status is either authorized or limited, this
+    /// value is typically set once when the data source is created. When the status is
+    /// `notDetermined`, the value changes the first time an album is set. See: `album`.
+    @Published var isAuthorizationLimited = false
         
     let photoLibrary: PHPhotoLibrary = .shared()
     
@@ -87,6 +84,12 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
         
         isAccessingPhotoLibrary = true
         photoLibrary.register(self)
+        
+        if #available(iOS 14, *) {
+            isAuthorizationLimited = PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
+        } else {
+            isAuthorizationLimited = false
+        }
     }
     
     // MARK: Data Access
