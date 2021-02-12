@@ -40,6 +40,7 @@ class EditorDetailViewController: UIViewController {
         let id = SettingsViewController.className
         let controller = storyboard.instantiateViewController(withIdentifier: id) as! SettingsViewController
         controller.delegate = delegate
+        controller.tableView.backgroundColor = .clear
         return controller
     }()
     
@@ -48,6 +49,7 @@ class EditorDetailViewController: UIViewController {
         let id = MetadataViewController.className
         let controller = storyboard.instantiateViewController(withIdentifier: id) as! MetadataViewController
         controller.viewModel = .init(video: video, source: videoSource)
+        controller.tableView.backgroundColor = .clear
         return controller
     }()
     
@@ -89,6 +91,12 @@ class EditorDetailViewController: UIViewController {
     private func configureViews() {
         embed(pageController)
         setPage(at: 0, animated: false)
+        
+        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+        backgroundView.frame = view.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(backgroundView, at: 0)
+        view.backgroundColor = .clear
 
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = titleSegments

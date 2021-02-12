@@ -108,9 +108,6 @@ class SettingsViewController: UITableViewController {
     }
 
     private func configureViews() {
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-        tableView.backgroundColor = .clear
-
         compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
