@@ -68,31 +68,19 @@ class EditorViewController: UIViewController {
         toolbarController.exportAction = settings.exportAction
         return toolbarController
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    // TODO: settings delegate
+    @IBAction func showSettingsAndMetadata(_ sender: UIBarButtonItem) {
+        guard let video = videoController.video else { return }
         playbackController.pause()
         
-        if let destination = segue.destination as? UINavigationController,
-            let controller = destination.topViewController as? MetadataViewController {
-
-            prepareForMetadataSegue(with: controller)
-        }
-        
-        else if let destination = segue.destination as? UINavigationController,
-           let controller = destination.topViewController as? SettingsViewController {
-         
-            prepareForExportSettingsSegue(with: controller)
-        }
-    }
-
-    private func prepareForMetadataSegue(with controller: MetadataViewController) {
-        guard let video = videoController.video else { return }
-        // TODO: Inject view model somewhere else.
-        controller.viewModel = MetadataViewModel(video: video, source: videoController.source)
-    }
-    
-    private func prepareForExportSettingsSegue(with controller: SettingsViewController) {
-        controller.delegate = self
+        let detail = EditorDetailViewController()
+        detail.video = video
+        detail.videoSource = videoController.source
+        let container = UINavigationController(rootViewController: detail)
+        container.modalPresentationStyle = .popover
+        container.popoverPresentationController?.barButtonItem = sender
+        showDetailViewController(container, sender: self)
     }
 
     // MARK: - Configuring
@@ -102,15 +90,8 @@ class EditorViewController: UIViewController {
         zoomingPlayerView.player = playbackController.player
         zoomingPlayerView.posterImage = videoController.previewImage
 
-        if #available(iOS 14.0, *) {
-            navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
-                self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-            }
-        } else {
-            navigationItem.rightBarButtonItem?.target = self
-            navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
-        }
-
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        
         configureNavigationBar()
         configureGestures()
         configureBindings()
@@ -155,15 +136,6 @@ class EditorViewController: UIViewController {
             }
             .store(in: &bindings)
     }
-    
-    @objc private func showMoreMenuAsAlertSheet() {
-        let alertController = EditorMoreMenu.alertController { [weak self] selection in
-            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-        }
-        
-        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        presentOnTop(alertController)
-    }
 
     // MARK: Loading Videos
 
@@ -198,6 +170,7 @@ class EditorViewController: UIViewController {
         case .success(let video):
             playbackController.asset = video
             startPlaying(from: videoController.source)
+            navigationItem.rightBarButtonItem?.isEnabled = true
         }
     }
     

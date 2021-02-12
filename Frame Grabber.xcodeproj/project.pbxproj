@@ -111,8 +111,6 @@
 		005748BD25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */; };
 		0058E354213D645900BE28DD /* ZoomTransitionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */; };
 		0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E355213D9AE900BE28DD /* TransitionUtilities.swift */; };
-		005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMoreMenu.swift */; };
-		005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B22B624B246350006EE4A /* EditorMoreMenu.swift */; };
 		005E2AA320273C5800F731FA /* LibraryGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* LibraryGridLayout.swift */; };
 		005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA6202773F800F731FA /* AuthorizationController.swift */; };
 		00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
@@ -360,7 +358,6 @@
 		005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAssetTrack+MetadataLoading.swift"; sourceTree = "<group>"; };
 		0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionTypes.swift; sourceTree = "<group>"; };
 		0058E355213D9AE900BE28DD /* TransitionUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionUtilities.swift; sourceTree = "<group>"; };
-		005B22B624B246350006EE4A /* EditorMoreMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorMoreMenu.swift; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* LibraryGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridLayout.swift; sourceTree = "<group>"; };
 		005E2AA6202773F800F731FA /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		00653B3F213923460038CB56 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
@@ -686,13 +683,13 @@
 			isa = PBXGroup;
 			children = (
 				0028C8A425D69B2100AC3A9B /* EditorDetailViewController.swift */,
+				00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */,
 				00EAFD99205ED32B0031F8A2 /* EditorToolbar.swift */,
 				00A18B4325D5E46200330B1F /* EditorToolbarController.swift */,
 				00328A961FC85D84004648F9 /* EditorViewController.swift */,
 				00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */,
 				00C876431FB9D0F400B5D7A3 /* VideoController.swift */,
 				000EA8B52437311700C339DE /* Editor.storyboard */,
-				00A18B5525D5F8EA00330B1F /* Menus */,
 				0078A45323F4AD2B0033E81C /* Progress */,
 			);
 			path = Editor;
@@ -725,15 +722,6 @@
 				001A6C5020623B0000B91F3A /* ProgressView.swift */,
 			);
 			path = Progress;
-			sourceTree = "<group>";
-		};
-		00A18B5525D5F8EA00330B1F /* Menus */ = {
-			isa = PBXGroup;
-			children = (
-				005B22B624B246350006EE4A /* EditorMoreMenu.swift */,
-				00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */,
-			);
-			path = Menus;
 			sourceTree = "<group>";
 		};
 		00A9DF5321273FA400778885 /* Album Picker */ = {
@@ -1089,7 +1077,6 @@
 				00730EAF214FEA5A001A6EA7 /* CGSize.swift in Sources */,
 				00730EB0214FEA5A001A6EA7 /* ProgressView.swift in Sources */,
 				001F7DE625C9E91E0075AFC2 /* MetadataCell.swift in Sources */,
-				005B22B824B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00730EB1214FEA5A001A6EA7 /* Settings.swift in Sources */,
 				00CA339B25A2521400DBD84D /* UIApplication.swift in Sources */,
 				00CD76FC23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
@@ -1213,7 +1200,6 @@
 				00C098D91FC1A7D3000B05FE /* CGSize.swift in Sources */,
 				001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */,
 				001F7DE525C9E91E0075AFC2 /* MetadataCell.swift in Sources */,
-				005B22B724B246350006EE4A /* EditorMoreMenu.swift in Sources */,
 				00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				00CA339A25A2521400DBD84D /* UIApplication.swift in Sources */,
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
