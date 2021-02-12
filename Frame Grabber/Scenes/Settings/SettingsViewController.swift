@@ -94,10 +94,6 @@ class SettingsViewController: UITableViewController {
         settings.compressionQuality = sender.value/100
         updateViews()
     }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        (section == 0) ? Style.staticTableViewTopMargin : UITableView.automaticDimension
-    }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard Section(section) == .format else { return super.tableView(tableView, titleForFooterInSection: section) }
