@@ -7,8 +7,8 @@ import UIKit
 class PlaybackController {
 
     let player: AVPlayer
-
-    var asset: AVAsset? {
+    
+    @Published var asset: AVAsset? {
         didSet {
             seeker.cancelPendingSeeks()
             player.replaceCurrentItem(with: asset.map(AVPlayerItem.init))

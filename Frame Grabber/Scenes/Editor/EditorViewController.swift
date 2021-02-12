@@ -1,6 +1,5 @@
 import AVFoundation
 import Combine
-import ThumbnailSlider
 import UIKit
 
 protocol EditorViewControllerDelegate: class {
@@ -13,6 +12,7 @@ class EditorViewController: UIViewController {
 
     let videoController: VideoController
     let playbackController: PlaybackController
+    var toolbarController: EditorToolbarController!
     let settings: UserDefaults
     
     init?(
@@ -33,22 +33,10 @@ class EditorViewController: UIViewController {
         fatalError("Dependencies must be injected")
     }
     
-    // MARK: Private Properties
-
-    private lazy var timeFormatter = VideoTimeFormatter()
-    private var sliderDataSource: AVAssetThumbnailSliderDataSource?
-    private lazy var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    @IBOutlet private(set) var zoomingPlayerView: ZoomingPlayerView!
+    @IBOutlet private(set)  var progressView: ProgressView!
     private lazy var activityFeedbackGenerator = UINotificationFeedbackGenerator()
     private lazy var bindings = Set<AnyCancellable>()
-
-    @IBOutlet private var toolbar: EditorToolbar!
-    @IBOutlet private var zoomingPlayerView: ZoomingPlayerView!
-    @IBOutlet private var scrubbingIndicator: ScrubbingIndicatorView!
-    @IBOutlet private var progressView: ProgressView!
-
-    private var isScrubbing: Bool {
-        toolbar.timeSlider.isTracking
-    }
 
     // MARK: Life Cycle
 
@@ -67,6 +55,18 @@ class EditorViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         videoController.cancelFrameExport()
+    }
+    
+    @IBSegueAction private func makeToolbarController(_ coder: NSCoder) -> EditorToolbarController? {
+        self.toolbarController = EditorToolbarController(
+            playbackController: playbackController,
+            delegate: self,
+            coder: coder
+        )
+        toolbarController.placeholderImage = videoController.previewImage
+        toolbarController.timeFormat = settings.timeFormat
+        toolbarController.exportAction = settings.exportAction
+        return toolbarController
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,74 +94,13 @@ class EditorViewController: UIViewController {
     private func prepareForExportSettingsSegue(with controller: ExportSettingsViewController) {
         controller.delegate = self
     }
-}
 
-// MARK: - Private
+    // MARK: - Configuring
 
-private extension EditorViewController {
-
-    // MARK: Actions
-
-    @IBAction func playOrPause() {
-        guard !isScrubbing else { return }
-        playSelectionFeedback()
-        playbackController.playOrPause()
-    }
-
-    @IBAction func stepBackward() {
-        guard !isScrubbing else { return }
-        playSelectionFeedback()
-        playbackController.step(byCount: -1)
-    }
-
-    @IBAction func stepForward() {
-        guard !isScrubbing else { return }
-        playSelectionFeedback()
-        playbackController.step(byCount: 1)
-    }
-
-    @IBAction func shareFrames() {
-        guard !isScrubbing else { return }
-
-        playSelectionFeedback()
-        playbackController.pause()
-        
-        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
-        generateFramesAndShare(for: [time])
-    }
-
-    @IBAction func scrub(_ sender: ScrubbingThumbnailSlider) {
-        playbackController.smoothlySeek(to: sender.time)
-    }
-
-    @objc func showMoreMenuAsAlertSheet() {
-        let alertController = EditorMoreMenu.alertController { [weak self] selection in
-            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
-        }
-        
-        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        presentOnTop(alertController)
-    }
-
-    private func playSelectionFeedback() {
-        selectionFeedbackGenerator.selectionChanged()
-        selectionFeedbackGenerator.prepare()
-    }
-
-    // MARK: Configuring
-
-    func configureViews() {
+    private func configureViews() {
         zoomingPlayerView.clipsToBounds = false
         zoomingPlayerView.player = playbackController.player
         zoomingPlayerView.posterImage = videoController.previewImage
-
-        scrubbingIndicator.configure(for: toolbar.timeSlider)
-
-        sliderDataSource = AVAssetThumbnailSliderDataSource(
-            slider: toolbar.timeSlider,
-            asset: videoController.video,
-            placeholderImage: videoController.previewImage
-        )
 
         if #available(iOS 14.0, *) {
             navigationItem.rightBarButtonItem?.menu = EditorMoreMenu.menu { [weak self] selection in
@@ -171,21 +110,19 @@ private extension EditorViewController {
             navigationItem.rightBarButtonItem?.target = self
             navigationItem.rightBarButtonItem?.action = #selector(showMoreMenuAsAlertSheet)
         }
-        
-        toolbar.shareButton.setImage(settings.exportAction.icon, for: .normal)
 
         configureNavigationBar()
         configureGestures()
-        bindPlayer()
+        configureBindings()
     }
 
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.applyToolbarShadow()
-        toolbar.applyToolbarShadow()
+        toolbarController.toolbar.applyToolbarShadow()
     }
 
-    func configureGestures() {
+    private func configureGestures() {
         let slideToPopRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideToPopPan))
         zoomingPlayerView.addGestureRecognizer(slideToPopRecognizer)
 
@@ -194,29 +131,21 @@ private extension EditorViewController {
         }
     }
 
-    @objc func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
+    @objc private func handleSlideToPopPan(_ gesture: UIPanGestureRecognizer) {
         let canSlide = zoomingPlayerView.playerView.bounds.size != .zero
 
-        guard !isScrubbing, canSlide else { return }
+        guard !toolbarController.isScrubbing,
+              canSlide else { return }
 
         delegate?.controller(self, handleSlideToPopGesture: gesture)
     }
 
-    func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
+    private func presentOnTop(_ viewController: UIViewController, animated: Bool = true) {
         let presenter = navigationController ?? presentedViewController ?? self
         presenter.present(viewController, animated: animated)
     }
 
-    func bindPlayer() {
-        playbackController
-            .$status
-            .map { $0 == .readyToPlay }
-            .sink { [weak self] in
-                self?.toolbar.setEnabled($0)
-                self?.navigationItem.rightBarButtonItem?.isEnabled = $0
-            }
-            .store(in: &bindings)
-
+    private func configureBindings() {
         playbackController
             .$status
             .filter { $0 == .failed }
@@ -225,79 +154,30 @@ private extension EditorViewController {
                 self?.presentOnTop(UIAlertController.playbackFailed())
             }
             .store(in: &bindings)
-
-        playbackController
-            .$duration
-            .assignWeak(to: \.duration, on: toolbar.timeSlider)
-            .store(in: &bindings)
-
-        playbackController
-            .$currentPlaybackTime
-            .sink { [weak self] time in
-                guard self?.isScrubbing == false else { return }
-                self?.toolbar.timeSlider.setTime(time, animated: false)
-            }
-            .store(in: &bindings)
-        
-        playbackController
-            .$currentSampleTime
-            .sink { [weak self] time in
-                let time = time ?? self?.playbackController.currentPlaybackTime ?? .zero
-                self?.updateTimeLabel(withTime: time)
-            }
-            .store(in: &bindings)
-
-        playbackController
-            .$timeControlStatus
-            .sink { [weak self] in
-                self?.toolbar.playButton.setTimeControlStatus($0)
-            }
-            .store(in: &bindings)
     }
-
-    // TODO: Clean up
-    func updateTimeLabel(withTime time: CMTime) {
-        // Loading or playing.
-        guard !playbackController.isPlaying && (playbackController.status == .readyToPlay) else {
-            toolbar.timeSpinner.isHidden = true
-            toolbar.timeLabel.text = timeFormatter.string(from: time)
-            return
+    
+    @objc private func showMoreMenuAsAlertSheet() {
+        let alertController = EditorMoreMenu.alertController { [weak self] selection in
+            self?.performSegue(withIdentifier: selection.rawValue, sender: nil)
         }
         
-        switch settings.timeFormat {
-        
-        case .minutesSecondsMilliseconds:
-            toolbar.timeLabel.text = timeFormatter.string(from: time, includeMilliseconds: true)
-        
-        case .minutesSecondsFrameNumber:
-            // Succeeded indexing.
-            if let frameNumber = playbackController.relativeFrameNumber(for: time) {
-                toolbar.timeSpinner.isHidden = true
-                toolbar.timeLabel.text = timeFormatter.string(from: time, frameNumber: frameNumber)
-            // Still indexing.
-            } else if playbackController._isIndexingSampleTimes {
-                toolbar.timeSpinner.isHidden = false
-                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"
-            // Failed indexing.
-            } else {
-                toolbar.timeSpinner.isHidden = true
-                toolbar.timeLabel.text = timeFormatter.string(from: time)
-            }
-        }
+        alertController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        presentOnTop(alertController)
     }
 
     // MARK: Loading Videos
 
-    func loadPreviewImage() {
+    private func loadPreviewImage() {
         let size = zoomingPlayerView.bounds.size.scaledToScreen
 
         videoController.loadPreviewImage(with: size) { [weak self] image in
             guard let image = image else { return }
             self?.zoomingPlayerView.posterImage = image
+            self?.toolbarController.placeholderImage = image
         }
     }
 
-    func loadVideo() {
+    private func loadVideo() {
         showProgress(true, forActivity: .load, value: .determinate(0))
 
         videoController.loadVideo(progressHandler: { [weak self] progress in
@@ -308,7 +188,7 @@ private extension EditorViewController {
         })
     }
 
-    func handleVideoLoadingResult(_ result: VideoController.VideoResult) {
+    private func handleVideoLoadingResult(_ result: VideoController.VideoResult) {
         switch result {
 
         case .failure(let error):
@@ -318,15 +198,15 @@ private extension EditorViewController {
         case .success(let video):
             playbackController.asset = video
             startPlaying(from: videoController.source)
-            sliderDataSource?.asset = video
         }
     }
     
+    // TODO: Fix this hack. This shouldn't be the the editor's responsibility.
+    //
     // When the camera is dismissed, it disables all active video playback after a delay for some
     // reason :( However, we don't want to open the editor only after the camera is dismissed, we
     // want it to be ready right away. Just delay the playback for now.
-    // TODO: Fix this hack. This shouldn't be the the editor's responsibility.
-    func startPlaying(from source: VideoSource) {
+    private func startPlaying(from source: VideoSource) {
         if case .camera = videoController.source {
             let delay = 0.5
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -339,7 +219,7 @@ private extension EditorViewController {
 
     // MARK: Generating Images
 
-    func generateFramesAndShare(for times: [CMTime]) {
+    private func generateFramesAndShare(for times: [CMTime]) {
         let activity = Activity(exportAction: settings.exportAction)
         showProgress(true, forActivity: activity, value: .indeterminate)
 
@@ -350,7 +230,7 @@ private extension EditorViewController {
         }
     }
 
-    func handleFrameGenerationResult(_ status: FrameExport.Status) {
+    private func handleFrameGenerationResult(_ status: FrameExport.Status) {
         switch status {
         
         case .progressed:
@@ -368,14 +248,16 @@ private extension EditorViewController {
         }
     }
 
-    func share(urls: [URL], using action: ExportAction) {
+    // todo: clean this up.
+    private func share(urls: [URL], using action: ExportAction) {
         switch action {
                 
         case .showShareSheet:
             activityFeedbackGenerator.notificationOccurred(.success)
             
             let shareController = UIActivityViewController(activityItems: urls, applicationActivities: nil)
-            shareController.popoverPresentationController?.sourceView = toolbar.shareButton
+            let shareButton = toolbarController.toolbar.shareButton
+            shareController.popoverPresentationController?.sourceView = shareButton
 
             shareController.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
                 guard self?.shouldDeleteFrames(after: activity, completed: completed) == true  else { return }
@@ -399,7 +281,7 @@ private extension EditorViewController {
         }
     }
 
-    func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
+    private func shouldDeleteFrames(after shareActivity: UIActivity.ActivityType?, completed: Bool) -> Bool {
         let wasDismissed = (shareActivity == nil) && !completed
         let didFinish = (shareActivity != nil) && completed
         return wasDismissed || didFinish
@@ -407,7 +289,7 @@ private extension EditorViewController {
 
     // MARK: Showing Progress
 
-    enum Activity {
+    private enum Activity {
         case load
         case exportToShareSheet
         case exportToPhotos
@@ -435,7 +317,7 @@ private extension EditorViewController {
         }
     }
 
-    func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
+    private func showProgress(_ show: Bool, forActivity activity: Activity, value: ProgressView.Progress? = nil, animated: Bool = true, completion: (() -> ())? = nil) {
         view.isUserInteractionEnabled = !show 
 
         progressView.showDelay = activity.delay
@@ -453,57 +335,24 @@ private extension EditorViewController {
     }
 }
 
+// MARK: - EditorToolbarControllerDelegate
+
+extension EditorViewController: EditorToolbarControllerDelegate {
+ 
+    func controller(_ controller: EditorToolbarController, didSelectShareFrameAt time: CMTime) {
+        generateFramesAndShare(for: [time])
+    }
+}
+
 // MARK: ExportSettingsViewControllerDelegate
 
 extension EditorViewController: ExportSettingsViewControllerDelegate {
     
     func controller(_ controller: ExportSettingsViewController, didChangeExportAction action: ExportAction) {
-        toolbar.shareButton.setImage(action.icon, for: .normal)
+        toolbarController.exportAction = action
     }
     
-    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat: TimeFormat) {
-        let time = playbackController.currentSampleTime ?? playbackController.currentPlaybackTime
-        updateTimeLabel(withTime: time)
-    }
-}
-
-// MARK: - ZoomTransitionDelegate
-
-extension EditorViewController: ZoomTransitionDelegate {
-
-    func zoomTransitionWillBegin(_ transition: ZoomTransition) {
-        switch transition.type {
-        case .push: animatePush(transition)
-        case .pop: animatePop(transition)
-        default: break
-        }
-    }
-    
-    private func animatePush(_ transition: ZoomTransition) {
-        let yOffset = toolbar.bounds.height * 0.5
-        toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
-
-        transition.animate(alongsideTransition: { [weak self] _ in
-            self?.toolbar.transform = .identity
-        }, completion:nil)
-    }
-    
-    private func animatePop(_ transition: ZoomTransition) {
-        let backgroundColor = view.backgroundColor
-
-        transition.animate(alongsideTransition: { [weak self] _ in
-            guard let self = self else { return }
-            self.view.backgroundColor = .clear
-            self.progressView.alpha = 0
-            self.toolbar.alpha = 0
-            let yOffset = self.toolbar.bounds.height * 1.5
-            self.toolbar.transform = CGAffineTransform.identity.translatedBy(x: 0, y: yOffset)
-        }, completion: { [weak self] _ in
-            self?.view.backgroundColor = backgroundColor
-        })
-    }
-
-    func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
-        zoomingPlayerView.playerView
+    func controller(_ controller: ExportSettingsViewController, didChangeTimeFormat format: TimeFormat) {
+        toolbarController.timeFormat = format
     }
 }
