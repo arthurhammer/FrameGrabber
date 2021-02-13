@@ -33,8 +33,14 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Record videos and export video frames.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Record videos and export video frames.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To display your videos and Live Photos.</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
@@ -67,11 +73,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>Record videos and export video frames.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Record videos and export video frames.</string>
 </dict>
 </plist>
