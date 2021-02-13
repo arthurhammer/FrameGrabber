@@ -5,9 +5,12 @@ import AVFoundation
 /// The view is zoomed with pinch and double tap gestures.
 class ZoomingPlayerView: UIView {
 
-    @objc dynamic var player: AVPlayer? {
+    var player: AVPlayer? {
         get { playerView.player }
-        set { playerView.player = newValue }
+        set {
+            playerView.player = newValue
+            observeVideoSize()
+        }
     }
 
     let playerView = PlayerView()
@@ -92,7 +95,7 @@ private extension ZoomingPlayerView {
     }
 
     func observeVideoSize() {
-        videoSizeObserver = observe(\.player?.currentItem?.presentationSize, options: .initial) { [weak self]  _, _ in
+        videoSizeObserver = player?.observe(\.currentItem?.presentationSize, options: .initial) { [weak self]  _, _ in
             guard let self = self else { return }
             self.updateContentSize(with: self.videoContentSize, keepingZoomIfPossible: true)
         }
@@ -147,12 +150,12 @@ private extension UIScrollView {
     }
 
     var widthScale: CGFloat {
-        guard unzoomedContentSize.width != 0 else { return 0 }
+        guard unzoomedContentSize.width != 0 else { return 1 }
         return bounds.width / unzoomedContentSize.width
     }
 
     var heightScale: CGFloat {
-        guard unzoomedContentSize.height != 0 else { return 0 }
+        guard unzoomedContentSize.height != 0 else { return 1 }
         return bounds.height / unzoomedContentSize.height
     }
 

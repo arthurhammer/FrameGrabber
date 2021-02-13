@@ -2,7 +2,7 @@ import UIKit
 
 class ThumbnailImageView: UIImageView {
 
-    private let fadeDuration: TimeInterval = 0.3
+    private let fadeDuration: TimeInterval = 0.2
 
     func setImage(_ image: UIImage?, animated: Bool) {
         if animated {

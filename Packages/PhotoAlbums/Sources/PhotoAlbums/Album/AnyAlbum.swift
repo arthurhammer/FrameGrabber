@@ -10,7 +10,7 @@ public struct AnyAlbum: Album {
 
 extension AnyAlbum {
 
-    /// Initializes album with the given album.
+    /// Initializes the album with the given album.
     ///
     /// - Note: Properties are assigned and not forwarded on each access.
     public init<A>(album: A) where A: Album {

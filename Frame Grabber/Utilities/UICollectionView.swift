@@ -1,44 +1,38 @@
 import UIKit
-import Photos
 
 extension UICollectionView {
-
-    /// - Note: https://developer.apple.com/documentation/photokit/phfetchresultchangedetails
-    func applyPhotoLibraryChanges<T>(for changes: PHFetchResultChangeDetails<T>, in section: Int = 0, cellConfigurator: (IndexPath) -> ()) {
-        guard changes.hasIncrementalChanges else {
+    
+    /// Reloads the collection view's data cross-dissolving the before and after visual states.
+    ///
+    /// This method can be used as an alternative to the animations performed by `reloadSections` or
+    /// `performBatchUpdates`. Both have severe problems animating a collection view with a large
+    /// number of items (~10k+, which is not uncommon e.g. in photo libraries).
+    ///
+    /// - Parameters:
+    ///   - duration: has no effect if `animated` is `false`.
+    ///   - completion: Called synchronously if `animated` is `false`, otherwise asynchronously.
+    func reloadData(animated: Bool,
+        duration: TimeInterval = 0.2,
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        if !animated {
             reloadData()
+            completion?(false)
             return
         }
-
-        // First, apply deletions and insertions.
-        performBatchUpdates({
-            if let removed = changes.removedIndexes, !removed.isEmpty {
-                deleteItems(at: removed.indexPaths(in: section))
-            }
-
-            if let inserted = changes.insertedIndexes, !inserted.isEmpty {
-                insertItems(at: inserted.indexPaths(in: section))
-            }
-        })
-
-        // Apply moves separately.
-        performBatchUpdates({
-            changes.enumerateMoves { from, to in
-                self.moveItem(at: IndexPath(item: from, section: section),
-                              to: IndexPath(item: to, section: section))
-            }
-        })
-
-        // Changes refer to the final state. According to docs, cells should be 
-        // reconfigured instead of reloaded.
-        if let changed = changes.changedIndexes, !changed.isEmpty {
-            changed.indexPaths(in: section).forEach(cellConfigurator)
-        }
-    }
-}
-
-extension IndexSet {
-    func indexPaths(in section: Int = 0) -> [IndexPath] {
-        map { IndexPath(item: $0, section: section) }
+        
+        UIView.transition(
+            with: self,
+            duration: duration,
+            options: [
+                .transitionCrossDissolve,
+                .beginFromCurrentState,
+                .allowUserInteraction
+            ],
+            animations: {
+                self.reloadData()
+            },
+            completion: completion
+        )
     }
 }

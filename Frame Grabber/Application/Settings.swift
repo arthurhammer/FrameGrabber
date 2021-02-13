@@ -1,30 +1,29 @@
-import AVFoundation
 import Foundation
 import InAppPurchase
+import UIKit
 
 extension UserDefaults {
 
     private struct Key {
-        static let videoTypesFilter = "VideoTypesFilter"
-        static let albumGridContentMode = "AlbumGridContentMode"
+        static let camera = "Camera"
+        static let compressionQuality = "CompressionQuality"
+        static let exportAction = "ExportAction"
         static let includeMetadata = "IncludeMetadata"
         static let imageFormat = "ImageFormat"
-        static let compressionQuality = "CompressionQuality"
+        static let libraryGridMode = "LibraryGridMode"
+        static let photoLibraryFilter = "PhotoLibraryFilter"
         static let purchasedProductIdentifiers = "PurchasedProductIdentifiers"
+        static let timeFormat = "TimeFormat"
     }
 
-    static var isHeifSupported: Bool {
-        AVAssetExportSession.allExportPresets().contains(AVAssetExportPresetHEVCHighestQuality)
+    var photoLibraryFilter: PhotoLibraryFilter {
+        get { decodedValue(forKey: Key.photoLibraryFilter) ?? .videoAndLivePhoto }
+        set { setEncodedValue(newValue, forKey: Key.photoLibraryFilter) }
     }
 
-    var videoTypesFilter: VideoTypesFilter {
-        get { codableValue(forKey: Key.videoTypesFilter) ?? .all }
-        set { setCodableValue(value: newValue, forKey: Key.videoTypesFilter) }
-    }
-
-    var albumGridContentMode: AlbumGridContentMode {
-        get { codableValue(forKey: Key.albumGridContentMode) ?? .fit }
-        set { setCodableValue(value: newValue, forKey: Key.albumGridContentMode) }
+    var libraryGridMode: LibraryGridMode {
+        get { decodedValue(forKey: Key.libraryGridMode) ?? .square }
+        set { setEncodedValue(newValue, forKey: Key.libraryGridMode) }
     }
 
     var includeMetadata: Bool {
@@ -32,15 +31,30 @@ extension UserDefaults {
         set { set(newValue, forKey: Key.includeMetadata) }
     }
 
-    /// If the format is not supported on this device, falls back to jpeg.
+    /// When setting or getting an unsupported format, sets or gets a fallback format (jpeg).
     var imageFormat: ImageFormat {
-        get { (codableValue(forKey: Key.imageFormat) ?? ImageFormat.heif).safeFormat }
-        set { setCodableValue(value: newValue.safeFormat, forKey: Key.imageFormat) }
+        get { (decodedValue(forKey: Key.imageFormat) ?? ImageFormat.jpeg).fallbackFormat }
+        set { setEncodedValue(newValue.fallbackFormat, forKey: Key.imageFormat) }
     }
 
     var compressionQuality: Double {
-        get { (object(forKey: Key.compressionQuality) as? Double) ?? 1 }
+        get { (object(forKey: Key.compressionQuality) as? Double) ?? 0.95 }
         set { set(newValue, forKey: Key.compressionQuality) }
+    }
+    
+    var exportAction: ExportAction {
+        get { decodedValue(forKey: Key.exportAction) ?? .showShareSheet }
+        set { setEncodedValue(newValue, forKey: Key.exportAction) }
+    }
+    
+    var timeFormat: TimeFormat {
+        get { decodedValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
+        set { setEncodedValue(newValue, forKey: Key.timeFormat) }
+    }
+    
+    var camera: UIImagePickerController.CameraDevice {
+        get { valueForRawValue(forKey: Key.camera) ?? .front }
+        set { setRawValue(newValue, forKey: Key.camera) }
     }
 }
 
@@ -51,24 +65,28 @@ extension UserDefaults: PurchasedProductsStore {
     }
 }
 
-private extension ImageFormat {
-    var safeFormat: ImageFormat {
-        if !UserDefaults.isHeifSupported && (self == .heif) {
-            return .jpeg
-        }
-        return self
-    }
-}
-
 extension UserDefaults {
 
-    func codableValue<T: Codable>(forKey key: String) -> T? {
+    func decodedValue<T: Codable>(forKey key: String) -> T? {
         guard let data = data(forKey: key) else { return nil }
         return try? JSONDecoder().decode(T.self, from: data)
     }
 
-    func setCodableValue<T: Codable>(value: T?, forKey key: String) {
+    func setEncodedValue<T: Codable>(_ value: T?, forKey key: String) {
         let data = try? value.flatMap(JSONEncoder().encode)
         set(data, forKey: key)
+    }
+    
+    /// Sets the raw value for the specified key.
+    ///
+    /// The raw value must be one of the property list types as specified by `UserDefaults`.
+    /// Otherwise, you should archive the data to `Data`, e.g. using `setEncodedValue`.
+    func setRawValue<R: RawRepresentable>(_ value: R, forKey key: String) {
+        set(value.rawValue, forKey: key)
+    }
+    
+    func valueForRawValue<R: RawRepresentable>(forKey key: String) -> R? {
+        guard let value = object(forKey: key) as? R.RawValue else { return nil }
+        return R(value)
     }
 }

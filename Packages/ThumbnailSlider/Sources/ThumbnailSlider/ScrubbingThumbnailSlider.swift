@@ -35,10 +35,17 @@ public final class ScrubbingThumbnailSlider: ThumbnailSlider {
             }
 
             scrubbingSpeeds.sort { $0.verticalDistance < $1.verticalDistance }
+            resetScrubbingSpeed()
+            
+            adjustsHandleToMeetTouch = scrubbingSpeeds.count > 1
         }
     }
+    
+    /// Whether the handle should move towards the touch when the touch moves downwards towards the
+    /// slider.
+    private var adjustsHandleToMeetTouch = true
 
-    /// `time` if it weren't adjusted for speed (i.e. where the finger actually is).
+    /// `time` if it weren't adjusted for speed (i.e. where the touch actually is).
     private lazy var unadjustedTime = time
     private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
 
@@ -68,10 +75,13 @@ public final class ScrubbingThumbnailSlider: ThumbnailSlider {
             valueAdjustment,
             multiplier: Float64(currentScrubbingSpeed.speed)
         )
-        let thumbAdjustment = self.thumbAdjustment(for: touchLocation, relativeTo: previousLocation)
+        
+        let handleAdjustment = adjustsHandleToMeetTouch
+            ? self.handleAdjustment(for: touchLocation, relativeTo: previousLocation)
+            : .zero
 
         unadjustedTime = unadjustedTime + valueAdjustment
-        time = time + speedAdjustment + thumbAdjustment
+        time = time + speedAdjustment + handleAdjustment
 
         sendActions(for: .valueChanged)
 
@@ -131,7 +141,7 @@ public final class ScrubbingThumbnailSlider: ThumbnailSlider {
     /// knob (actual value) must not match. If the finger is moving towards the slider,
     /// the knob should move towards the slider such that both meet when the finger
     /// reaches the slider.
-    private func thumbAdjustment(
+    private func handleAdjustment(
         for touchLocation: CGPoint,
         relativeTo previousLocation: CGPoint
     ) -> CMTime {

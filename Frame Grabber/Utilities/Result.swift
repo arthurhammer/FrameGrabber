@@ -10,10 +10,15 @@ extension Error {
 }
 
 extension Result {
+    
     var value: Success? {
-        if case let .success(value) = self {
-            return value
+        try? get()
+    }
+    
+    var error: Error? {
+        switch self {
+        case .success: return nil
+        case .failure(let error): return error
         }
-        return nil
     }
 }

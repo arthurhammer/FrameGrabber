@@ -8,10 +8,10 @@
       location = "group:Packages/InAppPurchase">
    </FileRef>
    <FileRef
-      location = "group:Packages/FrameIndexer">
+      location = "group:Packages/PhotoAlbums">
    </FileRef>
    <FileRef
-      location = "group:Packages/PhotoAlbums">
+      location = "group:Packages/SampleTimeIndexer">
    </FileRef>
    <FileRef
       location = "group:Packages/ThumbnailSlider">

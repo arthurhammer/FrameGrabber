@@ -4,6 +4,12 @@
 /* Bundle name */
 "CFBundleName" = "Frame Grabber";
 
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Nehme Videos auf und exportiere Bilder daraus.";
+
+/* Privacy - Microphone Usage Description */
+"NSMicrophoneUsageDescription" = "Nehme Videos auf und exportiere Bilder daraus.";
+
 /* Privacy - Photo Library Usage Description */
 "NSPhotoLibraryUsageDescription" = "Um dir deine Videos und Live Photos anzuzeigen.";
 

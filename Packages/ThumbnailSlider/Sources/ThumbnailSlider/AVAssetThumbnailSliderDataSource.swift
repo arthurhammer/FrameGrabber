@@ -29,6 +29,10 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
     private var imageGenerator: AVAssetImageGenerator?
     private let timeTolerance: CMTime
     private let scaleFactor: CGFloat = 2
+    
+    // Original video aspect ratios can be a tad too wide or high. Use fixed.
+    private let landscapeAspectRatio = CGSize(width: 5, height: 4)
+    private let portraitAspectRatio = CGSize(width: 3, height: 4)
 
     public init(
         slider: ThumbnailSlider?,
@@ -48,9 +52,13 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
     }
 
     public func thumbnailAspectRatio(in slider: ThumbnailSlider) -> CGSize {
-        imageGenerator?.asset.dimensions
-            ?? placeholderImage?.size
-            ?? .zero
+        guard let videoSize = (asset?.dimensions ?? placeholderImage?.size) else {
+            return portraitAspectRatio
+        }
+              
+        return (videoSize.width > videoSize.height)
+            ? landscapeAspectRatio
+            : portraitAspectRatio
     }
 
     public func slider(
@@ -80,9 +88,10 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
             DispatchQueue.main.async {
                 index += 1
 
-                guard status != .cancelled else { return }
-
                 let image = image.flatMap(UIImage.init) ?? self?.placeholderImage
+                self?.placeholderImage = self?.placeholderImage ?? image  // Cache first image.
+
+                guard status != .cancelled else { return }
 
                 provider(index, image)
             }

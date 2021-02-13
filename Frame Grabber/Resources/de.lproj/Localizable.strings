@@ -16,6 +16,9 @@
 /* Ok action */
 "action.ok" = "OK";
 
+/* Open settings action */
+"action.settings" = "Einstellungen";
+
 /* Unfavorite context action */
 "action.unfavorite" = "Kein Favorit";
 
@@ -27,12 +30,6 @@
 
 /* No videos in album message */
 "album.empty.video" = "Keine Videos";
-
-/* Title for missing or deleted albums. */
-"album.missing.title" = "Album";
-
-/* Title for the initial placeholder album until the user authorizes. */
-"album.unauthorized.title" = "Zuletzt";
 
 /* Title of album view as aspect ratio settings menu item */
 "album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
@@ -46,11 +43,29 @@
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
 
-/* No comment provided by engineer. */
-"alert.albums.message" = "Fotoalben können nicht angezeigt werden, wenn die Fotoauswahl limitiert ist.";
+/* Alert message when the recording authorization is denied or restricted.. */
+"alert.camera.denied.message" = "Du hast Frame Grabber den Zugriff auf deine Kamera nicht erlaubt.";
+
+/* Alert title when the recording authorization is denied or restricted. */
+"alert.camera.denied.title" = "Kein Kamerazugriff";
+
+/* Alert message when the video recording failed for any reason */
+"alert.camera.failed.message" = "Bei der Aufnahme ist ein Fehler aufgetreten.";
+
+/* Alert title when the video recording failed for any reason. */
+"alert.camera.failed.title" = "Kein Video";
+
+/* Alert message when the current device cannot record videos. */
+"alert.camera.unavailable.message" = "Dieses Gerät kann keine Videos aufnehmen.";
+
+/* Alert title when the current device cannot record videos. */
+"alert.camera.unavailable.title" = "Kamera nicht verfügbar";
 
 /* No comment provided by engineer. */
-"alert.albums.title" = "Alben nicht verfügbar";
+"alert.filePicker.message" = "Beim Importieren ist ein Fehler aufgetreten.";
+
+/* No comment provided by engineer. */
+"alert.filePicker.title" = "Video konnte nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
 "alert.frameexport.message" = "Beim Erstellen des Bildes ist ein Fehler aufgetreten.";
@@ -89,12 +104,18 @@
 "alert.playback.title" = "Wiedergabe nicht möglich";
 
 /* No comment provided by engineer. */
+"alert.saveToPhotos.message" = "Das Bild konnte nicht in deiner Fotomediathek gespeichert werden.";
+
+/* No comment provided by engineer. */
+"alert.saveToPhotos.title" = "Speichern nicht möglich.";
+
+/* No comment provided by engineer. */
 "alert.videoload.message" = "Es ist kein Netzwerk vorhanden oder das Format wird nicht unterstützt.";
 
 /* No comment provided by engineer. */
 "alert.videoload.title" = "Laden nicht möglich";
 
-/* Photo library authorization denied action */
+/* Photo library authorization denied action. */
 "authorization.denied.action" = "Einstellungen Öffnen";
 
 /* Photo library authorization denied message */
@@ -106,29 +127,50 @@
 /* Photo library authorization default message */
 "authorization.undetermined.message" = "Frame Grabber arbeitet mit Videos und Fotos in deiner Fotomediathek. Los geht's, indem du den Zugriff erlaubst.";
 
-/* Detail view title for live photos */
-"detail.livephoto.title" = "Live Photo";
+/* Title for the metadata section. */
+"editor.detail.metadata.title" = "Metadaten";
 
-/* Dimensions label title for the Live Photo video component */
-"detail.livephoto.videodimensions.title" = "Dimensionen (Video)";
+/* Title for the settings section. */
+"editor.detail.settings.title" = "Einstellungen";
 
-/* Title of map item opened in Maps app. */
-"detail.map.item.title" = "Deine Aufnahme";
+/* Title for the fine speed in the speed menu. */
+"editor.menu.speed.fine.action" = "Langsam";
 
-/* Detail view title for videos */
-"detail.video.title" = "Video";
+/* Title for the half speed in the speed menu. */
+"editor.menu.speed.half.action" = "Halb";
 
-/* Dimensions label title for videos */
-"detail.video.videodimensions.title" = "Dimensionen";
+/* Title for the normal speed in the speed menu. */
+"editor.menu.speed.normal.action" = "Normal";
+
+/* Title for the quarter speed in the speed menu. */
+"editor.menu.speed.quarter.action" = "Viertel";
+
+/* Title for the speed menu. */
+"editor.menu.speed.title" = "Wähle das Tempo, um durch das Video zu wischen.";
+
+/* Title for the very fine speed in the speed menu. */
+"editor.menu.speed.veryFine.action" = "Schnecke";
 
 /* Editor more button export settings action */
-"editor.more.exportSettings.action" = "Exporteinstellungen";
+"editor.more.exportSettings.action" = "Einstellungen";
 
 /* Editor more button metadata button action */
 "editor.more.metadata.action" = "Metadaten";
 
-/* Export settings compression quality section header */
-"exportsettings.section.compression.title" = "Kompressionsqualität";
+/* Title for the share sheet export setting. */
+"export.showShareSheet.action" = "Share-Sheet";
+
+/* Explanation of what the frame number time format does. */
+"exportsettings.frameNumber.footer" = "Minuten, Sekunden und Framenummer relativ zu der aktuellen Sekunde. \n\nFür größere Videos kann es etwas dauern, bis die Framenummern verfügbar sind.";
+
+/* Explanation of what the milliseconds time format does. */
+"exportsettings.milliseconds.footer" = "Minuten, Sekunden und Millisekunden.";
+
+/* Title for the save to photo library export setting. */
+"exportsettings.saveToPhotos.action" = "Fotos";
+
+/* Explanation of what the save to photos setting does */
+"exportsettings.saveToPhotos.footer" = "Speichert Fotos in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
 
 /* Explanation of image formats in settings footer when HEIF is not supported */
 "exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
@@ -136,8 +178,8 @@
 /* Explanation of image formats in settings footer */
 "exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
 
-/* Export settings image format section header */
-"exportsettings.section.format.title" = "Bildformat";
+/* Explanation of what the share sheet setting does */
+"exportsettings.showShareSheet.footer" = "Sende Fotos direkt an AirDrop, Instagram, WhatsApp und viele weitere Apps.";
 
 /* Video frame rate with unit */
 "formatter.framerate.format" = "%@ fps";
@@ -145,47 +187,92 @@
 /* Video pixel size with unit */
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
-/* Purchase screen first message. */
-"iap.feature.first.message" = "Frame Grabber ist komplett kostenfrei und stört dich niemals mit Werbung.";
+/* Purchase screen purchase button label */
+"iap.purchase.action" = "Eis Ausgeben";
 
-/* Purchase screen first feature title. */
-"iap.feature.first.title" = "Werbefrei";
+/* Title for the library when no specific album is selected. */
+"library.default.title" = "Mediathek";
 
-/* Purchase screen second message. */
-"iap.feature.second.message" = "Ich stelle den Quellcode allen frei zur Verfügung.";
+/* Action of import menu: Open camera action. */
+"library.menu.import.camera.action" = "Video aufnehmen";
 
-/* Purchase screen second feature title. */
-"iap.feature.second.title" = "Transparent";
+/* Action of import menu: Open file picker action. */
+"library.menu.import.file.action" = "Datei öffnen";
 
-/* Purchase screen third message. */
-"iap.feature.third.message" = "Du unterstützt einen Indie-Entwickler aus Deutschland und seinen Nachschub an Eis.";
+/* Title for limited authorization menu. */
+"library.menu.import.limited.title" = "Du hast Frame Grabber einen begrenzten Zugang zu deinen Videos erteilt.";
 
-/* Purchase screen third feature title. */
-"iap.feature.third.title" = "Made in Germany";
+/* Action of import menu: Select more photos in limited authorization. */
+"library.menu.import.selectPhotos.action" = "Weitere Videos auswählen";
 
-/* Purchase screen message label when not purchased */
-"iap.notpurchased.message" = "Falls dir meine App besonders gut gefällt und du helfen möchtest, kannst du mir ein Eis ausgeben.";
+/* Title for the codec metadata. */
+"metadata.codec.title" = "Codec";
 
-/* Purchase screen title label when not purchased */
-"iap.notpurchased.title" = "Hey 👋";
+/* Title for the creation date metadata. */
+"metadata.creationDate.title" = "Erstellt";
 
-/* Purchase screen purchase button label without price */
-"iap.purchase.noprice.action" = "Eis Ausgeben";
+/* Live Photo: Title for the dimensions metadata of the picture component */
+"metadata.dimensions.livePhoto.title" = "Größe Foto";
 
-/* Purchase screen purchase button label with price */
-"iap.purchase.price.action.format" = "Eis Ausgeben – %@";
+/* Video: Title for the dimensions metadata. */
+"metadata.dimensions.title" = "Größe";
 
-/* Purchase screen message label when purchased. */
-"iap.purchased.message" = "Da mag wohl jemand auch besonders gern Eis. Vielen Dank, dass du mich und meine App unterstützt!";
+/* Live Photo: Title for the dimensions metadata of the video component. */
+"metadata.dimensions.video.title" = "Größe Video";
 
-/* Purchase screen title label when purchased. */
-"iap.purchased.title" = "Dankeschön ❤️";
+/* Title for the duration metadata. */
+"metadata.duration.title" = "Länge";
 
-/* Frame generation progress title. */
-"progress.frameExport.title" = "Exportieren…";
+/* Title for the file format metadata. */
+"metadata.format.title" = "Art";
+
+/* Title for the frame rate metadata. */
+"metadata.frameRate.title" = "Bildrate";
+
+/* Title for the camera make metadata. */
+"metadata.make.title" = "Gerätemarke";
+
+/* Title of map item to be opened in Maps app. */
+"metadata.mapItem.title" = "Aufnahmeort";
+
+/* Title for the camera model metadata. */
+"metadata.model.title" = "Gerätemodell";
+
+/* Title for the file size metadata. */
+"metadata.size.title" = "Dateigröße";
+
+/* Title for the software metadata. */
+"metadata.software.title" = "Software";
+
+/* Live Photo: Value for the video type metadata. */
+"metadata.type.livePhoto" = "Live Photo";
+
+/* Title for the video type metadata. */
+"metadata.type.title" = "Typ";
+
+/* Video: Value for the video type metadata item. */
+"metadata.type.video" = "Video";
+
+/* Frame generation progress title when saving to Photos. */
+"progress.export.saveToPhotos.title" = "In Fotos speichern…";
+
+/* Frame generation progress title when showing the share sheet. */
+"progress.export.shareSheet.title" = "Exportieren…";
 
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
+
+/* The frame number format, used for display (but not for actual formatting). */
+"settings.frameNumber.format" = "mm:ss / ff";
+
+/* Title for the frame number time format setting. */
+"settings.frameNumber.title" = "Frames";
+
+/* The milliseconds format, used for display (but not for actual formatting). */
+"settings.milliseconds.format" = "mm:ss,SSS";
+
+/* Title for the milliseconds time format setting. */
+"settings.milliseconds.title" = "Millisekunden";
 
 /* Video filter title, all items */
 "videofilter.all" = "Alles";

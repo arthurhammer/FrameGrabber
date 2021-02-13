@@ -1,5 +1,6 @@
 import StoreKit
 
+/// The store where purchased and restored products are stored, typically a persistent one.
 public protocol PurchasedProductsStore {
     var purchasedProductIdentifiers: [String] { get set }
 }
@@ -7,8 +8,10 @@ public protocol PurchasedProductsStore {
 /// Initiates in-app purchase payments, handles restorations and transaction update
 /// notifications.
 ///
-/// The manager persists successful purchases in a persistent store. It does not support
-/// receipt validation.
+/// The manager saves successful purchases to a store you provide.
+///
+/// The manager does not support receipt validation or refunds. As long as they are present in the
+/// store, refunded purchases will continue to be reported as purchased.
 public class StorePaymentsManager: NSObject {
 
     public static let shared = StorePaymentsManager()
@@ -32,8 +35,8 @@ public class StorePaymentsManager: NSObject {
 
     /// Products that have been previously purchased.
     ///
-    /// When a product is successfully purchased or restored, the manager adds its
-    /// identifier to this list and persists it across launches.
+    /// When a product is successfully purchased or restored, the manager adds  identifier to this
+    /// list and saves it to `purchasedProductsStore`.
     private(set) public var persistedPurchasedProductIdentifiers: [String] {
         get { purchasedProductsStore?.purchasedProductIdentifiers ?? [] }
         set { purchasedProductsStore?.purchasedProductIdentifiers = Array(Set(newValue)) }

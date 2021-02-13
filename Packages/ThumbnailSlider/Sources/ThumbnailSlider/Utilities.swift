@@ -5,7 +5,8 @@ import UIKit
 extension AVAsset {
     var dimensions: CGSize? {
         guard let videoTrack = tracks(withMediaType: .video).first else { return nil }
-        return videoTrack.naturalSize.applying(videoTrack.preferredTransform)
+        let rotated = videoTrack.naturalSize.applying(videoTrack.preferredTransform)
+        return CGSize(width: abs(rotated.width), height: abs(rotated.height))
     }
 }
 

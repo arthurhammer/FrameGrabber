@@ -1,0 +1,9 @@
+/* Class = "UINavigationItem"; title = "Metadata"; ObjectID = "iAC-XM-oFs"; */
+"iAC-XM-oFs.title" = "Metadaten";
+
+/* Class = "UIButton"; normalTitle = "Open Maps"; ObjectID = "mgd-3e-Ukm"; */
+"mgd-3e-Ukm.normalTitle" = "Karten öffnen";
+
+/* Class = "UITableViewController"; title = "Metadata"; ObjectID = "VPZ-Fv-XQU"; */
+"VPZ-Fv-XQU.title" = "Metadaten";
+

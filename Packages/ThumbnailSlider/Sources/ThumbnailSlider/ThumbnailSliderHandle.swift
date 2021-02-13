@@ -34,6 +34,12 @@ class ThumbnailSliderHandle: UIView {
     private func configureViews() {
         isUserInteractionEnabled = false
         clipsToBounds = false
+        
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 6
+        layer.shadowOffset = .zero
+        
         updateViews()
     }
 

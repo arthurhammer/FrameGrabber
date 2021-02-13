@@ -45,3 +45,5 @@ Open the project in Xcode and build. The app has no dependencies.
 ## License
 
 See [LICENSE](LICENSE).
+
+Just don't be weird and [re-publish the app to the App Store](https://github.com/arthurhammer/FrameGrabber/issues/5). 
