@@ -1,9 +1,3 @@
-/* Bundle display name */
-"CFBundleDisplayName" = "FG Dev";
-
-/* Bundle name */
-"CFBundleName" = "Frame Grabber";
-
 /* Privacy - Camera Usage Description */
 "NSCameraUsageDescription" = "Nehme Videos auf und exportiere Bilder daraus.";
 
