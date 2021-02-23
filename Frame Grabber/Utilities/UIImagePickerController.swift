@@ -12,7 +12,7 @@ extension UIImagePickerController {
     static var canRecordVideos: Bool {
         isSourceTypeAvailable(.camera)
             && (availableMediaTypes(for: .camera) ?? []).contains(kUTTypeMovie as String)
-            && isCameraDeviceAvailable(.rear) || isCameraDeviceAvailable(.front)
+            && (isCameraDeviceAvailable(.rear) || isCameraDeviceAvailable(.front))
     }
     
     /// Whether the video camera authorization status is denied or restricted.
