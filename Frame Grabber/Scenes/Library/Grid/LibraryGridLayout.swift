@@ -8,7 +8,13 @@ class LibraryGridLayout: UICollectionViewCompositionalLayout {
         minimumItemsPerRegularRow: Int = 5,
         preferredSpacing: CGFloat = 2
     ) {
-        super.init { _, environment in
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        
+        if #available(iOS 14.0, *) {
+            configuration.contentInsetsReference = .none
+        }
+        
+        super.init(sectionProvider: { _, environment in
             // We can't use the regular horizontal class since smaller phones still are horizontally
             // compact in landscape. Use the compact vertical class as an indicator for landscape.
             let minItemsPerRow = (environment.traitCollection.verticalSizeClass == .compact)
@@ -32,7 +38,7 @@ class LibraryGridLayout: UICollectionViewCompositionalLayout {
             section.interGroupSpacing = remainingSpacing
 
             return section
-        }
+        }, configuration: configuration)
     }
 
     required init?(coder: NSCoder) {

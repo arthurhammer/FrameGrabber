@@ -48,8 +48,8 @@ class LibraryViewController: UIViewController {
         updateNavigationBar()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         updateGridSafeArea()
     }
     
