@@ -2,11 +2,29 @@ import UIKit
 
 class LibraryGridLayout: UICollectionViewCompositionalLayout {
 
-    init(preferredItemSize: CGFloat = 120, minimumItemsPerRow: Int = 3, spacing: CGFloat = 2, didUpdateItemSizeHandler: ((CGSize) -> ())? = nil) {
-        super.init { _, environment in
+    init(
+        preferredItemSize: CGFloat = 160,
+        minimumItemsPerCompactRow: Int = 3,
+        minimumItemsPerRegularRow: Int = 5,
+        preferredSpacing: CGFloat = 2
+    ) {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        
+        if #available(iOS 14.0, *) {
+            configuration.contentInsetsReference = .none
+        }
+        
+        super.init(sectionProvider: { _, environment in
+            // We can't use the regular horizontal class since smaller phones still are horizontally
+            // compact in landscape. Use the compact vertical class as an indicator for landscape.
+            let minItemsPerRow = (environment.traitCollection.verticalSizeClass == .compact)
+                ? minimumItemsPerRegularRow
+                : minimumItemsPerCompactRow
+
             let width = environment.container.effectiveContentSize.width
-            let itemsPerRow = max(CGFloat(minimumItemsPerRow), floor(width / preferredItemSize))
-            let itemWidth = floor((width - (itemsPerRow-1)*spacing) / itemsPerRow)
+            
+            let itemsPerRow = max(CGFloat(minItemsPerRow), floor(width / preferredItemSize))
+            let itemWidth = floor((width - (itemsPerRow-1)*preferredSpacing) / itemsPerRow)
             let remainingSpacing = (width - itemsPerRow*itemWidth) / (itemsPerRow-1)
 
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalHeight(1), heightDimension: .fractionalHeight(1))
@@ -19,9 +37,8 @@ class LibraryGridLayout: UICollectionViewCompositionalLayout {
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = remainingSpacing
 
-            didUpdateItemSizeHandler?(CGSize(width: itemWidth, height: itemWidth))
             return section
-        }
+        }, configuration: configuration)
     }
 
     required init?(coder: NSCoder) {

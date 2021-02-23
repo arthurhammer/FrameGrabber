@@ -108,6 +108,12 @@ class EditorDetailViewController: UIViewController {
         )
         
         updateViews()
+        
+        DispatchQueue.main.async {
+            // Preload metadata to improve swipe performance.
+            _ = self.metadataController
+        }
+
     }
     
     private func updateViews() {
@@ -127,7 +133,6 @@ class EditorDetailViewController: UIViewController {
     }
     
     private var currentIndex: Int? {
-        // Don't trigger lazy load of metadata.
         guard currentPage != nil else { return nil }
         return (currentPage == settingsController) ? 0 : 1
     }
@@ -135,7 +140,6 @@ class EditorDetailViewController: UIViewController {
     private func setPage(at index: Int, animated: Bool) {
         guard index != currentIndex else { return }
         
-        // Don't trigger lazy load of metadata.
         let page = (index == 0) ? settingsController : metadataController
 
         pageController.setViewControllers(

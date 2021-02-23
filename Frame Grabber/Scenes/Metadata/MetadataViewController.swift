@@ -84,8 +84,6 @@ class MetadataViewController: UITableViewController {
         locationHeader.widthAnchor.constraint(equalTo: tableView.widthAnchor).isActive = true
         locationHeader.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
         locationHeader.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
-        
-        updateHeader(animated: false)
     }
     
     private func updateHeader(animated: Bool) {
@@ -107,22 +105,21 @@ class MetadataViewController: UITableViewController {
             .assignWeak(to: \.isHidden, on: loadingView)
             .store(in: &bindings)
         
-        var initialLoad = true
-
         viewModel
             .$snapshot
             .sink { [weak self] snapshot in
-                self?.tableDataSource.apply(snapshot, animatingDifferences: !initialLoad)
-                initialLoad = false
+                let isVisible = self?.view.window != nil
+                self?.tableDataSource.apply(snapshot, animatingDifferences: isVisible)
             }
             .store(in: &bindings)
         
         viewModel
             .$location
-            .removeDuplicates()
+            .removeDuplicates { $0?.address == $1?.address }
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.updateHeader(animated: true)
+            .sink { [weak self] location in
+                let isVisible = self?.view.window != nil
+                self?.updateHeader(animated: isVisible)
             }
             .store(in: &bindings)
     }
@@ -154,7 +151,13 @@ private extension UITableView {
         }
         
         if animated {
-            UIView.animate(withDuration: animationDuration, animations: update)
+            UIView.animate(
+                withDuration: animationDuration,
+                delay: 0,
+                options: .beginFromCurrentState,
+                animations: update,
+                completion: nil
+            )
         } else {
             update()
         }

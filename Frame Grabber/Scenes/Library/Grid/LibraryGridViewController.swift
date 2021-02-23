@@ -126,6 +126,7 @@ class LibraryGridViewController: UICollectionViewController {
         collectionView.backgroundView = emptyView
         collectionView.collectionViewLayout = LibraryGridLayout()
         collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.verticalScrollIndicatorInsets = .zero
 
         configureBindings()
         updateViews()

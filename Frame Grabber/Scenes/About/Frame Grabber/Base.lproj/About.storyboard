@@ -31,7 +31,7 @@
         <!--Frame Grabber-->
         <scene sceneID="yE9-sB-EEG">
             <objects>
-                <tableViewController id="hnE-0J-ppI" customClass="AboutViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="hnE-0J-ppI" customClass="AboutViewController" customModule="FG_Beta" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ehP-Ps-s8C">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,7 +340,7 @@
         <!--Purchase View Controller-->
         <scene sceneID="0SB-VX-QAf">
             <objects>
-                <viewController storyboardIdentifier="IceCreamViewController" id="Q1Q-IQ-Mgh" customClass="PurchaseViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IceCreamViewController" id="Q1Q-IQ-Mgh" customClass="PurchaseViewController" customModule="FG_Beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="42g-9b-btt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -363,7 +363,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-jT-k0T" userLabel="IconContainer">
                                                                         <rect key="frame" x="31.5" y="0.0" width="80" height="80"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about-appIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon-about" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <constraints>
@@ -452,7 +452,7 @@ Arthur 🍨🍧🍦</string>
                                     <constraint firstAttribute="height" constant="1" id="7eM-Dc-MQZ"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="500" verticalCompressionResistancePriority="999" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W" customClass="PurchaseButtonsView" customModule="Frame_Grabber" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="500" verticalCompressionResistancePriority="999" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W" customClass="PurchaseButtonsView" customModule="FG_Beta" customModuleProvider="target">
                                 <rect key="frame" x="162.5" y="704" width="89" height="88"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1">
@@ -559,7 +559,7 @@ Thank you so much.</string>
                                     <action selector="done" destination="Q1Q-IQ-Mgh" eventType="touchUpInside" id="PFp-KP-p1Y"/>
                                 </connections>
                             </button>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETp-48-pMy" customClass="ConfettiView" customModule="Frame_Grabber" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETp-48-pMy" customClass="ConfettiView" customModule="FG_Beta" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                             </view>
                         </subviews>
@@ -625,7 +625,7 @@ Thank you so much.</string>
     </scenes>
     <color key="tintColor" name="accent"/>
     <resources>
-        <image name="about-appIcon" width="100" height="100"/>
+        <image name="AppIcon-about" width="100" height="100"/>
         <image name="hand.thumbsup" catalog="system" width="128" height="128"/>
         <image name="keyboard" catalog="system" width="128" height="79"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
