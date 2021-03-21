@@ -45,7 +45,7 @@ public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChang
         updateQueue.async { [weak self] in
             let albums = FetchedAlbum.fetchSmartAlbums(
                 with: options.types,
-                assetFetchOptions: options.assetOptions
+                options: options.assetOptions
             )
 
             // Block until values are updated. Next task then starts with the fresh data.
@@ -61,13 +61,12 @@ public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChang
             guard let self = self else { return }
 
             // Get the most recent version.
-            let smartAlbums = DispatchQueue.main.sync {
+            let albums = DispatchQueue.main.sync {
                 self.fetchedAlbums
             }
 
-            let updatedAlbums: [FetchedAlbum] = smartAlbums.compactMap {
-                let changes = change.changeDetails(for: $0)
-                return (changes == nil) ? $0 : changes!.albumAfterChanges
+            let updatedAlbums = albums.compactMap {
+                $0.applying(change: change)
             }
 
             DispatchQueue.main.sync {

@@ -35,7 +35,7 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
     /// changes are applied incrementally and are fast.
     private var fetchResult: MappedFetchResult<PHAssetCollection, Album>!  {
         didSet {
-            var result = fetchResult.array
+            var result = fetchResult.mapped
             result = options.includesEmptyAlbums ? result : result.filter { !$0.isEmpty }
             albums = result
         }
@@ -73,9 +73,7 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
                 self.fetchResult!
             }
 
-            guard let changes = change.changeDetails(for: userAlbums.fetchResult) else { return }
-
-            let updatedAlbums = userAlbums.applyChanges(changes)
+            guard let updatedAlbums = userAlbums.applying(change: change) else { return }
 
             DispatchQueue.main.sync {
                 self.fetchResult = updatedAlbums

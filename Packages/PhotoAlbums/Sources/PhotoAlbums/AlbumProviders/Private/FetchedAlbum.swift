@@ -1,30 +1,28 @@
 import Photos
 
-/// A photo album and its contents.
-struct FetchedAlbum: FetchedAlbumProtocol {
+/// A `PhotoKit` photo album and its fetched contents.
+struct FetchedAlbum: AlbumProtocol {
     
     /// The photo album.
     let assetCollection: PHAssetCollection
     
     /// The contents of the album.
     let fetchResult: PHFetchResult<PHAsset>
-}
-
-// MARK: - Change Details
-
-extension FetchedAlbum {
-
-    /// Photo library change details for the album.
-    struct ChangeDetails {
-
-        /// nil if album was deleted.
-        let albumAfterChanges: FetchedAlbum?
-
-        /// nil if album did not change.
-        let assetCollectionChanges: PHObjectChangeDetails<PHAssetCollection>?
-
-        /// nil if album contents did not change.
-        let fetchResultChanges: PHFetchResultChangeDetails<PHAsset>?
+    
+    /// The options used to fetch the contents.
+    let fetchOptions: PHFetchOptions?
+    
+    var count: Int {
+        fetchResult.count
+    }
+    
+    var keyAsset: PHAsset? {
+        switch assetCollection.assetCollectionType {
+        case .smartAlbum:
+            return fetchResult.lastObject
+        default:
+            return fetchResult.firstObject
+        }
     }
 }
 
@@ -35,15 +33,50 @@ extension FetchedAlbum {
     /// Fetches assets for the given album.
     static func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions? = nil) -> FetchedAlbum {
         let fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
-        return FetchedAlbum(assetCollection: assetCollection, fetchResult: fetchResult)
+        
+        return FetchedAlbum(
+            assetCollection: assetCollection,
+            fetchResult: fetchResult,
+            fetchOptions: options
+        )
     }
 
-    /// For smart albums with the given types.
-    static func fetchSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions? = nil) -> [FetchedAlbum] {
+    /// Fetches smart albums with the given types.
+    static func fetchSmartAlbums(with types: [PHAssetCollectionSubtype], options: PHFetchOptions? = nil) -> [FetchedAlbum] {
         let albums = types.compactMap {
-            PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: $0, options: nil).firstObject
+            PHAssetCollection.fetchAssetCollections(
+                with: .smartAlbum,
+                subtype: $0,
+                options: nil
+            ).firstObject
         }
 
-        return albums.map { fetchAssets(in: $0, options: assetFetchOptions) }
+        return albums.map {
+            fetchAssets(in: $0, options: options)            
+        }
+    }
+}
+
+// MARK: - Updating Albums
+
+extension FetchedAlbum {
+    
+    /// An updated album by applying the given photo library changes.
+    ///
+    /// Returns `nil` if the album was deleted.
+    func applying(change: PHChange) -> FetchedAlbum? {
+        let albumChanges = change.changeDetails(for: assetCollection)
+        let assetChanges = change.changeDetails(for: fetchResult)
+        let didChange = (albumChanges, assetChanges) != (nil, nil)
+        let wasDeleted = albumChanges?.objectWasDeleted ?? false
+
+        guard didChange else { return self }
+        guard !wasDeleted else { return nil }
+        
+        return FetchedAlbum(
+            assetCollection: albumChanges?.objectAfterChanges ?? assetCollection,
+            fetchResult: assetChanges?.fetchResultAfterChanges ?? fetchResult,
+            fetchOptions: fetchOptions
+        )
     }
 }
