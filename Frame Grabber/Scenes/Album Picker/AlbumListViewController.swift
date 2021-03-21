@@ -74,7 +74,7 @@ class AlbumListViewController: UICollectionViewController {
         collectionView.dataSource = collectionViewDataSource
         
         collectionView?.collectionViewLayout = AlbumListLayout { [weak self] index in
-            self?.collectionViewDataSource.section(at: index).type ?? .userAlbum
+            self?.collectionViewDataSource.section(at: index).type.axis ?? .vertical
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -141,7 +141,8 @@ class AlbumListViewController: UICollectionViewController {
         let options = PHImageManager.ImageOptions(size: size)
 
         cell.imageRequest = collectionViewDataSource.thumbnail(for: album, options: options) {
-            image, _ in
+            (image, _) in
+            
             guard cell.identifier == album.id,
                   let image = image else { return }
 
@@ -193,6 +194,13 @@ extension AlbumListViewController: UISearchBarDelegate, UISearchResultsUpdating 
 // MARK: - Utilities
 
 private extension AlbumListSection.SectionType {
+    
+    var axis: AlbumListLayout.SectionType {
+        switch self {
+        case .smartAlbum: return .horizontal
+        case .userAlbum: return .vertical
+        }
+    }
     
     var cellIdentifier: String {
         switch self {

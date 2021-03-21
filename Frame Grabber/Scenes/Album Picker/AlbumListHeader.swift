@@ -1,9 +1,10 @@
 import UIKit
 
 class AlbumListHeader: UICollectionReusableView {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var detailLabel: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet private(set) var titleLabel: UILabel!
+    @IBOutlet private(set) var detailLabel: UILabel!
+    @IBOutlet private(set) var activityIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

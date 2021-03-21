@@ -1,14 +1,14 @@
-import UIKit
 import Combine
+import UIKit
 
 class AlbumCell: UICollectionViewCell {
 
     var identifier: String?
     var imageRequest: Cancellable?
 
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var detailLabel: UILabel!
+    @IBOutlet private(set) var imageView: UIImageView!
+    @IBOutlet private(set) var titleLabel: UILabel!
+    @IBOutlet private(set) var detailLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
