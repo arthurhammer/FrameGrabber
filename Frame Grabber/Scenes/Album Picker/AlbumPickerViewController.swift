@@ -3,7 +3,7 @@ import UIKit
 
 protocol AlbumPickerViewControllerDelegate: class {
     /// The album is `nil` if the controller finished without picking an album.
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?)
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: Album?)
 }
 
 /// A view controller to pick photo albums.
@@ -45,7 +45,7 @@ class AlbumPickerViewController: UIViewController {
 
 extension AlbumPickerViewController: AlbumListViewControllerDelegate {
     
-    func controller(_ controller: AlbumListViewController, didSelectAlbum album: AnyAlbum) {
+    func controller(_ controller: AlbumListViewController, didSelectAlbum album: Album) {
         dismiss(animated: true)
         delegate?.picker(self, didFinishPicking: album)
     }

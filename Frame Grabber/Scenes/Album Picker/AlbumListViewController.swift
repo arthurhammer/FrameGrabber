@@ -3,7 +3,7 @@ import Photos
 import UIKit
 
 protocol AlbumListViewControllerDelegate: class {
-    func controller(_ controller: AlbumListViewController, didSelectAlbum album: PhotoAlbum)
+    func controller(_ controller: AlbumListViewController, didSelectAlbum album: Album)
     func controllerDidSelectDone(_ controller: AlbumListViewController)
 }
 
@@ -112,7 +112,7 @@ class AlbumListViewController: UICollectionViewController {
     
     // MARK: - Cells
 
-    private func cell(for album: PhotoAlbum, at indexPath: IndexPath) -> UICollectionViewCell {
+    private func cell(for album: Album, at indexPath: IndexPath) -> UICollectionViewCell {
         let section = collectionViewDataSource.section(at: indexPath.section).type
         let id = section.cellIdentifier
         
@@ -123,7 +123,7 @@ class AlbumListViewController: UICollectionViewController {
         return cell
     }
 
-    private func configure(cell: AlbumCell, for album: PhotoAlbum, section: AlbumListSection.SectionType) {
+    private func configure(cell: AlbumCell, for album: Album, section: AlbumListSection.SectionType) {
         cell.isAccessibilityElement = true
         cell.accessibilityLabel = album.title
 
@@ -135,7 +135,7 @@ class AlbumListViewController: UICollectionViewController {
         loadThumbnail(for: cell, album: album)
     }
 
-    private func loadThumbnail(for cell: AlbumCell, album: PhotoAlbum) {
+    private func loadThumbnail(for cell: AlbumCell, album: Album) {
         cell.identifier = album.id
         let size = cell.imageView.bounds.size.scaledToScreen
         let options = PHImageManager.ImageOptions(size: size)

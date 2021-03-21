@@ -3,7 +3,7 @@ import Photos
 
 public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChangeObserver {
     
-    @Published public private(set) var albums = [PhotoAlbum]()
+    @Published public private(set) var albums = [Album]()
     @Published public private(set) var isLoading = true
     
     public var albumsPublisher: Published<[Album]>.Publisher { $albums }
@@ -33,7 +33,7 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
     /// Stores a mapping of asset collections to photo albums. The intial fetch is rather slow since
     /// for every asset collection we fetch its contents. After the initial fetch, photo library
     /// changes are applied incrementally and are fast.
-    private var fetchResult: MappedFetchResult<PHAssetCollection, PhotoAlbum>!  {
+    private var fetchResult: MappedFetchResult<PHAssetCollection, Album>!  {
         didSet {
             var result = fetchResult.array
             result = options.includesEmpty ? result : result.filter { !$0.isEmpty }
@@ -50,12 +50,12 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
                 options: options.albumOptions
             )
 
-            let albums = MappedFetchResult<PHAssetCollection, PhotoAlbum>(fetchResult: fetchResult) {
+            let albums = MappedFetchResult<PHAssetCollection, Album>(fetchResult: fetchResult) {
                 let fetched = FetchedAlbum.fetchAssets(
                     in: $0,
                     options: options.assetOptions
                 )
-                return PhotoAlbum(album: fetched)
+                return Album(album: fetched)
             }
 
             DispatchQueue.main.sync {

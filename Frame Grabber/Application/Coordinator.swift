@@ -159,7 +159,7 @@ extension Coordinator: EditorViewControllerDelegate {
 
 extension Coordinator: AlbumPickerViewControllerDelegate {
     
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?) {
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: Album?) {
         guard let album = album else { return }
         libraryViewController.dataSource.album = album.assetCollection
     }

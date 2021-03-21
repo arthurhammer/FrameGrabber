@@ -1,26 +1,22 @@
 import Photos
 
-/// A type that represents a PhotoKit album.
-public protocol Album: Identifiable, Hashable {
-    var assetCollection: PHAssetCollection { get }
-    var id: String { get }
-    var title: String? { get }
-    var count: Int { get }
-    /// The asset that provides the album's thumbnail.
-    var keyAsset: PHAsset? { get }
+/// A type-erasing album with static content.
+public struct Album: AlbumProtocol {
+    public let assetCollection: PHAssetCollection
+    public let title: String?
+    public let count: Int
+    public let keyAsset: PHAsset?
 }
 
 extension Album {
 
-    public var id: String {
-        assetCollection.localIdentifier
-    }
-
-    public var title: String? {
-        assetCollection.localizedTitle
-    }
-
-    public var isEmpty: Bool {
-        count == 0
+    /// Initializes the album with the given album.
+    ///
+    /// - Note: Properties are assigned and not forwarded on each access.
+    public init<A>(album: A) where A: AlbumProtocol {
+        self.assetCollection = album.assetCollection
+        self.title = album.title
+        self.count = album.count
+        self.keyAsset = album.keyAsset
     }
 }

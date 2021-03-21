@@ -1,7 +1,7 @@
 import Photos
 
 /// A type of album that provides the assets that it contains as a fetch result.
-public protocol FetchedAlbumProtocol: Album {
+public protocol FetchedAlbumProtocol: AlbumProtocol {
     var fetchResult: PHFetchResult<PHAsset> { get }
 }
 

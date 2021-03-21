@@ -3,7 +3,7 @@ import Photos
 
 public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChangeObserver {
     
-    @Published public private(set) var albums = [PhotoAlbum]()
+    @Published public private(set) var albums = [Album]()
     @Published public private(set) var isLoading = true
     
     public var albumsPublisher: Published<[Album]>.Publisher { $albums }
@@ -35,7 +35,7 @@ public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChang
     /// store the album contents fetch result itself and check it for changes.
     private var fetchedAlbums = [FetchedAlbum]() {
         didSet {
-            var result = fetchedAlbums.map(PhotoAlbum.init)
+            var result = fetchedAlbums.map(Album.init)
             result = options.includesEmpty ? result : result.filter { !$0.isEmpty }
             self.albums = result
         }

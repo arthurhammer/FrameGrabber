@@ -24,7 +24,7 @@ extension MappedFetchResult {
 
 // MARK: - Applying Photo Library Changes
 
-extension MappedFetchResult where M: Album  {
+extension MappedFetchResult where M: AlbumProtocol  {
 
     /// A new mapped fetch result by incrementally applying the given photo library changes to the
     /// receiver.

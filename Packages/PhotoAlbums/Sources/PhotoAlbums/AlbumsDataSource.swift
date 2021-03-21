@@ -1,19 +1,16 @@
 import Combine
 import Photos
 
-/// The type of albums provided by the data source.
-public typealias PhotoAlbum = AnyAlbum
-
 /// Data source for smart albums and user albums in the user's photo library.
 ///
 /// Asynchronously fetches, filters and updates albums in response to photo library changes. See
 /// `SmartAlbumsOptions` for details.
 public class AlbumsDataSource {
 
-    @Published public private(set) var smartAlbums = [PhotoAlbum]()
+    @Published public private(set) var smartAlbums = [Album]()
     @Published public private(set) var isLoadingSmartAlbums = true
     
-    @Published public private(set) var userAlbums = [PhotoAlbum]()
+    @Published public private(set) var userAlbums = [Album]()
     @Published public private(set) var isLoadingUserAlbums = true
     
     private let smartAlbumsDataSource: SmartAlbumsDataSource
