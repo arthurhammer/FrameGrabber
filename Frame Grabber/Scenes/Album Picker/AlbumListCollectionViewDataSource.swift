@@ -20,13 +20,13 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
 
     @Published var searchTerm: String?
     
-    private let dataSource: AlbumsDataSource
+    private let dataSource: AlbumPickerDataSource
     private let imageManager: PHImageManager
     private var bindings = Set<AnyCancellable>()
     
     init(
         collectionView: UICollectionView,
-        albumsDataSource: AlbumsDataSource,
+        albumsDataSource: AlbumPickerDataSource,
         imageManager: PHImageManager = .default(),
         sectionHeaderProvider: @escaping SupplementaryViewProvider,
         cellProvider: @escaping CellProvider
@@ -75,10 +75,10 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
 
     private func configureDataSource() {
         dataSource
-            .$smartAlbums
-            .merge(with: dataSource.$userAlbums)
+            .smartAlbumsProvider.albumsPublisher
+            .merge(with: dataSource.userAlbumsProvider.albumsPublisher)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] test in
+            .sink { [weak self] _ in
                 self?.updateSections()
             }
             .store(in: &bindings)
@@ -100,21 +100,24 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
 
     private func updateSections() {
         let isSearching = searchTerm?.trimmed.nilIfEmpty != nil
-        let smartAlbums = dataSource.smartAlbums
-        let userAlbums = dataSource.userAlbums.searched(for: searchTerm, by: { $0.title })
+        let smartAlbums = dataSource.smartAlbumsProvider.albums
+        let userAlbums = dataSource.userAlbumsProvider.albums.searched(
+            for: searchTerm,
+            by: { $0.title }
+        )
 
         let smartAlbumsSection = AlbumListSection(
             type: .smartAlbum,
             title: nil,
             albumCount: smartAlbums.count,
-            isLoading: dataSource.isLoadingSmartAlbums
+            isLoading: dataSource.smartAlbumsProvider.isLoading
         )
         
         let userAlbumsSection = AlbumListSection(
             type: .userAlbum,
             title: UserText.albumsUserAlbumsHeader,
             albumCount: userAlbums.count,
-            isLoading: dataSource.isLoadingUserAlbums
+            isLoading: dataSource.userAlbumsProvider.isLoading
         )
 
         var snapshot = NSDiffableDataSourceSnapshot<AlbumListSection, Album>()

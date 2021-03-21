@@ -11,14 +11,14 @@ class AlbumListViewController: UICollectionViewController {
     
     weak var delegate: AlbumListViewControllerDelegate?
 
-    let dataSource: AlbumsDataSource
+    let dataSource: AlbumPickerDataSource
 
     private lazy var collectionViewDataSource = makeCollectionViewDataSource()
     private lazy var albumCountFormatter = NumberFormatter()
     
     init?(
         coder: NSCoder,
-        dataSource: AlbumsDataSource,
+        dataSource: AlbumPickerDataSource,
         delegate: AlbumListViewControllerDelegate? = nil
     ) {
         self.dataSource = dataSource

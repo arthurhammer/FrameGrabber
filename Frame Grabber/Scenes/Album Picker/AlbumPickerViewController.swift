@@ -14,7 +14,7 @@ class AlbumPickerViewController: UIViewController {
     
     weak var delegate: AlbumPickerViewControllerDelegate?
     
-    private let dataSource: AlbumsDataSource
+    private let dataSource: AlbumPickerDataSource
     
     private lazy var childNavigationController = UINavigationController(rootViewController: self.listController)
     
@@ -24,7 +24,10 @@ class AlbumPickerViewController: UIViewController {
         }!
     }()
     
-    init(dataSource: AlbumsDataSource, delegate: AlbumPickerViewControllerDelegate? = nil) {
+    init(
+        dataSource: AlbumPickerDataSource = AlbumsDataSource(),
+        delegate: AlbumPickerViewControllerDelegate? = nil
+    ) {
         self.dataSource = dataSource
         self.delegate = delegate
 

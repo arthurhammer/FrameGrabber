@@ -132,6 +132,7 @@
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
 		00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CE254D25D29F170005D21C /* EmptyLibraryView.swift */; };
 		00CF4BC923F208C4006DB612 /* CachingGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */; };
+		00D1BDBE260790CC001C7A09 /* AlbumPickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D1BDBD260790CC001C7A09 /* AlbumPickerDataSource.swift */; };
 		00D9E83323424A07009E7AFA /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9E83223424A07009E7AFA /* UIFont.swift */; };
 		00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D9E83523426301009E7AFA /* Metadata.storyboard */; };
 		00E273502416A77F007FE0C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2734F2416A77F007FE0C6 /* Result.swift */; };
@@ -286,6 +287,7 @@
 		00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetResourceManager.swift; sourceTree = "<group>"; };
 		00CE254D25D29F170005D21C /* EmptyLibraryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyLibraryView.swift; sourceTree = "<group>"; };
 		00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingGeocoder.swift; sourceTree = "<group>"; };
+		00D1BDBD260790CC001C7A09 /* AlbumPickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerDataSource.swift; sourceTree = "<group>"; };
 		00D9E83223424A07009E7AFA /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		00D9E83623426301009E7AFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/Metadata.storyboard"; sourceTree = "<group>"; };
 		00D9E83A2342639C009E7AFA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/de.lproj/Metadata.strings"; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				00F3C254213046CD0030B7EC /* AlbumListHeader.swift */,
 				00AA20222136C93100084B08 /* AlbumListLayout.swift */,
 				00A9DF5121273FA000778885 /* AlbumListViewController.swift */,
+				00D1BDBD260790CC001C7A09 /* AlbumPickerDataSource.swift */,
 				00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */,
 				00CA339325A200DE00DBD84D /* Album Picker.storyboard */,
 			);
@@ -925,6 +928,7 @@
 				005E2AA320273C5800F731FA /* LibraryGridLayout.swift in Sources */,
 				009C657A1FBF338900DB25A6 /* LibraryViewController.swift in Sources */,
 				00E7135A2125E2940052EAF8 /* CGImage+Encoding.swift in Sources */,
+				00D1BDBE260790CC001C7A09 /* AlbumPickerDataSource.swift in Sources */,
 				009C65871FBF33A300DB25A6 /* Style.swift in Sources */,
 				006F8F7E202DD5A100CD93DB /* RepeatingButton.swift in Sources */,
 				00C13CF32404FDCE000193EB /* ConfettiView.swift in Sources */,
