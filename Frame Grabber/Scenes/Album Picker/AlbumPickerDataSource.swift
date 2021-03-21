@@ -27,8 +27,8 @@ class AlbumsDataSource: AlbumPickerDataSource {
     ///   - userAlbumsOptions: The types of user albums and assets to fetch.
     ///   - updateQueue: The serial queue on which to perform fetches and updates.
     init(
-        smartAlbumsOptions: SmartAlbumsOptions = .init(),
-        userAlbumsOptions: UserAlbumsOptions = .init(),
+        smartAlbumsOptions: SmartAlbumsFetchOptions = .init(),
+        userAlbumsOptions: UserAlbumsFetchOptions = .init(),
         updateQueue: DispatchQueue = .init(label: "de.arthurhammer.AlbumsDataSource", qos: .userInitiated)
     ) {
         self.smartAlbumsProvider = SmartAlbumsDataSource(

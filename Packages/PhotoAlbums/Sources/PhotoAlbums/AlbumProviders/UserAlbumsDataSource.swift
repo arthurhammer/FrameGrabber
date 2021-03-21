@@ -8,12 +8,12 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
     
     public var albumsPublisher: Published<[Album]>.Publisher { $albums }
     
-    private let options: UserAlbumsOptions
+    private let options: UserAlbumsFetchOptions
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary = .shared()
 
     public init(
-        options: UserAlbumsOptions = .init(),
+        options: UserAlbumsFetchOptions = .init(),
         updateQueue: DispatchQueue = .init(label: "", qos: .userInitiated)
     ) {
         self.options = options
@@ -36,12 +36,12 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
     private var fetchResult: MappedFetchResult<PHAssetCollection, Album>!  {
         didSet {
             var result = fetchResult.array
-            result = options.includesEmpty ? result : result.filter { !$0.isEmpty }
+            result = options.includesEmptyAlbums ? result : result.filter { !$0.isEmpty }
             albums = result
         }
     }
 
-    private func fetchAlbums(with options: UserAlbumsOptions) {
+    private func fetchAlbums(with options: UserAlbumsFetchOptions) {
         updateQueue.async { [weak self] in
             
             let fetchResult = PHAssetCollection.fetchAssetCollections(

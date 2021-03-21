@@ -8,12 +8,12 @@ public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChang
     
     public var albumsPublisher: Published<[Album]>.Publisher { $albums }
 
-    private let options: SmartAlbumsOptions
+    private let options: SmartAlbumsFetchOptions
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary = .shared()
 
     public init(
-        options: SmartAlbumsOptions = .init(),
+        options: SmartAlbumsFetchOptions = .init(),
         updateQueue: DispatchQueue = .init(label: "", qos: .userInitiated)
     ) {
         self.options = options
@@ -36,12 +36,12 @@ public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChang
     private var fetchedAlbums = [FetchedAlbum]() {
         didSet {
             var result = fetchedAlbums.map(Album.init)
-            result = options.includesEmpty ? result : result.filter { !$0.isEmpty }
+            result = options.includesEmptyAlbums ? result : result.filter { !$0.isEmpty }
             self.albums = result
         }
     }
     
-    private func fetchAlbums(with options: SmartAlbumsOptions) {
+    private func fetchAlbums(with options: SmartAlbumsFetchOptions) {
         updateQueue.async { [weak self] in
             let albums = FetchedAlbum.fetchSmartAlbums(
                 with: options.types,
