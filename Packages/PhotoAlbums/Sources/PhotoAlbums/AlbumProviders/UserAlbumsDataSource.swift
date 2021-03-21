@@ -1,7 +1,13 @@
 import Combine
 import Photos
 
-public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChangeObserver {
+/// An album provider for user albums in the user's photo library.
+///
+/// See `SmartAlbumsDataSource` for a detailed discussion.
+///
+/// The initial fetch requires indexing all user albums which can be costly depending on the size
+/// of the photo library. Subsequent updates are applied incrementally and are very performant.
+public final class UserAlbumsDataSource: NSObject, AlbumProvider {
     
     @Published public private(set) var albums = [Album]()
     @Published public private(set) var isLoading = true
@@ -9,16 +15,19 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
     public var albumsPublisher: Published<[Album]>.Publisher { $albums }
     
     private let options: UserAlbumsFetchOptions
+    private let accessQueue: DispatchQueue = .main
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary = .shared()
 
     public init(
         options: UserAlbumsFetchOptions = .init(),
-        updateQueue: DispatchQueue = .init(label: "", qos: .userInitiated)
+        updateQueue: DispatchQueue = .init(label: "de.arthurhammer.UserAlbumsDataSource", qos: .userInitiated)
     ) {
         self.options = options
         self.updateQueue = updateQueue
+        
         super.init()
+        
         photoLibrary.register(self)
         fetchAlbums(with: options)
     }
@@ -27,57 +36,58 @@ public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChange
         photoLibrary.unregisterChangeObserver(self)
     }
 
-    public func photoLibraryDidChange(_ change: PHChange) {
-        updateAlbums(with: change)
-    }
-    /// Stores a mapping of asset collections to photo albums. The intial fetch is rather slow since
-    /// for every asset collection we fetch its contents. After the initial fetch, photo library
-    /// changes are applied incrementally and are fast.
+    // MARK: - Fetching & Updating
+    
+    /// The underlying user albums representation.
     private var fetchResult: MappedFetchResult<PHAssetCollection, Album>!  {
         didSet {
             var result = fetchResult.mapped
-            result = options.includesEmptyAlbums ? result : result.filter { !$0.isEmpty }
+            result = options.includesEmptyAlbums ? result : (result.filter { !$0.isEmpty })
             albums = result
         }
     }
 
+    /// Performs the initial full album fetch.
     private func fetchAlbums(with options: UserAlbumsFetchOptions) {
         updateQueue.async { [weak self] in
-            
             let fetchResult = PHAssetCollection.fetchAssetCollections(
                 with: .album,
                 subtype: .albumRegular,
                 options: options.albumOptions
             )
 
-            let albums = MappedFetchResult<PHAssetCollection, Album>(fetchResult: fetchResult) {
-                let fetched = FetchedAlbum.fetchAssets(
-                    in: $0,
-                    options: options.assetOptions
-                )
-                return Album(album: fetched)
-            }
+            let albums = MappedFetchResult(fetchResult: fetchResult, mapping: {
+                Album(album: FetchedAlbum.fetchAssets(in: $0, options: options.assetOptions))
+            })
 
-            DispatchQueue.main.sync {
+            self?.accessQueue.sync {
                 self?.isLoading = false
                 self?.fetchResult = albums
             }
         }
     }
 
+    /// Incrementally updates the albums from photo library changes.
     private func updateAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
             guard let self = self else { return }
 
-            let userAlbums = DispatchQueue.main.sync {
-                self.fetchResult!
-            }
+            let albums = self.accessQueue.sync { self.fetchResult }
 
-            guard let updatedAlbums = userAlbums.applying(change: change) else { return }
+            guard let updatedAlbums = albums?.applying(change: change) else { return }
 
-            DispatchQueue.main.sync {
+            self.accessQueue.sync {
                 self.fetchResult = updatedAlbums
             }
         }
+    }
+}
+
+// MARK: - PHPhotoLibraryChangeObserver
+
+extension UserAlbumsDataSource: PHPhotoLibraryChangeObserver {
+
+    public func photoLibraryDidChange(_ change: PHChange) {
+        updateAlbums(with: change)
     }
 }
