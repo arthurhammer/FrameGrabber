@@ -1,11 +1,13 @@
 import Combine
 import Photos
 
-public class UserAlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
+public class UserAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChangeObserver {
     
     @Published public private(set) var albums = [PhotoAlbum]()
     @Published public private(set) var isLoading = true
-
+    
+    public var albumsPublisher: Published<[Album]>.Publisher { $albums }
+    
     private let options: UserAlbumsOptions
     private let updateQueue: DispatchQueue
     private let photoLibrary: PHPhotoLibrary = .shared()

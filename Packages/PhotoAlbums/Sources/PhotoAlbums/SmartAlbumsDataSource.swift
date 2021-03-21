@@ -1,10 +1,12 @@
 import Combine
 import Photos
 
-public class SmartAlbumsDataSource: NSObject, PHPhotoLibraryChangeObserver {
+public class SmartAlbumsDataSource: NSObject, AlbumProvider, PHPhotoLibraryChangeObserver {
     
     @Published public private(set) var albums = [PhotoAlbum]()
     @Published public private(set) var isLoading = true
+    
+    public var albumsPublisher: Published<[Album]>.Publisher { $albums }
 
     private let options: SmartAlbumsOptions
     private let updateQueue: DispatchQueue
