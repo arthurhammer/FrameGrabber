@@ -574,14 +574,9 @@
 		00A9DF5321273FA400778885 /* Album Picker */ = {
 			isa = PBXGroup;
 			children = (
-				00A9DF542127635C00778885 /* AlbumCell.swift */,
-				00F3867E212AA38E0089A473 /* AlbumListCollectionViewDataSource.swift */,
-				00F3C254213046CD0030B7EC /* AlbumListHeader.swift */,
-				00AA20222136C93100084B08 /* AlbumListLayout.swift */,
-				00A9DF5121273FA000778885 /* AlbumListViewController.swift */,
+				00D1BDC32607C44A001C7A09 /* List */,
 				00D1BDBD260790CC001C7A09 /* AlbumPickerDataSource.swift */,
 				00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */,
-				00CA339325A200DE00DBD84D /* Album Picker.storyboard */,
 			);
 			path = "Album Picker";
 			sourceTree = "<group>";
@@ -647,6 +642,19 @@
 				00EAFDA0205FB42E0031F8A2 /* Playback */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		00D1BDC32607C44A001C7A09 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				00A9DF542127635C00778885 /* AlbumCell.swift */,
+				00F3867E212AA38E0089A473 /* AlbumListCollectionViewDataSource.swift */,
+				00F3C254213046CD0030B7EC /* AlbumListHeader.swift */,
+				00AA20222136C93100084B08 /* AlbumListLayout.swift */,
+				00A9DF5121273FA000778885 /* AlbumListViewController.swift */,
+				00CA339325A200DE00DBD84D /* Album Picker.storyboard */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		00D9E83E234349C2009E7AFA /* Application */ = {
