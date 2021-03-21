@@ -1,7 +1,7 @@
 import Photos
 
-/// A type of album that provides the assets that it contains as a fetch result.
-public protocol FetchedAlbumProtocol: AlbumProtocol {
+/// A type that represents a `PhotoKit` photo album and its fetched album contents.
+protocol FetchedAlbumProtocol: AlbumProtocol {
     var fetchResult: PHFetchResult<PHAsset> { get }
 }
 
@@ -9,8 +9,10 @@ extension FetchedAlbumProtocol {
 
     public var keyAsset: PHAsset? {
         switch assetCollection.assetCollectionType {
-        case .smartAlbum: return fetchResult.lastObject
-        default: return fetchResult.firstObject
+        case .smartAlbum:
+            return fetchResult.lastObject
+        default:
+            return fetchResult.firstObject
         }
     }
 

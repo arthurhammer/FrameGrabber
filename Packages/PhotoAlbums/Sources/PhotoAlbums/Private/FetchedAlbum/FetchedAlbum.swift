@@ -1,8 +1,12 @@
 import Photos
 
-/// An album and its fetched album contents.
+/// A photo album and its contents.
 struct FetchedAlbum: FetchedAlbumProtocol {
+    
+    /// The photo album.
     let assetCollection: PHAssetCollection
+    
+    /// The contents of the album.
     let fetchResult: PHFetchResult<PHAsset>
 }
 
@@ -34,7 +38,7 @@ extension FetchedAlbum {
         return FetchedAlbum(assetCollection: assetCollection, fetchResult: fetchResult)
     }
 
-    /// For each type fetches the album and its contents.
+    /// For smart albums with the given types.
     static func fetchSmartAlbums(with types: [PHAssetCollectionSubtype], assetFetchOptions: PHFetchOptions? = nil) -> [FetchedAlbum] {
         let albums = types.compactMap {
             PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: $0, options: nil).firstObject
