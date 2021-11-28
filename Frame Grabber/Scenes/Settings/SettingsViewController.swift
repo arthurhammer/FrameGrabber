@@ -14,7 +14,8 @@ class SettingsViewController: UITableViewController {
     @IBOutlet private var includeMetadataSwitch: UISwitch!
     @IBOutlet private var imageFormatControl: UISegmentedControl!
     @IBOutlet private var compressionQualityStepper: UIStepper!
-    @IBOutlet private var compressionQualityLabel: UILabel!
+    @IBOutlet private var compressionQualityTitleLabel: UILabel!
+    @IBOutlet private var compressionQualityDetailLabel: UILabel!
     @IBOutlet private var compressionQualityStack: UIStackView!
     @IBOutlet private var selectedExportActionLabel: UILabel!
     @IBOutlet private var selectedTimeFormatLabel: UILabel!
@@ -74,6 +75,7 @@ class SettingsViewController: UITableViewController {
     @IBAction private func didUpdateImageFormat(_ sender: UISegmentedControl) {
         UISelectionFeedbackGenerator().selectionChanged()
         settings.imageFormat = ImageFormat.allCases[sender.selectedSegmentIndex]
+        updateViews()
     }
 
     @IBAction private func didChangeCompressionQuality(_ sender: UIStepper) {
@@ -83,7 +85,7 @@ class SettingsViewController: UITableViewController {
     }
 
     private func configureViews() {
-        compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
+        compressionQualityDetailLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
         
@@ -112,7 +114,12 @@ class SettingsViewController: UITableViewController {
         includeMetadataSwitch.isOn = settings.includeMetadata
 
         compressionQualityStepper.value = settings.compressionQuality*100
-        compressionQualityLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
+        compressionQualityDetailLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
+        
+        let isQualityCellEnabled = settings.imageFormat.isLossyCompressionSupported
+        compressionQualityStepper.isEnabled = isQualityCellEnabled
+        compressionQualityTitleLabel.textColor = isQualityCellEnabled ? .label : .secondaryLabel
+        compressionQualityDetailLabel.textColor = compressionQualityTitleLabel.textColor
         
         let formatIndex = ImageFormat.allCases.firstIndex(of: settings.imageFormat)
         imageFormatControl.selectedSegmentIndex = formatIndex ?? 0
