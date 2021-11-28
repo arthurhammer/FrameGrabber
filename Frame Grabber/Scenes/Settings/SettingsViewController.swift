@@ -7,17 +7,9 @@ protocol SettingsViewControllerDelegate: class {
 
 class SettingsViewController: UITableViewController {
 
-    enum Section: Int {
-        case metadata
-        case format
-        case compressionQuality
-        case exportAction
-        case timeFormat
-    }
-    
     weak var delegate: SettingsViewControllerDelegate?
 
-    let settings: UserDefaults = .standard
+    private let settings: UserDefaults = .standard
 
     @IBOutlet private var includeMetadataSwitch: UISwitch!
     @IBOutlet private var imageFormatControl: UISegmentedControl!
@@ -32,11 +24,6 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fixCellHeight()
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,14 +82,6 @@ class SettingsViewController: UITableViewController {
         updateViews()
     }
 
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard Section(section) == .format else { return super.tableView(tableView, titleForFooterInSection: section) }
-
-        return ImageFormat.heif.isEncodingSupported
-            ? UserText.exportImageFormatHeifSupportedFooter
-            : UserText.exportImageFormatHeifNotSupportedFooter
-    }
-
     private func configureViews() {
         compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         
@@ -143,17 +122,5 @@ class SettingsViewController: UITableViewController {
     
     private func updateViews(for traitCollection: UITraitCollection) {
         compressionQualityStack.axis = traitCollection.hasHugeContentSize ? .vertical : .horizontal
-    }
-
-    private var firstAppereance = true
-
-    private func fixCellHeight() {
-        guard firstAppereance else { return }
-        firstAppereance = false
-
-        // For some reason, the first cell initially has a wrong height.
-        DispatchQueue.main.async {
-            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        }
     }
 }
