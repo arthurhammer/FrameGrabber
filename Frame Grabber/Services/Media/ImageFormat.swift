@@ -37,6 +37,8 @@ extension ImageFormat {
     /// If the encoding is supported in the current environment returns itself, otherwise `.jpeg`.
     var fallbackFormat: ImageFormat {
         assert(ImageFormat.jpeg.isEncodingSupported)
+        assert(ImageFormat.png.isEncodingSupported)
+        
         return isEncodingSupported ? self : .jpeg
     }
     
