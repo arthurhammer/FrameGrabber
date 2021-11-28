@@ -14,7 +14,9 @@ extension CGImage {
         let uti = encoding.format.uti as CFString
         var imageProperties = encoding.metadata?.properties ?? [:]
         
-        imageProperties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
+        if encoding.format.isLossyCompressionSupported {
+            imageProperties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
+        }
 
         guard let destination = CGImageDestinationCreateWithData(data, uti, 1, nil) else { return nil }
 
@@ -33,7 +35,9 @@ extension CGImage {
         let uti = encoding.format.uti as CFString
         var imageProperties = encoding.metadata?.properties ?? [:]
 
-        imageProperties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
+        if encoding.format.isLossyCompressionSupported {
+            imageProperties[kCGImageDestinationLossyCompressionQuality] = encoding.compressionQuality
+        }
 
         guard let destination = CGImageDestinationCreateWithURL(url as CFURL, uti, 1, nil) else { return false }
 
