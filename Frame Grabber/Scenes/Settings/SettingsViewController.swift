@@ -96,14 +96,15 @@ class SettingsViewController: UITableViewController {
         let formats = ImageFormat.allCases
         imageFormatControl.removeAllSegments()
         
-        formats.enumerated().forEach { (index, format) in
-            imageFormatControl.insertSegment(
-                withTitle: format.displayString,
-                at: index,
-                animated: false
-            )
-            
-            imageFormatControl.setEnabled(format.isEncodingSupported, forSegmentAt: index)
+        formats
+            .filter { $0.isEncodingSupported }
+            .enumerated()
+            .forEach { (index, format) in
+                imageFormatControl.insertSegment(
+                    withTitle: format.displayString,
+                    at: index,
+                    animated: false
+                )
         }
     }
 
