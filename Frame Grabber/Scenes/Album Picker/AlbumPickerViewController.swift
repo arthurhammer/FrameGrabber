@@ -1,7 +1,7 @@
 import PhotoAlbums
 import UIKit
 
-protocol AlbumPickerViewControllerDelegate: class {
+protocol AlbumPickerViewControllerDelegate: AnyObject {
     
     /// Tells the delegate the user finished picking an album.
     ///

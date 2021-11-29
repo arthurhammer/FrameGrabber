@@ -3,7 +3,7 @@ import Combine
 import ThumbnailSlider
 import UIKit
 
-protocol EditorToolbarControllerDelegate: class {
+protocol EditorToolbarControllerDelegate: AnyObject {
     func controller(_ controller: EditorToolbarController, didSelectShareFrameAt time: CMTime)
 }
 

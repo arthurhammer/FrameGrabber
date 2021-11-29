@@ -3,7 +3,7 @@ import Photos
 import PhotosUI
 import UIKit
 
-protocol LibraryViewControllerDelegate: class {
+protocol LibraryViewControllerDelegate: AnyObject {
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
     func controllerDidSelectCamera(_ controller: LibraryViewController)

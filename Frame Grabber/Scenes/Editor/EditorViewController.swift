@@ -2,7 +2,7 @@ import AVFoundation
 import Combine
 import UIKit
 
-protocol EditorViewControllerDelegate: class {
+protocol EditorViewControllerDelegate: AnyObject {
     func controller(_ controller: EditorViewController, handleSlideToPopGesture gesture: UIPanGestureRecognizer)
 }
 

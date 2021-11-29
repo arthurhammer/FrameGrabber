@@ -1,7 +1,7 @@
 import CoreMedia
 import UIKit
 
-public protocol ThumbnailSliderDataSource: class {
+public protocol ThumbnailSliderDataSource: AnyObject {
 
     /// The aspect ratio for the slider's thumbnails.
     ///
