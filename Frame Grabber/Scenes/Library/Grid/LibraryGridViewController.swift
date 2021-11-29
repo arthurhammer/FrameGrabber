@@ -2,7 +2,7 @@ import Combine
 import Photos
 import UIKit
 
-protocol LibraryGridViewControllerDelegate: class {
+protocol LibraryGridViewControllerDelegate: AnyObject {
     func controller(
         _ controller: LibraryGridViewController,
         didSelectAsset asset: PHAsset,

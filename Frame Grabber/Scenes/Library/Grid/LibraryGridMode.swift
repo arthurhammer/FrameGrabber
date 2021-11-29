@@ -25,16 +25,9 @@ extension LibraryGridMode {
     }
 
     var icon: UIImage? {
-        if #available(iOS 14, *) {
-            switch self {
-            case .fit: return UIImage(systemName: "rectangle.arrowtriangle.2.inward")
-            case .square: return UIImage(systemName: "rectangle.arrowtriangle.2.outward")
-            }
-        } else {
-            switch self {
-            case .fit: return UIImage(systemName: "arrow.down.right.and.arrow.up.left")
-            case .square: return UIImage(systemName: "arrow.up.left.and.arrow.down.right")
-            }
+        switch self {
+        case .fit: return UIImage(systemName: "rectangle.arrowtriangle.2.inward")
+        case .square: return UIImage(systemName: "rectangle.arrowtriangle.2.outward")
         }
     }
 

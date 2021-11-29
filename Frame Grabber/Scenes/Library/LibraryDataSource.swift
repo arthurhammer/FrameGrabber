@@ -79,17 +79,13 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
     private var isAccessingPhotoLibrary = false
     
     private func startAccessingPhotoLibraryIfNeeded() {
-        guard PHPhotoLibrary.readWriteAuthorizationStatus != .notDetermined,
+        guard PHPhotoLibrary.authorizationStatus(for: .readWrite) != .notDetermined,
               !isAccessingPhotoLibrary else { return }
         
         isAccessingPhotoLibrary = true
         photoLibrary.register(self)
         
-        if #available(iOS 14, *) {
-            isAuthorizationLimited = PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
-        } else {
-            isAuthorizationLimited = false
-        }
+        isAuthorizationLimited = PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
     }
     
     // MARK: Data Access

@@ -27,7 +27,7 @@ protocol ZoomTransition {
 }
 
 /// Provides source and/or target views for the push or pop animation.
-protocol ZoomTransitionDelegate: class {
+protocol ZoomTransitionDelegate: AnyObject {
 
     /// `True` to proceed with the zoom transition, `false` to proceed with the default push/pop
     /// transition.

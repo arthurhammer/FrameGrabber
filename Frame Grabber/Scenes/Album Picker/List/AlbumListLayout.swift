@@ -13,7 +13,6 @@ class AlbumListLayout: UICollectionViewCompositionalLayout {
     
     private static let horizontalAlbumWidth: CGFloat = 140
     private static let horizontalSpacing: CGFloat = 12
-    private static let fallbackLayoutMargins: CGFloat = 20
 
     init(sectionTypeProvider: @escaping (Int) -> (SectionType)) {
         super.init { index, environment in
@@ -27,12 +26,7 @@ class AlbumListLayout: UICollectionViewCompositionalLayout {
                 section = AlbumListLayout.makeVerticalSection()
             }
             
-            if #available(iOS 14.0, *) {
-                section.contentInsetsReference = .layoutMargins
-            } else {
-                section.contentInsets.leading = AlbumListLayout.fallbackLayoutMargins
-                section.contentInsets.trailing = AlbumListLayout.fallbackLayoutMargins
-            }
+            section.contentInsetsReference = .layoutMargins
 
             return section
         }

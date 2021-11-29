@@ -10,9 +10,7 @@ class LibraryGridLayout: UICollectionViewCompositionalLayout {
     ) {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         
-        if #available(iOS 14.0, *) {
-            configuration.contentInsetsReference = .none
-        }
+        configuration.contentInsetsReference = .none
         
         super.init(sectionProvider: { _, environment in
             // We can't use the regular horizontal class since smaller phones still are horizontally

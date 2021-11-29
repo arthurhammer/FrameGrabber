@@ -50,7 +50,6 @@ struct EditorSpeedMenu {
         Selection.allCases.first!
     }
 
-    @available(iOS 14, *)
     static func menu(
         with current: Selection,
         handler: @escaping (Selection) -> Void

@@ -3,7 +3,7 @@ import Photos
 import PhotosUI
 import UIKit
 
-protocol LibraryViewControllerDelegate: class {
+protocol LibraryViewControllerDelegate: AnyObject {
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
     func controllerDidSelectCamera(_ controller: LibraryViewController)
@@ -123,10 +123,7 @@ class LibraryViewController: UIViewController {
     private func updateNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.layer.shadowOpacity = 0
-
-        if #available(iOS 14.0, *) {
-            navigationItem.backButtonDisplayMode = .minimal
-        }
+        navigationItem.backButtonDisplayMode = .minimal
     }
     
     private func updateGridSafeArea() {
@@ -138,28 +135,10 @@ class LibraryViewController: UIViewController {
     // MARK: Filter Menu
 
     private func updateFilterMenu() {
-        if #available(iOS 14, *) {
-            filterBarItem.menu = LibraryFilterMenu.menu(
-                with: dataSource.filter,
-                gridMode: dataSource.gridMode,
-                handler: { [weak self] selection in
-                    self?.handleFilterMenuSelection(selection)
-                }
-            )
-        } else {
-            filterBarItem.target = self
-            filterBarItem.action = #selector(showFilterMenuAsAlert)
-        }
-    }
-
-    @available(iOS, obsoleted: 14, message: "Use context menus.")
-    @objc private func showFilterMenuAsAlert() {
-        LibraryFilterMenu.presentAsAlert(
-            from: self,
-            currentFilter: dataSource.filter,
+        filterBarItem.menu = LibraryFilterMenu.menu(
+            with: dataSource.filter,
             gridMode: dataSource.gridMode,
-            barItem: filterBarItem,
-            selection: { [weak self] selection in
+            handler: { [weak self] selection in
                 self?.handleFilterMenuSelection(selection)
             }
         )
@@ -179,25 +158,13 @@ class LibraryViewController: UIViewController {
     // MARK: Import Menu
     
     private func configureImportMenu() {
-        if #available(iOS 14, *) {
-            let isLimited = dataSource.isAuthorizationLimited
-            toolbar.importButton.showsMenuAsPrimaryAction = true
-            toolbar.importButton.menu = LibraryImportMenu.menu(isLibraryLimited: isLimited) {
-                [weak self] in self?.handleImportMenuSelection($0)
-            }
-        } else {
-            let action = #selector(showImportMenuAsAlert)
-            toolbar.importButton.addTarget(self, action: action, for: .touchUpInside)
-        }
-    }
-    
-    @available(iOS, obsoleted: 14, message: "Use context menus.")
-    @objc private  func showImportMenuAsAlert() {
-        LibraryImportMenu.presentAsAlert(from: self, sourceView: toolbar.importButton) {
+        let isLimited = dataSource.isAuthorizationLimited
+        toolbar.importButton.showsMenuAsPrimaryAction = true
+        toolbar.importButton.menu = LibraryImportMenu.menu(isLibraryLimited: isLimited) {
             [weak self] in self?.handleImportMenuSelection($0)
         }
     }
-    
+
     private func handleImportMenuSelection(_ selection: LibraryImportMenu.Selection) {
         UISelectionFeedbackGenerator().selectionChanged()
         
@@ -207,9 +174,7 @@ class LibraryViewController: UIViewController {
         case .camera:
             delegate?.controllerDidSelectCamera(self)
         case .addMorePhotos:
-            if #available(iOS 14, *) {
-                dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
-            }
+            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
         }
     }
 }

@@ -2,7 +2,7 @@ import PhotoAlbums
 import Photos
 import UIKit
 
-protocol AlbumListViewControllerDelegate: class {
+protocol AlbumListViewControllerDelegate: AnyObject {
     func controller(_ controller: AlbumListViewController, didSelectAlbum album: Album)
     func controllerDidSelectDone(_ controller: AlbumListViewController)
 }

@@ -11,7 +11,7 @@ extension UIImagePickerController {
     /// The authorization status is not considered.
     static var canRecordVideos: Bool {
         isSourceTypeAvailable(.camera)
-            && (availableMediaTypes(for: .camera) ?? []).contains(kUTTypeMovie as String)
+            && (availableMediaTypes(for: .camera) ?? []).contains(UTType.movie.identifier)
             && (isCameraDeviceAvailable(.rear) || isCameraDeviceAvailable(.front))
     }
     

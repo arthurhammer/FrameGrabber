@@ -1,6 +1,6 @@
 import UIKit
 
-protocol SettingsViewControllerDelegate: class {
+protocol SettingsViewControllerDelegate: AnyObject {
     func controller(_ controller: SettingsViewController, didChangeExportAction: ExportAction)
     func controller(_ controller: SettingsViewController, didChangeTimeFormat: TimeFormat)
 }

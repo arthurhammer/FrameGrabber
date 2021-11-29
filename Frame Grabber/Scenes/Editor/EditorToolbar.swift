@@ -40,11 +40,7 @@ class EditorToolbar: UIView {
             .scaledBy(x: spinnerScale, y: spinnerScale)
         
         configureTimeLabel()
-        if #available(iOS 14, *) {
-            configureSpeedButton()
-        } else {
-            speedButton.isHidden = true
-        }
+        configureSpeedButton()
     }
     
     private func configureTimeLabel() {
@@ -59,7 +55,6 @@ class EditorToolbar: UIView {
         handleConstraint?.isActive = true
     }
     
-    @available(iOS 14, *)
     private func configureSpeedButton() {
         speedButton.leadingAnchor.constraint(
             greaterThanOrEqualTo: timeSlider.handleLayoutGuide.trailingAnchor,
@@ -72,7 +67,6 @@ class EditorToolbar: UIView {
         configureSpeedButtonBlurView()
     }
     
-    @available(iOS 14, *)
     private func configureSpeedButtonBlurView() {
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         blurView.layer.cornerRadius = timeSlider.layer.cornerRadius - timeSlider.layer.borderWidth

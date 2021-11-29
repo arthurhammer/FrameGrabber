@@ -1,5 +1,5 @@
-import MobileCoreServices
 import UIKit
+import UniformTypeIdentifiers
 
 /// Static factory for view controllers.
 struct ViewControllerFactory {
@@ -41,19 +41,10 @@ struct ViewControllerFactory {
         withDelegate delegate: UIDocumentPickerDelegate?
     ) -> UIDocumentPickerViewController {
         
-        let picker: UIDocumentPickerViewController
-        
-        if #available(iOS 14.0, *) {
-            picker = UIDocumentPickerViewController(
-                forOpeningContentTypes: [.movie],
-                asCopy: true
-            )
-        } else {
-            picker = UIDocumentPickerViewController(
-                documentTypes: [kUTTypeMovie as String],
-                in: .import
-            )
-        }
+        let picker = UIDocumentPickerViewController(
+            forOpeningContentTypes: [.movie],
+            asCopy: true
+        )
         
         picker.shouldShowFileExtensions = true
         picker.delegate = delegate
@@ -77,7 +68,7 @@ struct ViewControllerFactory {
         let picker = UIImagePickerController()
         
         picker.delegate = delegate
-        picker.mediaTypes = [kUTTypeMovie as String]
+        picker.mediaTypes = [UTType.movie.identifier]
         picker.sourceType = .camera
         picker.cameraCaptureMode = .video
         picker.cameraDevice = camera
