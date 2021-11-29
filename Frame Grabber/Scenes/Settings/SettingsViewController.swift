@@ -7,8 +7,15 @@ protocol SettingsViewControllerDelegate: class {
 
 class SettingsViewController: UITableViewController {
 
+    private enum Section: Int {
+        case imageFormat
+        case metadata
+        case exportAction
+        case timeFormat
+    }
+    
     weak var delegate: SettingsViewControllerDelegate?
-
+    
     private let settings: UserDefaults = .standard
 
     @IBOutlet private var includeMetadataSwitch: UISwitch!
@@ -76,12 +83,25 @@ class SettingsViewController: UITableViewController {
         UISelectionFeedbackGenerator().selectionChanged()
         settings.imageFormat = ImageFormat.allCases[sender.selectedSegmentIndex]
         updateViews()
+        tableView.reloadData()
     }
 
     @IBAction private func didChangeCompressionQuality(_ sender: UIStepper) {
         UISelectionFeedbackGenerator().selectionChanged()
         settings.compressionQuality = sender.value/100
         updateViews()
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if Section(section) == .imageFormat {
+            switch settings.imageFormat {
+            case .jpeg: return UserText.exportSettingsImageFormatJPEGFooter
+            case .png: return UserText.exportSettingsImageFormatPNGFooter
+            case .heif: return UserText.exportSettingsImageFormatHEIFFooter
+            }
+        }
+        
+        return super.tableView(tableView, titleForFooterInSection: section)
     }
 
     private func configureViews() {
@@ -95,10 +115,9 @@ class SettingsViewController: UITableViewController {
     }
         
     private func configureImageFormatControl() {
-        let formats = ImageFormat.allCases
         imageFormatControl.removeAllSegments()
         
-        formats
+        ImageFormat.allCases
             .filter { $0.isEncodingSupported }
             .enumerated()
             .forEach { (index, format) in
