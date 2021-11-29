@@ -20,13 +20,13 @@
 "EqD-Cz-Mrt.text" = "Zeitformat";
 
 /* Class = "UITableViewSection"; footerTitle = "Adds creation date, GPS location and other metadata to exported images, if available."; ObjectID = "iHH-Fm-kn8"; */
-"iHH-Fm-kn8.footerTitle" = "Fügt Aufnahmedatum, Ort und andere Metadaten zu exportierten Bildern hinzu, falls verfügbar.";
+"iHH-Fm-kn8.footerTitle" = "Fügt Aufnahmedatum, Ort und andere Metadaten zu exportierten Bildern hinzu falls verfügbar.";
 
 /* Class = "UILabel"; text = "<0.95>"; ObjectID = "mzj-e4-l06"; */
 "mzj-e4-l06.text" = "<0.95>";
 
 /* Class = "UILabel"; text = "Add Metadata"; ObjectID = "So8-Af-ERQ"; */
-"So8-Af-ERQ.text" = "Metadaten Anfügen";
+"So8-Af-ERQ.text" = "Metadaten";
 
 /* Class = "UILabel"; text = "Quality"; ObjectID = "sWo-g3-pni"; */
 "sWo-g3-pni.text" = "Qualität";
