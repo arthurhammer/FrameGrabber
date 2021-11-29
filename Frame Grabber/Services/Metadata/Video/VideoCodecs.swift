@@ -20,7 +20,6 @@ extension CMFormatDescription.MediaSubType {
     }
 }
 
-@available(iOS 14.0, *)
 extension UTType {
     
     /// A description of the container format for display.

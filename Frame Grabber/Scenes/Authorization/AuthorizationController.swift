@@ -5,7 +5,7 @@ import SafariServices
 class AuthorizationController: UIViewController {
 
     static var needsAuthorization: Bool {
-        let status = PHPhotoLibrary.readWriteAuthorizationStatus
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         return [.notDetermined, .denied, .restricted].contains(status)
     }
 
@@ -59,7 +59,7 @@ class AuthorizationController: UIViewController {
     }
 
     private func updateViews() {
-        switch PHPhotoLibrary.readWriteAuthorizationStatus {
+        switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
         case .denied, .restricted:
             authorizationMessageLabel.text = UserText.authorizationDeniedMessage
             actionButton.setTitle(UserText.authorizationDeniedAction, for: .normal)
@@ -94,10 +94,6 @@ extension AuthorizationController: UIScrollViewDelegate {
 private extension PHAuthorizationStatus {
     
     var isAuthorizedOrLimited: Bool {
-        if #available(iOS 14, *) {
-            return (self == .authorized) || (self == .limited)
-        } else {
-            return self == .authorized
-        }
+        [.authorized, .limited].contains(self)
     }
 }

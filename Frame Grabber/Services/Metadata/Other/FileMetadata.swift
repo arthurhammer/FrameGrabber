@@ -17,14 +17,9 @@ extension FileMetadata {
         self.name = url.lastPathComponent
         self.size = url.fileSize
         
-        if #available(iOS 14.0, *) {
-            let type = UTType(filenameExtension: url.pathExtension)
-            self.formatIdentifier = type?.identifier
-            self.formatDisplayString = type?.displayString
-        } else {
-            self.formatIdentifier = nil
-            self.formatDisplayString = nil
-        }
+        let type = UTType(filenameExtension: url.pathExtension)
+        self.formatIdentifier = type?.identifier
+        self.formatDisplayString = type?.displayString
     }
 }
 
