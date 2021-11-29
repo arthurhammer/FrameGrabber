@@ -95,10 +95,9 @@ class SettingsViewController: UITableViewController {
     }
         
     private func configureImageFormatControl() {
-        let formats = ImageFormat.allCases
         imageFormatControl.removeAllSegments()
         
-        formats
+        ImageFormat.allCases
             .filter { $0.isEncodingSupported }
             .enumerated()
             .forEach { (index, format) in
