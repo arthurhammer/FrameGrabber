@@ -4,7 +4,7 @@
 /* Class = "UITableViewSection"; headerTitle = "Editor"; ObjectID = "18b-ig-Gto"; */
 "18b-ig-Gto.headerTitle" = "Editor";
 
-/* Class = "UITableViewSection"; footerTitle = "A smaller compression quality results in a smaller file size with a slightly reduced photo quality. PNG is lossless and always at full quality."; ObjectID = "ak6-oU-70Q"; */
+/* Class = "UITableViewSection"; footerTitle = "<A smaller compression quality results in a smaller file size with a slightly degraded photo quality.>"; ObjectID = "ak6-oU-70Q"; */
 "ak6-oU-70Q.footerTitle" = "Eine niedrigere Kompressionsqualität führt zu einer kleineren Dateigröße, aber mit leicht geringerer Bildqualität. PNG ist immer verlustfrei.";
 
 /* Class = "UITableViewSection"; headerTitle = "Image Export"; ObjectID = "ak6-oU-70Q"; */
@@ -25,7 +25,7 @@
 /* Class = "UILabel"; text = "<0.95>"; ObjectID = "mzj-e4-l06"; */
 "mzj-e4-l06.text" = "<0.95>";
 
-/* Class = "UILabel"; text = "Add Metadata"; ObjectID = "So8-Af-ERQ"; */
+/* Class = "UILabel"; text = "Metadata"; ObjectID = "So8-Af-ERQ"; */
 "So8-Af-ERQ.text" = "Metadaten";
 
 /* Class = "UILabel"; text = "Quality"; ObjectID = "sWo-g3-pni"; */

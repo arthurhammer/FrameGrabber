@@ -58,6 +58,10 @@ struct UserText {
     static let editorDetailSettingsSectionTitle = NSLocalizedString("editor.detail.settings.title", value: "Settings", comment: "Title for the settings section.")
     static let editorDetailMetadataSectionTitle = NSLocalizedString("editor.detail.metadata.title", value: "Metadata", comment: "Title for the metadata section.")
     
+    static let exportSettingsImageFormatJPEGFooter = NSLocalizedString("exportsettings.imageFormat.jpeg.footer", value: "A smaller compression quality results in a smaller file size with a slightly degraded photo quality.", comment: "Explanation about lossy compression")
+    static let exportSettingsImageFormatPNGFooter = NSLocalizedString("exportsettings.imageFormat.png.footer", value: "PNG always uses full quality.", comment: "Explanation about lossless compression.")
+    static let exportSettingsImageFormatHEIFFooter = UserText.exportSettingsImageFormatJPEGFooter
+    
     static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Directly send your photos to AirDrop, Instagram, Messages and many other apps.", comment: "Explanation of what the share sheet setting does")
     static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves photos to your photo library and adds them to the “Frame Grabber” album.", comment: "Explanation of what the save to photos setting does")
     static let exportShowShareSheetAction = NSLocalizedString("export.showShareSheet.action", value: "Share Sheet", comment: "Title for the share sheet export setting.")
