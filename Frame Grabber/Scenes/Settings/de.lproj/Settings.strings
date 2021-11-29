@@ -1,5 +1,5 @@
 /* Class = "UINavigationItem"; title = "Export to"; ObjectID = "7g2-vo-8yq"; */
-"7g2-vo-8yq.title" = "Zielort";
+"7g2-vo-8yq.title" = "Aktion";
 
 /* Class = "UITableViewSection"; headerTitle = "Editor"; ObjectID = "18b-ig-Gto"; */
 "18b-ig-Gto.headerTitle" = "Editor";
@@ -11,7 +11,7 @@
 "ak6-oU-70Q.headerTitle" = "Bildexport";
 
 /* Class = "UITableViewSection"; headerTitle = "Action"; ObjectID = "cyG-HX-Gr6"; */
-"cyG-HX-Gr6.headerTitle" = "Aktion";
+"cyG-HX-Gr6.headerTitle" = "Teilen";
 
 /* Class = "UINavigationItem"; title = "Time Format"; ObjectID = "D8n-NF-YRK"; */
 "D8n-NF-YRK.title" = "Zeitformat";
@@ -32,7 +32,7 @@
 "sWo-g3-pni.text" = "Qualität";
 
 /* Class = "UILabel"; text = "Export to"; ObjectID = "V1t-8Q-ajc"; */
-"V1t-8Q-ajc.text" = "Zielort";
+"V1t-8Q-ajc.text" = "Aktion";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "wmB-Os-3eg"; */
 "wmB-Os-3eg.title" = "Einstellungen";

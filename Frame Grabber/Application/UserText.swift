@@ -64,9 +64,9 @@ struct UserText {
     
     static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Directly send your photos to AirDrop, Instagram, Messages and many other apps.", comment: "Explanation of what the share sheet setting does")
     static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves photos to your photo library and adds them to the “Frame Grabber” album.", comment: "Explanation of what the save to photos setting does")
-    static let exportShowShareSheetAction = NSLocalizedString("export.showShareSheet.action", value: "Share Sheet", comment: "Title for the share sheet export setting.")
+    static let exportShowShareSheetAction = NSLocalizedString("export.showShareSheet.action", value: "Open Share Sheet", comment: "Title for the share sheet export setting.")
     static let exportSettingsFrameNumberFormatFooter = NSLocalizedString("exportsettings.frameNumber.footer", value: "Minutes, seconds and the frame number relative to the current second.\n\nFor large videos, it might take a bit longer to determine the frame numbers.", comment: "Explanation of what the frame number time format does.")
-    static let exportSaveToPhotosAction = NSLocalizedString("exportsettings.saveToPhotos.action", value: "Photos", comment: "Title for the save to photo library export setting.")
+    static let exportSaveToPhotosAction = NSLocalizedString("exportsettings.saveToPhotos.action", value: "Save to Photos", comment: "Title for the save to photo library export setting.")
     static let exportSettingsMillisecondsFormatFooter = NSLocalizedString("exportsettings.milliseconds.footer", value: "Minutes, seconds and milliseconds.", comment: "Explanation of what the milliseconds time format does.")
     static let exportMillisecondsFormatTitle = NSLocalizedString("settings.milliseconds.title", value: "Milliseconds", comment: "Title for the milliseconds time format setting.")
     static let exportMillisecondsFormat = NSLocalizedString("settings.milliseconds.format", value: "mm:ss.SSS", comment: "The milliseconds format, used for display (but not for actual formatting).")

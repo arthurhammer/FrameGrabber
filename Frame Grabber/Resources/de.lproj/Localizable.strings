@@ -158,7 +158,7 @@
 "editor.more.metadata.action" = "Metadaten";
 
 /* Title for the share sheet export setting. */
-"export.showShareSheet.action" = "Share-Sheet";
+"export.showShareSheet.action" = "Share-Sheet öffnen";
 
 /* Explanation of what the frame number time format does. */
 "exportsettings.frameNumber.footer" = "Minuten, Sekunden und Framenummer relativ zu der aktuellen Sekunde. \n\nFür größere Videos kann es etwas dauern, bis die Framenummern verfügbar sind.";
@@ -173,7 +173,7 @@
 "exportsettings.milliseconds.footer" = "Minuten, Sekunden und Millisekunden.";
 
 /* Title for the save to photo library export setting. */
-"exportsettings.saveToPhotos.action" = "Fotos";
+"exportsettings.saveToPhotos.action" = "In Fotos speichern";
 
 /* Explanation of what the save to photos setting does */
 "exportsettings.saveToPhotos.footer" = "Speichert Fotos in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
