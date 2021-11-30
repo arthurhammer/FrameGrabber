@@ -97,7 +97,10 @@ class EditorViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
+        let edgeAppearance = UINavigationBarAppearance()
+        edgeAppearance.shadowColor = nil
+        navigationItem.standardAppearance = edgeAppearance
+        navigationItem.scrollEdgeAppearance = edgeAppearance
         navigationController?.navigationBar.applyDefaultShadow()
         toolbarController.toolbar.applyDefaultShadow()
     }
