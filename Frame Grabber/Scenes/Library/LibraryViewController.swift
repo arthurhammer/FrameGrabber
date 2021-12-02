@@ -121,8 +121,10 @@ class LibraryViewController: UIViewController {
     }
     
     private func updateNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.layer.shadowOpacity = 0
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.shadowColor = nil
+        navigationItem.standardAppearance = standardAppearance
+        navigationController?.navigationBar.layer.shadowOpacity = 0  // Reset the custom editor shadow.
         navigationItem.backButtonDisplayMode = .minimal
     }
     
