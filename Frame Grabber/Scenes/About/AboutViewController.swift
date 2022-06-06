@@ -51,25 +51,26 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
 
     private func configureViews() {
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-        tableView.backgroundColor = .clear
-        
-        rateButton.configureAsActionButton(minimumWidth: 150)
-        rateButton.applyDefaultShadow()
+        rateButton.configureAsActionButton()
+        rateButton.backgroundColor = .accent?.withAlphaComponent(0.1)
+        rateButton.setTitleColor(.accent, for: .normal)
         
         purchaseButton.configureAsActionButton()
-        purchaseButton.backgroundColor = .secondarySystemFill
-        purchaseButton.setTitleColor(.secondaryLabel, for: .normal)
+        purchaseButton.applyDefaultShadow()
+        purchaseButton.configureTrailingAlignedImage()
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, size: 22, weight: .semibold)
-
         versionLabel.font = .preferredFont(forTextStyle: .footnote, weight: .semibold)
-        versionLabel.text = String.localizedStringWithFormat(
-            UserText.aboutVersionFormat,
-            bundle.shortFormattedVersion
-        )
+        versionLabel.text = String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: UserText.aboutShareAppButtonTitle,
+            image: UIImage(systemName: "square.and.arrow.up"),
+            primaryAction: UIAction { [weak self] _ in self?.shareApp() },
+            menu: nil
+        )
     }
 }
 
@@ -79,6 +80,13 @@ extension AboutViewController {
 
     @IBAction private func done() {
         dismiss(animated: true)
+    }
+    
+    private func shareApp() {
+        guard let url = About.storeURL?.absoluteString else { return }
+        let shareText = "\(UserText.aboutShareAppText)\n\(url)"
+        let shareController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        present(shareController, animated: true)
     }
 
     @IBAction private func rate() {

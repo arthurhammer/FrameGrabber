@@ -17,6 +17,8 @@ struct UserText {
     static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
     static let authorizationUndeterminedAction = NSLocalizedString("authorization.undetermined.action", value: "Get Started", comment: "Photo library authorization default action")
 
+    static let aboutShareAppText = NSLocalizedString("about.share.text", value: "Download Frame Grabber on the App Store", comment: "Text shared alongside the App Store URL when sharing the app")
+    static let aboutShareAppButtonTitle = NSLocalizedString("about.share.button.title", value: "Share App", comment: "Share App button title and accessibility label")
     static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "Version %@", comment: "Version label with numerical version")
     static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
 

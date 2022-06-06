@@ -1,6 +1,12 @@
 /* Feedback email subject */
 "about.email.subject" = "Frame Grabber: Feedback";
 
+/* Share App button title and accessibility label */
+"about.share.button.title" = "App Teilen";
+
+/* Text shared alongside the App Store URL when sharing the app */
+"about.share.text" = "Lade Frame Grabber im App Store";
+
 /* Version label with numerical version */
 "about.version.format" = "Version %@";
 
