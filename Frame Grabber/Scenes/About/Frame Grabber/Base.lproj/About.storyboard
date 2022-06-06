@@ -123,9 +123,9 @@
                                                             <rect key="frame" x="0.0" y="0.5" width="32" height="32"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="752" verticalHuggingPriority="251" image="hand.thumbsup.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3HE-sY-eny">
-                                                                    <rect key="frame" x="0.0" y="1.5" width="32" height="28.5"/>
+                                                                    <rect key="frame" x="0.0" y="-1" width="32" height="33.5"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="medium"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                                                 </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -189,9 +189,9 @@
                                                             <rect key="frame" x="0.0" y="0.5" width="32" height="32"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="752" verticalHuggingPriority="251" image="keyboard.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FVu-h4-KSr">
-                                                                    <rect key="frame" x="0.0" y="3.5" width="32" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="2" width="32" height="28.5"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="medium"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                                                 </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemGrayColor"/>
@@ -297,7 +297,7 @@
                                                                     <state key="normal" title="Donate">
                                                                         <imageReference key="image" image="heart.circle.fill" catalog="system" renderingMode="hierarchical-single">
                                                                             <hierarchicalColors>
-                                                                                <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                                 <color systemColor="secondaryLabelColor"/>
                                                                                 <color systemColor="tertiaryLabelColor"/>
                                                                             </hierarchicalColors>
