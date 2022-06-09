@@ -152,7 +152,7 @@
 "editor.menu.speed.quarter.action" = "Viertel";
 
 /* Title for the speed menu. */
-"editor.menu.speed.title" = "Wähle das Tempo, um durch das Video zu wischen.";
+"editor.menu.speed.title" = "Scrubbing-Tempo";
 
 /* Title for the very fine speed in the speed menu. */
 "editor.menu.speed.veryFine.action" = "Schnecke";

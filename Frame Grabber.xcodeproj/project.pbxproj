@@ -370,10 +370,9 @@
 			isa = PBXGroup;
 			children = (
 				001AA1841FB4977100A00BB9 /* Info.plist */,
+				00AA201C213432B400084B08 /* InfoPlist.strings */,
 				003D1F3125041FF1006107C0 /* Configuration.storekit */,
 				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
-				00AA201C213432B400084B08 /* InfoPlist.strings */,
-				00AA201F213432B400084B08 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -669,6 +668,7 @@
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
 				001CBD93242BB7CE00625685 /* UserText.swift */,
+				00AA201F213432B400084B08 /* Localizable.strings */,
 				0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */,
 				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
 			);

@@ -50,7 +50,7 @@ struct UserText {
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
     static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
     
-    static let speedMenuTitle = NSLocalizedString("editor.menu.speed.title", value: "Set the speed for scrubbing through the video.", comment: "Title for the speed menu.")
+    static let speedMenuTitle = NSLocalizedString("editor.menu.speed.title", value: "Scrubbing Rate", comment: "Title for the speed menu.")
     static let speedMenuNormalSpeedAction = NSLocalizedString("editor.menu.speed.normal.action", value: "Normal", comment: "Title for the normal speed in the speed menu.")
     static let speedMenuHalfSpeedAction = NSLocalizedString("editor.menu.speed.half.action", value: "Half", comment: "Title for the half speed in the speed menu.")
     static let speedMenuQuarterSpeedAction = NSLocalizedString("editor.menu.speed.quarter.action", value: "Quarter", comment: "Title for the quarter speed in the speed menu.")
