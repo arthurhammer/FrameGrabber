@@ -12,6 +12,6 @@ class AlbumListHeader: UICollectionReusableView {
     }
     
     private func configureViews() {
-        titleLabel.font = .preferredFont(forTextStyle: .headline, size: 22, weight: .semibold)
+        titleLabel.font = .preferredFont(forTextStyle: .headline, weight: .semibold, size: 22)
     }
 }

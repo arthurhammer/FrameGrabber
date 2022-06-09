@@ -103,7 +103,7 @@ class PurchaseViewController: UIViewController {
     private func configureViews() {
         scrollView.delegate = self
         confettiView.confettiImage = UIImage(named: "confetti")
-        titleLabel.font = .preferredFont(forTextStyle: .title1, size: 36, weight: .semibold)
+        titleLabel.font = .preferredFont(forTextStyle: .title1, weight: .semibold, size: 36)
                 
         supporterBadgeView.layer.cornerRadius = 8
         supporterBadgeView.layer.cornerCurve = .continuous

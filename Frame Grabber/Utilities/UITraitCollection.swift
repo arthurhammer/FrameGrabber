@@ -12,3 +12,11 @@ extension UITraitCollection {
         (preferredContentSizeCategory != other?.preferredContentSizeCategory)
     }
 }
+
+extension UIContentSizeCategory {
+    
+    /// The default content size category: `.large`.
+    static var `default`: Self { .large }
+}
+
+extension UIContentSizeCategory: Comparable {}  // UIKit already implements the operators.

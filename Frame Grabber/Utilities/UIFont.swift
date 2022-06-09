@@ -1,39 +1,89 @@
 import UIKit
 
 extension UIFont {
-
-    /// The preferred scaled font for the given style adjusted with the given weight.
-    static func preferredFont(forTextStyle style: TextStyle, weight: Weight) -> UIFont {
-        let baseSize = baseFont(forTextStyle: style).pointSize
-        return preferredFont(forTextStyle: style, size: baseSize, weight: weight)
+    
+    // MARK: Unscaled Fonts
+    
+    /// The unscaled font for the given text style at the given content size category.
+    static func preferredFont(forTextStyle style: TextStyle, atSizeCategory size: UIContentSizeCategory) -> UIFont {
+        preferredFont(forTextStyle: style, compatibleWith: .init(preferredContentSizeCategory: size))
     }
     
-    /// A scaled font for the given base size adjusted for the weight and scaled for the style.
+    // MARK: Scaled Fonts
+    
+    enum MaximumSize {
+        case pointSize(CGFloat)
+        case sizeCategory(UIContentSizeCategory)
+    }
+    
+    /// A preferred font for the given style that scales up to the maximum size (if any).
     static func preferredFont(
         forTextStyle style: TextStyle,
-        size: CGFloat,
-        weight: Weight
+        weight: Weight?,  // no default parameter to disambiguate from `preferredFont(forTextStyle:)`
+        maximumSize: MaximumSize? = nil
     ) -> UIFont {
-        
-        let targetFont = systemFont(ofSize: size, weight: weight)
-        return UIFontMetrics(forTextStyle: style).scaledFont(for: targetFont)
+        let baseFont = preferredFont(forTextStyle: style, atSizeCategory: .default)
+        let baseFontSize = baseFont.pointSize
+        return preferredFont(forTextStyle: style, weight: weight, size: baseFontSize, maximumSize: maximumSize)
     }
     
-    /// A monospaced digit font that scales for the given style and weight.
+    /// A preferred font for the given style using an explicit base size that scales up to the maximum size (if any).
+    /// - Parameters:
+    ///   - size: The explicit base size of the font. The scaling behavior matches that of the text style.
+    static func preferredFont(
+        forTextStyle style: TextStyle,
+        weight: Weight?,
+        size: CGFloat,
+        maximumSize: MaximumSize? = nil
+    ) -> UIFont {
+        
+        let targetFont: UIFont
+        if let weight = weight {
+            targetFont = systemFont(ofSize: size, weight: weight)
+        } else {
+            targetFont = systemFont(ofSize: size)
+        }
+        
+        return scaledFont(for: targetFont, textStyle: style, maximumSize: maximumSize)
+    }
+    
+    // MARK: Monospaced Fonts
+
+    /// A monospaced digit font for the given style that scales up to the maximum size (if any).
     static func monospacedDigitSystemFont(
         forTextStyle style: TextStyle,
-        weight: Weight = .regular
+        weight: Weight = .regular,
+        maximumSize: MaximumSize? = nil
+    ) -> UIFont {
+        let baseFont = preferredFont(forTextStyle: style, atSizeCategory: .default)
+        let targetFont = monospacedDigitSystemFont(ofSize: baseFont.pointSize, weight: weight)
+        return scaledFont(for: targetFont, textStyle: style, maximumSize: maximumSize)
+    }
+}
+
+// MARK: - Private
+
+extension UIFont {
+    
+    fileprivate static func scaledFont(
+        for font: UIFont,
+        textStyle: TextStyle,
+        maximumSize: MaximumSize? = nil
     ) -> UIFont {
         
-        let baseSize = baseFont(forTextStyle: style).pointSize
-        let targetFont = monospacedDigitSystemFont(ofSize: baseSize, weight: weight)
-        return UIFontMetrics(forTextStyle: style).scaledFont(for: targetFont)
-    }
-    
-    /// The preferred font for the given text style at the default (but not necessarily current)
-    /// content size category. The default content size category is `.large`.
-    private static func baseFont(forTextStyle style: TextStyle) -> UIFont {
-        let defaultCategory = UITraitCollection(preferredContentSizeCategory: .large)
-        return preferredFont(forTextStyle: style, compatibleWith: defaultCategory)
+        let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
+        
+        switch maximumSize {
+        case .none:
+            return fontMetrics.scaledFont(for: font)
+
+        case .pointSize(let pointSize):
+            return fontMetrics.scaledFont(for: font, maximumPointSize: pointSize)
+            
+        case .sizeCategory(let sizeCategory):
+            let maximumFont = preferredFont(forTextStyle: textStyle, atSizeCategory: sizeCategory)
+            let maximumFontSize = maximumFont.pointSize
+            return fontMetrics.scaledFont(for: font, maximumPointSize: maximumFontSize)
+        }
     }
 }
