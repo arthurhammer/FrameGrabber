@@ -1,10 +1,10 @@
 extension String {
 
-    var trimmed: String {
+    public var trimmed: String {
         trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    var nilIfEmpty: String? {
+    public var nilIfEmpty: String? {
         let trimmed = self.trimmed
         return (trimmed != "") ? trimmed : nil
     }

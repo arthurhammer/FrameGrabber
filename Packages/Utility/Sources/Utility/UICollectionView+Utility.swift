@@ -11,10 +11,7 @@ extension UICollectionView {
     /// - Parameters:
     ///   - duration: has no effect if `animated` is `false`.
     ///   - completion: Called synchronously if `animated` is `false`, otherwise asynchronously.
-    func reloadData(animated: Bool,
-        duration: TimeInterval = 0.2,
-        completion: ((Bool) -> Void)? = nil
-    ) {
+    public func reloadData(animated: Bool, duration: TimeInterval = 0.2, completion: ((Bool) -> Void)? = nil) {
         if !animated {
             reloadData()
             completion?(false)

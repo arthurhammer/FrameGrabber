@@ -16,4 +16,7 @@
    <FileRef
       location = "group:Packages/ThumbnailSlider">
    </FileRef>
+   <FileRef
+      location = "group:Packages/Utility">
+   </FileRef>
 </Workspace>

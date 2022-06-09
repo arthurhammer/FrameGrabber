@@ -1,4 +1,5 @@
 import MapKit
+import Utility
 import UIKit
 
 class MetadataLocationHeader: UITableViewHeaderFooterView {

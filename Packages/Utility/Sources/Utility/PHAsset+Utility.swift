@@ -2,15 +2,15 @@ import Photos
 
 extension PHAsset {
     
-    var dimensions: CGSize {
+    public var dimensions: CGSize {
         CGSize(width: pixelWidth, height: pixelHeight)
     }
 
-    var isVideo: Bool {
+    public var isVideo: Bool {
         mediaType == .video
     }
 
-    var isLivePhoto: Bool {
+    public var isLivePhoto: Bool {
         mediaSubtypes.contains(.photoLive)
     }
 }

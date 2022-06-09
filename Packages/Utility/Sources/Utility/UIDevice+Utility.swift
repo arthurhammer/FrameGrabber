@@ -2,7 +2,7 @@ import UIKit
 
 extension UIDevice {
     /// Device type, e.g. "iPhone7,2".
-    var type: String? {
+    public var type: String? {
         // From the world wide webs.
         var systemInfo = utsname()
         uname(&systemInfo)

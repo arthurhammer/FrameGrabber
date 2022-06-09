@@ -1,3 +1,4 @@
+import Utility
 import UIKit
 
 /// Basic progress view for both indeterminate and determinate progress.

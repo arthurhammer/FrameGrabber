@@ -1,5 +1,6 @@
 import Combine
 import MapKit
+import Utility
 import UIKit
 
 class MetadataViewController: UITableViewController {

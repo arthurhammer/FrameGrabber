@@ -5,19 +5,19 @@ extension UIFont {
     // MARK: Unscaled Fonts
     
     /// The unscaled font for the given text style at the given content size category.
-    static func preferredFont(forTextStyle style: TextStyle, atSizeCategory size: UIContentSizeCategory) -> UIFont {
+    public static func preferredFont(forTextStyle style: TextStyle, atSizeCategory size: UIContentSizeCategory) -> UIFont {
         preferredFont(forTextStyle: style, compatibleWith: .init(preferredContentSizeCategory: size))
     }
     
     // MARK: Scaled Fonts
     
-    enum MaximumSize {
+    public enum MaximumSize {
         case pointSize(CGFloat)
         case sizeCategory(UIContentSizeCategory)
     }
     
     /// A preferred font for the given style that scales up to the maximum size (if any).
-    static func preferredFont(
+    public static func preferredFont(
         forTextStyle style: TextStyle,
         weight: Weight?,  // no default parameter to disambiguate from `preferredFont(forTextStyle:)`
         maximumSize: MaximumSize? = nil
@@ -30,7 +30,7 @@ extension UIFont {
     /// A preferred font for the given style using an explicit base size that scales up to the maximum size (if any).
     /// - Parameters:
     ///   - size: The explicit base size of the font. The scaling behavior matches that of the text style.
-    static func preferredFont(
+    public static func preferredFont(
         forTextStyle style: TextStyle,
         weight: Weight?,
         size: CGFloat,
@@ -50,7 +50,7 @@ extension UIFont {
     // MARK: Monospaced Fonts
 
     /// A monospaced digit font for the given style that scales up to the maximum size (if any).
-    static func monospacedDigitSystemFont(
+    public static func monospacedDigitSystemFont(
         forTextStyle style: TextStyle,
         weight: Weight = .regular,
         maximumSize: MaximumSize? = nil

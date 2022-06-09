@@ -1,27 +1,26 @@
 import Foundation
-import UIKit
 
 extension Bundle {
 
-    var name: String {
+    public var name: String {
         info(for: "CFBundleDisplayName") ?? info(for: "CFBundleName") ?? ""
     }
 
-    var version: String {
+    public var version: String {
         info(for: "CFBundleShortVersionString") ?? ""
     }
 
-    var build: String {
+    public var build: String {
         info(for: "CFBundleVersion") ?? ""
     }
 
     /// Name, version and build.
-    var longFormattedVersion: String {
+    public var longFormattedVersion: String {
         "\(name) \(version) (\(build))"
     }
 
     /// Version and build.
-    var shortFormattedVersion: String {
+    public var shortFormattedVersion: String {
         "\(version) (\(build))"
     }
 
