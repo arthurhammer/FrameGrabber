@@ -20,8 +20,8 @@ extension LibraryGridMode {
 
     var title: String {
         switch self {
-        case .fit: return UserText.albumViewSettingsFitGridTitle
-        case .square: return UserText.albumViewSettingsSquareGridTitle
+        case .fit: return Localized.albumViewSettingsFitGridTitle
+        case .square: return Localized.albumViewSettingsSquareGridTitle
         }
     }
 

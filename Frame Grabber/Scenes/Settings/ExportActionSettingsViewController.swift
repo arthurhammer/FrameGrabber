@@ -32,8 +32,8 @@ class ExportActionSettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch selectedAction {
-        case .showShareSheet: return UserText.exportSettingsShowShareSheetFooter
-        case .saveToPhotos: return UserText.exportSettingsSaveToPhotosFooter
+        case .showShareSheet: return Localized.exportSettingsShowShareSheetFooter
+        case .saveToPhotos: return Localized.exportSettingsSaveToPhotosFooter
         }
     }
 }

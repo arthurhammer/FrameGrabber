@@ -1,6 +1,6 @@
 import Foundation
 
-struct UserText {
+struct Localized {
     static let appName = "Frame Grabber"
     static let photoLibraryAppAlbum = appName
     static let exifAppInformation = "\(appName) \(Bundle.main.version)"
@@ -62,7 +62,7 @@ struct UserText {
     
     static let exportSettingsImageFormatJPEGFooter = NSLocalizedString("exportsettings.imageFormat.jpeg.footer", value: "A smaller compression quality results in a smaller file size with a slightly degraded photo quality.", comment: "Explanation about lossy compression")
     static let exportSettingsImageFormatPNGFooter = NSLocalizedString("exportsettings.imageFormat.png.footer", value: "PNG always uses full quality.", comment: "Explanation about lossless compression.")
-    static let exportSettingsImageFormatHEIFFooter = UserText.exportSettingsImageFormatJPEGFooter
+    static let exportSettingsImageFormatHEIFFooter = Localized.exportSettingsImageFormatJPEGFooter
     
     static let exportSettingsShowShareSheetFooter = NSLocalizedString("exportsettings.showShareSheet.footer", value: "Directly send your photos to AirDrop, Instagram, Messages and many other apps.", comment: "Explanation of what the share sheet setting does")
     static let exportSettingsSaveToPhotosFooter = NSLocalizedString("exportsettings.saveToPhotos.footer", value: "Saves photos to your photo library and adds them to the “Frame Grabber” album.", comment: "Explanation of what the save to photos setting does")
@@ -77,7 +77,11 @@ struct UserText {
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
-        
+}
+
+// MARK: - Metadata
+
+extension Localized {
     struct Metadata {
         static let typeTitle = NSLocalizedString("metadata.type.title", value: "Type", comment: "Title for the video type metadata.")
         static let typeVideoValue = NSLocalizedString("metadata.type.video", value: "Video", comment: "Video: Value for the video type metadata item.")
@@ -101,7 +105,9 @@ struct UserText {
     }
 }
 
-extension UserText {
+// MARK: - Alerts
+
+extension Localized {
     static let alertFilePickingFailedTitle = NSLocalizedString("alert.filePicker.title", value: "Could not Open Video", comment: "")
     static let alertFilePickingFailedMessage = NSLocalizedString("alert.filePicker.message", value: "There was an error importing the file.", comment: "")
     
@@ -130,17 +136,17 @@ extension UserText {
     static let alertIAPFailedTitle = NSLocalizedString("alert.iap.failed.title", value: "Cannot Purchase Ice Cream", comment: "Alert title: Purchasing failed.")
     static let alertIAPFailedMessage = NSLocalizedString("alert.iap.failed.message", value: "Please check your network settings and try again later. Thank you for your support!", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
 
-    static let alertIAPUnauthorizedTitle = UserText.alertIAPFailedTitle
+    static let alertIAPUnauthorizedTitle = Localized.alertIAPFailedTitle
     static let alertIAPUnauthorizedMessage = NSLocalizedString("alert.iap.unauthorized.message", value: "In-App Purchases are not allowed on this device. Thank you for your support!", comment: "Alert message: The user is not authorized to make payments.")
 
-    static let alertIAPUnavailableTitle = UserText.alertIAPFailedTitle
-    static let alertIAPUnavailableMessage = UserText.alertIAPFailedMessage
+    static let alertIAPUnavailableTitle = Localized.alertIAPFailedTitle
+    static let alertIAPUnavailableMessage = Localized.alertIAPFailedMessage
 
     static let alertIAPRestoreFailedTitle = NSLocalizedString("alert.iap.restore.failed.title", value: "Cannot Restore Your Purchase", comment: "Alert title: Restoring failed.")
-    static let alertIAPRestoreFailedMessage = UserText.alertIAPFailedMessage
+    static let alertIAPRestoreFailedMessage = Localized.alertIAPFailedMessage
 
-    static let alertIAPRestoreUnauthorizedTitle = UserText.alertIAPRestoreFailedTitle
-    static let alertIAPRestoreUnauthorizedMessage = UserText.alertIAPUnauthorizedMessage
+    static let alertIAPRestoreUnauthorizedTitle = Localized.alertIAPRestoreFailedTitle
+    static let alertIAPRestoreUnauthorizedMessage = Localized.alertIAPUnauthorizedMessage
 
     static let alertIAPRestoreEmptyTitle = NSLocalizedString("alert.iap.restore.empty.title", value: "Nothing to Restore", comment: "Alert title: Nothing to restore, the user has not previously purchased anything.")
     static let alertIAPRestoreEmptyMessage = NSLocalizedString("alert.iap.restore.empty.message", value: "Looks like you haven't sent any ice cream yet!", comment: "Alert message: Nothing to restore, the user has not previously purchased anything. ")

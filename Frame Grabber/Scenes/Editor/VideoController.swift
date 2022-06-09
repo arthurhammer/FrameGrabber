@@ -377,7 +377,7 @@ class VideoController {
             make: videoMetadata.common?.make,
             model: videoMetadata.common?.model,
             software: videoMetadata.common?.software,
-            userComment: UserText.exifAppInformation
+            userComment: Localized.exifAppInformation
         )
     }
     

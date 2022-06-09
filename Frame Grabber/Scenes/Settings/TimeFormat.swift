@@ -9,15 +9,15 @@ extension TimeFormat {
     
     var displayString: String {
         switch self {
-        case .minutesSecondsMilliseconds: return UserText.exportMillisecondsFormatTitle
-        case .minutesSecondsFrameNumber: return UserText.exportFrameNumberFormatTitle
+        case .minutesSecondsMilliseconds: return Localized.exportMillisecondsFormatTitle
+        case .minutesSecondsFrameNumber: return Localized.exportFrameNumberFormatTitle
         }
     }
     
     var formatDisplayString: String {
         switch self {
-        case .minutesSecondsMilliseconds: return UserText.exportMillisecondsFormat
-        case .minutesSecondsFrameNumber: return UserText.exportFrameNumberFormat
+        case .minutesSecondsMilliseconds: return Localized.exportMillisecondsFormat
+        case .minutesSecondsFrameNumber: return Localized.exportFrameNumberFormat
         }
     }
 }

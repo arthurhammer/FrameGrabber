@@ -18,8 +18,8 @@ extension ExportAction {
     
     var displayString: String? {
         switch self {
-        case .showShareSheet: return UserText.exportShowShareSheetAction
-        case .saveToPhotos: return UserText.exportSaveToPhotosAction
+        case .showShareSheet: return Localized.exportShowShareSheetAction
+        case .saveToPhotos: return Localized.exportSaveToPhotosAction
         }
     }
 }

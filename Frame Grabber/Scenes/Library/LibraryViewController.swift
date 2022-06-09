@@ -108,7 +108,7 @@ class LibraryViewController: UIViewController {
         
         dataSource.$album
             .map { $0?.localizedTitle }
-            .replaceNil(with: UserText.libraryDefaultTitle)
+            .replaceNil(with: Localized.libraryDefaultTitle)
             .assignWeak(to: \.title, on: self)
             .store(in: &bindings)
         

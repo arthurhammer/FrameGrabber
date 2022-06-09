@@ -57,9 +57,9 @@ private extension PhotoLibraryFilter {
 
     var emptyMessage: String {
         switch self {
-        case .videoAndLivePhoto: return UserText.albumEmptyAny
-        case .video: return UserText.albumEmptyVideos
-        case .livePhoto: return UserText.albumEmptyLive
+        case .videoAndLivePhoto: return Localized.albumEmptyAny
+        case .video: return Localized.albumEmptyVideos
+        case .livePhoto: return Localized.albumEmptyLive
         }
     }
 }

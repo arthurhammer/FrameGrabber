@@ -25,7 +25,7 @@ extension PurchaseButtonsView {
     func configure(with state: PurchaseViewController.State, price: String?) {
         
         if let price = price {
-            let text = NSMutableAttributedString(string: UserText.IAPAction)
+            let text = NSMutableAttributedString(string: Localized.IAPAction)
             let spacer = NSAttributedString(string: "  ")
             
             let price = NSAttributedString(string: price, attributes: [
@@ -36,7 +36,7 @@ extension PurchaseButtonsView {
             text.append(price)
             purchaseButton.setAttributedTitle(text, for: .normal)
         } else {
-            purchaseButton.setTitle(UserText.IAPAction, for: .normal)
+            purchaseButton.setTitle(Localized.IAPAction, for: .normal)
         }
     }
 }

@@ -278,9 +278,9 @@ class EditorViewController: UIViewController {
 
         var title: String {
             switch self {
-            case .load: return UserText.editorVideoLoadProgress
-            case .exportToShareSheet: return UserText.editorExportShareSheetProgress
-            case .exportToPhotos: return UserText.editorExportToPhotosProgress
+            case .load: return Localized.editorVideoLoadProgress
+            case .exportToShareSheet: return Localized.editorExportShareSheetProgress
+            case .exportToPhotos: return Localized.editorExportToPhotosProgress
             }
         }
 

@@ -13,7 +13,7 @@
 		000EA8B72437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
 		00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */; };
 		001A6C5120623B0000B91F3A /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C5020623B0000B91F3A /* ProgressView.swift */; };
-		001CBD94242BB7CE00625685 /* UserText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* UserText.swift */; };
+		001CBD94242BB7CE00625685 /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001CBD93242BB7CE00625685 /* Localized.swift */; };
 		001F7DE525C9E91E0075AFC2 /* MetadataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7DE425C9E91E0075AFC2 /* MetadataCell.swift */; };
 		001F7DF125CA96330075AFC2 /* MetadataSnapshotBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7DF025CA96330075AFC2 /* MetadataSnapshotBuilder.swift */; };
 		001F7E1F25CAFABE0075AFC2 /* MetadataLocationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F7E1E25CAFABE0075AFC2 /* MetadataLocationHeader.swift */; };
@@ -159,7 +159,7 @@
 		001AA1841FB4977100A00BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		001AA1991FB498C700A00BB9 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
-		001CBD93242BB7CE00625685 /* UserText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserText.swift; sourceTree = "<group>"; };
+		001CBD93242BB7CE00625685 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
 		001F7DE425C9E91E0075AFC2 /* MetadataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataCell.swift; sourceTree = "<group>"; };
 		001F7DF025CA96330075AFC2 /* MetadataSnapshotBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataSnapshotBuilder.swift; sourceTree = "<group>"; };
 		001F7E1E25CAFABE0075AFC2 /* MetadataLocationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLocationHeader.swift; sourceTree = "<group>"; };
@@ -615,7 +615,7 @@
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
-				001CBD93242BB7CE00625685 /* UserText.swift */,
+				001CBD93242BB7CE00625685 /* Localized.swift */,
 				00AA201F213432B400084B08 /* Localizable.strings */,
 				0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */,
 				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
@@ -886,7 +886,7 @@
 				002BFA5B25C6FC4E00CACB18 /* VideoMetadata.swift in Sources */,
 				00FA916025C934B1007EB7DC /* PhotoLibraryMetadata.swift in Sources */,
 				009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */,
-				001CBD94242BB7CE00625685 /* UserText.swift in Sources */,
+				001CBD94242BB7CE00625685 /* Localized.swift in Sources */,
 				0072089B1FBF87B20046F389 /* LibraryDataSource.swift in Sources */,
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				002BFA6E25C8219800CACB18 /* MetadataViewController.swift in Sources */,

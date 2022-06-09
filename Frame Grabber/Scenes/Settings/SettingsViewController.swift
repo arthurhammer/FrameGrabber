@@ -96,9 +96,9 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if Section(section) == .imageFormat {
             switch settings.imageFormat {
-            case .jpeg: return UserText.exportSettingsImageFormatJPEGFooter
-            case .png: return UserText.exportSettingsImageFormatPNGFooter
-            case .heif: return UserText.exportSettingsImageFormatHEIFFooter
+            case .jpeg: return Localized.exportSettingsImageFormatJPEGFooter
+            case .png: return Localized.exportSettingsImageFormatPNGFooter
+            case .heif: return Localized.exportSettingsImageFormatHEIFFooter
             }
         }
         

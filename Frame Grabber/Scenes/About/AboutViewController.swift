@@ -62,12 +62,12 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, weight: .semibold, size: 22)
         versionLabel.font = .preferredFont(forTextStyle: .footnote, weight: .semibold)
-        versionLabel.text = String.localizedStringWithFormat(UserText.aboutVersionFormat, bundle.shortFormattedVersion)
+        versionLabel.text = String.localizedStringWithFormat(Localized.aboutVersionFormat, bundle.shortFormattedVersion)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: UserText.aboutShareAppButtonTitle,
+            title: Localized.aboutShareAppButtonTitle,
             image: UIImage(systemName: "square.and.arrow.up"),
             primaryAction: UIAction { [weak self] _ in self?.shareApp() },
             menu: nil
@@ -85,7 +85,7 @@ extension AboutViewController {
     
     private func shareApp() {
         guard let url = About.storeURL?.absoluteString else { return }
-        let shareText = "\(UserText.aboutShareAppText)\n\(url)"
+        let shareText = "\(Localized.aboutShareAppText)\n\(url)"
         let shareController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
         present(shareController, animated: true)
     }
@@ -114,7 +114,7 @@ extension AboutViewController {
         mailController.view.tintColor = .accent
         mailController.mailComposeDelegate = self
         mailController.setToRecipients([About.contactAddress])
-        mailController.setSubject(UserText.aboutContactSubject)
+        mailController.setSubject(Localized.aboutContactSubject)
         mailController.setMessageBody(contactMessage, isHTML: false)
 
         present(mailController, animated: true)

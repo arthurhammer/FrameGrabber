@@ -13,9 +13,9 @@ extension PhotoLibraryFilter {
 
     var title: String {
         switch self {
-        case .videoAndLivePhoto: return UserText.videoFilterAllItems
-        case .video: return UserText.videoFilterVideos
-        case .livePhoto: return UserText.videoFilterLivePhotos
+        case .videoAndLivePhoto: return Localized.videoFilterAllItems
+        case .video: return Localized.videoFilterVideos
+        case .livePhoto: return Localized.videoFilterLivePhotos
         }
     }
 

@@ -18,7 +18,7 @@ class SaveToPhotosAction {
         case named(String, createIfNeeded: Bool)
         
         /// The "Frame Grabber" photo album to save exported frames and recorded videos to.
-        static let appAlbum = Album.named(UserText.photoLibraryAppAlbum, createIfNeeded: true)
+        static let appAlbum = Album.named(Localized.photoLibraryAppAlbum, createIfNeeded: true)
     }
     
     private let photoLibrary: PHPhotoLibrary

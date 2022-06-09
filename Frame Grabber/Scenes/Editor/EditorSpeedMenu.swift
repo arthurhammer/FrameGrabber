@@ -13,15 +13,15 @@ enum EditorSpeedMenu {
         var title: String {
             switch self {
             case .normal:
-                return UserText.speedMenuNormalSpeedAction
+                return Localized.speedMenuNormalSpeedAction
             case .half:
-                return UserText.speedMenuHalfSpeedAction
+                return Localized.speedMenuHalfSpeedAction
             case .quarter:
-                return UserText.speedMenuQuarterSpeedAction
+                return Localized.speedMenuQuarterSpeedAction
             case .fine:
-                return UserText.speedMenuFineSpeedAction
+                return Localized.speedMenuFineSpeedAction
             case .veryFine:
-                return UserText.speedMenuVeryFineSpeedAction
+                return Localized.speedMenuVeryFineSpeedAction
             }
         }
         
@@ -81,7 +81,7 @@ enum EditorSpeedMenu {
         let otherItems = items.dropFirst()
         
         return UIMenu(
-            title: UserText.speedMenuTitle,
+            title: Localized.speedMenuTitle,
             children: [
                 defaultItem,
                 UIMenu(options: .displayInline, children: Array(otherItems))

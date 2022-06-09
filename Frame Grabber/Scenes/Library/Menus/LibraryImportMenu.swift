@@ -17,9 +17,9 @@ struct LibraryImportMenu {
         
         var title: String {
             switch self {
-            case .file: return UserText.libraryImportFileMenuAction
-            case .camera: return UserText.libraryImportCameraMenuAction
-            case .addMorePhotos: return UserText.libraryImportSelectMorePhotosMenuAction
+            case .file: return Localized.libraryImportFileMenuAction
+            case .camera: return Localized.libraryImportCameraMenuAction
+            case .addMorePhotos: return Localized.libraryImportSelectMorePhotosMenuAction
             }
         }
     }
@@ -29,7 +29,7 @@ struct LibraryImportMenu {
             ? Selection.allCases
             : Selection.allCases.filter { $0 != .addMorePhotos }
         
-        let title = isLibraryLimited ? UserText.libraryImportLimitedAuthorizationTitle : ""
+        let title = isLibraryLimited ? Localized.libraryImportLimitedAuthorizationTitle : ""
         
         let actions = options.map { option in
             UIAction(title: option.title, image: option.icon) { _ in selection(option) }

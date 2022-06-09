@@ -61,13 +61,13 @@ class AuthorizationController: UIViewController {
     private func updateViews() {
         switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
         case .denied, .restricted:
-            authorizationMessageLabel.text = UserText.authorizationDeniedMessage
-            actionButton.setTitle(UserText.authorizationDeniedAction, for: .normal)
+            authorizationMessageLabel.text = Localized.authorizationDeniedMessage
+            actionButton.setTitle(Localized.authorizationDeniedAction, for: .normal)
 
         // For `notDetermined` but also as fallback if we land in `authorized`/`limited` state.
         default:
-            authorizationMessageLabel.text = UserText.authorizationUndeterminedMessage
-            actionButton.setTitle(UserText.authorizationUndeterminedAction, for: .normal)
+            authorizationMessageLabel.text = Localized.authorizationUndeterminedMessage
+            actionButton.setTitle(Localized.authorizationUndeterminedAction, for: .normal)
         }
     }
 

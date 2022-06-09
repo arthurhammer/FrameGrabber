@@ -37,12 +37,12 @@ struct VideoCellContextMenu {
         
         UIMenu(title: menuTitle(for: video), children: [
             UIAction(
-                title: video.isFavorite ? UserText.unfavoriteAction : UserText.favoriteAction,
+                title: video.isFavorite ? Localized.unfavoriteAction : Localized.favoriteAction,
                 image: UIImage(systemName: video.isFavorite ? "heart.slash" : "heart"),
                 handler: { _ in handler(.favorite) }
             ),
             UIAction(
-                title: UserText.deleteAction,
+                title: Localized.deleteAction,
                 image: UIImage(systemName: "trash"),
                 attributes: .destructive,
                 handler: { _ in handler(.delete) }

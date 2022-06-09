@@ -48,7 +48,7 @@ struct MetadataSnapshotBuilder {
         pin.coordinate = location.coordinate
 
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
-        mapItem.name = UserText.Metadata.mapItemTitle
+        mapItem.name = Localized.Metadata.mapItemTitle
         
         return MetadataViewModel.Location(mapPin: pin, mapItem: mapItem, address: address)
     }
@@ -79,7 +79,7 @@ struct MetadataSnapshotBuilder {
     }
 
     private var type: String {
-        isLivePhoto ? UserText.Metadata.typeLivePhotoValue : UserText.Metadata.typeVideoValue
+        isLivePhoto ? Localized.Metadata.typeLivePhotoValue : Localized.Metadata.typeVideoValue
     }
 
     private var isLivePhoto: Bool {
@@ -113,19 +113,19 @@ struct MetadataSnapshotBuilder {
         let formattedFrameRate = frameRate.flatMap(frameRateFormatter.string(fromFrameRate:))
 
         return cruuuuuuuunch([
-            (UserText.Metadata.typeTitle, type),
-            (UserText.Metadata.creationDateTitle, date),
-            (UserText.Metadata.dimensionsTitle, (isLivePhoto ? nil : videoDimensions)),
-            (UserText.Metadata.dimensionsLivePhotoVideoTitle, (isLivePhoto ? videoDimensions : nil)),
-            (UserText.Metadata.dimensionsLivePhotoPictureTitle, (isLivePhoto ? pictureDimensions : nil)),
-            (UserText.Metadata.durationTitle, formattedDuration),
-            (UserText.Metadata.frameRateTitle, formattedFrameRate),
-            (UserText.Metadata.formatTitle, metadata.file?.formatDisplayString),
-            (UserText.Metadata.codecTitle, codec),
-            (UserText.Metadata.fileSizeTitle, formattedSize),
-            (UserText.Metadata.cameraMakeTitle, metadata.video?.common?.make),
-            (UserText.Metadata.cameraModelTitle, metadata.video?.common?.model),
-            (UserText.Metadata.softwareTitle, metadata.video?.common?.software),
+            (Localized.Metadata.typeTitle, type),
+            (Localized.Metadata.creationDateTitle, date),
+            (Localized.Metadata.dimensionsTitle, (isLivePhoto ? nil : videoDimensions)),
+            (Localized.Metadata.dimensionsLivePhotoVideoTitle, (isLivePhoto ? videoDimensions : nil)),
+            (Localized.Metadata.dimensionsLivePhotoPictureTitle, (isLivePhoto ? pictureDimensions : nil)),
+            (Localized.Metadata.durationTitle, formattedDuration),
+            (Localized.Metadata.frameRateTitle, formattedFrameRate),
+            (Localized.Metadata.formatTitle, metadata.file?.formatDisplayString),
+            (Localized.Metadata.codecTitle, codec),
+            (Localized.Metadata.fileSizeTitle, formattedSize),
+            (Localized.Metadata.cameraMakeTitle, metadata.video?.common?.make),
+            (Localized.Metadata.cameraModelTitle, metadata.video?.common?.model),
+            (Localized.Metadata.softwareTitle, metadata.video?.common?.software),
         ])
     }
 

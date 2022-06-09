@@ -115,7 +115,7 @@ class AlbumListCollectionViewDataSource: UICollectionViewDiffableDataSource<Albu
         
         let userAlbumsSection = AlbumListSection(
             type: .userAlbum,
-            title: UserText.albumsUserAlbumsHeader,
+            title: Localized.albumsUserAlbumsHeader,
             albumCount: userAlbums.count,
             isLoading: dataSource.userAlbumsProvider.isLoading
         )
