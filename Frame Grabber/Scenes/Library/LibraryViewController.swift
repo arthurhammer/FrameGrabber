@@ -137,6 +137,16 @@ class LibraryViewController: UIViewController {
     // MARK: Filter Menu
 
     private func updateFilterMenu() {
+        if #available(iOS 15.0, *) {
+            filterBarItem.image = (dataSource.filter == .videoAndLivePhoto)
+                ? UIImage(systemName: "line.3.horizontal.decrease.circle")
+                : UIImage(systemName: "line.3.horizontal.decrease.circle.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .accent))
+        } else {
+            filterBarItem.image = (dataSource.filter == .videoAndLivePhoto)
+                ? UIImage(systemName: "line.3.horizontal.decrease.circle")
+                : UIImage(systemName: "line.3.horizontal.decrease.circle.fill")
+        }
+        
         filterBarItem.menu = LibraryFilterMenu.menu(
             with: dataSource.filter,
             gridMode: dataSource.gridMode,

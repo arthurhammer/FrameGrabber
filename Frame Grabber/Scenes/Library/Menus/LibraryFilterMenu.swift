@@ -31,6 +31,6 @@ struct LibraryFilterMenu {
         let filterMenu = UIMenu(options: .displayInline, children: filterActions)
         let gridMenu = UIMenu(options: .displayInline, children: [gridAction])
 
-        return UIMenu(title: Localized.albumViewSettingsMenuTitle, children: [filterMenu, gridMenu])
+        return UIMenu(children: [filterMenu, gridMenu])
     }
 }

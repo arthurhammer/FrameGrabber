@@ -38,13 +38,10 @@
 "album.empty.video" = "Keine Videos";
 
 /* Title of album view as aspect ratio settings menu item */
-"album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
-
-/* Title of album view settings button menu */
-"album.viewSettings.menu.title" = "Anzeigen";
+"album.viewSettings.fitGrid.title" = "Aspekt";
 
 /* Title of album view as squares settings menu item */
-"album.viewSettings.squareGrid.title" = "Quadratisches Raster";
+"album.viewSettings.squareGrid.title" = "Quadrat";
 
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";

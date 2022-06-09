@@ -21,7 +21,7 @@ extension PhotoLibraryFilter {
 
     var icon: UIImage? {
         switch self {
-        case .videoAndLivePhoto: return UIImage(systemName: "square.grid.2x2")
+        case .videoAndLivePhoto: return UIImage(systemName: "photo.on.rectangle.angled")
         case .video: return  UIImage(systemName: "video")
         case .livePhoto: return  UIImage(systemName: "livephoto")
         }
