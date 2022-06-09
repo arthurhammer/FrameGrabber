@@ -52,7 +52,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
 
     private func configureViews() {
         rateButton.configureAsActionButton()
-        rateButton.backgroundColor = .accent?.withAlphaComponent(0.1)
+        rateButton.backgroundColor = .accent.withAlphaComponent(0.1)
         rateButton.setTitleColor(.accent, for: .normal)
         
         purchaseButton.configureAsActionButton()
