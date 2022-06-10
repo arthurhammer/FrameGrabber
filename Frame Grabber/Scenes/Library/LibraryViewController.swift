@@ -7,6 +7,8 @@ protocol LibraryViewControllerDelegate: AnyObject {
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
     func controllerDidSelectCamera(_ controller: LibraryViewController)
+    func controllerDidSelectAddMoreVideos(_ controller: LibraryViewController)
+    func controllerDidSelectOpenSettings(_ controller: LibraryViewController)
 }
 
 class LibraryViewController: UIViewController {
@@ -61,7 +63,7 @@ class LibraryViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc private func showAlbumPicker() {
+    private func showAlbumPicker() {
         delegate?.controllerDidSelectAlbumPicker(self)
     }
     
@@ -77,7 +79,6 @@ class LibraryViewController: UIViewController {
 
     private func configureViews() {
         configureTitleButton()
-        configureImportMenu()
         configureBindings()
         updateNavigationBar()
     }
@@ -85,31 +86,33 @@ class LibraryViewController: UIViewController {
     private func configureTitleButton() {
         navigationItem.titleView = UIView()
         titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()
-
+        updateTitleButton()
+    }
+    
+    private func updateTitleButton() {
         if dataSource.isAuthorizationLimited {
-            // Disable albums.
-            titleButton.setImage(nil, for: .normal)
-            titleButton.isUserInteractionEnabled = false
+            title = Localized.libraryLimitedTitle
+            titleButton.showsMenuAsPrimaryAction = true
+            titleButton.menu = LibraryMenu.Limited.menu { [weak self] selection in
+                self?.handleLimitedMenuSelection(selection)
+            }
         } else {
-            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
+            title = dataSource.album?.localizedTitle ?? Localized.libraryDefaultTitle
+            titleButton.showsMenuAsPrimaryAction = false
+            titleButton.addAction(.init { [weak self] _ in
+                self?.showAlbumPicker()
+            }, for: .primaryActionTriggered)
         }
     }
 
     private func configureBindings() {
         // React to initial authorization if status is `notDetermined`.
         dataSource.$isAuthorizationLimited
+            .combineLatest(dataSource.$album)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.configureTitleButton()
-                self?.configureImportMenu()
+                self?.updateTitleButton()
             }
-            .store(in: &bindings)
-        
-        dataSource.$album
-            .map { $0?.localizedTitle }
-            .replaceNil(with: Localized.libraryDefaultTitle)
-            .assignWeak(to: \.title, on: self)
             .store(in: &bindings)
         
         dataSource.$filter
@@ -134,10 +137,10 @@ class LibraryViewController: UIViewController {
         gridController?.additionalSafeAreaInsets.bottom = toolbarTop + spacing
     }
 
-    // MARK: Filter Menu
+    // MARK: Menus
 
     private func updateFilterMenu() {
-        let menu = LibraryFilterMenu.menu(
+        let menu = LibraryMenu.Filter.menu(
             with: dataSource.filter,
             gridMode: dataSource.gridMode,
             handler: { [weak self] selection in
@@ -149,9 +152,7 @@ class LibraryViewController: UIViewController {
         filterBarItem.image = menu.image
     }
 
-    private func handleFilterMenuSelection(_ selection: LibraryFilterMenu.Selection) {
-        UISelectionFeedbackGenerator().selectionChanged()
-
+    private func handleFilterMenuSelection(_ selection: LibraryMenu.Filter.Selection) {
         switch selection {
         case .filter(let filter):
             dataSource.filter = filter
@@ -160,26 +161,14 @@ class LibraryViewController: UIViewController {
         }
     }
     
-    // MARK: Import Menu
-    
-    private func configureImportMenu() {
-        let isLimited = dataSource.isAuthorizationLimited
-        toolbar.importButton.showsMenuAsPrimaryAction = true
-        toolbar.importButton.menu = LibraryImportMenu.menu(isLibraryLimited: isLimited) {
-            [weak self] in self?.handleImportMenuSelection($0)
-        }
-    }
-
-    private func handleImportMenuSelection(_ selection: LibraryImportMenu.Selection) {
+    private func handleLimitedMenuSelection(_ selection: LibraryMenu.Limited.Selection) {
         UISelectionFeedbackGenerator().selectionChanged()
-        
+
         switch selection {
-        case .file:
-            delegate?.controllerDidSelectFilePicker(self)
-        case .camera:
-            delegate?.controllerDidSelectCamera(self)
         case .addMorePhotos:
-            dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
+            delegate?.controllerDidSelectAddMoreVideos(self)
+        case .showSettings:
+            delegate?.controllerDidSelectOpenSettings(self)
         }
     }
 }

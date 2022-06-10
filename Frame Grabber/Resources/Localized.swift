@@ -26,8 +26,8 @@ struct Localized {
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
-    static let libraryDefaultTitle = NSLocalizedString("library.default.title", value: "Library", comment: "Title for the library when no specific album is selected.")
-    static let albumLimitedAuthorizationTitle = libraryDefaultTitle
+    static let libraryDefaultTitle = NSLocalizedString("library.title.default", value: "Videos", comment: "Title for the library when no specific album is selected.")
+    static let libraryLimitedTitle = NSLocalizedString("library.title.limited", value: "Selected Videos", comment: "Title for the library when photo library access is limited.")
     static let albumEmptyAny = NSLocalizedString("album.empty.any", value: "No Videos or Live Photos", comment: "Empty album message")
     static let albumEmptyVideos = NSLocalizedString("album.empty.video", value: "No Videos", comment: "No videos in album message")
     static let albumEmptyLive = NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
@@ -36,8 +36,10 @@ struct Localized {
     
     static let libraryImportFileMenuAction = NSLocalizedString("library.menu.import.file.action", value: "Open a File", comment: "Action of import menu: Open file picker action.")
     static let libraryImportCameraMenuAction = NSLocalizedString("library.menu.import.camera.action", value: "Record a Video", comment: "Action of import menu: Open camera action.")
-    static let libraryImportSelectMorePhotosMenuAction = NSLocalizedString("library.menu.import.selectPhotos.action", value: "Select More Videos", comment: "Action of import menu: Select more photos in limited authorization.")
-    static let libraryImportLimitedAuthorizationTitle = NSLocalizedString("library.menu.import.limited.title", value: "You've given Frame Grabber access to a limited number of videos.", comment: "Title for limited authorization menu.")
+
+    static let libraryLimitedMenuTitle = NSLocalizedString("library.menu.import.limited.title", value: "You've given Frame Grabber access to a limited number of videos.", comment: "Title for limited authorization menu.")
+    static let libraryLimitedSelectMorePhotosMenuAction = NSLocalizedString("library.menu.limited.selectPhotos.action", value: "Select More Videos", comment: "Action of limited authorization menu: Show limited photos picker.")
+    static let libraryLimitedOpenSettingsMenuAction = NSLocalizedString("library.menu.limited.openSettings.action", value: "Change Settings", comment: "Action of limited authorization menu: Open settings to change authorization.")
     
     static let videoFilterAllItems = NSLocalizedString("videofilter.all", value: "All Items", comment: "Video filter title, all items")
     static let videoFilterVideos = NSLocalizedString("videofilter.video", value: "Videos", comment: "Video filter title, only videos")
@@ -81,6 +83,7 @@ struct Localized {
 // MARK: - Metadata
 
 extension Localized {
+    
     struct Metadata {
         static let typeTitle = NSLocalizedString("metadata.type.title", value: "Type", comment: "Title for the video type metadata.")
         static let typeVideoValue = NSLocalizedString("metadata.type.video", value: "Video", comment: "Video: Value for the video type metadata item.")

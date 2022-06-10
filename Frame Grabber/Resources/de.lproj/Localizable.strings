@@ -194,7 +194,10 @@
 "iap.purchase.action" = "Eis Ausgeben";
 
 /* Title for the library when no specific album is selected. */
-"library.default.title" = "Mediathek";
+"library.title.default" = "Videos";
+
+/* Title for the library when photo library access is limited. */
+"library.title.limited" = "Ausgewählte Videos";
 
 /* Action of import menu: Open camera action. */
 "library.menu.import.camera.action" = "Video aufnehmen";
@@ -203,10 +206,13 @@
 "library.menu.import.file.action" = "Datei öffnen";
 
 /* Title for limited authorization menu. */
-"library.menu.import.limited.title" = "Du hast Frame Grabber einen begrenzten Zugang zu deinen Videos erteilt.";
+"library.menu.import.limited.title" = "Du hast Frame Grabber Zugriff auf ausgewählte Videos erteilt.";
 
-/* Action of import menu: Select more photos in limited authorization. */
-"library.menu.import.selectPhotos.action" = "Weitere Videos auswählen";
+/* Action of limited authorization menu: Open settings to change authorization. */
+"library.menu.limited.openSettings.action" = "Einstellungen";
+
+/* Action of limited authorization menu: Show limited photos picker. */
+"library.menu.limited.selectPhotos.action" = "Weitere Videos auswählen";
 
 /* Title for the codec metadata. */
 "metadata.codec.title" = "Codec";

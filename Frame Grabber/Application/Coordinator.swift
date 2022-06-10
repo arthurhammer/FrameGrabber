@@ -144,6 +144,15 @@ extension Coordinator: LibraryViewController.Delegate {
     func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
+    
+    func controllerDidSelectOpenSettings(_ controller: LibraryViewController) {
+        UIApplication.shared.openSettings()
+    }
+    
+    func controllerDidSelectAddMoreVideos(_ controller: LibraryViewController) {
+        let photoLibrary = controller.dataSource.photoLibrary
+        photoLibrary.presentLimitedLibraryPicker(from: controller)
+    }
 }
 
 // MARK: - EditorViewControllerDelegate

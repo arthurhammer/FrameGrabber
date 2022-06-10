@@ -47,7 +47,7 @@
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
 		0045A1A425BE524200A1235A /* TimeFormatSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */; };
 		0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1AF25BE5AF800A1235A /* TimeFormat.swift */; };
-		0050CF4725D415A400E94F95 /* LibraryImportMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */; };
+		0050CF4725D415A400E94F95 /* LibraryMenu.Limited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050CF4625D415A400E94F95 /* LibraryMenu.Limited.swift */; };
 		0054936423E5631B00F3E684 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936323E5631B00F3E684 /* About.swift */; };
 		0057486725C8736600F64621 /* ImageMetadataDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */; };
 		0057486B25C8739100F64621 /* MetadataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C0FCA25C49BC1007E50B0 /* MetadataViewModel.swift */; };
@@ -106,7 +106,7 @@
 		00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */; };
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
-		00B52C8F24B71C9F00FDD427 /* LibraryFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* LibraryFilterMenu.swift */; };
+		00B52C8F24B71C9F00FDD427 /* LibraryMenu.Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */; };
 		00BA04052852B3F8000ECDB3 /* LibraryFloatingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA04042852B3F8000ECDB3 /* LibraryFloatingToolbar.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
 		00BCB4B825C961D40005192F /* VideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4B725C961D40005192F /* VideoCodecs.swift */; };
@@ -194,7 +194,7 @@
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
 		0045A1A325BE524200A1235A /* TimeFormatSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatSettingsViewController.swift; sourceTree = "<group>"; };
 		0045A1AF25BE5AF800A1235A /* TimeFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormat.swift; sourceTree = "<group>"; };
-		0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryImportMenu.swift; sourceTree = "<group>"; };
+		0050CF4625D415A400E94F95 /* LibraryMenu.Limited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMenu.Limited.swift; sourceTree = "<group>"; };
 		0054936323E5631B00F3E684 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = About.swift; path = "Frame Grabber/Application/About.swift"; sourceTree = SOURCE_ROOT; };
 		005748AF25C9242900F64621 /* FileMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetadata.swift; sourceTree = "<group>"; };
 		005748BB25C92FA500F64621 /* AVAssetTrack+MetadataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAssetTrack+MetadataLoading.swift"; sourceTree = "<group>"; };
@@ -242,7 +242,7 @@
 		00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbums.swift; sourceTree = "<group>"; };
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
-		00B52C8E24B71C9F00FDD427 /* LibraryFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryFilterMenu.swift; sourceTree = "<group>"; };
+		00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMenu.Filter.swift; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		00BCB4B725C961D40005192F /* VideoCodecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCodecs.swift; sourceTree = "<group>"; };
 		00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO6709LocationParser.swift; sourceTree = "<group>"; };
@@ -338,10 +338,12 @@
 		001AA1981FB497E900A00BB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
+				003D1F3125041FF1006107C0 /* Configuration.storekit */,
 				001AA1841FB4977100A00BB9 /* Info.plist */,
 				00AA201C213432B400084B08 /* InfoPlist.strings */,
-				003D1F3125041FF1006107C0 /* Configuration.storekit */,
-				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
+				00AA201F213432B400084B08 /* Localizable.strings */,
+				001CBD93242BB7CE00625685 /* Localized.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -410,8 +412,8 @@
 			children = (
 				002E51F225D2E67200508EB2 /* Grid */,
 				0072089A1FBF87B20046F389 /* LibraryDataSource.swift */,
-				00B52C8E24B71C9F00FDD427 /* LibraryFilterMenu.swift */,
-				0050CF4625D415A400E94F95 /* LibraryImportMenu.swift */,
+				00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */,
+				0050CF4625D415A400E94F95 /* LibraryMenu.Limited.swift */,
 				007F8A1824B7591C00324014 /* LibraryToolbar.swift */,
 				001AA1991FB498C700A00BB9 /* LibraryViewController.swift */,
 				00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */,
@@ -611,8 +613,6 @@
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
-				001CBD93242BB7CE00625685 /* Localized.swift */,
-				00AA201F213432B400084B08 /* Localizable.strings */,
 				0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */,
 				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
 			);
@@ -838,7 +838,7 @@
 				00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */,
 				00BCB4D925C99CE80005192F /* ISO6709LocationParser.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
-				0050CF4725D415A400E94F95 /* LibraryImportMenu.swift in Sources */,
+				0050CF4725D415A400E94F95 /* LibraryMenu.Limited.swift in Sources */,
 				00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */,
 				0057487725C873F900F64621 /* AVAsset+MetadataLoading.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
@@ -899,7 +899,7 @@
 				0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */,
 				0045A10B25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */,
 				009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */,
-				00B52C8F24B71C9F00FDD427 /* LibraryFilterMenu.swift in Sources */,
+				00B52C8F24B71C9F00FDD427 /* LibraryMenu.Filter.swift in Sources */,
 				0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */,
 				009C65891FBF33A300DB25A6 /* DateFormatter.swift in Sources */,
 				00653B452139E1680038CB56 /* LibraryViewController+Transition.swift in Sources */,
