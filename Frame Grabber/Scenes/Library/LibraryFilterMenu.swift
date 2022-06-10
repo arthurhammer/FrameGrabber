@@ -16,7 +16,7 @@ struct LibraryFilterMenu {
         let filterActions = PhotoLibraryFilter.allCases.map { filter in
             UIAction(
                 title: filter.title,
-                image: filter.icon,
+                image: filter.menuIcon,
                 state: (currentFilter == filter) ? .on : .off,
                 handler: { _ in handler(.filter(filter)) }
             )
@@ -30,7 +30,32 @@ struct LibraryFilterMenu {
         
         let filterMenu = UIMenu(options: .displayInline, children: filterActions)
         let gridMenu = UIMenu(options: .displayInline, children: [gridAction])
+        
+        return UIMenu(image: currentFilter.buttonIcon, children: [filterMenu, gridMenu])
+    }
+}
 
-        return UIMenu(children: [filterMenu, gridMenu])
+// MARK: - Util
+
+extension PhotoLibraryFilter {
+    
+    fileprivate var menuIcon: UIImage? {
+        switch self {
+        case .videoAndLivePhoto:
+            return UIImage(systemName: "photo.on.rectangle.angled")
+        case .video:
+            return  UIImage(systemName: "video")
+        case .livePhoto:
+            return  UIImage(systemName: "livephoto")
+        }
+    }
+    
+    fileprivate var buttonIcon: UIImage? {
+        switch self {
+        case .videoAndLivePhoto:
+            return UIImage(systemName: "line.horizontal.3.decrease.circle")
+        case .video, .livePhoto:
+            return  UIImage(systemName: "line.horizontal.3.decrease.circle.fill")
+        }
     }
 }
