@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -141,14 +140,6 @@
             </objects>
             <point key="canvasLocation" x="1206" y="-2063"/>
         </scene>
-        <!--About-->
-        <scene sceneID="uJH-bb-cEY">
-            <objects>
-                <viewControllerPlaceholder storyboardName="About" id="Q9O-On-eG2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="auw-b1-LZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="433" y="-1655"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="S8y-te-9wv">
             <objects>
@@ -282,9 +273,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="About"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Q9O-On-eG2" kind="popoverPresentation" popoverAnchorBarButtonItem="tGr-t6-Jjk" id="Rdw-Fi-nc6">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <action selector="showAbout" destination="ooc-mi-fO9" id="nfA-mH-Om9"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="line.horizontal.3.decrease.circle" catalog="system" id="OO5-IZ-Y4X"/>

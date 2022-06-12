@@ -37,6 +37,16 @@ struct ViewControllerFactory {
         return controller
     }
     
+    static func makeAbout() -> UIViewController {
+        let storyboard = UIStoryboard(name: "About", bundle: nil)
+        
+        guard let controller = storyboard.instantiateInitialViewController() else {
+            fatalError("Could not instantiate controller.")            
+        }
+        
+        return controller
+    }
+    
     static func makeFilePicker(
         withDelegate delegate: UIDocumentPickerDelegate?
     ) -> UIDocumentPickerViewController {

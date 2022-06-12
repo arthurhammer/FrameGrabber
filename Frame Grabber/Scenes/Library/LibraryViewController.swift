@@ -4,20 +4,20 @@ import PhotosUI
 import UIKit
 
 protocol LibraryViewControllerDelegate: AnyObject {
+    func controller(_ controller: LibraryViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
     func controllerDidSelectCamera(_ controller: LibraryViewController)
     func controllerDidSelectAddMoreVideos(_ controller: LibraryViewController)
-    func controllerDidSelectOpenSettings(_ controller: LibraryViewController)
+    func controllerDidSelectSettings(_ controller: LibraryViewController)
+    func controllerDidSelectAbout(_ controller: LibraryViewController)
 }
 
-class LibraryViewController: UIViewController {
+final class LibraryViewController: UIViewController {
     
-    typealias Delegate = LibraryViewControllerDelegate & LibraryGridViewControllerDelegate
+    typealias Delegate = LibraryViewControllerDelegate
     
-    weak var delegate: Delegate? {
-        didSet { gridController?.delegate = delegate }
-    }
+    weak var delegate: Delegate?
     
     let dataSource = LibraryDataSource()
     
@@ -57,7 +57,7 @@ class LibraryViewController: UIViewController {
     
     @IBSegueAction private func makeGridController(_ coder: NSCoder) -> LibraryGridViewController? {
         gridController = LibraryGridViewController(dataSource: dataSource, coder: coder)
-        gridController?.delegate = delegate
+        gridController?.delegate = self
         return gridController
     }
 
@@ -73,6 +73,10 @@ class LibraryViewController: UIViewController {
     
     @IBAction private func showCamera() {
         delegate?.controllerDidSelectCamera(self)
+    }
+    
+    @IBAction func showAbout() {
+        delegate?.controllerDidSelectAbout(self)
     }
     
     // MARK: Configuring
@@ -162,13 +166,19 @@ class LibraryViewController: UIViewController {
     }
     
     private func handleLimitedMenuSelection(_ selection: LibraryMenu.Limited.Selection) {
-        UISelectionFeedbackGenerator().selectionChanged()
-
         switch selection {
         case .addMorePhotos:
             delegate?.controllerDidSelectAddMoreVideos(self)
         case .showSettings:
-            delegate?.controllerDidSelectOpenSettings(self)
+            delegate?.controllerDidSelectSettings(self)
         }
+    }
+}
+
+// MARK: - LibraryGridViewControllerDelegate
+
+extension LibraryViewController: LibraryGridViewControllerDelegate {
+    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
+        delegate?.controller(self, didSelectAsset: asset, previewImage: previewImage)
     }
 }

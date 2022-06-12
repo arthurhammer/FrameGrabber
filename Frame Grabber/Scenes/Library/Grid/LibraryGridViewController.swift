@@ -4,21 +4,12 @@ import Utility
 import UIKit
 
 protocol LibraryGridViewControllerDelegate: AnyObject {
-    func controller(
-        _ controller: LibraryGridViewController,
-        didSelectAsset asset: PHAsset,
-        previewImage: UIImage?
-    )
+    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
 }
 
-class LibraryGridViewController: UICollectionViewController {
+final class LibraryGridViewController: UICollectionViewController {
         
     weak var delegate: LibraryGridViewControllerDelegate?
-    
-    init?(dataSource: LibraryDataSource, coder: NSCoder) {
-        self.dataSource = dataSource
-        super.init(coder: coder)
-    }
     
     private let dataSource: LibraryDataSource
     private lazy var emptyView = EmptyLibraryView()
@@ -27,6 +18,15 @@ class LibraryGridViewController: UICollectionViewController {
     
     static let contentModeAnimationDuration: TimeInterval = 0.15
     static let contextMenuActionDelay: TimeInterval = 0.2
+    
+    init?(dataSource: LibraryDataSource, coder: NSCoder) {
+        self.dataSource = dataSource
+        super.init(coder: coder)
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("A data source is required.")
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -219,9 +219,5 @@ class LibraryGridViewController: UICollectionViewController {
             
             cell.setGridMode(mode, forAspectRatio: asset.dimensions)
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("A data source is required.")
     }
 }

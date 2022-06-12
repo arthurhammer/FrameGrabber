@@ -38,7 +38,7 @@ class Coordinator: NSObject {
         
         showAuthorizationIfNeeded { [weak self] in
             self?.showRecentsAlbum()
-            self?.preloadAlbums()
+            self?.startLoadingPhotoAlbums()
         }
     }
     
@@ -80,7 +80,8 @@ class Coordinator: NSObject {
         }
     }
     
-    private func preloadAlbums() {
+    // Since album loading and filtering is slow, preload ahead of time.
+    private func startLoadingPhotoAlbums() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             _ = self.albumsDataSource
         }
@@ -94,8 +95,7 @@ class Coordinator: NSObject {
             previewImage: previewImage,
             delegate: self
         )
-        // Let nav controller decide which animation to show. Also supports the correct "open in"
-        // animation.
+        // Let nav controller decide which animation to show. Also supports the correct "open in" animation.
         navigationController.setViewControllers([libraryViewController, editor], animated: animated)
     }
     
@@ -123,12 +123,18 @@ class Coordinator: NSObject {
         
         navigationController.present(camera, animated: true)
     }
+    
+    private func showAbout() {
+        let about = ViewControllerFactory.makeAbout()
+        about.modalPresentationStyle = .formSheet
+        navigationController.present(about, animated: true)
+    }
 }
 
 // MARK: - LibraryViewControllerDelegate
 
 extension Coordinator: LibraryViewController.Delegate {
-    
+        
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController) {
         showAlbumPicker()
     }
@@ -141,17 +147,21 @@ extension Coordinator: LibraryViewController.Delegate {
         showCamera()
     }
 
-    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
+    func controller(_ controller: LibraryViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
         showEditor(with: .photoLibrary(asset), previewImage: previewImage, animated: true)
     }
     
-    func controllerDidSelectOpenSettings(_ controller: LibraryViewController) {
+    func controllerDidSelectSettings(_ controller: LibraryViewController) {
         UIApplication.shared.openSettings()
     }
     
     func controllerDidSelectAddMoreVideos(_ controller: LibraryViewController) {
         let photoLibrary = controller.dataSource.photoLibrary
         photoLibrary.presentLimitedLibraryPicker(from: controller)
+    }
+    
+    func controllerDidSelectAbout(_ controller: LibraryViewController) {
+        showAbout()
     }
 }
 
