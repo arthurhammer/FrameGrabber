@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class VideoCell: UICollectionViewCell {
+class LibraryGridCell: UICollectionViewCell {
     
     var identifier: String?
     var imageRequest: Cancellable?
@@ -45,7 +45,7 @@ class VideoCell: UICollectionViewCell {
     func fadeInOverlays() {
         gradientView.alpha = 0
 
-        UIView.animate(withDuration: VideoCell.fadeOverlaysAnimationDuration) {
+        UIView.animate(withDuration: LibraryGridCell.fadeOverlaysAnimationDuration) {
             self.gradientView.alpha = 1
         }
     }

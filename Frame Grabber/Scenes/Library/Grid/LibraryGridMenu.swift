@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-struct VideoCellContextMenu {
+struct LibraryGridMenu {
 
     enum Selection {
         case favorite
@@ -16,7 +16,7 @@ struct VideoCellContextMenu {
     ) -> UIContextMenuConfiguration {
         
         let previewProvider = {
-            VideoContextMenuPreviewController(asset: video, initialImage: initialPreviewImage)
+            LibraryGridMenuPreviewController(asset: video, initialImage: initialPreviewImage)
         }
         
         let menuProvider = { (_: Any) in
@@ -30,11 +30,7 @@ struct VideoCellContextMenu {
         )
     }
     
-    private static func menu(
-        for video: PHAsset,
-        handler: @escaping (Selection) -> Void
-    ) -> UIMenu {
-        
+    private static func menu(for video: PHAsset, handler: @escaping (Selection) -> Void) -> UIMenu {
         UIMenu(title: menuTitle(for: video), children: [
             UIAction(
                 title: video.isFavorite ? Localized.unfavoriteAction : Localized.favoriteAction,

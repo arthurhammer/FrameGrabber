@@ -13,14 +13,14 @@ extension LibraryViewController: ZoomTransitionDelegate {
 
     func zoomTransitionView(_ transition: ZoomTransition) -> UIView? {
         scrollToTransitionCell()
-        return (transitionCell as? VideoCell)?.imageView
+        return (transitionCell as? LibraryGridCell)?.imageView
     }
 
     func zoomTransitionDidEnd(_ transition: ZoomTransition) {
         transitionCell?.isHidden = false
 
         if transition.type == .pop {
-            (transitionCell as? VideoCell)?.fadeInOverlays()
+            (transitionCell as? LibraryGridCell)?.fadeInOverlays()
         }
     }
 }

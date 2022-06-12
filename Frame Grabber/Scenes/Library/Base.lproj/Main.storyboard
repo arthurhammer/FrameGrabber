@@ -13,7 +13,7 @@
         <!--Library Grid View Controller-->
         <scene sceneID="VUp-D9-yHz">
             <objects>
-                <collectionViewController storyboardIdentifier="AlbumViewController" clearsSelectionOnViewWillAppear="NO" id="z5r-QY-0zg" customClass="LibraryGridViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="AlbumViewController" clearsSelectionOnViewWillAppear="NO" id="z5r-QY-0zg" customClass="LibraryGridViewController" customModule="FG_Beta" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="7In-rZ-jOJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="VideoCell" id="5bC-Z5-gpV" customClass="VideoCell" customModule="Frame_Grabber" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="LibraryGridCell" id="5bC-Z5-gpV" customClass="LibraryGridCell" customModule="FG_Beta" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -40,7 +40,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" horizontalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="aku-Vb-sC2" customClass="GradientView" customModule="Frame_Grabber" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" horizontalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="aku-Vb-sC2" customClass="GradientView" customModule="FG_Beta" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="175" width="200" height="25"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="200" distribution="equalSpacing" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="N9w-se-YN1">
@@ -161,7 +161,7 @@
         <!--Library View Controller-->
         <scene sceneID="Jla-Ab-FGw">
             <objects>
-                <viewController id="ooc-mi-fO9" customClass="LibraryViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ooc-mi-fO9" customClass="LibraryViewController" customModule="FG_Beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3v0-dz-T36">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

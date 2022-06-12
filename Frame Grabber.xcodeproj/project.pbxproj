@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00024F70234482EE00937941 /* VideoCellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* VideoCellContextMenu.swift */; };
+		00024F70234482EE00937941 /* LibraryGridMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00024F6F234482EE00937941 /* LibraryGridMenu.swift */; };
 		0009DBE025B58BB400166703 /* SampleTimeIndexer in Frameworks */ = {isa = PBXBuildFile; productRef = 0009DBDF25B58BB400166703 /* SampleTimeIndexer */; };
 		000EA8B42435182300C339DE /* ThumbnailSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 000EA8B32435182300C339DE /* ThumbnailSlider */; };
 		000EA8B72437311700C339DE /* Editor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 000EA8B52437311700C339DE /* Editor.storyboard */; };
@@ -64,6 +64,7 @@
 		00593292285286F80061D353 /* Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 00593291285286F80061D353 /* Utility */; };
 		005E2AA320273C5800F731FA /* LibraryGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA220273C5800F731FA /* LibraryGridLayout.swift */; };
 		005E2AA7202773F800F731FA /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E2AA6202773F800F731FA /* AuthorizationController.swift */; };
+		0060070D28568291007DAFCF /* LibraryEmptyView+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0060070C28568291007DAFCF /* LibraryEmptyView+Configure.swift */; };
 		00653B40213923470038CB56 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B3F213923460038CB56 /* ZoomTransitionController.swift */; };
 		00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B42213941A20038CB56 /* ZoomPushTransition.swift */; };
 		00653B452139E1680038CB56 /* LibraryViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */; };
@@ -87,7 +88,7 @@
 		009BEA49234E243D00C284FA /* dprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009BEA48234E243D00C284FA /* dprint.swift */; };
 		009C65751FBF337300DB25A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1781FB4977100A00BB9 /* AppDelegate.swift */; };
 		009C657A1FBF338900DB25A6 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1991FB498C700A00BB9 /* LibraryViewController.swift */; };
-		009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */; };
+		009C657B1FBF338900DB25A6 /* LibraryGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001AA1BB1FB4A71F00A00BB9 /* LibraryGridCell.swift */; };
 		009C657D1FBF338900DB25A6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */; };
 		009C65851FBF339E00DB25A6 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C876431FB9D0F400B5D7A3 /* VideoController.swift */; };
 		009C65871FBF33A300DB25A6 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8763D1FB60DB600B5D7A3 /* Style.swift */; };
@@ -116,11 +117,11 @@
 		00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C098EA1FC477E5000B05FE /* PHImageManager.swift */; };
 		00C13CF32404FDCE000193EB /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C13CF22404FDCD000193EB /* ConfettiView.swift */; };
 		00CA339025A200DE00DBD84D /* Album Picker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00CA339325A200DE00DBD84D /* Album Picker.storyboard */; };
-		00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */; };
+		00CA33E925A37EB500DBD84D /* LibraryGridMenuPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33E825A37EB500DBD84D /* LibraryGridMenuPreviewController.swift */; };
 		00CA341325A515A800DBD84D /* AlbumPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */; };
 		00CB9D242855EEA500A9BD4B /* LibraryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB9D232855EEA500A9BD4B /* LibraryButtonStyle.swift */; };
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
-		00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CE254D25D29F170005D21C /* EmptyLibraryView.swift */; };
+		00CE254E25D29F170005D21C /* LibraryEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CE254D25D29F170005D21C /* LibraryEmptyView.swift */; };
 		00CF4BC923F208C4006DB612 /* CachingGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */; };
 		00D1BDBE260790CC001C7A09 /* AlbumPickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D1BDBD260790CC001C7A09 /* AlbumPickerDataSource.swift */; };
 		00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D9E83523426301009E7AFA /* Metadata.storyboard */; };
@@ -149,7 +150,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00024F6F234482EE00937941 /* VideoCellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellContextMenu.swift; sourceTree = "<group>"; };
+		00024F6F234482EE00937941 /* LibraryGridMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridMenu.swift; sourceTree = "<group>"; };
 		000EA8B62437311700C339DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Application/Base.lproj/Editor.storyboard"; sourceTree = "<group>"; };
 		000EA8BA243731CE00C339DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "Frame Grabber/Application/de.lproj/Editor.strings"; sourceTree = "<group>"; };
 		00142EA723EB1737000BEC63 /* ZoomPopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPopTransition.swift; sourceTree = "<group>"; };
@@ -161,7 +162,7 @@
 		001AA1821FB4977100A00BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		001AA1841FB4977100A00BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		001AA1991FB498C700A00BB9 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
-		001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		001AA1BB1FB4A71F00A00BB9 /* LibraryGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridCell.swift; sourceTree = "<group>"; };
 		001CBD93242BB7CE00625685 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
 		001F7DE425C9E91E0075AFC2 /* MetadataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataCell.swift; sourceTree = "<group>"; };
 		001F7DF025CA96330075AFC2 /* MetadataSnapshotBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataSnapshotBuilder.swift; sourceTree = "<group>"; };
@@ -203,6 +204,7 @@
 		0058E355213D9AE900BE28DD /* TransitionUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionUtilities.swift; sourceTree = "<group>"; };
 		005E2AA220273C5800F731FA /* LibraryGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridLayout.swift; sourceTree = "<group>"; };
 		005E2AA6202773F800F731FA /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
+		0060070C28568291007DAFCF /* LibraryEmptyView+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryEmptyView+Configure.swift"; sourceTree = "<group>"; };
 		00653B3F213923460038CB56 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
 		00653B42213941A20038CB56 /* ZoomPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPushTransition.swift; sourceTree = "<group>"; };
 		00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryViewController+Transition.swift"; sourceTree = "<group>"; };
@@ -256,11 +258,11 @@
 		00C876431FB9D0F400B5D7A3 /* VideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		00CA339225A200DE00DBD84D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Album Picker.storyboard"; sourceTree = "<group>"; };
 		00CA339525A200E200DBD84D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Album Picker.strings"; sourceTree = "<group>"; };
-		00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContextMenuPreviewController.swift; sourceTree = "<group>"; };
+		00CA33E825A37EB500DBD84D /* LibraryGridMenuPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGridMenuPreviewController.swift; sourceTree = "<group>"; };
 		00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerViewController.swift; sourceTree = "<group>"; };
 		00CB9D232855EEA500A9BD4B /* LibraryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryButtonStyle.swift; sourceTree = "<group>"; };
 		00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetResourceManager.swift; sourceTree = "<group>"; };
-		00CE254D25D29F170005D21C /* EmptyLibraryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyLibraryView.swift; sourceTree = "<group>"; };
+		00CE254D25D29F170005D21C /* LibraryEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryEmptyView.swift; sourceTree = "<group>"; };
 		00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingGeocoder.swift; sourceTree = "<group>"; };
 		00D1BDBD260790CC001C7A09 /* AlbumPickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerDataSource.swift; sourceTree = "<group>"; };
 		00D9E83623426301009E7AFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Frame Grabber/Base.lproj/Metadata.storyboard"; sourceTree = "<group>"; };
@@ -465,13 +467,14 @@
 		002E51F225D2E67200508EB2 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
-				00CE254D25D29F170005D21C /* EmptyLibraryView.swift */,
+				00CE254D25D29F170005D21C /* LibraryEmptyView.swift */,
+				0060070C28568291007DAFCF /* LibraryEmptyView+Configure.swift */,
+				001AA1BB1FB4A71F00A00BB9 /* LibraryGridCell.swift */,
 				005E2AA220273C5800F731FA /* LibraryGridLayout.swift */,
+				00024F6F234482EE00937941 /* LibraryGridMenu.swift */,
+				00CA33E825A37EB500DBD84D /* LibraryGridMenuPreviewController.swift */,
 				002B066324B4F9BE005375ED /* LibraryGridMode.swift */,
 				002E51E925D2E61500508EB2 /* LibraryGridViewController.swift */,
-				001AA1BB1FB4A71F00A00BB9 /* VideoCell.swift */,
-				00024F6F234482EE00937941 /* VideoCellContextMenu.swift */,
-				00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -818,7 +821,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */,
-				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
+				009C657B1FBF338900DB25A6 /* LibraryGridCell.swift in Sources */,
 				00CB9D242855EEA500A9BD4B /* LibraryButtonStyle.swift in Sources */,
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00A18B3B25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */,
@@ -828,7 +831,7 @@
 				00653B43213941A20038CB56 /* ZoomPushTransition.swift in Sources */,
 				00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */,
 				00BCB4B825C961D40005192F /* VideoCodecs.swift in Sources */,
-				00024F70234482EE00937941 /* VideoCellContextMenu.swift in Sources */,
+				00024F70234482EE00937941 /* LibraryGridMenu.swift in Sources */,
 				00AD72C124194107009D18BA /* AVPlayer.swift in Sources */,
 				001F7E4225CB49260075AFC2 /* VideoTimeFormatter.swift in Sources */,
 				00F3C255213046CD0030B7EC /* AlbumListHeader.swift in Sources */,
@@ -841,12 +844,12 @@
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */,
-				00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */,
+				00CA33E925A37EB500DBD84D /* LibraryGridMenuPreviewController.swift in Sources */,
 				00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */,
 				00BCB4D925C99CE80005192F /* ISO6709LocationParser.swift in Sources */,
 				00C098EB1FC477E5000B05FE /* PHImageManager.swift in Sources */,
 				0050CF4725D415A400E94F95 /* LibraryMenu.Limited.swift in Sources */,
-				00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */,
+				00CE254E25D29F170005D21C /* LibraryEmptyView.swift in Sources */,
 				0057487725C873F900F64621 /* AVAsset+MetadataLoading.swift in Sources */,
 				0023FCA5233A42150046D9F8 /* AboutViewController.swift in Sources */,
 				0023FC9F233A0E4C0046D9F8 /* SettingsViewController.swift in Sources */,
@@ -897,6 +900,7 @@
 				0067B4DB25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				00FA915125C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
+				0060070D28568291007DAFCF /* LibraryEmptyView+Configure.swift in Sources */,
 				00A18B4425D5E46200330B1F /* EditorToolbarController.swift in Sources */,
 				0058E356213D9AE900BE28DD /* TransitionUtilities.swift in Sources */,
 				00FA914225C9336D007EB7DC /* VideoTrackMetadata.swift in Sources */,

@@ -2,7 +2,7 @@ import Combine
 import Photos
 import UIKit
 
-class VideoContextMenuPreviewController: UIViewController {
+class LibraryGridMenuPreviewController: UIViewController {
     
     let asset: PHAsset
     
