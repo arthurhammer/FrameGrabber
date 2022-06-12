@@ -133,6 +133,7 @@ final class LibraryGridViewController: UICollectionViewController {
 
     private func updateViews() {
         emptyView.isHidden = !dataSource.isEmpty || dataSource.isUpdating
+        emptyView.configure(with: dataSource.filter)
     }
     
     private func configureBindings() {

@@ -101,7 +101,15 @@ final class LibraryViewController: UIViewController {
 
     private func configureTitleButton() {
         navigationItem.titleView = UIView()  // Hide default title label
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleButton)
+        let titleContainer = UIView()  // Needed, otherwise the `semanticContentAttribute` gets overwritten.
+        titleContainer.addSubview(titleButton)
+        NSLayoutConstraint.activate([
+            titleButton.leadingAnchor.constraint(equalTo: titleContainer.leadingAnchor),
+            titleButton.trailingAnchor.constraint(equalTo: titleContainer.trailingAnchor),
+            titleButton.topAnchor.constraint(equalTo: titleContainer.topAnchor),
+            titleButton.bottomAnchor.constraint(equalTo: titleContainer.bottomAnchor),
+        ])
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleContainer)
         updateTitleButton()
     }
     
@@ -172,7 +180,6 @@ final class LibraryViewController: UIViewController {
                 self?.showAlbumPicker()
             }, for: .primaryActionTriggered)
         }
-        
         let isCompact = traitCollection.verticalSizeClass == .compact
         titleButton.titleLabel?.font = UIButton.libraryTitleFont(isCompact: isCompact)
     }
