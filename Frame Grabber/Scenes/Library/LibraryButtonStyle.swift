@@ -11,6 +11,7 @@ extension UIButton {
         button.configureDynamicTypeLabel()
         button.setImage(libraryTitleImage(), for: .normal)
         button.configureTrailingAlignedImage()
+        button.imageEdgeInsets.right = -6
         return button
     }
     
@@ -32,5 +33,13 @@ extension UIButton {
             return UIImage(systemName: "chevron.down", withConfiguration: configuration)?
                 .withTintColor(.accent, renderingMode: .alwaysOriginal)
         }
+    }
+}
+
+extension UIButton {
+    static func libraryButtonBar() -> UIButton {
+        let button = UIButton.action()
+        button.setPreferredSymbolConfiguration(.init(scale: .medium), forImageIn: .normal)
+        return button
     }
 }

@@ -172,49 +172,6 @@
                                     <segue destination="z5r-QY-0zg" kind="embed" destinationCreationSelector="makeGridController:" id="B2Q-IX-CgT"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JII-vh-LMD" customClass="LibraryToolbar" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="312" y="793" width="82" height="49"/>
-                                <subviews>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vs1-bY-hZh">
-                                        <rect key="frame" x="0.0" y="0.0" width="82" height="49"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GGp-uR-H5n">
-                                            <rect key="frame" x="0.0" y="0.0" width="82" height="49"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps3-t8-YlX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="49"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <inset key="contentEdgeInsets" minX="16" minY="14" maxX="16" maxY="14"/>
-                                                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
-                                                    <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" title="Add" image="plus" catalog="system">
-                                                        <color key="titleColor" systemColor="labelColor"/>
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="default">
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        </preferredSymbolConfiguration>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="ps3-t8-YlX" firstAttribute="leading" secondItem="GGp-uR-H5n" secondAttribute="leading" id="IHm-HI-Kx4"/>
-                                                <constraint firstItem="ps3-t8-YlX" firstAttribute="top" secondItem="GGp-uR-H5n" secondAttribute="top" id="Whb-5f-UCP"/>
-                                                <constraint firstAttribute="bottom" secondItem="ps3-t8-YlX" secondAttribute="bottom" id="cm4-YK-tl2"/>
-                                                <constraint firstAttribute="trailing" secondItem="ps3-t8-YlX" secondAttribute="trailing" id="ecP-bK-amb"/>
-                                            </constraints>
-                                        </view>
-                                        <blurEffect style="systemMaterial"/>
-                                    </visualEffectView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="vs1-bY-hZh" firstAttribute="top" secondItem="JII-vh-LMD" secondAttribute="top" id="MQj-iC-aur"/>
-                                    <constraint firstAttribute="trailing" secondItem="vs1-bY-hZh" secondAttribute="trailing" id="Ns7-y1-qgu"/>
-                                    <constraint firstAttribute="bottom" secondItem="vs1-bY-hZh" secondAttribute="bottom" id="XAj-qz-Esk"/>
-                                    <constraint firstItem="vs1-bY-hZh" firstAttribute="leading" secondItem="JII-vh-LMD" secondAttribute="leading" id="YQq-Dk-Bsw"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="importButton" destination="ps3-t8-YlX" id="jox-yJ-DoM"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="24K-Y6-tJv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -222,10 +179,7 @@
                             <constraint firstItem="RzZ-6r-66b" firstAttribute="top" secondItem="3v0-dz-T36" secondAttribute="top" id="1JW-Xr-oH9"/>
                             <constraint firstItem="RzZ-6r-66b" firstAttribute="trailing" secondItem="3v0-dz-T36" secondAttribute="trailing" id="BqC-Aq-gH2"/>
                             <constraint firstAttribute="bottom" secondItem="RzZ-6r-66b" secondAttribute="bottom" id="Fjv-H8-ttl"/>
-                            <constraint firstItem="24K-Y6-tJv" firstAttribute="bottom" secondItem="JII-vh-LMD" secondAttribute="bottom" constant="20" id="XPS-BZ-tGZ"/>
-                            <constraint firstItem="JII-vh-LMD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="24K-Y6-tJv" secondAttribute="leading" constant="20" id="kEp-aK-aX3"/>
                             <constraint firstItem="RzZ-6r-66b" firstAttribute="leading" secondItem="3v0-dz-T36" secondAttribute="leading" id="th6-5Q-jWz"/>
-                            <constraint firstItem="24K-Y6-tJv" firstAttribute="trailing" secondItem="JII-vh-LMD" secondAttribute="trailing" constant="20" id="yZv-8v-61B"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="QXR-Ao-DMK">
@@ -234,36 +188,31 @@
                                 <rect key="frame" x="20" y="5.5" width="120" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYS-go-O2a">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5U-uu-PJT">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="33"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5U-uu-PJT">
-                                                <rect key="frame" x="0.0" y="0.0" width="120" height="33"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-8" maxY="0.0"/>
-                                                <state key="normal" title="&lt;Title&gt;">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                    <imageReference key="image" image="chevron.down.circle.fill" catalog="system" renderingMode="hierarchical-single">
-                                                        <hierarchicalColors>
-                                                            <color name="accent"/>
-                                                            <color systemColor="secondaryLabelColor"/>
-                                                            <color systemColor="tertiaryLabelColor"/>
-                                                        </hierarchicalColors>
-                                                    </imageReference>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="26" scale="small" weight="bold"/>
-                                                </state>
-                                                <variation key="heightClass=compact">
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                                </variation>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <inset key="imageEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="&lt;Title&gt;">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <imageReference key="image" image="chevron.down.circle.fill" catalog="system" renderingMode="hierarchical">
+                                                <hierarchicalColors>
+                                                    <color name="accent"/>
+                                                    <color systemColor="secondaryLabelColor"/>
+                                                    <color systemColor="secondarySystemFillColor"/>
+                                                </hierarchicalColors>
+                                            </imageReference>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="26" scale="small" weight="bold"/>
+                                        </state>
+                                        <variation key="heightClass=compact">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        </variation>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="pYS-go-O2a" firstAttribute="leading" secondItem="ul7-0T-ba6" secondAttribute="leading" id="3IK-Y4-Aup"/>
-                                    <constraint firstAttribute="trailing" secondItem="pYS-go-O2a" secondAttribute="trailing" id="PJB-4T-HU7"/>
-                                    <constraint firstAttribute="bottom" secondItem="pYS-go-O2a" secondAttribute="bottom" id="b66-GH-Nyq"/>
-                                    <constraint firstItem="pYS-go-O2a" firstAttribute="top" secondItem="ul7-0T-ba6" secondAttribute="top" id="gnk-K4-cGO"/>
+                                    <constraint firstItem="o5U-uu-PJT" firstAttribute="leading" secondItem="ul7-0T-ba6" secondAttribute="leading" id="08b-oy-FZ1"/>
+                                    <constraint firstItem="o5U-uu-PJT" firstAttribute="top" secondItem="ul7-0T-ba6" secondAttribute="top" id="Ia6-3J-KJG"/>
+                                    <constraint firstAttribute="bottom" secondItem="o5U-uu-PJT" secondAttribute="bottom" id="PgY-Xj-kd6"/>
+                                    <constraint firstAttribute="trailing" secondItem="o5U-uu-PJT" secondAttribute="trailing" id="Z2A-wE-2v7"/>
                                 </constraints>
                             </view>
                         </barButtonItem>
@@ -281,8 +230,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="filterBarItem" destination="OO5-IZ-Y4X" id="qva-mI-H3g"/>
-                        <outlet property="titleButton" destination="o5U-uu-PJT" id="hSK-9I-LKy"/>
-                        <outlet property="toolbar" destination="JII-vh-LMD" id="zcQ-3j-Lim"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gLp-8G-IVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -297,12 +244,14 @@
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="livephoto" catalog="system" width="128" height="122"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="accent">
             <color red="0.46666666666666667" green="0.27843137254901962" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemFillColor">
             <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>

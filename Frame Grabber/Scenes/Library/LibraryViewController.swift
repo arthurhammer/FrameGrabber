@@ -15,6 +15,11 @@ protocol LibraryViewControllerDelegate: AnyObject {
 
 final class LibraryViewController: UIViewController {
     
+    private enum Constant {
+        static let barEffect = UIBlurEffect(style: .systemThickMaterial)
+        static let buttonBarMargin: CGFloat = 16
+    }
+    
     typealias Delegate = LibraryViewControllerDelegate
     
     weak var delegate: Delegate?
@@ -34,8 +39,8 @@ final class LibraryViewController: UIViewController {
     var zoomTransitionAsset: PHAsset?
     
     @IBOutlet private var filterBarItem: UIBarButtonItem!
-    @IBOutlet private var toolbar: LibraryToolbar!
     private let titleButton = UIButton.libraryTitle()
+    private let buttonBar = LibraryButtonBar()
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
@@ -68,16 +73,16 @@ final class LibraryViewController: UIViewController {
     }
 
     // MARK: - Actions
-
+    
     private func showAlbumPicker() {
         delegate?.controllerDidSelectAlbumPicker(self)
     }
     
-    @IBAction private func showFilePicker() {
+    private func showFilePicker() {
         delegate?.controllerDidSelectFilePicker(self)
     }
     
-    @IBAction private func showCamera() {
+    private func showCamera() {
         delegate?.controllerDidSelectCamera(self)
     }
     
@@ -89,33 +94,48 @@ final class LibraryViewController: UIViewController {
 
     private func configureViews() {
         configureTitleButton()
+        configureButtonBar()
         configureBindings()
         updateNavigationBar()
     }
-    
+
     private func configureTitleButton() {
         navigationItem.titleView = UIView()  // Hide default title label
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleButton)
         updateTitleButton()
     }
     
-    private func updateTitleButton() {
-        if dataSource.isAuthorizationLimited {
-            title = Localized.libraryLimitedTitle
-            titleButton.showsMenuAsPrimaryAction = true
-            titleButton.menu = LibraryMenu.Limited.menu { [weak self] selection in
-                self?.handleLimitedMenuSelection(selection)
-            }
-        } else {
-            title = dataSource.album?.localizedTitle ?? Localized.libraryDefaultTitle
-            titleButton.showsMenuAsPrimaryAction = false
-            titleButton.addAction(.init { [weak self] _ in
-                self?.showAlbumPicker()
-            }, for: .primaryActionTriggered)
-        }
+    private func configureButtonBar() {
+        buttonBar.configure(with: buttonBarItems())
+        buttonBar.backgroundEffect = Constant.barEffect
         
-        let isCompact = traitCollection.verticalSizeClass == .compact
-        titleButton.titleLabel?.font = UIButton.libraryTitleFont(isCompact: isCompact)
+        view.addSubview(buttonBar)
+        buttonBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonBar.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.buttonBarMargin),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: buttonBar.bottomAnchor, constant: Constant.buttonBarMargin),
+            buttonBar.leadingAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.buttonBarMargin),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: buttonBar.trailingAnchor, constant: Constant.buttonBarMargin)
+        ])
+    }
+    
+    private func buttonBarItems() -> [LibraryButtonBar.Item] {
+        [
+            .init(
+                image: UIImage(systemName: "folder")?.applyingSymbolConfiguration(.init(weight: .medium)),
+                action: .init { [weak self] _ in
+                    self?.showFilePicker()
+                },
+                accessibilityLabel: Localized.libraryButtonBarFilesTitle
+            ),
+            .init(
+                image: UIImage(systemName: "camera")?.applyingSymbolConfiguration(.init(weight: .medium)),
+                action: .init { [weak self] _ in
+                    self?.showCamera()
+                },
+                accessibilityLabel: Localized.libraryButtonBarCameraTitle
+            )
+        ]
     }
 
     private func configureBindings() {
@@ -136,9 +156,31 @@ final class LibraryViewController: UIViewController {
             }.store(in: &bindings)
     }
     
+    // MARK: Updating
+    
+    private func updateTitleButton() {
+        if dataSource.isAuthorizationLimited {
+            title = Localized.libraryLimitedTitle
+            titleButton.showsMenuAsPrimaryAction = true
+            titleButton.menu = LibraryMenu.Limited.menu { [weak self] selection in
+                self?.handleLimitedMenuSelection(selection)
+            }
+        } else {
+            title = dataSource.album?.localizedTitle ?? Localized.libraryDefaultTitle
+            titleButton.showsMenuAsPrimaryAction = false
+            titleButton.addAction(.init { [weak self] _ in
+                self?.showAlbumPicker()
+            }, for: .primaryActionTriggered)
+        }
+        
+        let isCompact = traitCollection.verticalSizeClass == .compact
+        titleButton.titleLabel?.font = UIButton.libraryTitleFont(isCompact: isCompact)
+    }
+    
     private func updateNavigationBar() {
         let standardAppearance = UINavigationBarAppearance()
         standardAppearance.shadowColor = nil
+        standardAppearance.backgroundEffect = Constant.barEffect
         navigationItem.standardAppearance = standardAppearance
         navigationController?.navigationBar.layer.shadowOpacity = 0  // Reset the custom editor shadow.
         navigationItem.backButtonDisplayMode = .minimal
@@ -146,7 +188,7 @@ final class LibraryViewController: UIViewController {
     
     private func updateGridSafeArea() {
         let spacing: CGFloat = 8
-        let toolbarTop = view.safeAreaLayoutGuide.layoutFrame.maxY - toolbar.frame.minY
+        let toolbarTop = view.safeAreaLayoutGuide.layoutFrame.maxY - buttonBar.frame.minY
         gridController?.additionalSafeAreaInsets.bottom = toolbarTop + spacing
     }
 

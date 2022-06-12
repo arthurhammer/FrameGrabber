@@ -33,9 +33,9 @@ struct Localized {
     static let albumEmptyLive = NSLocalizedString("album.empty.livePhoto", value: "No Live Photos", comment: "No live photos in album message")
     static let albumViewSettingsSquareGridTitle = NSLocalizedString("album.viewSettings.squareGrid.title", value: "Square", comment: "Title of album view as squares settings menu item")
     static let albumViewSettingsFitGridTitle = NSLocalizedString("album.viewSettings.fitGrid.title", value: "Aspect", comment: "Title of album view as aspect ratio settings menu item")
-    
-    static let libraryImportFileMenuAction = NSLocalizedString("library.menu.import.file.action", value: "Open a File", comment: "Action of import menu: Open file picker action.")
-    static let libraryImportCameraMenuAction = NSLocalizedString("library.menu.import.camera.action", value: "Record a Video", comment: "Action of import menu: Open camera action.")
+
+    static let libraryButtonBarFilesTitle = NSLocalizedString("library.menu.import.file.action", value: "Import File", comment: "Title for Open Files button.")
+    static let libraryButtonBarCameraTitle = NSLocalizedString("library.menu.import.camera.action", value: "Record Video", comment: "Title for Camera button")
 
     static let libraryLimitedMenuTitle = NSLocalizedString("library.menu.import.limited.title", value: "You've given Frame Grabber access to a limited number of videos.", comment: "Title for limited authorization menu.")
     static let libraryLimitedSelectMorePhotosMenuAction = NSLocalizedString("library.menu.limited.selectPhotos.action", value: "Select More Videos", comment: "Action of limited authorization menu: Show limited photos picker.")

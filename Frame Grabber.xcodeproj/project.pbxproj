@@ -75,7 +75,6 @@
 		0073D56324000E99008CABC3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0073D56224000E99008CABC3 /* StoreKit.framework */; };
 		0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0078A45423F4AD700033E81C /* CircularProgressView.swift */; };
 		007F8A1324B7580900324014 /* PhotoLibraryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */; };
-		007F8A1924B7591C00324014 /* LibraryToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F8A1824B7591C00324014 /* LibraryToolbar.swift */; };
 		008426991FD5CAC300F4119D /* ZoomingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */; };
 		0086A6B22344CD7100989646 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A6B12344CD7100989646 /* FileManager.swift */; };
 		0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */; };
@@ -108,7 +107,7 @@
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
 		00B52C8F24B71C9F00FDD427 /* LibraryMenu.Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */; };
-		00BA04052852B3F8000ECDB3 /* LibraryFloatingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA04042852B3F8000ECDB3 /* LibraryFloatingToolbar.swift */; };
+		00BA04052852B3F8000ECDB3 /* LibraryButtonBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA04042852B3F8000ECDB3 /* LibraryButtonBar.swift */; };
 		00BAFCA6205EA49B00BCEE69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */; };
 		00BCB4B825C961D40005192F /* VideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4B725C961D40005192F /* VideoCodecs.swift */; };
 		00BCB4D925C99CE80005192F /* ISO6709LocationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */; };
@@ -218,7 +217,6 @@
 		0073D56224000E99008CABC3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0078A45423F4AD700033E81C /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		007F8A1224B7580900324014 /* PhotoLibraryFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryFilter.swift; sourceTree = "<group>"; };
-		007F8A1824B7591C00324014 /* LibraryToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryToolbar.swift; sourceTree = "<group>"; };
 		008426981FD5CAC300F4119D /* ZoomingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingPlayerView.swift; sourceTree = "<group>"; };
 		0086A6B12344CD7100989646 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		0086A6B423450DD100989646 /* AVAssetImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAssetImageGenerator.swift; sourceTree = "<group>"; };
@@ -246,6 +244,7 @@
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMenu.Filter.swift; sourceTree = "<group>"; };
+		00BA04042852B3F8000ECDB3 /* LibraryButtonBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryButtonBar.swift; sourceTree = "<group>"; };
 		00BAFCA5205EA49B00BCEE69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		00BCB4B725C961D40005192F /* VideoCodecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCodecs.swift; sourceTree = "<group>"; };
 		00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO6709LocationParser.swift; sourceTree = "<group>"; };
@@ -415,11 +414,11 @@
 			isa = PBXGroup;
 			children = (
 				002E51F225D2E67200508EB2 /* Grid */,
+				00BA04042852B3F8000ECDB3 /* LibraryButtonBar.swift */,
 				00CB9D232855EEA500A9BD4B /* LibraryButtonStyle.swift */,
 				0072089A1FBF87B20046F389 /* LibraryDataSource.swift */,
 				00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */,
 				0050CF4625D415A400E94F95 /* LibraryMenu.Limited.swift */,
-				007F8A1824B7591C00324014 /* LibraryToolbar.swift */,
 				001AA1991FB498C700A00BB9 /* LibraryViewController.swift */,
 				00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */,
 				001AA17C1FB4977100A00BB9 /* Main.storyboard */,
@@ -838,6 +837,7 @@
 				00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */,
 				0096E815212F2FA7008395CA /* Settings.swift in Sources */,
 				00EAFD9F205FB2F20031F8A2 /* PlayerSeeker.swift in Sources */,
+				00BA04052852B3F8000ECDB3 /* LibraryButtonBar.swift in Sources */,
 				0054936423E5631B00F3E684 /* About.swift in Sources */,
 				00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */,
 				0025B2F125A8B3630075CCBC /* ImageMetadata.swift in Sources */,
@@ -894,7 +894,6 @@
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
 				00AEA0D528564E0F00444464 /* ButtonStyle.swift in Sources */,
 				002BFA6E25C8219800CACB18 /* MetadataViewController.swift in Sources */,
-				007F8A1924B7591C00324014 /* LibraryToolbar.swift in Sources */,
 				0067B4DB25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */,
 				00328A951FC85919004648F9 /* PlayerView.swift in Sources */,
 				00FA915125C93445007EB7DC /* VideoCommonMetadata.swift in Sources */,
