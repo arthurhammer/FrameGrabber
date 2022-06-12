@@ -103,6 +103,7 @@
 		00AA2021213432B400084B08 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201F213432B400084B08 /* Localizable.strings */; };
 		00AA20232136C93100084B08 /* AlbumListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA20222136C93100084B08 /* AlbumListLayout.swift */; };
 		00AD72C124194107009D18BA /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD72C024194107009D18BA /* AVPlayer.swift */; };
+		00AEA0D528564E0F00444464 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AEA0D428564E0F00444464 /* ButtonStyle.swift */; };
 		00AFE4F42027A03F005E2AA8 /* PhotoAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */; };
 		00AFE4F920289AD6005E2AA8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFE4F820289AD6005E2AA8 /* Alerts.swift */; };
 		00B264561FD090B300A6C3C3 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B264551FD090B300A6C3C3 /* PlaybackController.swift */; };
@@ -118,6 +119,7 @@
 		00CA339025A200DE00DBD84D /* Album Picker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00CA339325A200DE00DBD84D /* Album Picker.storyboard */; };
 		00CA33E925A37EB500DBD84D /* VideoContextMenuPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */; };
 		00CA341325A515A800DBD84D /* AlbumPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */; };
+		00CB9D242855EEA500A9BD4B /* LibraryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB9D232855EEA500A9BD4B /* LibraryButtonStyle.swift */; };
 		00CD76FB23F6C0DC00F78C56 /* PHAssetResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */; };
 		00CE254E25D29F170005D21C /* EmptyLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CE254D25D29F170005D21C /* EmptyLibraryView.swift */; };
 		00CF4BC923F208C4006DB612 /* CachingGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */; };
@@ -239,6 +241,7 @@
 		00AA2020213432B400084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		00AA20222136C93100084B08 /* AlbumListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListLayout.swift; sourceTree = "<group>"; };
 		00AD72C024194107009D18BA /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
+		00AEA0D428564E0F00444464 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbums.swift; sourceTree = "<group>"; };
 		00AFE4F820289AD6005E2AA8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		00B264551FD090B300A6C3C3 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
@@ -256,6 +259,7 @@
 		00CA339525A200E200DBD84D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Album Picker.strings"; sourceTree = "<group>"; };
 		00CA33E825A37EB500DBD84D /* VideoContextMenuPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContextMenuPreviewController.swift; sourceTree = "<group>"; };
 		00CA341225A515A800DBD84D /* AlbumPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerViewController.swift; sourceTree = "<group>"; };
+		00CB9D232855EEA500A9BD4B /* LibraryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryButtonStyle.swift; sourceTree = "<group>"; };
 		00CD76FA23F6C0DC00F78C56 /* PHAssetResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetResourceManager.swift; sourceTree = "<group>"; };
 		00CE254D25D29F170005D21C /* EmptyLibraryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyLibraryView.swift; sourceTree = "<group>"; };
 		00CF4BC823F208C4006DB612 /* CachingGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingGeocoder.swift; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				002E51F225D2E67200508EB2 /* Grid */,
+				00CB9D232855EEA500A9BD4B /* LibraryButtonStyle.swift */,
 				0072089A1FBF87B20046F389 /* LibraryDataSource.swift */,
 				00B52C8E24B71C9F00FDD427 /* LibraryMenu.Filter.swift */,
 				0050CF4625D415A400E94F95 /* LibraryMenu.Limited.swift */,
@@ -613,6 +618,7 @@
 				00AFE4F32027A03F005E2AA8 /* PhotoAlbums.swift */,
 				0096E814212F2FA7008395CA /* Settings.swift */,
 				00C8763D1FB60DB600B5D7A3 /* Style.swift */,
+				00AEA0D428564E0F00444464 /* ButtonStyle.swift */,
 				0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */,
 				001AA1811FB4977100A00BB9 /* LaunchScreen.storyboard */,
 			);
@@ -814,6 +820,7 @@
 			files = (
 				00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */,
 				009C657B1FBF338900DB25A6 /* VideoCell.swift in Sources */,
+				00CB9D242855EEA500A9BD4B /* LibraryButtonStyle.swift in Sources */,
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,
 				00A18B3B25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */,
 				00AA20232136C93100084B08 /* AlbumListLayout.swift in Sources */,
@@ -885,6 +892,7 @@
 				001CBD94242BB7CE00625685 /* Localized.swift in Sources */,
 				0072089B1FBF87B20046F389 /* LibraryDataSource.swift in Sources */,
 				0086A6B523450DD100989646 /* AVAssetImageGenerator.swift in Sources */,
+				00AEA0D528564E0F00444464 /* ButtonStyle.swift in Sources */,
 				002BFA6E25C8219800CACB18 /* MetadataViewController.swift in Sources */,
 				007F8A1924B7591C00324014 /* LibraryToolbar.swift in Sources */,
 				0067B4DB25D2D2C8008F3E69 /* ViewControllerFactory.swift in Sources */,

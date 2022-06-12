@@ -33,9 +33,9 @@ final class LibraryViewController: UIViewController {
     /// a cell is selected.
     var zoomTransitionAsset: PHAsset?
     
-    @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var filterBarItem: UIBarButtonItem!
     @IBOutlet private var toolbar: LibraryToolbar!
+    private let titleButton = UIButton.libraryTitle()
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
@@ -53,6 +53,12 @@ final class LibraryViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateGridSafeArea()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard previousTraitCollection?.verticalSizeClass != traitCollection.verticalSizeClass else { return }
+        updateTitleButton()
     }
     
     @IBSegueAction private func makeGridController(_ coder: NSCoder) -> LibraryGridViewController? {
@@ -88,26 +94,9 @@ final class LibraryViewController: UIViewController {
     }
     
     private func configureTitleButton() {
-        navigationItem.titleView = UIView()
-        titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()
-        titleButton.setImage(titleButtonImage(), for: .normal)
+        navigationItem.titleView = UIView()  // Hide default title label
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleButton)
         updateTitleButton()
-    }
-    
-    private func titleButtonImage() -> UIImage? {
-        if #available(iOS 15, *) {
-            let configuration = UIImage.SymbolConfiguration(paletteColors: [.accent, .secondarySystemFill])
-                .applying(UIImage.SymbolConfiguration(pointSize: 26, weight: .bold))
-                .applying(UIImage.SymbolConfiguration(scale: .small))
-            
-            return UIImage(systemName: "chevron.down.circle.fill", withConfiguration: configuration)
-        } else {
-            let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
-                .applying(UIImage.SymbolConfiguration(scale: .small))
-            
-            return UIImage(systemName: "chevron.down", withConfiguration: configuration)
-        }
     }
     
     private func updateTitleButton() {
@@ -124,6 +113,9 @@ final class LibraryViewController: UIViewController {
                 self?.showAlbumPicker()
             }, for: .primaryActionTriggered)
         }
+        
+        let isCompact = traitCollection.verticalSizeClass == .compact
+        titleButton.titleLabel?.font = UIButton.libraryTitleFont(isCompact: isCompact)
     }
 
     private func configureBindings() {

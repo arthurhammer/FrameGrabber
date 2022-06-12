@@ -9,57 +9,13 @@ extension UIColor {
 }
 
 struct Style {
-
-    static let buttonCornerRadius: CGFloat = 18
-    static let staticTableViewTopMargin: CGFloat = 12
-
-    static func configureAppearance(for window: UIWindow?) {
+    static func configureAppearance(for window: UIWindow? = nil) {
         window?.tintColor = .accent
         UISwitch.appearance().onTintColor = .accent
     }
 }
 
-extension UIButton {
-
-    func configureAsActionButton(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) {
-        if let height = height {
-            let constraint = heightAnchor.constraint(equalToConstant: height)
-            constraint.priority = .init(999)
-            constraint.isActive = true
-        }
-        
-        if let minimumWidth = minimumWidth {
-            let constraint = widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth)
-            constraint.priority = .init(999)
-            constraint.isActive = true
-        }
-        
-        contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        
-        layer.cornerRadius = Style.buttonCornerRadius
-        layer.cornerCurve = .continuous
-        
-        titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        configureDynamicTypeLabel()
-    }
-
-    func configureDynamicTypeLabel() {
-        titleLabel?.adjustsFontForContentSizeCategory = true
-        titleLabel?.adjustsFontSizeToFitWidth = true
-        titleLabel?.allowsDefaultTighteningForTruncation = true
-        titleLabel?.minimumScaleFactor = 0.6
-        titleLabel?.lineBreakMode = .byTruncatingTail
-    }
-    
-    func configureTrailingAlignedImage() {
-        // Hack to flip the image to the right side.
-        let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
-        semanticContentAttribute = isRightToLeft ? .forceLeftToRight : .forceRightToLeft
-    }
-}
-
 extension UIView {
-    
     func applyDefaultShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.12

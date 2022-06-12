@@ -145,7 +145,7 @@ class ProgressView: UIView {
     private func configureViews() {
         backgroundColor = nil
         clipsToBounds = true
-        layer.cornerRadius = Style.buttonCornerRadius
+        layer.cornerRadius = Style.defaultButtonCornerRadius
         layer.cornerCurve = .continuous
 
         titleLabel.font = .preferredFont(forTextStyle: .subheadline, weight: .semibold)
