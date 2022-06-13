@@ -40,7 +40,7 @@ class MetadataLocationHeader: UITableViewHeaderFooterView {
         mapView.layer.cornerCurve = .continuous
         mapView.superview?.layer.cornerRadius = 12
         mapView.superview?.layer.cornerCurve = .continuous
-        mapView.superview?.applyDefaultShadow()
+        mapView.superview?.configureWithDefaultShadow()
         
         openButton.titleLabel?.font = .preferredFont(forTextStyle: .subheadline, weight: .semibold)
         openButton.configureDynamicTypeLabel()

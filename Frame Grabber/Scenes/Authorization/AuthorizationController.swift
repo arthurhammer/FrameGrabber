@@ -51,7 +51,7 @@ class AuthorizationController: UIViewController {
     private func configureViews() {
         scrollView.delegate = self
         actionButton.configureAsActionButton(minimumWidth: 300)
-        actionButton.applyDefaultShadow()
+        actionButton.configureWithDefaultShadow()
         privacyButton.configureDynamicTypeLabel()
 
         updateViews()

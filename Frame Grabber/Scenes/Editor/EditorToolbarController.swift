@@ -105,6 +105,8 @@ class EditorToolbarController: UIViewController {
             placeholderImage: placeholderImage
         )
         
+        toolbar.backgroundColor = .editorBars
+        toolbar.configureWithBarShadow()
         toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultSpeed.scrubbingSpeed]
         toolbar.speedButton.showsMenuAsPrimaryAction = true
         updateSpeedButton()

@@ -30,14 +30,9 @@ class EditorToolbar: UIView {
     }
 
     private func configureViews() {
-        backgroundColor = nil
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-        blurView.frame = bounds
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        insertSubview(blurView, at: 0)
-        
-        timeSpinner.transform = CGAffineTransform.identity
-            .scaledBy(x: spinnerScale, y: spinnerScale)
+        shareButton.backgroundColor = .accent.withAlphaComponent(0.1)
+        shareButton.layer.cornerRadius = Style.mediumButtonCornerRadius
+        shareButton.layer.cornerCurve = .continuous
         
         configureTimeLabel()
         configureSpeedButton()
@@ -53,6 +48,9 @@ class EditorToolbar: UIView {
         
         handleConstraint?.priority = .defaultHigh
         handleConstraint?.isActive = true
+        
+        timeSpinner.transform = CGAffineTransform.identity
+            .scaledBy(x: spinnerScale, y: spinnerScale)
     }
     
     private func configureSpeedButton() {

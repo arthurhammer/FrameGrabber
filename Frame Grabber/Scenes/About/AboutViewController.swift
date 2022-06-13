@@ -57,7 +57,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         rateButton.setTitleColor(.accent, for: .normal)
         
         purchaseButton.configureAsActionButton()
-        purchaseButton.applyDefaultShadow()
+        purchaseButton.configureWithDefaultShadow()
         purchaseButton.configureTrailingAlignedImage()
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, weight: .semibold, size: 22)

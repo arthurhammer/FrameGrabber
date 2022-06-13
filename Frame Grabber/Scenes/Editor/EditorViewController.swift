@@ -97,12 +97,13 @@ class EditorViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        let edgeAppearance = UINavigationBarAppearance()
-        edgeAppearance.shadowColor = nil
-        navigationItem.standardAppearance = edgeAppearance
-        navigationItem.scrollEdgeAppearance = edgeAppearance
-        navigationController?.navigationBar.applyDefaultShadow()
-        toolbarController.toolbar.applyDefaultShadow()
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .editorBars
+        appearance.shadowColor = nil
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.configureWithBarShadow()
     }
 
     private func configureGestures() {

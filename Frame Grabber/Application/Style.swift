@@ -5,6 +5,8 @@ extension UIColor {
     static let secondaryAccent = UIColor(named: "secondaryAccent")!
     static let purchaseAccent = UIColor(named: "purchaseAccent")!
     static let cellSelection = UIColor(named: "cellSelection")!
+    static let editorBackground = UIColor(named: "editorBackground")!
+    static let editorBars = UIColor(named: "editorBars")!
     static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
 }
 
@@ -16,10 +18,17 @@ struct Style {
 }
 
 extension UIView {
-    func applyDefaultShadow() {
+    func configureWithDefaultShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.12
         layer.shadowRadius = 14
+        layer.shadowOffset = .zero
+    }
+    
+    func configureWithBarShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.03
+        layer.shadowRadius = 5
         layer.shadowOffset = .zero
     }
 }

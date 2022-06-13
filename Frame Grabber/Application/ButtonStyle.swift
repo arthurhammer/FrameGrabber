@@ -4,6 +4,7 @@ import UIKit
 
 extension Style {
     static let defaultButtonCornerRadius: CGFloat = 16
+    static let mediumButtonCornerRadius: CGFloat = 12
 }
 
 extension UIButton {
@@ -47,6 +48,6 @@ extension UIButton {
     func configureTrailingAlignedImage() {
         // Hack to flip the image to the right side.
         let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
-        semanticContentAttribute = isRightToLeft ? .forceLeftToRight : .forceRightToLeft
+        semanticContentAttribute = .forceRightToLeft//isRightToLeft ? .forceLeftToRight : .forceRightToLeft
     }
 }

@@ -123,7 +123,7 @@ class PurchaseViewController: UIViewController {
         imageContainer?.layer.cornerCurve = .continuous
         imageContainer?.layer.borderWidth = 1
         imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
-        imageContainer?.applyDefaultShadow()
+        imageContainer?.configureWithDefaultShadow()
         
         purchasingView.alpha = 0
         purchasingView.isHidden = false

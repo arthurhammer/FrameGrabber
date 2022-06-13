@@ -13,19 +13,19 @@
         <!--Choose Frame-->
         <scene sceneID="tlR-Zk-LyG">
             <objects>
-                <viewController id="1Cw-ag-d47" customClass="EditorViewController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1Cw-ag-d47" customClass="EditorViewController" customModule="FG_Beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="mzG-VC-6dc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8St-aq-4oR" customClass="ZoomingPlayerView" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="390" height="584"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8St-aq-4oR" customClass="ZoomingPlayerView" customModule="FG_Beta" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="390" height="536"/>
                                 <accessibility key="accessibilityConfiguration" label="Video">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="172" translatesAutoresizingMaskIntoConstraints="NO" id="emT-pt-NxW">
-                                <rect key="frame" x="0.0" y="672" width="390" height="172"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="220" translatesAutoresizingMaskIntoConstraints="NO" id="emT-pt-NxW">
+                                <rect key="frame" x="0.0" y="624" width="390" height="220"/>
                                 <connections>
                                     <segue destination="BL9-Ma-ehO" kind="embed" destinationCreationSelector="makeToolbarController:" id="5DG-dS-vS9"/>
                                 </connections>
@@ -62,7 +62,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buo-a7-9ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" verticalCompressionResistancePriority="850" id="j77-MA-S24" customClass="ProgressView" customModule="Frame_Grabber" customModuleProvider="target">
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" verticalCompressionResistancePriority="850" id="j77-MA-S24" customClass="ProgressView" customModule="FG_Beta" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="187" height="52"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -87,7 +87,7 @@
                                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="wEi-pI-5iC">
                                                                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                                 </activityIndicatorView>
-                                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXp-E0-Jfd" customClass="CircularProgressView" customModule="Frame_Grabber" customModuleProvider="target">
+                                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXp-E0-Jfd" customClass="CircularProgressView" customModule="FG_Beta" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="-4" width="28" height="28"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="TXp-E0-Jfd" secondAttribute="height" id="H5J-ny-a7B"/>
@@ -150,22 +150,22 @@
         <!--Editor Toolbar Controller-->
         <scene sceneID="qoN-Pk-IxM">
             <objects>
-                <viewController id="BL9-Ma-ehO" customClass="EditorToolbarController" customModule="Frame_Grabber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BL9-Ma-ehO" customClass="EditorToolbarController" customModule="FG_Beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K5w-P0-Rim">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="172"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="5e4-vf-d0o" userLabel="Toolbar" customClass="EditorToolbar" customModule="Frame_Grabber" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="172"/>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="5e4-vf-d0o" userLabel="Toolbar" customClass="EditorToolbar" customModule="FG_Beta" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="220"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TKw-XQ-klh" userLabel="Controls">
-                                        <rect key="frame" x="12" y="70.333333333333314" width="366" height="89.666666666666686"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="TKw-XQ-klh" userLabel="Controls">
+                                        <rect key="frame" x="14" y="76.333333333333314" width="362" height="121.66666666666669"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" verticalHuggingPriority="500" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="dyS-Pe-J8M" customClass="ScrubbingThumbnailSlider" customModule="ThumbnailSlider">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="33.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="362" height="14.666666666666666"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-Dr-flg">
-                                                        <rect key="frame" x="322" y="-1" width="36" height="36"/>
+                                                        <rect key="frame" x="318" y="-10.666666666666657" width="36" height="36"/>
                                                         <accessibility key="accessibilityConfiguration" label="Scrubbing Speed"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="BnD-Dr-flg" secondAttribute="height" id="aZC-yy-o9W"/>
@@ -195,75 +195,84 @@
                                                     <action selector="scrub:" destination="BL9-Ma-ehO" eventType="valueChanged" id="6SL-h6-N3b"/>
                                                 </connections>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fLW-cX-bmC" userLabel="Buttons">
-                                                <rect key="frame" x="0.0" y="45.666666666666671" width="366" height="44"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fLW-cX-bmC" userLabel="Buttons">
+                                                <rect key="frame" x="0.0" y="30.666666666666671" width="362" height="91"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="734-DU-reF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1" height="44"/>
+                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="734-DU-reF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1" height="91"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="1" id="srd-ZX-qaX"/>
                                                         </constraints>
                                                         <variation key="heightClass=compact" hidden="YES"/>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aig-9J-KTP">
-                                                        <rect key="frame" x="38.666666666666664" y="0.0" width="43.999999999999993" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
-                                                        </accessibility>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hqI-IN-dD1">
+                                                        <rect key="frame" x="48" y="23.666666666666657" width="266" height="44"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aig-9J-KTP">
+                                                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" button="YES" startsMediaSession="YES"/>
+                                                                </accessibility>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" priority="999" constant="44" id="Zor-4p-tiF"/>
+                                                                    <constraint firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="height" id="kdN-Nw-2eD"/>
+                                                                </constraints>
+                                                                <color key="tintColor" name="secondaryAccent"/>
+                                                                <state key="normal" image="play.fill" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="playOrPause" destination="BL9-Ma-ehO" eventType="touchUpInside" id="Um3-3R-gsx"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k63-cd-ILB" customClass="RepeatingButton" customModule="FG_Beta" customModuleProvider="target">
+                                                                <rect key="frame" x="74" y="0.0" width="44" height="44"/>
+                                                                <accessibility key="accessibilityConfiguration" label="Previous Frame"/>
+                                                                <color key="tintColor" name="secondaryAccent"/>
+                                                                <state key="normal" image="arrow.left" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="stepBackward" destination="BL9-Ma-ehO" eventType="touchDown" id="4hK-Ew-58m"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DkK-Al-W1l" customClass="RepeatingButton" customModule="FG_Beta" customModuleProvider="target">
+                                                                <rect key="frame" x="148" y="0.0" width="44" height="44"/>
+                                                                <accessibility key="accessibilityConfiguration" label="Next Frame"/>
+                                                                <color key="tintColor" name="secondaryAccent"/>
+                                                                <state key="normal" image="arrow.right" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="stepForward" destination="BL9-Ma-ehO" eventType="touchDown" id="bqp-Zz-sxi"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9G-NA-8mP">
+                                                                <rect key="frame" x="222" y="0.0" width="44" height="44"/>
+                                                                <accessibility key="accessibilityConfiguration" label="Share Frame"/>
+                                                                <state key="normal" image="square.and.arrow.up" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="shareFrames" destination="BL9-Ma-ehO" eventType="touchUpInside" id="Sbs-KR-fci"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" priority="999" constant="44" id="Zor-4p-tiF"/>
-                                                            <constraint firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="height" id="kdN-Nw-2eD"/>
+                                                            <constraint firstItem="DkK-Al-W1l" firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="width" id="E6B-MA-0jv"/>
+                                                            <constraint firstItem="k63-cd-ILB" firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="width" id="w5l-Jl-BIy"/>
+                                                            <constraint firstItem="L9G-NA-8mP" firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="width" id="xhk-Bw-Fc3"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="secondaryAccent"/>
-                                                        <state key="normal" image="play.fill" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="playOrPause" destination="BL9-Ma-ehO" eventType="touchUpInside" id="Um3-3R-gsx"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k63-cd-ILB" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                        <rect key="frame" x="120.33333333333334" y="0.0" width="44" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration" label="Previous Frame"/>
-                                                        <color key="tintColor" name="secondaryAccent"/>
-                                                        <state key="normal" image="arrow.left" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="stepBackward" destination="BL9-Ma-ehO" eventType="touchDown" id="4hK-Ew-58m"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DkK-Al-W1l" customClass="RepeatingButton" customModule="Frame_Grabber" customModuleProvider="target">
-                                                        <rect key="frame" x="201.66666666666666" y="0.0" width="44" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration" label="Next Frame"/>
-                                                        <color key="tintColor" name="secondaryAccent"/>
-                                                        <state key="normal" image="arrow.right" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="stepForward" destination="BL9-Ma-ehO" eventType="touchDown" id="bqp-Zz-sxi"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9G-NA-8mP">
-                                                        <rect key="frame" x="283.33333333333331" y="0.0" width="44" height="44"/>
-                                                        <accessibility key="accessibilityConfiguration" label="Share Frame"/>
-                                                        <state key="normal" image="square.and.arrow.up" catalog="system">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="semibold"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="shareFrames" destination="BL9-Ma-ehO" eventType="touchUpInside" id="Sbs-KR-fci"/>
-                                                        </connections>
-                                                    </button>
+                                                        <variation key="heightClass=compact" spacing="12"/>
+                                                        <variation key="widthClass=regular" spacing="12"/>
+                                                    </stackView>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="leB-rO-H7l">
-                                                        <rect key="frame" x="365" y="0.0" width="1" height="44"/>
+                                                        <rect key="frame" x="361" y="0.0" width="1" height="91"/>
                                                         <variation key="heightClass=compact" hidden="YES"/>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="k63-cd-ILB" firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="width" id="A15-a7-cKt"/>
                                                     <constraint firstItem="leB-rO-H7l" firstAttribute="width" secondItem="734-DU-reF" secondAttribute="width" id="Srl-NO-qrq"/>
-                                                    <constraint firstItem="DkK-Al-W1l" firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="width" id="v4R-2X-STy"/>
-                                                    <constraint firstItem="L9G-NA-8mP" firstAttribute="width" secondItem="aig-9J-KTP" secondAttribute="width" id="wlz-5z-qsf"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -271,7 +280,7 @@
                                         <variation key="widthClass=regular" alignment="center" axis="horizontal"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="qwb-8H-Tuf" userLabel="Time Label with Spinner">
-                                        <rect key="frame" x="163.66666666666666" y="50" width="63" height="14.333333333333329"/>
+                                        <rect key="frame" x="163.66666666666666" y="54" width="63" height="14.333333333333329"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="&lt;Time&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILv-8M-cLD">
                                                 <rect key="frame" x="0.0" y="0.0" width="43" height="14.333333333333334"/>
@@ -292,27 +301,27 @@
                                 <viewLayoutGuide key="safeArea" id="HPK-Ef-5Xc"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="TKw-XQ-klh" firstAttribute="leading" secondItem="HPK-Ef-5Xc" secondAttribute="leading" constant="12" id="9IB-L8-0GE">
+                                    <constraint firstItem="TKw-XQ-klh" firstAttribute="leading" secondItem="HPK-Ef-5Xc" secondAttribute="leading" constant="14" id="9IB-L8-0GE">
                                         <variation key="heightClass=compact" constant="16"/>
                                         <variation key="widthClass=regular" constant="16"/>
                                     </constraint>
-                                    <constraint firstItem="dyS-Pe-J8M" firstAttribute="top" secondItem="qwb-8H-Tuf" secondAttribute="bottom" constant="6" id="BAm-tv-aHC">
+                                    <constraint firstItem="dyS-Pe-J8M" firstAttribute="top" secondItem="qwb-8H-Tuf" secondAttribute="bottom" constant="8" id="BAm-tv-aHC">
                                         <variation key="heightClass=compact" constant="2"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="8"/>
                                     </constraint>
                                     <constraint firstItem="HPK-Ef-5Xc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TKw-XQ-klh" secondAttribute="bottom" id="Dd9-26-IwI"/>
-                                    <constraint firstItem="HPK-Ef-5Xc" firstAttribute="trailing" secondItem="TKw-XQ-klh" secondAttribute="trailing" constant="12" id="KXs-EH-4kW">
+                                    <constraint firstItem="HPK-Ef-5Xc" firstAttribute="trailing" secondItem="TKw-XQ-klh" secondAttribute="trailing" constant="14" id="KXs-EH-4kW">
                                         <variation key="heightClass=compact" constant="16"/>
                                         <variation key="widthClass=regular" constant="16"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="TKw-XQ-klh" secondAttribute="bottom" priority="999" constant="12" id="Lbg-a5-hwN">
+                                    <constraint firstAttribute="bottom" secondItem="TKw-XQ-klh" secondAttribute="bottom" priority="999" constant="22" id="Lbg-a5-hwN">
                                         <variation key="heightClass=compact" constant="8"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="32"/>
                                     </constraint>
                                     <constraint firstItem="qwb-8H-Tuf" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="dyS-Pe-J8M" secondAttribute="trailing" id="Qlk-LH-kLJ"/>
                                     <constraint firstItem="qwb-8H-Tuf" firstAttribute="centerX" secondItem="dyS-Pe-J8M" secondAttribute="centerX" priority="750" placeholder="YES" id="WoL-LL-g2H"/>
                                     <constraint firstItem="qwb-8H-Tuf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dyS-Pe-J8M" secondAttribute="leading" id="kFB-xx-sQ0"/>
-                                    <constraint firstItem="qwb-8H-Tuf" firstAttribute="top" secondItem="HPK-Ef-5Xc" secondAttribute="top" constant="6" id="v15-vU-3OY">
+                                    <constraint firstItem="qwb-8H-Tuf" firstAttribute="top" secondItem="HPK-Ef-5Xc" secondAttribute="top" constant="10" id="v15-vU-3OY">
                                         <variation key="heightClass=compact" constant="2"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="8"/>
                                     </constraint>
