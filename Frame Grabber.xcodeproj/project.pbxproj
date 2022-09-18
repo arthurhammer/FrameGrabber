@@ -48,12 +48,10 @@
 		0045A1B025BE5AF800A1235A /* TimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A1AF25BE5AF800A1235A /* TimeFormat.swift */; };
 		0050CF4725D415A400E94F95 /* LibraryMenu.Limited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0050CF4625D415A400E94F95 /* LibraryMenu.Limited.swift */; };
 		0054936423E5631B00F3E684 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054936323E5631B00F3E684 /* About.swift */; };
-		0057486725C8736600F64621 /* ImageMetadataDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */; };
 		0057486B25C8739100F64621 /* MetadataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C0FCA25C49BC1007E50B0 /* MetadataViewModel.swift */; };
 		0057487725C873F900F64621 /* AVAsset+VideoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C0FD925C5F560007E50B0 /* AVAsset+VideoMetadata.swift */; };
 		0057489F25C87CC800F64621 /* CGImage+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E713592125E2940052EAF8 /* CGImage+Encoding.swift */; };
 		005748A325C87CDB00F64621 /* ImageEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008A48D623479D7300CEAA26 /* ImageEncoding.swift */; };
-		005748A725C87CDF00F64621 /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025B2F025A8B3630075CCBC /* ImageMetadata.swift */; };
 		005748AB25C87CEA00F64621 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023FCA1233A25DC0046D9F8 /* ImageFormat.swift */; };
 		005748B025C9242A00F64621 /* FileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005748AF25C9242900F64621 /* FileMetadata.swift */; };
 		0058E354213D645900BE28DD /* ZoomTransitionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058E353213D645900BE28DD /* ZoomTransitionTypes.swift */; };
@@ -355,32 +353,19 @@
 			path = Formatters;
 			sourceTree = "<group>";
 		};
-		001F7E6D25CB52B40075AFC2 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-				0025B2F025A8B3630075CCBC /* ImageMetadata.swift */,
-				00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */,
-			);
-			path = Image;
-			sourceTree = "<group>";
-		};
 		001F7E7A25CB52D20075AFC2 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				001F7E6D25CB52B40075AFC2 /* Image */,
-				001F7E7B25CB53100075AFC2 /* Other */,
-				002BFA6025C744BF00CACB18 /* Video */,
+				006C0FD925C5F560007E50B0 /* AVAsset+VideoMetadata.swift */,
+				005748AF25C9242900F64621 /* FileMetadata.swift */,
+				0025B2F025A8B3630075CCBC /* ImageMetadata.swift */,
+				00E69C3625C8669400B69D4D /* ImageMetadataDateFormatter.swift */,
+				00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */,
+				00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */,
+				00BCB4B725C961D40005192F /* VideoCodecs.swift */,
+				002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */,
 			);
 			path = Metadata;
-			sourceTree = "<group>";
-		};
-		001F7E7B25CB53100075AFC2 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				005748AF25C9242900F64621 /* FileMetadata.swift */,
-				00FA915F25C934B1007EB7DC /* PhotoLibraryMetadata.swift */,
-			);
-			path = Other;
 			sourceTree = "<group>";
 		};
 		0020D2F11FB4ED95002379D0 /* Utility */ = {
@@ -429,17 +414,6 @@
 				0020F04825C2D29F009C0C8F /* VideoSource.swift */,
 			);
 			path = Media;
-			sourceTree = "<group>";
-		};
-		002BFA6025C744BF00CACB18 /* Video */ = {
-			isa = PBXGroup;
-			children = (
-				006C0FD925C5F560007E50B0 /* AVAsset+VideoMetadata.swift */,
-				00BCB4D825C99CE80005192F /* ISO6709LocationParser.swift */,
-				00BCB4B725C961D40005192F /* VideoCodecs.swift */,
-				002BFA5A25C6FC4E00CACB18 /* VideoMetadata.swift */,
-			);
-			path = Video;
 			sourceTree = "<group>";
 		};
 		002E51F225D2E67200508EB2 /* Grid */ = {
@@ -908,8 +882,6 @@
 				00ECC735242E5BCC00B95E32 /* Frame_Grabber_Tests.swift in Sources */,
 				005748A325C87CDB00F64621 /* ImageEncoding.swift in Sources */,
 				005748AB25C87CEA00F64621 /* ImageFormat.swift in Sources */,
-				005748A725C87CDF00F64621 /* ImageMetadata.swift in Sources */,
-				0057486725C8736600F64621 /* ImageMetadataDateFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
