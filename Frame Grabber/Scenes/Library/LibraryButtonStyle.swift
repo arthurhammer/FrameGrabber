@@ -20,19 +20,11 @@ extension UIButton {
     }
     
     private static func libraryTitleImage() -> UIImage? {
-        if #available(iOS 15, *) {
-            let configuration = UIImage.SymbolConfiguration(paletteColors: [.accent, .secondarySystemFill])
-                .applying(UIImage.SymbolConfiguration(pointSize: 26, weight: .bold))
-                .applying(UIImage.SymbolConfiguration(scale: .small))
-            
-            return UIImage(systemName: "chevron.down.circle.fill", withConfiguration: configuration)
-        } else {
-            let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
-                .applying(UIImage.SymbolConfiguration(scale: .small))
-            
-            return UIImage(systemName: "chevron.down", withConfiguration: configuration)?
-                .withTintColor(.accent, renderingMode: .alwaysOriginal)
-        }
+        let configuration = UIImage.SymbolConfiguration(paletteColors: [.accent, .secondarySystemFill])
+            .applying(UIImage.SymbolConfiguration(pointSize: 26, weight: .bold))
+            .applying(UIImage.SymbolConfiguration(scale: .small))
+        
+        return UIImage(systemName: "chevron.down.circle.fill", withConfiguration: configuration)
     }
 }
 

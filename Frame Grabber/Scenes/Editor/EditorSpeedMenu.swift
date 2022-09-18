@@ -36,11 +36,7 @@ enum EditorSpeedMenu {
         
         var buttonIcon: UIImage? {
             let icon = { (systemName: String) -> UIImage? in
-                if #available(iOS 15, *) {
-                    return UIImage(systemName: systemName)?.applyingSymbolConfiguration(.init(hierarchicalColor: .label))
-                } else {
-                    return UIImage(systemName: systemName)
-                }
+                UIImage(systemName: systemName)?.applyingSymbolConfiguration(.init(hierarchicalColor: .label))                
             }
             
             switch self {
