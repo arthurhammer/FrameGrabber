@@ -48,6 +48,6 @@ extension UIButton {
     func configureTrailingAlignedImage() {
         // Hack to flip the image to the right side.
         let isRightToLeft = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
-        semanticContentAttribute = .forceRightToLeft//isRightToLeft ? .forceLeftToRight : .forceRightToLeft
+        semanticContentAttribute = isRightToLeft ? .forceLeftToRight : .forceRightToLeft
     }
 }
