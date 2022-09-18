@@ -3,7 +3,7 @@ import Combine
 import Photos
 import UIKit
 
-// TODO: Clean and break up this class, 2ugly4me.
+// Note: This class has several issues and should be rewritten and split up.
 
 /// Manages a video or Live Photo asset from the photo library or external location. Loads and
 /// exports various representations for the asset.
@@ -306,25 +306,27 @@ class VideoController {
             completion(.failed(nil))
             return
         }
-                
-        video.loadMetadata { [weak self] metadata in
-            DispatchQueue.main.async {  // Sync property access.
-                guard let self = self else { return }
-                
-                let request = self.frameRequest(
+        
+        // Bug: This task should also be cancelled with `cancelFrameExport`, otherwise several exports can be started
+        // simultaneously leading to incosistent state.
+        Task {
+            let metadata = try await video.loadMetadata()
+            
+            await MainActor.run {  // Sync property access.
+                let request = frameRequest(
                     for: video,
                     at: times,
                     source: self.source,
                     metadata: metadata
                 )
 
-                self.frameExport = FrameExport(
+                frameExport = FrameExport(
                     request: request,
                     fileManager: self.fileManager,
                     updateHandler: completion
                 )
 
-                self.frameExport?.start()
+                frameExport?.start()
             }
         }
     }
@@ -379,9 +381,5 @@ class VideoController {
             software: videoMetadata.common?.software,
             userComment: Localized.exifAppInformation
         )
-    }
-    
-    private func metadataString(for id: AVMetadataIdentifier, in metadata: [AVMetadataItem]) -> String? {
-        AVMetadataItem.metadataItems(from: metadata, filteredByIdentifier: id).first?.stringValue
     }
 }
