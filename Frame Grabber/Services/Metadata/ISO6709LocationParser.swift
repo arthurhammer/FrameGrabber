@@ -13,16 +13,18 @@ struct ISO6709LocationParser {
     /// The timestamp of the location contains the current date.
     ///
     /// - SeeAlso: https://en.wikipedia.org/wiki/ISO_6709
-    func location(from sring: String) -> CLLocation? {
-        let pattern = "([+-][0-9.]+)([+-][0-9.]+)([+-][0-9.]+)?"
-        let groups = sring.captureGroups(matching: pattern)
+    func location(from string: String) -> CLLocation? {
+        let pattern = /(?<latitude>[+-][0-9.]+)(?<longitude>[+-][0-9.]+)(?<altitude>[+-][0-9.]+)?/
+        let matches = string.matches(of: pattern)
         
-        guard let latitudeString = groups[safe: 1],
-              let longitudeString = groups[safe: 2],
-              let latitude = Double(latitudeString),
-              let longitude = Double(longitudeString) else { return nil }
-        
-        let altitudeString = groups[safe: 3]
+        guard let groups = matches.first?.output,
+              let latitude = Double(groups.latitude),
+              let longitude = Double(groups.longitude)
+        else {
+            return nil
+        }
+                
+        let altitudeString = groups.altitude
         let altitude = altitudeString.flatMap(Double.init)
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
 
@@ -33,29 +35,5 @@ struct ISO6709LocationParser {
             verticalAccuracy: -1,
             timestamp: Date()
         )
-    }
-}
-
-// MARK: - Utilities
-
-private extension String {
-    
-    func captureGroups(matching pattern: String) -> [String] {
-        let fullRange = NSRange(location: 0, length: count)
-        
-        guard let regex = try? NSRegularExpression(pattern: pattern),
-              let result = regex.firstMatch(in: self, range: fullRange) else { return [] }
-        
-        return (0..<result.numberOfRanges)
-            .map(result.range(at:))
-            .compactMap { Range($0, in: self) }
-            .map { String(self[$0]) }
-    }
-}
-
-private extension Collection {
-    
-    subscript(safe index: Index) -> Element? {
-        indices.contains(index) ? self[index] : nil
     }
 }
