@@ -22,7 +22,7 @@ struct Localized {
     static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "By Arthur Hammer – Version %@", comment: "Version label with numerical version")
     static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
 
-    static let IAPAction = NSLocalizedString("iap.purchase.action", value: "Send Ice Cream", comment: "Purchase screen purchase button label")
+    static let IAPAction = NSLocalizedString("iap.purchase.action", value: "Donate", comment: "Purchase screen purchase button label")
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
@@ -135,7 +135,7 @@ extension Localized {
     static let alertMailUnavailableTitle = NSLocalizedString("alert.mail.title", value: "This Device Can't Send Emails", comment: "")
     static let alertMailUnavailableMessageFormat = NSLocalizedString("alert.mail.message", value: "You can reach me at %@", comment: "E-mail address")
 
-    static let alertIAPFailedTitle = NSLocalizedString("alert.iap.failed.title", value: "Cannot Purchase Ice Cream", comment: "Alert title: Purchasing failed.")
+    static let alertIAPFailedTitle = NSLocalizedString("alert.iap.failed.title", value: "Donation Failed", comment: "Alert title: Purchasing failed.")
     static let alertIAPFailedMessage = NSLocalizedString("alert.iap.failed.message", value: "Please check your network settings and try again later. Thank you for your support!", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
 
     static let alertIAPUnauthorizedTitle = Localized.alertIAPFailedTitle
@@ -144,12 +144,12 @@ extension Localized {
     static let alertIAPUnavailableTitle = Localized.alertIAPFailedTitle
     static let alertIAPUnavailableMessage = Localized.alertIAPFailedMessage
 
-    static let alertIAPRestoreFailedTitle = NSLocalizedString("alert.iap.restore.failed.title", value: "Cannot Restore Your Purchase", comment: "Alert title: Restoring failed.")
+    static let alertIAPRestoreFailedTitle = NSLocalizedString("alert.iap.restore.failed.title", value: "Cannot Restore Purchase", comment: "Alert title: Restoring failed.")
     static let alertIAPRestoreFailedMessage = Localized.alertIAPFailedMessage
 
     static let alertIAPRestoreUnauthorizedTitle = Localized.alertIAPRestoreFailedTitle
     static let alertIAPRestoreUnauthorizedMessage = Localized.alertIAPUnauthorizedMessage
 
-    static let alertIAPRestoreEmptyTitle = NSLocalizedString("alert.iap.restore.empty.title", value: "Nothing to Restore", comment: "Alert title: Nothing to restore, the user has not previously purchased anything.")
-    static let alertIAPRestoreEmptyMessage = NSLocalizedString("alert.iap.restore.empty.message", value: "Looks like you haven't sent any ice cream yet!", comment: "Alert message: Nothing to restore, the user has not previously purchased anything. ")
+    static let alertIAPRestoreEmptyTitle = alertIAPRestoreFailedTitle
+    static let alertIAPRestoreEmptyMessage = NSLocalizedString("alert.iap.restore.empty.message", value: "Looks like you haven't donated yet.", comment: "Alert message: Nothing to restore, the user has not previously purchased anything. ")
 }

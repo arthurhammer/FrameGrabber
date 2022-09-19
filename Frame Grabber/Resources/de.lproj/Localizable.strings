@@ -77,13 +77,13 @@
 "alert.frameexport.title" = "Export nicht möglich";
 
 /* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"alert.iap.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
+"alert.iap.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Bitte versuche es später noch einmal. Vielen Dank!";
 
 /* Alert title: Purchasing failed. */
-"alert.iap.failed.title" = "Kauf nicht möglich";
+"alert.iap.failed.title" = "Fehler beim Kauf";
 
 /* Alert message: Nothing to restore, the user has not previously purchased anything. */
-"alert.iap.restore.empty.message" = "Scheint, als hättest du noch kein Eis gekauft.";
+"alert.iap.restore.empty.message" = "Es scheint, als hättest du noch keine Käufe getätigt.";
 
 /* Alert title: Nothing to restore, the user has not previously purchased anything. */
 "alert.iap.restore.empty.title" = "Keine vorherigen Käufe";
@@ -191,7 +191,7 @@
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
 /* Purchase screen purchase button label */
-"iap.purchase.action" = "Eis Ausgeben";
+"iap.purchase.action" = "Spenden";
 
 /* Title for the library when no specific album is selected. */
 "library.title.default" = "Videos";
