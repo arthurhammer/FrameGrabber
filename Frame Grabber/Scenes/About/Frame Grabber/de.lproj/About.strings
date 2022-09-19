@@ -14,10 +14,10 @@
 "GkV-0K-xRO.text" = "Kontakt";
 
 /* Class = "UILabel"; text = "Frame Grabber doesn't bug you with ads or subscriptions, made possible by the amazing support of its users."; ObjectID = "gsO-Jw-32d"; */
-"gsO-Jw-32d.text" = "Frame Grabber is kostenlos und enthält keine Werbung oder Abos. Ermöglicht durch die tolle Unterstützung von Menschen wie dir.";
+"gsO-Jw-32d.text" = "Werbefrei, abofrei, allesfrei 🦄. Du machst es möglich.";
 
 /* Class = "UIButton"; normalTitle = "Donate"; ObjectID = "HlA-JS-FBO"; */
-"HlA-JS-FBO.normalTitle" = "Spenden 🙌";
+"HlA-JS-FBO.normalTitle" = "Spenden";
 
 /* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
 "hSM-a5-Quj.normalTitle" = "Wiederherstellen";
@@ -53,7 +53,7 @@
 "UNF-JH-2pd.text" = "Von Arthur Hammer";
 
 /* Class = "UILabel"; text = "Nice to see you."; ObjectID = "xBV-RG-m2x"; */
-"xBV-RG-m2x.text" = "App Unterstützen";
+"xBV-RG-m2x.text" = "Du willst helfen?";
 
 /* Class = "UIButton"; normalTitle = "Leave a Review  🥳"; ObjectID = "xhq-rN-pTi"; */
 "xhq-rN-pTi.normalTitle" = "Bewerten";
