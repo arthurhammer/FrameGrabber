@@ -9,7 +9,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     enum Section: Int {
         case about
         case featured
-        case version
     }
 
     let app = UIApplication.shared
@@ -19,7 +18,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var purchaseButton: UIButton!
     @IBOutlet private var featuredTitleLabel: UILabel!
-    @IBOutlet private var versionLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +48,12 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         tableView.cellForRow(at: indexPath)?.accessoryType != .some(.none)
     }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        guard Section(section) == .about else { return super.tableView(tableView, titleForFooterInSection: section) }
+        
+        return String.localizedStringWithFormat(Localized.aboutVersionFormat, bundle.version)
+    }
 
     private func configureViews() {
         rateButton.configureAsActionButton()
@@ -61,8 +65,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         purchaseButton.configureTrailingAlignedImage()
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, weight: .semibold, size: 22)
-        versionLabel.font = .preferredFont(forTextStyle: .footnote, weight: .semibold)
-        versionLabel.text = String.localizedStringWithFormat(Localized.aboutVersionFormat, bundle.shortFormattedVersion)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
         
