@@ -1,18 +1,22 @@
 {
+  "identifier" : "C97C1ED2",
+  "nonRenewingSubscriptions" : [
+
+  ],
   "products" : [
     {
-      "displayPrice" : "3.49",
+      "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "597797D6",
+      "internalID" : "1500273945",
       "localizations" : [
         {
           "description" : "Say thank you and support further development",
-          "displayName" : "Ice Cream Tip",
+          "displayName" : "Donate Ice Cream",
           "locale" : "en_US"
         },
         {
           "description" : "Sag Danke und unterstütze die Entwicklung",
-          "displayName" : "Himbeereis-Trinkgeld",
+          "displayName" : "Eis Ausgeben",
           "locale" : "de"
         }
       ],
@@ -22,15 +26,15 @@
     }
   ],
   "settings" : {
-    "_failTransactionsEnabled" : false,
-    "_storefront" : "DEU",
-    "_storeKitError" : 0
+    "_applicationInternalID" : "1434703541",
+    "_developerTeamID" : "PY49CKQ6VF",
+    "_lastSynchronizedDate" : 685302924.60143399
   },
   "subscriptionGroups" : [
 
   ],
   "version" : {
-    "major" : 1,
+    "major" : 2,
     "minor" : 0
   }
 }

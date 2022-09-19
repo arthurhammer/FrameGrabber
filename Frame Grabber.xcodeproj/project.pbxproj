@@ -41,7 +41,7 @@
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
-		003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Configuration.storekit */; };
+		003D1F3225041FF2006107C0 /* Local.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Local.storekit */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10B25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
@@ -190,7 +190,7 @@
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
-		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		003D1F3125041FF1006107C0 /* Local.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Local.storekit; sourceTree = "<group>"; };
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +209,7 @@
 		00653B42213941A20038CB56 /* ZoomPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPushTransition.swift; sourceTree = "<group>"; };
 		00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryViewController+Transition.swift"; sourceTree = "<group>"; };
 		0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		0068EA2E28D8E48800E75AF5 /* Synced.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Synced.storekit; sourceTree = "<group>"; };
 		006C0FCA25C49BC1007E50B0 /* MetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewModel.swift; sourceTree = "<group>"; };
 		006C0FD025C5B2B6007E50B0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		006C0FD925C5F560007E50B0 /* AVAsset+MetadataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+MetadataLoading.swift"; sourceTree = "<group>"; };
@@ -344,7 +345,8 @@
 			isa = PBXGroup;
 			children = (
 				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
-				003D1F3125041FF1006107C0 /* Configuration.storekit */,
+				003D1F3125041FF1006107C0 /* Local.storekit */,
+				0068EA2E28D8E48800E75AF5 /* Synced.storekit */,
 				001AA1841FB4977100A00BB9 /* Info.plist */,
 				00AA201C213432B400084B08 /* InfoPlist.strings */,
 				00AA201F213432B400084B08 /* Localizable.strings */,
@@ -774,7 +776,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00AA2021213432B400084B08 /* Localizable.strings in Resources */,
-				003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */,
+				003D1F3225041FF2006107C0 /* Local.storekit in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
 				008D293124B20F5100813338 /* Settings.storyboard in Resources */,
