@@ -107,7 +107,7 @@ public class ThumbnailSlider: UIControl {
         let formatter = DateComponentsFormatter()
         formatter.zeroFormattingBehavior = .default
         formatter.unitsStyle = .spellOut
-        formatter.allowedUnits = [.hour, .minute, .second, .nanosecond]
+        formatter.allowedUnits = [.hour, .minute, .second]
         return formatter
     }()
 
