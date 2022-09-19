@@ -180,7 +180,7 @@ class PlaybackController {
         sampleTimes = nil
         sampleIndexer.cancel()
         
-        guard let asset = asset else { return }
+        guard let asset else { return }
         
         // TODO: Currently resides on the assumption that `asset` is set only once. If it isn't, the
         // of completion handlers and the value of this flag are not guaranteed.

@@ -32,7 +32,7 @@ extension ImageMetadata {
         properties.setIfNotNil(kCGImagePropertyExifDictionary, exif.isEmpty ? nil : exif)
         properties.setIfNotNil(kCGImagePropertyTIFFDictionary, tiff.isEmpty ? nil : tiff)
         
-        if let location = location {
+        if let location {
             properties[kCGImagePropertyGPSDictionary] = gpsProperties(for: location)
         }
 
@@ -91,7 +91,7 @@ extension ImageMetadata {
 
 private extension Dictionary {
     mutating func setIfNotNil(_ key: Key, _ value: Value?) {
-        guard let value = value else { return }
+        guard let value else { return }
         self[key] = value
     }
 }

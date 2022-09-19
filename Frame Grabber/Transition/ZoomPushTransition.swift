@@ -32,7 +32,7 @@ class ZoomPushTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTran
     /// Sets up the entire transition including container view, animation details and
     /// completion registration. Returns an (inactive) animator.
     private func configureAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewPropertyAnimator {
-        if let animator = animator { return animator }
+        if let animator { return animator }
 
         transitionContext.installViewsInContainer(for: type)
 
@@ -101,7 +101,7 @@ class ZoomPushTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTran
     }
 
     func animate(alongsideTransition animation: @escaping (UIViewControllerContextTransitioning) -> (), completion: ((UIViewControllerContextTransitioning) -> ())?) {
-        guard let transitionContext = transitionContext else { return }
+        guard let transitionContext else { return }
 
         animator?.addAnimations {
             animation(transitionContext)

@@ -19,7 +19,7 @@ public struct Album: AlbumProtocol {
 extension Album {
 
     /// Initializes the album with the given album.
-    public init<A>(album: A) where A: AlbumProtocol {
+    public init(album: any AlbumProtocol) {
         self.assetCollection = album.assetCollection
         self.title = album.title
         self.count = album.count

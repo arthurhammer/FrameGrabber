@@ -72,7 +72,7 @@ class ProgressView: UIView {
         isScheduledToShow = true
 
         let show = { [weak self] (_: Any?) in
-            guard let self = self else { return }
+            guard let self else { return }
 
             self.cancelTimer()
             self.isScheduledToShow = false

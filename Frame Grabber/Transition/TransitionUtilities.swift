@@ -17,7 +17,7 @@ extension UIViewControllerContextTransitioning {
     func installViewsInContainer(for type: TransitionType) {
         // toView is nil if already in container, i.e. for dismissals where presenter
         // remained in view hierarchy.
-        if let toView = toView {
+        if let toView {
             toView.frame = finalToFrame ?? .zero
 
             if type == .pop, let fromView = fromView {

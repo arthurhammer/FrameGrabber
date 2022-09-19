@@ -70,7 +70,7 @@ public final class UserAlbumsDataSource: NSObject, AlbumProvider {
     /// Incrementally updates the albums from photo library changes.
     private func updateAlbums(with change: PHChange) {
         updateQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
 
             let albums = self.accessQueue.sync { self.fetchResult }
 

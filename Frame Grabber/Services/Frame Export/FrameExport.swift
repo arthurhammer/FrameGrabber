@@ -132,7 +132,7 @@ class FrameExport {
     /// Can be called from multiple threads safely.
     private func updateOverallResult(with frameResult: Status) {
         accessQueue.async(flags: .barrier) { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
 
             let update = { (result: Status) in
                 self.status = result

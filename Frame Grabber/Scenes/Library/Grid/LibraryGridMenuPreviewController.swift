@@ -69,7 +69,7 @@ class LibraryGridMenuPreviewController: UIViewController {
         )
         
         request = imageManager.requestImage(for: asset, options: options) { [weak self] image, _ in
-            guard let image = image else { return }
+            guard let image else { return }
             
             self?.imageView.image = image
         }

@@ -176,7 +176,7 @@ class VideoController {
         progressHandler: @escaping (Double) -> (),
         completionHandler: @escaping (VideoResult) -> ()
     ) {
-        if let video = video {
+        if let video {
             completionHandler(.success(video))
             return
         }
@@ -224,7 +224,7 @@ class VideoController {
 
             if info.isCancelled {
                 completionHandler(.failure(CocoaError(.userCancelled)))
-            } else if let video = video {
+            } else if let video {
                 completionHandler(.success(video))
             } else {
                 completionHandler(.failure(info.error))
@@ -302,7 +302,7 @@ class VideoController {
             }
         }
 
-        guard let video = video else {
+        guard let video else {
             completion(.failed(nil))
             return
         }

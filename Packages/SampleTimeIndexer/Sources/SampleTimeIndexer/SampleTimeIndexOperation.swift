@@ -32,7 +32,7 @@ class SampleTimeIndexOperation: Operation {
         super.init()
 
         completionBlock = { [weak self] in
-            if let self = self {
+            if let self {
                 completionHandler(self.isCancelled ? .failure(.cancelled) : self.result)
             } else {
                 completionHandler(.failure(.cancelled))

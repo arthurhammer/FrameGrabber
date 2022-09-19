@@ -52,7 +52,7 @@ class SettingsViewController: UITableViewController {
         let controller = ExportActionSettingsViewController(coder: coder)
         controller?.selectedAction = settings.exportAction
         controller?.didSelectAction = { [weak self] action in
-            guard let self = self else  { return }
+            guard let self else  { return }
             self.settings.exportAction = action
             self.updateViews()
             self.delegate?.controller(self, didChangeExportAction: action)
@@ -64,7 +64,7 @@ class SettingsViewController: UITableViewController {
         let controller = TimeFormatSettingsViewController(coder: coder)
         controller?.selectedFormat = settings.timeFormat
         controller?.didSelectFormat = { [weak self] format in
-            guard let self = self else  { return }
+            guard let self else  { return }
             self.settings.timeFormat = format
             self.updateViews()
             self.delegate?.controller(self, didChangeTimeFormat: format)

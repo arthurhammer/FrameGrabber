@@ -38,7 +38,7 @@ extension UIFont {
     ) -> UIFont {
         
         let targetFont: UIFont
-        if let weight = weight {
+        if let weight {
             targetFont = systemFont(ofSize: size, weight: weight)
         } else {
             targetFont = systemFont(ofSize: size)

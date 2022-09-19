@@ -47,7 +47,7 @@ extension PHAssetResourceManager {
 
         }, completionHandler: { error in
 
-            if let error = error {
+            if let error {
                 completion(.failure(error))
                 return
             }

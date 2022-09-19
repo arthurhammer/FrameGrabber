@@ -70,9 +70,9 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
 
         imageGenerator?.cancelAllCGImageGeneration()
 
-        if let placeholder = placeholderImage {
+        if let placeholderImage {
             times.enumerated().forEach {
-                provider($0.offset, placeholder)
+                provider($0.offset, placeholderImage)
             }
         }
 
@@ -99,7 +99,7 @@ public final class AVAssetThumbnailSliderDataSource: ThumbnailSliderDataSource {
     }
 
     private func makeImageGenerator(for asset: AVAsset?) -> AVAssetImageGenerator? {
-        guard let asset = asset else { return nil }
+        guard let asset else { return nil }
 
         let generator = AVAssetImageGenerator(asset: asset)
         generator.requestedTimeToleranceBefore = timeTolerance
