@@ -1,7 +1,7 @@
 import PhotoAlbums
 import UIKit
 
-protocol AlbumPickerViewControllerDelegate: AnyObject {
+@MainActor protocol AlbumPickerViewControllerDelegate: AnyObject {
     
     /// Tells the delegate the user finished picking an album.
     ///
@@ -14,7 +14,7 @@ protocol AlbumPickerViewControllerDelegate: AnyObject {
 ///
 /// The controller manages its own internal navigation controller. It is intended to be presented
 /// modally.
-class AlbumPickerViewController: UIViewController {
+final class AlbumPickerViewController: UIViewController {
     
     weak var delegate: AlbumPickerViewControllerDelegate?
     

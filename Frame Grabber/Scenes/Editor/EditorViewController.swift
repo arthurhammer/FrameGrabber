@@ -2,11 +2,11 @@ import AVFoundation
 import Combine
 import UIKit
 
-protocol EditorViewControllerDelegate: AnyObject {
+@MainActor protocol EditorViewControllerDelegate: AnyObject {
     func controller(_ controller: EditorViewController, handleSlideToPopGesture gesture: UIPanGestureRecognizer)
 }
 
-class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController {
     
     weak var delegate: EditorViewControllerDelegate?
 

@@ -2,7 +2,7 @@ import PhotoAlbums
 import Photos
 import UIKit
 
-class Coordinator: NSObject {
+@MainActor final class Coordinator: NSObject {
 
     let navigationController: UINavigationController
     let libraryViewController: LibraryViewController

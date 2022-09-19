@@ -3,7 +3,7 @@ import Photos
 import PhotosUI
 import UIKit
 
-protocol LibraryViewControllerDelegate: AnyObject {
+@MainActor protocol LibraryViewControllerDelegate: AnyObject {
     func controller(_ controller: LibraryViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)

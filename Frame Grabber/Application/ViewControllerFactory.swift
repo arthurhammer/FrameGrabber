@@ -2,7 +2,7 @@ import UIKit
 import UniformTypeIdentifiers
 
 /// Static factory for view controllers.
-struct ViewControllerFactory {
+@MainActor struct ViewControllerFactory {
     
     static func makeAuthorization(
         withSuccessHandler success: @escaping () -> ()
