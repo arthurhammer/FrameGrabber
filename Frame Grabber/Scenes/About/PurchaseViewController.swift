@@ -21,8 +21,6 @@ class PurchaseViewController: UIViewController {
     @IBOutlet private var scrollViewSeparator: UIView!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var iconView: UIImageView!
-    @IBOutlet private var supporterBadgeView: UIView!
-    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
     @IBOutlet private var purchasingView: UIView!
     @IBOutlet private var purchasedView: UIView!
@@ -104,18 +102,14 @@ class PurchaseViewController: UIViewController {
     private func configureViews() {
         scrollView.delegate = self
         confettiView.confettiImage = UIImage(named: "confetti")
-        titleLabel.font = .preferredFont(forTextStyle: .title1, weight: .semibold, size: 36)
                 
-        supporterBadgeView.layer.cornerRadius = 8
-        supporterBadgeView.layer.cornerCurve = .continuous
-        
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         blurView.frame = view.bounds
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(blurView, at: 0)
         view.backgroundColor = .clear
 
-        let appIconCornerRadius: CGFloat = 20
+        let appIconCornerRadius: CGFloat = 18
         let imageContainer = iconView.superview
         iconView.layer.cornerRadius = appIconCornerRadius
         iconView.layer.cornerCurve = .continuous
