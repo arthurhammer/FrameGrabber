@@ -1,20 +1,26 @@
 // Includes portions from SAConfettiView by Sudeep Agarwal:
 //   Copyright (c) 2015 Sudeep Agarwal, MIT License
 //   https://github.com/sudeepag/SAConfettiView
+//
+// Some ideas taken from Bryce Pauken:
+//   https://bryce.co/recreating-imessage-confetti/
 
+import Foundation
 import UIKit
+
+// TODO: Attributions
 
 public class ConfettiView: UIView {
 
-    public var confettiImage: UIImage?
+    public var colors = [
+        (r:149, g:58, b:255), (r:255, g:195, b:41), (r: 255,g: 101,b: 26),
+        (r:123, g:92, b:255), (r:76, g:126, b:255), (r: 71,g: 192,b: 255),
+        (r:255, g:47, b:39), (r:255, g:91, b:134), (r: 233,g: 122,b: 208)
+    ]
+    .map { UIColor(red: ($0.r / 255.0), green: ($0.g / 255.0), blue: ($0.b / 255.0), alpha: 1) }
 
+    public var amount = 40
     public var intensity: Float = 0.75
-
-    public var colors = [UIColor(red: 0.95, green: 0.40, blue: 0.27, alpha: 1.0),
-                         UIColor(red: 1.00, green: 0.78, blue: 0.36, alpha: 1.0),
-                         UIColor(red: 0.48, green: 0.78, blue: 0.64, alpha: 1.0),
-                         UIColor(red: 0.30, green: 0.76, blue: 0.85, alpha: 1.0),
-                         UIColor(red: 0.58, green: 0.39, blue: 0.55, alpha: 1.0)]
 
     var isActive: Bool {
         emitter.birthRate > 0
@@ -26,6 +32,15 @@ public class ConfettiView: UIView {
         emitter.emitterShape = .line
         layer.addSublayer(emitter)
         return emitter
+    }()
+    
+    private lazy var cells: [CAEmitterCell] = {
+        (0...amount)
+            .map { _ in
+                Confetti(color: colors.randomElement()!, shape: .allCases.randomElement()!)
+            }.map {
+                cell(for: $0)
+            }
     }()
 
     private var timer: Timer?
@@ -47,7 +62,7 @@ public class ConfettiView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         emitter.frame = bounds
-        emitter.emitterPosition = CGPoint(x: bounds.midX, y: 0)
+        emitter.emitterPosition = CGPoint(x: bounds.midX, y: bounds.minY - 100)
         emitter.emitterSize = CGSize(width: bounds.width, height: 1)
     }
 
@@ -56,7 +71,7 @@ public class ConfettiView: UIView {
     /// If `duration` is nil, animates indefinitely. Otherwise, animates for the specified
     /// amount of time (unless `stopConfetti` is called prior to that).
     public func startConfetti(withDuration duration: TimeInterval? = nil) {
-        cancelTimer()
+        stopConfetti()
 
         if let duration = duration, duration > 0 {
             timer = .scheduledTimer(withTimeInterval: duration, repeats: false) { [weak self] _ in
@@ -65,9 +80,9 @@ public class ConfettiView: UIView {
         }
 
         emitter.birthRate = 1
-        emitter.emitterCells = colors.map(confetti)
+        emitter.emitterCells = cells
     }
-
+    
     public func stopConfetti() {
         cancelTimer()
         emitter.birthRate = 0
@@ -78,29 +93,69 @@ public class ConfettiView: UIView {
         clipsToBounds = true
     }
 
-    private func confetti(withColor color: UIColor) -> CAEmitterCell {
-        let confetti = CAEmitterCell()
+    private func cell(for confetti: Confetti) -> CAEmitterCell {
+        var confetti = confetti
+        
+        let cell = CAEmitterCell()
+        cell.name = UUID().uuidString
+        cell.contents = confetti.image?.cgImage
+        cell.color = confetti.color.cgColor
 
-        confetti.contents = confettiImage?.cgImage
-        confetti.color = color.cgColor
+        cell.birthRate = 6 * intensity
+        cell.lifetime = 20 * intensity
+        cell.lifetimeRange = 0
+        cell.velocity = CGFloat(350 * intensity)
+        cell.velocityRange = CGFloat(80 * intensity)
+        cell.emissionLongitude = CGFloat(Double.pi)
+        cell.emissionRange = CGFloat(Double.pi)
+        cell.spin = CGFloat(3.5 * intensity)
+        cell.spinRange = CGFloat(4 * intensity)
+        cell.scaleRange = CGFloat(intensity)
+        cell.scaleSpeed = CGFloat(-0.1 * intensity)
 
-        confetti.birthRate = 6 * intensity
-        confetti.lifetime = 20 * intensity
-        confetti.lifetimeRange = 0
-        confetti.velocity = CGFloat(350 * intensity)
-        confetti.velocityRange = CGFloat(80 * intensity)
-        confetti.emissionLongitude = CGFloat(Double.pi)
-        confetti.emissionRange = CGFloat(Double.pi)
-        confetti.spin = CGFloat(3.5 * intensity)
-        confetti.spinRange = CGFloat(4 * intensity)
-        confetti.scaleRange = CGFloat(intensity)
-        confetti.scaleSpeed = CGFloat(-0.1 * intensity)
-
-        return confetti
+        return cell
     }
 
     private func cancelTimer() {
         timer?.invalidate()
         timer = nil
     }
+}
+
+// MARK: - Confetti
+
+private struct Confetti {
+    enum Shape: CaseIterable {
+        case rectangle
+        case circle
+    }
+    
+    let color: UIColor
+    let shape: Shape
+    
+    private(set) lazy var image: UIImage? = {
+        let imageRect: CGRect = {
+            switch shape {
+            case .rectangle:
+                return CGRect(x: 0, y: 0, width: 20, height: 13)
+            case .circle:
+                return CGRect(x: 0, y: 0, width: 10, height: 10)
+            }
+        }()
+
+        UIGraphicsBeginImageContext(imageRect.size)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+
+        switch shape {
+        case .rectangle:
+            context.fill(imageRect)
+        case .circle:
+            context.fillEllipse(in: imageRect)
+        }
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }()
 }

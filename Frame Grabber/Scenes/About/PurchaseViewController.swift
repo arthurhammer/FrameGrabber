@@ -84,7 +84,6 @@ class PurchaseViewController: UIViewController {
 
     private func configureViews() {
         scrollView.delegate = self
-        confettiView.confettiImage = UIImage(named: "confetti")
                 
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         blurView.frame = view.bounds
