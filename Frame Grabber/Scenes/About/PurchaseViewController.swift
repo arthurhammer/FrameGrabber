@@ -9,12 +9,11 @@ class PurchaseViewController: UIViewController {
     let viewModel = PurchaseViewModel()  // (Create & inject externally)
     private var cancellables = Set<AnyCancellable>()
 
-    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var scrollViewSeparator: UIView!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var iconView: UIImageView!
-    @IBOutlet var purchaseButtonsView: PurchaseButtonsView!
-    @IBOutlet private var purchasedView: UIView!
+    @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
     @IBOutlet private var confettiView: ConfettiView!
 
     // MARK: - Life Cycle
@@ -26,11 +25,50 @@ class PurchaseViewController: UIViewController {
         viewModel.onViewDidLoad()
     }
 
+    // todo: ios 15 small phones
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             self.updateSeparator()
+            self.updatePreferredContentSize()
+        }
+    }
+    
+    private func updatePreferredContentSize() {
+        // Need to calculate the compressed height on the content view as the scroll view can arbitrarily expand/collapse.
+        guard let contentView = scrollView.subviews.first else { return }
+        
+        let targetSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
+
+        let contentViewHeight = contentView.systemLayoutSizeFitting(targetSize).height
+        let buttonsHeight = purchaseButtonsView.systemLayoutSizeFitting(targetSize).height
+
+        // Note: Spacings from storyboard.
+        let compressedHeight = contentViewHeight + 16 + buttonsHeight + 12 + view.safeAreaInsets.bottom
+        
+        let oldPreferredSize = preferredContentSize
+        preferredContentSize = CGSize(width: view.bounds.width, height: compressedHeight)
+        
+        if #available(iOS 16.0, *), oldPreferredSize != preferredContentSize {
+            sheetPresentationController?.invalidateDetents()
+        }
+    }
+    
+    func configureSheetPresentation() {
+        sheetPresentationController?.preferredCornerRadius = 32
+        sheetPresentationController?.prefersEdgeAttachedInCompactHeight = true
+        sheetPresentationController?.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+
+        if #available(iOS 16.0, *) {
+            sheetPresentationController?.detents = [.custom { [weak self] context in
+                let height = self?.preferredContentSize.height ?? .zero
+                let fallbackHeight = UISheetPresentationController.Detent.medium().resolvedValue(in: context) ?? 500
+                return (height == .zero) ? fallbackHeight : height
+            }]
+        } else {
+            sheetPresentationController?.detents = [.medium()]
         }
     }
 
@@ -59,13 +97,6 @@ class PurchaseViewController: UIViewController {
             .combineLatest(viewModel.$restoreButtonConfiguration)
             .sink { [weak self] result in
                 self?.purchaseButtonsView.setup(withPurchaseButtonConfiguration: result.0, restoreButtonConfiguration: result.1)
-            }
-            .store(in: &cancellables)
-
-        viewModel.$isPurchasedViewVisible
-            .removeDuplicates()
-            .sink { [weak self] isVisible in
-                self?.purchasedView.fade(in: isVisible)
             }
             .store(in: &cancellables)
         
@@ -100,9 +131,6 @@ class PurchaseViewController: UIViewController {
         imageContainer?.layer.borderWidth = 1
         imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         imageContainer?.configureWithDefaultShadow()
-        
-        purchasedView.isHidden = false
-        purchasedView.alpha = 0
         
         updateSeparator()
     }
