@@ -1,28 +1,19 @@
+import Combine
 import InAppPurchase
 import StoreKit
 import Utility
 import UIKit
 
 class PurchaseViewController: UIViewController {
+    
+    let viewModel = PurchaseViewModel()  // (Create & inject externally)
+    private var cancellables = Set<AnyCancellable>()
 
-    private var hasPurchased: Bool {
-        paymentsManager.hasPurchasedProduct(withId: inAppPurchaseId)
-    }
-
-    private var fetchedProduct: SKProduct? {
-        productsManager.fetchedProducts.first { $0.productIdentifier == inAppPurchaseId }
-    }
-
-    private let inAppPurchaseId = About.inAppPurchaseIdentifier
-    private let productsManager = StoreProductsManager()
-    private let paymentsManager = StorePaymentsManager.shared
-
-    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet private var scrollViewSeparator: UIView!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var iconView: UIImageView!
-    @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
-    @IBOutlet private var purchasingView: UIView!
+    @IBOutlet var purchaseButtonsView: PurchaseButtonsView!
     @IBOutlet private var purchasedView: UIView!
     @IBOutlet private var confettiView: ConfettiView!
 
@@ -30,10 +21,9 @@ class PurchaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        configureStoreManagers()
+        setupBindings()
         configureViews()
-        fetchProductsIfNeeded()
+        viewModel.onViewDidLoad()
     }
 
     override func viewDidLayoutSubviews() {
@@ -50,54 +40,47 @@ class PurchaseViewController: UIViewController {
         dismiss(animated: true)
     }
 
-    private func fetchProductsIfNeeded() {
-        defer { updateViews() }
-
-        guard !hasPurchased,
-            !productsManager.isFetchingProducts else { return }
-
-        productsManager.fetchProducts(with: [inAppPurchaseId])
-    }
-
-    private func showConfettiIfNeeded() {
-        guard hasPurchased else { return }
+    private func showConfetti() {
         confettiView.startConfetti(withDuration: 2)
     }
 
     @IBAction private func restore() {
-        defer { updateViews() }
-
-        guard paymentsManager.canMakePayments else {
-            presentAlert(.restoreNotAllowed())
-            return
-        }
-
-        paymentsManager.restore()
+        viewModel.onRestore()
     }
 
     @IBAction private func purchase() {
-        defer { updateViews() }
-
-        guard !hasPurchased,
-            !paymentsManager.hasPendingUnfinishedTransactions(withId: inAppPurchaseId) else {
-            return
-        }
-
-        guard paymentsManager.canMakePayments else {
-            presentAlert(.purchaseNotAllowed())
-            return
-        }
-
-        guard let product = fetchedProduct else {
-            presentAlert(.productNotFetched())
-            fetchProductsIfNeeded()  // Retry.
-            return
-        }
-
-        paymentsManager.purchase(product)
+        viewModel.onPurchase()
     }
 
     // MARK: - Configuring
+    
+    private func setupBindings() {
+        viewModel.$purchaseButtonConfiguration
+            .combineLatest(viewModel.$restoreButtonConfiguration)
+            .sink { [weak self] result in
+                self?.purchaseButtonsView.setup(withPurchaseButtonConfiguration: result.0, restoreButtonConfiguration: result.1)
+            }
+            .store(in: &cancellables)
+
+        viewModel.$isPurchasedViewVisible
+            .removeDuplicates()
+            .sink { [weak self] isVisible in
+                self?.purchasedView.fade(in: isVisible)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.errorPublisher
+            .sink { [weak self] alert in
+                self?.presentAlert(alert)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.confettiPublisher
+            .sink { [weak self] in
+                self?.showConfetti()
+            }
+            .store(in: &cancellables)
+    }
 
     private func configureViews() {
         scrollView.delegate = self
@@ -119,23 +102,10 @@ class PurchaseViewController: UIViewController {
         imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         imageContainer?.configureWithDefaultShadow()
         
-        purchasingView.alpha = 0
-        purchasingView.isHidden = false
         purchasedView.isHidden = false
         purchasedView.alpha = 0
         
-        updateViews()
         updateSeparator()
-    }
-
-    private func updateViews() {
-        let state = self.state()
-        let price = fetchedProduct.flatMap(formattedPrice)
-        
-        purchaseButtonsView.configure(with: state, price: price)
-        purchasingView.fade(in: [.fetchingProducts, .purchasing].contains(state))
-
-        purchasedView.fade(in: state == .purchased)
     }
 
     private func updateSeparator() {
@@ -143,106 +113,6 @@ class PurchaseViewController: UIViewController {
 
         let contentRect = scrollView.convert(contentView.frame, to: view)
         scrollViewSeparator.isHidden = !contentRect.intersects(purchaseButtonsView.frame)
-    }
-
-    // MARK: Handling Transactions
-
-    private func configureStoreManagers() {
-        productsManager.requestDidFail = { [weak self] _, _ in
-            self?.updateViews()
-        }
-
-        productsManager.requestDidSucceed = { [weak self] _, _ in
-            self?.updateViews()
-        }
-
-        paymentsManager.restoreDidFail = { [weak self] error in
-            self?.handleRestoreDidFail(with: error)
-        }
-
-        paymentsManager.restoreDidComplete = { [weak self] in
-            self?.handleRestoreDidComplete()
-        }
-
-        paymentsManager.transactionDidUpdate = { [weak self] transaction in
-            self?.handleTransactionDidUpdate(transaction)
-        }
-    }
-
-    private func handleTransactionDidUpdate(_ transaction: SKPaymentTransaction) {
-        defer { updateViews() }
-
-        if transaction.error?.isStoreKitCancelledError == true {
-            return
-        }
-
-        if transaction.transactionState == .failed {
-            presentAlert(.purchaseFailed(error: transaction.error))
-            return
-        }
-
-        if [.purchased, .restored].contains(transaction.transactionState) {
-            showConfettiIfNeeded()
-        }
-    }
-
-    private func handleRestoreDidFail(with error: Error) {
-        if !error.isStoreKitCancelledError {
-            presentAlert(.restoreFailed(error: error))
-        }
-
-        updateViews()
-    }
-
-    private func handleRestoreDidComplete() {
-        if paymentsManager.restored.isEmpty {
-            presentAlert(.nothingToRestore())
-        }
-
-        updateViews()
-    }
-
-    private func formattedPrice(for product: SKProduct) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = product.priceLocale
-        let fallback = "\(product.price)"
-        return formatter.string(from: product.price as NSNumber) ?? fallback
-    }
-
-    // MARK: Determining Current State
-
-    enum State {
-        case fetchingProducts
-        case productsNotFetched  // Not yet fetched or failed to fetch.
-        case readyToPurchase
-        case purchasing
-        case restoring
-        case purchased
-    }
-
-    private func state() -> State {
-        if hasPurchased {
-            return .purchased
-        }
-
-        if productsManager.isFetchingProducts {
-            return .fetchingProducts
-        }
-
-        if fetchedProduct == nil {
-            return .productsNotFetched
-        }
-
-        if paymentsManager.isRestoring {
-            return .restoring
-        }
-
-        if paymentsManager.hasPendingUnfinishedTransactions(withId: inAppPurchaseId) {
-            return .purchasing
-        }
-
-        return .readyToPurchase
     }
 }
 
@@ -264,6 +134,8 @@ private extension UIView {
             options: .beginFromCurrentState,
             animations: {
                 self.alpha = fadeIn ? 1 : 0
-            }, completion: nil)
+            },
+            completion: nil
+        )
     }
 }

@@ -42,6 +42,7 @@
 		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F3225041FF2006107C0 /* Local.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Local.storekit */; };
+		0044177628D9BA57000AEEF2 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10B25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
@@ -191,6 +192,7 @@
 		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Local.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Local.storekit; sourceTree = "<group>"; };
+		0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
 				003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */,
 				0034AFFC240139E30041513F /* PurchaseViewController.swift */,
+				0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */,
 				0023FC8D23390D940046D9F8 /* About.storyboard */,
 			);
 			path = About;
@@ -823,6 +826,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */,
+				0044177628D9BA57000AEEF2 /* PurchaseViewModel.swift in Sources */,
 				009C657B1FBF338900DB25A6 /* LibraryGridCell.swift in Sources */,
 				00CB9D242855EEA500A9BD4B /* LibraryButtonStyle.swift in Sources */,
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,

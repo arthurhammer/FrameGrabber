@@ -13,30 +13,86 @@ class PurchaseButtonsView: UIStackView {
 
     private func configureViews() {
         purchaseButton.configureWithDefaultShadow()
-        purchaseButton.configureAsActionButton(minimumWidth: 320)
-        restoreButton.configureDynamicTypeLabel()
+        
+        var purchaseButtonConfiguration = UIButton.Configuration.action()
+        purchaseButtonConfiguration.baseBackgroundColor = .purchaseAccent
+        purchaseButtonConfiguration.baseForegroundColor = .labelInverted
+        purchaseButtonConfiguration.titleTextAttributesTransformer = nil  // Don't use default fonts.
+        purchaseButton.configuration = purchaseButtonConfiguration
+        
+        let purchaseWidthConstraint = purchaseButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 320)
+        purchaseWidthConstraint.priority = .required - 1
+        purchaseWidthConstraint.isActive = true
+        
+        restoreButton.configuration = .actionAccessory()
+        
+        // Avoid height jumping when activity indicator is shown.
+        let restoreHeightConstraint = restoreButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        restoreHeightConstraint.priority = .defaultHigh
+        restoreHeightConstraint.isActive = true
     }
 }
 
-// MARK: - Configuring
+// MARK: - Applying View Model
 
 extension PurchaseButtonsView {
-
-    func configure(with state: PurchaseViewController.State, price: String?) {
+    
+    func setup(
+        withPurchaseButtonConfiguration purchaseButtonConfiguration: PurchaseViewModel.ButtonConfiguration,
+        restoreButtonConfiguration: PurchaseViewModel.ButtonConfiguration
+    ) {
+        setupButton(
+            purchaseButton,
+            with: purchaseButtonConfiguration,
+            titleFont: .preferredFont(forTextStyle: .headline),
+            subtitleFont: .preferredFont(forTextStyle: .headline, weight: .regular)
+        )
         
-        if let price = price {
-            let text = NSMutableAttributedString(string: Localized.IAPAction)
-            let spacer = NSAttributedString(string: "  ")
-            
-            let price = NSAttributedString(string: price, attributes: [
-                .font: UIFont.preferredFont(forTextStyle: .headline, weight: .regular)
-            ])
-            
-            text.append(spacer)
-            text.append(price)
-            purchaseButton.setAttributedTitle(text, for: .normal)
-        } else {
-            purchaseButton.setTitle(Localized.IAPAction, for: .normal)
+        setupButton(
+            restoreButton,
+            with: restoreButtonConfiguration,
+            titleFont: .preferredFont(forTextStyle: .subheadline),
+            subtitleFont: nil
+        )
+    }
+    
+    private func setupButton(
+        _ button: UIButton,
+        with viewModelConfiguration: PurchaseViewModel.ButtonConfiguration,
+        titleFont: UIFont,
+        subtitleFont: UIFont?
+    ) {
+        // Just setting the title on the configuration doesn't work, need to use the update handler.
+        button.configurationUpdateHandler = { [weak self] button in
+            var configuration = button.configuration
+            configuration?.attributedTitle = self?.attributedText(for: viewModelConfiguration, titleFont: titleFont, subtitleFont: subtitleFont)
+            configuration?.showsActivityIndicator = viewModelConfiguration.isLoading
+            button.isUserInteractionEnabled = viewModelConfiguration.isUserInteractionEnabled
+            button.configuration = configuration
         }
+        
+        button.setNeedsUpdateConfiguration()
+    }
+    
+    private func attributedText(
+        for viewModelConfiguration: PurchaseViewModel.ButtonConfiguration,
+        titleFont: UIFont,
+        subtitleFont: UIFont?
+    ) -> AttributedString? {
+        
+        guard let title = viewModelConfiguration.title else {
+            return nil
+        }
+        
+        var text = AttributedString(title)
+        text.font = titleFont
+
+        if let subtitle = viewModelConfiguration.subtitle {
+            var subtitleText = AttributedString(" " + subtitle)
+            subtitleText.font = subtitleFont
+            text.append(subtitleText)
+        }
+
+        return text
     }
 }

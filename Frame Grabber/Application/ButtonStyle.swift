@@ -16,9 +16,24 @@ extension UIButton.Configuration {
         configuration.baseForegroundColor = .label
         configuration.baseBackgroundColor = .accent
         configuration.imagePadding = 8
+        let font = UIFont.preferredFont(forTextStyle: .headline)
         configuration.titleTextAttributesTransformer = .init { attributes in
             var attributes = attributes
-            attributes.font = .preferredFont(forTextStyle: .headline)
+            attributes.font = font
+            return attributes
+        }
+        return configuration
+    }
+    
+    static func actionAccessory(using baseConfiguration: Self = .plain()) -> Self {
+        var configuration = baseConfiguration
+        configuration.setDefaultContentInsets()
+        configuration.baseForegroundColor = .secondaryLabel
+        configuration.imagePadding = 8
+        let font = UIFont.preferredFont(forTextStyle: .subheadline)
+        configuration.titleTextAttributesTransformer = .init { attributes in
+            var attributes = attributes
+            attributes.font = font
             return attributes
         }
         return configuration

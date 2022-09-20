@@ -62,7 +62,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         
         purchaseButton.configureAsActionButton()
         purchaseButton.configureWithDefaultShadow()
-        purchaseButton.configureTrailingAlignedImage()
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, weight: .semibold, size: 22)
 

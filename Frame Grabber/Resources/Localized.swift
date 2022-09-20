@@ -1,6 +1,7 @@
 import Foundation
 
-struct Localized {
+// Migrate to iOS 15 String.
+enum Localized {
     static let appName = "Frame Grabber"
     static let photoLibraryAppAlbum = appName
     static let exifAppInformation = "\(appName) \(Bundle.main.version)"
@@ -22,7 +23,10 @@ struct Localized {
     static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "By Arthur Hammer – Version %@", comment: "Version label with numerical version")
     static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
 
-    static let IAPAction = NSLocalizedString("iap.purchase.action", value: "Donate", comment: "Purchase screen purchase button label")
+    enum Purchase {
+        static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button title: Purchase a donation")
+        static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button title: Restore past purchases")
+    }
 
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 

@@ -348,7 +348,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJn-T0-q26">
-                                <rect key="frame" x="0.0" y="48" width="414" height="670"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="691.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="288.5"/>
@@ -409,37 +409,41 @@ Designed to be as simple as possible. So you can grab your favorite picture and 
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMy-Av-8q9">
-                                <rect key="frame" x="0.0" y="718" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="739.5" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="7eM-Dc-MQZ"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="500" verticalCompressionResistancePriority="999" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W" customClass="PurchaseButtonsView" customModule="FG_Beta" customModuleProvider="target">
-                                <rect key="frame" x="162.5" y="734" width="89" height="88"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="500" verticalCompressionResistancePriority="999" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W" customClass="PurchaseButtonsView" customModule="FG_Beta" customModuleProvider="target">
+                                <rect key="frame" x="159.5" y="755.5" width="95" height="70.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1">
-                                        <rect key="frame" x="0.0" y="0.0" width="89" height="50"/>
-                                        <color key="backgroundColor" name="purchaseAccent"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1">
+                                        <rect key="frame" x="7.5" y="0.0" width="80.5" height="34.5"/>
                                         <accessibility key="accessibilityConfiguration" hint="In-App Purchase"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" placeholder="YES" id="6ys-VB-R0y"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="&lt;Title&gt;">
                                             <color key="titleColor" name="labelInverted"/>
                                         </state>
+                                        <buttonConfiguration key="configuration" style="filled" title="&lt;Title&gt;">
+                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="baseForegroundColor" name="labelInverted"/>
+                                            <color key="baseBackgroundColor" name="purchaseAccent"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="purchase" destination="Q1Q-IQ-Mgh" eventType="touchUpInside" id="iB7-Mq-uyh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSM-a5-Quj">
-                                        <rect key="frame" x="18" y="58" width="53" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSM-a5-Quj">
+                                        <rect key="frame" x="0.0" y="38.5" width="95" height="32"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="tintColor" systemColor="secondaryLabelColor"/>
                                         <state key="normal" title="Restore"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="&lt;Restore&gt;">
+                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleSubhead"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="restore" destination="Q1Q-IQ-Mgh" eventType="touchUpInside" id="yNC-du-K7P"/>
                                         </connections>
@@ -451,48 +455,20 @@ Designed to be as simple as possible. So you can grab your favorite picture and 
                                     <outlet property="restoreButton" destination="hSM-a5-Quj" id="Za2-Ct-dvJ"/>
                                 </connections>
                             </stackView>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="6Qb-Hl-fBR">
-                                <rect key="frame" x="0.0" y="718" width="414" height="120"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ONM-cu-PRb">
-                                        <rect key="frame" x="74.5" y="8" width="265.5" height="104"/>
-                                        <subviews>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="3VS-Fs-1Bp">
-                                                <rect key="frame" x="0.0" y="42" width="20" height="20"/>
-                                            </activityIndicatorView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Checking with the App Store…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxU-hU-16W">
-                                                <rect key="frame" x="24" y="42" width="241.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <viewLayoutGuide key="safeArea" id="k61-HF-Qd9"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="k61-HF-Qd9" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ONM-cu-PRb" secondAttribute="trailing" constant="16" id="4L0-Qo-TwY"/>
-                                    <constraint firstItem="ONM-cu-PRb" firstAttribute="top" secondItem="6Qb-Hl-fBR" secondAttribute="top" constant="8" id="8Qk-kD-AdE"/>
-                                    <constraint firstItem="k61-HF-Qd9" firstAttribute="bottom" secondItem="ONM-cu-PRb" secondAttribute="bottom" constant="8" id="CbR-Nc-lF2"/>
-                                    <constraint firstItem="ONM-cu-PRb" firstAttribute="centerX" secondItem="6Qb-Hl-fBR" secondAttribute="centerX" id="GAy-QK-zDF"/>
-                                    <constraint firstItem="ONM-cu-PRb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k61-HF-Qd9" secondAttribute="leading" constant="16" id="hbI-ns-m3d"/>
-                                </constraints>
-                            </view>
                             <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="Mgo-h9-Fnn">
-                                <rect key="frame" x="0.0" y="718" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="739.5" width="414" height="98.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="🥳" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="G1f-dH-f7o">
-                                        <rect key="frame" x="52.5" y="30" width="54" height="60"/>
+                                        <rect key="frame" x="52.5" y="19.5" width="54" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="glc-wD-pTm">
-                                        <rect key="frame" x="126.5" y="8" width="161" height="104"/>
+                                        <rect key="frame" x="126.5" y="8" width="161" height="82.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="950" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygf-4Y-CH8">
-                                                <rect key="frame" x="0.0" y="31" width="161" height="42.5"/>
+                                                <rect key="frame" x="0.0" y="20" width="161" height="42.5"/>
                                                 <string key="text">You're a Supporter! 
 Thank you so much.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -538,7 +514,6 @@ Thank you so much.</string>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="8" id="4ah-Io-luG"/>
                             <constraint firstItem="Mgo-h9-Fnn" firstAttribute="trailing" secondItem="42g-9b-btt" secondAttribute="trailing" id="5Hy-ii-9kB"/>
                             <constraint firstItem="ETp-48-pMy" firstAttribute="top" secondItem="42g-9b-btt" secondAttribute="top" id="7UZ-QP-Kg1"/>
-                            <constraint firstItem="6Qb-Hl-fBR" firstAttribute="trailing" secondItem="42g-9b-btt" secondAttribute="trailing" id="7op-Aq-4K8"/>
                             <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="nJn-T0-q26" secondAttribute="bottom" priority="500" id="8PD-Pm-pCq"/>
                             <constraint firstAttribute="trailing" secondItem="hMy-Av-8q9" secondAttribute="trailing" id="DTv-Xq-5jk"/>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="42g-9b-btt" secondAttribute="leadingMargin" id="GBE-tn-ZTf"/>
@@ -547,20 +522,17 @@ Thank you so much.</string>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="16" id="OsQ-GG-Iub">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
-                            <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="fsd-Il-X8W" secondAttribute="bottom" constant="16" id="QUc-n9-YqS">
+                            <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="fsd-Il-X8W" secondAttribute="bottom" constant="12" id="QUc-n9-YqS">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstAttribute="bottom" secondItem="ETp-48-pMy" secondAttribute="bottom" id="TJp-hq-HdP"/>
                             <constraint firstItem="NG4-o2-qF9" firstAttribute="top" secondItem="m2J-rt-kXP" secondAttribute="top" constant="18" id="Ydq-Ir-K6W"/>
                             <constraint firstAttribute="trailing" secondItem="nJn-T0-q26" secondAttribute="trailing" id="a7p-jE-Wdr"/>
-                            <constraint firstAttribute="bottom" secondItem="6Qb-Hl-fBR" secondAttribute="bottom" id="fG1-SO-e0w"/>
                             <constraint firstAttribute="bottom" secondItem="Mgo-h9-Fnn" secondAttribute="bottom" id="jkX-yV-djn"/>
                             <constraint firstItem="Mgo-h9-Fnn" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="jzO-BR-xbj"/>
                             <constraint firstItem="ETp-48-pMy" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="l3W-Bj-sG6"/>
                             <constraint firstItem="Mgo-h9-Fnn" firstAttribute="top" secondItem="fsd-Il-X8W" secondAttribute="top" constant="-16" id="lWU-NS-rbm"/>
                             <constraint firstItem="nJn-T0-q26" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="mih-Gm-HO4"/>
-                            <constraint firstItem="6Qb-Hl-fBR" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="qcx-yw-fPh"/>
-                            <constraint firstItem="6Qb-Hl-fBR" firstAttribute="top" secondItem="fsd-Il-X8W" secondAttribute="top" constant="-16" id="rOG-6i-3zI"/>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="centerX" secondItem="42g-9b-btt" secondAttribute="centerX" id="rS7-1J-JCe"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="fsd-Il-X8W" secondAttribute="trailing" id="sOa-ev-itd"/>
                         </constraints>
@@ -577,7 +549,6 @@ Thank you so much.</string>
                         <outlet property="iconView" destination="qzN-vS-VWL" id="lf3-02-T1m"/>
                         <outlet property="purchaseButtonsView" destination="fsd-Il-X8W" id="Wdt-ak-Iwv"/>
                         <outlet property="purchasedView" destination="Mgo-h9-Fnn" id="tKc-kG-r7l"/>
-                        <outlet property="purchasingView" destination="6Qb-Hl-fBR" id="HBn-5n-Zmq"/>
                         <outlet property="scrollView" destination="nJn-T0-q26" id="vq0-gO-Fl7"/>
                         <outlet property="scrollViewSeparator" destination="hMy-Av-8q9" id="4wt-Wt-PtH"/>
                     </connections>

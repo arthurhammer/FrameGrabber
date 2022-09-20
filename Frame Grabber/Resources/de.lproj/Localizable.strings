@@ -191,7 +191,9 @@
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
 /* Purchase screen purchase button label */
-"iap.purchase.action" = "Spenden";
+"purchase.purchase" = "Spenden";
+
+"purchase.restore" = "Wiederherstellen";
 
 /* Title for the library when no specific album is selected. */
 "library.title.default" = "Videos";
