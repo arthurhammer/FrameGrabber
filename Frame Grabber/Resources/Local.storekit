@@ -5,23 +5,63 @@
   ],
   "products" : [
     {
-      "displayPrice" : "3.49",
+      "displayPrice" : "1.99",
       "familyShareable" : false,
-      "internalID" : "597797D6",
+      "internalID" : "8DE890E5",
       "localizations" : [
         {
-          "description" : "Say thank you and support further development",
-          "displayName" : "Donate Ice Cream [Local]",
+          "description" : "Support further development.",
+          "displayName" : "Donation A [Local]",
           "locale" : "en_US"
         },
         {
-          "description" : "Sag Danke und unterstütze die Entwicklung",
-          "displayName" : "Eis Ausgeben [Local]",
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende A [Local]",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.donationA",
+      "referenceName" : "Donation A",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "3.99",
+      "familyShareable" : false,
+      "internalID" : "3694EE92",
+      "localizations" : [
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation B [Local]",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende B [Local]",
           "locale" : "de"
         }
       ],
       "productID" : "de.arthurhammer.framegrabber.thankyou",
-      "referenceName" : "Ice Cream Tip [Local]",
+      "referenceName" : "Donation B",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "849C893E",
+      "localizations" : [
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation C [Local]",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende C [Local]",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.donationC",
+      "referenceName" : "Donation C",
       "type" : "NonConsumable"
     }
   ],
