@@ -1,19 +1,24 @@
-import InAppPurchase
 import MessageUI
 import SafariServices
 import Utility
 import UIKit
 
-class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+@MainActor protocol AboutViewControllerDelegate: AnyObject {
+    func controllerDidSelectPurchase(_ controller: AboutViewController)
+}
+
+final class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
     enum Section: Int {
         case about
         case featured
     }
+    
+    weak var delegate: AboutViewControllerDelegate?
 
-    let app = UIApplication.shared
-    let bundle = Bundle.main
-    let device = UIDevice.current
+    private let app = UIApplication.shared
+    private let bundle = Bundle.main
+    private let device = UIDevice.current
 
     @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var purchaseButton: UIButton!
@@ -67,6 +72,10 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         
         purchaseButton.configureAsActionButton()
         purchaseButton.configureWithDefaultShadow()
+        purchaseButton.addAction(.init { [weak self] _ in
+            guard let self else { return }
+            self.delegate?.controllerDidSelectPurchase(self)
+        }, for: .primaryActionTriggered)
         
         featuredTitleLabel.font = .preferredFont(forTextStyle: .body, weight: .semibold, size: 22)
 

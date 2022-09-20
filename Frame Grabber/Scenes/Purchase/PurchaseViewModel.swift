@@ -9,6 +9,7 @@ final class PurchaseViewModel {
     struct ButtonConfiguration: Hashable {
         let title: String?
         let subtitle: String?
+        let backgroundColor: UIColor?
         let isLoading: Bool
         let isUserInteractionEnabled: Bool
     }
@@ -16,6 +17,7 @@ final class PurchaseViewModel {
     @Published private(set) var purchaseButtonConfiguration = ButtonConfiguration(
         title: Localized.Purchase.purchase,
         subtitle: nil,
+        backgroundColor: .purchaseAccent,
         isLoading: false,
         isUserInteractionEnabled: false
     )
@@ -23,12 +25,11 @@ final class PurchaseViewModel {
     @Published private(set) var restoreButtonConfiguration = ButtonConfiguration(
         title: Localized.Purchase.restore,
         subtitle: nil,
+        backgroundColor: nil,
         isLoading: false,
         isUserInteractionEnabled: false
     )
-    
-    @Published private(set) var isPurchasedViewVisible = false
-    
+        
     private(set) lazy var confettiPublisher = PassthroughSubject<Void, Never>()
     // (Shouldn't publish a view controller but is kept for simplicity for now.)
     private(set) lazy var errorPublisher = PassthroughSubject<UIAlertController, Never>()
@@ -72,10 +73,13 @@ final class PurchaseViewModel {
 
     func onPurchase() {
         defer { updateViewState() }
+        
+        guard !hasPurchased else {
+            confettiPublisher.send()
+            return
+        }
 
-        guard !hasPurchased,
-              !paymentsManager.hasPendingUnfinishedTransactions(withId: productId)
-        else {
+        guard !paymentsManager.hasPendingUnfinishedTransactions(withId: productId) else {
             return
         }
 
@@ -103,9 +107,16 @@ final class PurchaseViewModel {
         let isPurchaseButtonLoading = isFetchingProducts || isPurchasing
         let isButtonInteractionEnabled = !isPurchaseButtonLoading && !isRestoring
         
+        let purchaseButtonTitle = isPurchaseButtonLoading
+            ? nil
+            : (hasPurchased ? Localized.Purchase.thankYou : Localized.Purchase.purchase)
+        
+        let purchaseButtonSubtitle = (isPurchaseButtonLoading || hasPurchased) ? nil : product.flatMap(formattedPrice)
+        
         self.purchaseButtonConfiguration = .init(
-            title: isPurchaseButtonLoading ? nil : Localized.Purchase.purchase,
-            subtitle: isPurchaseButtonLoading ? nil : product.flatMap(formattedPrice),
+            title: purchaseButtonTitle,
+            subtitle: purchaseButtonSubtitle,
+            backgroundColor: hasPurchased ? .systemGreen : .purchaseAccent,
             isLoading: isPurchaseButtonLoading,
             isUserInteractionEnabled: isButtonInteractionEnabled
         )
@@ -113,11 +124,10 @@ final class PurchaseViewModel {
         self.restoreButtonConfiguration = .init(
             title: isRestoring ? nil : Localized.Purchase.restore,
             subtitle: nil,
+            backgroundColor: nil,
             isLoading: isRestoring,
             isUserInteractionEnabled: isButtonInteractionEnabled
         )
-        
-        self.isPurchasedViewVisible = hasPurchased
     }
     
     private func formattedPrice(for product: SKProduct) -> String {

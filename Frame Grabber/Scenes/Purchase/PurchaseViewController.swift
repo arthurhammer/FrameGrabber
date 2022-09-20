@@ -1,10 +1,8 @@
 import Combine
-import InAppPurchase
-import StoreKit
 import Utility
 import UIKit
 
-class PurchaseViewController: UIViewController {
+final class PurchaseViewController: UIViewController {
     
     let viewModel = PurchaseViewModel()  // (Create & inject externally)
     private var cancellables = Set<AnyCancellable>()
@@ -25,7 +23,6 @@ class PurchaseViewController: UIViewController {
         viewModel.onViewDidLoad()
     }
 
-    // todo: ios 15 small phones
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 

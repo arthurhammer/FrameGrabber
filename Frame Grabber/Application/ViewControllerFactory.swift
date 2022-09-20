@@ -4,10 +4,7 @@ import UniformTypeIdentifiers
 /// Static factory for view controllers.
 struct ViewControllerFactory {
     
-    static func makeAuthorization(
-        withSuccessHandler success: @escaping () -> ()
-    ) -> AuthorizationController {
-        
+    static func makeAuthorization(withSuccessHandler success: @escaping () -> ()) -> AuthorizationController {
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
         
         guard let controller = storyboard.instantiateInitialViewController() as? AuthorizationController else {
@@ -37,20 +34,31 @@ struct ViewControllerFactory {
         return controller
     }
     
-    static func makeAbout() -> UIViewController {
+    static func makeAbout(withDelegate delegate: AboutViewControllerDelegate?) -> UIViewController {
         let storyboard = UIStoryboard(name: "About", bundle: nil)
         
-        guard let controller = storyboard.instantiateInitialViewController() else {
+        guard let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController,
+              let controller = navigationController.topViewController as? AboutViewController
+        else {
             fatalError("Could not instantiate controller.")            
         }
         
+        controller.delegate = delegate
+        return navigationController
+    }
+    
+    static func makePurchase() -> UIViewController {
+        let storyboard = UIStoryboard(name: "Purchase", bundle: nil)
+        
+        guard let controller = storyboard.instantiateInitialViewController() as? PurchaseViewController else {
+            fatalError("Could not instantiate controller.")
+        }
+        
+        controller.configureSheetPresentation()
         return controller
     }
     
-    static func makeFilePicker(
-        withDelegate delegate: UIDocumentPickerDelegate?
-    ) -> UIDocumentPickerViewController {
-        
+    static func makeFilePicker(withDelegate delegate: UIDocumentPickerDelegate?) -> UIDocumentPickerViewController {
         let picker = UIDocumentPickerViewController(
             forOpeningContentTypes: [.movie],
             asCopy: true
