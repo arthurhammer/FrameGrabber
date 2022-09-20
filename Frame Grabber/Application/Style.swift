@@ -8,6 +8,7 @@ extension UIColor {
     static let editorBackground = UIColor(named: "editorBackground")!
     static let editorBars = UIColor(named: "editorBars")!
     static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
+    static let labelInverted = UIColor(named: "labelInverted")!
 }
 
 struct Style {

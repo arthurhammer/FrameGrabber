@@ -1,21 +1,40 @@
 import UIKit
 
-// (Should migrate to `UIButton.Configuration` in the future.)
-
 extension Style {
     static let defaultButtonCornerRadius: CGFloat = 16
     static let mediumButtonCornerRadius: CGFloat = 12
 }
 
+extension UIButton.Configuration {
+    
+    static func action(using baseConfiguration: Self = .filled()) -> Self {
+        var configuration = baseConfiguration
+        configuration.setDefaultContentInsets()
+        configuration.buttonSize = .large
+        configuration.cornerStyle = .fixed
+        configuration.background.cornerRadius = Style.defaultButtonCornerRadius
+        configuration.baseForegroundColor = .label
+        configuration.baseBackgroundColor = .accent
+        configuration.imagePadding = 8
+        configuration.titleTextAttributesTransformer = .init { attributes in
+            var attributes = attributes
+            attributes.font = .preferredFont(forTextStyle: .headline)
+            return attributes
+        }
+        return configuration
+    }
+}
+
+// MARK: - Deprecated
+
+@available(*, deprecated, message: "Use `UIButton.Configuration`")
 extension UIButton {
+    
     static func action(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) -> UIButton {
         let button = UIButton(type: .system)
         button.configureAsActionButton(withHeight: height, minimumWidth: minimumWidth)
         return button
     }
-}
-
-extension UIButton {
     
     func configureAsActionButton(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) {
         if let height = height {
