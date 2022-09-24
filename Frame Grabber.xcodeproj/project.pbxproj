@@ -43,7 +43,6 @@
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
 		003D1F3225041FF2006107C0 /* Local.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Local.storekit */; };
 		0044177628D9BA57000AEEF2 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */; };
-		0044177928DA5480000AEEF2 /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0044177828DA5480000AEEF2 /* Purchase.storyboard */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10B25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
@@ -99,6 +98,7 @@
 		00A18B3B25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */; };
 		00A18B4425D5E46200330B1F /* EditorToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B4325D5E46200330B1F /* EditorToolbarController.swift */; };
 		00A18B5D25D5F90300330B1F /* EditorViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */; };
+		00A7B33628DFA62900B5369C /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A7B33828DFA62900B5369C /* Purchase.storyboard */; };
 		00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF5121273FA000778885 /* AlbumListViewController.swift */; };
 		00A9DF552127635C00778885 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF542127635C00778885 /* AlbumCell.swift */; };
 		00AA201E213432B400084B08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
@@ -194,7 +194,6 @@
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
 		003D1F3125041FF1006107C0 /* Local.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Local.storekit; sourceTree = "<group>"; };
 		0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
-		0044177828DA5480000AEEF2 /* Purchase.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Purchase.storyboard; sourceTree = "<group>"; };
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
@@ -238,6 +237,8 @@
 		00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSpeedMenu.swift; sourceTree = "<group>"; };
 		00A18B4325D5E46200330B1F /* EditorToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbarController.swift; sourceTree = "<group>"; };
 		00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EditorViewController+Transition.swift"; path = "Frame Grabber/Scenes/Editor/EditorViewController+Transition.swift"; sourceTree = SOURCE_ROOT; };
+		00A7B33928DFA63A00B5369C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Purchase.storyboard; sourceTree = "<group>"; };
+		00A7B33A28DFA65900B5369C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Purchase.strings; sourceTree = "<group>"; };
 		00A9DF5121273FA000778885 /* AlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		00A9DF542127635C00778885 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		00AA201A213426AD00084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -497,7 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				00C13CF22404FDCD000193EB /* ConfettiView.swift */,
-				0044177828DA5480000AEEF2 /* Purchase.storyboard */,
+				00A7B33828DFA62900B5369C /* Purchase.storyboard */,
 				003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */,
 				0034AFFC240139E30041513F /* PurchaseViewController.swift */,
 				0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */,
@@ -797,7 +798,7 @@
 				00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC8F23390D940046D9F8 /* About.storyboard in Resources */,
 				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
-				0044177928DA5480000AEEF2 /* Purchase.storyboard in Resources */,
+				00A7B33628DFA62900B5369C /* Purchase.storyboard in Resources */,
 				00CA339025A200DE00DBD84D /* Album Picker.storyboard in Resources */,
 				000EA8B72437311700C339DE /* Editor.storyboard in Resources */,
 				002F59901FBF3AC400910891 /* Main.storyboard in Resources */,
@@ -1022,6 +1023,15 @@
 				008D293724B20F7200813338 /* de */,
 			);
 			name = Settings.storyboard;
+			sourceTree = "<group>";
+		};
+		00A7B33828DFA62900B5369C /* Purchase.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00A7B33928DFA63A00B5369C /* Base */,
+				00A7B33A28DFA65900B5369C /* de */,
+			);
+			name = Purchase.storyboard;
 			sourceTree = "<group>";
 		};
 		00AA201C213432B400084B08 /* InfoPlist.strings */ = {

@@ -23,11 +23,6 @@ enum Localized {
     static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "By Arthur Hammer – Version %@", comment: "Version label with numerical version")
     static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
 
-    enum Purchase {
-        static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button title: Purchase a donation")
-        static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button title: Restore past purchases")
-    }
-
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
     static let libraryDefaultTitle = NSLocalizedString("library.title.default", value: "Videos", comment: "Title for the library when no specific album is selected.")
@@ -82,13 +77,33 @@ enum Localized {
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
+    
+    enum Purchase {
+        static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
+        static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button: Restore past purchases")
+        static let thankYou = String(localized: "purchase.thankyou", defaultValue: "Thank You", comment: "Button: Donation already purchased")
+        
+        // Alerts
+        static let purchaseFailed = String(localized: "purchase.purchase-failed", defaultValue: "Hmm, an error!", comment: "Alert title: Purchase failed.")
+        static let purchaseFailedMessage = String(localized: "purchase.purchased-failed-message", defaultValue: "Something went wrong while contacting the App Store. Please try again later.\n\nThank you for considering a donation.", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
+        static let purchaseUnauthorized = purchaseFailed
+        static let purchaseUnauthorizedMessage = String(localized: "purchase.unauthorized-message", defaultValue: "Purchases are not allowed on this device.\n\nThank you for considering a donation.", comment: "Alert message: The user is not authorized to make payments.")
+        static let purchaseUnavailable = purchaseFailed
+        static let purchaseUnavailableMessage = purchaseFailedMessage
+        static let restoreFailed = purchaseFailed
+        static let restoreFailedMessage = purchaseFailedMessage
+        static let restoreUnauthorized = purchaseUnauthorized
+        static let restoreUnauthorizedMessage = purchaseUnauthorizedMessage
+        static let nothingToRestore = restoreFailed
+        static let nothingToRestoreMessage = String(localized: "purchase.nothing-to-restore-message", defaultValue: "There don't appear to be any past donations. If you believe this is in error, please contact the developer.", comment: "Alert message: Nothing to restore, the user has not previously purchased anything. ")
+    }
 }
 
 // MARK: - Metadata
 
 extension Localized {
     
-    struct Metadata {
+    enum Metadata {
         static let typeTitle = NSLocalizedString("metadata.type.title", value: "Type", comment: "Title for the video type metadata.")
         static let typeVideoValue = NSLocalizedString("metadata.type.video", value: "Video", comment: "Video: Value for the video type metadata item.")
         static let typeLivePhotoValue = NSLocalizedString("metadata.type.livePhoto", value: "Live Photo", comment: "Live Photo: Value for the video type metadata.")
@@ -138,22 +153,4 @@ extension Localized {
     
     static let alertMailUnavailableTitle = NSLocalizedString("alert.mail.title", value: "This Device Can't Send Emails", comment: "")
     static let alertMailUnavailableMessageFormat = NSLocalizedString("alert.mail.message", value: "You can reach me at %@", comment: "E-mail address")
-
-    static let alertIAPFailedTitle = NSLocalizedString("alert.iap.failed.title", value: "Donation Failed", comment: "Alert title: Purchasing failed.")
-    static let alertIAPFailedMessage = NSLocalizedString("alert.iap.failed.message", value: "Please check your network settings and try again later. Thank you for your support!", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
-
-    static let alertIAPUnauthorizedTitle = Localized.alertIAPFailedTitle
-    static let alertIAPUnauthorizedMessage = NSLocalizedString("alert.iap.unauthorized.message", value: "In-App Purchases are not allowed on this device. Thank you for your support!", comment: "Alert message: The user is not authorized to make payments.")
-
-    static let alertIAPUnavailableTitle = Localized.alertIAPFailedTitle
-    static let alertIAPUnavailableMessage = Localized.alertIAPFailedMessage
-
-    static let alertIAPRestoreFailedTitle = NSLocalizedString("alert.iap.restore.failed.title", value: "Cannot Restore Purchase", comment: "Alert title: Restoring failed.")
-    static let alertIAPRestoreFailedMessage = Localized.alertIAPFailedMessage
-
-    static let alertIAPRestoreUnauthorizedTitle = Localized.alertIAPRestoreFailedTitle
-    static let alertIAPRestoreUnauthorizedMessage = Localized.alertIAPUnauthorizedMessage
-
-    static let alertIAPRestoreEmptyTitle = alertIAPRestoreFailedTitle
-    static let alertIAPRestoreEmptyMessage = NSLocalizedString("alert.iap.restore.empty.message", value: "Looks like you haven't donated yet.", comment: "Alert message: Nothing to restore, the user has not previously purchased anything. ")
 }

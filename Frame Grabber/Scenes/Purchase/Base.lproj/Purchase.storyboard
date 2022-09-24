@@ -25,10 +25,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="302.66666666666669"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
-                                                <rect key="frame" x="56" y="40" width="278" height="262.66666666666669"/>
+                                                <rect key="frame" x="50" y="40" width="290" height="262.66666666666669"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-jT-k0T" userLabel="IconContainer">
-                                                        <rect key="frame" x="99" y="0.0" width="80" height="80"/>
+                                                        <rect key="frame" x="105" y="0.0" width="80" height="80"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon-about" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -48,12 +48,12 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app is for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
-                                                        <rect key="frame" x="0.0" y="104" width="278" height="26.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="104" width="290" height="26.333333333333343"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ST-OO-E7H">
-                                                        <rect key="frame" x="0.0" y="154.33333333333334" width="278" height="108.33333333333334"/>
+                                                        <rect key="frame" x="0.0" y="154.33333333333334" width="290" height="108.33333333333334"/>
                                                         <string key="text">Designed to get out of your way so you can quickly grab your favorite picture.
 
 A donation helps keep it alive.</string>
@@ -99,9 +99,8 @@ A donation helps keep it alive.</string>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="500" verticalCompressionResistancePriority="999" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Il-X8W" customClass="PurchaseButtonsView" customModule="FG_Beta" customModuleProvider="target">
                                 <rect key="frame" x="147.66666666666666" y="727.66666666666663" width="95" height="70.333333333333371"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="2Cf-Os-zO1">
                                         <rect key="frame" x="7.3333333333333428" y="0.0" width="80.333333333333329" height="34.333333333333336"/>
-                                        <accessibility key="accessibilityConfiguration" hint="In-App Purchase"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -159,7 +158,7 @@ A donation helps keep it alive.</string>
                             <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="nJn-T0-q26" secondAttribute="bottom" priority="500" id="8PD-Pm-pCq"/>
                             <constraint firstAttribute="trailing" secondItem="hMy-Av-8q9" secondAttribute="trailing" id="DTv-Xq-5jk"/>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="42g-9b-btt" secondAttribute="leadingMargin" id="GBE-tn-ZTf"/>
-                            <constraint firstItem="cEU-P9-yMj" firstAttribute="trailing" secondItem="NG4-o2-qF9" secondAttribute="leading" constant="-8" id="GFY-kG-0jQ"/>
+                            <constraint firstItem="cEU-P9-yMj" firstAttribute="trailing" secondItem="NG4-o2-qF9" secondAttribute="leading" constant="-2" id="GFY-kG-0jQ"/>
                             <constraint firstItem="hMy-Av-8q9" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="GQ5-sl-8pX"/>
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="32" id="OsQ-GG-Iub">
                                 <variation key="heightClass=compact" constant="8"/>

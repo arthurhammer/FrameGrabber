@@ -2,41 +2,53 @@ import UIKit
 
 /// Static factories for UIAlertController alerts.
 extension UIAlertController {
-
+    
     static func videoLoadingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertVideoLoadFailedTitle,
-             message: Localized.alertVideoLoadFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.alertVideoLoadFailedTitle,
+            message: Localized.alertVideoLoadFailedMessage,
+            okHandler: okHandler
+        )
     }
-
+    
     static func playbackFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertPlaybackFailedTitle,
-             message: Localized.alertPlaybackFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.alertPlaybackFailedTitle,
+            message: Localized.alertPlaybackFailedMessage,
+            okHandler: okHandler
+        )
     }
     
     static func filePickingFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertFilePickingFailedTitle,
-             message: Localized.alertFilePickingFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.alertFilePickingFailedTitle,
+            message: Localized.alertFilePickingFailedMessage,
+            okHandler: okHandler
+        )
     }
-
+    
     static func frameExportFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertFrameExportFailedTitle,
-             message: Localized.alertFrameExportFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.alertFrameExportFailedTitle,
+            message: Localized.alertFrameExportFailedMessage,
+            okHandler: okHandler
+        )
     }
     
     static func savingToPhotosFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertFrameExportFailedTitle,
-             message: Localized.alertFrameExportFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.alertFrameExportFailedTitle,
+            message: Localized.alertFrameExportFailedMessage,
+            okHandler: okHandler
+        )
     }
     
     static func videoRecordingUnavailable(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.videoRecordingUnavailableTitle,
-             message: Localized.videoRecordingUnavailableMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.videoRecordingUnavailableTitle,
+            message: Localized.videoRecordingUnavailableMessage,
+            okHandler: okHandler
+        )
     }
     
     /// By default, the open settings action opens the app's Settings.
@@ -57,55 +69,74 @@ extension UIAlertController {
     }
     
     static func recordingVideoFailed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.videoRecordingFailedTitle,
-             message: Localized.videoRecordingFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.videoRecordingFailedTitle,
+            message: Localized.videoRecordingFailedMessage,
+            okHandler: okHandler
+        )
     }
-
+    
     static func mailNotAvailable(contactAddress: String, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertMailUnavailableTitle,
-             message: String.localizedStringWithFormat(Localized.alertMailUnavailableMessageFormat, contactAddress),
-             okHandler: okHandler)
+        with(
+            title: Localized.alertMailUnavailableTitle,
+            message: String.localizedStringWithFormat(Localized.alertMailUnavailableMessageFormat, contactAddress),
+            okHandler: okHandler
+        )
     }
+}
 
-    // MARK: In-App Purchase Errors
 
+// MARK: - Purchase
+
+extension UIAlertController {
     static func purchaseNotAllowed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertIAPUnauthorizedTitle,
-             message: Localized.alertIAPUnauthorizedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.Purchase.purchaseUnauthorized,
+            message: Localized.Purchase.purchaseUnauthorizedMessage,
+            okHandler: okHandler
+        )
     }
 
     static func productNotFetched(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertIAPUnavailableTitle,
-             message: Localized.alertIAPUnavailableMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.Purchase.purchaseUnavailable,
+            message: Localized.Purchase.purchaseUnavailableMessage,
+            okHandler: okHandler
+        )
     }
 
     static func purchaseFailed(error: Error?, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
         // `error.localizedDescription` does not seem to be localized, so we use a generic
         // message.
-        with(title: Localized.alertIAPFailedTitle,
-             message: Localized.alertIAPFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.Purchase.purchaseFailed,
+            message: Localized.Purchase.purchaseFailedMessage,
+            okHandler: okHandler
+        )
     }
 
     static func restoreNotAllowed(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertIAPRestoreUnauthorizedTitle,
-             message: Localized.alertIAPRestoreUnauthorizedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.Purchase.restoreUnauthorized,
+            message: Localized.Purchase.restoreUnauthorizedMessage,
+            okHandler: okHandler
+        )
     }
 
     static func nothingToRestore(okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertIAPRestoreEmptyTitle,
-             message: Localized.alertIAPRestoreEmptyMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.Purchase.nothingToRestore,
+            message: Localized.Purchase.nothingToRestoreMessage,
+            okHandler: okHandler
+        )
     }
 
     static func restoreFailed(error: Error, okHandler: ((UIAlertAction) -> ())? = nil) -> UIAlertController {
-        with(title: Localized.alertIAPRestoreFailedTitle,
-             message: Localized.alertIAPRestoreFailedMessage,
-             okHandler: okHandler)
+        with(
+            title: Localized.Purchase.restoreFailed,
+            message: Localized.Purchase.restoreFailedMessage,
+            okHandler: okHandler
+        )
     }
 }
 

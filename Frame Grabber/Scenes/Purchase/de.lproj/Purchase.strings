@@ -1,0 +1,21 @@
+/* Class = "UIButton"; configuration.title = "<Title>"; ObjectID = "2Cf-Os-zO1"; */
+"2Cf-Os-zO1.configuration.title" = "<Title>";
+
+/* Class = "UIButton"; normalTitle = "<Title>"; ObjectID = "2Cf-Os-zO1"; */
+"2Cf-Os-zO1.normalTitle" = "<Title>";
+
+/* Class = "UILabel"; text = "Designed to get out of your way so you can quickly grab your favorite picture.\n\nA donation helps keep it alive."; ObjectID = "6ST-OO-E7H"; */
+"6ST-OO-E7H.text" = "Damit du so einfach wie möglich deine Lieblingsbilder speichern kannst.\n\nDie Spende hilft bei der Entwicklung.";
+
+/* Class = "UIButton"; configuration.title = "<Restore>"; ObjectID = "hSM-a5-Quj"; */
+"hSM-a5-Quj.configuration.title" = "<Restore>";
+
+/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
+"hSM-a5-Quj.normalTitle" = "Wiederherstellen";
+
+/* Class = "UILabel"; text = "This app is for you."; ObjectID = "Ltf-rM-h7K"; */
+"Ltf-rM-h7K.text" = "Diese App ist für dich.";
+
+/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "NG4-o2-qF9"; */
+"NG4-o2-qF9.accessibilityLabel" = "Schließen";
+
