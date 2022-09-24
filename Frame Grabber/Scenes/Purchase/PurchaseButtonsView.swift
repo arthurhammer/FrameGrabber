@@ -15,7 +15,6 @@ class PurchaseButtonsView: UIStackView {
         purchaseButton.configureWithDefaultShadow()
         
         var purchaseButtonConfiguration = UIButton.Configuration.action()
-        purchaseButtonConfiguration.baseBackgroundColor = .systemBlue
         purchaseButtonConfiguration.baseForegroundColor = .white
         purchaseButtonConfiguration.titleTextAttributesTransformer = nil  // Don't use default fonts.
         purchaseButton.configuration = purchaseButtonConfiguration
@@ -66,6 +65,7 @@ extension PurchaseButtonsView {
         button.configurationUpdateHandler = { [weak self] button in
             var configuration = button.configuration
             configuration?.attributedTitle = self?.attributedText(for: viewModelConfiguration, titleFont: titleFont, subtitleFont: subtitleFont)
+            configuration?.baseBackgroundColor = viewModelConfiguration.backgroundColor
             configuration?.showsActivityIndicator = viewModelConfiguration.isLoading
             button.isUserInteractionEnabled = viewModelConfiguration.isUserInteractionEnabled
             button.configuration = configuration

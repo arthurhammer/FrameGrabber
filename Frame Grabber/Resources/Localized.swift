@@ -79,10 +79,14 @@ enum Localized {
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
     
     enum Purchase {
-        static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
-        static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button: Restore past purchases")
-        static let thankYou = String(localized: "purchase.thankyou", defaultValue: "Thank You", comment: "Button: Donation already purchased")
+        static let title = String(localized: "purchase.title", defaultValue: "This app is for you.", comment: "Title: Donation screen")
+        static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank you for your donation!", comment: "Title: Donation already purchased")
+        static let body = String(localized: "purchase.body", defaultValue: "Designed to get out of your way so you can quickly grab your favorite picture.\n\nA donation helps keep it alive.", comment: "Body: Donation screen explanation.")
         
+        static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
+        static let thankYou = String(localized: "purchase.thankyou", defaultValue: "🎉", comment: "Button: Donation already purchased, fires confettit")
+        static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button: Restore past purchases")
+                
         // Alerts
         static let purchaseFailed = String(localized: "purchase.purchase-failed", defaultValue: "Hmm, an error!", comment: "Alert title: Purchase failed.")
         static let purchaseFailedMessage = String(localized: "purchase.purchased-failed-message", defaultValue: "Something went wrong while contacting the App Store. Please try again later.\n\nThank you for considering a donation.", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")

@@ -13,6 +13,9 @@ final class PurchaseViewModel {
         let isLoading: Bool
         let isUserInteractionEnabled: Bool
     }
+    
+    @Published private(set) var title: String?
+    @Published private(set) var subtitle: String?
 
     @Published private(set) var purchaseButtonConfiguration = ButtonConfiguration(
         title: Localized.Purchase.purchase,
@@ -106,17 +109,20 @@ final class PurchaseViewModel {
         
         let isPurchaseButtonLoading = isFetchingProducts || isPurchasing
         let isButtonInteractionEnabled = !isPurchaseButtonLoading && !isRestoring
-        
+                
         let purchaseButtonTitle = isPurchaseButtonLoading
             ? nil
             : (hasPurchased ? Localized.Purchase.thankYou : Localized.Purchase.purchase)
         
-        let purchaseButtonSubtitle = (isPurchaseButtonLoading || hasPurchased) ? nil : product.flatMap(formattedPrice)
+        let purchaseButtonSubtitle = (hasPurchased || isPurchaseButtonLoading) ? nil : product.flatMap(formattedPrice)
         
+        self.title = hasPurchased ? Localized.Purchase.titlePurchased : Localized.Purchase.title
+        self.subtitle = hasPurchased ? nil : Localized.Purchase.body
+
         self.purchaseButtonConfiguration = .init(
             title: purchaseButtonTitle,
             subtitle: purchaseButtonSubtitle,
-            backgroundColor: hasPurchased ? .systemGreen : .purchaseAccent,
+            backgroundColor: hasPurchased ? .systemGreen : .systemBlue,
             isLoading: isPurchaseButtonLoading,
             isUserInteractionEnabled: isButtonInteractionEnabled
         )

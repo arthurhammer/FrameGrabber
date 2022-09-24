@@ -11,6 +11,7 @@ final class PurchaseViewController: UIViewController {
     @IBOutlet private var scrollViewSeparator: UIView!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var iconView: UIImageView!
     @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
     @IBOutlet private var confettiView: ConfettiView!
@@ -22,6 +23,12 @@ final class PurchaseViewController: UIViewController {
         setupBindings()
         configureViews()
         viewModel.onViewDidLoad()
+    }
+    
+    private var didAppear = false
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        didAppear = true
     }
 
     override func viewDidLayoutSubviews() {
@@ -47,7 +54,7 @@ final class PurchaseViewController: UIViewController {
         if preferredContentSize != size {
             preferredContentSize = size
             if #available(iOS 16.0, *) {
-                invalidateCompactSheetPresentationSize(animated: false)
+                invalidateCompactSheetPresentationSize(animated: didAppear)
             }
         }
     }
@@ -73,10 +80,18 @@ final class PurchaseViewController: UIViewController {
     // MARK: - Configuring
     
     private func setupBindings() {
+        viewModel.$title
+            .combineLatest(viewModel.$subtitle)
+            .sink { [weak self] title, subtitle in
+                self?.titleLabel.text = title
+                self?.subtitleLabel.text = subtitle
+            }
+            .store(in: &cancellables)
+        
         viewModel.$purchaseButtonConfiguration
             .combineLatest(viewModel.$restoreButtonConfiguration)
-            .sink { [weak self] result in
-                self?.purchaseButtonsView.setup(withPurchaseButtonConfiguration: result.0, restoreButtonConfiguration: result.1)
+            .sink { [weak self] purchaseConfig, restoreConfig in
+                self?.purchaseButtonsView.setup(withPurchaseButtonConfiguration: purchaseConfig, restoreButtonConfiguration: restoreConfig)
             }
             .store(in: &cancellables)
         

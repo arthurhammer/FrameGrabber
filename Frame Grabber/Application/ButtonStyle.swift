@@ -30,7 +30,7 @@ extension UIButton.Configuration {
         configuration.setDefaultContentInsets()
         configuration.baseForegroundColor = .secondaryLabel
         configuration.imagePadding = 8
-        let font = UIFont.preferredFont(forTextStyle: .subheadline)
+        let font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .medium)
         configuration.titleTextAttributesTransformer = .init { attributes in
             var attributes = attributes
             attributes.font = font

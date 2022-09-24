@@ -250,6 +250,9 @@
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
 
+/* Body: Donation screen explanation. */
+"purchase.body" = "Damit du so einfach wie möglich deine Lieblingsbilder speichern kannst.\n\nDie Spende hilft bei der Entwicklung.";
+
 /* Alert message: Nothing to restore, the user has not previously purchased anything. */
 "purchase.nothing-to-restore-message" = "Keine vergangenen Spenden gefunden. Sollte etwas nicht stimmen, wende dich bitte an den Entwickler.";
 
@@ -265,8 +268,14 @@
 /* Button: Restore past purchases */
 "purchase.restore" = "Wiederherstellen";
 
-/* Button: Donation already purchased */
-"purchase.thankyou" = "Danke";
+/* Button: Donation already purchased, fires confettit */
+"purchase.thankyou" = "🎉";
+
+/* Title: Donation screen */
+"purchase.title" = "Diese App ist für dich.";
+
+/* Title: Donation already purchased */
+"purchase.title-purchased" = "Vielen Dank für deine Spende!";
 
 /* Alert message: The user is not authorized to make payments. */
 "purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.\n\nDanke für deine Bereitschaft zu spenden.";

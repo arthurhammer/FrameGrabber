@@ -22,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="47" width="390" height="648.66666666666663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="302.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="214.66666666666666"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
-                                                <rect key="frame" x="50" y="40" width="290" height="262.66666666666669"/>
+                                                <rect key="frame" x="50" y="40" width="290" height="174.66666666666666"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-jT-k0T" userLabel="IconContainer">
                                                         <rect key="frame" x="105" y="0.0" width="80" height="80"/>
@@ -47,16 +47,13 @@
                                                             <constraint firstItem="qzN-vS-VWL" firstAttribute="leading" secondItem="Ibg-jT-k0T" secondAttribute="leading" id="s1W-a7-T55"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app is for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Title&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
                                                         <rect key="frame" x="0.0" y="104" width="290" height="26.333333333333343"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ST-OO-E7H">
-                                                        <rect key="frame" x="0.0" y="154.33333333333334" width="290" height="108.33333333333334"/>
-                                                        <string key="text">Designed to get out of your way so you can quickly grab your favorite picture.
-
-A donation helps keep it alive.</string>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Subtitle&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ST-OO-E7H">
+                                                        <rect key="frame" x="0.0" y="154.33333333333334" width="290" height="20.333333333333343"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                                         <nil key="highlightedColor"/>
@@ -188,6 +185,7 @@ A donation helps keep it alive.</string>
                         <outlet property="purchaseButtonsView" destination="fsd-Il-X8W" id="Wdt-ak-Iwv"/>
                         <outlet property="scrollView" destination="nJn-T0-q26" id="vq0-gO-Fl7"/>
                         <outlet property="scrollViewSeparator" destination="hMy-Av-8q9" id="4wt-Wt-PtH"/>
+                        <outlet property="subtitleLabel" destination="6ST-OO-E7H" id="H4k-tG-UHf"/>
                         <outlet property="titleLabel" destination="Ltf-rM-h7K" id="573-r3-w6X"/>
                     </connections>
                 </viewController>
