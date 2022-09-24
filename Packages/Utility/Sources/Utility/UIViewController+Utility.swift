@@ -2,8 +2,7 @@ import UIKit
 
 extension UIViewController {
     
-    /// Sets the controller's preferred content height to an expanded size. The width is not
-    /// specified.
+    /// Sets the controller's preferred content height to an expanded size. The width is not specified.
     ///
     /// This can be used to expand view controllers in popovers or other containers.
     public func updateExpandedPreferredContentSize() {
@@ -14,7 +13,63 @@ extension UIViewController {
             preferredContentSize = expandedSize
         }
     }
+    
+    /// Configures the receiver to be presented in a sheet with a height matching the receiver's `preferredContentSize`.
+    ///
+    /// When the preferred content size of the receiver changes, update the sheet size using `invalidateCompactSheetPresentationSize()`.
+    ///
+    /// - Note: On iOS 15, uses a non-resizable `large` sheet detent.
+    public func configureCompactSheetPresentation() {
+        modalPresentationStyle = .formSheet
+        sheetPresentationController?.preferredCornerRadius = 32
+        sheetPresentationController?.prefersEdgeAttachedInCompactHeight = true
+        sheetPresentationController?.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+
+        if #available(iOS 16.0, *) {
+            sheetPresentationController?.detents = [.preferredContentSize(of: self)]
+        } else {
+            sheetPresentationController?.detents = [.large()]
+        }
+    }
+    
+    @available(iOS 16.0, *)
+    public func invalidateCompactSheetPresentationSize(animated: Bool) {
+        if animated {
+            sheetPresentationController?.animateChanges {
+                sheetPresentationController?.invalidateDetents()
+            }
+        } else {
+            sheetPresentationController?.invalidateDetents()
+        }
+    }
 }
+
+// MARK: - Sheet Detents
+
+extension UISheetPresentationController.Detent {
+    
+    /// Uses the given view controller's `preferredContentSize` to size the detent.
+    ///
+    /// When the preferred content size changes, update the sheet size using `UISheetPresentationController.invalidateDetents()`.
+    @available(iOS 16.0, *)
+    public static func preferredContentSize(
+        of viewController: UIViewController,
+        fallbackDetent: UISheetPresentationController.Detent = .medium()
+    ) -> UISheetPresentationController.Detent {
+        .custom(identifier: .preferredContentSize) { [weak viewController] context in
+            let height = viewController?.preferredContentSize.height ?? 0
+            let fallbackHeight = fallbackDetent.resolvedValue(in: context) ?? 500
+            return (height <= 0 || height == UIView.noIntrinsicMetric) ? fallbackHeight : height
+        }
+    }
+}
+
+extension UISheetPresentationController.Detent.Identifier {
+    public static let preferredContentSize = Self(rawValue: "preferredContentSize")
+}
+
+
+// MARK: - Embedding View Controllers
 
 extension UIViewController {
 

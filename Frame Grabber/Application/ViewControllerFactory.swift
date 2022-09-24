@@ -1,5 +1,6 @@
 import UIKit
 import UniformTypeIdentifiers
+import Utility
 
 /// Static factory for view controllers.
 struct ViewControllerFactory {
@@ -54,8 +55,7 @@ struct ViewControllerFactory {
             fatalError("Could not instantiate controller.")
         }
         
-        controller.modalPresentationStyle = .formSheet
-        controller.configureSheetPresentation()
+        controller.configureCompactSheetPresentation()
         return controller
     }
     

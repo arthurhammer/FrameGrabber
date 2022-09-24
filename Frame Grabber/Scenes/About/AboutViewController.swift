@@ -33,11 +33,6 @@ final class AboutViewController: UITableViewController, MFMailComposeViewControl
         super.viewDidLayoutSubviews()
         updateExpandedPreferredContentSize()
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        (segue.destination as? PurchaseViewController)?.configureSheetPresentation()
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
