@@ -132,7 +132,6 @@ final class Coordinator: NSObject {
     
     private func showPurchase() {
         let purchase = ViewControllerFactory.makePurchase()
-        purchase.modalPresentationStyle = .formSheet
         navigationController.showDetailViewController(purchase, sender: self)
     }
 }

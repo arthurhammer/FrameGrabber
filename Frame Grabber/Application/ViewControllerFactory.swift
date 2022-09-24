@@ -54,6 +54,7 @@ struct ViewControllerFactory {
             fatalError("Could not instantiate controller.")
         }
         
+        controller.modalPresentationStyle = .formSheet
         controller.configureSheetPresentation()
         return controller
     }
