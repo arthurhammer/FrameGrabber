@@ -15,7 +15,7 @@ class PurchaseButtonsView: UIStackView {
         purchaseButton.configureWithDefaultShadow()
         
         var purchaseButtonConfiguration = UIButton.Configuration.action()
-        purchaseButtonConfiguration.baseBackgroundColor = .purchaseAccent
+        purchaseButtonConfiguration.baseBackgroundColor = .accent
         purchaseButtonConfiguration.baseForegroundColor = .labelInverted
         purchaseButtonConfiguration.titleTextAttributesTransformer = nil  // Don't use default fonts.
         purchaseButton.configuration = purchaseButtonConfiguration

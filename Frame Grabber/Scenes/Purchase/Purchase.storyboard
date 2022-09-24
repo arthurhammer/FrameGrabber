@@ -19,23 +19,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJn-T0-q26">
-                                <rect key="frame" x="0.0" y="47" width="390" height="664.66666666666663"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="648.66666666666663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="288.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="302.66666666666669"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
-                                                <rect key="frame" x="56" y="40.000000000000014" width="278" height="232.33333333333337"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
+                                                <rect key="frame" x="56" y="40" width="278" height="262.66666666666669"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-jT-k0T" userLabel="IconContainer">
-                                                        <rect key="frame" x="104" y="0.0" width="70" height="70"/>
+                                                        <rect key="frame" x="99" y="0.0" width="80" height="80"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon-about" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="qzN-vS-VWL" secondAttribute="height" id="MLf-Sw-iPS"/>
-                                                                    <constraint firstAttribute="height" constant="70" id="wYP-Ys-yaT"/>
+                                                                    <constraint firstAttribute="height" constant="80" id="wYP-Ys-yaT"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -47,22 +47,32 @@
                                                             <constraint firstItem="qzN-vS-VWL" firstAttribute="leading" secondItem="Ibg-jT-k0T" secondAttribute="leading" id="s1W-a7-T55"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
-                                                        <rect key="frame" x="0.0" y="102.00000000000001" width="278" height="130.33333333333337"/>
-                                                        <string key="text">This app is for you.
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app is for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
+                                                        <rect key="frame" x="0.0" y="104" width="278" height="26.333333333333343"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ST-OO-E7H">
+                                                        <rect key="frame" x="0.0" y="154.33333333333334" width="278" height="108.33333333333334"/>
+                                                        <string key="text">Designed to get out of your way so you can quickly grab your favorite picture.
 
-Designed to be as simple as possible. So you can grab your favorite picture and get right back to creating awesome things with it.</string>
+A donation helps keep it alive.</string>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="6ST-OO-E7H" firstAttribute="width" secondItem="cEU-P9-yMj" secondAttribute="width" id="MLI-9e-ez0"/>
+                                                    <constraint firstItem="Ltf-rM-h7K" firstAttribute="width" secondItem="cEU-P9-yMj" secondAttribute="width" id="euI-Gi-AEF"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="Sb5-oq-QIB"/>
                                         <constraints>
                                             <constraint firstItem="cEU-P9-yMj" firstAttribute="centerX" secondItem="GNh-0e-9ul" secondAttribute="centerX" id="VMM-E0-Jdm"/>
                                             <constraint firstItem="cEU-P9-yMj" firstAttribute="top" secondItem="Sb5-oq-QIB" secondAttribute="top" constant="40" id="hPR-wX-OnT"/>
-                                            <constraint firstAttribute="bottom" secondItem="cEU-P9-yMj" secondAttribute="bottom" constant="16" id="zzu-JO-bUk"/>
+                                            <constraint firstAttribute="bottom" secondItem="cEU-P9-yMj" secondAttribute="bottom" id="zzu-JO-bUk"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -80,7 +90,7 @@ Designed to be as simple as possible. So you can grab your favorite picture and 
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMy-Av-8q9">
-                                <rect key="frame" x="0.0" y="711.66666666666663" width="390" height="1"/>
+                                <rect key="frame" x="0.0" y="695.66666666666663" width="390" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="7eM-Dc-MQZ"/>
@@ -126,7 +136,7 @@ Designed to be as simple as possible. So you can grab your favorite picture and 
                                     <outlet property="restoreButton" destination="hSM-a5-Quj" id="Za2-Ct-dvJ"/>
                                 </connections>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NG4-o2-qF9" userLabel="Close Button">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="999" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NG4-o2-qF9" userLabel="Close Button">
                                 <rect key="frame" x="342" y="65" width="30" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="Close"/>
                                 <connections>
@@ -151,7 +161,7 @@ Designed to be as simple as possible. So you can grab your favorite picture and 
                             <constraint firstItem="fsd-Il-X8W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="42g-9b-btt" secondAttribute="leadingMargin" id="GBE-tn-ZTf"/>
                             <constraint firstItem="cEU-P9-yMj" firstAttribute="trailing" secondItem="NG4-o2-qF9" secondAttribute="leading" constant="-8" id="GFY-kG-0jQ"/>
                             <constraint firstItem="hMy-Av-8q9" firstAttribute="leading" secondItem="42g-9b-btt" secondAttribute="leading" id="GQ5-sl-8pX"/>
-                            <constraint firstItem="fsd-Il-X8W" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="16" id="OsQ-GG-Iub">
+                            <constraint firstItem="fsd-Il-X8W" firstAttribute="top" secondItem="nJn-T0-q26" secondAttribute="bottom" constant="32" id="OsQ-GG-Iub">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstItem="m2J-rt-kXP" firstAttribute="bottom" secondItem="fsd-Il-X8W" secondAttribute="bottom" constant="12" id="QUc-n9-YqS">
@@ -179,6 +189,7 @@ Designed to be as simple as possible. So you can grab your favorite picture and 
                         <outlet property="purchaseButtonsView" destination="fsd-Il-X8W" id="Wdt-ak-Iwv"/>
                         <outlet property="scrollView" destination="nJn-T0-q26" id="vq0-gO-Fl7"/>
                         <outlet property="scrollViewSeparator" destination="hMy-Av-8q9" id="4wt-Wt-PtH"/>
+                        <outlet property="titleLabel" destination="Ltf-rM-h7K" id="573-r3-w6X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2j-b6-eHL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -10,6 +10,7 @@ final class PurchaseViewController: UIViewController {
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var scrollViewSeparator: UIView!
     @IBOutlet private var closeButton: UIButton!
+    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var iconView: UIImageView!
     @IBOutlet private var purchaseButtonsView: PurchaseButtonsView!
     @IBOutlet private var confettiView: ConfettiView!
@@ -110,6 +111,8 @@ final class PurchaseViewController: UIViewController {
         imageContainer?.layer.borderWidth = 1
         imageContainer?.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         imageContainer?.configureWithDefaultShadow()
+        
+        titleLabel.font = .preferredFont(forTextStyle: .title2, weight: .semibold)
         
         updateSeparator()
     }
