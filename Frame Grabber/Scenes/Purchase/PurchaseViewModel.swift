@@ -17,7 +17,7 @@ final class PurchaseViewModel {
     @Published private(set) var purchaseButtonConfiguration = ButtonConfiguration(
         title: Localized.Purchase.purchase,
         subtitle: nil,
-        backgroundColor: .purchaseAccent,
+        backgroundColor: .systemBlue,
         isLoading: false,
         isUserInteractionEnabled: false
     )
