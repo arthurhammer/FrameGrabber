@@ -83,6 +83,7 @@ final class PurchaseViewController: UIViewController {
             .sink { [weak self] title, subtitle in
                 self?.titleLabel.text = title
                 self?.subtitleLabel.text = subtitle
+                self?.subtitleLabel.isHidden = subtitle?.nilIfEmpty == nil
             }
             .store(in: &cancellables)
         
@@ -115,7 +116,7 @@ final class PurchaseViewController: UIViewController {
         view.insertSubview(blurView, at: 0)
         view.backgroundColor = .clear
 
-        let appIconCornerRadius: CGFloat = 18
+        let appIconCornerRadius: CGFloat = 16
         let imageContainer = iconView.superview
         iconView.layer.cornerRadius = appIconCornerRadius
         iconView.layer.cornerCurve = .continuous

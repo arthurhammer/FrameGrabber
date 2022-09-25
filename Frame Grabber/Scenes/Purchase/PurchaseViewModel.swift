@@ -128,7 +128,8 @@ final class PurchaseViewModel {
         )
         
         self.restoreButtonConfiguration = .init(
-            title: isRestoring ? nil : Localized.Purchase.restore,
+            // Always using a text instead of just a spinner avoids some weird glitches.
+            title: isRestoring ? Localized.Purchase.restoring : Localized.Purchase.restore,
             subtitle: nil,
             backgroundColor: nil,
             isLoading: isRestoring,

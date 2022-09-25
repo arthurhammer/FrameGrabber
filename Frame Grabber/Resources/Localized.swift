@@ -82,10 +82,10 @@ enum Localized {
         static let title = String(localized: "purchase.title", defaultValue: "This app is for you.", comment: "Title: Donation screen")
         static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank you for your donation!", comment: "Title: Donation already purchased")
         static let body = String(localized: "purchase.body", defaultValue: "Designed to get out of your way so you can quickly grab your favorite picture.\n\nA donation helps keep it alive.", comment: "Body: Donation screen explanation.")
-        
         static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
         static let thankYou = String(localized: "purchase.thankyou", defaultValue: "🎉", comment: "Button: Donation already purchased, fires confettit")
         static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button: Restore past purchases")
+        static let restoring = String(localized: "purchase.restoring", defaultValue: "Restoring…", comment: "Button: Currently restoring past purchases")
                 
         // Alerts
         static let purchaseFailed = String(localized: "purchase.purchase-failed", defaultValue: "Hmm, an error!", comment: "Alert title: Purchase failed.")

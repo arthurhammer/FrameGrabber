@@ -22,20 +22,20 @@
                                 <rect key="frame" x="0.0" y="47" width="390" height="648.66666666666663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNh-0e-9ul" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="214.66666666666666"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="204.66666666666666"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cEU-P9-yMj">
-                                                <rect key="frame" x="50" y="40" width="290" height="174.66666666666666"/>
+                                                <rect key="frame" x="50" y="40" width="290" height="164.66666666666666"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-jT-k0T" userLabel="IconContainer">
-                                                        <rect key="frame" x="105" y="0.0" width="80" height="80"/>
+                                                        <rect key="frame" x="110" y="0.0" width="70" height="70"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon-about" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-vS-VWL">
-                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="qzN-vS-VWL" secondAttribute="height" id="MLf-Sw-iPS"/>
-                                                                    <constraint firstAttribute="height" constant="80" id="wYP-Ys-yaT"/>
+                                                                    <constraint firstAttribute="height" constant="70" id="wYP-Ys-yaT"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -48,12 +48,12 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Title&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltf-rM-h7K">
-                                                        <rect key="frame" x="0.0" y="104" width="290" height="26.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="94" width="290" height="26.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Subtitle&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ST-OO-E7H">
-                                                        <rect key="frame" x="0.0" y="154.33333333333334" width="290" height="20.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="144.33333333333334" width="290" height="20.333333333333343"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                                         <nil key="highlightedColor"/>
@@ -117,7 +117,8 @@
                                         <rect key="frame" x="0.0" y="38.333333333333371" width="95" height="32"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                        <state key="normal" title="Restore"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="&lt;Restore&gt;"/>
                                         <buttonConfiguration key="configuration" style="plain" title="&lt;Restore&gt;">
                                             <fontDescription key="titleFontDescription" style="UICTFontTextStyleSubhead"/>
                                         </buttonConfiguration>

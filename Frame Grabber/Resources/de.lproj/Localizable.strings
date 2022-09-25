@@ -251,7 +251,7 @@
 "progress.videoLoad.title" = "Laden…";
 
 /* Body: Donation screen explanation. */
-"purchase.body" = "Damit du so einfach wie möglich deine Lieblingsbilder speichern kannst.\n\nDie Spende hilft bei der Entwicklung.";
+"purchase.body" = "Damit du so einfach wie möglich deine Lieblingsbilder speichern kannst.\n\nEine Spende hilft sehr.";
 
 /* Alert message: Nothing to restore, the user has not previously purchased anything. */
 "purchase.nothing-to-restore-message" = "Keine vergangenen Spenden gefunden. Sollte etwas nicht stimmen, wende dich bitte an den Entwickler.";
@@ -268,6 +268,8 @@
 /* Button: Restore past purchases */
 "purchase.restore" = "Wiederherstellen";
 
+"purchase.restoring" = "Wiederherstellen…";
+
 /* Button: Donation already purchased, fires confettit */
 "purchase.thankyou" = "🎉";
 
@@ -275,7 +277,7 @@
 "purchase.title" = "Diese App ist für dich.";
 
 /* Title: Donation already purchased */
-"purchase.title-purchased" = "Vielen Dank für deine Spende!";
+"purchase.title-purchased" = "Danke für deine Spende!";
 
 /* Alert message: The user is not authorized to make payments. */
 "purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.\n\nDanke für deine Bereitschaft zu spenden.";
