@@ -247,14 +247,14 @@
                             <tableViewSection footerTitle="" id="VDR-cR-6Dg">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="BBb-J1-STS">
-                                        <rect key="frame" x="20" y="258.5" width="374" height="148"/>
+                                        <rect key="frame" x="20" y="258.5" width="374" height="185.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BBb-J1-STS" id="ZHR-an-EpA">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="148"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="185.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="erP-qf-Xz2">
-                                                    <rect key="frame" x="20" y="11" width="334" height="118"/>
+                                                    <rect key="frame" x="20" y="35" width="334" height="131.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support the App" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBV-RG-m2x">
                                                             <rect key="frame" x="0.0" y="0.0" width="334" height="26.5"/>
@@ -267,16 +267,17 @@
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="950" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vJR-EM-th4">
-                                                            <rect key="frame" x="0.0" y="96.5" width="334" height="21.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="950" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vJR-EM-th4">
+                                                            <rect key="frame" x="0.0" y="96.5" width="334" height="35"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhq-rN-pTi">
-                                                                    <rect key="frame" x="0.0" y="0.5" width="143.5" height="21"/>
-                                                                    <color key="backgroundColor" name="accent"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhq-rN-pTi">
+                                                                    <rect key="frame" x="0.0" y="0.5" width="161" height="34.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                                    <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                     <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                                                     <state key="normal" title="Rate"/>
+                                                                    <buttonConfiguration key="configuration" style="tinted" title="Rate">
+                                                                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                    </buttonConfiguration>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                             <integer key="value" value="18"/>
@@ -287,11 +288,11 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" role="primary" translatesAutoresizingMaskIntoConstraints="NO" id="HlA-JS-FBO">
-                                                                    <rect key="frame" x="155.5" y="2" width="178.5" height="18"/>
-                                                                    <color key="backgroundColor" name="accent"/>
-                                                                    <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                                                    <rect key="frame" x="173" y="0.5" width="161" height="34.5"/>
+                                                                    <color key="tintColor" name="accent"/>
                                                                     <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                                                     <state key="normal" title="Donate"/>
+                                                                    <buttonConfiguration key="configuration" style="filled" title="Donate"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                             <integer key="value" value="18"/>
@@ -308,7 +309,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="erP-qf-Xz2" secondAttribute="trailing" id="9Ii-6q-QkV"/>
                                                 <constraint firstItem="erP-qf-Xz2" firstAttribute="leading" secondItem="ZHR-an-EpA" secondAttribute="leadingMargin" id="QdP-9N-1t3"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="erP-qf-Xz2" secondAttribute="bottom" priority="999" constant="8" id="iiC-WK-hgt"/>
-                                                <constraint firstItem="erP-qf-Xz2" firstAttribute="top" secondItem="ZHR-an-EpA" secondAttribute="topMargin" id="xgg-MO-75g"/>
+                                                <constraint firstItem="erP-qf-Xz2" firstAttribute="top" secondItem="ZHR-an-EpA" secondAttribute="topMargin" constant="24" id="xgg-MO-75g"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -326,9 +327,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Frame Grabber" largeTitleDisplayMode="never" id="IAE-sF-IVF"/>
                     <connections>
-                        <outlet property="featuredTitleLabel" destination="xBV-RG-m2x" id="ccx-98-J4H"/>
                         <outlet property="purchaseButton" destination="HlA-JS-FBO" id="Kq6-6Z-zbe"/>
-                        <outlet property="rateButton" destination="xhq-rN-pTi" id="fhy-Rt-rM7"/>
+                        <outlet property="rateButton" destination="xhq-rN-pTi" id="JpO-F9-cdI"/>
+                        <outlet property="supportButtonsStack" destination="vJR-EM-th4" id="CAj-ep-dMQ"/>
+                        <outlet property="supportTitleLabel" destination="xBV-RG-m2x" id="ccx-98-J4H"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ut-1p-jhN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -354,9 +356,6 @@
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

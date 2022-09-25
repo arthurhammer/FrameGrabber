@@ -13,7 +13,6 @@ extension UIButton.Configuration {
         configuration.buttonSize = .large
         configuration.cornerStyle = .fixed
         configuration.background.cornerRadius = Style.defaultButtonCornerRadius
-        configuration.baseForegroundColor = .label
         configuration.baseBackgroundColor = .accent
         configuration.imagePadding = 8
         let font = UIFont.preferredFont(forTextStyle: .headline)
@@ -23,6 +22,10 @@ extension UIButton.Configuration {
             return attributes
         }
         return configuration
+    }
+    
+    static func secondaryAction() -> Self {
+        action(using: .tinted())
     }
     
     static func actionAccessory(using baseConfiguration: Self = .plain()) -> Self {

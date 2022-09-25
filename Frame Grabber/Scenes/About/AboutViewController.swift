@@ -20,9 +20,10 @@ final class AboutViewController: UITableViewController, MFMailComposeViewControl
     private let bundle = Bundle.main
     private let device = UIDevice.current
 
+    @IBOutlet private var supportTitleLabel: UILabel!
+    @IBOutlet private var supportButtonsStack: UIStackView!
     @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var purchaseButton: UIButton!
-    @IBOutlet private var featuredTitleLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,13 @@ final class AboutViewController: UITableViewController, MFMailComposeViewControl
         updateExpandedPreferredContentSize()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.hasDifferentContentSize(comparedTo: previousTraitCollection) {
+            updateViews()
+        }
+    }
+        
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -57,31 +65,39 @@ final class AboutViewController: UITableViewController, MFMailComposeViewControl
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard Section(section) == .about else { return super.tableView(tableView, titleForFooterInSection: section) }
         
-        return String.localizedStringWithFormat(Localized.aboutVersionFormat, bundle.version)
+        return String.localizedStringWithFormat(Localized.About.attributionFormat, bundle.version)
     }
 
     private func configureViews() {
-        rateButton.configureAsActionButton()
-        rateButton.backgroundColor = .accent.withAlphaComponent(0.1)
-        rateButton.setTitleColor(.accent, for: .normal)
-        
-        purchaseButton.configureAsActionButton()
+        supportTitleLabel.font = .preferredFont(forTextStyle: .headline)
+
+        var rateConfig = UIButton.Configuration.secondaryAction()
+        rateConfig.title = Localized.About.rate
+        rateButton.configuration = rateConfig
+
+        var purchaseConfig = UIButton.Configuration.action()
+        purchaseConfig.title = Localized.About.donate
+        purchaseButton.configuration = purchaseConfig
         purchaseButton.configureWithDefaultShadow()
         purchaseButton.addAction(.init { [weak self] _ in
             guard let self else { return }
             self.delegate?.controllerDidSelectPurchase(self)
         }, for: .primaryActionTriggered)
         
-        featuredTitleLabel.font = .preferredFont(forTextStyle: .body, weight: .semibold, size: 22)
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: Localized.aboutShareAppButtonTitle,
+            title: Localized.About.shareApp,
             image: UIImage(systemName: "square.and.arrow.up"),
             primaryAction: UIAction { [weak self] _ in self?.shareApp() },
             menu: nil
         )
+        
+        updateViews()
+    }
+    
+    private func updateViews() {
+        supportButtonsStack.axis = traitCollection.hasHugeContentSize ? .vertical : .horizontal
     }
 }
 
@@ -95,7 +111,7 @@ extension AboutViewController {
     
     private func shareApp() {
         guard let url = About.storeURL?.absoluteString else { return }
-        let shareText = "\(Localized.aboutShareAppText)\n\(url)"
+        let shareText = "\(Localized.About.shareAppText)\n\(url)"
         let shareController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
         present(shareController, animated: true)
     }
@@ -124,7 +140,7 @@ extension AboutViewController {
         mailController.view.tintColor = .accent
         mailController.mailComposeDelegate = self
         mailController.setToRecipients([About.contactAddress])
-        mailController.setSubject(Localized.aboutContactSubject)
+        mailController.setSubject(Localized.About.emailSubject)
         mailController.setMessageBody(contactMessage, isHTML: false)
 
         present(mailController, animated: true)

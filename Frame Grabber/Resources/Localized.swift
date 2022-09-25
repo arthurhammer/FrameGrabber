@@ -1,6 +1,5 @@
 import Foundation
 
-// Migrate to iOS 15 String.
 enum Localized {
     static let appName = "Frame Grabber"
     static let photoLibraryAppAlbum = appName
@@ -17,12 +16,6 @@ enum Localized {
     static let authorizationDeniedAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Photo library authorization denied action.")
     static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
     static let authorizationUndeterminedAction = NSLocalizedString("authorization.undetermined.action", value: "Get Started", comment: "Photo library authorization default action")
-
-    static let aboutShareAppText = NSLocalizedString("about.share.text", value: "Download Frame Grabber on the App Store", comment: "Text shared alongside the App Store URL when sharing the app")
-    static let aboutShareAppButtonTitle = NSLocalizedString("about.share.button.title", value: "Share App", comment: "Share App button title and accessibility label")
-    static let aboutVersionFormat = NSLocalizedString("about.version.format", value: "By Arthur Hammer – Version %@", comment: "Version label with numerical version")
-    static let aboutContactSubject = NSLocalizedString("about.email.subject", value: "Frame Grabber: Feedback", comment: "Feedback email subject")
-
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
     static let libraryDefaultTitle = NSLocalizedString("library.title.default", value: "Videos", comment: "Title for the library when no specific album is selected.")
@@ -78,9 +71,18 @@ enum Localized {
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")
     
+    enum About {
+        static let donate = String(localized: "about.donate", defaultValue: "Donate", comment: "Button: Donate")
+        static let rate = String(localized: "about.rate", defaultValue: "Rate", comment: "Button: Rate app")
+        static let shareApp = String(localized: "about.share-app", defaultValue: "Share App", comment: "Button: Share app")
+        static let shareAppText = String(localized: "about.share-app-text", defaultValue: "Download Frame Grabber on the App Store", comment: "Share sheet: Text shared alongside the app's Store URL")
+        static let attributionFormat = String(localized: "about.attribution-format", defaultValue: "By Arthur Hammer – Version %@", comment: "Attribution: Author and app version")
+        static let emailSubject = String(localized: "about.email-subject", defaultValue: "Frame Grabber: Feedback", comment: "Feedback email subject")
+    }
+
     enum Purchase {
         static let title = String(localized: "purchase.title", defaultValue: "This app is for you.", comment: "Title: Donation screen")
-        static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank you for your donation!", comment: "Title: Donation already purchased")
+        static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank you for donating!", comment: "Title: Donation already purchased")
         static let body = String(localized: "purchase.body", defaultValue: "Designed to get out of your way so you can quickly grab your favorite picture.\n\nA donation helps keep it alive.", comment: "Body: Donation screen explanation.")
         static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
         static let thankYou = String(localized: "purchase.thankyou", defaultValue: "🎉", comment: "Button: Donation already purchased, fires confettit")
