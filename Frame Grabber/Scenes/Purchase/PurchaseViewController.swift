@@ -36,25 +36,23 @@ final class PurchaseViewController: UIViewController {
 
         DispatchQueue.main.async { [weak self] in
             self?.updateSeparator()
-            self?.updatePreferredContentSizeForSheetPresentation()
+            self?.updateSheetPresentationSize()
         }
     }
     
-    private func updatePreferredContentSizeForSheetPresentation() {
-        // Need to calculate the compressed height on the content view as the scroll view can arbitrarily expand/collapse.
+    private func updateSheetPresentationSize() {
         guard let contentView = scrollView.subviews.first else { return }
         
         let targetSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
         let contentViewHeight = contentView.systemLayoutSizeFitting(targetSize).height
         let buttonsHeight = purchaseButtonsView.systemLayoutSizeFitting(targetSize).height
         let compressedHeight = contentViewHeight + buttonsHeight + 12 + view.safeAreaInsets.bottom  // Spacings from storyboard.
-        
-        let size = CGSize(width: view.bounds.width, height: compressedHeight)
+        let size = CGSize(width: targetSize.width, height: compressedHeight)
         
         if preferredContentSize != size {
             preferredContentSize = size
             if #available(iOS 16.0, *) {
-                invalidateCompactSheetPresentationSize(animated: didAppear)
+                invalidateSheetDetents(animated: didAppear)
             }
         }
     }

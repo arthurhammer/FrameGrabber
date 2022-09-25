@@ -16,14 +16,14 @@ extension UIViewController {
     
     /// Configures the receiver to be presented in a sheet with a height matching the receiver's `preferredContentSize`.
     ///
-    /// When the preferred content size of the receiver changes, update the sheet size using `invalidateCompactSheetPresentationSize()`.
+    /// When the preferred content size of the receiver changes, update the sheet size using `invalidateSheetDetents()`.
     ///
     /// - Note: On iOS 15, uses a non-resizable `large` sheet detent.
     public func configureCompactSheetPresentation() {
         modalPresentationStyle = .formSheet
         sheetPresentationController?.preferredCornerRadius = 32
         sheetPresentationController?.prefersEdgeAttachedInCompactHeight = true
-        sheetPresentationController?.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+        sheetPresentationController?.widthFollowsPreferredContentSizeWhenEdgeAttached = false
 
         if #available(iOS 16.0, *) {
             sheetPresentationController?.detents = [.preferredContentSize(of: self)]
@@ -33,7 +33,7 @@ extension UIViewController {
     }
     
     @available(iOS 16.0, *)
-    public func invalidateCompactSheetPresentationSize(animated: Bool) {
+    public func invalidateSheetDetents(animated: Bool) {
         if animated {
             sheetPresentationController?.animateChanges {
                 sheetPresentationController?.invalidateDetents()
@@ -58,9 +58,14 @@ extension UISheetPresentationController.Detent {
     ) -> UISheetPresentationController.Detent {
         .custom(identifier: .preferredContentSize) { [weak viewController] context in
             let height = viewController?.preferredContentSize.height ?? 0
-            let fallbackHeight = fallbackDetent.resolvedValue(in: context) ?? 500
-            return (height <= 0 || height == UIView.noIntrinsicMetric) ? fallbackHeight : height
+            let isValid = (height > 0) && (height != UIView.noIntrinsicMetric)
+            return isValid ? height : fallbackDetent.fallbackHeight(in: context)
         }
+    }
+    
+    @available(iOS 16.0, *)
+    private func fallbackHeight(in context: UISheetPresentationControllerDetentResolutionContext) -> CGFloat {
+        resolvedValue(in: context) ?? min(500, context.maximumDetentValue)
     }
 }
 
