@@ -159,7 +159,7 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
         tasks += 1
         
         updateQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             
             // Get the actual current state.
             let (album, filter) = DispatchQueue.main.sync { (self.album, self.filter) }
@@ -189,7 +189,7 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
     
     func photoLibraryDidChange(_ change: PHChange) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             
             var albumWasDeleted = false
             

@@ -55,13 +55,13 @@ extension UIButton {
     }
     
     func configureAsActionButton(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) {
-        if let height = height {
+        if let height {
             let constraint = heightAnchor.constraint(equalToConstant: height)
             constraint.priority = .required - 1
             constraint.isActive = true
         }
         
-        if let minimumWidth = minimumWidth {
+        if let minimumWidth {
             let constraint = widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth)
             constraint.priority = .required - 1
             constraint.isActive = true

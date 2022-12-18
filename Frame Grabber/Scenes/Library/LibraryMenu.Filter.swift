@@ -63,9 +63,9 @@ extension PhotoLibraryFilter {
     fileprivate var buttonIcon: UIImage? {
         switch self {
         case .videoAndLivePhoto:
-            return UIImage(systemName: "line.horizontal.3.decrease.circle")
+            return UIImage(systemName: "line.3.horizontal.decrease.circle")
         case .video, .livePhoto:
-            return  UIImage(systemName: "line.horizontal.3.decrease.circle.fill")
+            return  UIImage(systemName: "line.3.horizontal.decrease.circle.fill")
         }
     }
 }

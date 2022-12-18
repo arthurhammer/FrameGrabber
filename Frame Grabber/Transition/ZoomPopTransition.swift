@@ -101,7 +101,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     /// When the gesture ends, completes the transition via the non-interactive animation.
     func updateInteractiveTransition(for gesture: UIPanGestureRecognizer) {
         // We are not inside a valid transition.
-        guard let transitionContext = transitionContext else {
+        guard let transitionContext else {
             gestureEndedBeforeTransitionStarted = gesture.state == .ended
             return
         }
@@ -152,7 +152,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     /// and notifies delegates about the completion.
     private func startNonInteractiveAnimation(using transitionContext: UIViewControllerContextTransitioning) {
         // We are not inside a valid transition.
-        guard let backgroundAnimator = backgroundAnimator else { return }
+        guard let backgroundAnimator else { return }
 
         // Sync up both animators.
         let foregroundAnimator = nonInteractiveAnimator(using: transitionContext)
@@ -176,7 +176,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     /// completion of the entire transition and notifies delegates.
     private func nonInteractiveAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewPropertyAnimator {
         // We are not inside a valid transition.
-        guard let sourceView = sourceView else {
+        guard let sourceView else {
             fatalError("A source view to animate from is required for the transition.")
         }
 
@@ -258,7 +258,7 @@ class ZoomPopTransition: NSObject, ZoomTransition, UIViewControllerAnimatedTrans
     // MARK: Other
 
     func animate(alongsideTransition animation: @escaping (UIViewControllerContextTransitioning) -> (), completion: ((UIViewControllerContextTransitioning) -> ())? = nil) {
-        guard let transitionContext = transitionContext else { return }
+        guard let transitionContext else { return }
 
         backgroundAnimator?.addAnimations {
             animation(transitionContext)

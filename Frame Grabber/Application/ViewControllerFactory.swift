@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 import Utility
 
 /// Static factory for view controllers.
-struct ViewControllerFactory {
+@MainActor struct ViewControllerFactory {
     
     static func makeAuthorization(withSuccessHandler success: @escaping () -> ()) -> AuthorizationController {
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)

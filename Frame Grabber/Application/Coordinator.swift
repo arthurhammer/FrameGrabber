@@ -2,8 +2,7 @@ import PhotoAlbums
 import Photos
 import UIKit
 
-final class Coordinator: NSObject {
-
+@MainActor final class Coordinator: NSObject {
     let navigationController: UINavigationController
     let libraryViewController: LibraryViewController
     let transitionController: ZoomTransitionController
@@ -193,7 +192,7 @@ extension Coordinator: EditorViewControllerDelegate {
 extension Coordinator: AlbumPickerViewControllerDelegate {
     
     func picker(_ picker: AlbumPickerViewController, didFinishPicking album: Album?) {
-        guard let album = album else { return }
+        guard let album else { return }
         libraryViewController.dataSource.album = album.assetCollection
     }
 }

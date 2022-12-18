@@ -9,7 +9,7 @@ import Photos
 /// keep it up to date when the photo library changes. Depending on the given mapping, the initial
 /// creation of the array can be costly. However, subsequent updates are applied incrementally and
 /// performant.
-struct MappedFetchResult<P, M> where P: PHObject {
+struct MappedFetchResult<P: PHObject, M> {
     
     typealias Mapping = (P) -> (M)
     
