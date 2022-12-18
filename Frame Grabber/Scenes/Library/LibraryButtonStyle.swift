@@ -10,6 +10,7 @@ extension UIButton {
         button.tintColor = .label
         button.configureDynamicTypeLabel()
         button.setImage(libraryTitleImage(), for: .normal)
+        // Note: We can't currently switch to `UIButton.Configuration` due to the single/multiline problem.
         button.configureTrailingAlignedImage()
         button.imageEdgeInsets.right = -6
         return button

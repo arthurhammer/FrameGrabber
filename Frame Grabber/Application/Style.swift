@@ -3,11 +3,11 @@ import UIKit
 extension UIColor {
     static let accent = UIColor(named: "accent")!
     static let secondaryAccent = UIColor(named: "secondaryAccent")!
-    static let purchaseAccent = UIColor(named: "purchaseAccent")!
     static let cellSelection = UIColor(named: "cellSelection")!
     static let editorBackground = UIColor(named: "editorBackground")!
     static let editorBars = UIColor(named: "editorBars")!
     static let videoCellGradient = [UIColor.black.withAlphaComponent(0), UIColor.black.withAlphaComponent(0.4)]
+    static let labelInverted = UIColor(named: "labelInverted")!
 }
 
 struct Style {

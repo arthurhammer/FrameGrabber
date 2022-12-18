@@ -1,21 +1,58 @@
 import UIKit
 
-// (Should migrate to `UIButton.Configuration` in the future.)
-
 extension Style {
     static let defaultButtonCornerRadius: CGFloat = 16
     static let mediumButtonCornerRadius: CGFloat = 12
 }
 
+extension UIButton.Configuration {
+    
+    static func action(using baseConfiguration: Self = .filled()) -> Self {
+        var configuration = baseConfiguration
+        configuration.setDefaultContentInsets()
+        configuration.buttonSize = .large
+        configuration.cornerStyle = .fixed
+        configuration.background.cornerRadius = Style.defaultButtonCornerRadius
+        configuration.baseBackgroundColor = .accent
+        configuration.imagePadding = 8
+        let font = UIFont.preferredFont(forTextStyle: .headline)
+        configuration.titleTextAttributesTransformer = .init { attributes in
+            var attributes = attributes
+            attributes.font = font
+            return attributes
+        }
+        return configuration
+    }
+    
+    static func secondaryAction() -> Self {
+        action(using: .tinted())
+    }
+    
+    static func actionAccessory(using baseConfiguration: Self = .plain()) -> Self {
+        var configuration = baseConfiguration
+        configuration.setDefaultContentInsets()
+        configuration.baseForegroundColor = .secondaryLabel
+        configuration.imagePadding = 8
+        let font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .medium)
+        configuration.titleTextAttributesTransformer = .init { attributes in
+            var attributes = attributes
+            attributes.font = font
+            return attributes
+        }
+        return configuration
+    }
+}
+
+// MARK: - Deprecated
+
+@available(*, deprecated, message: "Use `UIButton.Configuration`")
 extension UIButton {
+    
     static func action(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) -> UIButton {
         let button = UIButton(type: .system)
         button.configureAsActionButton(withHeight: height, minimumWidth: minimumWidth)
         return button
     }
-}
-
-extension UIButton {
     
     func configureAsActionButton(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) {
         if let height {

@@ -1,0 +1,80 @@
+{
+  "identifier" : "68D9C922",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "8DE890E5",
+      "localizations" : [
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation A [Local]",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende A [Local]",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.donationA",
+      "referenceName" : "Donation A",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "3.99",
+      "familyShareable" : false,
+      "internalID" : "3694EE92",
+      "localizations" : [
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation B [Local]",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende B [Local]",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.thankyou",
+      "referenceName" : "Donation B",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "849C893E",
+      "localizations" : [
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation C [Local]",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende C [Local]",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.donationC",
+      "referenceName" : "Donation C",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_storefront" : "DEU",
+    "_storeKitError" : 0
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

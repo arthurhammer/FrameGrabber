@@ -1,14 +1,17 @@
 /* Feedback email subject */
-"about.email.subject" = "Frame Grabber: Feedback";
+"about.email-subject" = "Frame Grabber: Feedback";
 
 /* Share App button title and accessibility label */
-"about.share.button.title" = "App Teilen";
+"about.share-app" = "App Teilen";
 
 /* Text shared alongside the App Store URL when sharing the app */
-"about.share.text" = "Lade Frame Grabber im App Store";
+"about.share-app-text" = "Lade Frame Grabber im App Store";
 
 /* Version label with numerical version */
-"about.version.format" = "Version %@";
+"about.attribution-format" = "Von Arthur Hammer – Version %@";
+
+"about.donate" = "Spenden";
+"about.rate" = "Bewerten";
 
 /* Cancel action */
 "action.cancel" = "Abbrechen";
@@ -75,24 +78,6 @@
 
 /* No comment provided by engineer. */
 "alert.frameexport.title" = "Export nicht möglich";
-
-/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"alert.iap.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
-
-/* Alert title: Purchasing failed. */
-"alert.iap.failed.title" = "Kauf nicht möglich";
-
-/* Alert message: Nothing to restore, the user has not previously purchased anything. */
-"alert.iap.restore.empty.message" = "Scheint, als hättest du noch kein Eis gekauft.";
-
-/* Alert title: Nothing to restore, the user has not previously purchased anything. */
-"alert.iap.restore.empty.title" = "Keine vorherigen Käufe";
-
-/* Alert title: Restoring failed. */
-"alert.iap.restore.failed.title" = "Wiederherstellen nicht möglich";
-
-/* Alert message: The user is not authorized to make payments. */
-"alert.iap.unauthorized.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
 
 /* E-mail address */
 "alert.mail.message" = "Du kannst mich via %@ erreichen.";
@@ -190,19 +175,10 @@
 /* Video pixel size with unit */
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
-/* Purchase screen purchase button label */
-"iap.purchase.action" = "Eis Ausgeben";
-
-/* Title for the library when no specific album is selected. */
-"library.title.default" = "Videos";
-
-/* Title for the library when photo library access is limited. */
-"library.title.limited" = "Ausgewählte Videos";
-
-/* Action of import menu: Open camera action. */
+/* Title for Camera button */
 "library.menu.import.camera.action" = "Video aufnehmen";
 
-/* Action of import menu: Open file picker action. */
+/* Title for Open Files button. */
 "library.menu.import.file.action" = "Datei öffnen";
 
 /* Title for limited authorization menu. */
@@ -213,6 +189,12 @@
 
 /* Action of limited authorization menu: Show limited photos picker. */
 "library.menu.limited.selectPhotos.action" = "Weitere Videos auswählen";
+
+/* Title for the library when no specific album is selected. */
+"library.title.default" = "Videos";
+
+/* Title for the library when photo library access is limited. */
+"library.title.limited" = "Ausgewählte Videos";
 
 /* Title for the codec metadata. */
 "metadata.codec.title" = "Codec";
@@ -270,6 +252,38 @@
 
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
+
+/* Body: Donation screen explanation. */
+"purchase.body" = "Damit du so einfach wie möglich deine Lieblingsbilder speichern kannst.\n\nEine Spende hilft sehr.";
+
+/* Alert message: Nothing to restore, the user has not previously purchased anything. */
+"purchase.nothing-to-restore-message" = "Keine vergangenen Spenden gefunden. Sollte etwas nicht stimmen, wende dich bitte an den Entwickler.";
+
+/* Button: Purchase a donation */
+"purchase.purchase" = "Spenden";
+
+/* Alert title: Purchase failed. */
+"purchase.purchase-failed" = "Hmm, ein Fehler!";
+
+/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
+"purchase.purchased-failed-message" = "Beim Kontakt mit dem App Store ist etwas schiefgelaufen.\n\nDanke für deine Bereitschaft zu spenden.";
+
+/* Button: Restore past purchases */
+"purchase.restore" = "Wiederherstellen";
+
+"purchase.restoring" = "Wiederherstellen…";
+
+/* Button: Donation already purchased, fires confettit */
+"purchase.thankyou" = "🎉";
+
+/* Title: Donation screen */
+"purchase.title" = "Diese App ist für dich.";
+
+/* Title: Donation already purchased */
+"purchase.title-purchased" = "Danke für deine Spende!";
+
+/* Alert message: The user is not authorized to make payments. */
+"purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.\n\nDanke für deine Bereitschaft zu spenden.";
 
 /* The frame number format, used for display (but not for actual formatting). */
 "settings.frameNumber.format" = "mm:ss / ff";

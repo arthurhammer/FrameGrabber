@@ -3,7 +3,6 @@ import Photos
 import UIKit
 
 @MainActor final class Coordinator: NSObject {
-
     let navigationController: UINavigationController
     let libraryViewController: LibraryViewController
     let transitionController: ZoomTransitionController
@@ -69,7 +68,7 @@ import UIKit
             completion()
         }
         
-        navigationController.present(authorizationController, animated: animated)
+        navigationController.showDetailViewController(authorizationController, sender: self)
     }
     
     private func showRecentsAlbum() {
@@ -121,13 +120,27 @@ import UIKit
             return
         }
         
-        navigationController.present(camera, animated: true)
+        navigationController.showDetailViewController(camera, sender: self)
     }
     
     private func showAbout() {
-        let about = ViewControllerFactory.makeAbout()
+        let about = ViewControllerFactory.makeAbout(withDelegate: self)
         about.modalPresentationStyle = .formSheet
-        navigationController.present(about, animated: true)
+        navigationController.showDetailViewController(about, sender: self)
+    }
+    
+    private func showPurchase() {
+        let purchase = ViewControllerFactory.makePurchase()
+        navigationController.showDetailViewController(purchase, sender: self)
+    }
+}
+
+// MARK: - AboutViewControllerDelegate
+
+extension Coordinator: AboutViewControllerDelegate {
+    
+    func controllerDidSelectPurchase(_ controller: AboutViewController) {
+        showPurchase()
     }
 }
 

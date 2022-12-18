@@ -40,7 +40,8 @@
 		00328A971FC85D84004648F9 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00328A961FC85D84004648F9 /* EditorViewController.swift */; };
 		0034AFFD240139E30041513F /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034AFFC240139E30041513F /* PurchaseViewController.swift */; };
 		003D1F2925040A47006107C0 /* PurchaseButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */; };
-		003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Configuration.storekit */; };
+		003D1F3225041FF2006107C0 /* Local.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 003D1F3125041FF1006107C0 /* Local.storekit */; };
+		0044177628D9BA57000AEEF2 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */; };
 		0045A0FE25BDE41700A1235A /* ExportAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A0FD25BDE41600A1235A /* ExportAction.swift */; };
 		0045A10B25BDEB5200A1235A /* SaveToPhotosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */; };
 		0045A11725BE0F7700A1235A /* ExportActionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */; };
@@ -92,6 +93,7 @@
 		00A18B3B25D5D09100330B1F /* EditorSpeedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */; };
 		00A18B4425D5E46200330B1F /* EditorToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B4325D5E46200330B1F /* EditorToolbarController.swift */; };
 		00A18B5D25D5F90300330B1F /* EditorViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */; };
+		00A7B33628DFA62900B5369C /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A7B33828DFA62900B5369C /* Purchase.storyboard */; };
 		00A9DF5221273FA000778885 /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF5121273FA000778885 /* AlbumListViewController.swift */; };
 		00A9DF552127635C00778885 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A9DF542127635C00778885 /* AlbumCell.swift */; };
 		00AA201E213432B400084B08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00AA201C213432B400084B08 /* InfoPlist.strings */; };
@@ -182,7 +184,8 @@
 		00328A961FC85D84004648F9 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		0034AFFC240139E30041513F /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseButtonsView.swift; sourceTree = "<group>"; };
-		003D1F3125041FF1006107C0 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		003D1F3125041FF1006107C0 /* Local.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Local.storekit; sourceTree = "<group>"; };
+		0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
 		0045A0FD25BDE41600A1235A /* ExportAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportAction.swift; sourceTree = "<group>"; };
 		0045A10A25BDEB5200A1235A /* SaveToPhotosAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotosAction.swift; sourceTree = "<group>"; };
 		0045A11625BE0F7700A1235A /* ExportActionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActionSettingsViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +203,7 @@
 		00653B42213941A20038CB56 /* ZoomPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPushTransition.swift; sourceTree = "<group>"; };
 		00653B442139E1680038CB56 /* LibraryViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryViewController+Transition.swift"; sourceTree = "<group>"; };
 		0067B4DA25D2D2C8008F3E69 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		0068EA2E28D8E48800E75AF5 /* Synced.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Synced.storekit; sourceTree = "<group>"; };
 		006C0FCA25C49BC1007E50B0 /* MetadataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewModel.swift; sourceTree = "<group>"; };
 		006C0FD025C5B2B6007E50B0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		006C0FD925C5F560007E50B0 /* AVAsset+VideoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+VideoMetadata.swift"; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 		00A18B3A25D5D09100330B1F /* EditorSpeedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSpeedMenu.swift; sourceTree = "<group>"; };
 		00A18B4325D5E46200330B1F /* EditorToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbarController.swift; sourceTree = "<group>"; };
 		00A18B5C25D5F90300330B1F /* EditorViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EditorViewController+Transition.swift"; path = "Frame Grabber/Scenes/Editor/EditorViewController+Transition.swift"; sourceTree = SOURCE_ROOT; };
+		00A7B33928DFA63A00B5369C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Purchase.storyboard; sourceTree = "<group>"; };
+		00A7B33A28DFA65900B5369C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Purchase.strings; sourceTree = "<group>"; };
 		00A9DF5121273FA000778885 /* AlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		00A9DF542127635C00778885 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		00AA201A213426AD00084B08 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -332,7 +338,8 @@
 			isa = PBXGroup;
 			children = (
 				001AA17F1FB4977100A00BB9 /* Assets.xcassets */,
-				003D1F3125041FF1006107C0 /* Configuration.storekit */,
+				003D1F3125041FF1006107C0 /* Local.storekit */,
+				0068EA2E28D8E48800E75AF5 /* Synced.storekit */,
 				001AA1841FB4977100A00BB9 /* Info.plist */,
 				00AA201C213432B400084B08 /* InfoPlist.strings */,
 				00AA201F213432B400084B08 /* Localizable.strings */,
@@ -395,10 +402,8 @@
 		00229DBB212E0B1A00848CE8 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
-				003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */,
-				0034AFFC240139E30041513F /* PurchaseViewController.swift */,
 				0023FC8D23390D940046D9F8 /* About.storyboard */,
+				0023FCA4233A42150046D9F8 /* AboutViewController.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -439,6 +444,18 @@
 				009BEA45234E17E900C284FA /* FrameExportOperation.swift */,
 			);
 			path = "Frame Export";
+			sourceTree = "<group>";
+		};
+		0044177728DA546F000AEEF2 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				00C13CF22404FDCD000193EB /* ConfettiView.swift */,
+				00A7B33828DFA62900B5369C /* Purchase.storyboard */,
+				003D1F2825040A47006107C0 /* PurchaseButtonsView.swift */,
+				0034AFFC240139E30041513F /* PurchaseViewController.swift */,
+				0044177528D9BA57000AEEF2 /* PurchaseViewModel.swift */,
+			);
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
@@ -509,7 +526,6 @@
 		00C098E61FC1C9E0000B05FE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				00C13CF22404FDCD000193EB /* ConfettiView.swift */,
 				00C8763B1FB5A1F600B5D7A3 /* GradientView.swift */,
 				00328A941FC85919004648F9 /* PlayerView.swift */,
 				006F8F7D202DD5A100CD93DB /* RepeatingButton.swift */,
@@ -527,6 +543,7 @@
 				0057C5BB1FBDE2CF008B7E08 /* Editor */,
 				0020D2F21FB4F277002379D0 /* Library */,
 				00EDF97C2340A17A00FA0F48 /* Metadata */,
+				0044177728DA546F000AEEF2 /* Purchase */,
 				00ED22DC24AFDADF0023A973 /* Settings */,
 			);
 			path = Scenes;
@@ -725,13 +742,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				00AA2021213432B400084B08 /* Localizable.strings in Resources */,
-				003D1F3225041FF2006107C0 /* Configuration.storekit in Resources */,
+				003D1F3225041FF2006107C0 /* Local.storekit in Resources */,
 				002F598F1FBF3AC400910891 /* LaunchScreen.storyboard in Resources */,
 				00AA201E213432B400084B08 /* InfoPlist.strings in Resources */,
 				008D293124B20F5100813338 /* Settings.storyboard in Resources */,
 				00D9E83723426301009E7AFA /* Metadata.storyboard in Resources */,
 				0023FC8F23390D940046D9F8 /* About.storyboard in Resources */,
 				0023FC96233911B10046D9F8 /* Authorization.storyboard in Resources */,
+				00A7B33628DFA62900B5369C /* Purchase.storyboard in Resources */,
 				00CA339025A200DE00DBD84D /* Album Picker.storyboard in Resources */,
 				000EA8B72437311700C339DE /* Editor.storyboard in Resources */,
 				002F59901FBF3AC400910891 /* Main.storyboard in Resources */,
@@ -755,6 +773,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00142EA823EB1737000BEC63 /* ZoomPopTransition.swift in Sources */,
+				0044177628D9BA57000AEEF2 /* PurchaseViewModel.swift in Sources */,
 				009C657B1FBF338900DB25A6 /* LibraryGridCell.swift in Sources */,
 				00CB9D242855EEA500A9BD4B /* LibraryButtonStyle.swift in Sources */,
 				0078A45523F4AD700033E81C /* CircularProgressView.swift in Sources */,
@@ -932,6 +951,15 @@
 			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
+		00A7B33828DFA62900B5369C /* Purchase.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00A7B33928DFA63A00B5369C /* Base */,
+				00A7B33A28DFA65900B5369C /* de */,
+			);
+			name = Purchase.storyboard;
+			sourceTree = "<group>";
+		};
 		00AA201C213432B400084B08 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1028,6 +1056,7 @@
 				PRODUCT_NAME = "Frame Grabber";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
@@ -1086,6 +1115,7 @@
 				PRODUCT_NAME = "Frame Grabber";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
@@ -1145,6 +1175,7 @@
 				PRODUCT_NAME = "Frame Grabber";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
@@ -1156,9 +1187,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = accent;
+				BUILD_VERSION = 64;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "63${BUNDLE_ID_SUFFIX}";
+				CURRENT_PROJECT_VERSION = "${BUILD_VERSION}${BUNDLE_ID_SUFFIX}";
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
@@ -1167,7 +1200,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = "FG Beta";
 				PROVISIONING_PROFILE = "";
@@ -1203,9 +1236,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = accent;
+				BUILD_VERSION = 64;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "63${BUNDLE_ID_SUFFIX}";
+				CURRENT_PROJECT_VERSION = "${BUILD_VERSION}${BUNDLE_ID_SUFFIX}";
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
@@ -1214,7 +1249,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = "FG Dev";
 				PROVISIONING_PROFILE = "";
@@ -1228,9 +1263,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = accent;
+				BUILD_VERSION = 64;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "63${BUNDLE_ID_SUFFIX}";
+				CURRENT_PROJECT_VERSION = "${BUILD_VERSION}${BUNDLE_ID_SUFFIX}";
 				DEVELOPMENT_TEAM = PY49CKQ6VF;
 				INFOPLIST_FILE = "$(SRCROOT)/Frame Grabber/Resources/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
@@ -1239,7 +1276,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.arthurhammer.framegrabber${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
