@@ -46,7 +46,7 @@ final class PurchaseViewController: UIViewController {
         let targetSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
         let contentViewHeight = contentView.systemLayoutSizeFitting(targetSize).height
         let buttonsHeight = purchaseButtonsView.systemLayoutSizeFitting(targetSize).height
-        let compressedHeight = contentViewHeight + buttonsHeight + 12 + view.safeAreaInsets.bottom  // Spacings from storyboard.
+        let compressedHeight = contentViewHeight + buttonsHeight + 12 + view.safeAreaInsets.bottom + 50 // Spacings from storyboard.
         let size = CGSize(width: targetSize.width, height: compressedHeight)
         
         if preferredContentSize != size {
