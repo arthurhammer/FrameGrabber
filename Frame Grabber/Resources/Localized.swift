@@ -66,7 +66,7 @@ enum Localized {
     static let exportMillisecondsFormatTitle = NSLocalizedString("settings.milliseconds.title", value: "Milliseconds", comment: "Title for the milliseconds time format setting.")
     static let exportMillisecondsFormat = NSLocalizedString("settings.milliseconds.format", value: "mm:ss.SSS", comment: "The milliseconds format, used for display (but not for actual formatting).")
     static let exportFrameNumberFormatTitle = NSLocalizedString("settings.frameNumber.title", value: "Frames", comment: "Title for the frame number time format setting.")
-    static let exportFrameNumberFormat = NSLocalizedString("settings.frameNumber.format", value: "mm:ss / ff", comment: "The frame number format, used for display (but not for actual formatting).")
+    static let exportFrameNumberFormat = NSLocalizedString("settings.frameNumber.format", value: "mm:ss.ff", comment: "The frame number format, used for display (but not for actual formatting).")
 
     static let formatterFrameRateFormat = NSLocalizedString("formatter.framerate.format",  value: "%@ fps", comment: "Video frame rate with unit")
     static let formatterDimensionsFormat = NSLocalizedString("formatter.videodimensions.format", value: "%@ × %@ px", comment: "Video pixel size with unit")

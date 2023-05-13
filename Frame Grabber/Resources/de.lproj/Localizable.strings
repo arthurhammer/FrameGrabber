@@ -286,7 +286,7 @@
 "purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.\n\nDanke für deine Bereitschaft zu spenden.";
 
 /* The frame number format, used for display (but not for actual formatting). */
-"settings.frameNumber.format" = "mm:ss / ff";
+"settings.frameNumber.format" = "mm:ss.ff";
 
 /* Title for the frame number time format setting. */
 "settings.frameNumber.title" = "Frames";

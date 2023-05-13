@@ -22,13 +22,13 @@ class VideoTimeFormatter {
         return string(from: time, localizedFormatTemplate: format)
     }
     
-    /// `HH:mm:ss / ff` or `HH:mm:ss.SSS / ff`.
+    /// `HH:mm:ss.ff` or `HH:mm:ss.SSS.ff`.
     func string(from time: CMTime, includeMilliseconds: Bool = false, frameNumber: Int) -> String {
         guard time.isNumeric else { return fallbackString }
         
         let mmss = string(from: time, includeMilliseconds: includeMilliseconds)
         let ff = String(format: "%02d", frameNumber)
-        let mmssff = "\(mmss) / \(ff)"
+        let mmssff = "\(mmss).\(ff)"
         
         return mmssff
     }

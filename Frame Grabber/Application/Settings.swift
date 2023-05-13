@@ -48,7 +48,7 @@ extension UserDefaults {
     }
     
     var timeFormat: TimeFormat {
-        get { decodedValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
+        get { decodedValue(forKey: Key.timeFormat) ?? .minutesSecondsFrameNumber }
         set { setEncodedValue(newValue, forKey: Key.timeFormat) }
     }
     
