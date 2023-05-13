@@ -458,22 +458,14 @@
 		004D72D7294F805200F09706 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				00EBD58D294F824B001E81D7 /* Library */,
-				004D72D8294F80D100F09706 /* Feature */,
 				0052EDB0294F8031000F059D /* InAppPurchase */,
 				0052EDAF294F8031000F059D /* PhotoAlbums */,
 				0052EDB1294F8031000F059D /* SampleTimeIndexer */,
 				0052EDB2294F8031000F059D /* ThumbnailSlider */,
+				004D72DD294F81D900F09706 /* Utility */,
 			);
 			name = Packages;
 			path = "Frame Grabber/Packages";
-			sourceTree = "<group>";
-		};
-		004D72D8294F80D100F09706 /* Feature */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Feature;
 			sourceTree = "<group>";
 		};
 		0057C5BB1FBDE2CF008B7E08 /* Editor */ = {
@@ -641,14 +633,6 @@
 				00EAFD9E205FB2F10031F8A2 /* PlayerSeeker.swift */,
 			);
 			path = Playback;
-			sourceTree = "<group>";
-		};
-		00EBD58D294F824B001E81D7 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				004D72DD294F81D900F09706 /* Utility */,
-			);
-			path = Library;
 			sourceTree = "<group>";
 		};
 		00ECC733242E5BCC00B95E32 /* Frame Grabber Tests */ = {
