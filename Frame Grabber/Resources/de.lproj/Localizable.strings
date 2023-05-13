@@ -8,7 +8,7 @@
 "about.share-app-text" = "Lade Frame Grabber im App Store";
 
 /* Version label with numerical version */
-"about.attribution-format" = "Von Arthur Hammer – Version %@";
+"about.attribution-format" = "Arthur Hammer – Version %@";
 
 "about.donate" = "Spenden";
 "about.rate" = "Bewerten";
