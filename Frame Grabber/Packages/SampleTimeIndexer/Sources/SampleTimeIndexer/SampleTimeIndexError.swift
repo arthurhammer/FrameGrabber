@@ -22,4 +22,11 @@ extension SampleTimeIndexError {
             self = .readingFailed(underlying)
         }
     }
+    
+    var isInterrupted: Bool {
+        switch self {
+        case .interrupted: return true
+        default: return false
+        }
+    }
 }

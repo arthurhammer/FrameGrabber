@@ -1,8 +1,14 @@
 import AVKit
 import os.log
 
+public protocol SampleTimeIndexer {
+    func indexTimes(for asset: AVAsset, completionHandler: @escaping (Result<SampleTimes, Error>) -> Void)
+    func cancel()
+}
+
 /// Indexes a video's samples to provide accurate timing information for each sample.
-public class SampleTimeIndexer {
+@available(iOS, deprecated: 16.0, message: "Migrate to `AVSampleCursor`.")
+public class SampleTimeIndexerImpl: SampleTimeIndexer {
 
     private struct Request {
         let asset: AVAsset
@@ -34,6 +40,12 @@ public class SampleTimeIndexer {
 
     public func cancel() {
         queue.cancelAllOperations()
+    }
+    
+    public func indexTimes(for asset: AVAsset, completionHandler: @escaping (Swift.Result<SampleTimes, Error>) -> Void) {
+        indexTimes(for: asset, sampleLimit: .max, shouldRetry: { $0.isInterrupted }) { result in
+            completionHandler(result.mapError { $0 })
+        }
     }
     
     /// Indexes the video's samples to provide accurate timing information for each sample.

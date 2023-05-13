@@ -48,7 +48,7 @@ class PlaybackController {
     private let audioSession: AVAudioSession = .sharedInstance()
     private let notificationCenter: NotificationCenter = .default
 
-    init(player: AVPlayer = .init(), sampleIndexer: SampleTimeIndexer = .init()) {
+    init(player: AVPlayer = .init(), sampleIndexer: SampleTimeIndexer = SampleTimeIndexerImpl()) {
         self.player = player
         self.player.actionAtItemEnd = .pause
         self.seeker = PlayerSeeker(player: player)
@@ -186,24 +186,12 @@ class PlaybackController {
         // of completion handlers and the value of this flag are not guaranteed.
         _isIndexingSampleTimes = true
         
-        sampleIndexer.indexTimes(for: asset, shouldRetry: { $0.isInterrupted }) {
-            [weak self] result in
-            
+        sampleIndexer.indexTimes(for: asset) { [weak self] result in
             DispatchQueue.main.async {
                 self?._isIndexingSampleTimes = false
                 self?.sampleTimes = try? result.get()  // Ignoring errors
                 self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
-        }
-    }
-}
-
-private extension SampleTimeIndexError {
-    
-    var isInterrupted: Bool {
-        switch self {
-        case .interrupted: return true
-        default: return false
         }
     }
 }
