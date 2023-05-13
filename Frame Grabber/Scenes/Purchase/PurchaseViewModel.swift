@@ -122,7 +122,7 @@ final class PurchaseViewModel {
         self.purchaseButtonConfiguration = .init(
             title: purchaseButtonTitle,
             subtitle: purchaseButtonSubtitle,
-            backgroundColor: hasPurchased ? .systemGreen : .systemBlue,
+            backgroundColor: hasPurchased ? .tertiarySystemFill : .systemBlue,
             isLoading: isPurchaseButtonLoading,
             isUserInteractionEnabled: isButtonInteractionEnabled
         )

@@ -254,7 +254,7 @@
 "progress.videoLoad.title" = "Laden…";
 
 /* Body: Donation screen explanation. */
-"purchase.body" = "Damit du so einfach wie möglich deine Lieblingsbilder speichern kannst.\n\nEine Spende hilft sehr.";
+"purchase.body" = "Damit du im Handumdrehen deine besten Bilder speichern kannst.\n\nEine Spende hilft riesig.";
 
 /* Alert message: Nothing to restore, the user has not previously purchased anything. */
 "purchase.nothing-to-restore-message" = "Keine vergangenen Spenden gefunden. Sollte etwas nicht stimmen, wende dich bitte an den Entwickler.";
@@ -263,10 +263,10 @@
 "purchase.purchase" = "Spenden";
 
 /* Alert title: Purchase failed. */
-"purchase.purchase-failed" = "Hmm, ein Fehler!";
+"purchase.purchase-failed" = "Kauf hat nicht geklappt.";
 
 /* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"purchase.purchased-failed-message" = "Beim Kontakt mit dem App Store ist etwas schiefgelaufen.\n\nDanke für deine Bereitschaft zu spenden.";
+"purchase.purchased-failed-message" = "Der Kontakt mit dem App Store wurde unterbrochen.";
 
 /* Button: Restore past purchases */
 "purchase.restore" = "Wiederherstellen";
@@ -280,10 +280,10 @@
 "purchase.title" = "Diese App ist für dich.";
 
 /* Title: Donation already purchased */
-"purchase.title-purchased" = "Danke für deine Spende!";
+"purchase.title-purchased" = "Danke für deine Spende";
 
 /* Alert message: The user is not authorized to make payments. */
-"purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.\n\nDanke für deine Bereitschaft zu spenden.";
+"purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.";
 
 /* The frame number format, used for display (but not for actual formatting). */
 "settings.frameNumber.format" = "mm:ss.ff";

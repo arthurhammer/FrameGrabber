@@ -12,9 +12,9 @@ enum Localized {
     static let unfavoriteAction = NSLocalizedString("action.unfavorite", value: "Unfavorite", comment: "Unfavorite context action")
     static let openSettingsAction = NSLocalizedString("action.settings", value: "Settings", comment: "Open settings action")
 
-    static let authorizationDeniedMessage = NSLocalizedString("authorization.denied.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access in Settings.", comment: "Photo library authorization denied message")
+    static let authorizationDeniedMessage = NSLocalizedString("authorization.denied.message", value: "Frame Grabber works with your photo library. Get started by allowing access in Settings.", comment: "Photo library authorization denied message")
     static let authorizationDeniedAction = NSLocalizedString("authorization.denied.action", value: "Open Settings", comment: "Photo library authorization denied action.")
-    static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works in unison with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
+    static let authorizationUndeterminedMessage = NSLocalizedString("authorization.undetermined.message", value: "Frame Grabber works with your photo library. Get started by allowing access to your videos and photos.", comment: "Photo library authorization default message")
     static let authorizationUndeterminedAction = NSLocalizedString("authorization.undetermined.action", value: "Get Started", comment: "Photo library authorization default action")
     static let albumsUserAlbumsHeader = NSLocalizedString("albums.header.useralbum", value: "My Albums", comment: "User photo albums section header")
 
@@ -81,16 +81,16 @@ enum Localized {
     }
 
     enum Purchase {
-        static let title = String(localized: "purchase.title", defaultValue: "This app is for you.", comment: "Title: Donation screen")
-        static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank you for donating!", comment: "Title: Donation already purchased")
-        static let body = String(localized: "purchase.body", defaultValue: "Designed to get out of your way so you can quickly grab your favorite picture.\n\nA donation helps keep it alive.", comment: "Body: Donation screen explanation.")
+        static let title = String(localized: "purchase.title", defaultValue: "This App is for You", comment: "Title: Donation screen")
+        static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank You for Your Donation", comment: "Title: Donation already purchased")
+        static let body = String(localized: "purchase.body", defaultValue: "Designed to make grabbing your best pictures a breeze.\n\nA donation helps a ton.", comment: "Body: Donation screen explanation.")
         static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
         static let thankYou = String(localized: "purchase.thankyou", defaultValue: "🎉", comment: "Button: Donation already purchased, fires confettit")
         static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button: Restore past purchases")
         static let restoring = String(localized: "purchase.restoring", defaultValue: "Restoring…", comment: "Button: Currently restoring past purchases")
                 
         // Alerts
-        static let purchaseFailed = String(localized: "purchase.purchase-failed", defaultValue: "Hmm, an error!", comment: "Alert title: Purchase failed.")
+        static let purchaseFailed = String(localized: "purchase.purchase-failed", defaultValue: "Cannot Purchase", comment: "Alert title: Purchase failed.")
         static let purchaseFailedMessage = String(localized: "purchase.purchased-failed-message", defaultValue: "Something went wrong while contacting the App Store. Please try again later.\n\nThank you for considering a donation.", comment: "Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors.")
         static let purchaseUnauthorized = purchaseFailed
         static let purchaseUnauthorizedMessage = String(localized: "purchase.unauthorized-message", defaultValue: "Purchases are not allowed on this device.\n\nThank you for considering a donation.", comment: "Alert message: The user is not authorized to make payments.")

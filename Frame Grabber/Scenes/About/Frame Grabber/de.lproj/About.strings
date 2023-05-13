@@ -5,7 +5,7 @@
 "GkV-0K-xRO.text" = "Kontaktieren";
 
 /* Class = "UILabel"; text = "Ad-free, subscription-free, everything-free 🦄. Your support makes it possible."; ObjectID = "gsO-Jw-32d"; */
-"gsO-Jw-32d.text" = "Werbefrei, abofrei, allesfrei 🦄. Deine Unterstützung macht's möglich.";
+"gsO-Jw-32d.text" = "Hier gibt's keine Werbung oder Abos. Deine Unterstützung macht's möglich:";
 
 /* Class = "UIButton"; normalTitle = "Donate"; ObjectID = "HlA-JS-FBO"; */
 "HlA-JS-FBO.normalTitle" = "Spenden";
@@ -26,7 +26,7 @@
 "QZZ-Gh-i28.text" = "Ich sammle keine Daten.";
 
 /* Class = "UILabel"; text = "Support the App"; ObjectID = "xBV-RG-m2x"; */
-"xBV-RG-m2x.text" = "Du willst helfen?";
+"xBV-RG-m2x.text" = "Schön, dass du da bist.";
 
 /* Class = "UIButton"; normalTitle = "Rate"; ObjectID = "xhq-rN-pTi"; */
 "xhq-rN-pTi.normalTitle" = "Bewerten";
