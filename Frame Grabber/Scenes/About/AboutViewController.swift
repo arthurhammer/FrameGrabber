@@ -113,6 +113,7 @@ extension AboutViewController {
         guard let url = About.storeURL?.absoluteString else { return }
         let shareText = "\(Localized.About.shareAppText)\n\(url)"
         let shareController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        shareController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         present(shareController, animated: true)
     }
 
