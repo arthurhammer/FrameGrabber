@@ -1,5 +1,6 @@
 import Combine
 import Photos
+import Utility
 import UIKit
 
 class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
@@ -79,17 +80,13 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
     private var isAccessingPhotoLibrary = false
     
     private func startAccessingPhotoLibraryIfNeeded() {
-        guard PHPhotoLibrary.readWriteAuthorizationStatus != .notDetermined,
+        guard PHPhotoLibrary.authorizationStatus(for: .readWrite) != .notDetermined,
               !isAccessingPhotoLibrary else { return }
         
         isAccessingPhotoLibrary = true
         photoLibrary.register(self)
         
-        if #available(iOS 14, *) {
-            isAuthorizationLimited = PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
-        } else {
-            isAuthorizationLimited = false
-        }
+        isAuthorizationLimited = PHPhotoLibrary.authorizationStatus(for: .readWrite) == .limited
     }
     
     // MARK: Data Access
@@ -162,7 +159,7 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
         tasks += 1
         
         updateQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             
             // Get the actual current state.
             let (album, filter) = DispatchQueue.main.sync { (self.album, self.filter) }
@@ -192,7 +189,7 @@ class LibraryDataSource: NSObject, PHPhotoLibraryChangeObserver {
     
     func photoLibraryDidChange(_ change: PHChange) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             
             var albumWasDeleted = false
             

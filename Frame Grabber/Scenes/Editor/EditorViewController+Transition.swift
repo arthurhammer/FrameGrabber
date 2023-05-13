@@ -25,7 +25,7 @@ extension EditorViewController: ZoomTransitionDelegate {
         let toolbar = toolbarController.toolbar!
 
         transition.animate(alongsideTransition: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             self.view.backgroundColor = .clear
             self.progressView.alpha = 0
             

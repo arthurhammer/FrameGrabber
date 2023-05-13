@@ -1,8 +1,17 @@
 /* Feedback email subject */
-"about.email.subject" = "Frame Grabber: Feedback";
+"about.email-subject" = "Frame Grabber: Feedback";
+
+/* Share App button title and accessibility label */
+"about.share-app" = "App Teilen";
+
+/* Text shared alongside the App Store URL when sharing the app */
+"about.share-app-text" = "Lade Frame Grabber im App Store";
 
 /* Version label with numerical version */
-"about.version.format" = "Version %@";
+"about.attribution-format" = "Arthur Hammer – Version %@";
+
+"about.donate" = "Spenden";
+"about.rate" = "Bewerten";
 
 /* Cancel action */
 "action.cancel" = "Abbrechen";
@@ -32,13 +41,10 @@
 "album.empty.video" = "Keine Videos";
 
 /* Title of album view as aspect ratio settings menu item */
-"album.viewSettings.fitGrid.title" = "Seitenverhältnisraster";
-
-/* Title of album view settings button menu */
-"album.viewSettings.menu.title" = "Anzeigen";
+"album.viewSettings.fitGrid.title" = "Aspekt";
 
 /* Title of album view as squares settings menu item */
-"album.viewSettings.squareGrid.title" = "Quadratisches Raster";
+"album.viewSettings.squareGrid.title" = "Quadrat";
 
 /* User photo albums section header */
 "albums.header.useralbum" = "Meine Alben";
@@ -72,24 +78,6 @@
 
 /* No comment provided by engineer. */
 "alert.frameexport.title" = "Export nicht möglich";
-
-/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
-"alert.iap.failed.message" = "Möglicherweise ist kein Netzwerk vorhanden. Versuche es später noch einmal. Danke!";
-
-/* Alert title: Purchasing failed. */
-"alert.iap.failed.title" = "Kauf nicht möglich";
-
-/* Alert message: Nothing to restore, the user has not previously purchased anything. */
-"alert.iap.restore.empty.message" = "Scheint, als hättest du noch kein Eis gekauft.";
-
-/* Alert title: Nothing to restore, the user has not previously purchased anything. */
-"alert.iap.restore.empty.title" = "Keine vorherigen Käufe";
-
-/* Alert title: Restoring failed. */
-"alert.iap.restore.failed.title" = "Wiederherstellen nicht möglich";
-
-/* Alert message: The user is not authorized to make payments. */
-"alert.iap.unauthorized.message" = "In-App-Käufe sind auf diesem Gerät nicht erlaubt.";
 
 /* E-mail address */
 "alert.mail.message" = "Du kannst mich via %@ erreichen.";
@@ -146,7 +134,7 @@
 "editor.menu.speed.quarter.action" = "Viertel";
 
 /* Title for the speed menu. */
-"editor.menu.speed.title" = "Wähle das Tempo, um durch das Video zu wischen.";
+"editor.menu.speed.title" = "Scrubbing-Tempo";
 
 /* Title for the very fine speed in the speed menu. */
 "editor.menu.speed.veryFine.action" = "Schnecke";
@@ -158,25 +146,25 @@
 "editor.more.metadata.action" = "Metadaten";
 
 /* Title for the share sheet export setting. */
-"export.showShareSheet.action" = "Share-Sheet";
+"export.showShareSheet.action" = "Share-Sheet öffnen";
 
 /* Explanation of what the frame number time format does. */
 "exportsettings.frameNumber.footer" = "Minuten, Sekunden und Framenummer relativ zu der aktuellen Sekunde. \n\nFür größere Videos kann es etwas dauern, bis die Framenummern verfügbar sind.";
+
+/* Explanation about lossy compression */
+"exportsettings.imageFormat.jpeg.footer" = "Eine geringere Kompressionsqualität führt zu einer kleineren Dateigröße mit leicht reduzierter Bildqualität.";
+
+/* Explanation about lossless compression. */
+"exportsettings.imageFormat.png.footer" = "PNG nutzt immer die volle Qualität.";
 
 /* Explanation of what the milliseconds time format does. */
 "exportsettings.milliseconds.footer" = "Minuten, Sekunden und Millisekunden.";
 
 /* Title for the save to photo library export setting. */
-"exportsettings.saveToPhotos.action" = "Fotos";
+"exportsettings.saveToPhotos.action" = "In Fotos speichern";
 
 /* Explanation of what the save to photos setting does */
 "exportsettings.saveToPhotos.footer" = "Speichert Fotos in deiner Fotomediathek und fügt sie dem Album „Frame Grabber“ hinzu.";
-
-/* Explanation of image formats in settings footer when HEIF is not supported */
-"exportsettings.section.format.heifNotSupported.footer" = "Das HEIF-Format wird auf diesem Gerät nicht unterstützt.";
-
-/* Explanation of image formats in settings footer */
-"exportsettings.section.format.heifSupported.footer" = "Das HEIF-Format kann zu einer kleineren Dateigröße führen. Das JPEG-Format hat größere Kompatibilität mit anderen Geräten.";
 
 /* Explanation of what the share sheet setting does */
 "exportsettings.showShareSheet.footer" = "Sende Fotos direkt an AirDrop, Instagram, WhatsApp und viele weitere Apps.";
@@ -187,23 +175,26 @@
 /* Video pixel size with unit */
 "formatter.videodimensions.format" = "%1$@ × %2$@ px";
 
-/* Purchase screen purchase button label */
-"iap.purchase.action" = "Eis Ausgeben";
-
-/* Title for the library when no specific album is selected. */
-"library.default.title" = "Mediathek";
-
-/* Action of import menu: Open camera action. */
+/* Title for Camera button */
 "library.menu.import.camera.action" = "Video aufnehmen";
 
-/* Action of import menu: Open file picker action. */
+/* Title for Open Files button. */
 "library.menu.import.file.action" = "Datei öffnen";
 
 /* Title for limited authorization menu. */
-"library.menu.import.limited.title" = "Du hast Frame Grabber einen begrenzten Zugang zu deinen Videos erteilt.";
+"library.menu.import.limited.title" = "Du hast Frame Grabber Zugriff auf ausgewählte Videos erteilt.";
 
-/* Action of import menu: Select more photos in limited authorization. */
-"library.menu.import.selectPhotos.action" = "Weitere Videos auswählen";
+/* Action of limited authorization menu: Open settings to change authorization. */
+"library.menu.limited.openSettings.action" = "Einstellungen";
+
+/* Action of limited authorization menu: Show limited photos picker. */
+"library.menu.limited.selectPhotos.action" = "Weitere Videos auswählen";
+
+/* Title for the library when no specific album is selected. */
+"library.title.default" = "Videos";
+
+/* Title for the library when photo library access is limited. */
+"library.title.limited" = "Ausgewählte Videos";
 
 /* Title for the codec metadata. */
 "metadata.codec.title" = "Codec";
@@ -262,8 +253,40 @@
 /* Video loading (iCloud or otherwise) progress title. */
 "progress.videoLoad.title" = "Laden…";
 
+/* Body: Donation screen explanation. */
+"purchase.body" = "Damit du im Handumdrehen deine besten Bilder speichern kannst.\n\nEine Spende hilft riesig.";
+
+/* Alert message: Nothing to restore, the user has not previously purchased anything. */
+"purchase.nothing-to-restore-message" = "Keine vergangenen Spenden gefunden. Sollte etwas nicht stimmen, wende dich bitte an den Entwickler.";
+
+/* Button: Purchase a donation */
+"purchase.purchase" = "Spenden";
+
+/* Alert title: Purchase failed. */
+"purchase.purchase-failed" = "Kauf hat nicht geklappt.";
+
+/* Alert message: The purchase can't proceed because the product has not yet been fetched, usually due to network errors. */
+"purchase.purchased-failed-message" = "Der Kontakt mit dem App Store wurde unterbrochen.";
+
+/* Button: Restore past purchases */
+"purchase.restore" = "Wiederherstellen";
+
+"purchase.restoring" = "Wiederherstellen…";
+
+/* Button: Donation already purchased, fires confettit */
+"purchase.thankyou" = "🎉";
+
+/* Title: Donation screen */
+"purchase.title" = "Diese App ist für dich.";
+
+/* Title: Donation already purchased */
+"purchase.title-purchased" = "Danke für deine Spende";
+
+/* Alert message: The user is not authorized to make payments. */
+"purchase.unauthorized-message" = "Käufe sind auf diesem Gerät nicht erlaubt.";
+
 /* The frame number format, used for display (but not for actual formatting). */
-"settings.frameNumber.format" = "mm:ss / ff";
+"settings.frameNumber.format" = "mm:ss.ff";
 
 /* Title for the frame number time format setting. */
 "settings.frameNumber.title" = "Frames";

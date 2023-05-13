@@ -2,11 +2,11 @@ import AVFoundation
 import Combine
 import UIKit
 
-protocol EditorViewControllerDelegate: class {
+@MainActor protocol EditorViewControllerDelegate: AnyObject {
     func controller(_ controller: EditorViewController, handleSlideToPopGesture gesture: UIPanGestureRecognizer)
 }
 
-class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController {
     
     weak var delegate: EditorViewControllerDelegate?
 
@@ -97,9 +97,13 @@ class EditorViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.applyDefaultShadow()
-        toolbarController.toolbar.applyDefaultShadow()
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .editorBars
+        appearance.shadowColor = nil
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.configureWithBarShadow()
     }
 
     private func configureGestures() {
@@ -142,7 +146,7 @@ class EditorViewController: UIViewController {
         let size = zoomingPlayerView.bounds.size.scaledToScreen
 
         videoController.loadPreviewImage(with: size) { [weak self] image in
-            guard let image = image else { return }
+            guard let image else { return }
             self?.zoomingPlayerView.posterImage = image
             self?.toolbarController.placeholderImage = image
         }
@@ -275,9 +279,9 @@ class EditorViewController: UIViewController {
 
         var title: String {
             switch self {
-            case .load: return UserText.editorVideoLoadProgress
-            case .exportToShareSheet: return UserText.editorExportShareSheetProgress
-            case .exportToPhotos: return UserText.editorExportToPhotosProgress
+            case .load: return Localized.editorVideoLoadProgress
+            case .exportToShareSheet: return Localized.editorExportShareSheetProgress
+            case .exportToPhotos: return Localized.editorExportToPhotosProgress
             }
         }
 
@@ -301,7 +305,7 @@ class EditorViewController: UIViewController {
             progressView.hide(animated: animated, completion: completion)
         }
 
-        if let value = value {
+        if let value {
             progressView.setProgress(value, animated: animated)
         }
     }

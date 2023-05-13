@@ -2,7 +2,7 @@ import AVFoundation
 import Combine
 import MapKit
 
-class MetadataViewModel {
+@MainActor final class MetadataViewModel {
     
     typealias DataSnapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
@@ -54,13 +54,12 @@ class MetadataViewModel {
     private func loadData() {
         isLoading = true
         geocodeIfNeeded()
-                
-        video.loadMetadata { [weak self] metadata in
-            DispatchQueue.main.async {
-                self?.builder.metadata.video = metadata
-                self?.geocodeIfNeeded()
-                self?.isLoading = false
-            }
+        
+        Task(priority: .userInitiated) {
+            let metadata = try await video.loadMetadata()
+            builder.metadata.video = metadata
+            geocodeIfNeeded()
+            isLoading = false
         }
     }
     

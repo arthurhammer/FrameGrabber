@@ -45,7 +45,7 @@ class FrameExportOperation: Operation {
         var countProcessed = 0
 
         generator.generateCGImagesAsynchronously(forTimes: times) { [weak self] _, image, _, status, error in
-            guard let self = self else { return }
+            guard let self else { return }
 
             let frameIndex = self.frameStartIndex + countProcessed
 

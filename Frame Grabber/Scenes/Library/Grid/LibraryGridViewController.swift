@@ -1,31 +1,32 @@
 import Combine
 import Photos
+import Utility
 import UIKit
 
-protocol LibraryGridViewControllerDelegate: class {
-    func controller(
-        _ controller: LibraryGridViewController,
-        didSelectAsset asset: PHAsset,
-        previewImage: UIImage?
-    )
+protocol LibraryGridViewControllerDelegate: AnyObject {
+    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
 }
 
-class LibraryGridViewController: UICollectionViewController {
+final class LibraryGridViewController: UICollectionViewController {
         
     weak var delegate: LibraryGridViewControllerDelegate?
     
-    init?(dataSource: LibraryDataSource, coder: NSCoder) {
-        self.dataSource = dataSource
-        super.init(coder: coder)
-    }
-    
     private let dataSource: LibraryDataSource
-    private lazy var emptyView = EmptyLibraryView()
+    private lazy var emptyView = LibraryEmptyView()
     private lazy var durationFormatter = VideoDurationFormatter()
     private var bindings = Set<AnyCancellable>()
     
     static let contentModeAnimationDuration: TimeInterval = 0.15
     static let contextMenuActionDelay: TimeInterval = 0.2
+    
+    init?(dataSource: LibraryDataSource, coder: NSCoder) {
+        self.dataSource = dataSource
+        super.init(coder: coder)
+    }
+        
+    required init?(coder: NSCoder) {
+        fatalError("A data source is required.")
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,7 @@ class LibraryGridViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCell.className, for: indexPath) as? VideoCell else { fatalError("Wrong cell identifier or type.") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LibraryGridCell.className, for: indexPath) as? LibraryGridCell else { fatalError("Wrong cell identifier or type.") }
         guard let asset = dataSource.asset(at: indexPath) else { return cell }
         
         configure(cell: cell, for: asset)
@@ -62,14 +63,14 @@ class LibraryGridViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        (cell as? VideoCell)?.imageRequest = nil
+        (cell as? LibraryGridCell)?.imageRequest = nil
     }
 
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let asset = dataSource.asset(at: indexPath) else { return nil}
         let thumbnail = videoCell(at: indexPath)?.imageView.image
 
-        return VideoCellContextMenu.configuration(
+        return LibraryGridMenu.configuration(
             for: asset,
             initialPreviewImage: thumbnail
         ) { [weak self] selection in
@@ -81,14 +82,12 @@ class LibraryGridViewController: UICollectionViewController {
         }
     }
     
-    private func handleCellContextMenuSelection(_ selection: VideoCellContextMenu.Selection, for asset: PHAsset) {
+    private func handleCellContextMenuSelection(_ selection: LibraryGridMenu.Selection, for asset: PHAsset) {
         guard let asset = dataSource.currentAsset(for: asset) else { return }
         
         switch selection {
-        
         case .favorite:
             dataSource.toggleFavorite(for: asset)
-            
         case .delete:
             dataSource.delete(asset)
         }
@@ -133,8 +132,8 @@ class LibraryGridViewController: UICollectionViewController {
     }
 
     private func updateViews() {
-        emptyView.type = dataSource.filter
-        emptyView.isEmpty = dataSource.isEmpty && !dataSource.isUpdating
+        emptyView.isHidden = !dataSource.isEmpty || dataSource.isUpdating
+        emptyView.configure(with: dataSource.filter)
     }
     
     private func configureBindings() {
@@ -162,11 +161,11 @@ class LibraryGridViewController: UICollectionViewController {
     
     // MARK: Cell Handling
     
-    private func videoCell(at indexPath: IndexPath) -> VideoCell? {
-        collectionView.cellForItem(at: indexPath) as? VideoCell
+    private func videoCell(at indexPath: IndexPath) -> LibraryGridCell? {
+        collectionView.cellForItem(at: indexPath) as? LibraryGridCell
     }
 
-    private func configure(cell: VideoCell, for asset: PHAsset) {
+    private func configure(cell: LibraryGridCell, for asset: PHAsset) {
         cell.durationLabel.text = durationFormatter.string(from: asset.duration)
         cell.durationLabel.isHidden = asset.isLivePhoto
         cell.livePhotoImageView.isHidden = !asset.isLivePhoto
@@ -176,7 +175,7 @@ class LibraryGridViewController: UICollectionViewController {
         loadThumbnail(for: cell, asset: asset)
     }
 
-    private func loadThumbnail(for cell: VideoCell, asset: PHAsset) {
+    private func loadThumbnail(for cell: LibraryGridCell, asset: PHAsset) {
         cell.identifier = asset.localIdentifier
         let size = cell.imageView.bounds.size.scaledToScreen
         
@@ -218,9 +217,5 @@ class LibraryGridViewController: UICollectionViewController {
             
             cell.setGridMode(mode, forAspectRatio: asset.dimensions)
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("A data source is required.")
     }
 }

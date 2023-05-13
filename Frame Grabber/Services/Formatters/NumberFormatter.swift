@@ -18,7 +18,7 @@ extension NumberFormatter {
     /// `x fps`. Includes units.
     func string(fromFrameRate frameRate: Float) -> String? {
         guard let fps = string(from: frameRate as NSNumber) else { return nil }
-        let format = UserText.formatterFrameRateFormat
+        let format = Localized.formatterFrameRateFormat
         return String.localizedStringWithFormat(format, fps)
     }
 
@@ -27,6 +27,6 @@ extension NumberFormatter {
         guard let w = string(from: abs(Int(size.width)) as NSNumber),
             let h = string(from: abs(Int(size.height)) as NSNumber) else { return nil }
 
-        return String.localizedStringWithFormat(UserText.formatterDimensionsFormat, w, h)
+        return String.localizedStringWithFormat(Localized.formatterDimensionsFormat, w, h)
     }
 }

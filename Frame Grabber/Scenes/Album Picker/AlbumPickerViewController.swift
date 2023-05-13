@@ -1,30 +1,43 @@
 import PhotoAlbums
 import UIKit
 
-protocol AlbumPickerViewControllerDelegate: class {
-    /// The album is `nil` if the controller finished without picking an album.
-    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: PhotoAlbum?)
+@MainActor protocol AlbumPickerViewControllerDelegate: AnyObject {
+    
+    /// Tells the delegate the user finished picking an album.
+    ///
+    /// - Parameters:
+    ///   - album: The picked album. Is `nil` if the controller finished without picking an album.
+    func picker(_ picker: AlbumPickerViewController, didFinishPicking album: Album?)
 }
 
-/// A view controller to pick photo albums.
+/// A view controller to pick photo albums from the user's photo library.
 ///
 /// The controller manages its own internal navigation controller. It is intended to be presented
 /// modally.
-class AlbumPickerViewController: UIViewController {
+final class AlbumPickerViewController: UIViewController {
     
     weak var delegate: AlbumPickerViewControllerDelegate?
     
-    private let dataSource: AlbumsDataSource
+    private let dataSource: AlbumPickerDataSource
     
-    private lazy var childNavigationController = UINavigationController(rootViewController: self.listController)
+    private lazy var childNavigationController = UINavigationController(
+        rootViewController: self.listController
+    )
     
-    private lazy var listController: AlbumListViewController = {
-        UIStoryboard(name: "Album Picker", bundle: nil).instantiateInitialViewController {
-            AlbumListViewController(coder: $0, dataSource: self.dataSource, delegate: self)
-        }!
-    }()
+    private lazy var listController: AlbumListViewController = makeListController()
     
-    init(dataSource: AlbumsDataSource, delegate: AlbumPickerViewControllerDelegate? = nil) {
+    private static let storyboard = "Album Picker"
+    
+    /// - Parameters:
+    ///   - dataSource: The data source providing photo albums. You can use the default
+    ///    `AlbumsDataSource` implementation. It allows configuring to fetch the exact types of
+    ///    albums and assets you want. Alternatively, you can provide a custom data source
+    ///    conforming to `AlbumPickerDataSource`.
+    ///   - delegate: The controller's delegate.
+    init(
+        dataSource: AlbumPickerDataSource = AlbumsDataSource(),
+        delegate: AlbumPickerViewControllerDelegate? = nil
+    ) {
         self.dataSource = dataSource
         self.delegate = delegate
 
@@ -41,11 +54,25 @@ class AlbumPickerViewController: UIViewController {
         embed(childNavigationController)
         childNavigationController.navigationBar.prefersLargeTitles = true
     }
+    
+    private func makeListController() -> AlbumListViewController {
+        let storyboard = UIStoryboard(name: AlbumPickerViewController.storyboard, bundle: nil)
+        
+        let initial = storyboard.instantiateInitialViewController {
+            AlbumListViewController(coder: $0, dataSource: self.dataSource, delegate: self)
+        }
+        
+        guard let controller = initial else { fatalError("Wrong storyboard name or configuration.") }
+        
+        return controller
+    }
 }
+
+// MARK: - AlbumListViewControllerDelegate
 
 extension AlbumPickerViewController: AlbumListViewControllerDelegate {
     
-    func controller(_ controller: AlbumListViewController, didSelectAlbum album: AnyAlbum) {
+    func controller(_ controller: AlbumListViewController, didSelectAlbum album: Album) {
         dismiss(animated: true)
         delegate?.picker(self, didFinishPicking: album)
     }

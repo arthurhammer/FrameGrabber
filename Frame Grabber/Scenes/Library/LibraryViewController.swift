@@ -3,19 +3,26 @@ import Photos
 import PhotosUI
 import UIKit
 
-protocol LibraryViewControllerDelegate: class {
+@MainActor protocol LibraryViewControllerDelegate: AnyObject {
+    func controller(_ controller: LibraryViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?)
     func controllerDidSelectAlbumPicker(_ controller: LibraryViewController)
     func controllerDidSelectFilePicker(_ controller: LibraryViewController)
     func controllerDidSelectCamera(_ controller: LibraryViewController)
+    func controllerDidSelectAddMoreVideos(_ controller: LibraryViewController)
+    func controllerDidSelectSettings(_ controller: LibraryViewController)
+    func controllerDidSelectAbout(_ controller: LibraryViewController)
 }
 
-class LibraryViewController: UIViewController {
+final class LibraryViewController: UIViewController {
     
-    typealias Delegate = LibraryViewControllerDelegate & LibraryGridViewControllerDelegate
-    
-    weak var delegate: Delegate? {
-        didSet { gridController?.delegate = delegate }
+    private enum Constant {
+        static let barEffect = UIBlurEffect(style: .systemThickMaterial)
+        static let buttonBarMargin: CGFloat = 16
     }
+    
+    typealias Delegate = LibraryViewControllerDelegate
+    
+    weak var delegate: Delegate?
     
     let dataSource = LibraryDataSource()
     
@@ -31,9 +38,9 @@ class LibraryViewController: UIViewController {
     /// a cell is selected.
     var zoomTransitionAsset: PHAsset?
     
-    @IBOutlet private var titleButton: UIButton!
     @IBOutlet private var filterBarItem: UIBarButtonItem!
-    @IBOutlet private var toolbar: LibraryToolbar!
+    private let titleButton = UIButton.libraryTitle()
+    private let buttonBar = LibraryButtonBar()
     private var bindings = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
@@ -53,63 +60,100 @@ class LibraryViewController: UIViewController {
         updateGridSafeArea()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard previousTraitCollection?.verticalSizeClass != traitCollection.verticalSizeClass else { return }
+        updateTitleButton()
+    }
+    
     @IBSegueAction private func makeGridController(_ coder: NSCoder) -> LibraryGridViewController? {
         gridController = LibraryGridViewController(dataSource: dataSource, coder: coder)
-        gridController?.delegate = delegate
+        gridController?.delegate = self
         return gridController
     }
 
     // MARK: - Actions
-
-    @objc private func showAlbumPicker() {
+    
+    private func showAlbumPicker() {
         delegate?.controllerDidSelectAlbumPicker(self)
     }
     
-    @IBAction private func showFilePicker() {
+    private func showFilePicker() {
         delegate?.controllerDidSelectFilePicker(self)
     }
     
-    @IBAction private func showCamera() {
+    private func showCamera() {
         delegate?.controllerDidSelectCamera(self)
+    }
+    
+    @IBAction func showAbout() {
+        delegate?.controllerDidSelectAbout(self)
     }
     
     // MARK: Configuring
 
     private func configureViews() {
         configureTitleButton()
-        configureImportMenu()
+        configureButtonBar()
         configureBindings()
         updateNavigationBar()
     }
-    
-    private func configureTitleButton() {
-        navigationItem.titleView = UIView()
-        titleButton.configureDynamicTypeLabel()
-        titleButton.configureTrailingAlignedImage()
 
-        if dataSource.isAuthorizationLimited {
-            // Disable albums.
-            titleButton.setImage(nil, for: .normal)
-            titleButton.isUserInteractionEnabled = false
-        } else {
-            titleButton.addTarget(self, action: #selector(showAlbumPicker), for: .touchUpInside)
-        }
+    private func configureTitleButton() {
+        navigationItem.titleView = UIView()  // Hide default title label
+        let titleContainer = UIView()  // Needed, otherwise the `semanticContentAttribute` gets overwritten.
+        titleContainer.addSubview(titleButton)
+        NSLayoutConstraint.activate([
+            titleButton.leadingAnchor.constraint(equalTo: titleContainer.leadingAnchor),
+            titleButton.trailingAnchor.constraint(equalTo: titleContainer.trailingAnchor),
+            titleButton.topAnchor.constraint(equalTo: titleContainer.topAnchor),
+            titleButton.bottomAnchor.constraint(equalTo: titleContainer.bottomAnchor),
+        ])
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleContainer)
+        updateTitleButton()
+    }
+    
+    private func configureButtonBar() {
+        buttonBar.configure(with: buttonBarItems())
+        buttonBar.backgroundEffect = Constant.barEffect
+        
+        view.addSubview(buttonBar)
+        buttonBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonBar.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.buttonBarMargin),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: buttonBar.bottomAnchor, constant: Constant.buttonBarMargin),
+            buttonBar.leadingAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.buttonBarMargin),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: buttonBar.trailingAnchor, constant: Constant.buttonBarMargin)
+        ])
+    }
+    
+    private func buttonBarItems() -> [LibraryButtonBar.Item] {
+        [
+            .init(
+                image: UIImage(systemName: "folder")?.applyingSymbolConfiguration(.init(weight: .medium)),
+                action: .init { [weak self] _ in
+                    self?.showFilePicker()
+                },
+                accessibilityLabel: Localized.libraryButtonBarFilesTitle
+            ),
+            .init(
+                image: UIImage(systemName: "camera")?.applyingSymbolConfiguration(.init(weight: .medium)),
+                action: .init { [weak self] _ in
+                    self?.showCamera()
+                },
+                accessibilityLabel: Localized.libraryButtonBarCameraTitle
+            )
+        ]
     }
 
     private func configureBindings() {
         // React to initial authorization if status is `notDetermined`.
         dataSource.$isAuthorizationLimited
+            .combineLatest(dataSource.$album)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.configureTitleButton()
-                self?.configureImportMenu()
+                self?.updateTitleButton()
             }
-            .store(in: &bindings)
-        
-        dataSource.$album
-            .map { $0?.localizedTitle }
-            .replaceNil(with: UserText.libraryDefaultTitle)
-            .assignWeak(to: \.title, on: self)
             .store(in: &bindings)
         
         dataSource.$filter
@@ -120,54 +164,57 @@ class LibraryViewController: UIViewController {
             }.store(in: &bindings)
     }
     
-    private func updateNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.layer.shadowOpacity = 0
-
-        if #available(iOS 14.0, *) {
-            navigationItem.backButtonDisplayMode = .minimal
+    // MARK: Updating
+    
+    private func updateTitleButton() {
+        if dataSource.isAuthorizationLimited {
+            title = Localized.libraryLimitedTitle
+            titleButton.showsMenuAsPrimaryAction = true
+            titleButton.menu = LibraryMenu.Limited.menu { [weak self] selection in
+                self?.handleLimitedMenuSelection(selection)
+            }
+        } else {
+            title = dataSource.album?.localizedTitle ?? Localized.libraryDefaultTitle
+            titleButton.showsMenuAsPrimaryAction = false
+            titleButton.addAction(.init { [weak self] _ in
+                self?.showAlbumPicker()
+            }, for: .primaryActionTriggered)
         }
+        let isCompact = traitCollection.verticalSizeClass == .compact
+        titleButton.titleLabel?.font = UIButton.libraryTitleFont(isCompact: isCompact)
+    }
+    
+    private func updateNavigationBar() {
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.shadowColor = nil
+        standardAppearance.backgroundEffect = Constant.barEffect
+        navigationItem.standardAppearance = standardAppearance
+        navigationController?.navigationBar.layer.shadowOpacity = 0  // Reset the custom editor shadow.
+        navigationItem.backButtonDisplayMode = .minimal
     }
     
     private func updateGridSafeArea() {
         let spacing: CGFloat = 8
-        let toolbarTop = view.safeAreaLayoutGuide.layoutFrame.maxY - toolbar.frame.minY
+        let toolbarTop = view.safeAreaLayoutGuide.layoutFrame.maxY - buttonBar.frame.minY
         gridController?.additionalSafeAreaInsets.bottom = toolbarTop + spacing
     }
 
-    // MARK: Filter Menu
+    // MARK: Menus
 
     private func updateFilterMenu() {
-        if #available(iOS 14, *) {
-            filterBarItem.menu = LibraryFilterMenu.menu(
-                with: dataSource.filter,
-                gridMode: dataSource.gridMode,
-                handler: { [weak self] selection in
-                    self?.handleFilterMenuSelection(selection)
-                }
-            )
-        } else {
-            filterBarItem.target = self
-            filterBarItem.action = #selector(showFilterMenuAsAlert)
-        }
-    }
-
-    @available(iOS, obsoleted: 14, message: "Use context menus.")
-    @objc private func showFilterMenuAsAlert() {
-        LibraryFilterMenu.presentAsAlert(
-            from: self,
-            currentFilter: dataSource.filter,
+        let menu = LibraryMenu.Filter.menu(
+            with: dataSource.filter,
             gridMode: dataSource.gridMode,
-            barItem: filterBarItem,
-            selection: { [weak self] selection in
+            handler: { [weak self] selection in
                 self?.handleFilterMenuSelection(selection)
             }
         )
+        
+        filterBarItem.menu = menu
+        filterBarItem.image = menu.image
     }
 
-    private func handleFilterMenuSelection(_ selection: LibraryFilterMenu.Selection) {
-        UISelectionFeedbackGenerator().selectionChanged()
-
+    private func handleFilterMenuSelection(_ selection: LibraryMenu.Filter.Selection) {
         switch selection {
         case .filter(let filter):
             dataSource.filter = filter
@@ -176,40 +223,20 @@ class LibraryViewController: UIViewController {
         }
     }
     
-    // MARK: Import Menu
-    
-    private func configureImportMenu() {
-        if #available(iOS 14, *) {
-            let isLimited = dataSource.isAuthorizationLimited
-            toolbar.importButton.showsMenuAsPrimaryAction = true
-            toolbar.importButton.menu = LibraryImportMenu.menu(isLibraryLimited: isLimited) {
-                [weak self] in self?.handleImportMenuSelection($0)
-            }
-        } else {
-            let action = #selector(showImportMenuAsAlert)
-            toolbar.importButton.addTarget(self, action: action, for: .touchUpInside)
-        }
-    }
-    
-    @available(iOS, obsoleted: 14, message: "Use context menus.")
-    @objc private  func showImportMenuAsAlert() {
-        LibraryImportMenu.presentAsAlert(from: self, sourceView: toolbar.importButton) {
-            [weak self] in self?.handleImportMenuSelection($0)
-        }
-    }
-    
-    private func handleImportMenuSelection(_ selection: LibraryImportMenu.Selection) {
-        UISelectionFeedbackGenerator().selectionChanged()
-        
+    private func handleLimitedMenuSelection(_ selection: LibraryMenu.Limited.Selection) {
         switch selection {
-        case .file:
-            delegate?.controllerDidSelectFilePicker(self)
-        case .camera:
-            delegate?.controllerDidSelectCamera(self)
         case .addMorePhotos:
-            if #available(iOS 14, *) {
-                dataSource.photoLibrary.presentLimitedLibraryPicker(from: self)
-            }
+            delegate?.controllerDidSelectAddMoreVideos(self)
+        case .showSettings:
+            delegate?.controllerDidSelectSettings(self)
         }
+    }
+}
+
+// MARK: - LibraryGridViewControllerDelegate
+
+extension LibraryViewController: LibraryGridViewControllerDelegate {
+    func controller(_ controller: LibraryGridViewController, didSelectAsset asset: PHAsset, previewImage: UIImage?) {
+        delegate?.controller(self, didSelectAsset: asset, previewImage: previewImage)
     }
 }

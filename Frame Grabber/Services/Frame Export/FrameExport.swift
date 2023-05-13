@@ -5,6 +5,8 @@ import AVFoundation
 /// Since generating a large number of full-sized frames is very memory intensive, the
 /// export generates and writes frames in separate chunks at time. For older devices
 /// and/or large videos, use a rather low chunk size.
+///
+/// Legacy. Using async/await, this can be significantly simplified and be made much safer.
 class FrameExport {
 
     struct Request {
@@ -34,7 +36,7 @@ class FrameExport {
     private lazy var taskQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .userInitiated
+        queue.qualityOfService = .default
         return queue
     }()
 
@@ -130,7 +132,7 @@ class FrameExport {
     /// Can be called from multiple threads safely.
     private func updateOverallResult(with frameResult: Status) {
         accessQueue.async(flags: .barrier) { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
 
             let update = { (result: Status) in
                 self.status = result

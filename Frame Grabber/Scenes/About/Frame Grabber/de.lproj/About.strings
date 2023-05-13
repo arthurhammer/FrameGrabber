@@ -1,26 +1,14 @@
-/* Class = "UIButton"; accessibilityHint = "In-App Purchase"; ObjectID = "2Cf-Os-zO1"; */
-"2Cf-Os-zO1.accessibilityHint" = "In-App-Kauf";
-
 /* Class = "UILabel"; text = "Source Code"; ObjectID = "CWr-Fn-l1m"; */
-"CWr-Fn-l1m.text" = "Quellcode";
-
-/* Class = "UILabel"; text = "Supporter"; ObjectID = "E1D-mW-5yO"; */
-"E1D-mW-5yO.text" = "Supporter";
-
-/* Class = "UILabel"; text = "🥳"; ObjectID = "G1f-dH-f7o"; */
-"G1f-dH-f7o.text" = "🥳";
+"CWr-Fn-l1m.text" = "Source Code";
 
 /* Class = "UILabel"; text = "Contact Me"; ObjectID = "GkV-0K-xRO"; */
-"GkV-0K-xRO.text" = "Kontakt";
+"GkV-0K-xRO.text" = "Kontaktieren";
 
-/* Class = "UILabel"; text = "Frame Grabber doesn't bug you with ads or subscriptions, made possible by the amazing support of its users."; ObjectID = "gsO-Jw-32d"; */
-"gsO-Jw-32d.text" = "Frame Grabber stört dich nicht mit Abos oder Werbung. Nur möglich mit der tollen Unterstützung von Leuten wie dir.";
+/* Class = "UILabel"; text = "Ad-free, subscription-free, everything-free 🦄. Your support makes it possible."; ObjectID = "gsO-Jw-32d"; */
+"gsO-Jw-32d.text" = "Hier gibt's keine Werbung oder Abos. Deine Unterstützung macht's möglich:";
 
 /* Class = "UIButton"; normalTitle = "Donate"; ObjectID = "HlA-JS-FBO"; */
 "HlA-JS-FBO.normalTitle" = "Spenden";
-
-/* Class = "UIButton"; normalTitle = "Restore"; ObjectID = "hSM-a5-Quj"; */
-"hSM-a5-Quj.normalTitle" = "Wiederherstellen";
 
 /* Class = "UINavigationItem"; title = "Frame Grabber"; ObjectID = "IAE-sF-IVF"; */
 "IAE-sF-IVF.title" = "Frame Grabber";
@@ -28,38 +16,20 @@
 /* Class = "UILabel"; text = "Frame Grabber is open source."; ObjectID = "jcL-Za-yhx"; */
 "jcL-Za-yhx.text" = "Frame Grabber ist Open Source.";
 
-/* Class = "UILabel"; text = "I hope this small app is useful to you. I created it for myself because I always had a need to grab those frames. And now I'm creating it for you.\n\nIf you want to support small, open projects like this, you can invite me for an ice cream. I love ice cream.\n\nArthur 🍨🍧🍦"; ObjectID = "Ltf-rM-h7K"; */
-"Ltf-rM-h7K.text" = "Ich hoffe, diese kleine App ist dir behilflich. Ich habe sie für mich selbst entwickelt, da ich immer die besten Frames haben mochte. Und nun entwickle ich sie für dich.\n\nFalls du ein kleines, transparentes Projekt unterstützen magst, kannst du mir ein Eis ausgeben. Ich liebe Eis.\n\nArthur 🍨🍧🍦";
-
-/* Class = "UILabel"; text = "Frame Grabber"; ObjectID = "MBv-Ck-5UY"; */
-"MBv-Ck-5UY.text" = "Frame Grabber";
-
-/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "NG4-o2-qF9"; */
-"NG4-o2-qF9.accessibilityLabel" = "Fertig";
-
 /* Class = "UILabel"; text = "Feedback welcome!"; ObjectID = "Q2G-GR-huD"; */
 "Q2G-GR-huD.text" = "Feedback willkommen!";
 
 /* Class = "UILabel"; text = "Privacy"; ObjectID = "qvE-dH-xjJ"; */
 "qvE-dH-xjJ.text" = "Datenschutz";
 
-/* Class = "UILabel"; text = "Checking with the App Store…"; ObjectID = "QxU-hU-16W"; */
-"QxU-hU-16W.text" = "App Store kontaktieren…";
-
 /* Class = "UILabel"; text = "I don't collect your data."; ObjectID = "QZZ-Gh-i28"; */
 "QZZ-Gh-i28.text" = "Ich sammle keine Daten.";
 
-/* Class = "UILabel"; text = "Created by Arthur Hammer"; ObjectID = "UNF-JH-2pd"; */
-"UNF-JH-2pd.text" = "Entwickelt von Arthur Hammer";
+/* Class = "UILabel"; text = "Support the App"; ObjectID = "xBV-RG-m2x"; */
+"xBV-RG-m2x.text" = "Schön, dass du da bist.";
 
-/* Class = "UILabel"; text = "Nice to see you."; ObjectID = "xBV-RG-m2x"; */
-"xBV-RG-m2x.text" = "Schön, dich zu sehen.";
-
-/* Class = "UIButton"; normalTitle = "Leave a Review  🥳"; ObjectID = "xhq-rN-pTi"; */
-"xhq-rN-pTi.normalTitle" = "Bewertung schreiben 🥳";
-
-/* Class = "UILabel"; text = "You're a Supporter! \nThank you so much."; ObjectID = "ygf-4Y-CH8"; */
-"ygf-4Y-CH8.text" = "Du bist Supporter!\nVielen Dank.";
+/* Class = "UIButton"; normalTitle = "Rate"; ObjectID = "xhq-rN-pTi"; */
+"xhq-rN-pTi.normalTitle" = "Bewerten";
 
 /* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "YwB-MD-zZ0"; */
 "YwB-MD-zZ0.headerTitle" = "Info";

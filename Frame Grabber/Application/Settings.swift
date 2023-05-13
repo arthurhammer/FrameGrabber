@@ -48,7 +48,7 @@ extension UserDefaults {
     }
     
     var timeFormat: TimeFormat {
-        get { decodedValue(forKey: Key.timeFormat) ?? .minutesSecondsMilliseconds }
+        get { decodedValue(forKey: Key.timeFormat) ?? .minutesSecondsFrameNumber }
         set { setEncodedValue(newValue, forKey: Key.timeFormat) }
     }
     
@@ -67,12 +67,12 @@ extension UserDefaults: PurchasedProductsStore {
 
 extension UserDefaults {
 
-    func decodedValue<T: Codable>(forKey key: String) -> T? {
+    func decodedValue<T: Decodable>(forKey key: String) -> T? {
         guard let data = data(forKey: key) else { return nil }
         return try? JSONDecoder().decode(T.self, from: data)
     }
 
-    func setEncodedValue<T: Codable>(_ value: T?, forKey key: String) {
+    func setEncodedValue(_ value: (some Encodable)?, forKey key: String) {
         let data = try? value.flatMap(JSONEncoder().encode)
         set(data, forKey: key)
     }
@@ -81,7 +81,7 @@ extension UserDefaults {
     ///
     /// The raw value must be one of the property list types as specified by `UserDefaults`.
     /// Otherwise, you should archive the data to `Data`, e.g. using `setEncodedValue`.
-    func setRawValue<R: RawRepresentable>(_ value: R, forKey key: String) {
+    func setRawValue(_ value: some RawRepresentable, forKey key: String) {
         set(value.rawValue, forKey: key)
     }
     

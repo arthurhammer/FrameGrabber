@@ -5,7 +5,7 @@ import SafariServices
 class AuthorizationController: UIViewController {
 
     static var needsAuthorization: Bool {
-        let status = PHPhotoLibrary.readWriteAuthorizationStatus
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         return [.notDetermined, .denied, .restricted].contains(status)
     }
 
@@ -51,7 +51,7 @@ class AuthorizationController: UIViewController {
     private func configureViews() {
         scrollView.delegate = self
         actionButton.configureAsActionButton(minimumWidth: 300)
-        actionButton.applyDefaultShadow()
+        actionButton.configureWithDefaultShadow()
         privacyButton.configureDynamicTypeLabel()
 
         updateViews()
@@ -59,15 +59,15 @@ class AuthorizationController: UIViewController {
     }
 
     private func updateViews() {
-        switch PHPhotoLibrary.readWriteAuthorizationStatus {
+        switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
         case .denied, .restricted:
-            authorizationMessageLabel.text = UserText.authorizationDeniedMessage
-            actionButton.setTitle(UserText.authorizationDeniedAction, for: .normal)
+            authorizationMessageLabel.text = Localized.authorizationDeniedMessage
+            actionButton.setTitle(Localized.authorizationDeniedAction, for: .normal)
 
         // For `notDetermined` but also as fallback if we land in `authorized`/`limited` state.
         default:
-            authorizationMessageLabel.text = UserText.authorizationUndeterminedMessage
-            actionButton.setTitle(UserText.authorizationUndeterminedAction, for: .normal)
+            authorizationMessageLabel.text = Localized.authorizationUndeterminedMessage
+            actionButton.setTitle(Localized.authorizationUndeterminedAction, for: .normal)
         }
     }
 
@@ -94,10 +94,6 @@ extension AuthorizationController: UIScrollViewDelegate {
 private extension PHAuthorizationStatus {
     
     var isAuthorizedOrLimited: Bool {
-        if #available(iOS 14, *) {
-            return (self == .authorized) || (self == .limited)
-        } else {
-            return self == .authorized
-        }
+        [.authorized, .limited].contains(self)
     }
 }

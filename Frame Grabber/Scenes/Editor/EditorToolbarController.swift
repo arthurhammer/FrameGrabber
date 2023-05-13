@@ -3,7 +3,7 @@ import Combine
 import ThumbnailSlider
 import UIKit
 
-protocol EditorToolbarControllerDelegate: class {
+protocol EditorToolbarControllerDelegate: AnyObject {
     func controller(_ controller: EditorToolbarController, didSelectShareFrameAt time: CMTime)
 }
 
@@ -105,12 +105,11 @@ class EditorToolbarController: UIViewController {
             placeholderImage: placeholderImage
         )
         
-        // On iOS 13, hide the button and use the old vertical scrubbing speeds.
-        if #available(iOS 14.0, *) {
-            toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultSpeed.scrubbingSpeed]
-            toolbar.speedButton.showsMenuAsPrimaryAction = true
-            updateSpeedButton()
-        }
+        toolbar.backgroundColor = .editorBars
+        toolbar.configureWithBarShadow()
+        toolbar.timeSlider.scrubbingSpeeds = [EditorSpeedMenu.defaultSpeed.scrubbingSpeed]
+        toolbar.speedButton.showsMenuAsPrimaryAction = true
+        updateSpeedButton()
         
         configureBindings()
         updateViews()
@@ -170,7 +169,6 @@ class EditorToolbarController: UIViewController {
             .store(in: &bindings)
     }
     
-    @available(iOS 14, *)
     func updateSpeedButton() {
         let current = EditorSpeedMenu.Selection(toolbar.timeSlider.currentScrubbingSpeed)
         toolbar.speedButton.setImage(current.buttonIcon, for: .normal)

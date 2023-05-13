@@ -1,28 +1,29 @@
+import Utility
 import UIKit
 
-protocol SettingsViewControllerDelegate: class {
+protocol SettingsViewControllerDelegate: AnyObject {
     func controller(_ controller: SettingsViewController, didChangeExportAction: ExportAction)
     func controller(_ controller: SettingsViewController, didChangeTimeFormat: TimeFormat)
 }
 
 class SettingsViewController: UITableViewController {
 
-    enum Section: Int {
+    private enum Section: Int {
+        case imageFormat
         case metadata
-        case format
-        case compressionQuality
         case exportAction
         case timeFormat
     }
     
     weak var delegate: SettingsViewControllerDelegate?
-
-    let settings: UserDefaults = .standard
+    
+    private let settings: UserDefaults = .standard
 
     @IBOutlet private var includeMetadataSwitch: UISwitch!
     @IBOutlet private var imageFormatControl: UISegmentedControl!
     @IBOutlet private var compressionQualityStepper: UIStepper!
-    @IBOutlet private var compressionQualityLabel: UILabel!
+    @IBOutlet private var compressionQualityTitleLabel: UILabel!
+    @IBOutlet private var compressionQualityDetailLabel: UILabel!
     @IBOutlet private var compressionQualityStack: UIStackView!
     @IBOutlet private var selectedExportActionLabel: UILabel!
     @IBOutlet private var selectedTimeFormatLabel: UILabel!
@@ -32,11 +33,6 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fixCellHeight()
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,7 +52,7 @@ class SettingsViewController: UITableViewController {
         let controller = ExportActionSettingsViewController(coder: coder)
         controller?.selectedAction = settings.exportAction
         controller?.didSelectAction = { [weak self] action in
-            guard let self = self else  { return }
+            guard let self else  { return }
             self.settings.exportAction = action
             self.updateViews()
             self.delegate?.controller(self, didChangeExportAction: action)
@@ -68,7 +64,7 @@ class SettingsViewController: UITableViewController {
         let controller = TimeFormatSettingsViewController(coder: coder)
         controller?.selectedFormat = settings.timeFormat
         controller?.didSelectFormat = { [weak self] format in
-            guard let self = self else  { return }
+            guard let self else  { return }
             self.settings.timeFormat = format
             self.updateViews()
             self.delegate?.controller(self, didChangeTimeFormat: format)
@@ -87,6 +83,8 @@ class SettingsViewController: UITableViewController {
     @IBAction private func didUpdateImageFormat(_ sender: UISegmentedControl) {
         UISelectionFeedbackGenerator().selectionChanged()
         settings.imageFormat = ImageFormat.allCases[sender.selectedSegmentIndex]
+        updateViews()
+        tableView.reloadData()
     }
 
     @IBAction private func didChangeCompressionQuality(_ sender: UIStepper) {
@@ -94,17 +92,21 @@ class SettingsViewController: UITableViewController {
         settings.compressionQuality = sender.value/100
         updateViews()
     }
-
+    
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard Section(section) == .format else { return super.tableView(tableView, titleForFooterInSection: section) }
-
-        return ImageFormat.heif.isEncodingSupported
-            ? UserText.exportImageFormatHeifSupportedFooter
-            : UserText.exportImageFormatHeifNotSupportedFooter
+        if Section(section) == .imageFormat {
+            switch settings.imageFormat {
+            case .jpeg: return Localized.exportSettingsImageFormatJPEGFooter
+            case .png: return Localized.exportSettingsImageFormatPNGFooter
+            case .heif: return Localized.exportSettingsImageFormatHEIFFooter
+            }
+        }
+        
+        return super.tableView(tableView, titleForFooterInSection: section)
     }
 
     private func configureViews() {
-        compressionQualityLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
+        compressionQualityDetailLabel.font = UIFont.monospacedDigitSystemFont(forTextStyle: .body)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
         
@@ -114,17 +116,17 @@ class SettingsViewController: UITableViewController {
     }
         
     private func configureImageFormatControl() {
-        let formats = ImageFormat.allCases
         imageFormatControl.removeAllSegments()
         
-        formats.enumerated().forEach { (index, format) in
-            imageFormatControl.insertSegment(
-                withTitle: format.displayString,
-                at: index,
-                animated: false
-            )
-            
-            imageFormatControl.setEnabled(format.isEncodingSupported, forSegmentAt: index)
+        ImageFormat.allCases
+            .filter { $0.isEncodingSupported }
+            .enumerated()
+            .forEach { (index, format) in
+                imageFormatControl.insertSegment(
+                    withTitle: format.displayString,
+                    at: index,
+                    animated: false
+                )
         }
     }
 
@@ -132,7 +134,12 @@ class SettingsViewController: UITableViewController {
         includeMetadataSwitch.isOn = settings.includeMetadata
 
         compressionQualityStepper.value = settings.compressionQuality*100
-        compressionQualityLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
+        compressionQualityDetailLabel.text = compressionFormatter.string(from: settings.compressionQuality as NSNumber)
+        
+        let isQualityCellEnabled = settings.imageFormat.isLossyCompressionSupported
+        compressionQualityStepper.isEnabled = isQualityCellEnabled
+        compressionQualityTitleLabel.textColor = isQualityCellEnabled ? .label : .secondaryLabel
+        compressionQualityDetailLabel.textColor = compressionQualityTitleLabel.textColor
         
         let formatIndex = ImageFormat.allCases.firstIndex(of: settings.imageFormat)
         imageFormatControl.selectedSegmentIndex = formatIndex ?? 0
@@ -143,17 +150,5 @@ class SettingsViewController: UITableViewController {
     
     private func updateViews(for traitCollection: UITraitCollection) {
         compressionQualityStack.axis = traitCollection.hasHugeContentSize ? .vertical : .horizontal
-    }
-
-    private var firstAppereance = true
-
-    private func fixCellHeight() {
-        guard firstAppereance else { return }
-        firstAppereance = false
-
-        // For some reason, the first cell initially has a wrong height.
-        DispatchQueue.main.async {
-            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        }
     }
 }

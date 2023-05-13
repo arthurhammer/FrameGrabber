@@ -1,24 +1,29 @@
-import InAppPurchase
 import MessageUI
 import SafariServices
+import Utility
 import UIKit
 
-class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+@MainActor protocol AboutViewControllerDelegate: AnyObject {
+    func controllerDidSelectPurchase(_ controller: AboutViewController)
+}
+
+final class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
     enum Section: Int {
         case about
         case featured
-        case version
     }
+    
+    weak var delegate: AboutViewControllerDelegate?
 
-    let app = UIApplication.shared
-    let bundle = Bundle.main
-    let device = UIDevice.current
+    private let app = UIApplication.shared
+    private let bundle = Bundle.main
+    private let device = UIDevice.current
 
+    @IBOutlet private var supportTitleLabel: UILabel!
+    @IBOutlet private var supportButtonsStack: UIStackView!
     @IBOutlet private var rateButton: UIButton!
     @IBOutlet private var purchaseButton: UIButton!
-    @IBOutlet private var featuredTitleLabel: UILabel!
-    @IBOutlet private var versionLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,13 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         updateExpandedPreferredContentSize()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.hasDifferentContentSize(comparedTo: previousTraitCollection) {
+            updateViews()
+        }
+    }
+        
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -49,27 +61,43 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         tableView.cellForRow(at: indexPath)?.accessoryType != .some(.none)
     }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        guard Section(section) == .about else { return super.tableView(tableView, titleForFooterInSection: section) }
+        
+        return String.localizedStringWithFormat(Localized.About.attributionFormat, bundle.version)
+    }
 
     private func configureViews() {
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
-        tableView.backgroundColor = .clear
-        
-        rateButton.configureAsActionButton(minimumWidth: 150)
-        rateButton.applyDefaultShadow()
-        
-        purchaseButton.configureAsActionButton()
-        purchaseButton.backgroundColor = .secondarySystemFill
-        purchaseButton.setTitleColor(.secondaryLabel, for: .normal)
-        
-        featuredTitleLabel.font = .preferredFont(forTextStyle: .body, size: 22, weight: .semibold)
+        supportTitleLabel.font = .preferredFont(forTextStyle: .headline)
 
-        versionLabel.font = .preferredFont(forTextStyle: .footnote, weight: .semibold)
-        versionLabel.text = String.localizedStringWithFormat(
-            UserText.aboutVersionFormat,
-            bundle.shortFormattedVersion
-        )
+        var rateConfig = UIButton.Configuration.secondaryAction()
+        rateConfig.title = Localized.About.rate
+        rateButton.configuration = rateConfig
 
+        var purchaseConfig = UIButton.Configuration.action()
+        purchaseConfig.title = Localized.About.donate
+        purchaseButton.configuration = purchaseConfig
+        purchaseButton.configureWithDefaultShadow()
+        purchaseButton.addAction(.init { [weak self] _ in
+            guard let self else { return }
+            self.delegate?.controllerDidSelectPurchase(self)
+        }, for: .primaryActionTriggered)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(done))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: Localized.About.shareApp,
+            image: UIImage(systemName: "square.and.arrow.up"),
+            primaryAction: UIAction { [weak self] _ in self?.shareApp() },
+            menu: nil
+        )
+        
+        updateViews()
+    }
+    
+    private func updateViews() {
+        supportButtonsStack.axis = traitCollection.hasHugeContentSize ? .vertical : .horizontal
     }
 }
 
@@ -79,6 +107,14 @@ extension AboutViewController {
 
     @IBAction private func done() {
         dismiss(animated: true)
+    }
+    
+    private func shareApp() {
+        guard let url = About.storeURL?.absoluteString else { return }
+        let shareText = "\(Localized.About.shareAppText)\n\(url)"
+        let shareController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        shareController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        present(shareController, animated: true)
     }
 
     @IBAction private func rate() {
@@ -105,7 +141,7 @@ extension AboutViewController {
         mailController.view.tintColor = .accent
         mailController.mailComposeDelegate = self
         mailController.setToRecipients([About.contactAddress])
-        mailController.setSubject(UserText.aboutContactSubject)
+        mailController.setSubject(Localized.About.emailSubject)
         mailController.setMessageBody(contactMessage, isHTML: false)
 
         present(mailController, animated: true)

@@ -1,6 +1,7 @@
 import AVFoundation
 import Combine
 import SampleTimeIndexer
+import Utility
 import UIKit
 
 /// Manages playback for assets.
@@ -47,7 +48,7 @@ class PlaybackController {
     private let audioSession: AVAudioSession = .sharedInstance()
     private let notificationCenter: NotificationCenter = .default
 
-    init(player: AVPlayer = .init(), sampleIndexer: SampleTimeIndexer = .init()) {
+    init(player: AVPlayer = .init(), sampleIndexer: SampleTimeIndexer = SampleTimeIndexerImpl()) {
         self.player = player
         self.player.actionAtItemEnd = .pause
         self.seeker = PlayerSeeker(player: player)
@@ -179,30 +180,18 @@ class PlaybackController {
         sampleTimes = nil
         sampleIndexer.cancel()
         
-        guard let asset = asset else { return }
+        guard let asset else { return }
         
         // TODO: Currently resides on the assumption that `asset` is set only once. If it isn't, the
         // of completion handlers and the value of this flag are not guaranteed.
         _isIndexingSampleTimes = true
         
-        sampleIndexer.indexTimes(for: asset, shouldRetry: { $0.isInterrupted }) {
-            [weak self] result in
-            
+        sampleIndexer.indexTimes(for: asset) { [weak self] result in
             DispatchQueue.main.async {
                 self?._isIndexingSampleTimes = false
                 self?.sampleTimes = try? result.get()  // Ignoring errors
                 self?.currentSampleTime = self?.sampleTime(for: self?.currentPlaybackTime ?? .zero)
             }
-        }
-    }
-}
-
-private extension SampleTimeIndexError {
-    
-    var isInterrupted: Bool {
-        switch self {
-        case .interrupted: return true
-        default: return false
         }
     }
 }

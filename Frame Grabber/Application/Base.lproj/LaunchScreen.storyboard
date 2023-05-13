@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GoZ-fa-TLP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21503.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GoZ-fa-TLP">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21501.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +21,7 @@
                     <navigationItem key="navigationItem" id="Ofp-8x-rjr">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="info.circle" catalog="system" id="6E7-Ir-ebi"/>
-                            <barButtonItem title="Item" image="line.horizontal.3.decrease.circle" catalog="system" id="buo-5F-Kgz"/>
+                            <barButtonItem title="Item" image="line.3.horizontal.decrease.circle" catalog="system" id="buo-5F-Kgz"/>
                         </rightBarButtonItems>
                     </navigationItem>
                 </viewController>
@@ -36,7 +35,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GoZ-fa-TLP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g6A-Sb-EQD">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -51,10 +50,10 @@
     </scenes>
     <color key="tintColor" name="accent"/>
     <resources>
-        <image name="info.circle" catalog="system" width="128" height="121"/>
-        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
         <namedColor name="accent">
-            <color red="0.26666666666666666" green="0.16078431372549021" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46666666666666667" green="0.27843137254901962" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

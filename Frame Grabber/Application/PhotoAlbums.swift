@@ -12,15 +12,11 @@ extension AlbumsDataSource {
     ]
 
     static func makeDefaultDataSource() -> AlbumsDataSource {
-        AlbumsDataSource(
-            smartAlbumsOptions: .init(
-                types: AlbumsDataSource.smartAlbumTypes,
-                assetOptions: .assets(filteredBy: .videoAndLivePhoto)
-            ),
-            userAlbumsOptions: .init(
-                albumOptions: .userAlbums(),
-                assetOptions: .assets(filteredBy: .videoAndLivePhoto)
-            )
+        let assetOptions = PHFetchOptions.assets(filteredBy: .videoAndLivePhoto)
+            
+        return AlbumsDataSource(
+            smartAlbumsOptions: .init(types: smartAlbumTypes, assetOptions: assetOptions),
+            userAlbumsOptions: .init(assetOptions: assetOptions)
         )
     }
 
@@ -37,13 +33,6 @@ extension AlbumsDataSource {
 }
 
 extension PHFetchOptions {
-
-    /// Default fetch options for user albums, i.e. sorted by title.
-    public static func userAlbums() -> PHFetchOptions {
-        let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: true)]
-        return options
-    }
     
     static func assets(filteredBy filter: PhotoLibraryFilter) -> PHFetchOptions {
         let options = PHFetchOptions()

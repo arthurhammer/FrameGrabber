@@ -1,4 +1,5 @@
 import MapKit
+import Utility
 import UIKit
 
 class MetadataLocationHeader: UITableViewHeaderFooterView {
@@ -39,7 +40,7 @@ class MetadataLocationHeader: UITableViewHeaderFooterView {
         mapView.layer.cornerCurve = .continuous
         mapView.superview?.layer.cornerRadius = 12
         mapView.superview?.layer.cornerCurve = .continuous
-        mapView.superview?.applyDefaultShadow()
+        mapView.superview?.configureWithDefaultShadow()
         
         openButton.titleLabel?.font = .preferredFont(forTextStyle: .subheadline, weight: .semibold)
         openButton.configureDynamicTypeLabel()
@@ -48,11 +49,11 @@ class MetadataLocationHeader: UITableViewHeaderFooterView {
     private func showPin() {
         mapView.removeAnnotations(mapView.annotations)
         
-        if let pin = mapPin {
+        if let mapPin {
             let distance = 5000.0
             
             let region = MKCoordinateRegion(
-                center: pin.coordinate,
+                center: mapPin.coordinate,
                 latitudinalMeters: distance,
                 longitudinalMeters: distance
             )
@@ -61,7 +62,7 @@ class MetadataLocationHeader: UITableViewHeaderFooterView {
             
             mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
             mapView.setCameraZoomRange(zoomRange, animated: false)
-            mapView.showAnnotations([pin], animated: false)
+            mapView.showAnnotations([mapPin], animated: false)
         }
         
         mapView.layoutIfNeeded()

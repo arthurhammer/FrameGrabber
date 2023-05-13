@@ -55,8 +55,8 @@ class EditorDetailViewController: UIViewController {
     
     private lazy var titleSegments: UISegmentedControl = {
         let control = UISegmentedControl(items: [
-            UserText.editorDetailSettingsSectionTitle,
-            UserText.editorDetailMetadataSectionTitle
+            Localized.editorDetailSettingsSectionTitle,
+            Localized.editorDetailMetadataSectionTitle
         ])
         control.addTarget(self, action: #selector(selectionChanged), for: .valueChanged)
         return control
@@ -97,7 +97,17 @@ class EditorDetailViewController: UIViewController {
         backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(backgroundView, at: 0)
         view.backgroundColor = .clear
-
+        
+        configureNavigationBar()
+        updateViews()
+        
+        DispatchQueue.main.async {
+            // Preload metadata to improve swipe performance.
+            _ = self.metadataController
+        }
+    }
+    
+    private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = titleSegments
         
@@ -107,13 +117,10 @@ class EditorDetailViewController: UIViewController {
             action: #selector(done)
         )
         
-        updateViews()
-        
-        DispatchQueue.main.async {
-            // Preload metadata to improve swipe performance.
-            _ = self.metadataController
-        }
-
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
     }
     
     private func updateViews() {

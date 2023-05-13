@@ -1,0 +1,80 @@
+{
+  "identifier" : "C97C1ED2",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "1646122428",
+      "localizations" : [
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende",
+          "locale" : "de"
+        },
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.donationA",
+      "referenceName" : "Donation A",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "3.99",
+      "familyShareable" : false,
+      "internalID" : "1500273945",
+      "localizations" : [
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende B",
+          "locale" : "de"
+        },
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation B",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.thankyou",
+      "referenceName" : "Donation B",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "1646124528",
+      "localizations" : [
+        {
+          "description" : "Unterstütze die weitere Entwicklung.",
+          "displayName" : "Spende",
+          "locale" : "de"
+        },
+        {
+          "description" : "Support further development.",
+          "displayName" : "Donation",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "de.arthurhammer.framegrabber.donationC",
+      "referenceName" : "Donation C",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1434703541",
+    "_developerTeamID" : "PY49CKQ6VF",
+    "_lastSynchronizedDate" : 705695610.49871099
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
