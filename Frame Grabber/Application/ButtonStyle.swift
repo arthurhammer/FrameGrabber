@@ -45,7 +45,7 @@ extension UIButton.Configuration {
 
 // MARK: - Deprecated
 
-@available(*, deprecated, message: "Use `UIButton.Configuration`")
+@available(iOS, deprecated: 16, message: "Use `UIButton.Configuration`")
 extension UIButton {
     
     static func action(withHeight height: CGFloat? = 50, minimumWidth: CGFloat? = nil) -> UIButton {
