@@ -1,4 +1,4 @@
-import AVFoundation
+@preconcurrency import AVFoundation
 import Combine
 import Photos
 import UIKit
@@ -312,7 +312,7 @@ class VideoController {
         Task {
             let metadata = try await video.loadMetadata()
             
-            await MainActor.run {  // Sync property access.
+            DispatchQueue.main.async { [self] in // Sync property access.
                 let request = frameRequest(
                     for: video,
                     at: times,
