@@ -6,7 +6,7 @@ import AVFoundation
 /// export generates and writes frames in separate chunks at time. For older devices
 /// and/or large videos, use a rather low chunk size.
 ///
-/// Legacy. Should be rewritten using async/await (which will significantly simplify the current custom logic)
+/// Legacy. Using async/await, this can be significantly simplified and be made much safer.
 class FrameExport {
 
     struct Request {
@@ -36,7 +36,7 @@ class FrameExport {
     private lazy var taskQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .userInitiated
+        queue.qualityOfService = .default
         return queue
     }()
 
