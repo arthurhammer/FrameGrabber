@@ -202,7 +202,7 @@ class EditorToolbarController: UIViewController {
             // Still indexing.
             } else if playbackController._isIndexingSampleTimes {
                 toolbar.timeSpinner.isHidden = false
-                toolbar.timeLabel.text = timeFormatter.string(from: time) + " /"
+                toolbar.timeLabel.text = timeFormatter.string(from: time) + "."
             // Failed indexing.
             } else {
                 toolbar.timeSpinner.isHidden = true
