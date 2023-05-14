@@ -3,61 +3,56 @@
         <img src="design/banner.jpg" alt="App Store banner.">
     </a>
 </p>
-
-Frame Grabber is a focused, easy-to-use iOS app to extract full-resolution video frames as images. Perfect to capture and share your favorite video moments.
-
 <p align="center">
     <a href="https://apps.apple.com/app/frame-grabber/id1434703541">
         <img src="./design/app-store-badge.svg" alt="Download on the App Store">
     </a>
 </p>
 
-Check out [framegrabberapp.com](https://framegrabberapp.com) for more info.
-
-## Use Cases
-
-Frame Grabber's users make all kinds of great stuff:
-
-- Find that perfect moment of you snowboarding, surfing or racing
-- Nature videography 🐦
-- Create YouTube thumbnails
-- Cats, it's always cats
-- Grab the cutest look in your selfie videos 💃🏼
-- Simply share your coolest moments with friends
-- Create photo books from holiday clips
-- Accidentally recorded a video when you meant to take a picture? Make a photo out of it.
-- Have trouble taking a pic at just the right moment? Just record a video and grab the perfect frame afterwards.
-
-## Features
-
-- Super easy to use
-- Export frames in full resolution and highest quality
-- Exact frame-by-frame comparison and full zoom to find the perfect moment
-- Works with Live Photos, too
-- Import videos from Files
-- Import videos from other apps like your favorite movie editor
-- Record selfie videos
-- Attach Exif metadata when exporting
-- Choose the export format (JPEG, HEIF) and compression quality
+[Frame Grabber](https://framegrabberapp.com) is an app for iOS & iPadOS to extract full-resolution video frames as images — [framegrabberapp.com](https://framegrabberapp.com)
 
 ## About
 
-I made it Frame Grabber for two reasons: I've wanted an app like this for the longest time and it seemed perfect in scope to learn iOS development and Swift.
+**Why**:
+- I wanted this app for myself (existing apps were not great)
 
-My focus was on making the app feel polished and super easy-to-use. It should be a tool that gets out of your way and feels right at home on your device.
+**Challenge**:
+- Learn iOS development
+- No 3rd-party dependencies allowed, do everything myself
+- Make the best app of its kind
 
-There are not too many fully-featured and polished open source iOS apps out there to study. I wanted to make Frame Grabber available to anyone in hopes other beginners can learn from it. Keep in mind this was my first app so the code is nowhere near to perfect.
+**Results**:
+- 4.8 stars worldwide
+- Loved by users for its UX and ease-of-use
+- Consistent monthly income
 
-## Development
+## Building
 
-Open the project in Xcode and build. The app has no dependencies.
+- Open Xcode
+- Change development team and bundle identifier
+- Build
+
+## Project Setup
+
+> **Warning**  
+> This code is from my very first project before I knew anything about professional iOS development, tight coupling, dependency injection, or SOLID.
+
+To learn the fundamentals, I decided to stick to Apple's documentation. 
+
+The project uses MVC with storyboards. A few parts use view models. The Coordinator pattern navigates from scene to scene. iPadOS-specific layouts are implemented with size classes in code and in storyboards. Layouts support Dynamic Type and Accessibility.
+
+Main components:
+- [`Application`](Frame%20Grabber/Application): Entry point into the app
+- [`Scenes`](Frame%20Grabber/Scenes):The app's main screens
+- [`Packages`](Frame%20Grabber/Packages): Modules extracted so far
+- [`SampleTimeIndexerTests`](Frame%20Grabber/Packages/SampleTimeIndexer/Tests/SampleTimeIndexerTests/): Some tests for a critical part of the app
 
 ## Contact
 
-Feel free to open an issue or contact me at hi@arthurhammer.de. Feedback welcome!
+Feedback welcome! — hi@arthurhammer.de
 
 ## License
 
 See [`LICENSE`](LICENSE).
 
-Just don't make it weird and [re-publish a clone to the App Store](https://github.com/arthurhammer/FrameGrabber/issues/5).
+Please don't make it weird and [publish a clone](https://github.com/arthurhammer/FrameGrabber/issues/5) to the App Store. If you want to improve the app, I'd love to hear your feedback 🤗
