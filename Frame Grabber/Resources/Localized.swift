@@ -81,9 +81,9 @@ enum Localized {
     }
 
     enum Purchase {
-        static let title = String(localized: "purchase.title", defaultValue: "This App is for You", comment: "Title: Donation screen")
+        static let title = String(localized: "purchase.title", defaultValue: "I made this app for you.", comment: "Title: Donation screen")
         static let titlePurchased = String(localized: "purchase.title-purchased", defaultValue: "Thank You for Your Donation", comment: "Title: Donation already purchased")
-        static let body = String(localized: "purchase.body", defaultValue: "Designed to make grabbing your best pictures a breeze.\n\nA donation helps a ton.", comment: "Body: Donation screen explanation.")
+        static let body = String(localized: "purchase.body", defaultValue: "Designed to get out of your way and make grabbing your best pictures a breeze.\n\nDonations help a ton!", comment: "Body: Donation screen explanation.")
         static let purchase = String(localized: "purchase.purchase", defaultValue: "Donate", comment: "Button: Purchase a donation")
         static let thankYou = String(localized: "purchase.thankyou", defaultValue: "🎉", comment: "Button: Donation already purchased, fires confettit")
         static let restore = String(localized: "purchase.restore", defaultValue: "Restore", comment: "Button: Restore past purchases")
