@@ -1,32 +1,26 @@
 <p align="center">
     <a href="https://apps.apple.com/app/frame-grabber/id1434703541">
-        <img src="design/banner.jpg" alt="App Store banner.">
-    </a>
-</p>
-<p align="center">
-    <a href="https://apps.apple.com/app/frame-grabber/id1434703541">
-        <img src="./design/app-store-badge.svg" alt="Download on the App Store">
+        <img src="design/banner.png" alt="App Store banner">
     </a>
 </p>
 
 [Frame Grabber](https://framegrabberapp.com) is an app for iOS & iPadOS to extract full-resolution video frames as images — [framegrabberapp.com](https://framegrabberapp.com)
 
-## About
+## Reviews
 
-**Why**:
-- I wanted this app for myself (existing apps were not great)
+4.8 stars worldwide. Loved by users for its ease-of-use and intuitiveness.
 
-**Challenge**:
-- Learn iOS development
-- No 3rd-party dependencies allowed, do everything myself
-- Make the best app of its kind
+<p align="center">
+    <a href="https://apps.apple.com/app/frame-grabber/id1434703541">
+        <img src="design/banner-reviews.png" alt="App Store reviews">
+    </a>
+</p>
 
-**Results**:
-- 4.8 stars worldwide
-- Loved by users for its UX and ease-of-use
-- Consistent monthly income
+## Open Source 
 
-## Building
+Open-sourced to give everything I learned back to the community.
+
+## How to Build
 
 - Open Xcode
 - Change development team and bundle identifier
@@ -34,25 +28,20 @@
 
 ## Project Setup
 
-> **Warning**  
-> This code is from my very first project before I knew anything about professional iOS development, tight coupling, dependency injection, or SOLID.
 
-To learn the fundamentals, I decided to stick to Apple's documentation. 
+As I wanted to learn the fundamentals with this project, I followed Apple's basic documentation. Which meant MVC with storyboards at the time.
 
-The project uses MVC with storyboards. A few parts use view models. The Coordinator pattern navigates from scene to scene. iPadOS-specific layouts are implemented with size classes in code and in storyboards. Layouts support Dynamic Type and Accessibility.
-
-Main components:
+Overview of main components:
 - [`Application`](Frame%20Grabber/Application): Entry point into the app
 - [`Scenes`](Frame%20Grabber/Scenes):The app's main screens
 - [`Packages`](Frame%20Grabber/Packages): Modules extracted so far
-- [`SampleTimeIndexerTests`](Frame%20Grabber/Packages/SampleTimeIndexer/Tests/SampleTimeIndexerTests/): Some tests for a critical part of the app
 
-## Contact
-
-Feedback welcome! — hi@arthurhammer.de
+> **Note**  
+> This was my very first app without prior experience. Keep that in mind when checking out the code 😉 
 
 ## License
 
 See [`LICENSE`](LICENSE).
 
-Please don't make it weird and [publish a clone](https://github.com/arthurhammer/FrameGrabber/issues/5) to the App Store. If you want to improve the app, I'd love to hear your feedback 🤗
+Please [don't publish a clone](https://github.com/arthurhammer/FrameGrabber/issues/5) to the App Store. It's very confusing for users.
+Instead, play around with the code, learn from it, and create something new! Make your ideas happen 🤗
