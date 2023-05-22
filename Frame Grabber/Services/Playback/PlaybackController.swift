@@ -184,7 +184,10 @@ class PlaybackController {
     }
     
     func relativeFrameNumber(for playbackTime: CMTime) -> Int? {
-        sampleTimes?.sampleTimingIndexInSecond(for: playbackTime)
+        guard let index = sampleTimes?.sampleTimingIndexInSecond(for: playbackTime) else {
+            return nil
+        }
+        return index + 1
     }
     
     private func indexSampleTimes() {
