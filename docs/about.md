@@ -16,24 +16,21 @@ This meant writing every single line of code myself without dependencies. It mea
 
 In hindsight, this was the best decision I could've made. 
 
-
-## Technical Challenges
-
-While Frame Grabber might look simple at first glance, there are lots of details behind the scenes — the essence of good UX.
+## Note
 
 > **Note**  
 > This was my very first app without prior experience. Keep that in mind when checking out the code  😉 
 
+## Technical Challenges
 
-### Interactive Transitions
+While Frame Grabber might look simple at first glance, there are lots of details behind the scenes for a good UX.
+
+Here are a few examples.
 
 <details>
-<summary> Details</summary>
-
-<p align="center">
-    <video controls autoplay loop muted src='videos/transition.mp4' width=180></video>
-</p>
-
+ <summary><h3>Interactive Transitions</h3></summary>
+ 
+https://github.com/arthurhammer/FrameGrabber/assets/4521216/d9fc007d-d94e-4903-8383-e78ee1070eb7
 
 The editor-to-library transition gives the user a sense of context when navigating between screens.
 
@@ -44,34 +41,25 @@ There was zero reference material for transitions with such complexity. I develo
 
 </details>
 
-### Custom Controls
-
 <details>
 
-<summary> Details</summary>
+ <summary><h3>Custom Controls</h3></summary>
 
-<p align="center">
-    <video controls autoplay loop muted src='videos/slider.mp4' width=180></video>
-</p>
+https://github.com/arthurhammer/FrameGrabber/assets/4521216/bd642770-437b-47ae-82b1-2b54179ec093
+
 
 The video slider is a key UI element in the editor. It should be intuitive yet precise. 
 
 I created a fully custom, reusable component. It supports asynchronous thumbnail loading from any data source, interactive scrubbing speeds and accessibility. Thumbnails show interesting moments at a glance. For precise selection, custom speeds can be set.
 
-
 🔗 [Code](/Frame%20Grabber/Packages/ThumbnailSlider/Sources/ThumbnailSlider/) and [blog post](https://arthurhammer.de/2020/03/uislider-with-scrubbing-speeds/)
 
 </details>
 
-### Efficient Frame Export
-
 <details>
-<summary> Details</summary>
+ <summary><h3>Efficient Frame Export</h3></summary>
 
-<p align="center">
-    <video controls autoplay loop muted src='videos/frame-export.mp4' width=180></video>
-</p>
-
+https://github.com/arthurhammer/FrameGrabber/assets/4521216/988e9f1a-825a-4be5-83e8-97ca4fb5ff71
 
 Decoding and exporting even just a handful of 4k video frames consumes immense amounts of memory leading to potential crashes.
 
@@ -82,14 +70,11 @@ I created a `FrameExport` service based on `OperationQueue` that exports frames 
 
 </details>
 
-### Frame-Time Indexing
 
 <details>
-<summary> Details</summary>
+ <summary><h3>Frame-Time Indexing</h3></summary>
 
-<p align="center">
-    <video controls autoplay loop muted src='videos/frame-time.mp4' width=180></video>
-</p>
+https://github.com/arthurhammer/FrameGrabber/assets/4521216/fb7c31b3-a725-4680-b45a-4abd951595e1
 
 The editor shows the video time in the `mm:ss.ff` format. This format uniquely identifies any frame helping users in comparing frames.
 
