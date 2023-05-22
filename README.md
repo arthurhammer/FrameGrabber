@@ -20,6 +20,10 @@
 
 Open-sourced to give everything I learned back to the community.
 
+## About
+
+[Read more here](./docs/about.md) about why I made the app and some technical challenges along the way.
+
 ## How to Build
 
 - Open Xcode
