@@ -21,6 +21,9 @@ class PlaybackController {
     @Published private(set) var timeControlStatus = AVPlayer.TimeControlStatus.paused
     @Published private(set) var isPlaying = false
     @Published private(set) var duration = CMTime.zero
+    @Published var defaultRate: Float = 1 {
+        didSet { updateDefaultRate() }
+    }
     
     /// The current playback time of `player`.
     @Published private(set) var currentPlaybackTime = CMTime.zero
@@ -151,6 +154,15 @@ class PlaybackController {
             .removeDuplicates()
             .assignWeak(to: \.duration, on: self)
             .store(in: &bindings)
+    }
+    
+    private func updateDefaultRate() {
+        if #available(iOS 16.0, *) {
+            player.defaultRate = defaultRate
+            if isPlaying {
+                player.play()  // Adopt new rate if already playing.
+            }
+        }
     }
     
     // MARK: - Sample-Level Timing

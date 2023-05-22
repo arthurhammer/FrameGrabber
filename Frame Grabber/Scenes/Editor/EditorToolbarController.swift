@@ -170,11 +170,13 @@ class EditorToolbarController: UIViewController {
     }
     
     func updateSpeedButton() {
-        let current = EditorSpeedMenu.Selection(toolbar.timeSlider.currentScrubbingSpeed)
-        toolbar.speedButton.setImage(current.buttonIcon, for: .normal)
-                    
-        toolbar.speedButton.menu = EditorSpeedMenu.menu(with: current) {
-            [weak self] selection in
+        let currentSelection = EditorSpeedMenu.Selection(toolbar.timeSlider.currentScrubbingSpeed)
+        let hasCustomSelection = currentSelection != EditorSpeedMenu.defaultSpeed
+                
+        toolbar.speedButton.tintColor = hasCustomSelection ? .systemOrange : .label
+
+        toolbar.speedButton.menu = EditorSpeedMenu.menu(with: currentSelection) { [weak self] selection in
+            self?.playbackController.defaultRate = selection.scrubbingSpeed.speed
             self?.toolbar.timeSlider.scrubbingSpeeds = [selection.scrubbingSpeed]
             self?.updateSpeedButton()
         }

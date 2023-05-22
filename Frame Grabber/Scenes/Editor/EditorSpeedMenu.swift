@@ -24,34 +24,6 @@ enum EditorSpeedMenu {
                 return Localized.speedMenuVeryFineSpeedAction
             }
         }
-        
-        var menuIcon: UIImage? {
-            switch self {
-            case .normal:
-                return nil
-            default:
-                return buttonIcon?.applyingSymbolConfiguration(.init(scale: .large))
-            }
-        }
-        
-        var buttonIcon: UIImage? {
-            let icon = { (systemName: String) -> UIImage? in
-                UIImage(systemName: systemName)?.applyingSymbolConfiguration(.init(hierarchicalColor: .label))
-            }
-            
-            switch self {
-            case .normal:
-                return icon("speedometer")
-            case .half:
-                return icon("50.circle")
-            case .quarter:
-                return icon("25.circle")
-            case .fine:
-                return icon("10.circle")
-            case .veryFine:
-                return icon("01.circle")
-            }
-        }
     }
 
     static var defaultSpeed: Selection {
@@ -63,7 +35,6 @@ enum EditorSpeedMenu {
         let items = Selection.allCases.map { option in
             UIAction(
                 title: option.title,
-                image: option.menuIcon,
                 state: (current == option) ? .on : .off,
                 handler: { _ in
                     UISelectionFeedbackGenerator().selectionChanged()
