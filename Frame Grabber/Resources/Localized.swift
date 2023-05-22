@@ -43,11 +43,11 @@ enum Localized {
     static let editorViewMetadataAction = NSLocalizedString("editor.more.metadata.action", value: "Metadata", comment: "Editor more button metadata button action")
     static let editorViewExportSettingsAction = NSLocalizedString("editor.more.exportSettings.action", value: "Settings", comment: "Editor more button export settings action")
     
-    static let speedMenuTitle = NSLocalizedString("editor.menu.speed.title", value: "Scrubbing Rate", comment: "Title for the speed menu.")
-    static let speedMenuNormalSpeedAction = NSLocalizedString("editor.menu.speed.normal.action", value: "Normal", comment: "Title for the normal speed in the speed menu.")
-    static let speedMenuHalfSpeedAction = NSLocalizedString("editor.menu.speed.half.action", value: "Half", comment: "Title for the half speed in the speed menu.")
-    static let speedMenuQuarterSpeedAction = NSLocalizedString("editor.menu.speed.quarter.action", value: "Quarter", comment: "Title for the quarter speed in the speed menu.")
-    static let speedMenuFineSpeedAction = NSLocalizedString("editor.menu.speed.fine.action", value: "Fine", comment: "Title for the fine speed in the speed menu.")
+    static let speedMenuTitle = NSLocalizedString("editor.menu.speed.title", value: "Scrubbing and Playback Speed", comment: "Title for the speed menu.")
+    static let speedMenuNormalSpeedAction = NSLocalizedString("editor.menu.speed.normal.action", value: "1.0×", comment: "Title for the normal speed in the speed menu.")
+    static let speedMenuHalfSpeedAction = NSLocalizedString("editor.menu.speed.half.action", value: "0.5x", comment: "Title for the half speed in the speed menu.")
+    static let speedMenuQuarterSpeedAction = NSLocalizedString("editor.menu.speed.quarter.action", value: "0.25×", comment: "Title for the quarter speed in the speed menu.")
+    static let speedMenuFineSpeedAction = NSLocalizedString("editor.menu.speed.fine.action", value: "0.1×", comment: "Title for the fine speed in the speed menu.")
     static let speedMenuVeryFineSpeedAction = NSLocalizedString("editor.menu.speed.veryFine.action", value: "Snail", comment: "Title for the very fine speed in the speed menu.")
     
     static let editorDetailSettingsSectionTitle = NSLocalizedString("editor.detail.settings.title", value: "Settings", comment: "Title for the settings section.")
