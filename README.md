@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://apps.apple.com/app/frame-grabber/id1434703541">
+    <a href="https://web.archive.org/web/20230525192529/https://apps.apple.com/app/frame-grabber/id1434703541">
         <img src="design/banner.png" alt="App Store banner">
     </a>
 </p>
