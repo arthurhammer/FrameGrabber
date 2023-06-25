@@ -24,6 +24,10 @@
 
 [Read more](./docs/about.md) about why I made the app and some technical challenges along the way.
 
+> **Note**  
+> This was my very first app without prior experience. The code is not the newest. Please keep that in mind when checking out the code 😉 
+
+
 ## How to Build
 
 - Open Xcode
@@ -40,8 +44,6 @@ Overview of main components:
 - [`Scenes`](Frame%20Grabber/Scenes):The app's main screens
 - [`Packages`](Frame%20Grabber/Packages): Modules extracted so far
 
-> **Note**  
-> This was my very first app without prior experience. Keep that in mind when checking out the code 😉 
 
 ## License
 
